@@ -1,28 +1,54 @@
-import { AnimatedText, Container, Card, buttonVariants } from '@/lib/ui';
-import { Users, Shield, Globe, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { Building2, Users, Rocket, Target } from 'lucide-react';
+import { Container, AnimatedText, Card } from '@/lib/ui';
 
-const audienceItems = [
+const audiences = [
   {
-    icon: <Users className="w-5 h-5" />,
-    title: '25-45 Age Range',
-    description: 'Ambitious professionals ready to build their own path',
+    icon: Building2,
+    title: 'Growing Businesses',
+    description:
+      'Companies seeking to scale operations and expand market reach while maintaining efficiency.',
+    needs: [
+      'Scalable growth strategies',
+      'Operational optimization',
+      'Market expansion support',
+      'Resource allocation',
+    ],
   },
   {
-    icon: <Shield className="w-5 h-5" />,
-    title: 'New Citizens',
-    description: 'First and second generation immigrants with unique perspectives',
+    icon: Users,
+    title: 'Enterprise Teams',
+    description:
+      'Established organizations looking to innovate and transform their business models.',
+    needs: [
+      'Digital transformation',
+      'Process improvement',
+      'Innovation strategy',
+      'Change management',
+    ],
   },
   {
-    icon: <Globe className="w-5 h-5" />,
-    title: 'Tech-Novices',
-    description: 'Passionate about their craft but need tech & data guidance',
+    icon: Rocket,
+    title: 'Startups & Scale-ups',
+    description: 'Ambitious ventures ready to accelerate growth and establish market leadership.',
+    needs: [
+      'Go-to-market strategy',
+      'Business model optimization',
+      'Growth acceleration',
+      'Investor readiness',
+    ],
   },
   {
-    icon: <Zap className="w-5 h-5" />,
-    title: 'High Drive',
-    description: 'Motivated self-starters willing to put in the work',
+    icon: Target,
+    title: 'Industry Leaders',
+    description:
+      'Market leaders focused on maintaining competitive advantage and driving innovation.',
+    needs: [
+      'Competitive analysis',
+      'Innovation strategy',
+      'Performance optimization',
+      'Strategic planning',
+    ],
   },
 ];
 
@@ -31,111 +57,93 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.2,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, x: -20 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
-    x: 0,
+    y: 0,
     transition: {
       duration: 0.5,
+      ease: 'easeOut',
     },
   },
 };
 
-const AudienceItem = ({ item, index }: { item: typeof audienceItems[0]; index: number }) => (
-  <motion.div
-    variants={itemVariants}
-    className="flex items-start group"
-  >
-    <motion.div
-      initial={{ scale: 0.8, opacity: 0 }}
-      whileInView={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
-      className="bg-white bg-opacity-10 p-2 rounded-full mr-4 group-hover:bg-opacity-20 transition-colors"
-    >
-      {item.icon}
-    </motion.div>
-    <div>
-      <h4 className="font-medium group-hover:text-[#50C878] transition-colors">{item.title}</h4>
-      <p className="text-sm text-gray-300">{item.description}</p>
-    </div>
-  </motion.div>
-);
-
 export const TargetAudienceSection = () => {
   return (
-    <section className="py-20 bg-gray-50">
-      <Container>
-        <AnimatedText
-          text="Who We Serve"
-          className="text-3xl md:text-4xl font-bold text-center mb-16 text-[#003366]"
-        />
+    <section className="py-24 bg-gradient-primary relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-background/5 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--color-primary),0.1)_0%,transparent_70%)]" />
 
-        <Card className="max-w-4xl mx-auto overflow-hidden">
-          <div className="md:flex">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="md:w-1/2 bg-[#003366] p-8 md:p-12 text-white"
-            >
-              <h3 className="text-2xl font-bold mb-6">Our Target Entrepreneurs</h3>
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                className="space-y-4"
-              >
-                {audienceItems.map((item, index) => (
-                  <AudienceItem key={item.title} item={item} index={index} />
-                ))}
-              </motion.div>
-            </motion.div>
+      <Container className="relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <AnimatedText
+            as="h2"
+            className="font-headings text-4xl md:text-5xl font-bold mb-6 text-primary"
+          >
+            Who We Serve
+          </AnimatedText>
+          <AnimatedText as="p" className="text-xl text-soft/90 leading-relaxed">
+            We partner with forward-thinking organizations across various stages of growth,
+            delivering tailored solutions for their unique challenges.
+          </AnimatedText>
+        </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="md:w-1/2 p-8 md:p-12"
-            >
-              <h3 className="text-2xl font-bold mb-4 text-[#003366]">Ready for Transformation?</h3>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <p className="text-gray-600 mb-6">
-                  If you're ready to trade uncertainty for execution, you're in the right place. We
-                  work with entrepreneurs who are committed to growth and ready to implement
-                  data-driven strategies.
-                </p>
-                <p className="text-gray-600 mb-8">
-                  Our clients come from diverse backgrounds but share a common trait: the
-                  determination to succeed despite limited access to traditional business resources.
-                </p>
-                <a
-                  href="#contact"
-                  className={cn(
-                    buttonVariants({ size: 'lg' }),
-                    'bg-[#50C878] hover:bg-opacity-90 text-white'
-                  )}
-                >
-                  See If We're a Good Fit
-                </a>
-              </motion.div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
+          {audiences.map((audience) => (
+            <motion.div key={audience.title} variants={itemVariants}>
+              <Card className="h-full p-6 bg-background/50 backdrop-blur-sm border-soft/10 hover:border-primary/20 transition-colors group">
+                <div className="flex items-start gap-6">
+                  <div className="p-3 w-12 h-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                    <audience.icon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-headings text-xl font-semibold mb-3 text-primary">
+                      {audience.title}
+                    </h3>
+                    <p className="text-soft/80 mb-4">{audience.description}</p>
+                    <ul className="space-y-2">
+                      {audience.needs.map((need) => (
+                        <li
+                          key={need}
+                          className="flex items-center text-soft/70 group-hover:text-soft transition-colors"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary/50 mr-2 group-hover:bg-primary transition-colors" />
+                          {need}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </Card>
             </motion.div>
-          </div>
-        </Card>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          viewport={{ once: true }}
+          className="mt-16 text-center"
+        >
+          <AnimatedText as="p" className="text-lg md:text-xl text-soft/80 max-w-3xl mx-auto">
+            Our expertise spans across industries, helping organizations of all sizes achieve their
+            growth objectives through data-driven strategies and innovative solutions.
+          </AnimatedText>
+        </motion.div>
       </Container>
     </section>
   );

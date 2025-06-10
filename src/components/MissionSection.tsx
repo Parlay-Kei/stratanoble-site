@@ -1,27 +1,30 @@
-import { TrendingUp, Compass, LineChart } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { AnimatedSection, AnimatedText, Container, Card } from '@/lib/ui';
-import { cn } from '@/lib/utils';
+import { Target, Users, Lightbulb, Award } from 'lucide-react';
+import { Container, AnimatedText, Card } from '@/lib/ui';
 
-const missionItems = [
+const values = [
   {
-    icon: <TrendingUp className="w-8 h-8 text-[#003366]" />,
-    title: 'Mission',
-    description: 'Empower solo & small-business owners—especially new citizens and first-gen founders—to launch sustainable ventures.',
-    bgColor: 'bg-[#003366] bg-opacity-10',
+    icon: Target,
+    title: 'Strategic Excellence',
+    description:
+      'Delivering data-driven strategies that drive measurable results and sustainable growth.',
   },
   {
-    icon: <Compass className="w-8 h-8 text-[#003366]" />,
-    title: 'Vision',
-    description: 'Become the most trusted partner for ambitious self-starters who lack access to traditional consulting.',
-    bgColor: 'bg-[#C0C0C0] bg-opacity-20',
+    icon: Users,
+    title: 'Client Partnership',
+    description:
+      'Building long-term relationships through collaboration, trust, and shared success.',
   },
   {
-    icon: <LineChart className="w-8 h-8 text-[#50C878]" />,
-    title: 'Values',
-    description: null,
-    bgColor: 'bg-[#50C878] bg-opacity-10',
-    values: ['Elevation', 'Guidance', 'Insight'],
+    icon: Lightbulb,
+    title: 'Innovation Focus',
+    description:
+      'Embracing cutting-edge methodologies and technologies to solve complex challenges.',
+  },
+  {
+    icon: Award,
+    title: 'Quality Commitment',
+    description: 'Maintaining the highest standards of excellence in every aspect of our work.',
   },
 ];
 
@@ -42,72 +45,65 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
+      ease: 'easeOut',
     },
   },
 };
 
-const MissionCard = ({ item, index }: { item: typeof missionItems[0]; index: number }) => (
-  <motion.div variants={itemVariants}>
-    <Card className="group h-full p-8 hover:shadow-xl transition-all duration-300">
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        viewport={{ once: true }}
-        className={cn(item.bgColor, 'w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform')}
-      >
-        {item.icon}
-      </motion.div>
-      <h3 className="text-xl font-bold mb-4 text-[#003366] group-hover:text-[#50C878] transition-colors">
-        {item.title}
-      </h3>
-      {item.description ? (
-        <p className="text-gray-600">{item.description}</p>
-      ) : (
-        <ul className="text-gray-600 space-y-3">
-          {item.values?.map((value, i) => (
-            <motion.li
-              key={value}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="flex items-start"
-            >
-              <span className="text-[#50C878] font-bold mr-2">•</span>
-              <span>{value}</span>
-            </motion.li>
-          ))}
-        </ul>
-      )}
-    </Card>
-  </motion.div>
-);
-
 export const MissionSection = () => {
   return (
-    <section id="about" className="py-20 bg-white">
-      <Container>
-        <AnimatedText
-          text="Why Strata Noble"
-          className="text-3xl md:text-4xl font-bold text-center mb-4 text-[#003366]"
-        />
-        <AnimatedSection delay={0.2}>
-          <p className="text-gray-600 text-center max-w-2xl mx-auto mb-16">
-            Our foundation is built on three core principles that guide everything we do.
-          </p>
-        </AnimatedSection>
+    <section id="about" className="py-24 bg-gradient-primary relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-background/5 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--color-primary),0.1)_0%,transparent_70%)]" />
+
+      <Container className="relative z-10">
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <AnimatedText
+            as="h2"
+            className="font-headings text-4xl md:text-5xl font-bold mb-6 text-primary"
+          >
+            Our Mission
+          </AnimatedText>
+          <AnimatedText as="p" className="text-xl md:text-2xl text-soft/90 leading-relaxed">
+            To empower businesses with data-driven insights and strategic solutions that drive
+            sustainable growth and operational excellence.
+          </AnimatedText>
+        </div>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          viewport={{ once: true, margin: '-100px' }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          {missionItems.map((item, index) => (
-            <MissionCard key={item.title} item={item} index={index} />
+          {values.map((value) => (
+            <motion.div key={value.title} variants={itemVariants}>
+              <Card className="h-full p-6 bg-background/50 backdrop-blur-sm border-soft/10 hover:border-primary/20 transition-colors group">
+                <div className="mb-6 p-3 w-12 h-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                  <value.icon className="w-6 h-6" />
+                </div>
+                <h3 className="font-headings text-xl font-semibold mb-3 text-primary">
+                  {value.title}
+                </h3>
+                <p className="text-soft/80">{value.description}</p>
+              </Card>
+            </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          viewport={{ once: true }}
+          className="mt-16 text-center"
+        >
+          <AnimatedText as="p" className="text-lg md:text-xl text-soft/80 max-w-3xl mx-auto italic">
+            &quot;We believe in the power of data-driven decision making and strategic thinking to
+            transform businesses and create lasting impact in the marketplace.&quot;
+          </AnimatedText>
         </motion.div>
       </Container>
     </section>

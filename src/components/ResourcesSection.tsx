@@ -1,26 +1,28 @@
 import { FileText, FileCheck, FileSearch, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { AnimatedSection, AnimatedText, Container, Card, buttonVariants } from '@/lib/ui';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/ui-utils';
 
 const resources = [
   {
     icon: <FileText className="w-10 h-10 text-[#003366]" />,
     title: 'Ethical Finance Templates',
-    description: 'Startup-friendly financial planning documents that prioritize sustainable growth.',
-    downloadUrl: '#',
+    description:
+      'Startup-friendly financial planning documents that prioritize sustainable growth.',
+    downloadUrl: '/downloads/ethical-finance-templates.pdf',
   },
   {
     icon: <FileCheck className="w-10 h-10 text-[#003366]" />,
     title: 'CSR Framework',
     description: 'Corporate social responsibility guidelines for small businesses with big impact.',
-    downloadUrl: '#',
+    downloadUrl: '/downloads/csr-framework.pdf',
   },
   {
     icon: <FileSearch className="w-10 h-10 text-[#003366]" />,
     title: 'Waste-OPS White Paper',
-    description: 'Our proprietary methodology for identifying and eliminating operational inefficiencies.',
-    downloadUrl: '#',
+    description:
+      'Our proprietary methodology for identifying and eliminating operational inefficiencies.',
+    downloadUrl: '/downloads/waste-ops-whitepaper.pdf',
   },
 ];
 
@@ -45,7 +47,7 @@ const itemVariants = {
   },
 };
 
-const ResourceCard = ({ resource, index }: { resource: typeof resources[0]; index: number }) => (
+const ResourceCard = ({ resource, index }: { resource: (typeof resources)[0]; index: number }) => (
   <motion.div variants={itemVariants}>
     <Card className="group h-full p-6 hover:shadow-xl transition-all duration-300">
       <motion.div
@@ -87,7 +89,8 @@ export const ResourcesSection = () => {
         />
         <AnimatedSection delay={0.2}>
           <p className="text-gray-600 text-center max-w-2xl mx-auto mb-16">
-            Free tools and frameworks to help you start implementing better business practices today.
+            Free tools and frameworks to help you start implementing better business practices
+            today.
           </p>
         </AnimatedSection>
 
@@ -95,7 +98,7 @@ export const ResourcesSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
           className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12"
         >
           {resources.map((resource, index) => (
@@ -105,7 +108,7 @@ export const ResourcesSection = () => {
 
         <AnimatedSection delay={0.4} className="text-center">
           <a
-            href="#"
+            href="/resources"
             className={cn(
               buttonVariants({ variant: 'outline', size: 'lg' }),
               'text-[#003366] border-[#003366] hover:bg-[#003366] hover:text-white'

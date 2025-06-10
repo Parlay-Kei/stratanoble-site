@@ -1,21 +1,34 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { AnimatedSection, AnimatedText, Container, Card, buttonVariants } from '@/lib/ui';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/ui-utils';
+import { TrendingUp, Users, Award, Clock } from 'lucide-react';
 
 const metrics = [
   {
-    value: '20+',
-    label: 'Founders Empowered',
+    icon: TrendingUp,
+    value: '150%',
+    label: 'Average Client Growth',
+    description: 'Year-over-year revenue increase for our clients',
   },
   {
-    value: '$3.5M',
-    label: 'Raised/Earned',
+    icon: Users,
+    value: '50+',
+    label: 'Successful Projects',
+    description: 'Businesses transformed through our consulting',
   },
   {
-    value: '94%',
-    label: 'Client Retention',
+    icon: Award,
+    value: '95%',
+    label: 'Client Satisfaction',
+    description: 'Based on post-engagement surveys',
+  },
+  {
+    icon: Clock,
+    value: '3x',
+    label: 'Faster Growth',
+    description: 'Compared to industry averages',
   },
 ];
 
@@ -46,36 +59,32 @@ const testimonials = [
   },
 ];
 
-const MetricCard = ({ value, label, index }: { value: string; label: string; index: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
-    viewport={{ once: true }}
-    className="text-center"
-  >
-    <motion.div
-      initial={{ scale: 0.5, opacity: 0 }}
-      whileInView={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
-      viewport={{ once: true }}
-      className="text-4xl md:text-5xl font-bold text-[#003366] mb-2"
-    >
-      {value}
-    </motion.div>
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
-      viewport={{ once: true }}
-      className="text-gray-600"
-    >
-      {label}
-    </motion.div>
-  </motion.div>
-);
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+    },
+  },
+};
 
 export const MetricsSection = () => {
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -107,18 +116,64 @@ export const MetricsSection = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
-      <Container>
-        <AnimatedText
-          text="Success Metrics"
-          className="text-3xl md:text-4xl font-bold text-center mb-16 text-[#003366]"
-        />
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          {metrics.map((metric, index) => (
-            <MetricCard key={index} {...metric} index={index} />
-          ))}
+    <section className="py-24 bg-background relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-soft opacity-5" />
+      <motion.div
+        className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--color-primary),0.05)_0%,transparent_70%)]"
+        style={{ opacity, scale }}
+      />
+
+      <Container className="relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <AnimatedText
+            as="h2"
+            className="font-headings text-4xl md:text-5xl font-bold mb-6 text-primary"
+          >
+            Our Impact
+          </AnimatedText>
+          <AnimatedText as="p" className="text-xl text-soft/80 leading-relaxed">
+            Measurable results that demonstrate our commitment to client success and business
+            transformation.
+          </AnimatedText>
         </div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
+          {metrics.map((metric) => (
+            <motion.div key={metric.label} variants={itemVariants} className="relative group">
+              <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-5 transition-opacity rounded-2xl" />
+              <div className="relative p-8 bg-background/50 backdrop-blur-sm border border-soft/10 rounded-2xl group-hover:border-primary/20 transition-colors">
+                <div className="mb-6 p-3 w-12 h-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                  <metric.icon className="w-6 h-6" />
+                </div>
+                <div className="font-headings text-4xl font-bold text-primary mb-2">
+                  {metric.value}
+                </div>
+                <div className="text-lg font-semibold text-soft mb-2">{metric.label}</div>
+                <p className="text-soft/70">{metric.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          viewport={{ once: true }}
+          className="mt-16 text-center"
+        >
+          <AnimatedText as="p" className="text-lg md:text-xl text-soft/80 max-w-3xl mx-auto">
+            These metrics represent our commitment to delivering exceptional value and driving
+            meaningful growth for our clients.
+          </AnimatedText>
+        </motion.div>
 
         <AnimatedSection delay={0.2}>
           <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 text-[#003366]">
@@ -137,13 +192,13 @@ export const MetricsSection = () => {
                 animate="center"
                 exit="exit"
                 transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  x: { type: 'spring', stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 },
                 }}
                 className="absolute w-full"
               >
                 <div className="mb-6 text-lg md:text-xl text-gray-600 italic">
-                  "{testimonials[currentTestimonial].quote}"
+                  &quot;{testimonials[currentTestimonial].quote}&quot;
                 </div>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -171,10 +226,7 @@ export const MetricsSection = () => {
             <div className="flex justify-center mt-8 space-x-4 pt-[200px]">
               <button
                 onClick={prevTestimonial}
-                className={cn(
-                  buttonVariants({ variant: 'outline', size: 'icon' }),
-                  'rounded-full'
-                )}
+                className={cn(buttonVariants({ variant: 'outline', size: 'icon' }), 'rounded-full')}
               >
                 <ChevronLeft className="w-5 h-5 text-[#003366]" />
               </button>
@@ -188,17 +240,16 @@ export const MetricsSection = () => {
                     }}
                     className={cn(
                       'w-3 h-3 rounded-full transition-colors',
-                      index === currentTestimonial ? 'bg-[#50C878]' : 'bg-gray-300 hover:bg-gray-400'
+                      index === currentTestimonial
+                        ? 'bg-[#50C878]'
+                        : 'bg-gray-300 hover:bg-gray-400'
                     )}
                   />
                 ))}
               </div>
               <button
                 onClick={nextTestimonial}
-                className={cn(
-                  buttonVariants({ variant: 'outline', size: 'icon' }),
-                  'rounded-full'
-                )}
+                className={cn(buttonVariants({ variant: 'outline', size: 'icon' }), 'rounded-full')}
               >
                 <ChevronRight className="w-5 h-5 text-[#003366]" />
               </button>

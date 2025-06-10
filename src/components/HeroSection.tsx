@@ -1,48 +1,79 @@
-import { ArrowUpRight, FileText } from 'lucide-react';
-import { AnimatedSection, AnimatedText, Container, buttonVariants } from '@/lib/ui';
-import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { Container, AnimatedText, buttonVariants } from '@/lib/ui';
 
 export const HeroSection = () => {
   return (
-    <section className="w-full bg-gradient-to-br from-[#f8f9fa] to-[#e9ecef] pt-32 pb-20 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute w-full h-full bg-grid-pattern"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#003366] opacity-10 rounded-full blur-3xl"></div>
-      </div>
-      <Container className="relative z-10">
-        <div className="max-w-3xl">
+    <section className="relative min-h-screen bg-gradient-primary overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-background/5 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--color-primary),0.1)_0%,transparent_70%)]" />
+
+      <Container className="relative z-10 flex flex-col h-full py-20 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="max-w-4xl mx-auto flex-grow flex flex-col justify-center items-center"
+        >
           <AnimatedText
-            text="Elevating Under-Served Entrepreneurs Through Data-Driven Strategy"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#003366] leading-tight mb-6"
-          />
-          <AnimatedSection delay={0.2}>
-            <p className="text-xl md:text-2xl text-gray-600 mb-10">
-              Hands-on consulting that turns passion into profit—one insight at a time.
-            </p>
-          </AnimatedSection>
-          <AnimatedSection delay={0.4} className="flex flex-col sm:flex-row gap-4">
-            <a
+            as="h1"
+            className="font-headings text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-soft"
+          >
+            Strategic Growth Through Data-Driven Excellence
+          </AnimatedText>
+
+          <AnimatedText
+            as="p"
+            className="text-xl md:text-2xl text-soft/90 mb-12 max-w-2xl mx-auto leading-relaxed"
+          >
+            Empowering businesses with actionable insights and transformative strategies for
+            sustainable growth in the digital age.
+          </AnimatedText>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <motion.a
               href="#contact"
-              className={cn(
-                buttonVariants({ size: 'lg' }),
-                'bg-[#50C878] hover:bg-opacity-90 text-white shadow-lg shadow-emerald-200'
-              )}
+              className={buttonVariants({ size: 'lg', variant: 'primary' })}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Book a Strategy Call
-              <ArrowUpRight className="w-5 h-5 ml-2" />
-            </a>
-            <a
-              href="#resources"
-              className={cn(
-                buttonVariants({ variant: 'outline', size: 'lg' }),
-                'text-[#003366] border-[#003366]'
-              )}
+              Start Your Journey
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </motion.a>
+
+            <motion.a
+              href="#services"
+              className={buttonVariants({ size: 'lg', variant: 'outline' })}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Download Intro Deck
-              <FileText className="w-5 h-5 ml-2" />
-            </a>
-          </AnimatedSection>
-        </div>
+              Explore Services
+            </motion.a>
+          </div>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.5 }}
+        >
+          <div className="w-6 h-10 border-2 border-primary/30 rounded-full p-1">
+            <motion.div
+              className="w-1.5 h-1.5 bg-primary rounded-full mx-auto"
+              animate={{
+                y: [0, 12, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: 'loop',
+              }}
+            />
+          </div>
+        </motion.div>
       </Container>
     </section>
   );

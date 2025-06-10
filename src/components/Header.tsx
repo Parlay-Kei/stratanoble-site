@@ -1,94 +1,120 @@
-import { Menu, X, ChevronUp } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import { Container, buttonVariants } from '@/lib/ui';
-import { cn } from '@/lib/utils';
-import { Disclosure } from '@headlessui/react';
 
-const navigation = [
-  { name: 'Services', href: '#services' },
-  { name: 'About', href: '#about' },
-  { name: 'Resources', href: '#resources' },
-  { name: 'Contact Us', href: '#contact' },
+const navItems = [
+  { label: 'Services', href: '#services' },
+  { label: 'About', href: '#about' },
+  { label: 'Resources', href: '#resources' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <Disclosure as="header" className="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50">
-      {({ open }) => (
-        <>
-          <Container className="py-4">
-            <div className="flex items-center justify-between">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="flex items-center"
-              >
-                <div className="text-[#003366] font-bold text-xl flex items-center">
-                  <ChevronUp className="w-5 h-5 mr-1 text-[#50C878]" />
-                  <span>Strata Noble</span>
-                </div>
-              </motion.div>
+    <motion.header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Container className="flex items-center justify-between h-20">
+        {/* Logo */}
+        <motion.a
+          href="/"
+          className="text-2xl font-headings font-bold text-primary"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          Strata Noble
+        </motion.a>
 
-              <nav className="hidden md:flex items-center space-x-8">
-                {navigation.map((item, index) => (
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navItems.map((item) => (
+            <motion.a
+              key={item.href}
+              href={item.href}
+              className="text-soft hover:text-primary transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {item.label}
+            </motion.a>
+          ))}
+          <motion.a
+            href="#contact"
+            className={buttonVariants({ size: 'sm', variant: 'primary' })}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Get Started
+          </motion.a>
+        </nav>
+
+        {/* Mobile Menu Button */}
+        <motion.button
+          className="md:hidden p-2 text-soft hover:text-primary transition-colors"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </motion.button>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              className="absolute top-20 left-0 right-0 bg-background/95 backdrop-blur-md border-t border-soft/10 md:hidden"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Container className="py-4">
+                <nav className="flex flex-col gap-4">
+                  {navItems.map((item) => (
+                    <motion.a
+                      key={item.href}
+                      href={item.href}
+                      className="text-soft hover:text-primary transition-colors py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      whileHover={{ x: 8 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {item.label}
+                    </motion.a>
+                  ))}
                   <motion.a
-                    key={item.name}
-                    href={item.href}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className={cn(
-                      item.name === 'Contact Us'
-                        ? buttonVariants({ variant: 'default', size: 'sm' })
-                        : 'text-gray-600 hover:text-[#003366] transition-colors'
-                    )}
+                    href="#contact"
+                    className={buttonVariants({ variant: 'primary' })}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    {item.name}
+                    Get Started
                   </motion.a>
-                ))}
-              </nav>
-
-              <Disclosure.Button className="md:hidden text-gray-600 hover:text-[#003366] focus:outline-none">
-                {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Disclosure.Button>
-            </div>
-          </Container>
-
-          <AnimatePresence>
-            {open && (
-              <Disclosure.Panel
-                static
-                as={motion.div}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.2 }}
-                className="md:hidden bg-white border-t"
-              >
-                <Container className="py-4">
-                  <div className="flex flex-col space-y-4">
-                    {navigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className={cn(
-                          'block py-2',
-                          item.name === 'Contact Us'
-                            ? buttonVariants({ variant: 'default', size: 'sm' })
-                            : 'text-gray-600 hover:text-[#003366]'
-                        )}
-                      >
-                        {item.name}
-                      </Disclosure.Button>
-                    ))}
-                  </div>
-                </Container>
-              </Disclosure.Panel>
-            )}
-          </AnimatePresence>
-        </>
-      )}
-    </Disclosure>
+                </nav>
+              </Container>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Container>
+    </motion.header>
   );
 };

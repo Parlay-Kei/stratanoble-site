@@ -1,180 +1,157 @@
-import React from 'react';
-import { ChevronUp, Facebook, Twitter, Linkedin, Instagram, ArrowUp } from 'lucide-react';
+import { Twitter, Linkedin, Instagram, ArrowUpRight, Mail, Phone, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Container, buttonVariants } from '@/lib/ui';
-import { cn } from '@/lib/utils';
+import { Container } from '@/lib/ui';
 
 const footerLinks = {
-  services: [
-    { name: 'Business Model Design', href: '#' },
-    { name: 'Data Analytics', href: '#' },
-    { name: 'Waste-OPS', href: '#' },
-    { name: 'Go-to-Market Strategy', href: '#' },
-  ],
-  resources: [
-    { name: 'Case Studies', href: '#' },
-    { name: 'White Papers', href: '#' },
-    { name: 'Templates', href: '#' },
-    { name: 'Blog', href: '#' },
-  ],
   company: [
-    { name: 'About Us', href: '#' },
-    { name: 'Team', href: '#' },
-    { name: 'Careers', href: '#' },
-    { name: 'Contact', href: '#' },
+    { label: 'About Us', href: '#about' },
+    { label: 'Services', href: '#services' },
+    { label: 'Resources', href: '#resources' },
+    { label: 'Contact', href: '#contact' },
+  ],
+  services: [
+    { label: 'Strategy Consulting', href: '#services' },
+    { label: 'Data Analytics', href: '#services' },
+    { label: 'Growth Planning', href: '#services' },
+    { label: 'Performance Optimization', href: '#services' },
+  ],
+  legal: [
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Cookie Policy', href: '/cookies' },
   ],
 };
 
 const socialLinks = [
-  { name: 'Facebook', icon: Facebook, href: '#' },
-  { name: 'Twitter', icon: Twitter, href: '#' },
-  { name: 'LinkedIn', icon: Linkedin, href: '#' },
-  { name: 'Instagram', icon: Instagram, href: '#' },
+  { icon: Linkedin, href: 'https://linkedin.com/company/strata-noble', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://twitter.com/stratanoble', label: 'Twitter' },
+  { icon: Instagram, href: 'https://instagram.com/stratanoble', label: 'Instagram' },
 ];
 
-const legalLinks = [
-  { name: 'Privacy Policy', href: '#' },
-  { name: 'Terms of Service', href: '#' },
-  { name: 'CSR Statement', href: '#' },
-  { name: 'NDA Policy', href: '#' },
+const contactInfo = [
+  { icon: Mail, label: 'contact@stratanoble.com', href: 'mailto:contact@stratanoble.com' },
+  { icon: Phone, label: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+  { icon: MapPin, label: 'New York, NY', href: '#location' },
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
-
-const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <motion.li variants={itemVariants}>
-    <a
-      href={href}
-      className="text-gray-400 hover:text-white transition-colors duration-200"
-    >
-      {children}
-    </a>
-  </motion.li>
-);
-
-const FooterColumn = ({
-  title,
-  links,
-}: {
-  title: string;
-  links: { name: string; href: string }[];
-}) => (
-  <motion.div variants={itemVariants}>
-    <h3 className="text-white font-bold mb-4">{title}</h3>
-    <motion.ul
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      className="space-y-2"
-    >
-      {links.map((link) => (
-        <FooterLink key={link.name} href={link.href}>
-          {link.name}
-        </FooterLink>
-      ))}
-    </motion.ul>
-  </motion.div>
-);
 
 export const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-gray-300 pt-16 pb-8 relative">
-      <Container>
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16"
-        >
-          <motion.div variants={itemVariants}>
-            <div className="text-white font-bold text-xl flex items-center mb-4">
-              <ChevronUp className="w-5 h-5 mr-1 text-[#50C878]" />
-              <span>Strata Noble</span>
-            </div>
-            <p className="text-sm opacity-75 mb-4">
-              Elevating under-served entrepreneurs through data-driven strategy and hands-on
-              consulting.
+    <footer className="bg-background border-t border-soft/10">
+      <Container className="py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Brand Section */}
+          <div className="space-y-6">
+            <motion.a
+              href="/"
+              className="inline-block text-2xl font-headings font-bold text-primary"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Strata Noble
+            </motion.a>
+            <p className="text-soft/80 leading-relaxed">
+              Empowering businesses with data-driven strategies for sustainable growth and success.
             </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
+            <div className="flex gap-4">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a
-                  key={social.name}
-                  href={social.href}
-                  whileHover={{ scale: 1.1 }}
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-soft hover:text-primary transition-colors"
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                  aria-label={social.name}
+                  aria-label={label}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <Icon className="w-5 h-5" />
                 </motion.a>
               ))}
             </div>
-          </motion.div>
-
-          <FooterColumn title="Services" links={footerLinks.services} />
-          <FooterColumn title="Resources" links={footerLinks.resources} />
-          <FooterColumn title="Company" links={footerLinks.company} />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="border-t border-gray-800 pt-8 mt-8 text-sm opacity-75 flex flex-col md:flex-row justify-between items-center"
-        >
-          <div className="mb-4 md:mb-0">© Strata Noble Consulting 2025. All rights reserved.</div>
-          <div className="flex flex-wrap justify-center gap-6">
-            {legalLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="hover:text-white transition-colors duration-200"
-              >
-                {link.name}
-              </a>
-            ))}
           </div>
-        </motion.div>
-      </Container>
 
-      <motion.button
-        onClick={scrollToTop}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        className={cn(
-          buttonVariants({ size: 'icon' }),
-          'fixed bottom-8 right-8 bg-[#50C878] hover:bg-opacity-90 text-white rounded-full p-3 shadow-lg'
-        )}
-        aria-label="Scroll to top"
-      >
-        <ArrowUp className="w-5 h-5" />
-      </motion.button>
+          {/* Quick Links */}
+          <div>
+            <h3 className="font-headings text-lg font-semibold text-primary mb-6">Quick Links</h3>
+            <ul className="space-y-4">
+              {footerLinks.company.map(({ label, href }) => (
+                <li key={label}>
+                  <motion.a
+                    href={href}
+                    className="text-soft/80 hover:text-primary transition-colors inline-flex items-center group"
+                    whileHover={{ x: 4 }}
+                  >
+                    {label}
+                    <ArrowUpRight className="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </motion.a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="font-headings text-lg font-semibold text-primary mb-6">Services</h3>
+            <ul className="space-y-4">
+              {footerLinks.services.map(({ label, href }) => (
+                <li key={label}>
+                  <motion.a
+                    href={href}
+                    className="text-soft/80 hover:text-primary transition-colors inline-flex items-center group"
+                    whileHover={{ x: 4 }}
+                  >
+                    {label}
+                    <ArrowUpRight className="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </motion.a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="font-headings text-lg font-semibold text-primary mb-6">Contact Us</h3>
+            <ul className="space-y-4">
+              {contactInfo.map(({ icon: Icon, label, href }) => (
+                <li key={label}>
+                  <motion.a
+                    href={href}
+                    className="text-soft/80 hover:text-primary transition-colors inline-flex items-center group"
+                    whileHover={{ x: 4 }}
+                  >
+                    <Icon className="w-5 h-5 mr-2" />
+                    {label}
+                  </motion.a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-16 pt-8 border-t border-soft/10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-soft/60 text-sm">
+              © {currentYear} Strata Noble Consulting. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              {footerLinks.legal.map(({ label, href }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  className="text-soft/60 hover:text-primary text-sm transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {label}
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Container>
     </footer>
   );
 };
