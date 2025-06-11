@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { brand } from './brand';
+import { brandColors } from './brand';
 
-describe('brand', () => {
+describe('brandColors', () => {
   it('exports a non-null object', () => {
-    expect(brand).not.toBeNull();
+    expect(brandColors).not.toBeNull();
+    expect(typeof brandColors).toBe('object');
   });
 }); 
