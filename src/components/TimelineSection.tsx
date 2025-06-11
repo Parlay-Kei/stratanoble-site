@@ -52,7 +52,7 @@ const itemVariants = {
 
 export const TimelineSection = () => {
   return (
-    <section className="py-24 bg-background relative overflow-hidden">
+    <section className="py-24 bg-soft relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-soft opacity-5" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--color-primary),0.05)_0%,transparent_70%)]" />
@@ -65,7 +65,7 @@ export const TimelineSection = () => {
           >
             Our Process
           </AnimatedText>
-          <AnimatedText as="p" className="text-xl text-soft/80 leading-relaxed">
+          <AnimatedText as="p" className="text-xl text-primary/80 leading-relaxed">
             A structured approach to delivering exceptional results and driving sustainable growth.
           </AnimatedText>
         </div>
@@ -78,7 +78,7 @@ export const TimelineSection = () => {
           className="relative"
         >
           {/* Timeline Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary/50 to-primary/20 transform -translate-x-1/2" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent/20 via-accent/50 to-accent/20 transform -translate-x-1/2" />
 
           {/* Timeline Steps */}
           <div className="space-y-12">
@@ -91,20 +91,20 @@ export const TimelineSection = () => {
                 }`}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background" />
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-accent border-4 border-soft" />
 
                 {/* Content */}
                 <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
-                  <Card className="p-6 bg-background/50 backdrop-blur-sm border-soft/10 hover:border-primary/20 transition-colors group">
+                  <Card className="p-6 bg-background/40 backdrop-blur-lg border-primary/10 hover:border-accent/30 transition-colors group rounded-2xl shadow-glass group-hover:shadow-xl group-hover:shadow-accent/40">
                     <div className="flex items-start justify-between mb-4">
                       <h3 className="font-headings text-xl font-semibold text-primary">
                         {step.title}
                       </h3>
-                      <span className="text-sm font-medium text-soft/70 bg-primary/10 px-3 py-1 rounded-full">
+                      <span className="text-sm font-medium bg-accent/10 text-accent px-3 py-1 rounded-full">
                         {step.duration}
                       </span>
                     </div>
-                    <p className="text-soft/80">{step.description}</p>
+                    <p className="text-primary/80">{step.description}</p>
                   </Card>
                 </div>
               </motion.div>
@@ -119,7 +119,7 @@ export const TimelineSection = () => {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <AnimatedText as="p" className="text-lg md:text-xl text-soft/80 max-w-3xl mx-auto">
+          <AnimatedText as="p" className="text-lg md:text-xl text-primary/80 max-w-3xl mx-auto">
             Our flexible approach adapts to your unique needs while maintaining a focus on
             delivering measurable results.
           </AnimatedText>

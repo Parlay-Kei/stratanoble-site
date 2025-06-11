@@ -132,7 +132,7 @@ export const MetricsSection = () => {
           >
             Our Impact
           </AnimatedText>
-          <AnimatedText as="p" className="text-xl text-soft/80 leading-relaxed">
+          <AnimatedText as="p" className="text-xl text-primary/80 leading-relaxed">
             Measurable results that demonstrate our commitment to client success and business
             transformation.
           </AnimatedText>
@@ -155,8 +155,8 @@ export const MetricsSection = () => {
                 <div className="font-headings text-4xl font-bold text-primary mb-2">
                   {metric.value}
                 </div>
-                <div className="text-lg font-semibold text-soft mb-2">{metric.label}</div>
-                <p className="text-soft/70">{metric.description}</p>
+                <div className="text-lg font-semibold text-primary mb-2">{metric.label}</div>
+                <p className="text-primary/70">{metric.description}</p>
               </div>
             </motion.div>
           ))}
@@ -169,20 +169,20 @@ export const MetricsSection = () => {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <AnimatedText as="p" className="text-lg md:text-xl text-soft/80 max-w-3xl mx-auto">
+          <AnimatedText as="p" className="text-lg md:text-xl text-primary/80 max-w-3xl mx-auto">
             These metrics represent our commitment to delivering exceptional value and driving
             meaningful growth for our clients.
           </AnimatedText>
         </motion.div>
 
         <AnimatedSection delay={0.2}>
-          <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 text-[#003366]">
+          <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 text-primary">
             Client Success Stories
           </h3>
         </AnimatedSection>
 
         <div className="relative max-w-4xl mx-auto">
-          <Card className="p-8 md:p-12 overflow-hidden">
+          <Card className="p-8 md:p-12 overflow-hidden rounded-2xl bg-background/50 backdrop-blur-sm border-soft/10 group-hover:border-accent/20 transition-colors group-hover:shadow-lg group-hover:shadow-accent/40">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentTestimonial}
@@ -197,7 +197,7 @@ export const MetricsSection = () => {
                 }}
                 className="absolute w-full"
               >
-                <div className="mb-6 text-lg md:text-xl text-gray-600 italic">
+                <div className="mb-6 text-lg md:text-xl text-primary/80 italic">
                   &quot;{testimonials[currentTestimonial].quote}&quot;
                 </div>
                 <motion.div
@@ -209,13 +209,13 @@ export const MetricsSection = () => {
                   <img
                     src={testimonials[currentTestimonial].image}
                     alt={testimonials[currentTestimonial].name}
-                    className="w-14 h-14 rounded-full object-cover mr-4 ring-2 ring-[#50C878]"
+                    className="w-14 h-14 rounded-full object-cover mr-4 ring-2 ring-accent"
                   />
                   <div>
-                    <div className="font-bold text-[#003366]">
+                    <div className="font-bold text-primary">
                       {testimonials[currentTestimonial].name}
                     </div>
-                    <div className="text-gray-500 text-sm">
+                    <div className="text-primary/70 text-sm">
                       {testimonials[currentTestimonial].role}
                     </div>
                   </div>
@@ -228,7 +228,7 @@ export const MetricsSection = () => {
                 onClick={prevTestimonial}
                 className={cn(buttonVariants({ variant: 'outline', size: 'icon' }), 'rounded-full')}
               >
-                <ChevronLeft className="w-5 h-5 text-[#003366]" />
+                <ChevronLeft className="w-5 h-5 text-primary" />
               </button>
               <div className="flex space-x-2">
                 {testimonials.map((_, index) => (
@@ -241,8 +241,8 @@ export const MetricsSection = () => {
                     className={cn(
                       'w-3 h-3 rounded-full transition-colors',
                       index === currentTestimonial
-                        ? 'bg-[#50C878]'
-                        : 'bg-gray-300 hover:bg-gray-400'
+                        ? 'bg-accent'
+                        : 'bg-soft hover:bg-soft/80'
                     )}
                   />
                 ))}
@@ -251,7 +251,7 @@ export const MetricsSection = () => {
                 onClick={nextTestimonial}
                 className={cn(buttonVariants({ variant: 'outline', size: 'icon' }), 'rounded-full')}
               >
-                <ChevronRight className="w-5 h-5 text-[#003366]" />
+                <ChevronRight className="w-5 h-5 text-primary" />
               </button>
             </div>
           </Card>

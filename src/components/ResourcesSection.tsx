@@ -5,20 +5,20 @@ import { cn } from '@/lib/ui-utils';
 
 const resources = [
   {
-    icon: <FileText className="w-10 h-10 text-[#003366]" />,
+    icon: <FileText className="w-10 h-10 text-primary" />,
     title: 'Ethical Finance Templates',
     description:
       'Startup-friendly financial planning documents that prioritize sustainable growth.',
     downloadUrl: '/downloads/ethical-finance-templates.pdf',
   },
   {
-    icon: <FileCheck className="w-10 h-10 text-[#003366]" />,
+    icon: <FileCheck className="w-10 h-10 text-primary" />,
     title: 'CSR Framework',
     description: 'Corporate social responsibility guidelines for small businesses with big impact.',
     downloadUrl: '/downloads/csr-framework.pdf',
   },
   {
-    icon: <FileSearch className="w-10 h-10 text-[#003366]" />,
+    icon: <FileSearch className="w-10 h-10 text-primary" />,
     title: 'Waste-OPS White Paper',
     description:
       'Our proprietary methodology for identifying and eliminating operational inefficiencies.',
@@ -49,7 +49,7 @@ const itemVariants = {
 
 const ResourceCard = ({ resource, index }: { resource: (typeof resources)[0]; index: number }) => (
   <motion.div variants={itemVariants}>
-    <Card className="group h-full p-6 hover:shadow-xl transition-all duration-300">
+    <Card className="group h-full p-6 bg-soft hover:shadow-xl hover:shadow-accent/30 transition-all duration-300 rounded-2xl">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
@@ -59,16 +59,16 @@ const ResourceCard = ({ resource, index }: { resource: (typeof resources)[0]; in
       >
         {resource.icon}
       </motion.div>
-      <h3 className="text-xl font-bold mb-3 text-center text-[#003366] group-hover:text-[#50C878] transition-colors">
+      <h3 className="text-xl font-bold mb-3 text-center text-primary group-hover:text-accent transition-colors">
         {resource.title}
       </h3>
-      <p className="text-gray-600 text-center mb-6">{resource.description}</p>
+      <p className="text-primary/80 text-center mb-6">{resource.description}</p>
       <div className="text-center">
         <a
           href={resource.downloadUrl}
           className={cn(
             buttonVariants({ variant: 'ghost', size: 'sm' }),
-            'text-[#50C878] hover:text-[#003366] inline-flex items-center'
+            'text-accent hover:text-primary inline-flex items-center'
           )}
         >
           Download PDF
@@ -81,14 +81,14 @@ const ResourceCard = ({ resource, index }: { resource: (typeof resources)[0]; in
 
 export const ResourcesSection = () => {
   return (
-    <section id="resources" className="py-20 bg-gray-50">
+    <section id="resources" className="py-20 bg-background">
       <Container>
         <AnimatedText
           text="Resource Library"
-          className="text-3xl md:text-4xl font-bold text-center mb-6 text-[#003366]"
+          className="text-3xl md:text-4xl font-bold text-center mb-6 text-primary"
         />
         <AnimatedSection delay={0.2}>
-          <p className="text-gray-600 text-center max-w-2xl mx-auto mb-16">
+          <p className="text-primary/80 text-center max-w-2xl mx-auto mb-16">
             Free tools and frameworks to help you start implementing better business practices
             today.
           </p>
@@ -111,7 +111,7 @@ export const ResourcesSection = () => {
             href="/resources"
             className={cn(
               buttonVariants({ variant: 'outline', size: 'lg' }),
-              'text-[#003366] border-[#003366] hover:bg-[#003366] hover:text-white'
+              'text-primary border-primary hover:bg-primary hover:text-background'
             )}
           >
             Browse All Resources

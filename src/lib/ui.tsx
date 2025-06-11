@@ -4,7 +4,6 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import type { JSX } from 'react';
-import type { HTMLDivElement } from 'react';
 
 const buttonVariants = cva(variants.button.base, {
   variants: variants.button.variants,

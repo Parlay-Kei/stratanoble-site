@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Container, buttonVariants } from '@/lib/ui';
+import { cn } from '@/lib/ui-utils';
 
 const navItems = [
   { label: 'Services', href: '#services' },
@@ -16,7 +17,7 @@ export const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -25,9 +26,10 @@ export const Header = () => {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
-      }`}
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled ? "bg-primary shadow-lg" : "bg-transparent"
+      )}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
@@ -36,7 +38,10 @@ export const Header = () => {
         {/* Logo */}
         <motion.a
           href="/"
-          className="text-2xl font-headings font-bold text-primary"
+          className={cn(
+            "text-2xl font-headings font-bold",
+            isScrolled ? "text-background" : "text-primary"
+          )}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -49,7 +54,10 @@ export const Header = () => {
             <motion.a
               key={item.href}
               href={item.href}
-              className="text-soft hover:text-primary transition-colors"
+              className={cn(
+                "transition-colors",
+                isScrolled ? "text-background/80 hover:text-accent" : "text-primary/80 hover:text-accent"
+              )}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -58,7 +66,10 @@ export const Header = () => {
           ))}
           <motion.a
             href="#contact"
-            className={buttonVariants({ size: 'sm', variant: 'primary' })}
+            className={cn(
+              buttonVariants({ size: 'sm', variant: 'default' }),
+              "bg-accent text-background hover:bg-accent/90"
+            )}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -68,7 +79,10 @@ export const Header = () => {
 
         {/* Mobile Menu Button */}
         <motion.button
-          className="md:hidden p-2 text-soft hover:text-primary transition-colors"
+          className={cn(
+            "md:hidden p-2 transition-colors",
+            isScrolled ? "text-background/80 hover:text-accent" : "text-primary/80 hover:text-accent"
+          )}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
@@ -80,7 +94,7 @@ export const Header = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="absolute top-20 left-0 right-0 bg-background/95 backdrop-blur-md border-t border-soft/10 md:hidden"
+              className="absolute top-20 left-0 right-0 bg-primary/95 backdrop-blur-md border-t border-background/10 md:hidden"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
@@ -92,7 +106,7 @@ export const Header = () => {
                     <motion.a
                       key={item.href}
                       href={item.href}
-                      className="text-soft hover:text-primary transition-colors py-2"
+                      className="text-background/80 hover:text-accent transition-colors py-2"
                       onClick={() => setIsMobileMenuOpen(false)}
                       whileHover={{ x: 8 }}
                       whileTap={{ scale: 0.98 }}
@@ -102,7 +116,10 @@ export const Header = () => {
                   ))}
                   <motion.a
                     href="#contact"
-                    className={buttonVariants({ variant: 'primary' })}
+                    className={cn(
+                      buttonVariants({ variant: 'default' }),
+                      "bg-accent text-background hover:bg-accent/90"
+                    )}
                     onClick={() => setIsMobileMenuOpen(false)}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}

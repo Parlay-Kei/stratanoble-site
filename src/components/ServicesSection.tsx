@@ -85,7 +85,7 @@ export const ServicesSection = () => {
           >
             Our Services
           </AnimatedText>
-          <AnimatedText as="p" className="text-xl text-soft/80 leading-relaxed">
+          <AnimatedText as="p" className="text-xl text-primary/80 leading-relaxed">
             Comprehensive consulting solutions designed to drive sustainable growth and operational
             excellence.
           </AnimatedText>
@@ -100,21 +100,21 @@ export const ServicesSection = () => {
         >
           {services.map((service) => (
             <motion.div key={service.title} variants={itemVariants}>
-              <Card className="h-full p-6 bg-background/50 backdrop-blur-sm border-soft/10 hover:border-primary/20 transition-colors group">
+              <Card className="h-full p-6 bg-soft backdrop-blur-sm border-primary/10 hover:border-accent/20 transition-colors group rounded-2xl group-hover:shadow-xl group-hover:shadow-accent/40">
                 <div className="mb-6 p-3 w-12 h-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
                   <service.icon className="w-6 h-6" />
                 </div>
                 <h3 className="font-headings text-xl font-semibold mb-3 text-primary">
                   {service.title}
                 </h3>
-                <p className="text-soft/80 mb-6">{service.description}</p>
+                <p className="text-primary/80 mb-6">{service.description}</p>
                 <ul className="space-y-2">
                   {service.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-center text-soft/70 group-hover:text-soft transition-colors"
+                      className="flex items-center text-primary/70 group-hover:text-primary transition-colors"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary/50 mr-2 group-hover:bg-primary transition-colors" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-support/50 mr-2 group-hover:bg-support transition-colors" />
                       {feature}
                     </li>
                   ))}

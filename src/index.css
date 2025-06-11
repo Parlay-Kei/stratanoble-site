@@ -3,6 +3,18 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 /* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL */
+
+:root {
+  --color-primary: 48 35 45;
+  --color-accent: 213 80 83;
+  --color-soft: 241 192 149;
+  --color-background: 250 233 215;
+
+  --font-headings: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
+  --font-accent: "Karla", sans-serif;
+}
+
 .bg-grid-pattern {
   background-image: linear-gradient(to right, rgba(0, 51, 102, 0.05) 1px, transparent 1px),
                     linear-gradient(to bottom, rgba(0, 51, 102, 0.05) 1px, transparent 1px);

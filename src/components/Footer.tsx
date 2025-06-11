@@ -38,20 +38,20 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-background border-t border-soft/10">
+    <footer className="bg-primary border-t border-background/10">
       <Container className="py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="space-y-6">
             <motion.a
               href="/"
-              className="inline-block text-2xl font-headings font-bold text-primary"
+              className="inline-block text-2xl font-headings font-bold text-background"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               Strata Noble
             </motion.a>
-            <p className="text-soft/80 leading-relaxed">
+            <p className="text-background/80 leading-relaxed">
               Empowering businesses with data-driven strategies for sustainable growth and success.
             </p>
             <div className="flex gap-4">
@@ -61,7 +61,7 @@ export const Footer = () => {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-soft hover:text-primary transition-colors"
+                  className="text-background/80 hover:text-accent transition-colors"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={label}
@@ -74,13 +74,13 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-headings text-lg font-semibold text-primary mb-6">Quick Links</h3>
+            <h3 className="font-headings text-lg font-semibold text-background mb-6">Quick Links</h3>
             <ul className="space-y-4">
               {footerLinks.company.map(({ label, href }) => (
                 <li key={label}>
                   <motion.a
                     href={href}
-                    className="text-soft/80 hover:text-primary transition-colors inline-flex items-center group"
+                    className="text-background/80 hover:text-accent transition-colors inline-flex items-center group"
                     whileHover={{ x: 4 }}
                   >
                     {label}
@@ -93,13 +93,13 @@ export const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="font-headings text-lg font-semibold text-primary mb-6">Services</h3>
+            <h3 className="font-headings text-lg font-semibold text-background mb-6">Services</h3>
             <ul className="space-y-4">
               {footerLinks.services.map(({ label, href }) => (
                 <li key={label}>
                   <motion.a
                     href={href}
-                    className="text-soft/80 hover:text-primary transition-colors inline-flex items-center group"
+                    className="text-background/80 hover:text-accent transition-colors inline-flex items-center group"
                     whileHover={{ x: 4 }}
                   >
                     {label}
@@ -112,13 +112,13 @@ export const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-headings text-lg font-semibold text-primary mb-6">Contact Us</h3>
+            <h3 className="font-headings text-lg font-semibold text-background mb-6">Contact Us</h3>
             <ul className="space-y-4">
               {contactInfo.map(({ icon: Icon, label, href }) => (
                 <li key={label}>
                   <motion.a
                     href={href}
-                    className="text-soft/80 hover:text-primary transition-colors inline-flex items-center group"
+                    className="text-background/80 hover:text-accent transition-colors inline-flex items-center group"
                     whileHover={{ x: 4 }}
                   >
                     <Icon className="w-5 h-5 mr-2" />
@@ -131,9 +131,9 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-soft/10">
+        <div className="mt-16 pt-8 border-t border-background/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-soft/60 text-sm">
+            <p className="text-background/60 text-sm">
               © {currentYear} Strata Noble Consulting. All rights reserved.
             </p>
             <div className="flex gap-6">
@@ -141,7 +141,7 @@ export const Footer = () => {
                 <motion.a
                   key={label}
                   href={href}
-                  className="text-soft/60 hover:text-primary text-sm transition-colors"
+                  className="text-background/60 hover:text-accent text-sm transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

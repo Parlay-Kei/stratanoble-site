@@ -76,7 +76,7 @@ const itemVariants = {
 
 export const TargetAudienceSection = () => {
   return (
-    <section className="py-24 bg-gradient-primary relative overflow-hidden">
+    <section className="py-24 bg-background relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-background/5 backdrop-blur-[2px]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--color-primary),0.1)_0%,transparent_70%)]" />
@@ -89,7 +89,7 @@ export const TargetAudienceSection = () => {
           >
             Who We Serve
           </AnimatedText>
-          <AnimatedText as="p" className="text-xl text-soft/90 leading-relaxed">
+          <AnimatedText as="p" className="text-xl text-primary/90 leading-relaxed">
             We partner with forward-thinking organizations across various stages of growth,
             delivering tailored solutions for their unique challenges.
           </AnimatedText>
@@ -104,7 +104,7 @@ export const TargetAudienceSection = () => {
         >
           {audiences.map((audience) => (
             <motion.div key={audience.title} variants={itemVariants}>
-              <Card className="h-full p-6 bg-background/50 backdrop-blur-sm border-soft/10 hover:border-primary/20 transition-colors group">
+              <Card className="h-full p-6 bg-soft/50 backdrop-blur-lg border-primary/10 hover:border-accent/20 transition-colors group rounded-2xl shadow-glass group-hover:shadow-xl group-hover:shadow-accent/40">
                 <div className="flex items-start gap-6">
                   <div className="p-3 w-12 h-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors flex-shrink-0">
                     <audience.icon className="w-6 h-6" />
@@ -113,14 +113,14 @@ export const TargetAudienceSection = () => {
                     <h3 className="font-headings text-xl font-semibold mb-3 text-primary">
                       {audience.title}
                     </h3>
-                    <p className="text-soft/80 mb-4">{audience.description}</p>
+                    <p className="text-primary/80 mb-4">{audience.description}</p>
                     <ul className="space-y-2">
                       {audience.needs.map((need) => (
                         <li
                           key={need}
-                          className="flex items-center text-soft/70 group-hover:text-soft transition-colors"
+                          className="flex items-center text-primary/70 group-hover:text-primary transition-colors"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary/50 mr-2 group-hover:bg-primary transition-colors" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent/50 mr-2 group-hover:bg-accent transition-colors" />
                           {need}
                         </li>
                       ))}
@@ -139,7 +139,7 @@ export const TargetAudienceSection = () => {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <AnimatedText as="p" className="text-lg md:text-xl text-soft/80 max-w-3xl mx-auto">
+          <AnimatedText as="p" className="text-lg md:text-xl text-primary/80 max-w-3xl mx-auto">
             Our expertise spans across industries, helping organizations of all sizes achieve their
             growth objectives through data-driven strategies and innovative solutions.
           </AnimatedText>

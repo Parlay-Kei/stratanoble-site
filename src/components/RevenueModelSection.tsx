@@ -24,17 +24,17 @@ export const RevenueModelSection = () => {
     },
   ];
   return (
-    <section className="py-16 bg-[#003366] text-white">
+    <section className="py-16 bg-primary text-background">
       <div className="container mx-auto px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">Revenue Model</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {revenueStreams.map((stream, index) => (
             <div key={index} className="flex flex-col items-center text-center">
-              <div className="bg-white bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+              <div className="bg-background/10 w-16 h-16 rounded-full flex items-center justify-center mb-4 text-background">
                 {stream.icon}
               </div>
               <h3 className="text-xl font-medium mb-2">{stream.title}</h3>
-              <div className="w-20 h-20 rounded-full border-4 border-[#50C878] flex items-center justify-center mt-2">
+              <div className="w-20 h-20 rounded-full border-4 border-accent flex items-center justify-center mt-2">
                 <span className="text-xl font-bold">{stream.percentage}</span>
               </div>
             </div>

@@ -2,6 +2,7 @@ import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { MissionSection } from './components/MissionSection';
 import { ServicesSection } from './components/ServicesSection';
+import { CaseStudiesSlider } from './components/CaseStudiesSlider';
 import { RevenueModelSection } from './components/RevenueModelSection';
 import { MetricsSection } from './components/MetricsSection';
 import { TargetAudienceSection } from './components/TargetAudienceSection';
@@ -18,6 +19,7 @@ export function App() {
         <HeroSection />
         <MissionSection />
         <ServicesSection />
+        <CaseStudiesSlider />
         <RevenueModelSection />
         <MetricsSection />
         <TargetAudienceSection />

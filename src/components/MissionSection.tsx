@@ -52,7 +52,7 @@ const itemVariants = {
 
 export const MissionSection = () => {
   return (
-    <section id="about" className="py-24 bg-gradient-primary relative overflow-hidden">
+    <section id="about" className="py-24 bg-background relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-background/5 backdrop-blur-[2px]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--color-primary),0.1)_0%,transparent_70%)]" />
@@ -65,7 +65,7 @@ export const MissionSection = () => {
           >
             Our Mission
           </AnimatedText>
-          <AnimatedText as="p" className="text-xl md:text-2xl text-soft/90 leading-relaxed">
+          <AnimatedText as="p" className="text-xl md:text-2xl text-primary/90 leading-relaxed">
             To empower businesses with data-driven insights and strategic solutions that drive
             sustainable growth and operational excellence.
           </AnimatedText>
@@ -80,14 +80,14 @@ export const MissionSection = () => {
         >
           {values.map((value) => (
             <motion.div key={value.title} variants={itemVariants}>
-              <Card className="h-full p-6 bg-background/50 backdrop-blur-sm border-soft/10 hover:border-primary/20 transition-colors group">
+              <Card className="h-full p-6 bg-background/50 backdrop-blur-sm border-soft/10 hover:border-accent/20 transition-colors group rounded-2xl group-hover:shadow-lg">
                 <div className="mb-6 p-3 w-12 h-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
                   <value.icon className="w-6 h-6" />
                 </div>
                 <h3 className="font-headings text-xl font-semibold mb-3 text-primary">
                   {value.title}
                 </h3>
-                <p className="text-soft/80">{value.description}</p>
+                <p className="text-primary/80">{value.description}</p>
               </Card>
             </motion.div>
           ))}
@@ -100,7 +100,7 @@ export const MissionSection = () => {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <AnimatedText as="p" className="text-lg md:text-xl text-soft/80 max-w-3xl mx-auto italic">
+          <AnimatedText as="p" className="text-lg md:text-xl text-primary/80 max-w-3xl mx-auto italic">
             &quot;We believe in the power of data-driven decision making and strategic thinking to
             transform businesses and create lasting impact in the marketplace.&quot;
           </AnimatedText>
