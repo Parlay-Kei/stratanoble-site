@@ -1,8 +1,5 @@
-import { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { AnimatedSection, AnimatedText, Container, Card, buttonVariants } from '@/lib/ui';
-import { cn } from '@/lib/ui-utils';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Container, AnimatedText } from '@/lib/ui';
 import { TrendingUp, Users, Award, Clock } from 'lucide-react';
 
 const metrics = [
@@ -85,35 +82,6 @@ export const MetricsSection = () => {
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [direction, setDirection] = useState(0);
-
-  const nextTestimonial = () => {
-    setDirection(1);
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setDirection(-1);
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-    }),
-  };
 
   return (
     <section className="py-24 bg-background relative overflow-hidden">
