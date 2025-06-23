@@ -11,11 +11,13 @@ export default {
         accent: 'rgb(var(--color-accent) / <alpha-value>)',
         soft: 'rgb(var(--color-soft) / <alpha-value>)',
         background: 'rgb(var(--color-background) / <alpha-value>)',
+        cta: 'rgb(var(--color-cta) / <alpha-value>)',
+        highlight: 'rgb(var(--color-highlight) / <alpha-value>)',
       },
       fontFamily: {
-        headings: ['var(--font-headings)'],
-        body: ['var(--font-body)'],
-        accent: ['var(--font-accent)'],
+        headings: ['var(--font-headings)', 'Playfair Display', 'serif'],
+        body: ['var(--font-body)', 'Inter', 'sans-serif'],
+        accent: ['var(--font-accent)', 'Karla', 'sans-serif'],
       },
       animation: {
         'float': 'float 3s ease-in-out infinite',

@@ -27,7 +27,8 @@
       "@lib/*": ["src/lib/*"],
       "@hooks/*": ["src/hooks/*"],
       "@utils/*": ["src/utils/*"]
-    }
+    },
+    "types": ["node", "vitest/globals"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

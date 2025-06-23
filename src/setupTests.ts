@@ -1,19 +1,25 @@
+/// <reference lib="dom" />
+/// <reference types="node" />
 import '@testing-library/jest-dom';
 import { afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
 
 // Mock IntersectionObserver for jsdom with all required properties
-class IntersectionObserver {
-  readonly root: Element | null = null;
-  readonly rootMargin: string = '';
-  readonly thresholds: ReadonlyArray<number> = [];
+class MockIntersectionObserver {
+  readonly root = null;
+  readonly rootMargin = '';
+  readonly thresholds = [];
   constructor() {}
   observe() {}
   unobserve() {}
   disconnect() {}
-  takeRecords() { return []; }
+  takeRecords() {
+    return [];
+  }
 }
-(global as any).IntersectionObserver = IntersectionObserver;
+
+// Add IntersectionObserver to the global object
+globalThis.IntersectionObserver = MockIntersectionObserver;
 
 // Cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {

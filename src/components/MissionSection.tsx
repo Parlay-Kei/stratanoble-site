@@ -100,7 +100,10 @@ export const MissionSection = () => {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <AnimatedText as="p" className="text-lg md:text-xl text-primary/80 max-w-3xl mx-auto italic">
+          <AnimatedText
+            as="p"
+            className="text-lg md:text-xl text-primary/80 max-w-3xl mx-auto italic"
+          >
             &quot;We believe in the power of data-driven decision making and strategic thinking to
             transform businesses and create lasting impact in the marketplace.&quot;
           </AnimatedText>

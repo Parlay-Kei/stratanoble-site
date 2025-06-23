@@ -1,3 +1,6 @@
+/// <reference lib="dom" />
+/* eslint-disable no-undef */
+/* eslint-disable react-refresh/only-export-components */
 import * as React from 'react';
 import { cn, variants } from './ui-utils';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -20,11 +23,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? React.Fragment : 'button';
     return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
+      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
     );
   }
 );
@@ -32,15 +31,13 @@ Button.displayName = 'Button';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('rounded-lg border bg-card text-card-foreground shadow-sm', className)}
-      {...props}
-    />
-  )
-);
+const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('rounded-lg border bg-card text-card-foreground shadow-sm', className)}
+    {...props}
+  />
+));
 Card.displayName = 'Card';
 
 export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {}

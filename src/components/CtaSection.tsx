@@ -2,13 +2,10 @@ import { ArrowUpRight } from 'lucide-react';
 
 export const CtaSection = () => {
   return (
-    <section
-      id="contact"
-      className="py-20 bg-accent text-background"
-    >
+    <section id="contact" className="py-20 bg-accent text-background">
       <div className="container mx-auto px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">
-          Let's Build Something Worthy of Legacy.
+          Let&apos;s Build Something Worthy of Legacy.
         </h2>
         <p className="text-xl opacity-90 max-w-2xl mx-auto mb-10">
           Take the first step toward building a sustainable, profitable business that aligns with

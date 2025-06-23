@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { Container, buttonVariants } from '@/lib/ui';
 import { cn } from '@/lib/ui-utils';
+import Logo from './Logo';
 
 const navItems = [
-  { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
-  { label: 'Resources', href: '#resources' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'AI Services', href: '/ai-services' },
+  { label: 'About', href: '/about' },
+  { label: 'Case Studies', href: '/case-studies' },
+  { label: 'Traditional Services', href: '/traditional-services' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,8 +31,8 @@ export const Header = () => {
   return (
     <motion.header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "bg-primary shadow-lg" : "bg-transparent"
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        isScrolled ? 'bg-primary shadow-lg' : 'bg-transparent'
       )}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -36,52 +40,53 @@ export const Header = () => {
     >
       <Container className="flex items-center justify-between h-20">
         {/* Logo */}
-        <motion.a
-          href="/"
-          className={cn(
-            "text-2xl font-headings font-bold",
-            isScrolled ? "text-background" : "text-primary"
-          )}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          Strata Noble
-        </motion.a>
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+          <Link
+            to="/"
+            className="flex items-center gap-2"
+          >
+            <Logo size={120} />
+          </Link>
+        </motion.div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
-            <motion.a
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "transition-colors",
-                isScrolled ? "text-background/80 hover:text-accent" : "text-primary/80 hover:text-accent"
-              )}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {item.label}
-            </motion.a>
+            <motion.div key={item.href} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to={item.href}
+                className={cn(
+                  'transition-colors',
+                  isScrolled
+                    ? 'text-background/80 hover:text-accent'
+                    : 'text-primary/80 hover:text-accent',
+                  location.pathname === item.href && 'text-accent font-medium'
+                )}
+              >
+                {item.label}
+              </Link>
+            </motion.div>
           ))}
-          <motion.a
-            href="#contact"
-            className={cn(
-              buttonVariants({ size: 'sm', variant: 'default' }),
-              "bg-accent text-background hover:bg-accent/90"
-            )}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Get Started
-          </motion.a>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Link
+              to="/contact"
+              className={cn(
+                buttonVariants({ size: 'sm', variant: 'default' }),
+                'bg-accent text-background hover:bg-accent/90'
+              )}
+            >
+              Book Call
+            </Link>
+          </motion.div>
         </nav>
 
         {/* Mobile Menu Button */}
         <motion.button
           className={cn(
-            "md:hidden p-2 transition-colors",
-            isScrolled ? "text-background/80 hover:text-accent" : "text-primary/80 hover:text-accent"
+            'md:hidden p-2 transition-colors',
+            isScrolled
+              ? 'text-background/80 hover:text-accent'
+              : 'text-primary/80 hover:text-accent'
           )}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           whileHover={{ scale: 1.1 }}
@@ -103,29 +108,31 @@ export const Header = () => {
               <Container className="py-4">
                 <nav className="flex flex-col gap-4">
                   {navItems.map((item) => (
-                    <motion.a
-                      key={item.href}
-                      href={item.href}
-                      className="text-background/80 hover:text-accent transition-colors py-2"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      whileHover={{ x: 8 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {item.label}
-                    </motion.a>
+                    <motion.div key={item.href} whileHover={{ x: 8 }} whileTap={{ scale: 0.98 }}>
+                      <Link
+                        to={item.href}
+                        className={cn(
+                          'text-background/80 hover:text-accent transition-colors py-2 block',
+                          location.pathname === item.href && 'text-accent font-medium'
+                        )}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
                   ))}
-                  <motion.a
-                    href="#contact"
-                    className={cn(
-                      buttonVariants({ variant: 'default' }),
-                      "bg-accent text-background hover:bg-accent/90"
-                    )}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Get Started
-                  </motion.a>
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Link
+                      to="/contact"
+                      className={cn(
+                        buttonVariants({ variant: 'default' }),
+                        'bg-accent text-background hover:bg-accent/90'
+                      )}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Book Call
+                    </Link>
+                  </motion.div>
                 </nav>
               </Container>
             </motion.div>

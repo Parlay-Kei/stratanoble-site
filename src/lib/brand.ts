@@ -1,34 +1,34 @@
 export const brandColors = {
-  primary: '#30232d', // Earthy Charcoal – foundation, header/footer
-  accent: '#d55053', // Spicy Coral – buttons, highlights
-  soft: '#f1c095', // Soft Apricot – supporting visuals, UI accents
-  background: '#fae9d7', // Blush Beige – cards, canvas, whitespace
+  primary: '#10214b', // Midnight Navy – foundation, header/footer
+  accent: '#d7bd88', // Regal Gold – buttons, highlights
+  soft: '#d0c3ba',   // Classic Taupe – supporting visuals, UI accents
+  background: '#ebe7e1', // Blush Ivory – cards, canvas, whitespace
   white: '#ffffff',
   black: '#000000',
   // Semantic colors
   text: {
-    primary: '#30232d',
-    secondary: '#4a4a4a',
-    light: '#ffffff',
+    primary: '#10214b',
+    secondary: '#d0c3ba',
+    light: '#ebe7e1',
   },
   // UI states
   states: {
     hover: {
-      primary: '#3d2c38',
-      accent: '#e05d60',
-      soft: '#f5cba3',
+      primary: '#162a5c',
+      accent: '#e2cfa1',
+      soft: '#e5dbd2',
     },
     active: {
-      primary: '#251b24',
-      accent: '#c13d40',
-      soft: '#e8b080',
+      primary: '#0d1833',
+      accent: '#bfa36b',
+      soft: '#b8a89e',
     },
   },
   // Gradients
   gradients: {
-    primary: 'linear-gradient(135deg, #30232d 0%, #251b24 100%)',
-    accent: 'linear-gradient(135deg, #d55053 0%, #c13d40 100%)',
-    soft: 'linear-gradient(135deg, #f1c095 0%, #e8b080 100%)',
+    primary: 'linear-gradient(90deg, #ebe7e1 0%, #d7bd88 100%)',
+    accent: 'linear-gradient(90deg, #d7bd88 0%, #10214b 100%)',
+    soft: 'linear-gradient(90deg, #d0c3ba 0%, #ebe7e1 100%)',
   },
 } as const;
 

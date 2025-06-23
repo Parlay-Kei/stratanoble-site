@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Karla:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&family=Karla:wght@400;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,15 +7,28 @@
 @layer base {
   :root {
     /* Brand Colors */
-    --color-primary: 48, 35, 45;    /* #30232d */
-    --color-accent: 213, 80, 83;    /* #d55053 */
-    --color-soft: 241, 192, 149;    /* #f1c095 */
-    --color-background: 250, 233, 215; /* #fae9d7 */
-    
+    --color-primary: 16, 33, 75;      /* #10214b - Midnight Navy */
+    --color-accent: 215, 189, 136;    /* #d7bd88 - Regal Gold */
+    --color-soft: 208, 195, 186;      /* #d0c3ba - Classic Taupe */
+    --color-background: 235, 231, 225;/* #ebe7e1 - Blush Ivory */
+    --color-cta: 215, 189, 136;       /* #d7bd88 - Regal Gold (for buttons) */
+    --color-highlight: 16, 33, 75;    /* #10214b - Navy (or use gold as needed) */
+    --gradient-primary: linear-gradient(90deg, #ebe7e1 0%, #d7bd88 100%);
+
     /* Typography */
     --font-headings: 'Playfair Display', serif;
     --font-body: 'Inter', sans-serif;
     --font-accent: 'Karla', sans-serif;
+  }
+
+  .dark {
+    --color-primary: 235, 231, 225;   /* #ebe7e1 - Blush Ivory */
+    --color-accent: 215, 189, 136;    /* #d7bd88 - Regal Gold */
+    --color-soft: 208, 195, 186;      /* #d0c3ba - Classic Taupe */
+    --color-background: 16, 33, 75;   /* #10214b - Midnight Navy */
+    --color-cta: 215, 189, 136;       /* #d7bd88 - Regal Gold */
+    --color-highlight: 215, 189, 136; /* #d7bd88 - Regal Gold */
+    --gradient-primary: linear-gradient(90deg, #10214b 0%, #d7bd88 100%);
   }
 
   html {
@@ -24,21 +37,30 @@
   }
 
   body {
-    @apply bg-background text-primary font-body;
-    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    @apply bg-background text-primary font-body dark:bg-background dark:text-primary;
+    font-feature-settings: 'ss01', 'ss02', 'cv01', 'cv02';
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-headings font-bold text-primary;
   }
 
   h1 {
     @apply text-4xl md:text-5xl lg:text-6xl;
+    font-family: var(--font-headings);
+    font-weight: 700;
     line-height: 1.1;
   }
 
   h2 {
     @apply text-3xl md:text-4xl lg:text-5xl;
+    font-family: var(--font-headings);
+    font-weight: 600;
     line-height: 1.2;
   }
 
@@ -54,6 +76,8 @@
 
   p {
     @apply text-base md:text-lg leading-relaxed;
+    font-family: var(--font-body);
+    font-weight: 400;
   }
 }
 
@@ -63,27 +87,30 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium transition-colors duration-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium transition-colors duration-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 min-h-[44px] min-w-[44px] active:shadow-lg focus:shadow-lg;
+    font-family: var(--font-accent);
+    font-size: 18px;
+    font-weight: 600;
   }
 
   .btn-primary {
-    @apply text-white bg-accent hover:bg-accent/90 focus:ring-accent;
+    @apply bg-accent text-primary border-2 border-accent hover:bg-accent/90 hover:text-primary focus:ring-accent;
   }
 
   .btn-secondary {
-    @apply text-primary bg-soft hover:bg-soft/90 focus:ring-soft;
+    @apply bg-transparent text-accent border-2 border-accent hover:bg-accent hover:text-primary focus:ring-accent;
   }
 
   .btn-outline {
-    @apply text-primary border-2 border-primary hover:bg-primary hover:text-white focus:ring-primary;
+    @apply text-primary border-2 border-primary bg-transparent hover:bg-primary hover:text-white focus:ring-primary;
   }
 
   .card {
-    @apply p-6 bg-white rounded-lg shadow-md transition-shadow duration-200 hover:shadow-lg;
+    @apply p-6 bg-white rounded-lg shadow-md transition-shadow duration-200 hover:shadow-lg active:shadow-lg focus:shadow-lg dark:bg-background/80 dark:text-primary;
   }
 
   .input {
-    @apply w-full px-4 py-2 text-base border rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent;
+    @apply w-full px-4 py-2 text-base border rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent min-h-[44px] min-w-[44px];
   }
 
   .label {
@@ -164,4 +191,4 @@
   p {
     @apply text-base;
   }
-} 
+}

@@ -5,4 +5,4 @@ describe('utils', () => {
   it('exports an object', () => {
     expect(typeof utils).toBe('object');
   });
-}); 
+});

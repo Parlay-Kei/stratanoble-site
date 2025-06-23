@@ -6,4 +6,4 @@ describe('brandColors', () => {
     expect(brandColors).not.toBeNull();
     expect(typeof brandColors).toBe('object');
   });
-}); 
+});

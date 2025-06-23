@@ -30,8 +30,8 @@ const socialLinks = [
 
 const contactInfo = [
   { icon: Mail, label: 'contact@stratanoble.com', href: 'mailto:contact@stratanoble.com' },
-  { icon: Phone, label: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-  { icon: MapPin, label: 'New York, NY', href: '#location' },
+  { icon: Phone, label: '702-707-3168', href: 'tel:7027073168' },
+  { icon: MapPin, label: 'Las Vegas', href: undefined },
 ];
 
 export const Footer = () => {
@@ -74,7 +74,9 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-headings text-lg font-semibold text-background mb-6">Quick Links</h3>
+            <h3 className="font-headings text-lg font-semibold text-background mb-6">
+              Quick Links
+            </h3>
             <ul className="space-y-4">
               {footerLinks.company.map(({ label, href }) => (
                 <li key={label}>
