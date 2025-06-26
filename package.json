@@ -51,8 +51,5 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.0",
     "typescript": "5.5.4"
-  },
-  "overrides": {
-    "eslint": "8.57.0"
   }
 }
