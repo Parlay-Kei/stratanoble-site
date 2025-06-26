@@ -20,6 +20,23 @@ jobs:
     
     - name: Install dependencies
       run: npm ci
+
+    - name: Enforce ESLint 8 (Next.js compatible)
+      run: npm install --no-save eslint@8.57.0
+    
+    - name: Show every eslint copy & caller
+      run: |
+        echo "== npm ls eslint =="
+        npm ls eslint --all || true
+
+        echo "== yarn/npm who-uses eslint =="
+        npx --yes npm-why eslint || true        # prints all packages that depend on eslint
+
+        echo "== search for rogue flat-config =="
+        git ls-files -z | xargs -0 grep -nH "eslint.config.js" || true
+
+        echo "== search for CLI flags inside repo =="
+        git grep -n -- "--use-eslintrc\|--resolvePluginsRelativeTo\|--ignore-path" || true
     
     - name: Run linting
       run: npm run lint
