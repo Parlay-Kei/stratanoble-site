@@ -1,6 +1,6 @@
 [build]
   command = "npm install --no-save eslint@8.57.0 && npm run build"
-  publish = ".next"
+  publish = "netlify"
 
 [[plugins]]
   package = "@netlify/next-runtime" 
