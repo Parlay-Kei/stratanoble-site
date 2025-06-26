@@ -1,114 +1,116 @@
-import { motion } from 'framer-motion';
-import { Target, Users, Lightbulb, Award } from 'lucide-react';
-import { Container, AnimatedText, Card } from '@/lib/ui';
-
-const values = [
-  {
-    icon: Target,
-    title: 'Strategic Excellence',
-    description:
-      'Delivering data-driven strategies that drive measurable results and sustainable growth.',
-  },
-  {
-    icon: Users,
-    title: 'Client Partnership',
-    description:
-      'Building long-term relationships through collaboration, trust, and shared success.',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Innovation Focus',
-    description:
-      'Embracing cutting-edge methodologies and technologies to solve complex challenges.',
-  },
-  {
-    icon: Award,
-    title: 'Quality Commitment',
-    description: 'Maintaining the highest standards of excellence in every aspect of our work.',
-  },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: 'easeOut',
-    },
-  },
-};
-
-export const MissionSection = () => {
+export function MissionSection() {
   return (
-    <section id="about" className="py-24 bg-background relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-background/5 backdrop-blur-[2px]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--color-primary),0.1)_0%,transparent_70%)]" />
+    <section className="py-24 sm:py-32 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          {/* Section Header */}
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+              Our Mission & Vision
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-navy-600">
+              Guiding entrepreneurs from passion to prosperity through strategic excellence
+            </p>
+          </div>
 
-      <Container className="relative z-10">
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <AnimatedText
-            as="h2"
-            className="font-headings text-4xl md:text-5xl font-bold mb-6 text-primary"
-          >
-            Our Mission
-          </AnimatedText>
-          <AnimatedText as="p" className="text-xl md:text-2xl text-primary/90 leading-relaxed">
-            To empower businesses with data-driven insights and strategic solutions that drive
-            sustainable growth and operational excellence.
-          </AnimatedText>
+          {/* Two Column Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Mission */}
+            <div className="relative">
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-emerald-500 rounded-full opacity-20"></div>
+              <div className="relative bg-gradient-to-br from-navy-50 to-silver-50 rounded-2xl p-8 h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                    <span className="text-2xl">🎯</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-navy-900">Our Mission</h3>
+                </div>
+                <p className="text-lg leading-relaxed text-navy-700 mb-6">
+                  To empower passionate entrepreneurs with the strategic framework, 
+                  operational excellence, and technological tools needed to transform 
+                  their vision into sustainable, profitable businesses.
+                </p>
+                <ul className="space-y-3 text-navy-600">
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>Provide proven business strategies and frameworks</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>Implement cutting-edge AI and automation solutions</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>Build scalable operational systems</span>
+                  </li>
+                </ul>
+              </div>
         </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-        >
-          {values.map((value) => (
-            <motion.div key={value.title} variants={itemVariants}>
-              <Card className="h-full p-6 bg-background/50 backdrop-blur-sm border-soft/10 hover:border-accent/20 transition-colors group rounded-2xl group-hover:shadow-lg">
-                <div className="mb-6 p-3 w-12 h-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                  <value.icon className="w-6 h-6" />
+            {/* Vision */}
+            <div className="relative">
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-navy-500 rounded-full opacity-20"></div>
+              <div className="relative bg-gradient-to-br from-emerald-50 to-silver-50 rounded-2xl p-8 h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-navy-100 rounded-xl flex items-center justify-center">
+                    <span className="text-2xl">🌟</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-navy-900">Our Vision</h3>
                 </div>
-                <h3 className="font-headings text-xl font-semibold mb-3 text-primary">
-                  {value.title}
-                </h3>
-                <p className="text-primary/80">{value.description}</p>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
+                <p className="text-lg leading-relaxed text-navy-700 mb-6">
+                  To be the leading catalyst for entrepreneurial success, creating a world 
+                  where every passionate individual has the knowledge, tools, and support 
+                  to build thriving businesses that make a positive impact.
+                </p>
+                <ul className="space-y-3 text-navy-600">
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-navy-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>Democratize access to business expertise</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-navy-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>Foster innovation through technology integration</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-navy-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>Create sustainable economic growth</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <AnimatedText
-            as="p"
-            className="text-lg md:text-xl text-primary/80 max-w-3xl mx-auto italic"
-          >
-            &quot;We believe in the power of data-driven decision making and strategic thinking to
-            transform businesses and create lasting impact in the marketplace.&quot;
-          </AnimatedText>
-        </motion.div>
-      </Container>
+          {/* Values */}
+          <div className="mt-20">
+            <h3 className="text-2xl font-bold text-center text-navy-900 mb-12">
+              Our Core Values
+                </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">💡</span>
+                </div>
+                <h4 className="text-lg font-semibold text-navy-900 mb-2">Innovation</h4>
+                <p className="text-navy-600">Embracing new technologies and creative solutions</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🤝</span>
+                </div>
+                <h4 className="text-lg font-semibold text-navy-900 mb-2">Partnership</h4>
+                <p className="text-navy-600">Building lasting relationships based on trust and results</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-silver-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">📈</span>
+                </div>
+                <h4 className="text-lg font-semibold text-navy-900 mb-2">Excellence</h4>
+                <p className="text-navy-600">Delivering exceptional value and measurable outcomes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-  );
-};
+  )
+} 

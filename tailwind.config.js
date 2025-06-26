@@ -1,23 +1,72 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        primary: 'rgb(var(--color-primary) / <alpha-value>)',
-        accent: 'rgb(var(--color-accent) / <alpha-value>)',
-        soft: 'rgb(var(--color-soft) / <alpha-value>)',
-        background: 'rgb(var(--color-background) / <alpha-value>)',
-        cta: 'rgb(var(--color-cta) / <alpha-value>)',
-        highlight: 'rgb(var(--color-highlight) / <alpha-value>)',
+        // Strata Noble Brand Colors
+        navy: {
+          50: '#f0f4f8',
+          100: '#d9e2ec',
+          200: '#bcccdc',
+          300: '#9fb3c8',
+          400: '#829ab1',
+          500: '#627d98',
+          600: '#486581',
+          700: '#334e68',
+          800: '#2d3748',
+          900: '#1a202c',
+          DEFAULT: '#003366',
+        },
+        silver: {
+          50: '#f8f9fa',
+          100: '#f1f3f4',
+          200: '#e8eaed',
+          300: '#dadce0',
+          400: '#bdc1c6',
+          500: '#9aa0a6',
+          600: '#80868b',
+          700: '#5f6368',
+          800: '#3c4043',
+          900: '#202124',
+          DEFAULT: '#C0C0C0',
+        },
+        emerald: {
+          50: '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          300: '#6ee7b7',
+          400: '#34d399',
+          500: '#10b981',
+          600: '#059669',
+          700: '#047857',
+          800: '#065f46',
+          900: '#064e3b',
+          DEFAULT: '#50C878',
+        },
+        // Semantic colors
+        primary: {
+          DEFAULT: '#003366',
+          hover: '#002855',
+          active: '#001f3f',
+        },
+        accent: {
+          DEFAULT: '#50C878',
+          hover: '#45b36b',
+          active: '#3a9e5e',
+        },
+        neutral: {
+          DEFAULT: '#C0C0C0',
+          hover: '#b0b0b0',
+          active: '#a0a0a0',
+        },
       },
       fontFamily: {
-        headings: ['var(--font-headings)', 'Playfair Display', 'serif'],
-        body: ['var(--font-body)', 'Inter', 'sans-serif'],
-        accent: ['var(--font-accent)', 'Karla', 'sans-serif'],
+        sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        serif: ['var(--font-bitter)', 'Bitter', 'serif'],
       },
       animation: {
         'float': 'float 3s ease-in-out infinite',
@@ -43,11 +92,15 @@ export default {
           '0%': { transform: 'scale(0.95)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       backgroundImage: {
-        'gradient-primary': 'var(--gradient-primary)',
-        'gradient-accent': 'var(--gradient-accent)',
-        'gradient-soft': 'var(--gradient-soft)',
+        'gradient-primary': 'linear-gradient(90deg, #003366 0%, #50C878 100%)',
+        'gradient-accent': 'linear-gradient(90deg, #50C878 0%, #003366 100%)',
+        'gradient-neutral': 'linear-gradient(90deg, #C0C0C0 0%, #f8f9fa 100%)',
       },
       boxShadow: {
         'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',

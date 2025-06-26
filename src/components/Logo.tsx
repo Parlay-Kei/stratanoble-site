@@ -1,20 +1,20 @@
-import React from 'react';
+import { cn } from '@/lib/utils'
 
 interface LogoProps {
-  size?: number | string;
-  className?: string;
+  className?: string
 }
 
-const Logo: React.FC<LogoProps> = ({ size = 48, className = '' }) => (
-  <img
-    src="/img/logo.png"
-    alt="Strata Noble Logo"
-    width={size}
-    height={size}
-    className={`block object-contain ${className}`}
-    style={{ maxWidth: size, maxHeight: size }}
-    draggable={false}
-  />
-);
-
-export default Logo; 
+export function Logo({ className }: LogoProps) {
+  return (
+    <div className={cn('flex items-center gap-2', className)}>
+      <div className="flex items-center">
+        <span className="text-2xl font-bold text-navy">
+          Strata
+        </span>
+        <span className="text-2xl font-bold text-emerald">
+          Noble
+        </span>
+      </div>
+    </div>
+  )
+} 

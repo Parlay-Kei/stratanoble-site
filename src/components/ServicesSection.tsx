@@ -1,129 +1,83 @@
-import { motion } from 'framer-motion';
-import { Activity, BarChart3, Workflow, Target } from 'lucide-react';
-import { Container, AnimatedText, Card } from '@/lib/ui';
+import Link from 'next/link'
+import { ArrowRightIcon } from '@heroicons/react/24/outline'
+import { services } from '@/data/services'
 
-const services = [
-  {
-    icon: Activity,
-    title: 'Performance Analytics',
-    description:
-      'Deep dive into your business metrics to identify growth opportunities and optimize performance.',
-    features: [
-      'Custom KPI Development',
-      'Real-time Analytics Dashboard',
-      'Performance Benchmarking',
-      'ROI Optimization',
-    ],
-  },
-  {
-    icon: BarChart3,
-    title: 'Strategic Planning',
-    description:
-      'Develop comprehensive growth strategies aligned with your business objectives and market dynamics.',
-    features: [
-      'Market Analysis',
-      'Competitive Intelligence',
-      'Growth Roadmapping',
-      'Resource Allocation',
-    ],
-  },
-  {
-    icon: Workflow,
-    title: 'Process Optimization',
-    description:
-      'Streamline operations and enhance efficiency through data-driven process improvements.',
-    features: [
-      'Workflow Analysis',
-      'Efficiency Metrics',
-      'Automation Strategy',
-      'Quality Assurance',
-    ],
-  },
-  {
-    icon: Target,
-    title: 'Market Expansion',
-    description:
-      'Identify and capture new market opportunities with data-backed expansion strategies.',
-    features: ['Market Research', 'Entry Strategy', 'Channel Development', 'Risk Assessment'],
-  },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: 'easeOut',
-    },
-  },
-};
-
-export const ServicesSection = () => {
+export function ServicesSection() {
   return (
-    <section id="services" className="py-24 bg-background relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-soft opacity-5" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--color-primary),0.05)_0%,transparent_70%)]" />
-
-      <Container className="relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <AnimatedText
-            as="h2"
-            className="font-headings text-4xl md:text-5xl font-bold mb-6 text-primary"
-          >
+    <section className="py-24 sm:py-32 bg-gradient-to-br from-silver-50 to-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          {/* Section Header */}
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
             Our Services
-          </AnimatedText>
-          <AnimatedText as="p" className="text-xl text-primary/80 leading-relaxed">
-            Comprehensive consulting solutions designed to drive sustainable growth and operational
-            excellence.
-          </AnimatedText>
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-navy-600">
+              Comprehensive solutions to transform your passion into a profitable business
+            </p>
         </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-        >
-          {services.map((service) => (
-            <motion.div key={service.title} variants={itemVariants}>
-              <Card className="h-full p-6 bg-soft backdrop-blur-sm border-primary/10 hover:border-accent/20 transition-colors group rounded-2xl group-hover:shadow-xl group-hover:shadow-accent/40">
-                <div className="mb-6 p-3 w-12 h-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                  <service.icon className="w-6 h-6" />
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <div
+                key={service.title}
+                className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-silver-200 hover:border-emerald-200"
+              >
+                {/* Service Icon */}
+                <div className="mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-100 to-navy-100 rounded-xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
                 </div>
-                <h3 className="font-headings text-xl font-semibold mb-3 text-primary">
+
+                {/* Service Content */}
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-navy-900 group-hover:text-emerald-600 transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-primary/80 mb-6">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-center text-primary/70 group-hover:text-primary transition-colors"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-support/50 mr-2 group-hover:bg-support transition-colors" />
-                      {feature}
-                    </li>
+                  <p className="text-navy-600 leading-relaxed">
+                    {service.subtitle}
+                  </p>
+                </div>
+
+                {/* Learn More Link */}
+                <div className="mt-6">
+                  <Link
+                    href={service.link}
+                    className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-medium group/link"
+                  >
+                    Learn more
+                    <ArrowRightIcon className="ml-2 h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                  </Link>
+                </div>
+
+                {/* Hover Effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-navy-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              </div>
                   ))}
-                </ul>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-      </Container>
+          </div>
+
+          {/* CTA Section */}
+          <div className="mt-16 text-center">
+            <div className="bg-gradient-to-r from-navy-600 to-emerald-600 rounded-2xl p-8 text-white">
+              <h3 className="text-2xl font-bold mb-4">
+                Ready to Transform Your Business?
+              </h3>
+              <p className="text-lg mb-6 opacity-90">
+                Let's discuss how we can help you achieve your goals
+              </p>
+              <Link
+                href="/contact"
+                className="btn bg-white text-navy-900 hover:bg-silver-100 btn-lg inline-flex items-center"
+              >
+                Schedule a Consultation
+                <ArrowRightIcon className="ml-2 h-5 w-5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-  );
-};
+  )
+}

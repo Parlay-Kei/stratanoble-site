@@ -1,144 +1,117 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
-import { Container, buttonVariants } from '@/lib/ui';
-import { cn } from '@/lib/ui-utils';
-import Logo from './Logo';
+'use client'
 
-const navItems = [
-  { label: 'AI Services', href: '/ai-services' },
-  { label: 'About', href: '/about' },
-  { label: 'Case Studies', href: '/case-studies' },
-  { label: 'Traditional Services', href: '/traditional-services' },
-  { label: 'Contact', href: '/contact' },
-];
+import { useState } from 'react'
+import Link from 'next/link'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Logo } from './Logo'
 
-export const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+const navigation = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: 'About', href: '/about' },
+  { name: 'Case Studies', href: '/case-studies' },
+  { name: 'Contact', href: '/contact' },
+]
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+export function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <motion.header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled ? 'bg-primary shadow-lg' : 'bg-transparent'
-      )}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <Container className="flex items-center justify-between h-20">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-silver-200">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
+        <div className="flex h-16 items-center justify-between">
         {/* Logo */}
-        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-          <Link
-            to="/"
-            className="flex items-center gap-2"
-          >
-            <Logo size={120} />
-          </Link>
-        </motion.div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <motion.div key={item.href} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                to={item.href}
-                className={cn(
-                  'transition-colors',
-                  isScrolled
-                    ? 'text-background/80 hover:text-accent'
-                    : 'text-primary/80 hover:text-accent',
-                  location.pathname === item.href && 'text-accent font-medium'
-                )}
-              >
-                {item.label}
-              </Link>
-            </motion.div>
-          ))}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link
-              to="/contact"
-              className={cn(
-                buttonVariants({ size: 'sm', variant: 'default' }),
-                'bg-accent text-background hover:bg-accent/90'
-              )}
-            >
-              Book Call
+          <div className="flex lg:flex-1">
+            <Link href="/" className="-m-1.5 p-1.5">
+              <span className="sr-only">Strata Noble</span>
+              <Logo className="h-8 w-auto" />
             </Link>
-          </motion.div>
-        </nav>
+          </div>
 
-        {/* Mobile Menu Button */}
-        <motion.button
-          className={cn(
-            'md:hidden p-2 transition-colors',
-            isScrolled
-              ? 'text-background/80 hover:text-accent'
-              : 'text-primary/80 hover:text-accent'
-          )}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </motion.button>
+          {/* Mobile menu button */}
+          <div className="flex lg:hidden">
+            <button
+              type="button"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-navy-700"
+              onClick={() => setMobileMenuOpen(true)}
+          >
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              className="absolute top-20 left-0 right-0 bg-primary/95 backdrop-blur-md border-t border-background/10 md:hidden"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
+          {/* Desktop navigation */}
+          <div className="hidden lg:flex lg:gap-x-12">
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-sm font-semibold leading-6 text-navy-900 hover:text-emerald-600 transition-colors"
+              >
+                {item.name}
+              </Link>
+          ))}
+          </div>
+
+          {/* Desktop CTA */}
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <Link
+              href="/contact"
+              className="btn-primary btn-md"
             >
-              <Container className="py-4">
-                <nav className="flex flex-col gap-4">
-                  {navItems.map((item) => (
-                    <motion.div key={item.href} whileHover={{ x: 8 }} whileTap={{ scale: 0.98 }}>
+              Get Started
+            </Link>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden">
+            <div className="fixed inset-0 z-50" />
+            <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-navy-900/10">
+              <div className="flex items-center justify-between">
+                <Link href="/" className="-m-1.5 p-1.5">
+                  <span className="sr-only">Strata Noble</span>
+                  <Logo className="h-8 w-auto" />
+                </Link>
+                <button
+                  type="button"
+                  className="-m-2.5 rounded-md p-2.5 text-navy-700"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="sr-only">Close menu</span>
+                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+              <div className="mt-6 flow-root">
+                <div className="-my-6 divide-y divide-navy-500/10">
+                  <div className="space-y-2 py-6">
+                    {navigation.map((item) => (
                       <Link
-                        to={item.href}
-                        className={cn(
-                          'text-background/80 hover:text-accent transition-colors py-2 block',
-                          location.pathname === item.href && 'text-accent font-medium'
-                        )}
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        key={item.name}
+                        href={item.href}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-navy-900 hover:bg-navy-50"
+                        onClick={() => setMobileMenuOpen(false)}
                       >
-                        {item.label}
+                        {item.name}
                       </Link>
-                    </motion.div>
                   ))}
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  </div>
+                  <div className="py-6">
                     <Link
-                      to="/contact"
-                      className={cn(
-                        buttonVariants({ variant: 'default' }),
-                        'bg-accent text-background hover:bg-accent/90'
-                      )}
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      href="/contact"
+                      className="btn-primary btn-md w-full"
+                      onClick={() => setMobileMenuOpen(false)}
                     >
-                      Book Call
+                      Get Started
                     </Link>
-                  </motion.div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
                 </nav>
-              </Container>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Container>
-    </motion.header>
-  );
-};
+    </header>
+  )
+}
