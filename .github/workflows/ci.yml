@@ -38,6 +38,11 @@ jobs:
         echo "== search for CLI flags inside repo =="
         git grep -n -- "--use-eslintrc\|--resolvePluginsRelativeTo\|--ignore-path" || true
     
+    - name: Check Next + eslint-config-next versions
+      run: |
+        npx next --version
+        node -e "console.log(require('eslint-config-next/package.json').version)"
+    
     - name: Run linting
       run: npm run lint
     

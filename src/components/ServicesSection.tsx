@@ -65,7 +65,7 @@ export function ServicesSection() {
                 Ready to Transform Your Business?
               </h3>
               <p className="text-lg mb-6 opacity-90">
-                Let's discuss how we can help you achieve your goals
+                Let&apos;s discuss how we can help you achieve your goals
               </p>
               <Link
                 href="/contact"
