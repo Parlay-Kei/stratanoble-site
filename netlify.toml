@@ -1,5 +1,5 @@
 [build]
-  command = "npm install --no-save eslint@8.57.0 && npm run build"
+  command = "npm run build"
 
 [[plugins]]
   package = "@netlify/next-runtime" 
