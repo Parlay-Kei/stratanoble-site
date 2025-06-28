@@ -126,7 +126,15 @@ const initialErrors = {
   message: "",
 };
 
-function validate(form) {
+type FormType = typeof initialForm;
+type ErrorsType = typeof initialErrors;
+type TouchedType = {
+  name?: boolean;
+  email?: boolean;
+  message?: boolean;
+};
+
+function validate(form: FormType) {
   const errors = { ...initialErrors };
   if (!form.name.trim()) errors.name = "Name is required.";
   if (!form.email.trim()) errors.email = "Email is required.";
@@ -141,7 +149,7 @@ export default function ContactPage() {
   const shouldReduce = useReducedMotion();
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState(initialErrors);
-  const [touched, setTouched] = useState({});
+  const [touched, setTouched] = useState<TouchedType>({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -152,21 +160,21 @@ export default function ContactPage() {
     setActiveIdx(idx);
   };
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
-    if (touched[name]) {
+    if (touched[name as keyof TouchedType]) {
       setErrors((errs) => ({ ...errs, ...validate({ ...form, [name]: value }) }));
     }
   }
 
-  function handleBlur(e) {
+  function handleBlur(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const { name } = e.target;
     setTouched((t) => ({ ...t, [name]: true }));
     setErrors((errs) => ({ ...errs, ...validate(form) }));
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setTouched({ name: true, email: true, message: true });
     const validation = validate(form);
