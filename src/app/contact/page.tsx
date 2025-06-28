@@ -200,13 +200,13 @@ export default function ContactPage() {
             animate={shouldReduce ? false : { opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold leading-tight"
           >
-            Let's Start Building Your Prosperity
+            Let&apos;s Start Building Your Prosperity
           </motion.h1>
           <motion.p
             animate={shouldReduce ? false : { opacity: 1, y: 0 }}
             className="mt-4 max-w-2xl mx-auto text-base md:text-lg text-slate-200"
           >
-            Questions, partnership ideas, or just curious? We're here to help you
+            Questions, partnership ideas, or just curious? We&apos;re here to help you
             turn vision into viable strategy.
           </motion.p>
         </Container>
@@ -260,7 +260,7 @@ export default function ContactPage() {
 
           {success ? (
             <div className="mt-8 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 p-6 text-center text-emerald-700 dark:text-emerald-300 shadow">
-              ✅ Thank you! We'll get back to you within one business day.
+              ✅ Thank you! We&apos;ll get back to you within one business day.
             </div>
           ) : (
             <form className="mt-8 grid grid-cols-1 gap-6" onSubmit={handleSubmit} noValidate>
