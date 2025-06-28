@@ -4,6 +4,8 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  // Faster development builds
+  mode: 'jit',
   theme: {
     extend: {
       colors: {
@@ -120,4 +122,8 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
   ],
+  // Faster development builds
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 } 

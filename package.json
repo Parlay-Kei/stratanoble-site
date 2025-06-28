@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "cross-env PORT=8080 next dev",
+    "dev:fast": "cross-env PORT=8080 NODE_ENV=development next dev --turbo",
+    "dev:8080": "cross-env PORT=8080 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\"",
-    "type-check": "tsc --noEmit",
-    "dev:8080": "cross-env PORT=8080 next dev"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^2.0.0",

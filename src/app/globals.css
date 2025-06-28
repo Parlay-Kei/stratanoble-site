@@ -53,6 +53,10 @@
   .btn-lg {
     @apply h-11 px-8 rounded-md;
   }
+
+  .input {
+    @apply w-full rounded-xl border border-neutral-300 bg-white/70 p-3 text-base shadow-sm focus:border-primary focus:ring-primary/30 focus:outline-none transition-all duration-200;
+  }
 }
 
 @layer utilities {
