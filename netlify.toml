@@ -6,4 +6,8 @@ publish = ".next"
 package = "@netlify/plugin-nextjs"
 
 [functions]
-included_files = [".next/**"] 
+# Remove the included_files directive to let Netlify handle it automatically
+# included_files = [".next/**"]
+
+[build.environment]
+NODE_VERSION = "18" 

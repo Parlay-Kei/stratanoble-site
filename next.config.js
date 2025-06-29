@@ -1,29 +1,35 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Development optimizations
-  swcMinify: true,
+  // Production optimizations
   experimental: {
     optimizePackageImports: ['@heroicons/react', 'lucide-react'],
-    // Faster refresh and compilation
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  },
+  // Use Turbopack for faster builds
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
-  // Faster development builds
+  // Optimize webpack for production
   webpack: (config, { dev, isServer }) => {
-    if (dev && !isServer) {
-      // Disable bundle analyzer in dev
+    if (!dev && !isServer) {
+      // Production optimizations
       config.optimization = {
         ...config.optimization,
-        splitChunks: false,
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+            },
+          },
+        },
       }
-      // Faster source maps
-      config.devtool = 'eval-cheap-module-source-map'
     }
     return config
   },
@@ -40,9 +46,11 @@ const nextConfig = {
     // Skip type checking during development for faster builds
     ignoreBuildErrors: process.env.NODE_ENV === 'development',
   },
-  // Faster page loads
+  // Production optimizations
   compress: true,
   poweredByHeader: false,
+  // Reduce bundle size
+  output: 'standalone',
 }
 
 module.exports = nextConfig 
