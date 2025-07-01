@@ -1,4 +1,7 @@
 import Stripe from 'stripe';
+import pino from 'pino';
+
+const logger = pino();
 
 // Server-side Stripe initialization
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
@@ -31,7 +34,8 @@ export async function createCheckoutSession(
   }
   
   try {
-    console.log('Creating checkout session with params:', {
+    logger.info({
+      msg: 'Creating checkout session with params',
       packageType,
       priceId,
       customerEmail,
@@ -58,7 +62,8 @@ export async function createCheckoutSession(
       },
     });
 
-    console.log('Stripe session created successfully:', {
+    logger.info({
+      msg: 'Stripe session created successfully',
       id: session.id,
       url: session.url,
       status: session.status
@@ -70,11 +75,15 @@ export async function createCheckoutSession(
 
     return session;
   } catch (error) {
-    console.error('Stripe checkout session creation error:', error);
+    logger.error({
+      msg: 'Stripe checkout session creation error',
+      error
+    });
     
     // Log more details about the error
     if (error instanceof Error) {
-      console.error('Error details:', {
+      logger.error({
+        msg: 'Error details',
         message: error.message,
         stack: error.stack,
         name: error.name
@@ -92,7 +101,8 @@ export async function sendKickoffEmail(sessionId: string) {
     
     // TODO: Integrate with email service (SendGrid, Mailgun, etc.)
     // For now, log the email details
-    console.log('Kickoff email should be sent to:', {
+    logger.info({
+      msg: 'Kickoff email should be sent to',
       customer_email: session.customer_email,
       package_type: session.metadata?.package_type,
       customer_name: session.metadata?.customer_name,
@@ -117,9 +127,15 @@ export async function sendKickoffEmail(sessionId: string) {
         });
 
         const deliverableResult = await deliverableResponse.json();
-        console.log('Deliverable delivery result:', deliverableResult);
+        logger.info({
+          msg: 'Deliverable delivery result',
+          deliverableResult
+        });
       } catch (error) {
-        console.error('Error triggering deliverable delivery:', error);
+        logger.error({
+          msg: 'Error triggering deliverable delivery',
+          error
+        });
       }
     }
     
@@ -129,7 +145,10 @@ export async function sendKickoffEmail(sessionId: string) {
       package_type: session.metadata?.package_type
     };
   } catch (error) {
-    console.error('Error sending kickoff email:', error);
+    logger.error({
+      msg: 'Error sending kickoff email',
+      error
+    });
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'
@@ -158,7 +177,10 @@ export async function createConnectedAccount(businessName: string, email: string
 
     return account;
   } catch (error) {
-    console.error('Error creating connected account:', error);
+    logger.error({
+      msg: 'Error creating connected account',
+      error
+    });
     throw new Error(`Failed to create connected account: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
@@ -175,7 +197,10 @@ export async function createAccountLink(accountId: string, returnUrl: string) {
 
     return accountLink;
   } catch (error) {
-    console.error('Error creating account link:', error);
+    logger.error({
+      msg: 'Error creating account link',
+      error
+    });
     throw new Error(`Failed to create account link: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
