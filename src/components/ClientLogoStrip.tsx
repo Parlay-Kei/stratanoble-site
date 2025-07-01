@@ -23,7 +23,7 @@ export function ClientLogoStrip({
   ];
 
   return (
-    <section className="py-12 bg-slate-50 dark:bg-slate-900">
+    <section className="pt-8 pb-12 bg-slate-50 dark:bg-slate-900">
       <h2 className="text-center font-semibold text-lg tracking-wide text-slate-600 dark:text-slate-300">
         {title}
       </h2>
