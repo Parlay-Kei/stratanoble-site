@@ -1,5 +1,5 @@
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
 
 export default function AboutPage() {
   return (
@@ -11,13 +11,11 @@ export default function AboutPage() {
             <h1 className="text-4xl font-bold tracking-tight text-navy-900 sm:text-6xl">
               About Us
             </h1>
-            <p className="mt-6 text-lg leading-8 text-navy-600">
-              Content coming soon...
-            </p>
+            <p className="mt-6 text-lg leading-8 text-navy-600">Content coming soon...</p>
           </div>
         </div>
       </div>
       <Footer />
     </main>
-  )
-} 
+  );
+}

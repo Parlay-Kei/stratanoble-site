@@ -9,4 +9,4 @@ const useScrollToSection = (id: string) => {
   }, [id]);
 };
 
-export default useScrollToSection; 
+export default useScrollToSection;

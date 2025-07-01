@@ -1,68 +1,174 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { ArrowRightIcon, CalendarIcon, SparklesIcon } from '@heroicons/react/24/outline'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRightIcon } from '@heroicons/react/24/outline'
+import { useCTATracking } from '@/lib/useAnalytics'
+import { ClientLogoStrip } from './ClientLogoStrip'
+
+// A/B Test variations for CTA buttons
+const CTA_VARIANTS = {
+  primary: [
+    { text: 'Start Workshop', icon: CalendarIcon, href: '/contact?type=workshop' },
+    { text: 'Begin Your Journey', icon: SparklesIcon, href: '/contact?type=workshop' },
+    { text: 'Launch Your Business', icon: CalendarIcon, href: '/contact?type=workshop' },
+  ],
+  secondary: [
+    { text: 'Book Consult', icon: ArrowRightIcon, href: '/contact?type=consult' },
+    { text: 'Get Expert Advice', icon: ArrowRightIcon, href: '/contact?type=consult' },
+    { text: 'Free Strategy Call', icon: ArrowRightIcon, href: '/contact?type=consult' },
+  ]
+}
 
 export function HeroSection() {
+  const [ctaVariant, setCtaVariant] = useState(0)
+  const { trackClick, trackVariantShown } = useCTATracking()
+
+  // A/B Test: Rotate CTA variants for different users
+  useEffect(() => {
+    const userVariant = Math.floor(Math.random() * CTA_VARIANTS.primary.length)
+    setCtaVariant(userVariant)
+    
+    // Track CTA variant for analytics
+    trackVariantShown(userVariant, 'hero')
+  }, [trackVariantShown])
+
+  const primaryCTA = CTA_VARIANTS.primary[ctaVariant]
+  const secondaryCTA = CTA_VARIANTS.secondary[ctaVariant]
+
+  const handleCTAClick = (type: 'primary' | 'secondary') => {
+    // Track CTA clicks for A/B testing
+    trackClick(type, ctaVariant, 'hero')
+  }
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-navy-50 to-silver-50 py-24 sm:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          {/* Tagline Banner */}
-          <div className="mb-8 inline-flex items-center rounded-full bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
-            <span className="mr-2">✨</span>
+          {/* Enhanced Tagline Banner */}
+          <motion.div 
+            className="mb-8 inline-flex items-center rounded-full bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <SparklesIcon className="mr-2 h-4 w-4" />
             Passion to Prosperity
-            <span className="ml-2">✨</span>
-          </div>
+            <SparklesIcon className="ml-2 h-4 w-4" />
+          </motion.div>
 
-          {/* Main Headline */}
-          <h1 className="text-4xl font-bold tracking-tight text-navy-900 sm:text-6xl lg:text-7xl">
+          {/* Enhanced Main Headline */}
+          <motion.h1 
+            className="text-4xl font-bold tracking-tight text-navy-900 sm:text-6xl lg:text-7xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
             Transform Your{' '}
             <span className="gradient-text">Passion</span>
             <br />
             Into{' '}
             <span className="gradient-text">Profit</span>
-          </h1>
+          </motion.h1>
 
-          {/* Sub-headline */}
-          <p className="mt-6 text-lg leading-8 text-navy-600 sm:text-xl">
-            Expert guidance to turn your vision into a thriving business. 
-            From idea to execution, we provide the strategy, tools, and support 
-            you need to build sustainable success.
-          </p>
+          {/* Refined Sub-headline - One sentence value proposition */}
+          <motion.p 
+            className="mt-6 text-lg leading-8 text-navy-600 sm:text-xl max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            We turn your passion into a profitable business through proven strategies, 
+            expert guidance, and systematic execution—because your vision deserves to thrive.
+          </motion.p>
 
-          {/* CTA Buttons */}
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              href="/contact"
-              className="btn-primary btn-lg group"
+          {/* Enhanced Dual-State CTA Buttons with Micro-interactions */}
+          <motion.div 
+            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            {/* Primary CTA - Workshop */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Start Your Journey
-              <ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/services"
-              className="btn-outline btn-lg"
-            >
-              Explore Services
-            </Link>
-          </div>
+              <Link
+                href={primaryCTA.href}
+                className="btn-primary btn-lg group w-full sm:w-auto shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+                onClick={() => handleCTAClick('primary')}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative flex items-center">
+                  <primaryCTA.icon className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+                  {primaryCTA.text}
+                  <ArrowRightIcon className="ml-2 h-5 w-5 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110" />
+                </div>
+              </Link>
+            </motion.div>
 
-          {/* Trust Indicators */}
-          <div className="mt-16 flex items-center justify-center gap-x-8 text-sm text-navy-500">
-            <div className="flex items-center gap-x-2">
+            {/* Secondary CTA - Consult */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link
+                href={secondaryCTA.href}
+                className="btn-outline btn-lg group w-full sm:w-auto border-2 hover:border-emerald-600 hover:bg-emerald-50 transition-all duration-300 relative overflow-hidden"
+                onClick={() => handleCTAClick('secondary')}
+              >
+                <div className="absolute inset-0 bg-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative flex items-center">
+                  <secondaryCTA.icon className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+                  {secondaryCTA.text}
+                  <ArrowRightIcon className="ml-2 h-5 w-5 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110" />
+                </div>
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Enhanced Trust Indicators */}
+          <motion.div 
+            className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-navy-500"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <motion.div 
+              className="flex items-center gap-x-2"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
               <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
               <span>Proven Strategies</span>
-            </div>
-            <div className="flex items-center gap-x-2">
+            </motion.div>
+            <motion.div 
+              className="flex items-center gap-x-2"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
               <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
               <span>Expert Guidance</span>
-            </div>
-            <div className="flex items-center gap-x-2">
+            </motion.div>
+            <motion.div 
+              className="flex items-center gap-x-2"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
               <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
               <span>Results-Driven</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
+
+      {/* Enhanced Client Logo Strip */}
+      <ClientLogoStrip 
+        title="Trusted by innovative companies"
+        subtitle="Join hundreds of successful entrepreneurs who've transformed their businesses"
+      />
 
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">

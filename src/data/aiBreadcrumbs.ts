@@ -25,4 +25,4 @@ export const aiBreadcrumbs = [
     insight: 'Learn how to use ChatGPT to brainstorm, build, and grow smarter.',
     link: '/workshops/build-with-chatgpt',
   },
-]; 
+];

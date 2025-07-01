@@ -26,9 +26,9 @@ export function MissionSection() {
                   <h3 className="text-2xl font-bold text-navy-900">Our Mission</h3>
                 </div>
                 <p className="text-lg leading-relaxed text-navy-700 mb-6">
-                  To empower passionate entrepreneurs with the strategic framework, 
-                  operational excellence, and technological tools needed to transform 
-                  their vision into sustainable, profitable businesses.
+                  To empower passionate entrepreneurs with the strategic framework, operational
+                  excellence, and technological tools needed to transform their vision into
+                  sustainable, profitable businesses.
                 </p>
                 <ul className="space-y-3 text-navy-600">
                   <li className="flex items-start gap-3">
@@ -45,7 +45,7 @@ export function MissionSection() {
                   </li>
                 </ul>
               </div>
-        </div>
+            </div>
 
             {/* Vision */}
             <div className="relative">
@@ -58,9 +58,9 @@ export function MissionSection() {
                   <h3 className="text-2xl font-bold text-navy-900">Our Vision</h3>
                 </div>
                 <p className="text-lg leading-relaxed text-navy-700 mb-6">
-                  To be the leading catalyst for entrepreneurial success, creating a world 
-                  where every passionate individual has the knowledge, tools, and support 
-                  to build thriving businesses that make a positive impact.
+                  To be the leading catalyst for entrepreneurial success, creating a world where
+                  every passionate individual has the knowledge, tools, and support to build
+                  thriving businesses that make a positive impact.
                 </p>
                 <ul className="space-y-3 text-navy-600">
                   <li className="flex items-start gap-3">
@@ -82,9 +82,7 @@ export function MissionSection() {
 
           {/* Values */}
           <div className="mt-20">
-            <h3 className="text-2xl font-bold text-center text-navy-900 mb-12">
-              Our Core Values
-                </h3>
+            <h3 className="text-2xl font-bold text-center text-navy-900 mb-12">Our Core Values</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -98,19 +96,23 @@ export function MissionSection() {
                   <span className="text-2xl">🤝</span>
                 </div>
                 <h4 className="text-lg font-semibold text-navy-900 mb-2">Partnership</h4>
-                <p className="text-navy-600">Building lasting relationships based on trust and results</p>
+                <p className="text-navy-600">
+                  Building lasting relationships based on trust and results
+                </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-silver-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">📈</span>
                 </div>
                 <h4 className="text-lg font-semibold text-navy-900 mb-2">Excellence</h4>
-                <p className="text-navy-600">Delivering exceptional value and measurable outcomes</p>
+                <p className="text-navy-600">
+                  Delivering exceptional value and measurable outcomes
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

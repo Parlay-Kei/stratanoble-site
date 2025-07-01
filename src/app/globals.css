@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global TypeScript declarations for analytics */
+declare global {
+  interface Window {
+    gtag?: (
+      command: 'event',
+      eventName: string,
+      parameters: Record<string, any>
+    ) => void;
+  }
+}
+
 @layer base {
   body {
     @apply bg-white text-navy-900;
@@ -71,4 +82,23 @@
   .glass-effect {
     @apply backdrop-blur-sm bg-white/10 border border-white/20;
   }
-} 
+
+  /* Client logo scroll animation */
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Pause animation on hover */
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+}

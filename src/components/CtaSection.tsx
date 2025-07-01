@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { ArrowRightIcon } from '@heroicons/react/24/outline'
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 export function CtaSection() {
   return (
@@ -8,20 +8,18 @@ export function CtaSection() {
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0 bg-white/5"></div>
       </div>
-      
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="mx-auto max-w-4xl text-center">
           {/* Main CTA Content */}
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl mb-6">
-            Ready to Turn Your{' '}
-            <span className="text-emerald-200">Passion</span>
-            {' '}Into{' '}
+            Ready to Turn Your <span className="text-emerald-200">Passion</span> Into{' '}
             <span className="text-emerald-200">Profit</span>?
           </h2>
-          
+
           <p className="text-xl leading-8 text-navy-100 mb-10 max-w-2xl mx-auto">
-            Join hundreds of entrepreneurs who have transformed their ideas into 
-            thriving businesses with our proven strategies and expert guidance.
+            Join hundreds of entrepreneurs who have transformed their ideas into thriving businesses
+            with our proven strategies and expert guidance.
           </p>
 
           {/* CTA Buttons */}
@@ -74,5 +72,5 @@ export function CtaSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
