@@ -1,3 +1,17 @@
+# Dev Log – Linting, Logging, and Code Quality Improvements (July 1, 2025)
+
+## 🧹 Linting & Code Quality
+- Removed all `console.log` and `console.error` statements from API routes and React components to comply with the `no-console` ESLint rule.
+- Fixed all `react/no-unescaped-entities` warnings by escaping single quotes in JSX text nodes.
+- Improved code clarity by removing unused variables and ensuring all files pass linting with no errors or warnings.
+
+## 📋 ESLint Ignore Updates
+- Added `.eslintrc.js`, `create-stripe-prices.js`, and `test-checkout.js` to `.eslintignore` to avoid TypeScript parser errors on non-project files.
+
+## 📑 Logger Integration
+- Replaced all `console` statements in `src/lib/stripe-server.ts` with the `pino` logger for production-safe, structured logging.
+- Added `pino` as a project dependency for robust server-side logging.
+
 # Dev Log – Recent Activity (June 30 - July 1, 2025)
 
 ## Summary

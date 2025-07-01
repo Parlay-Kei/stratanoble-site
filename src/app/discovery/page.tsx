@@ -19,22 +19,19 @@ export default function DiscoveryPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Send email to user and alert admin
+    await fetch('/api/email/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    // Redirect to scheduling or checkout based on tier
     if (formData.interestedTier === 'none') {
-      // Store the discovery session data (could be sent to an API endpoint)
-      console.log('Discovery session booked:', formData);
-      alert('Thanks for booking! We will follow up shortly.');
-      // Could redirect to a thank you page or send an email
+      router.push('/schedule'); // calendar page for free discovery
     } else {
-      // Redirect to checkout with the selected tier and customer info
-      const params = new URLSearchParams({
-        tier: formData.interestedTier,
-        name: formData.name,
-        email: formData.email,
-        businessStage: formData.businessStage,
-        challenge: formData.mainChallenge
-      });
-      router.push(`/checkout?${params.toString()}`);
+      router.push(`/checkout?tier=${formData.interestedTier}`);
     }
   };
 

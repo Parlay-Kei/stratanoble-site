@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       message: 'Merchant onboarding initiated successfully'
     });
   } catch (error) {
-    console.error('Stripe Connect onboarding error:', error);
+    // console.error('Stripe Connect onboarding error:', error);
     return NextResponse.json(
       { error: 'Failed to initiate merchant onboarding' },
       { status: 500 }
@@ -107,7 +107,7 @@ export async function GET(request: NextRequest) {
       businessProfile: account.business_profile,
     });
   } catch (error) {
-    console.error('Stripe Connect account retrieval error:', error);
+    // console.error('Stripe Connect account retrieval error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve account details' },
       { status: 500 }

@@ -108,8 +108,7 @@ function InquiryForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Inquiry submitted:', formData);
+    // console.log('Inquiry submitted:', formData);
   };
 
   return (

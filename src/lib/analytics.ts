@@ -72,9 +72,8 @@ export function initAnalytics(): void {
       document.head.appendChild(script);
       
       // Initialize plausible function
-      window.plausible = function(eventName: string, options?: PlausibleOptions) {
-        // This will be replaced by the Plausible script
-        console.log('Plausible event:', eventName, options);
+      window.plausible = function(_eventName: string, _options?: PlausibleOptions) {
+        // console.log('Plausible event:', _eventName, _options);
       };
     }
   }
@@ -96,7 +95,7 @@ export function trackEvent(event: AnalyticsEvent): void {
     
     // Also log to console in development
     if (process.env.NODE_ENV === 'development') {
-      console.log('📊 Analytics Event:', event.name, props);
+      // console.log('📊 Analytics Event:', event.name, props);
     }
   }
 }

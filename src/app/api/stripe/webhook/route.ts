@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     const signature = headersList.get('stripe-signature');
 
     if (!signature || !webhookSecret) {
-      console.error('Missing webhook signature or secret');
+      // console.error('Missing webhook signature or secret');
       return NextResponse.json(
         { error: 'Webhook signature verification failed' },
         { status: 400 }
@@ -23,14 +23,14 @@ export async function POST(request: NextRequest) {
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
     } catch (err) {
-      console.error('Webhook signature verification failed:', err);
+      // console.error('Webhook signature verification failed:', err);
       return NextResponse.json(
         { error: 'Webhook signature verification failed' },
         { status: 400 }
       );
     }
 
-    console.log(`📦 Received webhook event: ${event.type}`);
+    // console.log(`📦 Received webhook event: ${event.type}`);
 
     // Handle the event
     switch (event.type) {
@@ -51,12 +51,12 @@ export async function POST(request: NextRequest) {
         break;
       
       default:
-        console.log(`Unhandled event type: ${event.type}`);
+        // console.log(`Unhandled event type: ${event.type}`);
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error('Webhook error:', error);
+    // console.error('Webhook error:', error);
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 }
@@ -65,11 +65,11 @@ export async function POST(request: NextRequest) {
 }
 
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
-  console.log('✅ Checkout session completed:', session.id);
-  console.log('   Customer Email:', session.customer_email);
-  console.log('   Amount:', `$${((session.amount_total || 0) / 100).toFixed(2)}`);
-  console.log('   Payment Status:', session.payment_status);
-  console.log('   Metadata:', session.metadata);
+  // console.log('✅ Checkout session completed:', session.id);
+  // console.log('   Customer Email:', session.customer_email);
+  // console.log('   Amount:', `$${((session.amount_total || 0) / 100).toFixed(2)}`);
+  // console.log('   Payment Status:', session.payment_status);
+  // console.log('   Metadata:', session.metadata);
   
   // Update order status in your system
   // TODO: Integrate with your database/order management system
@@ -87,37 +87,37 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       });
 
       if (response.ok) {
-        console.log('✅ Kickoff email sent successfully');
+        // console.log('✅ Kickoff email sent successfully');
       } else {
-        console.error('❌ Failed to send kickoff email');
+        // console.error('❌ Failed to send kickoff email');
       }
     } catch (error) {
-      console.error('❌ Error sending kickoff email:', error);
+      // console.error('❌ Error sending kickoff email:', error);
     }
   }
 }
 
 async function handleAccountUpdated(account: Stripe.Account) {
-  console.log('🔄 Account updated:', account.id);
-  console.log('   Charges Enabled:', account.charges_enabled);
-  console.log('   Payouts Enabled:', account.payouts_enabled);
-  console.log('   Details Submitted:', account.details_submitted);
+  // console.log('🔄 Account updated:', account.id);
+  // console.log('   Charges Enabled:', account.charges_enabled);
+  // console.log('   Payouts Enabled:', account.payouts_enabled);
+  // console.log('   Details Submitted:', account.details_submitted);
   
   // Update merchant account status in your system
   // TODO: Integrate with your database to update merchant status
   
   if (account.charges_enabled && account.payouts_enabled) {
-    console.log('✅ Merchant account fully activated:', account.id);
+    // console.log('✅ Merchant account fully activated:', account.id);
     // Trigger merchant onboarding completion workflow
     // TODO: Send welcome email, grant access, etc.
   }
 }
 
 async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent) {
-  console.log('✅ Payment intent succeeded:', paymentIntent.id);
-  console.log('   Amount:', `$${(paymentIntent.amount / 100).toFixed(2)}`);
-  console.log('   Currency:', paymentIntent.currency);
-  console.log('   Customer Email:', paymentIntent.receipt_email);
+  // console.log('✅ Payment intent succeeded:', paymentIntent.id);
+  // console.log('   Amount:', `$${(paymentIntent.amount / 100).toFixed(2)}`);
+  // console.log('   Currency:', paymentIntent.currency);
+  // console.log('   Customer Email:', paymentIntent.receipt_email);
   
   // Update payment status in your system
   // TODO: Integrate with your database to update payment status
@@ -140,25 +140,25 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
       });
 
       if (response.ok) {
-        console.log('✅ Deliverable delivery triggered successfully');
+        // console.log('✅ Deliverable delivery triggered successfully');
       } else {
-        console.error('❌ Failed to trigger deliverable delivery');
+        // console.error('❌ Failed to trigger deliverable delivery');
       }
     } catch (error) {
-      console.error('❌ Error triggering deliverable delivery:', error);
+      // console.error('❌ Error triggering deliverable delivery:', error);
     }
   }
 }
 
-async function handlePaymentIntentFailed(paymentIntent: Stripe.PaymentIntent) {
-  console.log('❌ Payment intent failed:', paymentIntent.id);
-  console.log('   Last Payment Error:', paymentIntent.last_payment_error?.message);
-  console.log('   Customer Email:', paymentIntent.receipt_email);
+async function handlePaymentIntentFailed(_paymentIntent: Stripe.PaymentIntent) {
+  // console.log('❌ Payment intent failed:', paymentIntent.id);
+  // console.log('   Last Payment Error:', paymentIntent.last_payment_error?.message);
+  // console.log('   Customer Email:', paymentIntent.receipt_email);
   
   // Update payment status in your system
   // TODO: Integrate with your database to update payment status
   
   // Send failure notification
   // TODO: Implement failure notification system
-  console.log('📧 Should send payment failure notification to customer');
+  // console.log('📧 Should send payment failure notification to customer');
 }

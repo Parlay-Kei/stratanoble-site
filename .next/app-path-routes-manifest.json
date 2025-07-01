@@ -1,0 +1,21 @@
+{
+  "/api/deliverables/deliver/route": "/api/deliverables/deliver",
+  "/api/email/send/route": "/api/email/send",
+  "/api/stripe/checkout/route": "/api/stripe/checkout",
+  "/api/stripe/connect/onboard/route": "/api/stripe/connect/onboard",
+  "/api/stripe/kickoff-email/route": "/api/stripe/kickoff-email",
+  "/api/stripe/webhook/route": "/api/stripe/webhook",
+  "/api/contact/route": "/api/contact",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/case-studies/page": "/case-studies",
+  "/contact/page": "/contact",
+  "/checkout/page": "/checkout",
+  "/data-analysis/page": "/data-analysis",
+  "/page": "/",
+  "/discovery/page": "/discovery",
+  "/services/page": "/services",
+  "/success/page": "/success",
+  "/workshops/page": "/workshops",
+  "/schedule/page": "/schedule"
+}

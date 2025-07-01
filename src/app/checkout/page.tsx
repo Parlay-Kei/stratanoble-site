@@ -68,7 +68,7 @@ function CheckoutContent() {
         throw new Error(data.error || 'Failed to create checkout session');
       }
     } catch (error) {
-      console.error('Checkout error:', error);
+      // console.error('Checkout error:', error);
       alert('There was an error processing your request. Please try again.');
     } finally {
       setIsLoading(false);
@@ -121,7 +121,7 @@ function CheckoutContent() {
 
           {/* What's Included */}
           <div className="mb-6">
-            <h3 className="font-semibold mb-3 text-gray-900">What's Included:</h3>
+            <h3 className="font-semibold mb-3 text-gray-900">What&#39;s Included:</h3>
             <ul className="space-y-2 text-gray-700">
               <li className="flex items-center">
                 <span className="text-emerald-500 mr-2">✓</span>

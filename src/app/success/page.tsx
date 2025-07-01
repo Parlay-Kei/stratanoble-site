@@ -29,8 +29,8 @@ function SuccessContent() {
             setEmailSent(true);
           }
         })
-        .catch((error) => {
-          console.error('Error sending kickoff email:', error);
+        .catch((_error) => {
+          // console.error('Error sending kickoff email:', _error);
         })
         .finally(() => {
           setIsLoading(false);

@@ -4,13 +4,13 @@ import { loadStripe } from '@stripe/stripe-js';
 const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
 if (!stripePublishableKey) {
-  console.warn('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is missing');
+  // console.warn('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is missing');
 }
 
 // Load Stripe.js for client-side
 export const getStripe = () => {
   if (!stripePublishableKey) {
-    console.error('Stripe publishable key is not configured');
+    // console.error('Stripe publishable key is not configured');
     return null;
   }
   return loadStripe(stripePublishableKey);

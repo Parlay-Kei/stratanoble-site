@@ -121,7 +121,7 @@ export async function triggerDeliverableDelivery(
     const deliverable = SOLUTION_SERVICES_DELIVERABLES.find(d => d.id === deliverableId);
     
     if (!deliverable || !deliverable.zapierWebhookUrl) {
-      console.error('Deliverable not found or no webhook URL configured');
+      // console.error('Deliverable not found or no webhook URL configured');
       return false;
     }
 
@@ -145,14 +145,14 @@ export async function triggerDeliverableDelivery(
     });
 
     if (response.ok) {
-      console.log(`Deliverable delivery triggered: ${deliverableId} for ${customerEmail}`);
+      // console.log(`Deliverable delivery triggered: ${deliverableId} for ${customerEmail}`);
       return true;
     } else {
-      console.error(`Failed to trigger deliverable delivery: ${deliverableId}`);
+      // console.error(`Failed to trigger deliverable delivery: ${deliverableId}`);
       return false;
     }
   } catch (error) {
-    console.error('Error triggering deliverable delivery:', error);
+    // console.error('Error triggering deliverable delivery:', error);
     return false;
   }
 }

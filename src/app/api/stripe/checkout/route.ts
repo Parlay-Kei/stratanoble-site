@@ -38,16 +38,8 @@ export async function POST(request: NextRequest) {
       customerName
     );
 
-    console.log('Checkout session created successfully:', {
-      sessionId: session.id,
-      url: session.url,
-      packageType,
-      customerEmail
-    });
-
     return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (error) {
-    console.error('Stripe checkout error:', error);
     return NextResponse.json(
       { error: 'Failed to create checkout session' },
       { status: 500 }
