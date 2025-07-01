@@ -7,11 +7,10 @@ interface ClientLogoStripProps {
   subtitle?: string
 }
 
-export function ClientLogoStrip({ 
-  title = "Companies Trust Us",
-  subtitle = "Join a multitude of entrepreneurs who've transformed their business",
+export function ClientLogoStrip({
+  title = "Trusted by innovative companies",
+  subtitle = "Join hundreds of successful entrepreneurs who've transformed their businesses",
 }: ClientLogoStripProps) {
-  // List of company names
   const companies = [
     'Turnerboone',
     'Wolf Creek Golf Course',
@@ -19,27 +18,47 @@ export function ClientLogoStrip({
     'Jeni Ent.',
     'Creative Collective Capital',
     'Johnston NeuroServices',
-    'BEA - Backstage Economic Alliance',
+    'BEA – Backstage Economic Alliance',
   ];
 
   return (
-    <section className="pt-8 pb-8 bg-slate-50 dark:bg-slate-900">
-      <h2 className="text-center font-semibold text-lg tracking-wide text-slate-600 dark:text-slate-300">
-        {title}
-      </h2>
-      <p className="text-center text-sm text-slate-500 dark:text-slate-400 mb-8">
-        {subtitle}
-      </p>
-      <div className="mx-auto grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-5xl px-4">
-        {companies.map((company) => (
-          <div
-            key={company}
-            className="flex items-center justify-center py-3 px-4 border border-slate-200 dark:border-slate-700 rounded-full bg-white/60 dark:bg-slate-800/50 shadow-sm text-center text-xs font-medium tracking-wide uppercase text-slate-700 dark:text-slate-200"
-          >
-            {company}
-          </div>
-        ))}
+    <section id="trusted" className="relative isolate bg-slate-900 text-slate-100">
+      {/* top hair-line */}
+      <span
+        aria-hidden="true"
+        className="absolute -top-px inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-300/30 to-transparent"
+      ></span>
+
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:py-16 lg:py-20 text-center">
+        <h2 className="text-xl font-semibold tracking-tight text-slate-50">
+          {title}
+        </h2>
+        <p className="mt-2 text-sm text-slate-400">
+          {subtitle}
+        </p>
+
+        {/* company “text-logos” */}
+        <ul role="list" className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {companies.slice(0, 6).map((company) => (
+            <li key={company}>
+              <span className="block rounded-full border border-slate-600/60 px-4 py-2 text-xs font-medium uppercase tracking-wide">
+                {company}
+              </span>
+            </li>
+          ))}
+          <li className="sm:col-span-2 lg:col-span-3">
+            <span className="block rounded-full border border-slate-600/60 px-4 py-2 text-xs font-medium uppercase tracking-wide">
+              {companies[6]}
+            </span>
+          </li>
+        </ul>
       </div>
+
+      {/* bottom hair-line */}
+      <span
+        aria-hidden="true"
+        className="absolute -bottom-px inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-300/30 to-transparent"
+      ></span>
     </section>
   )
 } 
