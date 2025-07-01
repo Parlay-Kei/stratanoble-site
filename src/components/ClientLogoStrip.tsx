@@ -10,18 +10,13 @@ interface ClientLogo {
 
 // Enhanced client logos with more variety
 const clientLogos: ClientLogo[] = [
-  { name: 'TechStart Inc', logo: '🚀' },
-  { name: 'InnovateCorp', logo: '💡' },
-  { name: 'GrowthLabs', logo: '📈' },
-  { name: 'FutureWorks', logo: '🌟' },
-  { name: 'ScaleUp Solutions', logo: '⚡' },
-  { name: 'Vision Ventures', logo: '🎯' },
-  { name: 'Digital Dynamics', logo: '🌐' },
-  { name: 'Cloud Catalyst', logo: '☁️' },
-  { name: 'Data Driven', logo: '📊' },
-  { name: 'Smart Solutions', logo: '🧠' },
-  { name: 'Next Gen Tech', logo: '🔮' },
-  { name: 'Elite Enterprises', logo: '🏆' },
+  { name: 'Turnerboone', logo: '' },
+  { name: 'Wolf Creek Golf Course', logo: '' },
+  { name: 'Canam Signs', logo: '' },
+  { name: 'Jeni Ent.', logo: '' },
+  { name: 'Creative Collective Capital', logo: '' },
+  { name: 'Johnston NeuroServices', logo: '' },
+  { name: 'BEA - Backstage Economic Alliance', logo: '' },
 ]
 
 interface ClientLogoStripProps {
@@ -32,8 +27,8 @@ interface ClientLogoStripProps {
 }
 
 export function ClientLogoStrip({ 
-  title = "Trusted by innovative companies",
-  subtitle,
+  title = "Companies Trust Us",
+  subtitle = "Join a multitude of entrepreneurs who've transformed their business",
   className = '',
   variant = 'default'
 }: ClientLogoStripProps) {
@@ -58,7 +53,7 @@ export function ClientLogoStrip({
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
                   <span className="text-xl">{client.logo}</span>
-                  <span className="text-sm font-medium hidden sm:block">{client.name}</span>
+                  <span className="text-sm font-medium">{client.name}</span>
                 </motion.div>
               ))}
             </div>
@@ -84,9 +79,9 @@ export function ClientLogoStrip({
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
                   <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
-                    {client.logo}
+                    {/* No icon */}
                   </span>
-                  <span className="text-sm font-medium hidden sm:block group-hover:font-semibold transition-all duration-300">
+                  <span className="text-sm font-medium group-hover:font-semibold transition-all duration-300">
                     {client.name}
                   </span>
                 </motion.div>
@@ -98,15 +93,15 @@ export function ClientLogoStrip({
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-xs text-navy-500">
             <div className="flex items-center gap-x-2">
               <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-              <span>500+ Projects Completed</span>
+              <span>75+ Projects Completed</span>
             </div>
             <div className="flex items-center gap-x-2">
               <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-              <span>98% Client Satisfaction</span>
+              <span>94% Client Satisfaction</span>
             </div>
             <div className="flex items-center gap-x-2">
               <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-              <span>5+ Years Experience</span>
+              <span>25+ Years Experience</span>
             </div>
           </div>
         </div>
