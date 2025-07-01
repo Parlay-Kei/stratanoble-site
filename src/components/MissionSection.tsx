@@ -1,6 +1,6 @@
 export function MissionSection() {
   return (
-    <section className="py-24 sm:py-32 bg-white">
+    <section className="pt-14 sm:pt-18 lg:pt-20 pb-14 sm:pb-18 lg:pb-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           {/* Section Header */}
