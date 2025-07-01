@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 
 interface ClientLogo {
@@ -32,80 +33,35 @@ export function ClientLogoStrip({
   className = '',
   variant = 'default'
 }: ClientLogoStripProps) {
+  // List of company names
+  const companies = [
+    'Turnerboone',
+    'Wolf Creek Golf Course',
+    'Canam Signs',
+    'Jeni Ent.',
+    'Creative Collective Capital',
+    'Johnston NeuroServices',
+    'BEA - Backstage Economic Alliance',
+  ];
+
   return (
-    <motion.div 
-      className={`py-12 ${className}`}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-    >
-      {variant === 'compact' ? (
-        <div className="text-center">
-          <div className="flex items-center justify-center gap-8 md:gap-12 overflow-hidden">
-            <div className="flex gap-8 md:gap-12 animate-scroll">
-              {[...clientLogos, ...clientLogos].map((client, index) => (
-                <motion.div
-                  key={`${client.name}-${index}`}
-                  className="flex items-center gap-2 text-navy-600 hover:text-emerald-600 transition-colors"
-                  title={client.name}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                >
-                  <span className="text-xl">{client.logo}</span>
-                  <span className="text-sm font-medium">{client.name}</span>
-                </motion.div>
-              ))}
-            </div>
+    <section className="py-12 bg-slate-50 dark:bg-slate-900">
+      <h2 className="text-center font-semibold text-lg tracking-wide text-slate-600 dark:text-slate-300">
+        {title}
+      </h2>
+      <p className="text-center text-sm text-slate-500 dark:text-slate-400 mb-8">
+        {subtitle}
+      </p>
+      <div className="mx-auto grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-5xl px-4">
+        {companies.map((company) => (
+          <div
+            key={company}
+            className="flex items-center justify-center py-3 px-4 border border-slate-200 dark:border-slate-700 rounded-full bg-white/60 dark:bg-slate-800/50 shadow-sm text-center text-xs font-medium tracking-wide uppercase"
+          >
+            {company}
           </div>
-        </div>
-      ) : (
-        <div className="border-t border-silver-200 pt-12">
-          <div className="text-center mb-8">
-            <h3 className="text-sm font-medium text-navy-600 mb-2">{title}</h3>
-            {subtitle && (
-              <p className="text-xs text-navy-500">{subtitle}</p>
-            )}
-          </div>
-          
-          <div className="flex items-center justify-center gap-8 md:gap-12 overflow-hidden">
-            <div className="flex gap-8 md:gap-12 animate-scroll">
-              {[...clientLogos, ...clientLogos].map((client, index) => (
-                <motion.div
-                  key={`${client.name}-${index}`}
-                  className="flex items-center gap-2 text-navy-600 hover:text-emerald-600 transition-colors group"
-                  title={client.name}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                >
-                  <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
-                    {/* No icon */}
-                  </span>
-                  <span className="text-sm font-medium group-hover:font-semibold transition-all duration-300">
-                    {client.name}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Trust indicators */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-xs text-navy-500">
-            <div className="flex items-center gap-x-2">
-              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-              <span>75+ Projects Completed</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-              <span>94% Client Satisfaction</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-              <span>25+ Years Experience</span>
-            </div>
-          </div>
-        </div>
-      )}
-    </motion.div>
+        ))}
+      </div>
+    </section>
   )
 } 
