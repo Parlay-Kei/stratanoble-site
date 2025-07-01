@@ -1,37 +1,15 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
-
-interface ClientLogo {
-  name: string
-  logo: string
-  url?: string
-}
-
-// Enhanced client logos with more variety
-const clientLogos: ClientLogo[] = [
-  { name: 'Turnerboone', logo: '' },
-  { name: 'Wolf Creek Golf Course', logo: '' },
-  { name: 'Canam Signs', logo: '' },
-  { name: 'Jeni Ent.', logo: '' },
-  { name: 'Creative Collective Capital', logo: '' },
-  { name: 'Johnston NeuroServices', logo: '' },
-  { name: 'BEA - Backstage Economic Alliance', logo: '' },
-]
 
 interface ClientLogoStripProps {
   title?: string
   subtitle?: string
-  className?: string
-  variant?: 'default' | 'compact'
 }
 
 export function ClientLogoStrip({ 
   title = "Companies Trust Us",
   subtitle = "Join a multitude of entrepreneurs who've transformed their business",
-  className = '',
-  variant = 'default'
 }: ClientLogoStripProps) {
   // List of company names
   const companies = [
