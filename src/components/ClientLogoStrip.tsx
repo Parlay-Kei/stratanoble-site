@@ -34,7 +34,7 @@ export function ClientLogoStrip({
         {companies.map((company) => (
           <div
             key={company}
-            className="flex items-center justify-center py-3 px-4 border border-slate-200 dark:border-slate-700 rounded-full bg-white/60 dark:bg-slate-800/50 shadow-sm text-center text-xs font-medium tracking-wide uppercase"
+            className="flex items-center justify-center py-3 px-4 border border-slate-200 dark:border-slate-700 rounded-full bg-white/60 dark:bg-slate-800/50 shadow-sm text-center text-xs font-medium tracking-wide uppercase text-slate-700 dark:text-slate-200"
           >
             {company}
           </div>
