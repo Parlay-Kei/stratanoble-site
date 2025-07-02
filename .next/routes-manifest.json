@@ -82,10 +82,22 @@
       "namedRegex": "^/success(?:/)?$"
     },
     {
+      "page": "/vault",
+      "regex": "^/vault(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/vault(?:/)?$"
+    },
+    {
       "page": "/workshops",
       "regex": "^/workshops(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/workshops(?:/)?$"
+    },
+    {
+      "page": "/workshops/thank-you",
+      "regex": "^/workshops/thank\\-you(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/workshops/thank\\-you(?:/)?$"
     }
   ],
   "dataRoutes": [],

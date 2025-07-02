@@ -127,7 +127,7 @@ function InfoCard({
   );
 }
 
-const CALENDLY_ENABLED = false;
+const CALENDLY_ENABLED = true;
 
 const initialForm = {
   name: '',
@@ -234,13 +234,21 @@ export default function ContactPage() {
     setSuccess(false);
 
     try {
-      // Simulate API call
-      await new Promise((res) => setTimeout(res, 1000));
+      const response = await fetch('/api/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: 'contact',
+          ...form,
+        }),
+      });
 
-      // Simulate potential network error
-      if (Math.random() < 0.1) {
-        // 10% chance of error for testing
-        throw new Error('Network error');
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message');
       }
 
       setSuccess(true);

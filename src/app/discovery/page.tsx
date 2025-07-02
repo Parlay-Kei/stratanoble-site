@@ -20,18 +20,31 @@ export default function DiscoveryPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Send email to user and alert admin
-    await fetch('/api/email/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+    try {
+      // Send email to user and alert admin
+      const response = await fetch('/api/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'discovery',
+          ...formData,
+        }),
+      });
 
-    // Redirect to scheduling or checkout based on tier
-    if (formData.interestedTier === 'none') {
-      router.push('/schedule'); // calendar page for free discovery
-    } else {
-      router.push(`/checkout?tier=${formData.interestedTier}`);
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      // Redirect to scheduling or checkout based on tier
+      if (formData.interestedTier === 'none') {
+        router.push('/schedule'); // calendar page for free discovery
+      } else {
+        router.push(`/checkout?tier=${formData.interestedTier}`);
+      }
+    } catch (error) {
+      // Log error for debugging (remove in production)
+      // console.error('Form submission error:', error);
+      alert('There was an error submitting your form. Please try again.');
     }
   };
 

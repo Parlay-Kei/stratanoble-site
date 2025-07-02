@@ -278,26 +278,63 @@ export default function DataAnalysisPage() {
             <div>
               <h2 className="text-3xl font-bold text-white mb-6">Sample KPI Dashboard</h2>
               <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-6">
-                <div className="text-center text-[#C0C0C0] text-sm mb-4">
-                  [Dashboard Preview Placeholder]
+                {/* Dashboard Header */}
+                <div className="flex justify-between items-center mb-6">
+                  <div>
+                    <h3 className="text-white font-semibold">Operations Dashboard</h3>
+                    <p className="text-[#C0C0C0] text-sm">Real-time performance metrics</p>
+                  </div>
+                  <div className="text-[#50C878] text-sm">Live Data</div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+
+                {/* Key Metrics Grid */}
+                <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="bg-white/5 rounded-lg p-4">
                     <div className="text-2xl font-bold text-[#50C878]">$45K</div>
                     <div className="text-[#C0C0C0] text-xs">Monthly Savings</div>
+                    <div className="text-[#50C878] text-xs">↑ 12% vs last month</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-4">
                     <div className="text-2xl font-bold text-[#50C878]">87%</div>
                     <div className="text-[#C0C0C0] text-xs">Efficiency Score</div>
+                    <div className="text-[#50C878] text-xs">↑ 5% vs last month</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-4">
                     <div className="text-2xl font-bold text-[#50C878]">2.3hrs</div>
                     <div className="text-[#C0C0C0] text-xs">Avg. Process Time</div>
+                    <div className="text-[#50C878] text-xs">↓ 15% vs last month</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-4">
                     <div className="text-2xl font-bold text-[#50C878]">99.2%</div>
                     <div className="text-[#C0C0C0] text-xs">Accuracy Rate</div>
+                    <div className="text-[#50C878] text-xs">↑ 0.8% vs last month</div>
                   </div>
+                </div>
+
+                {/* Trend Chart Placeholder */}
+                <div className="bg-white/5 rounded-lg p-4 mb-6">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-white text-sm font-medium">Cost Savings Trend</span>
+                    <span className="text-[#C0C0C0] text-xs">Last 6 months</span>
+                  </div>
+                  <div className="h-20 bg-gradient-to-r from-[#50C878]/20 to-[#50C878]/40 rounded flex items-end justify-between px-2">
+                    <div className="w-3 bg-[#50C878] rounded-t" style={{height: '40%'}}></div>
+                    <div className="w-3 bg-[#50C878] rounded-t" style={{height: '55%'}}></div>
+                    <div className="w-3 bg-[#50C878] rounded-t" style={{height: '45%'}}></div>
+                    <div className="w-3 bg-[#50C878] rounded-t" style={{height: '70%'}}></div>
+                    <div className="w-3 bg-[#50C878] rounded-t" style={{height: '65%'}}></div>
+                    <div className="w-3 bg-[#50C878] rounded-t" style={{height: '85%'}}></div>
+                  </div>
+                </div>
+
+                {/* Live Walk-through CTA */}
+                <div className="text-center">
+                  <button className="bg-[#50C878] hover:bg-[#3DB067] transition-colors text-white font-semibold py-3 px-6 rounded-lg mb-3">
+                    Request Live Walk-through
+                  </button>
+                  <p className="text-[#C0C0C0] text-xs">
+                    See this dashboard in action with your data
+                  </p>
                 </div>
               </div>
             </div>
