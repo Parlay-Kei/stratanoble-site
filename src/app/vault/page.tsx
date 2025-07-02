@@ -1,5 +1,6 @@
 'use client';
 export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -316,4 +317,4 @@ export default function VaultPage() {
       <Footer />
     </main>
   );
-} 
+}
