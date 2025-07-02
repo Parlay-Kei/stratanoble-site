@@ -81,6 +81,10 @@ npm run dev
 - `npm run format` - Format code with Prettier
 - `npm run type-check` - Run TypeScript type checking
 
+> **⚠️ WARNING: Do NOT use `next export`!**
+>
+> This project requires dynamic routes and API endpoints (e.g., `/vault`, `/api/*`). Static export is NOT supported and will break dynamic features. Always deploy using `next build` and `next start`, or use a platform (like Vercel/Netlify) that supports dynamic Next.js apps.
+
 ## 📋 Sprint 1 Completion Status
 
 ### ✅ Completed
