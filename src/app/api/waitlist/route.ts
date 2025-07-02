@@ -116,14 +116,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Track analytics event
-    if (typeof window !== 'undefined' && window.gtag) {
-              window.gtag('event', 'waitlist_joined', {
-          event_category: 'workshop',
-          event_label: 'side_hustle_workshop',
-          value: 1,
-        } as Record<string, unknown>);
-    }
+    // Note: Analytics tracking should be done on the client side, not in API routes
+    // The client-side code in WaitlistModal.tsx handles this appropriately
 
     return NextResponse.json({
       success: true,
@@ -144,13 +138,4 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Extend Window interface for analytics
-declare global {
-  interface Window {
-    gtag?: (
-      command: 'event',
-      eventName: string,
-      parameters: Record<string, any>
-    ) => void;
-  }
-} 
+ 

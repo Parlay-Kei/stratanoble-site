@@ -5,6 +5,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useToast } from '@/components/ui/toast';
 
+// Extend Window interface for analytics
+declare global {
+  interface Window {
+    gtag?: (
+      command: 'event',
+      eventName: string,
+      parameters: Record<string, unknown>
+    ) => void;
+  }
+}
+
 interface WaitlistModalProps {
   open: boolean;
   onClose: () => void;
@@ -14,7 +25,7 @@ export default function WaitlistModal({ open, onClose }: WaitlistModalProps) {
   const [formData, setFormData] = useState({ fullName: '', email: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{ fullName?: string; email?: string }>({});
-  const { toast } = useToast();
+  const { showToast } = useToast();
 
   const validateForm = () => {
     const newErrors: { fullName?: string; email?: string } = {};
@@ -50,9 +61,9 @@ export default function WaitlistModal({ open, onClose }: WaitlistModalProps) {
       });
       
       if (response.ok) {
-        toast({
+        showToast({
           title: "You're on the list!",
-          description: "We'll notify you when the next workshop opens for registration.",
+          message: "We'll notify you when the next workshop opens for registration.",
           type: "success",
         });
         
@@ -69,16 +80,16 @@ export default function WaitlistModal({ open, onClose }: WaitlistModalProps) {
         onClose();
       } else {
         const errorData = await response.json();
-        toast({
+        showToast({
           title: "Something went wrong",
-          description: errorData.error || "Please try again later.",
+          message: errorData.error || "Please try again later.",
           type: "error",
         });
       }
     } catch (error) {
-      toast({
+      showToast({
         title: "Connection error",
-        description: "Please check your internet connection and try again.",
+        message: "Please check your internet connection and try again.",
         type: "error",
       });
     } finally {
@@ -181,7 +192,7 @@ export default function WaitlistModal({ open, onClose }: WaitlistModalProps) {
               </form>
 
               <p className="text-xs text-navy-500 text-center mt-4">
-                We'll only use your email to notify you about workshop availability.
+                We&rsquo;ll only use your email to notify you about workshop availability.
               </p>
             </motion.div>
           </div>

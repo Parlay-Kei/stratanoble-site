@@ -53,7 +53,7 @@ export default function WaitlistFallback() {
 
           <div className="mt-8 pt-8 border-t border-silver-200">
             <h3 className="text-lg font-semibold text-navy-900 mb-4">
-              What You'll Learn
+              What You&rsquo;ll Learn
             </h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm text-navy-600">
               <div className="flex items-center space-x-2">
