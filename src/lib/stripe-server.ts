@@ -16,18 +16,21 @@ export const stripe = new Stripe(stripeSecretKey, {
 
 // Create checkout session
 export async function createCheckoutSession(
-  packageType: 'lite' | 'core' | 'premium',
+  packageType: 'lite' | 'core' | 'premium' | 'workshop_standard' | 'presence_standard' | 'analysis_standard',
   customerEmail: string,
   customerName: string
 ) {
   const priceIds = {
     lite: process.env.STRIPE_PRICE_ID_SOLUTION_LITE,
     core: process.env.STRIPE_PRICE_ID_SOLUTION_CORE,
-    premium: process.env.STRIPE_PRICE_ID_SOLUTION_PREMIUM
+    premium: process.env.STRIPE_PRICE_ID_SOLUTION_PREMIUM,
+    workshop_standard: process.env.STRIPE_PRICE_ID_WORKSHOP_STANDARD,
+    presence_standard: process.env.STRIPE_PRICE_ID_PRESENCE_STANDARD,
+    analysis_standard: process.env.STRIPE_PRICE_ID_ANALYSIS_STANDARD
   };
   
   const priceId = priceIds[packageType];
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8080';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
   
   if (!priceId) {
     throw new Error(`Price ID not found for package type: ${packageType}`);
@@ -113,7 +116,7 @@ export async function sendKickoffEmail(sessionId: string) {
     // Trigger deliverable delivery if this is a Solution Services package
     if (session.metadata?.service === 'solution_services' && session.metadata?.package_type) {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8080';
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
         const deliverableResponse = await fetch(`${baseUrl}/api/deliverables/deliver`, {
           method: 'POST',
           headers: {

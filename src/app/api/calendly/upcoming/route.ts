@@ -1,0 +1,3 @@
+function getEventTypeSlugFromUrl(calendlyUrl: string): string | null {
+  // ... existing code ...
+} 
