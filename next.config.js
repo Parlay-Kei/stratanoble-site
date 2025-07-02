@@ -3,6 +3,23 @@ const nextConfig = {
   // Production optimizations
   experimental: {
     optimizePackageImports: ['@heroicons/react', 'lucide-react'],
+    prerender: {
+      entries: [
+        '/',
+        '/about',
+        '/services',
+        '/services/brand-digital',
+        '/case-studies',
+        '/contact',
+        '/success',
+        '/checkout',
+        '/discovery',
+        '/data-analysis',
+        '/schedule',
+        '/workshops',
+        '/workshops/thank-you',
+      ],
+    },
   },
   // Use Turbopack for faster builds
   turbopack: {
