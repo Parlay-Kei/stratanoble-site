@@ -2,7 +2,7 @@
 export const dynamic = "force-dynamic";
 export const dynamicParams = true;
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
@@ -82,7 +82,7 @@ const mockResources: Resource[] = [
   }
 ];
 
-export default function VaultPage() {
+function VaultPageContent() {
   const searchParams = useSearchParams();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const [userEmail, setUserEmail] = useState<string>('');
@@ -316,5 +316,24 @@ export default function VaultPage() {
 
       <Footer />
     </main>
+  );
+}
+
+export default function VaultPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-white">
+        <Header />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+            <p className="text-navy-600">Loading...</p>
+          </div>
+        </div>
+        <Footer />
+      </main>
+    }>
+      <VaultPageContent />
+    </Suspense>
   );
 }
