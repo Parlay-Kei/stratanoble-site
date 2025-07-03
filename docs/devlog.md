@@ -139,3 +139,113 @@ The Stripe checkout integration is now **100% functional** with:
 ## 🏆 **Achievement Summary**
 
 Successfully resolved the critical Stripe checkout issue that was preventing payment processing and implemented a comprehensive discovery page system that enhances lead qualification and user experience. The platform now has a complete, professional payment and discovery flow ready for production deployment.
+
+# Dev Log – Workshop Thank-You Page & Static Export Safeguards (July 2, 2025)
+
+## 🆕 Workshop Thank-You Page
+- Created a new thank-you page for workshop attendees at `/workshops/thank-you`.
+- Modern, branded layout with event details, next steps, and contact info.
+- Uses Tailwind CSS and is ready for dynamic data injection if needed.
+
+## 🚫 Static Export Prevention
+- Updated project documentation and scripts to **prevent accidental use of `next export`**.
+- Added a warning in `package.json` scripts: this project requires dynamic routes and API endpoints, so static export is not supported.
+- Ensured all deployment and build instructions use `next build` and `next start` (or platform runtime) only.
+
+## ⚡ Dynamic Route & API Requirements
+- `/vault` and other pages depend on client-only hooks and dynamic API routes.
+- Confirmed that all API routes (e.g., `/api/vault/verify`) exist and are committed.
+- Clarified in documentation and code comments that static export will break dynamic features.
+
+## 🔄 Deployment & Testing
+- Successfully committed and pushed all changes to the remote repository.
+- Confirmed that `/workshops/thank-you` is accessible after build and deploy.
+- Verified that `/vault` and other dynamic pages function as intended in dynamic runtime environments.
+
+## 📁 Files Updated
+- `src/app/workshops/thank-you/page.tsx` – New thank-you page
+- `package.json` – Warning against static export
+- `docs/devlog.md` – This update
+
+## 🏁 Next Steps
+- Continue to use dynamic deployment (Vercel, Netlify, or `next start`) for all environments.
+- Monitor for accidental static export attempts and educate team on dynamic requirements.
+- Consider adding a README section summarizing these requirements for new contributors.
+
+# Dev Log – Vault Page Prerender Error Fix (July 2, 2025)
+
+## 🔧 **Next.js Prerender Error Resolution**
+
+### **Issue Identified**
+- **Problem**: Build failures caused by Next.js attempting to prerender the `/vault` page during static site generation
+- **Root Cause**: The `/vault` page uses client-side hooks (`useEffect`, `useState`) and expects query parameters (`email` and `token`) that are not available during build time
+- **Error**: `Error occurred prerendering page "/vault"` during `npm run build`
+
+### **Solution Implemented**
+Updated `src/app/vault/page.tsx` with additional export configurations to prevent static generation:
+
+```typescript
+'use client';
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+export const revalidate = 0;
+```
+
+### **Technical Details**
+- **`dynamic = "force-dynamic"`**: Forces Next.js to render the page dynamically on each request
+- **`dynamicParams = true`**: Allows dynamic route parameters to be handled at runtime
+- **`revalidate = 0`**: Disables static regeneration completely
+
+### **Files Modified**
+- `src/app/vault/page.tsx` - Added export configurations to prevent prerendering
+
+### **Code Structure Validation**
+- ✅ Page already had `'use client'` directive
+- ✅ Client-side logic properly wrapped in `useEffect` hooks
+- ✅ Query parameter handling correctly implemented with `useSearchParams`
+- ✅ Authorization logic properly structured for client-side execution
+
+### **Build Status**
+- ✅ **Build Success**: `npm run build` now completes without prerender errors
+- ✅ **Development Server**: Runs successfully on `http://localhost:8080`
+- ✅ **Dynamic Rendering**: Page renders properly with query parameters at runtime
+
+## 🎯 **Impact & Benefits**
+
+### **Production Readiness**
+- Eliminates build failures that were preventing deployment
+- Ensures the vault page works correctly in production environments
+- Maintains security by requiring proper authentication tokens
+
+### **User Experience**
+- Vault page loads correctly for authenticated users with valid tokens
+- Proper "Access Denied" message for unauthorized access attempts
+- Loading states and error handling work as expected
+
+### **Development Workflow**
+- Build process now completes successfully
+- No more prerender errors blocking CI/CD pipelines
+- Development server runs without file system errors
+
+## 📊 **Current Vault Page Features**
+
+### **Authentication Flow**
+1. User receives email with vault access link containing `email` and `token` parameters
+2. Page verifies credentials via `/api/vault/verify` endpoint
+3. Authorized users see resource vault with downloadable materials
+4. Unauthorized users see access denied message with workshop signup link
+
+### **Resource Management**
+- Mock resources displayed with proper categorization
+- Download functionality ready for Supabase integration
+- Category filtering for better user experience
+- Professional UI with branded styling
+
+## 🔄 **Next Steps**
+- ✅ **Prerender Issue**: Resolved - builds complete successfully
+- 🔄 **Production Deployment**: Ready for deployment with dynamic rendering
+- 🔄 **Supabase Integration**: Replace mock resources with actual file storage
+- 🔄 **Email Integration**: Implement automated vault access email sending
+
+## 🏆 **Achievement Summary**
+Successfully resolved the critical Next.js prerender error that was preventing successful builds. The `/vault` page now properly handles dynamic rendering while maintaining all security and functionality requirements. The platform is ready for production deployment with a fully functional resource vault system.
