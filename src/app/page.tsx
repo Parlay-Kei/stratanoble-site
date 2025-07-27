@@ -1,19 +1,22 @@
+import { ClientLogoStrip } from '@/components/ClientLogoStrip';
 import { CtaSection } from '@/components/CtaSection';
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
+import { LazySectionWrapper, LazyServicesSection } from '@/components/LazyComponents';
 import { MissionSection } from '@/components/MissionSection';
-import { ServicesSection } from '@/components/ServicesSection';
 
 export default function HomePage() {
   return (
     <main className="min-h-screen">
-      <Header />
       <HeroSection />
+      <ClientLogoStrip />
       <MissionSection />
-      <ServicesSection />
+      
+      {/* Lazy load services section for better performance */}
+      <LazySectionWrapper>
+        <LazyServicesSection />
+      </LazySectionWrapper>
+      
       <CtaSection />
-      <Footer />
     </main>
   );
 }
