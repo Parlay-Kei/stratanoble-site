@@ -2,13 +2,20 @@
   "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
     "id": 472,
     "files": [
-      "static/chunks/vendors-a7165104df97091f.js"
+      "static/chunks/vendors-9a01d90e343cded5.js"
     ]
   },
   "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
     "id": 9341,
     "files": [
-      "static/chunks/vendors-a7165104df97091f.js"
+      "static/chunks/vendors-9a01d90e343cded5.js"
+    ]
+  },
+  "components\\LazyComponents.tsx -> ./ServicesSection": {
+    "id": 4756,
+    "files": [
+      "static/chunks/vendors-9a01d90e343cded5.js",
+      "static/chunks/756.ce31174bf03525b2.js"
     ]
   }
 }

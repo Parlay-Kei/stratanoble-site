@@ -305,7 +305,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   try {
                     const { initializeRUM } = require('@/lib/rum');
                     initializeRUM();
-                  } catch {
+                  } catch (error) {
                     console.warn('Failed to initialize RUM:', error);
                   }
                 });

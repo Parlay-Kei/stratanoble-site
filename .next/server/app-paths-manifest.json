@@ -5,8 +5,8 @@
   "/api/email/send/route": "app/api/email/send/route.js",
   "/api/stripe/checkout/route": "app/api/stripe/checkout/route.js",
   "/api/stripe/connect/onboard/route": "app/api/stripe/connect/onboard/route.js",
-  "/api/stripe/kickoff-email/route": "app/api/stripe/kickoff-email/route.js",
   "/api/stripe/webhook/route": "app/api/stripe/webhook/route.js",
+  "/api/stripe/kickoff-email/route": "app/api/stripe/kickoff-email/route.js",
   "/api/vault/verify/route": "app/api/vault/verify/route.js",
   "/api/waitlist/route": "app/api/waitlist/route.js",
   "/_not-found/page": "app/_not-found/page.js",
@@ -19,8 +19,8 @@
   "/services/page": "app/services/page.js",
   "/success/page": "app/success/page.js",
   "/workshops/thank-you/page": "app/workshops/thank-you/page.js",
-  "/case-studies/page": "app/case-studies/page.js",
   "/workshops/page": "app/workshops/page.js",
+  "/about/page": "app/about/page.js",
   "/vault/page": "app/vault/page.js",
-  "/about/page": "app/about/page.js"
+  "/case-studies/page": "app/case-studies/page.js"
 }

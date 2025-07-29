@@ -5,8 +5,8 @@
   "/api/email/send/route": "/api/email/send",
   "/api/stripe/checkout/route": "/api/stripe/checkout",
   "/api/stripe/connect/onboard/route": "/api/stripe/connect/onboard",
-  "/api/stripe/kickoff-email/route": "/api/stripe/kickoff-email",
   "/api/stripe/webhook/route": "/api/stripe/webhook",
+  "/api/stripe/kickoff-email/route": "/api/stripe/kickoff-email",
   "/api/vault/verify/route": "/api/vault/verify",
   "/api/waitlist/route": "/api/waitlist",
   "/_not-found/page": "/_not-found",
@@ -19,8 +19,8 @@
   "/services/page": "/services",
   "/success/page": "/success",
   "/workshops/thank-you/page": "/workshops/thank-you",
-  "/case-studies/page": "/case-studies",
   "/workshops/page": "/workshops",
+  "/about/page": "/about",
   "/vault/page": "/vault",
-  "/about/page": "/about"
+  "/case-studies/page": "/case-studies"
 }

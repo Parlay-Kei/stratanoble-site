@@ -29,7 +29,7 @@ export function ServiceCard({
   subtitle, 
   description, 
   icon, 
-  _price, 
+  price: _price, 
   whatYouGet, 
   ctaPrimary,
   ctaSecondary,

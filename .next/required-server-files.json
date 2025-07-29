@@ -102,7 +102,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "C:\\Users\\Aspir\\Mr Hubbard\\Strata Noble",
+    "outputFileTracingRoot": "C:\\dev\\strata-noble",
     "experimental": {
       "nodeMiddleware": false,
       "cacheLife": {
@@ -294,10 +294,10 @@
           "as": "*.js"
         }
       },
-      "root": "C:\\Users\\Aspir\\Mr Hubbard\\Strata Noble"
+      "root": "C:\\dev\\strata-noble"
     }
   },
-  "appDir": "C:\\Users\\Aspir\\Mr Hubbard\\Strata Noble",
+  "appDir": "C:\\dev\\strata-noble",
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",

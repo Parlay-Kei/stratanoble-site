@@ -1,4 +1,4 @@
-// File: C:\Users\Aspir\Mr Hubbard\Strata Noble\src\app\api\stripe\kickoff-email\route.ts
+// File: C:\dev\strata-noble\src\app\api\stripe\kickoff-email\route.ts
 import * as entry from '../../../../../../src/app/api/stripe/kickoff-email/route.js'
 import type { NextRequest } from 'next/server.js'
 

@@ -1,4 +1,4 @@
-// File: C:\Users\Aspir\Mr Hubbard\Strata Noble\src\app\api\waitlist\route.ts
+// File: C:\dev\strata-noble\src\app\api\waitlist\route.ts
 import * as entry from '../../../../../src/app/api/waitlist/route.js'
 import type { NextRequest } from 'next/server.js'
 

@@ -11,7 +11,7 @@ if (!stripeSecretKey) {
 }
 
 export const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: '2025-05-28.basil',
+  apiVersion: '2025-06-30.basil',
 });
 
 // Create checkout session
@@ -77,7 +77,7 @@ export async function createCheckoutSession(
     }
 
     return session;
-  } catch {
+  } catch (error) {
     logger.error({
       msg: 'Stripe checkout session creation error',
       error
@@ -134,7 +134,7 @@ export async function sendKickoffEmail(sessionId: string) {
           msg: 'Deliverable delivery result',
           deliverableResult
         });
-      } catch {
+      } catch (error) {
         logger.error({
           msg: 'Error triggering deliverable delivery',
           error
@@ -147,7 +147,7 @@ export async function sendKickoffEmail(sessionId: string) {
       customer_email: session.customer_email,
       package_type: session.metadata?.package_type
     };
-  } catch {
+  } catch (error) {
     logger.error({
       msg: 'Error sending kickoff email',
       error
@@ -179,7 +179,7 @@ export async function createConnectedAccount(businessName: string, email: string
     });
 
     return account;
-  } catch {
+  } catch (error) {
     logger.error({
       msg: 'Error creating connected account',
       error
@@ -199,7 +199,7 @@ export async function createAccountLink(accountId: string, returnUrl: string) {
     });
 
     return accountLink;
-  } catch {
+  } catch (error) {
     logger.error({
       msg: 'Error creating account link',
       error

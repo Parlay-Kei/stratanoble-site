@@ -1,4 +1,4 @@
-// File: C:\Users\Aspir\Mr Hubbard\Strata Noble\src\app\api\vault\verify\route.ts
+// File: C:\dev\strata-noble\src\app\api\vault\verify\route.ts
 import * as entry from '../../../../../../src/app/api/vault/verify/route.js'
 import type { NextRequest } from 'next/server.js'
 

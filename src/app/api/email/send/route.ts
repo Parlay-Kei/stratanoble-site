@@ -252,7 +252,7 @@ export async function POST(request: NextRequest) {
       }
     });
 
-      } catch {
+      } catch (error) {
       // Log error for debugging (remove in production)
       // console.error('Error processing email submission:', error);
       
