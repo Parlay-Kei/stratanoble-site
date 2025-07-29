@@ -53,4 +53,4 @@ const nextConfig = {
   output: 'standalone',
 }
 
-module.exports = nextConfig 
+export default nextConfig 
