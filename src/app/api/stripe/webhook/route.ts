@@ -22,8 +22,8 @@ export async function POST(request: NextRequest) {
     let event;
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-    } catch (err) {
-      // console.error('Webhook signature verification failed:', err);
+    } catch {
+      // console.error('Webhook signature verification failed:', _err);
       return NextResponse.json(
         { error: 'Webhook signature verification failed' },
         { status: 400 }
@@ -55,8 +55,8 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ received: true });
-  } catch (error) {
-    // console.error('Webhook error:', error);
+  } catch {
+    // console.error('Webhook error:', _error);
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 }
@@ -91,8 +91,8 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       } else {
         // console.error('❌ Failed to send kickoff email');
       }
-    } catch (error) {
-      // console.error('❌ Error sending kickoff email:', error);
+    } catch {
+      // console.error('❌ Error sending kickoff email:', _error);
     }
   }
 }
@@ -144,8 +144,8 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
       } else {
         // console.error('❌ Failed to trigger deliverable delivery');
       }
-    } catch (error) {
-      // console.error('❌ Error triggering deliverable delivery:', error);
+    } catch {
+      // console.error('❌ Error triggering deliverable delivery:', _error);
     }
   }
 }

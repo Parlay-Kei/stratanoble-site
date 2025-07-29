@@ -110,8 +110,8 @@ export async function POST(request: NextRequest) {
           // Mailchimp API error: mailchimpResponse.status
           // Don't fail the request if Mailchimp fails
         }
-      } catch (mailchimpError) {
-        // Mailchimp integration error: mailchimpError
+      } catch {
+        // Mailchimp integration error
         // Don't fail the request if Mailchimp fails
       }
     }
@@ -129,8 +129,8 @@ export async function POST(request: NextRequest) {
       }
     });
 
-  } catch (error) {
-    // Waitlist API error: error
+  } catch {
+    // Waitlist API error
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

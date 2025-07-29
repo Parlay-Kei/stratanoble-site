@@ -68,8 +68,8 @@ export async function POST(request: NextRequest) {
       accountLinkUrl: accountLink.url,
       message: 'Merchant onboarding initiated successfully'
     });
-  } catch (error) {
-    // console.error('Stripe Connect onboarding error:', error);
+  } catch {
+    // console.error('Stripe Connect onboarding error:', _error);
     return NextResponse.json(
       { error: 'Failed to initiate merchant onboarding' },
       { status: 500 }
@@ -106,8 +106,8 @@ export async function GET(request: NextRequest) {
       kycStatus,
       businessProfile: account.business_profile,
     });
-  } catch (error) {
-    // console.error('Stripe Connect account retrieval error:', error);
+  } catch {
+    // console.error('Stripe Connect account retrieval error:', _error);
     return NextResponse.json(
       { error: 'Failed to retrieve account details' },
       { status: 500 }

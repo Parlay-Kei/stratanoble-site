@@ -260,8 +260,8 @@ export default function ContactPage() {
         title: 'Message Sent Successfully!',
         message: "We'll get back to you within one business day.",
       });
-    } catch (error) {
-      // console.error('Form submission error:', error);
+    } catch {
+      // console.error('Form submission error:', _error);
 
       showToast({
         type: 'error',

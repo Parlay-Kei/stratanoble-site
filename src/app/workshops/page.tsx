@@ -25,8 +25,8 @@ async function getUpcomingEvents() {
     
     const data = await response.json();
     return data.events || [];
-  } catch (error) {
-    // Error fetching upcoming events: error
+  } catch {
+    // Error fetching upcoming events
     return [];
   }
 }

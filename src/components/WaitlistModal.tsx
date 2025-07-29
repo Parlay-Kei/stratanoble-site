@@ -86,7 +86,7 @@ export default function WaitlistModal({ open, onClose }: WaitlistModalProps) {
           type: "error",
         });
       }
-    } catch (error) {
+    } catch {
       showToast({
         title: "Connection error",
         message: "Please check your internet connection and try again.",

@@ -33,8 +33,8 @@ export default function SchedulePage() {
       // Show success message and redirect
       alert('Perfect! Your discovery session has been scheduled. You&#39;ll receive a calendar invite shortly.');
       router.push('/');
-    } catch (error) {
-      // console.error('Error scheduling session:', error);
+    } catch {
+      // console.error('Error scheduling session:', _error);
       alert('There was an error scheduling your session. Please try again or contact us directly.');
     } finally {
       setIsSubmitting(false);

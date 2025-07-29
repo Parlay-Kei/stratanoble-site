@@ -151,8 +151,8 @@ export async function triggerDeliverableDelivery(
       // console.error(`Failed to trigger deliverable delivery: ${deliverableId}`);
       return false;
     }
-  } catch (error) {
-    // console.error('Error triggering deliverable delivery:', error);
+  } catch {
+    // console.error('Error triggering deliverable delivery:', _error);
     return false;
   }
 }

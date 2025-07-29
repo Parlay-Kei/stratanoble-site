@@ -34,8 +34,8 @@ export async function POST(request: NextRequest) {
     // 4. Integrate with CRM if needed
 
     return NextResponse.json({ message: 'Contact form submitted successfully' }, { status: 200 });
-  } catch (error) {
-    // console.error('Contact form error:', error);
+  } catch {
+    // console.error('Contact form error:', _error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

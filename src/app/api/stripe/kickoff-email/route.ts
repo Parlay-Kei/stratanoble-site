@@ -29,8 +29,8 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
-  } catch (error) {
-    // console.error('Kickoff email error:', error);
+  } catch {
+    // console.error('Kickoff email error:', _error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

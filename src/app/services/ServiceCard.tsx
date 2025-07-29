@@ -29,7 +29,7 @@ export function ServiceCard({
   subtitle, 
   description, 
   icon, 
-  price, 
+  _price, 
   whatYouGet, 
   ctaPrimary,
   ctaSecondary,
@@ -37,7 +37,7 @@ export function ServiceCard({
   category,
   link 
 }: ServiceCardProps) {
-  const showPricing = process.env.NEXT_PUBLIC_SHOW_PRICING === 'true';
+  // const showPricing = process.env.NEXT_PUBLIC_SHOW_PRICING === 'true';
   const cardRef = useRef<HTMLDivElement>(null);
   const [showDetails, setShowDetails] = useState(false);
 

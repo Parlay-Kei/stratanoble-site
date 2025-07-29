@@ -31,7 +31,7 @@ function getEventTypeSlugFromUrl(calendlyUrl: string): string | null {
     }
     
     return null;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -102,8 +102,8 @@ export async function GET(request: NextRequest) {
       event_type_slug: eventTypeSlug,
     });
 
-  } catch (error) {
-    // Error fetching Calendly events: error
+  } catch {
+    // Error fetching Calendly events
     return NextResponse.json(
       { error: 'Failed to fetch upcoming events' },
       { status: 500 }

@@ -58,8 +58,8 @@ export async function POST(request: NextRequest) {
       }
     });
 
-  } catch (error) {
-    // console.error('Error verifying vault access:', error);
+  } catch {
+    // console.error('Error verifying vault access:', _error);
     return NextResponse.json(
       { success: false, error: 'Failed to verify access' },
       { status: 500 }

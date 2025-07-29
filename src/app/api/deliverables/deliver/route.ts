@@ -53,8 +53,8 @@ export async function POST(request: NextRequest) {
         failed: result.failed
       }, { status: 207 }); // 207 Multi-Status
     }
-  } catch (error) {
-    // console.error('Deliverable delivery error:', error);
+  } catch {
+    // console.error('Deliverable delivery error:', _error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

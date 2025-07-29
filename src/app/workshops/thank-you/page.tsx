@@ -12,7 +12,7 @@ export default function ThankYouPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 py-12 text-gray-900">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">🎉 You're booked for <span className="text-primary font-extrabold">{event_name}</span></h1>
+        <h1 className="text-3xl font-bold mb-2">🎉 You&apos;re booked for <span className="text-primary font-extrabold">{event_name}</span></h1>
         <p className="text-lg">Hi <span className="font-semibold">{invitee_name}</span>,<br />Your seat is locked in for <span className="font-semibold">{event_date} at {event_time}</span>.</p>
       </div>
       <hr className="my-8" />
@@ -20,7 +20,7 @@ export default function ThankYouPage() {
         <h2 className="text-xl font-semibold mb-2">What happens next</h2>
         <ol className="list-decimal list-inside space-y-2">
           <li><b>Check your inbox</b> for a confirmation email and calendar invite.</li>
-          <li><b>Add the workshop to your calendar</b> so you don't miss it.</li>
+          <li><b>Add the workshop to your calendar</b> so you don&apos;t miss it.</li>
           <li><b>Download the Prep Workbook</b><br />
             <a href="https://drive.google.com/your-workbook-link" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">Get the PDF</a>
           </li>
@@ -55,7 +55,7 @@ export default function ThankYouPage() {
       <hr className="my-8" />
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-2">Need to reschedule?</h2>
-        <p>We get it—life happens. Use the <b>"Cancel or Reschedule"</b> link in your confirmation email no later than 24 hours before the session starts.</p>
+        <p>We get it—life happens. Use the <b>&quot;Cancel or Reschedule&quot;</b> link in your confirmation email no later than 24 hours before the session starts.</p>
       </section>
       <hr className="my-8" />
       <section className="mb-8">

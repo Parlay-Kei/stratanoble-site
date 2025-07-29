@@ -120,8 +120,8 @@ function VaultPageContent() {
       } else {
         setIsAuthorized(false);
       }
-    } catch (error) {
-      // console.error('Error verifying access:', error);
+    } catch {
+      // console.error('Error verifying access:', _error);
       setIsAuthorized(false);
     } finally {
       setLoading(false);
