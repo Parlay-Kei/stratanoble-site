@@ -6,7 +6,7 @@ export const services = [
     subtitle: 'Strategy & Execution for Solo / Small Biz',
     description: 'Transform your vision into actionable strategy with proven frameworks and hands-on execution support.',
     link: '/services#solution-services',
-    price: 'From $1,200',
+    price: 'From $1,200', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
     whatYouGet: [
       'Strategic business roadmap',
       'Market analysis & positioning',
@@ -41,12 +41,13 @@ export const services = [
     subtitle: 'Hands-on learning for aspiring entrepreneurs',
     description: 'Join interactive workshops designed to help you launch and scale your side hustle with proven strategies.',
     link: '/services#workshops',
-    price: 'From $97',
+    price: 'From $97', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
     whatYouGet: [
       'Live interactive sessions',
       'Take-home templates',
       'Q&A with experts',
       'Resource vault access',
+      'Join Slack community for ongoing support',
     ],
     packages: [
       {
@@ -71,7 +72,7 @@ export const services = [
     subtitle: 'Optimize your business with data-driven insights',
     description: 'Unlock hidden opportunities in your operations with comprehensive data analysis and actionable recommendations.',
     link: '/services#data-analysis',
-    price: 'From $800',
+    price: 'From $800', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
     whatYouGet: [
       'KPI dashboard setup',
       'Data collection strategy',
@@ -101,7 +102,7 @@ export const services = [
     subtitle: 'Complete brand identity and digital strategy',
     description: 'Build a compelling brand identity and establish a strong digital presence that resonates with your audience.',
     link: '/services#brand-digital',
-    price: 'From $1,500',
+    price: 'From $1,500', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
     whatYouGet: [
       'Brand identity design',
       'Website development',

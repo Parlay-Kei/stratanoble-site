@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function DiscoveryPage() {
+  const showPricing = process.env.NEXT_PUBLIC_SHOW_PRICING === 'true';
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
@@ -17,7 +18,7 @@ export default function DiscoveryPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
     try {
@@ -31,8 +32,11 @@ export default function DiscoveryPage() {
         }),
       });
 
+              const result: unknown = await response.json();
+        const errorMsg = (typeof result === 'object' && result !== null && 'error' in result && typeof (result as { error?: string }).error === 'string') ? (result as { error: string }).error : '';
+
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        throw new Error(errorMsg || 'Failed to submit form');
       }
 
       // Redirect to scheduling or checkout based on tier
@@ -41,9 +45,7 @@ export default function DiscoveryPage() {
       } else {
         router.push(`/checkout?tier=${formData.interestedTier}`);
       }
-    } catch (error) {
-      // Log error for debugging (remove in production)
-      // console.error('Form submission error:', error);
+    } catch {
       alert('There was an error submitting your form. Please try again.');
     }
   };
@@ -57,7 +59,9 @@ export default function DiscoveryPage() {
             Tell us a bit about yourself so we can tailor your session to your specific needs and goals.
           </p>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={(e) => {
+                  void handleSubmit(e);
+                }} className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                 Your Name *
@@ -139,9 +143,9 @@ export default function DiscoveryPage() {
               >
                 <option value="">Select your interest level</option>
                 <option value="none">Just want the discovery session (free)</option>
-                <option value="lite">Interested in Lite Package ($1,200)</option>
-                <option value="core">Interested in Core Package ($2,500)</option>
-                <option value="premium">Interested in Premium Package ($5,000)</option>
+                <option value="lite">Interested in Lite Package{showPricing ? ' ($1,200)' : ''}</option>
+                <option value="core">Interested in Core Package{showPricing ? ' ($2,500)' : ''}</option>
+                <option value="premium">Interested in Premium Package{showPricing ? ' ($5,000)' : ''}</option>
               </select>
             </div>
 

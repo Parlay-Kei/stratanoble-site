@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { Suspense,useEffect, useState } from 'react';
 
 function CheckoutContent() {
+  const showPricing = process.env.NEXT_PUBLIC_SHOW_PRICING === 'true';
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
@@ -28,17 +29,17 @@ function CheckoutContent() {
   const getTierDetails = (tier: string) => {
     switch (tier) {
       case 'lite':
-        return { name: 'Lite Package', price: '$1,200', description: 'Essential strategy and execution support' };
+        return { name: 'Lite Package', price: showPricing ? '$1,200' : 'Contact for Quote', description: 'Essential strategy and execution support' };
       case 'core':
-        return { name: 'Core Package', price: '$2,500', description: 'Comprehensive business development' };
+        return { name: 'Core Package', price: showPricing ? '$2,500' : 'Contact for Quote', description: 'Comprehensive business development' };
       case 'premium':
-        return { name: 'Premium Package', price: '$5,000', description: 'Full-service strategy and execution' };
+        return { name: 'Premium Package', price: showPricing ? '$5,000' : 'Contact for Quote', description: 'Full-service strategy and execution' };
       default:
-        return { name: 'Package', price: '$0', description: 'Please select a package' };
+        return { name: 'Package', price: showPricing ? '$0' : 'Contact for Quote', description: 'Please select a package' };
     }
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (): Promise<void> => {
     if (!customerInfo.tier || !customerInfo.name || !customerInfo.email) {
       alert('Missing required information. Please go back and complete the discovery form.');
       return;
@@ -59,16 +60,16 @@ function CheckoutContent() {
         }),
       });
 
-      const data = await response.json();
+              const data: unknown = await response.json();
+        const url = (typeof data === 'object' && data !== null && 'url' in data && typeof (data as { url?: string }).url === 'string') ? (data as { url: string }).url : '';
+        const errorMsg = (typeof data === 'object' && data !== null && 'error' in data && typeof (data as { error?: string }).error === 'string') ? (data as { error: string }).error : '';
 
-      if (response.ok && data.url) {
-        // Redirect to Stripe Checkout
-        window.location.href = data.url;
+      if (response.ok && url) {
+        window.location.href = url;
       } else {
-        throw new Error(data.error || 'Failed to create checkout session');
+        throw new Error(errorMsg || 'Failed to create checkout session');
       }
-    } catch (error) {
-      // console.error('Checkout error:', error);
+    } catch {
       alert('There was an error processing your request. Please try again.');
     } finally {
       setIsLoading(false);
@@ -144,7 +145,9 @@ function CheckoutContent() {
 
           {/* Checkout Button */}
           <button
-            onClick={handleCheckout}
+            onClick={() => {
+              void handleCheckout();
+            }}
             disabled={isLoading || !customerInfo.tier}
             className="w-full bg-emerald-600 text-white font-semibold py-4 px-6 rounded-lg hover:bg-emerald-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
           >

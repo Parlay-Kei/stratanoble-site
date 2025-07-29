@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
-
 import Image from 'next/image';
+import { useState } from 'react';
+
 
 const packages = [
   {
@@ -44,12 +42,12 @@ const packages = [
 const portfolio = [
   {
     name: "Nimbus Chronicles",
-    image: "/img/logo.png",
+    image: "/img/logo.webp",
     description: "Brand identity, web, and launch campaign for a SaaS startup."
   },
   {
     name: "Megan's Munchies",
-    image: "/img/logo.png",
+    image: "/img/logo.webp",
     description: "Logo, packaging, and digital presence for a DTC food brand."
   }
 ];
@@ -89,9 +87,9 @@ function IntakeForm() {
 }
 
 export default function BrandDigitalPage() {
+  const showPricing = process.env.NEXT_PUBLIC_SHOW_PRICING === 'true';
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#002244]">
-      <Header />
       <div className="py-24 sm:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center mb-16">
@@ -110,7 +108,11 @@ export default function BrandDigitalPage() {
               {packages.map((pkg, idx) => (
                 <div key={idx} className="bg-white/10 p-6 rounded-2xl border border-white/20 text-center">
                   <h3 className="text-2xl font-bold text-white mb-2">{pkg.name}</h3>
-                  <div className="text-3xl font-bold text-[#50C878] mb-4">{pkg.price}</div>
+                  {showPricing ? (
+                    <div className="text-3xl font-bold text-[#50C878] mb-4">{pkg.price}</div>
+                  ) : (
+                    <div className="text-lg text-[#50C878] mb-4">Custom Quote Available</div>
+                  )}
                   <ul className="mb-6 space-y-2">
                     {pkg.features.map((f, i) => (
                       <li key={i} className="text-[#C0C0C0] flex items-center justify-center"><span className="text-[#50C878] mr-2">✓</span>{f}</li>
@@ -126,16 +128,20 @@ export default function BrandDigitalPage() {
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white text-center mb-8">Visual Mock-ups</h2>
             <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
-              <Image src="/img/ChatGPT Image Jun 22, 2025, 10_09_13 PM.png" alt="Brand Board Before" width={320} height={200} className="rounded-xl border border-white/20" />
-              <Image src="/img/ChatGPT Image Jun 22, 2025, 10_11_48 PM.png" alt="Brand Board After" width={320} height={200} className="rounded-xl border border-white/20" />
+              <Image src="/img/hero-bg.webp" alt="Brand Board Before" width={320} height={200} className="rounded-xl border border-white/20" />
+              <Image src="/img/featured-image.webp" alt="Brand Board After" width={320} height={200} className="rounded-xl border border-white/20" />
             </div>
           </div>
 
           {/* Pricing Transparency */}
           <div className="mb-16 text-center">
-            <span className="inline-block bg-[#50C878] text-white px-6 py-2 rounded-full font-bold text-lg mb-4">From $1,500</span>
+            {showPricing ? (
+              <span className="inline-block bg-[#50C878] text-white px-6 py-2 rounded-full font-bold text-lg mb-4">From $1,500</span>
+            ) : (
+              <span className="inline-block bg-[#50C878] text-white px-6 py-2 rounded-full font-bold text-lg mb-4">Contact for Custom Quote</span>
+            )}
             <div>
-              <a href="#" className="text-[#50C878] underline font-medium">Request Custom Quote</a>
+              <button className="text-[#50C878] underline font-medium bg-transparent border-none cursor-pointer">Request Custom Quote</button>
             </div>
           </div>
 
@@ -178,7 +184,6 @@ export default function BrandDigitalPage() {
           </div>
         </div>
       </div>
-      <Footer />
     </main>
   );
 } 

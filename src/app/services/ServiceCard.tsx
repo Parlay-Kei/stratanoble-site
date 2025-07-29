@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
 import Link from 'next/link';
+import React, { useRef, useState } from 'react';
 
 interface ServicePackage {
   name: string;
@@ -14,7 +14,7 @@ interface ServiceCardProps {
   subtitle: string;
   description: string;
   icon: React.ReactNode;
-  price: string;
+  price?: string;
   whatYouGet: string[];
   packages?: ServicePackage[];
   ctaPrimary: string;
@@ -37,6 +37,7 @@ export function ServiceCard({
   category,
   link 
 }: ServiceCardProps) {
+  const showPricing = process.env.NEXT_PUBLIC_SHOW_PRICING === 'true';
   const cardRef = useRef<HTMLDivElement>(null);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -69,10 +70,8 @@ export function ServiceCard({
   };
 
   // Handle Premium package payment - redirect to discovery page
-  const handlePremiumPayment = async () => {
+  const handlePremiumPayment = () => {
     if (category !== 'strategy') return; // Only for Solution Services
-    
-    // Redirect to discovery page instead of handling payment directly
     window.location.href = '/discovery';
   };
 
@@ -112,9 +111,11 @@ export function ServiceCard({
           <p className="text-[#50C878] font-medium mb-3">{subtitle}</p>
           <p className="text-[#C0C0C0] mb-4 text-sm">{description}</p>
           
-          {/* Price */}
-          <div className="mb-6">
-            <span className="text-2xl font-bold text-white">{price}</span>
+          {/* Removed pricing display - always show discovery call message */}
+          <div className="mb-6 mt-4">
+            <div className="text-[#50C878] font-medium text-sm">
+              Schedule a discovery call for a tailored quote
+            </div>
           </div>
 
           {/* What You Get - Show on hover */}
