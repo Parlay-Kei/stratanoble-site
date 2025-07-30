@@ -8,7 +8,14 @@
       "Bash(mv:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(rmdir:*)",
+      "Bash(rm:*)",
+      "Bash(find:*)",
+      "Bash(dir:*)",
+      "Bash(grep:*)",
+      "Bash(npx next:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }

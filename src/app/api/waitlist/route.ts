@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { z } from 'zod';
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE;
@@ -11,33 +12,31 @@ const supabase = supabaseUrl && supabaseServiceKey
   ? createClient(supabaseUrl, supabaseServiceKey)
   : null;
 
-interface WaitlistRequest {
-  fullName: string;
-  email: string;
-  source?: string;
-}
+const waitlistSchema = z.object({
+  fullName: z.string().min(1, 'Full name is required').trim(),
+  email: z.string().email('Invalid email format').toLowerCase(),
+  source: z.string().optional().default('web'),
+});
+
+type WaitlistRequest = z.infer<typeof waitlistSchema>;
 
 export async function POST(request: NextRequest) {
   try {
-    const body: WaitlistRequest = await request.json();
-    const { fullName, email, source = 'web' } = body;
-
-    // Validate required fields
-    if (!fullName?.trim() || !email?.trim()) {
+    const body = await request.json();
+    
+    // Validate request data with Zod
+    const validationResult = waitlistSchema.safeParse(body);
+    if (!validationResult.success) {
       return NextResponse.json(
-        { error: 'Full name and email are required' },
+        { 
+          error: 'Invalid request data', 
+          details: validationResult.error.errors 
+        },
         { status: 400 }
       );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      );
-    }
+    const { fullName, email, source } = validationResult.data;
 
     // Check if Supabase is configured
     if (!supabase) {
@@ -76,7 +75,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      // Supabase insert error: error
+      console.error('Supabase insert error:', error);
       return NextResponse.json(
         { error: 'Failed to add to waitlist' },
         { status: 500 }
@@ -107,11 +106,12 @@ export async function POST(request: NextRequest) {
         );
 
         if (!mailchimpResponse.ok) {
-          // Mailchimp API error: mailchimpResponse.status
+          const errorText = await mailchimpResponse.text();
+          console.error('Mailchimp API error:', mailchimpResponse.status, errorText);
           // Don't fail the request if Mailchimp fails
         }
-      } catch {
-        // Mailchimp integration error
+      } catch (mailchimpError) {
+        console.error('Mailchimp integration error:', mailchimpError);
         // Don't fail the request if Mailchimp fails
       }
     }
@@ -129,8 +129,16 @@ export async function POST(request: NextRequest) {
       }
     });
 
-  } catch {
-    // Waitlist API error
+  } catch (error) {
+    console.error('Waitlist API error:', error);
+    
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid request data', details: error.errors },
+        { status: 400 }
+      );
+    }
+    
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

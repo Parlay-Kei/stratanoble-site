@@ -46,7 +46,7 @@ const createContactAdminEmail = (data: ContactFormData) => ({
       <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
         ${data.message.replace(/\n/g, '<br>')}
       </div>
-      <p style="color: #666; font-size: 12px;">Submitted on ${new Date().toLocaleString()}</p>
+      <p style="color: #666; font-size: 12px;">Submitted on ${new Date().toISOString()}</p>
     </div>
   `,
   text: `
@@ -58,7 +58,7 @@ Phone: ${data.phone || 'Not provided'}
 Topic: ${data.topic}
 Message: ${data.message}
 
-Submitted on ${new Date().toLocaleString()}
+Submitted on ${new Date().toISOString()}
   `,
 });
 
@@ -122,7 +122,7 @@ const createDiscoveryAdminEmail = (data: DiscoveryFormData) => ({
       <p><strong>Business Stage:</strong> ${data.businessStage}</p>
       <p><strong>Main Challenge:</strong> ${data.mainChallenge}</p>
       <p><strong>Interested Tier:</strong> ${data.interestedTier}</p>
-      <p style="color: #666; font-size: 12px;">Submitted on ${new Date().toLocaleString()}</p>
+      <p style="color: #666; font-size: 12px;">Submitted on ${new Date().toISOString()}</p>
     </div>
   `,
   text: `
@@ -134,7 +134,7 @@ Business Stage: ${data.businessStage}
 Main Challenge: ${data.mainChallenge}
 Interested Tier: ${data.interestedTier}
 
-Submitted on ${new Date().toLocaleString()}
+Submitted on ${new Date().toISOString()}
   `,
 });
 
@@ -245,6 +245,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, ...result });
   } catch (error) {
+    console.error('Email API error:', error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json({ success: false, error: 'Invalid form data', details: error.errors }, { status: 400 });
