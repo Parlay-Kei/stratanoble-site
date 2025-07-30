@@ -5,16 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useToast } from '@/components/ui/toast';
 
-// Extend Window interface for analytics
-declare global {
-  interface Window {
-    gtag?: (
-      command: 'event',
-      eventName: string,
-      parameters: Record<string, unknown>
-    ) => void;
-  }
-}
 
 interface WaitlistModalProps {
   open: boolean;

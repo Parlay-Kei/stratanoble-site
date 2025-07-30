@@ -4,6 +4,12 @@ export default {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  // Safelist commonly used classes
+  safelist: [
+    'bg-white',
+    'text-white',
+    'border-white',
+  ],
   // Enable dark mode using a class
   darkMode: ['class'],
   theme: {
