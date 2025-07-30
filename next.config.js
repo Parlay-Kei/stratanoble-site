@@ -50,7 +50,6 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   // Reduce bundle size
-  output: 'standalone',
 }
 
 export default nextConfig 

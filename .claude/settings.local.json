@@ -16,7 +16,8 @@
       "Bash(grep:*)",
       "Bash(npx next:*)",
       "Bash(rg:*)",
-      "Bash(nslookup:*)"
+      "Bash(nslookup:*)",
+      "Bash(rd:*)"
     ],
     "deny": []
   }
