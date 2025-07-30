@@ -18,8 +18,6 @@ const waitlistSchema = z.object({
   source: z.string().optional().default('web'),
 });
 
-type WaitlistRequest = z.infer<typeof waitlistSchema>;
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -75,6 +73,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
+      // eslint-disable-next-line no-console
       console.error('Supabase insert error:', error);
       return NextResponse.json(
         { error: 'Failed to add to waitlist' },
@@ -107,10 +106,12 @@ export async function POST(request: NextRequest) {
 
         if (!mailchimpResponse.ok) {
           const errorText = await mailchimpResponse.text();
+          // eslint-disable-next-line no-console
           console.error('Mailchimp API error:', mailchimpResponse.status, errorText);
           // Don't fail the request if Mailchimp fails
         }
       } catch (mailchimpError) {
+        // eslint-disable-next-line no-console
         console.error('Mailchimp integration error:', mailchimpError);
         // Don't fail the request if Mailchimp fails
       }
@@ -130,6 +131,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Waitlist API error:', error);
     
     if (error instanceof z.ZodError) {

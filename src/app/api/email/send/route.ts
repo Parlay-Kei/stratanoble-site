@@ -245,6 +245,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, ...result });
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Email API error:', error);
 
     if (error instanceof z.ZodError) {
