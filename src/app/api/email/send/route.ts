@@ -2,10 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import sgMail from '@sendgrid/mail';
 import { z } from 'zod';
 
+
 // Initialize SendGrid
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-}
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'contact@stratanoble.com';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'noreply@stratanoble.com';
+
+if (SENDGRID_API_KEY) sgMail.setApiKey(SENDGRID_API_KEY);
 
 // Email schemas
 const contactFormSchema = z.object({
@@ -29,8 +32,8 @@ type DiscoveryFormData = z.infer<typeof discoveryFormSchema>;
 
 // Email templates
 const createContactAdminEmail = (data: ContactFormData) => ({
-  to: process.env.ADMIN_EMAIL || 'contact@stratanoble.com',
-  from: process.env.FROM_EMAIL || 'noreply@stratanoble.com',
+  to: ADMIN_EMAIL,
+  from: FROM_EMAIL,
   subject: `New Contact Form Submission: ${data.topic}`,
   html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -61,7 +64,7 @@ Submitted on ${new Date().toLocaleString()}
 
 const createContactCustomerEmail = (data: ContactFormData) => ({
   to: data.email,
-  from: process.env.FROM_EMAIL || 'noreply@stratanoble.com',
+  from: FROM_EMAIL,
   subject: 'Thank you for contacting Strata Noble',
   html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -108,8 +111,8 @@ This is an automated response. Please do not reply to this email.
 });
 
 const createDiscoveryAdminEmail = (data: DiscoveryFormData) => ({
-  to: process.env.ADMIN_EMAIL || 'contact@stratanoble.com',
-  from: process.env.FROM_EMAIL || 'noreply@stratanoble.com',
+  to: ADMIN_EMAIL,
+  from: FROM_EMAIL,
   subject: `New Discovery Call Request: ${data.name}`,
   html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -137,7 +140,7 @@ Submitted on ${new Date().toLocaleString()}
 
 const createDiscoveryCustomerEmail = (data: DiscoveryFormData) => ({
   to: data.email,
-  from: process.env.FROM_EMAIL || 'noreply@stratanoble.com',
+  from: FROM_EMAIL,
   subject: 'Your Discovery Call Request - Next Steps',
   html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -194,85 +197,63 @@ This is an automated response. Please do not reply to this email.
   `,
 });
 
+async function handleFormSubmission(formType: string, formData: unknown) {
+  if (formType === 'contact') {
+    const contactData = contactFormSchema.parse(formData);
+    await Promise.all([
+      sgMail.send(createContactAdminEmail(contactData)),
+      sgMail.send(createContactCustomerEmail(contactData)),
+    ]);
+    return {
+      message: 'Contact form submitted successfully',
+      data: {
+        customerName: contactData.name,
+        customerEmail: contactData.email,
+      },
+    };
+  }
+
+  if (formType === 'discovery') {
+    const discoveryData = discoveryFormSchema.parse(formData);
+    await Promise.all([
+      sgMail.send(createDiscoveryAdminEmail(discoveryData)),
+      sgMail.send(createDiscoveryCustomerEmail(discoveryData)),
+    ]);
+    return {
+      message: 'Discovery call request submitted successfully',
+      data: {
+        customerName: discoveryData.name,
+        customerEmail: discoveryData.email,
+        interestedTier: discoveryData.interestedTier,
+      },
+    };
+  }
+
+  throw new Error('Invalid form type');
+}
+
 export async function POST(request: NextRequest) {
   try {
+    if (!SENDGRID_API_KEY) {
+      return NextResponse.json({ success: false, error: 'Email service not configured' }, { status: 500 });
+    }
+
     const body = await request.json();
     const { formType, ...formData } = body;
 
-    // Validate form data based on type
-    let validatedData: ContactFormData | DiscoveryFormData;
-    
-    if (formType === 'contact') {
-      validatedData = contactFormSchema.parse(formData);
-    } else if (formType === 'discovery') {
-      validatedData = discoveryFormSchema.parse(formData);
-    } else {
-      return NextResponse.json(
-        { success: false, error: 'Invalid form type' },
-        { status: 400 }
-      );
+    const result = await handleFormSubmission(formType, formData);
+
+    return NextResponse.json({ success: true, ...result });
+  } catch (error) {
+
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ success: false, error: 'Invalid form data', details: error.errors }, { status: 400 });
     }
 
-    // Check if SendGrid is configured
-    if (!process.env.SENDGRID_API_KEY) {
-      // console.error('SendGrid API key not configured');
-      return NextResponse.json(
-        { success: false, error: 'Email service not configured' },
-        { status: 500 }
-      );
+    if (error instanceof Error && error.message === 'Invalid form type') {
+      return NextResponse.json({ success: false, error: 'Invalid form type' }, { status: 400 });
     }
 
-    // Send emails based on form type
-    if (formType === 'contact') {
-      const contactData = validatedData as ContactFormData;
-      
-      // Send admin notification
-      await sgMail.send(createContactAdminEmail(contactData));
-      
-      // Send customer confirmation
-      await sgMail.send(createContactCustomerEmail(contactData));
-      
-    } else if (formType === 'discovery') {
-      const discoveryData = validatedData as DiscoveryFormData;
-      
-      // Send admin notification
-      await sgMail.send(createDiscoveryAdminEmail(discoveryData));
-      
-      // Send customer confirmation
-      await sgMail.send(createDiscoveryCustomerEmail(discoveryData));
-    }
-
-    return NextResponse.json({ 
-      success: true, 
-      message: `${formType === 'contact' ? 'Contact form' : 'Discovery call request'} submitted successfully`,
-      data: {
-        customerName: validatedData.name,
-        customerEmail: validatedData.email,
-        ...(formType === 'discovery' && { interestedTier: (validatedData as DiscoveryFormData).interestedTier })
-      }
-    });
-
-      } catch (error) {
-      // Log error for debugging (remove in production)
-      // console.error('Error processing email submission:', error);
-      
-      if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Invalid form data',
-          details: error.errors
-        },
-        { status: 400 }
-      );
-    }
-    
-    return NextResponse.json(
-      { 
-        success: false, 
-        error: 'Failed to process email submission' 
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to process email submission' }, { status: 500 });
   }
 }

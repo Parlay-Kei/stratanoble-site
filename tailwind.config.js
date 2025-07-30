@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  // Faster development builds
-  mode: 'jit',
+  // Enable dark mode using a class
+  darkMode: ['class'],
   theme: {
     extend: {
       colors: {
@@ -70,35 +70,6 @@ module.exports = {
         sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
         serif: ['var(--font-bitter)', 'Bitter', 'serif'],
       },
-      animation: {
-        'float': 'float 3s ease-in-out infinite',
-        'fade-in': 'fadeIn 0.5s ease-out',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'slide-in': 'slideIn 0.5s ease-out',
-        'scale': 'scale 0.5s ease-out',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        slideIn: {
-          '0%': { transform: 'translateX(-20px)', opacity: '0' },
-          '100%': { transform: 'translateX(0)', opacity: '1' },
-        },
-        scale: {
-          '0%': { transform: 'scale(0.95)', opacity: '0' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-      },
       backgroundImage: {
         'gradient-primary': 'linear-gradient(90deg, #003366 0%, #50C878 100%)',
         'gradient-accent': 'linear-gradient(90deg, #50C878 0%, #003366 100%)',
@@ -121,9 +92,9 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
+    require('tailwindcss-animate'),
   ],
-  // Faster development builds
   future: {
     hoverOnlyWhenSupported: true,
   },
-} 
+}

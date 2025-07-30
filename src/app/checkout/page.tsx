@@ -1,9 +1,12 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { Suspense,useEffect, useState } from 'react';
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
-function CheckoutContent() {
+import { useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
+
+function CheckoutPageContent() {
   const showPricing = process.env.NEXT_PUBLIC_SHOW_PRICING === 'true';
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -79,7 +82,7 @@ function CheckoutContent() {
   const tierDetails = getTierDetails(customerInfo.tier);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 pt-16">
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-xl p-8">
           <h1 className="text-3xl font-bold mb-6 text-gray-900">Complete Your Purchase</h1>
@@ -174,14 +177,16 @@ function CheckoutContent() {
   );
 }
 
-export default function CheckoutPage() {
+function CheckoutPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 pt-16 flex items-center justify-center">
         <div className="text-white text-xl">Loading checkout...</div>
       </div>
     }>
-      <CheckoutContent />
+      <CheckoutPageContent />
     </Suspense>
   );
 }
+
+export default CheckoutPage;

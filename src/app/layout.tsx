@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Bitter, Inter } from 'next/font/google';
 import Script from 'next/script';
+import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
 import { Footer } from '@/components/Footer';
@@ -115,7 +116,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <ToastProvider>{children}</ToastProvider>
         <Footer />
-        <Analytics />
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
         <Script
           defer
           data-domain="stratanoble.com"
