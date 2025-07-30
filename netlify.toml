@@ -1,6 +1,7 @@
 [build]
   command = "npm run build"
   publish = ".next"
+  base = "src"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
@@ -8,7 +9,6 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Redirect all routes to Next.js server function
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/___netlify-handler"
