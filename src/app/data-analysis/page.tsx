@@ -106,9 +106,15 @@ function InquiryForm() {
     message: ''
   });
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // console.log('Inquiry submitted:', formData);
+    alert('Thank you for your inquiry! We will get back to you shortly.');
   };
 
   return (
@@ -118,8 +124,9 @@ function InquiryForm() {
         <div>
           <label className="block text-[#50C878] text-sm font-medium mb-2">Company Size</label>
           <select
+            name="companySize"
             value={formData.companySize}
-            onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
+            onChange={handleChange}
             className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-[#C0C0C0] focus:outline-none focus:ring-2 focus:ring-[#50C878]"
             required
           >
@@ -134,8 +141,9 @@ function InquiryForm() {
         <div>
           <label className="block text-[#50C878] text-sm font-medium mb-2">Primary Data Pain Point</label>
           <select
+            name="dataPainPoint"
             value={formData.dataPainPoint}
-            onChange={(e) => setFormData({ ...formData, dataPainPoint: e.target.value })}
+            onChange={handleChange}
             className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-[#C0C0C0] focus:outline-none focus:ring-2 focus:ring-[#50C878]"
             required
           >
@@ -154,8 +162,9 @@ function InquiryForm() {
             <label className="block text-[#50C878] text-sm font-medium mb-2">Name</label>
             <input
               type="text"
+              name="name"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={handleChange}
               className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-[#C0C0C0] focus:outline-none focus:ring-2 focus:ring-[#50C878]"
               placeholder="Your name"
               required
@@ -165,8 +174,9 @@ function InquiryForm() {
             <label className="block text-[#50C878] text-sm font-medium mb-2">Email</label>
             <input
               type="email"
+              name="email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={handleChange}
               className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-[#C0C0C0] focus:outline-none focus:ring-2 focus:ring-[#50C878]"
               placeholder="your@email.com"
               required
@@ -178,8 +188,9 @@ function InquiryForm() {
           <label className="block text-[#50C878] text-sm font-medium mb-2">Phone (Optional)</label>
           <input
             type="tel"
+            name="phone"
             value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+            onChange={handleChange}
             className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-[#C0C0C0] focus:outline-none focus:ring-2 focus:ring-[#50C878]"
             placeholder="(555) 123-4567"
           />
@@ -188,8 +199,9 @@ function InquiryForm() {
         <div>
           <label className="block text-[#50C878] text-sm font-medium mb-2">Additional Details</label>
           <textarea
+            name="message"
             value={formData.message}
-            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            onChange={handleChange}
             rows={4}
             className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-[#C0C0C0] focus:outline-none focus:ring-2 focus:ring-[#50C878]"
             placeholder="Tell us more about your data challenges..."
@@ -226,15 +238,15 @@ export default function DataAnalysisPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
               <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-6">
                 <div className="text-3xl font-bold text-[#50C878] mb-2">35%</div>
-                <div className="text-[#C0C0C0] text-sm">Average Cost Reduction</div>
+                <div className="text-[#C0C0C0] text-sm">Average Cost Reduction*</div>
               </div>
               <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-6">
                 <div className="text-3xl font-bold text-[#50C878] mb-2">60%</div>
-                <div className="text-[#C0C0C0] text-sm">Process Efficiency Gain</div>
+                <div className="text-[#C0C0C0] text-sm">Process Efficiency Gain*</div>
               </div>
               <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-6">
                 <div className="text-3xl font-bold text-[#50C878] mb-2">$150K</div>
-                <div className="text-[#C0C0C0] text-sm">Average Annual Savings</div>
+                <div className="text-[#C0C0C0] text-sm">Average Annual Savings*</div>
               </div>
             </div>
           </div>
@@ -245,7 +257,7 @@ export default function DataAnalysisPage() {
               <h2 className="text-3xl font-bold text-white mb-6">What We Deliver</h2>
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <span className="text-[#50C878] mr-3 mt-1">📊</span>
+                  <span className="text-[#50C878] mr-3 mt-1" aria-label="Analytics chart icon">📊</span>
                   <div>
                     <h3 className="text-white font-semibold">KPI Dashboard Setup</h3>
                     <p className="text-[#C0C0C0] text-sm">Custom dashboards that track your most important metrics in real-time</p>
@@ -259,14 +271,14 @@ export default function DataAnalysisPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <span className="text-[#50C878] mr-3 mt-1">📈</span>
+                  <span className="text-[#50C878] mr-3 mt-1" aria-label="Growth chart icon">📈</span>
                   <div>
                     <h3 className="text-white font-semibold">Performance Reports</h3>
                     <p className="text-[#C0C0C0] text-sm">Detailed analysis with actionable insights and improvement recommendations</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <span className="text-[#50C878] mr-3 mt-1">🎯</span>
+                  <span className="text-[#50C878] mr-3 mt-1" aria-label="Target icon">🎯</span>
                   <div>
                     <h3 className="text-white font-semibold">Optimization Roadmap</h3>
                     <p className="text-[#C0C0C0] text-sm">Step-by-step implementation plan to achieve your efficiency goals</p>
@@ -374,6 +386,13 @@ export default function DataAnalysisPage() {
             </div>
             <InquiryForm />
           </div>
+        </div>
+        
+        {/* Disclaimer */}
+        <div className="text-center mt-12 px-4">
+          <p className="text-xs text-[#C0C0C0] max-w-4xl mx-auto">
+            * Results are based on aggregate data from client projects completed 2023-24. Individual outcomes may vary depending on business size, industry, implementation timeline, and adherence to recommended strategies. Past performance does not guarantee future results.
+          </p>
         </div>
       </div>
       <Footer />
