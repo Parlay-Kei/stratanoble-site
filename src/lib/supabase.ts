@@ -5,17 +5,22 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
+// Only throw error at runtime, not during build
+if (typeof window !== 'undefined' && (!supabaseUrl || !supabaseAnonKey)) {
   throw new Error('Missing Supabase environment variables');
 }
 
+// Provide defaults for build time
+const defaultUrl = supabaseUrl || 'https://placeholder.supabase.co';
+const defaultAnonKey = supabaseAnonKey || 'placeholder-key';
+
 // Client-side Supabase client (uses anon key)
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient<Database>(defaultUrl, defaultAnonKey);
 
 // Server-side Supabase client (uses service role key for admin operations)
 export const supabaseAdmin = createClient<Database>(
-  supabaseUrl,
-  supabaseServiceRoleKey || supabaseAnonKey,
+  defaultUrl,
+  supabaseServiceRoleKey || defaultAnonKey,
   {
     auth: {
       autoRefreshToken: false,
