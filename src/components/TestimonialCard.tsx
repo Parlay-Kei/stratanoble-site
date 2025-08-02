@@ -16,7 +16,7 @@ export function TestimonialCard({ testimonial, variant = 'default', className = 
   
   return (
     <motion.div
-      className={`bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-silver-200 hover:border-emerald-300 ${className}`}
+      className={`bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-silver-200 hover:border-emerald-300 min-h-[280px] ${className}`}
       whileHover={{ y: -4, scale: 1.02 }}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ export function FeaturedTestimonials() {
   const featured = testimonials.filter(t => t.featured).slice(0, 2)
   
   return (
-    <section className="py-16 bg-silver-50">
+    <section className="py-16 bg-accent-cream">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-navy-900 mb-4">
@@ -115,6 +115,13 @@ export function FeaturedTestimonials() {
               variant="featured"
             />
           ))}
+        </div>
+        
+        {/* Testimonial Disclaimer */}
+        <div className="text-center mt-8">
+          <p className="text-xs text-navy-500 max-w-2xl mx-auto">
+            * Results shown are from individual client projects 2023-24. Individual outcomes may vary based on business model, market conditions, and implementation of recommended strategies.
+          </p>
         </div>
       </div>
     </section>

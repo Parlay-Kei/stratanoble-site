@@ -1,49 +1,28 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import React from 'react'
 import { ArrowRightIcon, CalendarIcon, SparklesIcon } from '@heroicons/react/24/outline'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useCTATracking } from '@/lib/useAnalytics'
 import { ClientLogoStrip } from './ClientLogoStrip'
 
-// A/B Test variations for CTA buttons
-const CTA_VARIANTS = {
-  primary: [
-    { text: 'Start Workshop', icon: CalendarIcon, href: '/contact?type=workshop' },
-    { text: 'Begin Your Journey', icon: SparklesIcon, href: '/contact?type=workshop' },
-    { text: 'Launch Your Business', icon: CalendarIcon, href: '/contact?type=workshop' },
-  ],
-  secondary: [
-    { text: 'Book Consult', icon: ArrowRightIcon, href: '/contact?type=consult' },
-    { text: 'Get Expert Advice', icon: ArrowRightIcon, href: '/contact?type=consult' },
-    { text: 'Free Strategy Call', icon: ArrowRightIcon, href: '/contact?type=consult' },
-  ]
+// CTA buttons with clear hierarchy
+const CTA_BUTTONS = {
+  primary: { text: 'Get Started', icon: ArrowRightIcon, href: '/contact' },
+  secondary: { text: 'Start Workshop', icon: CalendarIcon, href: '/contact?type=workshop' }
 }
 
 export function HeroSection() {
-  const [ctaVariant, setCtaVariant] = useState(0)
-  const { trackClick, trackVariantShown } = useCTATracking()
-
-  // A/B Test: Rotate CTA variants for different users
-  useEffect(() => {
-    const userVariant = Math.floor(Math.random() * CTA_VARIANTS.primary.length)
-    setCtaVariant(userVariant)
-    
-    // Track CTA variant for analytics
-    trackVariantShown(userVariant, 'hero')
-  }, [trackVariantShown])
-
-  const primaryCTA = CTA_VARIANTS.primary[ctaVariant]
-  const secondaryCTA = CTA_VARIANTS.secondary[ctaVariant]
+  const { trackClick } = useCTATracking()
 
   const handleCTAClick = (type: 'primary' | 'secondary') => {
-    // Track CTA clicks for A/B testing
-    trackClick(type, ctaVariant, 'hero')
+    // Track CTA clicks
+    trackClick(type, 0, 'hero')
   }
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-navy-50 to-silver-50 py-24 sm:py-32">
+    <section className="relative overflow-hidden bg-gradient-to-br from-navy to-brand-emerald py-24 sm:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           {/* Enhanced Tagline Banner */}
@@ -60,7 +39,7 @@ export function HeroSection() {
 
           {/* Enhanced Main Headline */}
           <motion.h1 
-            className="text-4xl font-bold tracking-tight text-navy-900 sm:text-6xl lg:text-7xl"
+            className="text-4xl font-bold tracking-tight text-brand-light sm:text-6xl lg:text-7xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -74,13 +53,13 @@ export function HeroSection() {
 
           {/* Refined Sub-headline - One sentence value proposition */}
           <motion.p 
-            className="mt-6 text-lg leading-8 text-navy-600 sm:text-xl max-w-3xl mx-auto"
+            className="mt-6 text-lg leading-8 text-brand-light sm:text-xl max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             We turn your passion into a profitable business through proven strategies, 
-            expert guidance, and systematic execution—because your vision deserves to thrive.
+            expert guidance, and systematic execution because your vision deserves to thrive.
           </motion.p>
 
           {/* Enhanced Dual-State CTA Buttons with Micro-interactions */}
@@ -90,39 +69,37 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            {/* Primary CTA - Workshop */}
+            {/* Primary CTA - Get Started (Solid) */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                href={primaryCTA.href}
-                className="btn-primary btn-lg group w-full sm:w-auto shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+                href={CTA_BUTTONS.primary.href}
+                className="btn-primary btn-lg group w-full sm:w-auto shadow-lg hover:shadow-xl transition-all duration-300"
                 onClick={() => handleCTAClick('primary')}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative flex items-center">
-                  <primaryCTA.icon className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                  {primaryCTA.text}
+                <div className="flex items-center">
+                  <CTA_BUTTONS.primary.icon className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+                  {CTA_BUTTONS.primary.text}
                   <ArrowRightIcon className="ml-2 h-5 w-5 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110" />
                 </div>
               </Link>
             </motion.div>
 
-            {/* Secondary CTA - Consult */}
+            {/* Secondary CTA - Start Workshop (Outline) */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                href={secondaryCTA.href}
-                className="btn-outline btn-lg group w-full sm:w-auto border-2 hover:border-emerald-600 hover:bg-emerald-50 transition-all duration-300 relative overflow-hidden"
+                href={CTA_BUTTONS.secondary.href}
+                className="btn-outline btn-lg group w-full sm:w-auto border-2 transition-all duration-300"
                 onClick={() => handleCTAClick('secondary')}
               >
-                <div className="absolute inset-0 bg-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative flex items-center">
-                  <secondaryCTA.icon className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                  {secondaryCTA.text}
+                <div className="flex items-center">
+                  <CTA_BUTTONS.secondary.icon className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+                  {CTA_BUTTONS.secondary.text}
                   <ArrowRightIcon className="ml-2 h-5 w-5 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110" />
                 </div>
               </Link>
@@ -131,7 +108,7 @@ export function HeroSection() {
 
           {/* Enhanced Trust Indicators */}
           <motion.div 
-            className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-navy-500"
+            className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-brand-light"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}

@@ -59,7 +59,7 @@ export const caseStudies: CaseStudy[] = [
         improvement: '+300%'
       }
     ],
-    pullQuote: 'Strata Noble didn\'t just redesign our website—they transformed our entire digital strategy. The results speak for themselves.',
+    pullQuote: 'Strata Noble didn\'t just redesign our website - they transformed our entire digital strategy. The results speak for themselves.',
     pullQuoteAuthor: 'Jennifer Martinez',
     pullQuoteRole: 'CEO, TechStyle Retail',
     services: ['Digital Strategy', 'E-commerce Optimization', 'Data Analytics'],

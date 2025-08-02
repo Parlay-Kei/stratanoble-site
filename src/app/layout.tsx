@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: '%s | Strata Noble',
   },
   description:
-    'We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution – because your vision deserves to thrive.',
+    'We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution because your vision deserves to thrive.',
   keywords: [
     'business strategy',
     'startup consulting',
@@ -60,10 +60,10 @@ export const metadata: Metadata = {
     siteName: 'Strata Noble',
     images: [
       {
-        url: '/img/og-image.jpg',
+        url: '/img/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'Strata Noble - Business Strategy and Consulting',
+        alt: 'Strata Noble - Transform Your Passion Into Profit',
       },
     ],
   },
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     title: 'Strata Noble - Transform Your Passion Into Profit',
     description:
       'We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution.',
-    images: ['/img/og-image.jpg'],
+    images: ['/img/og-image.svg'],
   },
   robots: {
     index: true,
@@ -97,11 +97,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/favicon.svg',
-    apple: '/apple-touch-icon.png',
+    apple: '/apple-touch-icon.svg',
   },
   other: {
-    'theme-color': '#003366',
-    'msapplication-TileColor': '#003366',
+    'theme-color': '#30232d',
+    'msapplication-TileColor': '#30232d',
     'color-scheme': 'light dark',
   },
 };
@@ -110,8 +110,62 @@ export const metadata: Metadata = {
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Strata Noble",
+    "url": "https://stratanoble.com",
+    "logo": "https://stratanoble.com/img/logo.svg",
+    "description": "We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution because your vision deserves to thrive.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Las Vegas",
+      "addressRegion": "NV",
+      "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-702-707-3168",
+      "contactType": "customer service",
+      "email": "contact@stratanoble.com"
+    },
+    "sameAs": [
+      "https://linkedin.com/company/strata-noble"
+    ],
+    "services": [
+      {
+        "@type": "Service",
+        "name": "Idea to Execution Strategy",
+        "description": "Complete business strategy from concept to profitable execution"
+      },
+      {
+        "@type": "Service", 
+        "name": "AI/No-Code Stack Setup",
+        "description": "Implementation of AI tools and no-code solutions for business automation"
+      },
+      {
+        "@type": "Service",
+        "name": "Operations & Delegation Blueprint", 
+        "description": "Systematic approach to scaling operations and team delegation"
+      },
+      {
+        "@type": "Service",
+        "name": "Data Analysis & Optimization",
+        "description": "Performance analytics and operational efficiency improvements"
+      }
+    ]
+  }
+
   return (
     <html lang="en" className={`${inter.variable} ${bitter.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+      </head>
       <body className="font-sans antialiased">
         <Header />
         <ToastProvider>{children}</ToastProvider>

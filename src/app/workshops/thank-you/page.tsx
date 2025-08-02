@@ -55,7 +55,7 @@ export default function ThankYouPage() {
       <hr className="my-8" />
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-2">Need to reschedule?</h2>
-        <p>We get it—life happens. Use the <b>&quot;Cancel or Reschedule&quot;</b> link in your confirmation email no later than 24 hours before the session starts.</p>
+        <p>We get it: life happens. Use the <b>&quot;Cancel or Reschedule&quot;</b> link in your confirmation email no later than 24 hours before the session starts.</p>
       </section>
       <hr className="my-8" />
       <section className="mb-8">

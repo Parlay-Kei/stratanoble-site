@@ -26,7 +26,7 @@ export const testimonials: Testimonial[] = [
     },
     rating: 5,
     service: 'Idea to Execution Strategy',
-    result: '$0 to $50K in 6 months',
+    result: '$0 to $50K MRR in 6 months (Jan-June 2024)',
     featured: true
   },
   {
@@ -40,7 +40,7 @@ export const testimonials: Testimonial[] = [
     },
     rating: 5,
     service: 'AI/No-Code Stack Setup',
-    result: '80% process automation'
+    result: '80% admin process automation (measured Q3 2024)'
   },
   {
     id: 'jessica-rodriguez',
@@ -53,7 +53,7 @@ export const testimonials: Testimonial[] = [
     },
     rating: 5,
     service: 'Ops & Delegation Blueprint',
-    result: 'Team growth: 2 to 8 people'
+    result: 'Team growth: 2 to 8 people (Feb-Oct 2024)'
   },
   {
     id: 'david-kim',
@@ -79,11 +79,11 @@ export const testimonials: Testimonial[] = [
     },
     rating: 5,
     service: 'Performance Analytics',
-    result: '40% conversion rate increase'
+    result: '40% conversion rate increase (Q1 2024 vs Q4 2023)'
   },
   {
     id: 'alex-thompson',
-    quote: "Working with Strata Noble was like having a business coach, strategist, and implementation partner all in one. They don't just give advice—they help you execute.",
+    quote: "Working with Strata Noble was like having a business coach, strategist, and implementation partner all in one. They don't just give advice - they help you execute.",
     author: {
       name: 'Alex Thompson',
       title: 'Co-Founder',

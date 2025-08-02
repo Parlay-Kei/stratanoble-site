@@ -18,18 +18,18 @@ export function ClientLogoStrip({
     'Jeni Ent.',
     'Creative Collective Capital',
     'Johnston NeuroServices',
-    'BEA – Backstage Economic Alliance',
+    'BEA (Backstage Economic Alliance)',
   ];
 
   return (
-    <section id="trusted" className="relative isolate bg-slate-900 text-slate-100 mt-12 pt-16 pb-14 sm:pt-20 sm:pb-18 lg:pt-24 lg:pb-20">
+    <section id="trusted" className="relative isolate bg-slate-900 text-slate-100 mt-12 pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pt-24 lg:pb-24">
       {/* top hair-line */}
       <span
         aria-hidden="true"
         className="absolute -top-px inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-300/30 to-transparent"
       ></span>
 
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:py-16 lg:py-20 text-center">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:py-16 lg:py-20 text-center">
         <h2 className="text-xl font-semibold tracking-tight text-slate-50">
           {title}
         </h2>

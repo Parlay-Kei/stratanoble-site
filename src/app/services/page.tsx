@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
 import { services, serviceCategories } from '@/data/services';
 import { ServiceCard } from './ServiceCard';
 
@@ -15,7 +13,6 @@ export default function ServicesPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#002244]">
-      <Header />
       <div className="py-24 sm:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
@@ -82,7 +79,6 @@ export default function ServicesPage() {
           )}
         </div>
       </div>
-      <Footer />
     </main>
   );
 }

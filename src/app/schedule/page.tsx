@@ -7,6 +7,7 @@ export default function SchedulePage() {
   const router = useRouter();
   const [selectedTime, setSelectedTime] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
 
   // Mock available time slots - in a real app, this would come from a calendar API
   const availableSlots = [
@@ -25,19 +26,22 @@ export default function SchedulePage() {
     if (!selectedTime) return;
 
     setIsSubmitting(true);
+    setSubmitMessage('');
 
     try {
       // TODO: Send scheduling request to API
       // console.log('Discovery session scheduled for:', selectedTime);
       
-      // Show success message and redirect
-      alert('Perfect! Your discovery session has been scheduled. You&#39;ll receive a calendar invite shortly.');
-      router.push('/');
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      setSubmitMessage('Perfect! Your discovery session has been scheduled. You&#39;ll receive a calendar invite shortly. Redirecting...');
+      setTimeout(() => router.push('/'), 3000);
     } catch {
-      // console.error('Error scheduling session:', _error);
-      alert('There was an error scheduling your session. Please try again or contact us directly.');
-    } finally {
+      setSubmitMessage('There was an error scheduling your session. Please try again or contact us directly.');
       setIsSubmitting(false);
+    } finally {
+      // setIsSubmitting is now set in the try/catch blocks to handle the redirect delay
     }
   };
 
@@ -49,6 +53,12 @@ export default function SchedulePage() {
           <p className="mb-6 text-gray-600">
             Choose a time that works best for you. We&#39;ll send you a calendar invite with all the details.
           </p>
+
+          {submitMessage && (
+            <div className={`p-4 mb-4 text-sm rounded-lg ${submitMessage.includes('error') ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}`} role="alert">
+              {submitMessage}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>

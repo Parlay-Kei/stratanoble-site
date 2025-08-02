@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
+import Image from 'next/image';
 
 
 const packages = [
@@ -42,12 +42,12 @@ const packages = [
 const portfolio = [
   {
     name: "Nimbus Chronicles",
-    image: "/img/logo.webp",
+    image: "/img/logo.svg",
     description: "Brand identity, web, and launch campaign for a SaaS startup."
   },
   {
     name: "Megan's Munchies",
-    image: "/img/logo.webp",
+    image: "/img/logo.svg",
     description: "Logo, packaging, and digital presence for a DTC food brand."
   }
 ];
@@ -128,8 +128,18 @@ export default function BrandDigitalPage() {
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white text-center mb-8">Visual Mock-ups</h2>
             <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
-              <Image src="/img/hero-bg.webp" alt="Brand Board Before" width={320} height={200} className="rounded-xl border border-white/20" />
-              <Image src="/img/featured-image.webp" alt="Brand Board After" width={320} height={200} className="rounded-xl border border-white/20" />
+              <div className="w-80 h-48 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl border border-white/20 flex items-center justify-center">
+                <div className="text-center text-gray-600">
+                  <div className="text-2xl mb-2">📋</div>
+                  <div className="text-sm font-medium">Before: Basic Brand</div>
+                </div>
+              </div>
+              <div className="w-80 h-48 bg-gradient-to-br from-emerald-100 to-navy-100 rounded-xl border border-white/20 flex items-center justify-center">
+                <div className="text-center text-navy-700">
+                  <div className="text-2xl mb-2">✨</div>
+                  <div className="text-sm font-medium">After: Professional Suite</div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -172,7 +182,7 @@ export default function BrandDigitalPage() {
               <div className="grid grid-cols-1 gap-6">
                 {portfolio.map((item, idx) => (
                   <div key={idx} className="bg-white/10 p-4 rounded-xl border border-white/20 flex items-center gap-4">
-                    <Image src={item.image} alt={item.name} width={64} height={64} className="rounded-lg border border-white/20" />
+                    <Image src={item.image} alt={`${item.name} brand identity project showcasing logo and visual design`} width={64} height={64} className="rounded-lg border border-white/20" />
                     <div>
                       <div className="text-white font-semibold">{item.name}</div>
                       <div className="text-[#C0C0C0] text-sm">{item.description}</div>
@@ -186,4 +196,4 @@ export default function BrandDigitalPage() {
       </div>
     </main>
   );
-} 
+}

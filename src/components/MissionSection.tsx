@@ -5,7 +5,7 @@ export function MissionSection() {
         <div className="mx-auto max-w-7xl">
           {/* Section Header */}
           <div className="mx-auto max-w-2xl text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight heading-primary sm:text-4xl">
               Our Mission & Vision
             </h2>
             <p className="mt-4 text-lg leading-8 text-navy-600">
@@ -18,12 +18,12 @@ export function MissionSection() {
             {/* Mission */}
             <div className="relative">
               <div className="absolute -top-4 -left-4 w-8 h-8 bg-emerald-500 rounded-full opacity-20"></div>
-              <div className="relative bg-gradient-to-br from-navy-50 to-silver-50 rounded-2xl p-8 h-full">
+              <div className="relative bg-accent-gold rounded-2xl p-8 h-full">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                    <span className="text-2xl">🎯</span>
+                    <span className="text-2xl" aria-label="Target icon">🎯</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-navy-900">Our Mission</h3>
+                  <h3 className="text-2xl font-bold heading-primary">Our Mission</h3>
                 </div>
                 <p className="text-lg leading-relaxed text-navy-700 mb-6">
                   To empower passionate entrepreneurs with the strategic framework, operational
@@ -50,12 +50,12 @@ export function MissionSection() {
             {/* Vision */}
             <div className="relative">
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-navy-500 rounded-full opacity-20"></div>
-              <div className="relative bg-gradient-to-br from-emerald-50 to-silver-50 rounded-2xl p-8 h-full">
+              <div className="relative bg-accent-cream rounded-2xl p-8 h-full">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 bg-navy-100 rounded-xl flex items-center justify-center">
-                    <span className="text-2xl">🌟</span>
+                    <span className="text-2xl" aria-label="Star icon">🌟</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-navy-900">Our Vision</h3>
+                  <h3 className="text-2xl font-bold heading-primary">Our Vision</h3>
                 </div>
                 <p className="text-lg leading-relaxed text-navy-700 mb-6">
                   To be the leading catalyst for entrepreneurial success, creating a world where
@@ -82,18 +82,18 @@ export function MissionSection() {
 
           {/* Values */}
           <div className="mt-20">
-            <h3 className="text-2xl font-bold text-center text-navy-900 mb-12">Our Core Values</h3>
+            <h3 className="text-2xl font-bold text-center heading-primary mb-12">Our Core Values</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">💡</span>
+                  <span className="text-2xl" aria-label="Light bulb icon">💡</span>
                 </div>
                 <h4 className="text-lg font-semibold text-navy-900 mb-2">Innovation</h4>
                 <p className="text-navy-600">Embracing new technologies and creative solutions</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🤝</span>
+                  <span className="text-2xl" aria-label="Handshake icon">🤝</span>
                 </div>
                 <h4 className="text-lg font-semibold text-navy-900 mb-2">Partnership</h4>
                 <p className="text-navy-600">
@@ -102,7 +102,7 @@ export function MissionSection() {
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-silver-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">📈</span>
+                  <span className="text-2xl" aria-label="Growth chart icon">📈</span>
                 </div>
                 <h4 className="text-lg font-semibold text-navy-900 mb-2">Excellence</h4>
                 <p className="text-navy-600">

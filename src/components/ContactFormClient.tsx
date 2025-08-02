@@ -172,7 +172,7 @@ export function ContactFormClient() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 required
-                className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm transition-colors"
+                className="w-full bg-white dark:bg-slate-800 text-brand-dark dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm transition-colors"
                 aria-invalid={!!errors.name}
                 aria-describedby="name-error"
               />
@@ -196,7 +196,7 @@ export function ContactFormClient() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 required
-                className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm transition-colors"
+                className="w-full bg-white dark:bg-slate-800 text-brand-dark dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm transition-colors"
                 aria-invalid={!!errors.email}
                 aria-describedby="email-error"
               />
@@ -218,13 +218,13 @@ export function ContactFormClient() {
             placeholder="Phone (optional)"
             value={form.phone}
             onChange={handleChange}
-            className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm transition-colors"
+            className="w-full bg-white dark:bg-slate-800 text-brand-dark dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm transition-colors"
           />
           <select
             name="topic"
             value={form.topic}
             onChange={handleChange}
-            className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm transition-colors"
+            className="w-full bg-white dark:bg-slate-800 text-brand-dark dark:text-white focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm transition-colors"
           >
             <option>General Inquiry</option>
             <option>Consulting</option>
@@ -241,7 +241,7 @@ export function ContactFormClient() {
               value={form.message}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm resize-none transition-colors"
+              className="w-full bg-white dark:bg-slate-800 text-brand-dark dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 text-sm resize-none transition-colors"
               aria-invalid={!!errors.message}
               aria-describedby="message-error"
             />

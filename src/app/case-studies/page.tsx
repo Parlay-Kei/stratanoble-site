@@ -1,6 +1,4 @@
 import { Metadata } from 'next';
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
 import { Container } from '@/components/ui/container';
 import { caseStudies, getFeaturedCaseStudies } from '@/data/caseStudies';
 
@@ -18,7 +16,6 @@ export default function CaseStudiesPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      <Header />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-navy-900 via-navy-800 to-emerald-900 text-white py-24">
@@ -54,7 +51,7 @@ export default function CaseStudiesPage() {
                   {/* Image Section */}
                   <div className="md:w-1/2">
                     <div className="aspect-video bg-gradient-to-br from-navy-100 to-emerald-100 flex items-center justify-center">
-                      <div className="text-6xl text-navy-300">📊</div>
+                      <div className="text-6xl text-navy-300" aria-label="Analytics chart icon">📊</div>
                     </div>
                   </div>
 
@@ -135,7 +132,7 @@ export default function CaseStudiesPage() {
               {caseStudies.map((caseStudy) => (
                 <div key={caseStudy.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                   <div className="aspect-video bg-gradient-to-br from-navy-100 to-emerald-100 flex items-center justify-center">
-                    <div className="text-4xl text-navy-300">📊</div>
+                    <div className="text-4xl text-navy-300" aria-label="Analytics chart icon">📊</div>
                   </div>
                   
                   <div className="p-6">
@@ -177,6 +174,13 @@ export default function CaseStudiesPage() {
                 </div>
               ))}
             </div>
+            
+            {/* Case Studies Disclaimer */}
+            <div className="text-center mt-12">
+              <p className="text-xs text-navy-500 max-w-3xl mx-auto">
+                * Results shown are from actual client engagements 2022-2024. Individual outcomes may vary based on business model, market conditions, industry factors, and implementation of recommended strategies. All metrics are sourced from internal client analytics and third-party validation where applicable.
+              </p>
+            </div>
           </div>
         </Container>
       </section>
@@ -208,8 +212,6 @@ export default function CaseStudiesPage() {
           </div>
         </Container>
       </section>
-
-      <Footer />
     </main>
   );
 }

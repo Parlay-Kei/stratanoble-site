@@ -9,9 +9,10 @@ import Head from 'next/head';
 
 import { Container } from '@/components/ui/container';
 import { ContactFormClient } from '@/components/ContactFormClient';
+import { CalendlyModal, useCalendlyModal } from '@/components/CalendlyModal';
 
 /**
- * Strata Noble – Contact Page
+ * Strata Noble Contact Page
  *
  * Enhanced mobile-first swipe carousel with haptic feedback animations and
  * improved form validation for dark mode compatibility.
@@ -126,12 +127,12 @@ function InfoCard({
   );
 }
 
-const CALENDLY_ENABLED = true;
 
 export default function ContactPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIdx, setActiveIdx] = useState(0);
   const shouldReduce = useReducedMotion();
+  const { isOpen, modalUrl, modalTitle, openModal, closeModal } = useCalendlyModal();
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
@@ -252,25 +253,36 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      {/* Calendly Embed */}
+      {/* Calendly CTA */}
       <section className="py-16 bg-slate-50 dark:bg-slate-800">
         <Container className="max-w-4xl text-center">
           <h3 className="text-xl md:text-2xl font-medium text-[#003366] dark:text-white mb-8">
             Prefer to talk? Schedule a Call
           </h3>
-          {CALENDLY_ENABLED ? (
-            <iframe
-              src="https://calendly.com/stratanoble/intro-call?hide_event_type_details=1&hide_gdpr_banner=1"
-              className="w-full h-[600px] rounded-xl shadow-sm"
-              loading="lazy"
-            />
-          ) : (
-            <div className="py-12 text-lg text-slate-600 dark:text-slate-300">
-              Online scheduling is coming soon. Please use the form or contact us directly.
-            </div>
-          )}
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-lg">
+            <p className="text-lg text-slate-600 dark:text-slate-300 mb-6">
+              Book a free 30-minute consultation to discuss your business goals and how we can help you achieve them.
+            </p>
+            <button
+              onClick={() => openModal(
+                'https://calendly.com/stratanoble/intro-call?hide_event_type_details=1&hide_gdpr_banner=1',
+                'Schedule Your Free Consultation'
+              )}
+              className="btn-primary btn-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              Schedule Free Consultation
+            </button>
+          </div>
         </Container>
       </section>
+
+      {/* Calendly Modal */}
+      <CalendlyModal
+        url={modalUrl}
+        isOpen={isOpen}
+        onClose={closeModal}
+        title={modalTitle}
+      />
 
     </>
   );

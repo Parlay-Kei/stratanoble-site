@@ -2,8 +2,6 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
 import { motion } from 'framer-motion';
 import { CheckCircleIcon, EnvelopeIcon, CalendarIcon } from '@heroicons/react/24/outline';
 
@@ -41,8 +39,7 @@ function SuccessContent() {
   }, [sessionId]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#002244]">
-      <Header />
+    <main className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#002244] pt-20">
       <div className="py-24 sm:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
@@ -141,7 +138,6 @@ function SuccessContent() {
           </div>
         </div>
       </div>
-      <Footer />
     </main>
   );
 }
@@ -149,8 +145,7 @@ function SuccessContent() {
 export default function SuccessPage() {
   return (
     <Suspense fallback={
-      <main className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#002244]">
-        <Header />
+      <main className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#002244] pt-20">
         <div className="py-24 sm:py-32">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
@@ -161,7 +156,6 @@ export default function SuccessPage() {
             </div>
           </div>
         </div>
-        <Footer />
       </main>
     }>
       <SuccessContent />

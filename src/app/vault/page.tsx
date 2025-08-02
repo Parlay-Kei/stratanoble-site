@@ -4,8 +4,6 @@ export const dynamicParams = true;
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
 import { Container } from '@/components/ui/container';
 
 interface Resource {
@@ -156,23 +154,20 @@ function VaultPageContent() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-white">
-        <Header />
+      <main className="min-h-screen bg-white pt-20">
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
             <p className="text-navy-600">Verifying access...</p>
           </div>
         </div>
-        <Footer />
       </main>
     );
   }
 
   if (!isAuthorized) {
     return (
-      <main className="min-h-screen bg-white">
-        <Header />
+      <main className="min-h-screen bg-white pt-20">
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center max-w-md mx-auto px-4">
             <div className="text-6xl mb-6">🔒</div>
@@ -188,15 +183,12 @@ function VaultPageContent() {
             </a>
           </div>
         </div>
-        <Footer />
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      <Header />
-
+    <main className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-navy-900 via-navy-800 to-emerald-900 text-white py-16">
         <Container>
@@ -313,8 +305,6 @@ function VaultPageContent() {
           </div>
         </Container>
       </section>
-
-      <Footer />
     </main>
   );
 }
@@ -322,15 +312,13 @@ function VaultPageContent() {
 export default function VaultPage() {
   return (
     <Suspense fallback={
-      <main className="min-h-screen bg-white">
-        <Header />
+      <main className="min-h-screen bg-white pt-20">
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
             <p className="text-navy-600">Loading...</p>
           </div>
         </div>
-        <Footer />
       </main>
     }>
       <VaultPageContent />

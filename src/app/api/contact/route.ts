@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { db } from '@/lib/supabase';
+import { emailService } from '@/lib/email';
+import pino from 'pino';
+
+const logger = pino();
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, message } = body;
+    const { name, email, phone, topic, message } = body;
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -16,26 +21,57 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
     }
 
-    // TODO: Implement actual email sending logic
-    // For now, we'll just log the contact form data
-    // console.log('Contact form submission:', {
-    //   name,
-    //   email,
-    //   phone,
-    //   topic,
-    //   message,
-    //   timestamp: new Date().toISOString(),
-    // });
+    // Store in database
+    const submission = await db.createContactSubmission({
+      name,
+      email,
+      phone,
+      topic,
+      message,
+      source: 'website',
+    });
 
-    // In a real implementation, you would:
-    // 1. Send email to your team
-    // 2. Store in database
-    // 3. Send confirmation email to user
-    // 4. Integrate with CRM if needed
+    logger.info({
+      msg: 'Contact form submission stored',
+      submissionId: submission.id,
+      email,
+    });
 
-    return NextResponse.json({ message: 'Contact form submitted successfully' }, { status: 200 });
-  } catch {
-    // console.error('Contact form error:', _error);
+    // Send notification email to team
+    const teamNotification = await emailService.sendContactFormNotification({
+      name,
+      email,
+      phone,
+      topic,
+      message,
+      submissionId: submission.id,
+    });
+
+    // Send confirmation email to customer
+    const customerConfirmation = await emailService.sendContactFormConfirmation({
+      name,
+      email,
+      message,
+    });
+
+    logger.info({
+      msg: 'Contact form emails sent',
+      submissionId: submission.id,
+      teamNotificationSent: teamNotification.success,
+      customerConfirmationSent: customerConfirmation.success,
+    });
+
+    return NextResponse.json({ 
+      message: 'Contact form submitted successfully',
+      submissionId: submission.id,
+    }, { status: 200 });
+
+  } catch (error) {
+    logger.error({
+      msg: 'Contact form error',
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+    
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

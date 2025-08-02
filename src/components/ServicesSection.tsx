@@ -93,7 +93,7 @@ export function ServicesSection() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight heading-primary sm:text-4xl">
               Our Services
             </h2>
             <p className="mt-4 text-lg leading-8 text-navy-600">
@@ -240,7 +240,7 @@ export function ServicesSection() {
             viewport={{ once: true }}
           >
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-navy-900 mb-2">What Our Clients Say</h3>
+              <h3 className="text-2xl font-bold heading-primary mb-2">What Our Clients Say</h3>
               <p className="text-navy-600">Real results from real entrepreneurs</p>
             </div>
             

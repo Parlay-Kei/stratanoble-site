@@ -19,23 +19,23 @@
   }
 
   .btn-primary {
-    @apply btn bg-navy text-white hover:bg-navy-700;
+    @apply btn bg-brand-navy text-white hover:bg-brand-emerald active:bg-brand-emerald;
   }
 
   .btn-secondary {
-    @apply btn bg-silver-200 text-navy-900 hover:bg-silver-300;
+    @apply btn bg-silver-200 text-navy-900 hover:bg-brand-emerald hover:text-white active:bg-brand-emerald;
   }
 
   .btn-accent {
-    @apply btn bg-emerald text-white hover:bg-emerald-600;
+    @apply btn bg-brand-emerald text-white hover:bg-brand-navy active:bg-brand-navy;
   }
 
   .btn-outline {
-    @apply btn border border-silver-300 hover:bg-emerald hover:text-white;
+    @apply btn border border-brand-light text-brand-light hover:bg-brand-emerald hover:text-white hover:border-brand-emerald active:bg-brand-emerald;
   }
 
   .btn-ghost {
-    @apply btn hover:bg-emerald hover:text-white;
+    @apply btn hover:bg-brand-emerald hover:text-white active:bg-brand-emerald;
   }
 
   .btn-link {
@@ -66,6 +66,18 @@
 
   .gradient-text {
     @apply bg-gradient-to-r from-navy to-emerald bg-clip-text text-transparent;
+  }
+
+  .heading-primary {
+    @apply text-brand-dark;
+  }
+
+  .bg-accent-gold {
+    background-color: #f1c095;
+  }
+
+  .bg-accent-cream {
+    background-color: #fae9d7;
   }
 
   .glass-effect {
