@@ -6,16 +6,9 @@
   package = "@netlify/plugin-nextjs"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
   # Ensure Netlify Next.js plugin is NOT skipped
   NETLIFY_NEXT_PLUGIN_SKIP = "false"
-
-# Redirect rules for SPA routing
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  conditions = {Role = ["admin"]}
 
 # Security headers
 [[headers]]
