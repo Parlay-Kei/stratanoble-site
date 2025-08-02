@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "Bash(git checkout:*)",
@@ -17,7 +18,16 @@
       "Bash(npx next:*)",
       "Bash(rg:*)",
       "Bash(nslookup:*)",
-      "Bash(rd:*)"
+      "Bash(rd:*)",
+      "Bash(ping:*)",
+      "Bash(ls:*)",
+      "Bash(npm run type-check:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npm install:*)",
+      "Bash(git reset:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)"
     ],
     "deny": []
   }

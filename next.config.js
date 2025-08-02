@@ -34,7 +34,20 @@ const nextConfig = {
     return config
   },
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'localhost',
+        port: '',
+        pathname: '/**',
+      },
+    ],
     formats: ['image/webp', 'image/avif'],
   },
   eslint: {
@@ -52,4 +65,4 @@ const nextConfig = {
   // Reduce bundle size
 }
 
-export default nextConfig 
+export default nextConfig

@@ -7,6 +7,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  NPM_FLAGS = "--production=false"
   # Ensure Netlify Next.js plugin is NOT skipped
   NETLIFY_NEXT_PLUGIN_SKIP = "false"
 
