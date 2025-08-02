@@ -3,10 +3,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  ChartBarIcon,
-  MagnifyingGlassIcon,
-  ArrowTrendingUpIcon,
-  MapIcon,
   CheckIcon,
 } from '@heroicons/react/24/outline';
 
