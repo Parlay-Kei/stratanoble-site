@@ -1,14 +1,35 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/data/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}', // Legacy pages directory
+    './public/**/*.html',
   ],
-  // Safelist commonly used classes
+  // Safelist commonly used classes to prevent purging
   safelist: [
     'bg-white',
     'text-white',
     'border-white',
+    'hover:bg-white',
+    'hover:text-white',
+    'bg-white/10',
+    'bg-white/20',
+    'bg-white/5',
+    'border-white/20',
+    'border-white/30',
+    // Dynamic color classes that might be generated
+    'text-navy-900',
+    'text-emerald-600',
+    'bg-emerald-600',
+    'hover:bg-emerald-700',
+    // Common utility classes
+    'transition-all',
+    'duration-300',
+    'transform',
+    'scale-105',
   ],
   // Enable dark mode using a class
   darkMode: ['class'],
@@ -53,7 +74,20 @@ export default {
           700: '#047857',
           800: '#065f46',
           900: '#064e3b',
-          DEFAULT: '#50C878',
+          DEFAULT: '#047857', // Darker green for better contrast (was #50C878)
+        },
+        // New brand colors
+        'dark-purple': '#30232d',
+        'accent-red': '#d55053',
+        'accent-gold': '#f1c095',
+        'accent-cream': '#fae9d7',
+        // Brand colors for semantic usage
+        brand: {
+          navy: '#003366',
+          silver: '#C0C0C0',
+          emerald: '#047857', // Updated for better accessibility
+          light: '#C0C0C0',   // for text on dark bg
+          dark: '#003366',    // for text on light bg
         },
         // Semantic colors
         primary: {
@@ -62,9 +96,9 @@ export default {
           active: '#001f3f',
         },
         accent: {
-          DEFAULT: '#50C878',
-          hover: '#45b36b',
-          active: '#3a9e5e',
+          DEFAULT: '#047857', // Updated for better accessibility
+          hover: '#059669',
+          active: '#065f46',
         },
         neutral: {
           DEFAULT: '#C0C0C0',
@@ -77,8 +111,8 @@ export default {
         serif: ['var(--font-bitter)', 'Bitter', 'serif'],
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(90deg, #003366 0%, #50C878 100%)',
-        'gradient-accent': 'linear-gradient(90deg, #50C878 0%, #003366 100%)',
+        'gradient-primary': 'linear-gradient(90deg, #003366 0%, #047857 100%)',
+        'gradient-accent': 'linear-gradient(90deg, #047857 0%, #003366 100%)',
         'gradient-neutral': 'linear-gradient(90deg, #C0C0C0 0%, #f8f9fa 100%)',
       },
       boxShadow: {
@@ -98,7 +132,6 @@ export default {
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
-    require('tailwindcss-animate'),
   ],
   future: {
     hoverOnlyWhenSupported: true,
