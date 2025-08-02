@@ -2,6 +2,13 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import {
+  ChartBarIcon,
+  MagnifyingGlassIcon,
+  ArrowTrendingUpIcon,
+  MapIcon,
+  CheckIcon,
+} from '@heroicons/react/24/outline';
 
 interface CaseStudy {
   title: string;
@@ -82,8 +89,8 @@ function CaseStudyCard({ caseStudy, index }: { caseStudy: CaseStudy; index: numb
           <h4 className="text-[#50C878] font-semibold mb-2">Results:</h4>
           <ul className="space-y-1">
             {caseStudy.results.map((result, idx) => (
-              <li key={idx} className="flex items-start text-[#C0C0C0] text-sm">
-                <span className="text-[#50C878] mr-2 mt-1">✓</span>
+              <li key={idx} className="flex items-start text-sm text-[#C0C0C0]">
+                <CheckIcon className="h-4 w-4 flex-shrink-0 mr-2 mt-1 text-[#50C878]" aria-hidden="true" />
                 {result}
               </li>
             ))}

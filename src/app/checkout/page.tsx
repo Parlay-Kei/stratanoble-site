@@ -83,7 +83,7 @@ function CheckoutPageContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 pt-16">
-      <div className="max-w-2xl mx-auto px-4 py-12">
+      <div className="max-w-2xl mx-auto px-4 pb-12">
         <div className="bg-white rounded-lg shadow-xl p-8">
           <h1 className="text-3xl font-bold mb-6 text-gray-900">Complete Your Purchase</h1>
           

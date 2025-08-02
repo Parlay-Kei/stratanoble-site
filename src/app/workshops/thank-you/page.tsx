@@ -10,7 +10,7 @@ export default function ThankYouPage() {
   const event_time = "[Event Time]";
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-12 text-gray-900">
+    <main className="max-w-2xl mx-auto px-4 pt-20 pb-12 text-gray-900">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-2">🎉 You&apos;re booked for <span className="text-primary font-extrabold">{event_name}</span></h1>
         <p className="text-lg">Hi <span className="font-semibold">{invitee_name}</span>,<br />Your seat is locked in for <span className="font-semibold">{event_date} at {event_time}</span>.</p>
