@@ -16,7 +16,15 @@
     "changelog": "node scripts/generate-changelog.js",
     "version:patch": "npm version patch && npm run changelog",
     "version:minor": "npm version minor && npm run changelog",
-    "version:major": "npm version major && npm run changelog"
+    "version:major": "npm version major && npm run changelog",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:diff": "supabase db diff -f",
+    "db:push": "supabase db push",
+    "db:combine": "node scripts/combine-migrations.js",
+    "db:validate": "node scripts/validate-migrations.js",
+    "db:new": "supabase migration new"
   },
   "dependencies": {
     "@headlessui/react": "^2.0.0",
@@ -68,6 +76,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.6.13",
+    "supabase": "^2.33.9",
     "tailwindcss": "^3.4.17",
     "typescript": "5.8.3",
     "typescript-eslint": "^8.38.0"
