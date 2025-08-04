@@ -28,7 +28,11 @@
       "Bash(taskkill:*)",
       "Bash(npm run dev:*)",
       "Bash(curl:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npx supabase:*)",
+      "Bash(node scripts/validate-migrations.js)",
+      "Bash(node:*)",
+      "Bash(npm run:*)"
     ],
     "deny": []
   }

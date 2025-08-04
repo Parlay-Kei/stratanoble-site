@@ -162,4 +162,123 @@ export const db = {
     if (error) throw error;
     return log;
   },
+
+  // SaaS-specific functions
+  async createClient(data: {
+    id?: string;
+    stripe_customer_id?: string;
+    tier?: 'lite' | 'growth' | 'partner';
+    status?: 'active' | 'cancelled' | 'suspended';
+  }) {
+    const insertData = {
+      ...data,
+      tier: data.tier || 'lite',
+      status: data.status || 'active'
+    };
+    
+    const { data: client, error } = await supabaseAdmin
+      .from('clients')
+      .insert([insertData])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return client;
+  },
+
+  async upsertSubscription(data: {
+    client_id: string;
+    stripe_subscription_id: string;
+    status: string;
+    current_period_start?: string;
+    current_period_end?: string;
+  }) {
+    const { data: subscription, error } = await supabaseAdmin
+      .from('subscriptions')
+      .upsert([data], { onConflict: 'stripe_subscription_id' })
+      .select()
+      .single();
+
+    if (error) throw error;
+    return subscription;
+  },
+
+  async updateClientTier(clientId: string, tier: 'lite' | 'growth' | 'partner') {
+    const { data: client, error } = await supabaseAdmin
+      .from('clients')
+      .update({ tier })
+      .eq('id', clientId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return client;
+  },
+
+  async logStripeEvent(data: {
+    event_id: string;
+    type: string;
+    handled?: boolean;
+  }) {
+    const { data: log, error } = await supabaseAdmin
+      .from('stripe_event_log')
+      .upsert([{
+        event_id: data.event_id,
+        type: data.type,
+        handled: data.handled || false,
+        received_at: new Date().toISOString()
+      }], { onConflict: 'event_id' })
+      .select()
+      .single();
+
+    if (error) throw error;
+    return log;
+  },
+
+  async getClientByStripeCustomerId(stripeCustomerId: string) {
+    const { data: client, error } = await supabaseAdmin
+      .from('clients')
+      .select('*')
+      .eq('stripe_customer_id', stripeCustomerId)
+      .single();
+
+    if (error) throw error;
+    return client;
+  },
+
+  async getOfferings() {
+    const { data: offerings, error } = await supabaseAdmin
+      .from('offerings')
+      .select('*')
+      .order('monthly_price');
+
+    if (error) throw error;
+    return offerings;
+  },
+
+  async initializeOnboarding(clientId: string) {
+    const { data: onboarding, error } = await supabaseAdmin
+      .from('onboarding_status')
+      .upsert([{
+        client_id: clientId,
+        has_airtable: false,
+        has_geniuslink: false,
+        welcome_email_sent: false
+      }], { onConflict: 'client_id' })
+      .select()
+      .single();
+
+    if (error) throw error;
+    return onboarding;
+  },
+
 };
+
+// Supabase Admin RPC function for handling Stripe events
+export async function handleStripeEvent(event: any) {
+  const { data, error } = await supabaseAdmin
+    .rpc('handle_stripe_event', { event_data: event });
+
+  if (error) throw error;
+  return data;
+}

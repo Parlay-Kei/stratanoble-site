@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifySignature } from '@upstash/qstash/nextjs';
 import { sendKickoffEmail } from '@/lib/stripe-server';
-import { db } from '@/lib/supabase';
+import { db, handleStripeEvent } from '@/lib/supabase';
 import pino from 'pino';
 import Stripe from 'stripe';
 
@@ -25,29 +25,60 @@ async function handler(request: NextRequest) {
       payload: event as Record<string, unknown>
     });
 
-    // Process the event based on its type
-    switch (event.type) {
-      case 'checkout.session.completed':
-        await handleCheckoutSessionCompleted(event);
-        break;
-      case 'payment_intent.succeeded':
-        await handlePaymentIntentSucceeded(event);
-        break;
-      case 'invoice.payment_succeeded':
-        await handleInvoicePaymentSucceeded(event);
-        break;
-      case 'customer.subscription.created':
-        await handleSubscriptionCreated(event);
-        break;
-      case 'customer.subscription.updated':
-        await handleSubscriptionUpdated(event);
-        break;
-      default:
-        logger.info({
-          msg: 'Unhandled webhook event type',
-          eventType: event.type,
-          eventId: event.id
-        });
+    // Use the Supabase RPC function to handle SaaS-related events
+    const saasEvents = [
+      'customer.subscription.created',
+      'customer.subscription.updated', 
+      'customer.subscription.deleted',
+      'invoice.payment_failed'
+    ];
+
+    if (saasEvents.includes(event.type)) {
+      const result = await handleStripeEvent(event);
+      logger.info({
+        msg: 'SaaS event processed via Supabase RPC',
+        eventType: event.type,
+        eventId: event.id,
+        result
+      });
+
+      // Call provision Edge Function for new subscriptions
+      if (event.type === 'customer.subscription.created') {
+        try {
+          const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+          const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+          
+          await fetch(`${supabaseUrl}/functions/v1/provision`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${supabaseAnonKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ event })
+          });
+        } catch (provisionError) {
+          logger.error('Error calling provision function:', provisionError);
+        }
+      }
+    } else {
+      // Process legacy events
+      switch (event.type) {
+        case 'checkout.session.completed':
+          await handleCheckoutSessionCompleted(event);
+          break;
+        case 'payment_intent.succeeded':
+          await handlePaymentIntentSucceeded(event);
+          break;
+        case 'invoice.payment_succeeded':
+          await handleInvoicePaymentSucceeded(event);
+          break;
+        default:
+          logger.info({
+            msg: 'Unhandled webhook event type',
+            eventType: event.type,
+            eventId: event.id
+          });
+      }
     }
 
     // Update webhook log to processed
@@ -171,33 +202,8 @@ async function handleInvoicePaymentSucceeded(event: Stripe.Event) {
   // Add your business logic here
 }
 
-async function handleSubscriptionCreated(event: Stripe.Event) {
-  const subscription = event.data.object as Stripe.Subscription;
-  
-  logger.info({
-    msg: 'Processing subscription created',
-    subscriptionId: subscription.id,
-    customerId: subscription.customer,
-    status: subscription.status
-  });
-
-  // Handle new subscription creation
-  // Add your business logic here
-}
-
-async function handleSubscriptionUpdated(event: Stripe.Event) {
-  const subscription = event.data.object as Stripe.Subscription;
-  
-  logger.info({
-    msg: 'Processing subscription updated',
-    subscriptionId: subscription.id,
-    customerId: subscription.customer,
-    status: subscription.status
-  });
-
-  // Handle subscription updates (status changes, plan changes, etc.)
-  // Add your business logic here
-}
+// Legacy subscription handlers - now handled by Supabase RPC
+// Keeping for backward compatibility with existing checkout flows
 
 // Verify the request signature from QStash
 export const POST = verifySignature(handler);
