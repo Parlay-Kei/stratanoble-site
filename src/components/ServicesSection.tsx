@@ -1,18 +1,23 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRightIcon, CheckIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
+import { 
+  ArrowRightIcon, 
+  CheckIcon, 
+  LightBulbIcon,
+  AcademicCapIcon,
+  ChartBarIcon,
+  PaintBrushIcon
+} from '@heroicons/react/24/outline'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useServiceTracking, useContactFormTracking } from '@/lib/useAnalytics'
 import { services } from '@/data/services'
-import { TestimonialCard } from './TestimonialCard'
-import { featuredTestimonials } from '@/data/testimonials'
 
 export function ServicesSection() {
   const [progress, setProgress] = useState(0)
   const [lastViewedService, setLastViewedService] = useState<string | null>(null)
-  const [hoveredService, setHoveredService] = useState<string | null>(null)
+  const [, setHoveredService] = useState<string | null>(null)
   const { trackHover, trackClick, trackDetails } = useServiceTracking('')
   const { trackSubmit } = useContactFormTracking()
 
@@ -62,14 +67,20 @@ export function ServicesSection() {
     })
   }
 
-  // Parse price for better display
-  const parsePrice = (price: string) => {
-    if (price.includes('From $')) {
-      return { type: 'from', amount: price.replace('From $', '').replace(',', '') }
-    } else if (price.includes('/hour')) {
-      return { type: 'hourly', amount: price.replace('/hour', '').replace('$', '') }
-    } else {
-      return { type: 'fixed', amount: price.replace('$', '').replace(',', '') }
+
+  // Get the appropriate icon component for each service
+  const getServiceIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'lightbulb':
+        return <LightBulbIcon className="h-8 w-8 text-emerald-600" />
+      case 'academic-cap':
+        return <AcademicCapIcon className="h-8 w-8 text-emerald-600" />
+      case 'chart-bar':
+        return <ChartBarIcon className="h-8 w-8 text-emerald-600" />
+      case 'paint-brush':
+        return <PaintBrushIcon className="h-8 w-8 text-emerald-600" />
+      default:
+        return <LightBulbIcon className="h-8 w-8 text-emerald-600" />
     }
   }
 
@@ -104,9 +115,6 @@ export function ServicesSection() {
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, _index) => {
-              const priceInfo = parsePrice(service.price)
-              const isHovered = hoveredService === service.title
-              
               return (
                 <motion.div
                   key={service.title}
@@ -124,23 +132,10 @@ export function ServicesSection() {
                   {/* Enhanced Service Icon */}
                   <div className="mb-6 relative">
                     <motion.div 
-                      className="w-16 h-16 bg-gradient-to-br from-emerald-100 to-navy-100 rounded-xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300"
+                      className="w-16 h-16 bg-gradient-to-br from-emerald-100 to-navy-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
                       whileHover={{ rotate: 5 }}
                     >
-                      {service.icon}
-                    </motion.div>
-                    {/* Price Badge */}
-                    <motion.div 
-                      className="absolute -top-2 -right-2 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: isHovered ? 1 : 0 }}
-                      transition={{ duration: 0.3, delay: 0.1 }}
-                    >
-                      <div className="flex items-center gap-1">
-                        <CurrencyDollarIcon className="h-3 w-3" />
-                        <span>{priceInfo.amount}</span>
-                        {priceInfo.type === 'hourly' && <span>/hr</span>}
-                      </div>
+                      {getServiceIcon(service.icon)}
                     </motion.div>
                   </div>
 
@@ -152,16 +147,9 @@ export function ServicesSection() {
                     <p className="text-navy-600 leading-relaxed">
                       {service.subtitle}
                     </p>
-                    
-                    {/* Enhanced Price Display */}
-                    <div className="flex items-center gap-2 text-emerald-600 font-semibold">
-                      <CurrencyDollarIcon className="h-5 w-5" />
-                      <span className="text-lg">
-                        {priceInfo.type === 'from' && 'From '}
-                        ${priceInfo.amount}
-                        {priceInfo.type === 'hourly' && '/hour'}
-                      </span>
-                    </div>
+                    <p className="text-navy-500 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
                   </div>
 
                   {/* Enhanced Hover State - What You Get */}
@@ -231,29 +219,6 @@ export function ServicesSection() {
             })}
           </div>
 
-          {/* Enhanced Testimonial Section */}
-          <motion.div 
-            className="mt-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold heading-primary mb-2">What Our Clients Say</h3>
-              <p className="text-navy-600">Real results from real entrepreneurs</p>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {featuredTestimonials.map((testimonial, _index) => (
-                <TestimonialCard
-                  key={testimonial.id}
-                  testimonial={testimonial}
-                  variant="featured"
-                />
-              ))}
-            </div>
-          </motion.div>
 
           {/* Enhanced CTA Section with Progress Nudge */}
           <motion.div 

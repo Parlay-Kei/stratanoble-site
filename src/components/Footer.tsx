@@ -12,7 +12,6 @@ const navigation = {
   ],
   company: [
     { name: 'About', href: '/about' },
-    { name: 'Case Studies', href: '/case-studies' },
     { name: 'Contact', href: '/contact' },
     { name: 'Blog', href: '/blog' },
   ],

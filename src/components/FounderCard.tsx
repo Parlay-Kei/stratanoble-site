@@ -27,7 +27,12 @@ export function FounderCard({ name, title, headshot, children }: FounderCardProp
                 target.style.display = 'none';
                 const parent = target.parentElement;
                 if (parent) {
-                  parent.innerHTML = '<div class="text-6xl text-navy-300" aria-label="Person placeholder icon">👤</div>';
+                  // Create safe DOM element instead of using innerHTML
+                  const placeholder = document.createElement('div');
+                  placeholder.className = 'text-6xl text-navy-300';
+                  placeholder.setAttribute('aria-label', 'Person placeholder icon');
+                  placeholder.textContent = '👤';
+                  parent.appendChild(placeholder);
                 }
               }}
             />

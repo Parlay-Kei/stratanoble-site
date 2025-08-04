@@ -35,13 +35,20 @@ export async function POST(request: NextRequest) {
 
     // Instead of processing here, enqueue the event for a background worker.
     // This makes the endpoint fast and resilient to processing failures.
-    await qstash.publishJSON({
-      // The URL of your background processing API route
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/queues/stripe`,
-      body: event,
-      // Use the event ID for deduplication to ensure we only process each event once.
-      deduplicationId: event.id,
-    });
+    if (qstash) {
+      await qstash.publishJSON({
+        // The URL of your background processing API route
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/queues/stripe`,
+        body: event,
+        // Use the event ID for deduplication to ensure we only process each event once.
+        deduplicationId: event.id,
+      });
+    } else {
+      // Fallback: process immediately if qstash is not available
+      logger.warn('QStash not available, processing webhook directly');
+      const { handleStripeEvent } = await import('@/lib/supabase');
+      await handleStripeEvent(event as unknown as Record<string, unknown>);
+    }
 
     return NextResponse.json({ received: true });
   } catch (error) {

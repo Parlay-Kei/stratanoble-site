@@ -37,10 +37,10 @@ export default function AccessDenied({
         const { url } = await response.json()
         window.location.href = url
       } else {
-        console.error('Failed to create checkout session')
+        // Failed to create checkout session - could show toast notification
       }
-    } catch (error) {
-      console.error('Error upgrading subscription:', error)
+    } catch {
+      // Error upgrading subscription - could show toast notification
     } finally {
       setIsUpgrading(false)
     }
@@ -98,7 +98,7 @@ export default function AccessDenied({
           </Button>
           
           <Button 
-            variant="ghost" 
+            variant="outline" 
             onClick={() => window.location.href = '/pricing'}
             className="w-full text-sm"
           >

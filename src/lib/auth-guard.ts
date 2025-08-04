@@ -21,8 +21,8 @@ export async function getUserTier(userId: string): Promise<UserTier | null> {
       tier: client.tier as 'lite' | 'growth' | 'partner',
       status: client.status as 'active' | 'cancelled' | 'suspended'
     }
-  } catch (error) {
-    console.error('Error fetching user tier:', error)
+  } catch {
+    // Error fetching user tier - return null to deny access
     return null
   }
 }

@@ -1,217 +1,79 @@
 import { Metadata } from 'next';
-import { Container } from '@/components/ui/container';
-import { caseStudies, getFeaturedCaseStudies } from '@/data/caseStudies';
 
 export const metadata: Metadata = {
-  title: 'Case Studies | Strata Noble',
-  description: 'Explore real results from our strategic partnerships. See how we\'ve helped businesses achieve transformative growth and operational excellence.',
+  title: 'Case Studies - Coming Soon | Strata Noble',
+  description: 'Our case studies section is currently being updated. Contact us to learn about our client success stories and transformative results.',
   openGraph: {
-    title: 'Case Studies | Strata Noble',
-    description: 'Discover how we\'ve helped businesses achieve 340% revenue growth, 80% cost reduction, and market leadership through strategic innovation.',
+    title: 'Case Studies - Coming Soon | Strata Noble',
+    description: 'Our case studies section is currently being updated. Contact us to learn about our client success stories.',
   },
 };
 
 export default function CaseStudiesPage() {
-  const featuredCaseStudies = getFeaturedCaseStudies();
-
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#0066CC] flex items-center justify-center p-4">
+      <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 max-w-2xl text-center">
+        <div className="w-20 h-20 bg-[#50C878]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg className="w-10 h-10 text-[#50C878]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        
+        <h1 className="text-3xl font-bold text-white mb-4">
+          Case Studies Coming Soon
+        </h1>
+        
+        <p className="text-[#C0C0C0] mb-8 text-lg leading-relaxed">
+          We're currently updating our case studies section to showcase our latest client success stories and transformative results. 
+          In the meantime, we'd love to discuss how we can help transform your business.
+        </p>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-navy-900 via-navy-800 to-emerald-900 text-white py-24">
-        <Container>
-          <div className="mx-auto max-w-4xl text-center">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-              Real Results, Real Impact
-            </h1>
-            <p className="text-xl md:text-2xl text-navy-100 leading-relaxed">
-              Discover how our strategic approach has transformed businesses across industries.
-            </p>
+        <div className="space-y-4 mb-8">
+          <div className="flex items-center justify-center text-[#C0C0C0]">
+            <svg className="w-5 h-5 text-[#50C878] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Strategic Business Consulting
           </div>
-        </Container>
-      </section>
-
-      {/* Featured Case Studies */}
-      <section className="py-20 bg-navy-50">
-        <Container>
-          <div className="mx-auto max-w-6xl">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-6">
-                Featured Success Stories
-              </h2>
-              <div className="w-24 h-1 bg-emerald-500 mx-auto mb-8"></div>
-              <p className="text-xl text-navy-600 max-w-3xl mx-auto">
-                These case studies showcase the transformative impact of strategic innovation across different industries and challenges.
-              </p>
-            </div>
-
-            <div className="space-y-16">
-              {featuredCaseStudies.map((caseStudy, index) => (
-                <div key={caseStudy.id} className={`bg-white rounded-2xl shadow-lg overflow-hidden ${index % 2 === 1 ? 'md:flex-row-reverse' : ''} md:flex`}>
-                  {/* Image Section */}
-                  <div className="md:w-1/2">
-                    <div className="aspect-video bg-gradient-to-br from-navy-100 to-emerald-100 flex items-center justify-center">
-                      <div className="text-6xl text-navy-300" aria-label="Analytics chart icon">📊</div>
-                    </div>
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="md:w-1/2 p-8 md:p-12">
-                    <div className="mb-4">
-                      <span className="inline-block bg-emerald-100 text-emerald-800 text-sm font-medium px-3 py-1 rounded-full">
-                        {caseStudy.industry}
-                      </span>
-                    </div>
-                    
-                    <h3 className="text-2xl md:text-3xl font-bold text-navy-900 mb-4">
-                      {caseStudy.title}
-                    </h3>
-                    
-                    <p className="text-lg text-navy-600 mb-6">
-                      {caseStudy.subtitle}
-                    </p>
-
-                    {/* Key Metrics */}
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                      {caseStudy.kpis.slice(0, 2).map((kpi, kpiIndex) => (
-                        <div key={kpiIndex} className="text-center p-4 bg-navy-50 rounded-lg">
-                          <div className="text-2xl font-bold text-emerald-600">{kpi.improvement}</div>
-                          <div className="text-sm text-navy-600">{kpi.metric}</div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Pull Quote */}
-                    <blockquote className="border-l-4 border-emerald-500 pl-4 mb-6">
-                      <p className="text-navy-700 italic mb-2">&ldquo;{caseStudy.pullQuote}&rdquo;</p>
-                      <footer className="text-sm text-navy-600">
-                        <strong>{caseStudy.pullQuoteAuthor}</strong>, {caseStudy.pullQuoteRole}
-                      </footer>
-                    </blockquote>
-
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {caseStudy.services.map((service, serviceIndex) => (
-                        <span key={serviceIndex} className="bg-navy-100 text-navy-700 text-sm px-3 py-1 rounded-full">
-                          {service}
-                        </span>
-                      ))}
-                    </div>
-
-                    <a
-                      href={`/case-studies/${caseStudy.id}`}
-                      className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold"
-                    >
-                      Read Full Case Study
-                      <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="flex items-center justify-center text-[#C0C0C0]">
+            <svg className="w-5 h-5 text-[#50C878] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Proven Business Frameworks
           </div>
-        </Container>
-      </section>
-
-      {/* All Case Studies Grid */}
-      <section className="py-20 bg-white">
-        <Container>
-          <div className="mx-auto max-w-6xl">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-6">
-                All Case Studies
-              </h2>
-              <div className="w-24 h-1 bg-emerald-500 mx-auto mb-8"></div>
-              <p className="text-xl text-navy-600 max-w-3xl mx-auto">
-                Explore our complete portfolio of strategic transformations and business success stories.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {caseStudies.map((caseStudy) => (
-                <div key={caseStudy.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                  <div className="aspect-video bg-gradient-to-br from-navy-100 to-emerald-100 flex items-center justify-center">
-                    <div className="text-4xl text-navy-300" aria-label="Analytics chart icon">📊</div>
-                  </div>
-                  
-                  <div className="p-6">
-                    <div className="mb-3">
-                      <span className="inline-block bg-emerald-100 text-emerald-800 text-xs font-medium px-2 py-1 rounded-full">
-                        {caseStudy.industry}
-                      </span>
-                    </div>
-                    
-                    <h3 className="text-xl font-bold text-navy-900 mb-2">
-                      {caseStudy.title}
-                    </h3>
-                    
-                    <p className="text-navy-600 text-sm mb-4">
-                      {caseStudy.subtitle}
-                    </p>
-
-                    {/* Top KPI */}
-                    <div className="mb-4 p-3 bg-navy-50 rounded-lg text-center">
-                      <div className="text-xl font-bold text-emerald-600">{caseStudy.kpis[0].improvement}</div>
-                      <div className="text-xs text-navy-600">{caseStudy.kpis[0].metric}</div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {caseStudy.services.slice(0, 2).map((service, serviceIndex) => (
-                        <span key={serviceIndex} className="bg-navy-100 text-navy-700 text-xs px-2 py-1 rounded-full">
-                          {service}
-                        </span>
-                      ))}
-                    </div>
-
-                    <a
-                      href={`/case-studies/${caseStudy.id}`}
-                      className="text-emerald-600 hover:text-emerald-700 text-sm font-semibold"
-                    >
-                      Read Full Case Study →
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Case Studies Disclaimer */}
-            <div className="text-center mt-12">
-              <p className="text-xs text-navy-500 max-w-3xl mx-auto">
-                * Results shown are from actual client engagements 2022-2024. Individual outcomes may vary based on business model, market conditions, industry factors, and implementation of recommended strategies. All metrics are sourced from internal client analytics and third-party validation where applicable.
-              </p>
-            </div>
+          <div className="flex items-center justify-center text-[#C0C0C0]">
+            <svg className="w-5 h-5 text-[#50C878] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Transformative Results
           </div>
-        </Container>
-      </section>
+        </div>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-navy-900 to-emerald-900 text-white">
-        <Container>
-          <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Create Your Success Story?
-            </h2>
-            <p className="text-xl text-navy-100 mb-8 max-w-2xl mx-auto">
-              Let&apos;s discuss how our strategic approach can help you achieve similar transformative results.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/discovery"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
-              >
-                Start Your Transformation
-              </a>
-              <a
-                href="/contact"
-                className="bg-transparent border-2 border-white hover:bg-white hover:text-navy-900 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
-              >
-                Get in Touch
-              </a>
-            </div>
-          </div>
-        </Container>
-      </section>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact"
+            className="bg-[#50C878] hover:bg-[#3DB067] text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+          >
+            Contact Us
+          </a>
+          <a
+            href="/services"
+            className="bg-transparent border-2 border-white/30 hover:border-white hover:bg-white/10 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+          >
+            View Services
+          </a>
+        </div>
+
+        <div className="mt-8 pt-6 border-t border-white/20">
+          <p className="text-sm text-[#C0C0C0]">
+            Want to learn about our client results? 
+            <a href="/contact" className="text-[#50C878] hover:text-[#3DB067] ml-1 underline">
+              Get in touch
+            </a> 
+            {' '}and we'll share relevant success stories.
+          </p>
+        </div>
+      </div>
     </main>
   );
 }

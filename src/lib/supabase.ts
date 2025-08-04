@@ -275,7 +275,7 @@ export const db = {
 };
 
 // Supabase Admin RPC function for handling Stripe events
-export async function handleStripeEvent(event: any) {
+export async function handleStripeEvent(event: Record<string, unknown>) {
   const { data, error } = await supabaseAdmin
     .rpc('handle_stripe_event', { event_data: event });
 

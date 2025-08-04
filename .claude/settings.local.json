@@ -32,7 +32,10 @@
       "Bash(npx supabase:*)",
       "Bash(node scripts/validate-migrations.js)",
       "Bash(node:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm audit:*)",
+      "Bash(del \"C:\\dev\\strata-noble\\src\\__tests__\\security.test.ts\")"
     ],
     "deny": []
   }

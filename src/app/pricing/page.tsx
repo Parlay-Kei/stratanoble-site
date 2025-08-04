@@ -1,49 +1,60 @@
 'use client';
 
-import { useState } from 'react';
-import { OFFERINGS } from '@/data/offerings';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { OFFERINGS, type OfferingId } from '@/data/offerings';
 import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
+import CheckoutModal from '@/components/CheckoutModal';
 
 export default function PricingPage() {
-  const [isLoading, setIsLoading] = useState<string | null>(null);
+  const [showCancelMessage, setShowCancelMessage] = useState(false);
+  const [selectedOffering, setSelectedOffering] = useState<OfferingId | null>(null);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const searchParams = useSearchParams();
 
-  const handleStartCheckout = async (offeringId: keyof typeof OFFERINGS) => {
-    setIsLoading(offeringId);
-    
-    try {
-      const response = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          offeringId,
-          customerEmail: 'demo@stratanoble.com', // This would come from auth in production
-          customerName: 'Demo User', // This would come from auth in production
-          test: process.env.NODE_ENV === 'development' // Enable test mode in development
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.url) {
-        window.location.href = result.url;
-      } else {
-        console.error('Checkout error:', result.error);
-        alert('Error creating checkout session. Please try again.');
-      }
-    } catch (error) {
-      console.error('Network error:', error);
-      alert('Network error. Please try again.');
-    } finally {
-      setIsLoading(null);
+  useEffect(() => {
+    if (searchParams.get('canceled') === '1') {
+      setShowCancelMessage(true);
+      // Auto-hide after 5 seconds
+      setTimeout(() => setShowCancelMessage(false), 5000);
     }
+  }, [searchParams]);
+
+  const handleStartCheckout = (offeringId: OfferingId) => {
+    setSelectedOffering(offeringId);
+    setShowCheckoutModal(true);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#0066CC]">
       <Container className="py-20">
+        {/* Cancel Message Banner */}
+        {showCancelMessage && (
+          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4">
+            <div className="bg-yellow-500 text-yellow-900 px-6 py-4 rounded-lg shadow-lg border border-yellow-400">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  <span className="font-medium">Checkout cancelled</span>
+                </div>
+                <button 
+                  onClick={() => setShowCancelMessage(false)}
+                  className="text-yellow-700 hover:text-yellow-900"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              <p className="text-sm mt-1">
+                No worries! Your information wasn&apos;t saved. Try again when you&apos;re ready.
+              </p>
+            </div>
+          </div>
+        )}
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-white mb-6">
@@ -115,21 +126,13 @@ export default function PricingPage() {
                 {/* CTA Button */}
                 <Button
                   onClick={() => handleStartCheckout(offeringId)}
-                  disabled={isLoading === offeringId}
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-all ${
                     isPopular
                       ? 'bg-[#50C878] hover:bg-[#3DB067] text-white'
                       : 'bg-white/10 hover:bg-white/20 text-white border border-white/30'
                   }`}
                 >
-                  {isLoading === offeringId ? (
-                    <div className="flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                      Creating checkout...
-                    </div>
-                  ) : (
-                    `Get Started with ${offering.name}`
-                  )}
+                  Get Started with {offering.name}
                 </Button>
 
                 {/* Test Mode Indicator */}
@@ -186,6 +189,15 @@ export default function PricingPage() {
           </div>
         </div>
       </Container>
+
+      {/* Checkout Modal */}
+      <CheckoutModal
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        offeringId={selectedOffering}
+        customerEmail="demo@stratanoble.com"
+        customerName="Demo User"
+      />
     </div>
   );
 }

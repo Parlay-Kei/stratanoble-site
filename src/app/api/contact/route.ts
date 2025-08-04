@@ -1,25 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/supabase';
 import { emailService } from '@/lib/email';
+import { ContactFormSchema, validateRequest, createValidationErrorResponse, createSuccessResponse } from '@/lib/validators';
+import { withEnhancedCSRFProtection } from '@/lib/csrf';
 import pino from 'pino';
 
 const logger = pino();
 
-export async function POST(request: NextRequest) {
+async function contactHandler(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, topic, message } = body;
-
-    // Validate required fields
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    
+    // Validate request body using Zod schema
+    const validation = validateRequest(ContactFormSchema, body);
+    if (!validation.success) {
+      return NextResponse.json(
+        createValidationErrorResponse(validation.errorMap),
+        { status: 422 }
+      );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
-    }
+    const { name, email, phone, topic, message, source } = validation.data;
 
     // Store in database
     const submission = await db.createContactSubmission({
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
       phone,
       topic,
       message,
-      source: 'website',
+      source,
     });
 
     logger.info({
@@ -61,10 +62,13 @@ export async function POST(request: NextRequest) {
       customerConfirmationSent: customerConfirmation.success,
     });
 
-    return NextResponse.json({ 
-      message: 'Contact form submitted successfully',
-      submissionId: submission.id,
-    }, { status: 200 });
+    return NextResponse.json(
+      createSuccessResponse(
+        { submissionId: submission.id },
+        'Contact form submitted successfully'
+      ),
+      { status: 200 }
+    );
 
   } catch (error) {
     logger.error({
@@ -75,3 +79,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+// Apply CSRF protection to the POST handler
+export const POST = withEnhancedCSRFProtection(contactHandler);

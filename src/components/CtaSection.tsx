@@ -57,17 +57,7 @@ export function CtaSection() {
 
           {/* Social Proof */}
           <div className="mt-16">
-            <p className="text-sm text-navy-200 mb-4">Trusted by entrepreneurs worldwide</p>
-            <div className="flex items-center justify-center gap-8 opacity-60">
-              <div className="text-white font-semibold">500+</div>
-              <div className="text-white font-semibold">95%</div>
-              <div className="text-white font-semibold">$2M+</div>
-            </div>
-            <div className="flex items-center justify-center gap-8 text-xs text-navy-300">
-              <div>Happy Clients</div>
-              <div>Success Rate</div>
-              <div>Revenue Generated</div>
-            </div>
+            <p className="text-sm text-navy-200 mb-4">Transforming passion into profit through strategic excellence</p>
           </div>
         </div>
       </div>

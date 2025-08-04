@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/toast';
 
 interface SubscriptionManagerProps {
   customerId?: string;
@@ -15,10 +16,15 @@ export default function SubscriptionManager({
   subscriptionStatus = 'inactive'
 }: SubscriptionManagerProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const { showToast } = useToast();
 
   const handleManageSubscription = async () => {
     if (!customerId) {
-      alert('No customer ID found. Please contact support.');
+      showToast({
+        type: 'warning',
+        title: 'Missing Customer ID',
+        message: 'No customer ID found. Please contact support.'
+      });
       return;
     }
 
@@ -41,12 +47,18 @@ export default function SubscriptionManager({
       if (response.ok && result.url) {
         window.location.href = result.url;
       } else {
-        console.error('Portal error:', result.error);
-        alert('Error opening subscription management. Please try again.');
+        showToast({
+          type: 'error',
+          title: 'Subscription Management Error',
+          message: result.error || 'Error opening subscription management. Please try again.'
+        });
       }
-    } catch (error) {
-      console.error('Network error:', error);
-      alert('Network error. Please try again.');
+    } catch {
+      showToast({
+        type: 'error',
+        title: 'Network Error',
+        message: 'Unable to connect to subscription service. Please try again.'
+      });
     } finally {
       setIsLoading(false);
     }

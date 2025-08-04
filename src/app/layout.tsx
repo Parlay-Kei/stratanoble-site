@@ -9,6 +9,7 @@ import { Analytics } from '@/components/Analytics';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { ToastProvider } from '@/components/ui/toast';
+import RouteGuard from '@/components/RouteGuard';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -168,7 +169,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="font-sans antialiased">
         <Header />
-        <ToastProvider>{children}</ToastProvider>
+        <ToastProvider>
+          <RouteGuard>{children}</RouteGuard>
+        </ToastProvider>
         <Footer />
         <Suspense fallback={null}>
           <Analytics />

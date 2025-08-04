@@ -1,37 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createCheckoutSession } from '@/lib/stripe-server';
 import { OFFERINGS } from '@/data/offerings';
 import { stripe } from '@/lib/stripe-server';
+import { CheckoutSessionSchema, validateRequest, createValidationErrorResponse, createSuccessResponse } from '@/lib/validators';
+import { withEnhancedCSRFProtection } from '@/lib/csrf';
+import pino from 'pino';
+import Stripe from 'stripe';
 
-export async function POST(request: NextRequest) {
+const logger = pino();
+
+async function checkoutHandler(request: NextRequest) {
   try {
     const body = await request.json();
-    const { offeringId, customerEmail, customerName, test } = body;
-
-    // Validate required fields
-    if (!offeringId || !customerEmail || !customerName) {
+    
+    // Validate request body using Zod schema
+    const validation = validateRequest(CheckoutSessionSchema, body);
+    if (!validation.success) {
       return NextResponse.json(
-        { error: 'Missing required fields: offeringId, customerEmail, customerName' },
-        { status: 400 }
+        createValidationErrorResponse(validation.errorMap),
+        { status: 422 }
       );
     }
 
-    // Validate offering ID
-    if (!['lite', 'growth', 'partner'].includes(offeringId)) {
-      return NextResponse.json(
-        { error: 'Invalid offering ID. Must be lite, growth, or partner' },
-        { status: 400 }
-      );
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(customerEmail)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      );
-    }
+    const { offeringId, customerEmail, customerName, promoCode, test } = validation.data;
 
     const offering = OFFERINGS[offeringId as keyof typeof OFFERINGS];
     const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
@@ -46,7 +36,7 @@ export async function POST(request: NextRequest) {
         : [{ price: (offering as typeof OFFERINGS.lite | typeof OFFERINGS.growth).priceId, quantity: 1 }];
 
     // Build checkout session parameters
-    const sessionParams: any = {
+    const sessionParams: Stripe.Checkout.SessionCreateParams = {
       mode: 'subscription',
       line_items,
       customer_email: customerEmail,
@@ -63,18 +53,33 @@ export async function POST(request: NextRequest) {
     // Add test discount if in test mode
     if (test && process.env.STRIPE_TEST_PROMOTION_CODE) {
       sessionParams.discounts = [{ promotion_code: process.env.STRIPE_TEST_PROMOTION_CODE }];
-      console.log('Test mode enabled - applying discount coupon');
+      logger.info('Test mode enabled - applying discount coupon');
+    }
+
+    // Add promo code if provided
+    if (promoCode && !test) {
+      sessionParams.discounts = [{ promotion_code: promoCode }];
     }
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create(sessionParams);
 
-    return NextResponse.json({ sessionId: session.id, url: session.url });
+    return NextResponse.json(
+      createSuccessResponse({
+        sessionId: session.id,
+        url: session.url
+      }),
+      { status: 200 }
+    );
   } catch (error) {
-    console.error('Checkout session creation error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    logger.error('Checkout session creation error:', { error: errorMessage });
     return NextResponse.json(
       { error: 'Failed to create checkout session' },
       { status: 500 }
     );
   }
 }
+
+// Apply CSRF protection to the POST handler
+export const POST = withEnhancedCSRFProtection(checkoutHandler);

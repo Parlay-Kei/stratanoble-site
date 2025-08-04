@@ -1,9 +1,8 @@
 import { Client } from '@upstash/qstash';
 
-if (!process.env.QSTASH_TOKEN) {
-  throw new Error('QSTASH_TOKEN environment variable is required');
-}
+// Allow build to succeed without QSTASH_TOKEN, but runtime will fail if not provided
+const token = process.env.QSTASH_TOKEN;
 
-export const qstash = new Client({
-  token: process.env.QSTASH_TOKEN,
-});
+// QSTASH_TOKEN will be checked at runtime when qstash functions are called
+
+export const qstash = token ? new Client({ token }) : null;

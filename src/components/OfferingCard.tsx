@@ -35,11 +35,9 @@ export default function OfferingCard({ offeringId, isPopular = false }: Offering
       if (response.ok && result.url) {
         window.location.href = result.url;
       } else {
-        console.error('Checkout error:', result.error);
         alert('Error creating checkout session. Please try again.');
       }
-    } catch (error) {
-      console.error('Network error:', error);
+    } catch {
       alert('Network error. Please try again.');
     } finally {
       setIsLoading(false);

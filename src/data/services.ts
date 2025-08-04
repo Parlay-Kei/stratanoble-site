@@ -1,7 +1,7 @@
 // ServiceCardGrid data for landing page - Updated for four core offerings
 export const services = [
   {
-    icon: '💡',
+    icon: 'lightbulb',
     title: 'Solution Services',
     subtitle: 'Strategy & Execution for Solo / Small Biz',
     description: 'Transform your vision into actionable strategy with proven frameworks and hands-on execution support.',
@@ -36,7 +36,7 @@ export const services = [
     category: 'strategy'
   },
   {
-    icon: '🎓',
+    icon: 'academic-cap',
     title: 'Side-Hustle Workshops',
     subtitle: 'Hands-on learning for aspiring entrepreneurs',
     description: 'Join interactive workshops designed to help you launch and scale your side hustle with proven strategies.',
@@ -67,7 +67,7 @@ export const services = [
     category: 'education'
   },
   {
-    icon: '📊',
+    icon: 'chart-bar',
     title: 'Data & Operations Analysis',
     subtitle: 'Optimize your business with data-driven insights',
     description: 'Unlock hidden opportunities in your operations with comprehensive data analysis and actionable recommendations.',
@@ -97,7 +97,7 @@ export const services = [
     category: 'analytics'
   },
   {
-    icon: '🎨',
+    icon: 'paint-brush',
     title: 'Brand & Digital Presence',
     subtitle: 'Complete brand identity and digital strategy',
     description: 'Build a compelling brand identity and establish a strong digital presence that resonates with your audience.',
