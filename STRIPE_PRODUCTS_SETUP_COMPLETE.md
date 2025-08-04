@@ -62,12 +62,41 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_51RaqAbP6dZu6HftB1jg0kvgAS0052vzZtaHi
 STRIPE_SIGNING_SECRET=[NEW_WEBHOOK_SECRET_FROM_STEP_4]
 ```
 
-### 6. Test the Implementation
-**Recommended:** Before going live
-1. Deploy to production
-2. Visit `/pricing` page
-3. Test with a small amount using a test coupon ($0.50)
-4. Verify the full checkout flow works correctly
+### 6. Test the Implementation with $0.50-$0.60 Checkout
+**Recommended:** Test the full production flow without paying full price
+
+**✅ Test Coupon Created:**
+- Coupon ID: `Qqcd7Pgt` (99.8% off)
+- Promotion Code: `LITE99TEST` 
+- Promotion Code ID: `promo_1RsFgYP6dZu6HftBlo3sUzT4`
+
+**Test Amounts:**
+- Dashboard Lite: $300 → $0.60
+- Growth Blueprint: $2000 → $4.00  
+- Revenue Partner: $1000 setup + $4000/month → $2.00 + $8.00/month
+
+**How to Test:**
+1. Deploy to production with the updated code
+2. Use the test checkout script: `node test-checkout-flow.js`
+3. Or make API calls with `test: true` in the request body
+4. Complete the discounted checkout (~$0.60-$8.00)
+5. Verify webhook → database → dashboard access flow works
+
+**Browser Console Test:**
+```javascript
+fetch('/api/stripe/checkout', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    offeringId: 'lite',
+    customerEmail: 'test@stratanoble.com', 
+    customerName: 'Test User',
+    test: true  // Enables 99.8% discount
+  })
+})
+.then(res => res.json())
+.then(data => window.open(data.url, '_blank'));
+```
 
 ## Files Modified/Created
 

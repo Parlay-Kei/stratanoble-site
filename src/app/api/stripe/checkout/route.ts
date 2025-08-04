@@ -6,7 +6,7 @@ import { stripe } from '@/lib/stripe-server';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { offeringId, customerEmail, customerName } = body;
+    const { offeringId, customerEmail, customerName, test } = body;
 
     // Validate required fields
     if (!offeringId || !customerEmail || !customerName) {
@@ -45,8 +45,8 @@ export async function POST(request: NextRequest) {
           ]
         : [{ price: (offering as typeof OFFERINGS.lite | typeof OFFERINGS.growth).priceId, quantity: 1 }];
 
-    // Create Stripe checkout session
-    const session = await stripe.checkout.sessions.create({
+    // Build checkout session parameters
+    const sessionParams: any = {
       mode: 'subscription',
       line_items,
       customer_email: customerEmail,
@@ -55,9 +55,19 @@ export async function POST(request: NextRequest) {
       metadata: {
         offering_id: offeringId,
         customer_name: customerName,
+        test_mode: test ? 'true' : 'false',
         ...offering.metadata,
       },
-    });
+    };
+
+    // Add test discount if in test mode
+    if (test && process.env.STRIPE_TEST_PROMOTION_CODE) {
+      sessionParams.discounts = [{ promotion_code: process.env.STRIPE_TEST_PROMOTION_CODE }];
+      console.log('Test mode enabled - applying discount coupon');
+    }
+
+    // Create Stripe checkout session
+    const session = await stripe.checkout.sessions.create(sessionParams);
 
     return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (error) {
