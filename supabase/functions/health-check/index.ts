@@ -29,7 +29,7 @@ serve(async (req) => {
     try {
       const { data, error } = await supabaseAdmin
         .from('system_heartbeat')
-        .select('count(*)')
+        .select('*')
         .limit(1)
 
       healthChecks.push({
