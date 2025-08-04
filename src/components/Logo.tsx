@@ -9,7 +9,7 @@ export function Logo({ className }: LogoProps) {
     <div className={cn('flex items-center gap-2', className)}>
       <div className="flex items-center">
         <span className="text-2xl font-bold text-navy">Strata</span>
-        <span className="text-2xl font-bold text-emerald">Noble</span>
+        <span className="text-2xl font-bold text-emerald-700">Noble</span>
       </div>
     </div>
   );

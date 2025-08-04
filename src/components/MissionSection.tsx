@@ -30,7 +30,7 @@ export function MissionSection() {
                   excellence, and technological tools needed to transform their vision into
                   sustainable, profitable businesses.
                 </p>
-                <ul className="space-y-3 text-navy-600">
+                <ul className="space-y-3 text-navy-800">
                   <li className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
                     <span>Provide proven business strategies and frameworks</span>
@@ -62,7 +62,7 @@ export function MissionSection() {
                   every passionate individual has the knowledge, tools, and support to build
                   thriving businesses that make a positive impact.
                 </p>
-                <ul className="space-y-3 text-navy-600">
+                <ul className="space-y-3 text-navy-800">
                   <li className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-navy-500 rounded-full mt-2 flex-shrink-0"></div>
                     <span>Democratize access to business expertise</span>
