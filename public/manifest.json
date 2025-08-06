@@ -1,0 +1,55 @@
+{
+  "name": "Strata Noble - Transform Your Passion Into Profit",
+  "short_name": "Strata Noble",
+  "description": "We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#30232d",
+  "theme_color": "#30232d",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["business", "consulting", "strategy"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with Strata Noble",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Schedule Discovery Call",
+      "short_name": "Schedule",
+      "description": "Book a free discovery call",
+      "url": "/discovery",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}
