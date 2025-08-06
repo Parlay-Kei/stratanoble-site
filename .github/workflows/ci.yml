@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js 20.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Enforce ESLint 8 (Next.js compatible)
+      run: npm install --no-save eslint@8.57.0
+    
+    - name: Show every eslint copy & caller
+      run: |
+        echo "== npm ls eslint =="
+        npm ls eslint --all || true
+
+        echo "== yarn/npm who-uses eslint =="
+        npx --yes npm-why eslint || true        # prints all packages that depend on eslint
+
+        echo "== search for rogue flat-config =="
+        git ls-files -z | xargs -0 grep -nH "eslint.config.js" || true
+
+        echo "== search for CLI flags inside repo =="
+        git grep -n -- "--use-eslintrc\|--resolvePluginsRelativeTo\|--ignore-path" || true
+    
+    - name: Check Next + eslint-config-next versions
+      run: |
+        npx next --version
+        node -e "console.log(require('eslint-config-next/package.json').version)"
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Run security audit
+      run: npm audit --audit-level moderate
+    
+    - name: Build project
+      run: npm run build 
