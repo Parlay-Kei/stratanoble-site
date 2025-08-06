@@ -1,0 +1,132 @@
+name: Database Drift Detection
+
+on:
+  pull_request:
+    paths:
+      - 'supabase/migrations/**'
+      - 'database/**'
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+      - 'database/**'
+
+jobs:
+  validate-migrations:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Setup Supabase CLI
+      uses: supabase/setup-cli@v1
+      with:
+        version: latest
+
+    - name: Validate migration files
+      run: |
+        echo "🔍 Validating migration file structure..."
+        
+        # Check that migrations are properly numbered and named
+        for file in supabase/migrations/*.sql; do
+          if [[ ! $(basename "$file") =~ ^[0-9]{4}_[a-z_]+\.sql$ ]]; then
+            echo "❌ Invalid migration filename: $(basename "$file")"
+            echo "   Expected format: 0001_description.sql"
+            exit 1
+          fi
+        done
+        
+        echo "✅ All migration files follow naming convention"
+
+    - name: Check SQL syntax
+      run: |
+        echo "🔍 Basic SQL syntax validation..."
+        
+        for file in supabase/migrations/*.sql; do
+          echo "Checking $(basename "$file")..."
+          
+          # Basic syntax checks
+          if grep -q "CREATE TABLE.*(" "$file" && ! grep -q "IF NOT EXISTS" "$file"; then
+            echo "⚠️  Warning: $(basename "$file") has CREATE TABLE without IF NOT EXISTS"
+          fi
+          
+          if grep -q "INSERT INTO" "$file" && ! grep -q "ON CONFLICT" "$file"; then
+            echo "⚠️  Warning: $(basename "$file") has INSERT without conflict handling"
+          fi
+        done
+        
+        echo "✅ SQL syntax validation completed"
+
+    - name: Start Supabase (if Docker available)
+      run: |
+        if command -v docker &> /dev/null; then
+          echo "🐳 Docker found, starting Supabase..."
+          supabase start
+          
+          echo "🔍 Running db diff to check for drift..."
+          supabase db diff -f > diff_output.txt
+          
+          if [ -s diff_output.txt ]; then
+            echo "❌ Database drift detected:"
+            cat diff_output.txt
+            exit 1
+          else
+            echo "✅ No database drift detected"
+          fi
+          
+          supabase stop
+        else
+          echo "⚠️  Docker not available in CI, skipping Supabase tests"
+          echo "   Validating migrations structurally instead..."
+          node scripts/combine-migrations.js
+          echo "✅ Migrations combined successfully"
+        fi
+
+    - name: Verify migration order
+      run: |
+        echo "🔗 Checking migration dependencies..."
+        
+        prev_num=""
+        for file in supabase/migrations/*.sql; do
+          filename=$(basename "$file")
+          num=$(echo "$filename" | cut -d'_' -f1)
+          
+          if [[ -n "$prev_num" && "$num" -le "$prev_num" ]]; then
+            echo "❌ Migration numbering error: $filename should come after previous migration"
+            exit 1
+          fi
+          
+          prev_num="$num"
+        done
+        
+        echo "✅ Migration order is correct"
+
+    - name: Check for sensitive data
+      run: |
+        echo "🔍 Checking for sensitive data in migrations..."
+        
+        if grep -r -i "password\|secret\|key\|token" supabase/migrations/ --exclude="*.md"; then
+          echo "❌ Potential sensitive data found in migrations"
+          echo "   Please review and remove any hardcoded secrets"
+          exit 1
+        fi
+        
+        echo "✅ No sensitive data detected"
+
+    - name: Archive combined migrations
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: combined-migrations
+        path: database/combined_migrations.sql
+        retention-days: 30

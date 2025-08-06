@@ -45,7 +45,9 @@
       "Bash(git config:*)",
       "WebFetch(domain:supabase.com)",
       "Bash(git rm:*)",
-      "Bash(git filter-branch:*)"
+      "Bash(git filter-branch:*)",
+      "Bash(git branch:*)",
+      "Bash(touch:*)"
     ],
     "deny": []
   }
