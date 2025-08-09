@@ -102,7 +102,7 @@ export async function sendKickoffEmail(sessionId: string) {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     
-    // TODO: Integrate with email service (SendGrid, Mailgun, etc.)
+    // TODO: Integrate with AWS SES email service
     // For now, log the email details
     logger.info({
       msg: 'Kickoff email should be sent to',

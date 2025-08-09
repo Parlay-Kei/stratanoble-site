@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn } from "@/lib/utils"
+import { cn } from "@strata-noble/utils"
 
 interface ChartConfig {
   [key: string]: {
@@ -22,7 +22,7 @@ const ChartContainer = React.forwardRef<HTMLDivElement, ChartContainerProps>(
         style={{
           ...Object.entries(config).reduce((acc, [key, value]) => {
             if (value.color) {
-              acc[`--color-${key}` as keyof React.CSSProperties] = value.color;
+              (acc as any)[`--color-${key}`] = value.color;
             }
             return acc;
           }, {} as React.CSSProperties),
