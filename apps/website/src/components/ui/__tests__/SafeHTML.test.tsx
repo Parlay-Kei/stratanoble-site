@@ -62,7 +62,7 @@ describe('SafeHTML Component', () => {
     const html = '<p>Test content</p>'
     const { container } = render(<SafeHTML html={html} className="custom-class" />)
     
-    expect(container.firstChild).toHaveClass('custom-class')
+    expect(container.firstChild as Element).toHaveClass('custom-class')
   })
 
   it('should support custom tag prop', () => {

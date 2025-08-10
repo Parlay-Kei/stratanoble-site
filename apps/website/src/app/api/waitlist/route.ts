@@ -20,7 +20,16 @@ const waitlistSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    let body;
+    
+    try {
+      body = await request.json();
+    } catch (jsonError) {
+      return NextResponse.json(
+        { error: 'Invalid JSON in request body' },
+        { status: 400 }
+      );
+    }
     
     // Validate request data with Zod
     const validationResult = waitlistSchema.safeParse(body);
@@ -140,6 +149,13 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    
+    // Log the specific error for debugging
+    // eslint-disable-next-line no-console
+    console.error('Waitlist API unexpected error:', {
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined
+    });
     
     return NextResponse.json(
       { error: 'Internal server error' },

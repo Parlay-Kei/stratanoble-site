@@ -47,7 +47,13 @@
       "Bash(git rm:*)",
       "Bash(git filter-branch:*)",
       "Bash(git branch:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(npm test:*)",
+      "Bash(kill:*)",
+      "Bash(true)",
+      "Bash(pkill:*)",
+      "Bash(__NEW_LINE__ echo \"5. TESTING STATIC ASSETS\")",
+      "Bash(del \"C:\\dev\\strata-noble\\tailwind.config.js\")"
     ],
     "deny": []
   }

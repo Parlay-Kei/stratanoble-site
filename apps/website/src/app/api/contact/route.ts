@@ -22,7 +22,7 @@ async function contactHandler(request: NextRequest) {
 
     const { name, email, phone, topic, message, source } = validation.data;
 
-    // Store in database
+    // Store in database first (quick operation)
     const submission = await db.createContactSubmission({
       name,
       email,
@@ -38,30 +38,40 @@ async function contactHandler(request: NextRequest) {
       email,
     });
 
-    // Send notification email to team
-    const teamNotification = await emailService.sendContactFormNotification({
-      name,
-      email,
-      phone,
-      topic,
-      message,
-      submissionId: submission.id,
+    // Send emails asynchronously - don't wait for them to complete
+    // This dramatically improves response time
+    Promise.allSettled([
+      emailService.sendContactFormNotification({
+        name,
+        email,
+        phone,
+        topic,
+        message,
+        submissionId: submission.id,
+      }),
+      emailService.sendContactFormConfirmation({
+        name,
+        email,
+        message,
+      })
+    ]).then(([teamResult, customerResult]) => {
+      logger.info({
+        msg: 'Contact form emails processed',
+        submissionId: submission.id,
+        teamNotificationSent: teamResult.status === 'fulfilled' && teamResult.value.success,
+        customerConfirmationSent: customerResult.status === 'fulfilled' && customerResult.value.success,
+        teamError: teamResult.status === 'rejected' ? teamResult.reason : undefined,
+        customerError: customerResult.status === 'rejected' ? customerResult.reason : undefined,
+      });
+    }).catch((error) => {
+      logger.error({
+        msg: 'Email processing error',
+        submissionId: submission.id,
+        error: error instanceof Error ? error.message : 'Unknown error',
+      });
     });
 
-    // Send confirmation email to customer
-    const customerConfirmation = await emailService.sendContactFormConfirmation({
-      name,
-      email,
-      message,
-    });
-
-    logger.info({
-      msg: 'Contact form emails sent',
-      submissionId: submission.id,
-      teamNotificationSent: teamNotification.success,
-      customerConfirmationSent: customerConfirmation.success,
-    });
-
+    // Return success immediately after storing in database
     return NextResponse.json(
       createSuccessResponse(
         { submissionId: submission.id },

@@ -174,7 +174,9 @@ export const EnvSchema = z.object({
   STRIPE_WEBHOOK_SECRET: z.string().min(1),
   SUPABASE_URL: z.string().url(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
-  SENDGRID_API_KEY: z.string().min(1).optional(),
+  AWS_ACCESS_KEY_ID: z.string().min(1).optional(),
+  AWS_SECRET_ACCESS_KEY: z.string().min(1).optional(),
+  SES_FROM_EMAIL: z.string().email().optional(),
   UPSTASH_REDIS_REST_URL: z.string().url().optional(),
   UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),
 });

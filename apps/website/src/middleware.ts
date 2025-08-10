@@ -2,14 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 
-// Initialize Redis connection
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+// Initialize Redis connection with secure env vars
+const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
+const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+const redis = redisUrl && redisToken ? new Redis({
+  url: redisUrl,
+  token: redisToken,
+}) : null;
 
 // Rate limiting configurations for different API endpoints
-const rateLimiters = {
+const rateLimiters = redis ? {
   // General API routes - 100 requests per 10 minutes
   general: new Ratelimit({
     redis,
@@ -53,9 +56,11 @@ const rateLimiters = {
     analytics: true,
     prefix: '@upstash/ratelimit/contact',
   }),
-};
+} : null;
 
 function getRateLimiter(pathname: string) {
+  if (!rateLimiters) return null;
+  
   if (pathname.includes('/api/stripe/') || pathname.includes('/api/checkout')) {
     return rateLimiters.payment;
   }
@@ -92,7 +97,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Skip rate limiting if Redis is not configured
-  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
+  if (!redisUrl || !redisToken) {
     console.warn('Upstash Redis not configured - skipping rate limiting');
     return NextResponse.next();
   }
@@ -100,6 +105,11 @@ export async function middleware(request: NextRequest) {
   try {
     const ip = getClientIP(request);
     const rateLimiter = getRateLimiter(request.nextUrl.pathname);
+    
+    if (!rateLimiter) {
+      console.warn('Rate limiter not available - skipping rate limiting');
+      return NextResponse.next();
+    }
     
     const { success, limit, reset, remaining } = await rateLimiter.limit(ip);
 
@@ -145,7 +155,8 @@ export const config = {
      * - Webhooks (they have their own rate limiting)
      * - Health checks
      * - Static files and assets
+     * - CSRF endpoint
      */
-    '/api/((?!webhooks|health|_next/static|favicon.ico).*)',
+    '/api/((?!webhook|health|csrf|_next/static|favicon.ico).*)',
   ],
 };

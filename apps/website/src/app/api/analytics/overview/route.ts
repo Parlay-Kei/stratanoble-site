@@ -1,16 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { assertUserWithTier, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
+import { assertAdmin, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
 import { supabase } from '@/lib/supabase';
 
 export async function GET(request: NextRequest) {
   try {
-    // Require admin access for analytics
-    const user = await assertUserWithTier(request, 'any');
-    
-    // Check if user is admin (you may want to add admin role to your auth system)
-    if (user.email !== process.env.ADMIN_EMAIL) {
-      throw new ForbiddenError('Admin access required');
-    }
+    // Require admin role for analytics access
+    const { user, profile } = await assertAdmin(request);
 
     const { searchParams } = new URL(request.url);
     const timeframe = searchParams.get('timeframe') || '30d';

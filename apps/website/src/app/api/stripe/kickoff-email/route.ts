@@ -55,14 +55,14 @@ export async function POST(request: NextRequest) {
         ...order.metadata as Record<string, unknown>,
         kickoff_email_sent: true,
         kickoff_email_sent_at: new Date().toISOString(),
-        kickoff_email_message_id: emailResult.messageId,
+        kickoff_email_message_id: 'sent_via_ses',
       });
 
       logger.info('Kickoff email sent successfully:', {
         sessionId,
         orderId: order.id,
         customerEmail: session.customer_email,
-        messageId: emailResult.messageId,
+        emailSent: true,
       });
 
       return NextResponse.json({

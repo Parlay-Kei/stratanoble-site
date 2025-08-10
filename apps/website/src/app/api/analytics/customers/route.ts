@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { assertUserWithTier, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
+import { assertAdmin, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
 import { supabase } from '@/lib/supabase';
 
 export async function GET(request: NextRequest) {
   try {
-    // Require admin access for analytics
-    const user = await assertUserWithTier(request, 'any');
-    
-    if (user.email !== process.env.ADMIN_EMAIL) {
-      throw new ForbiddenError('Admin access required');
-    }
+    // Require admin role for analytics access
+    const { user, profile } = await assertAdmin(request);
 
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');

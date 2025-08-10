@@ -37,6 +37,9 @@ function getEventTypeSlugFromUrl(calendlyUrl: string): string | null {
 }
 
 export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const eventTypeUrl = searchParams.get('event_type_url') || 'https://calendly.com/stratanoble/side-hustle';
+  
   try {
     if (!CALENDLY_TOKEN) {
       // CALENDLY_TOKEN environment variable is required
@@ -45,9 +48,6 @@ export async function GET(request: NextRequest) {
         { status: 500 }
       );
     }
-
-    const { searchParams } = new URL(request.url);
-    const eventTypeUrl = searchParams.get('event_type_url') || 'https://calendly.com/stratanoble/side-hustle';
     
     // Get event type slug from URL
     const eventTypeSlug = getEventTypeSlugFromUrl(eventTypeUrl);
@@ -79,21 +79,43 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
-    const events: CalendlyEvent[] = data.collection || [];
+    
+    // Validate response structure
+    if (!data || typeof data !== 'object') {
+      console.error('Invalid Calendly API response structure:', data);
+      return NextResponse.json(
+        { error: 'Invalid response from Calendly API' },
+        { status: 500 }
+      );
+    }
+    
+    const events: CalendlyEvent[] = Array.isArray(data.collection) ? data.collection : [];
 
     // Filter events to only include future events and format them
     const upcomingEvents = events
-      .filter(event => new Date(event.start_time) > new Date())
+      .filter(event => {
+        try {
+          return event && event.start_time && new Date(event.start_time) > new Date();
+        } catch {
+          return false; // Skip invalid events
+        }
+      })
       .map(event => ({
-        uri: event.uri,
-        name: event.name,
+        uri: event.uri || '',
+        name: event.name || 'Unnamed Event',
         start_time: event.start_time,
         end_time: event.end_time,
-        location: event.location,
-        invitees_counter: event.invitees_counter,
-        available_spots: event.invitees_counter.limit - event.invitees_counter.active,
+        location: event.location || { type: 'unknown', location: '' },
+        invitees_counter: event.invitees_counter || { total: 0, active: 0, limit: 1 },
+        available_spots: (event.invitees_counter?.limit || 1) - (event.invitees_counter?.active || 0),
       }))
-      .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
+      .sort((a, b) => {
+        try {
+          return new Date(a.start_time).getTime() - new Date(b.start_time).getTime();
+        } catch {
+          return 0; // Keep original order if dates are invalid
+        }
+      });
 
     return NextResponse.json({
       success: true,
@@ -102,8 +124,14 @@ export async function GET(request: NextRequest) {
       event_type_slug: eventTypeSlug,
     });
 
-  } catch {
-    // Error fetching Calendly events
+  } catch (error) {
+    // Log the actual error for debugging
+    console.error('Calendly API error:', {
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+      eventTypeUrl,
+    });
+    
     return NextResponse.json(
       { error: 'Failed to fetch upcoming events' },
       { status: 500 }

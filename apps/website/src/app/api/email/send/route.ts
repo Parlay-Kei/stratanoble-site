@@ -1,32 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import sgMail from '@sendgrid/mail';
 import { sendEmail } from '../../../../lib/mailer';
 import { z } from 'zod';
 
-
 // Email service configuration
-const EMAIL_DRIVER = process.env.EMAIL_DRIVER || 'sendgrid'; // 'sendgrid' or 'ses'
-const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'contact@stratanoble.com';
-const FROM_EMAIL = process.env.SES_FROM_EMAIL || process.env.FROM_EMAIL || 'noreply@stratanoble.com';
 
-if (SENDGRID_API_KEY) sgMail.setApiKey(SENDGRID_API_KEY);
-
-// Email service selector
+// Email service using AWS SES only
 async function sendEmailViaService(to: string, subject: string, html: string, text?: string) {
-  if (EMAIL_DRIVER === 'ses') {
-    // Use AWS SES
-    await sendEmail(to, subject, html);
-  } else {
-    // Use SendGrid (default)
-    await sgMail.send({
-      to,
-      from: FROM_EMAIL,
-      subject,
-      html,
-      text,
-    });
-  }
+  await sendEmail(to, subject, html);
 }
 
 // Email schemas
@@ -351,13 +332,9 @@ async function handleFormSubmission(formType: string, formData: unknown) {
 
 export async function POST(request: NextRequest) {
   try {
-    // Check if email service is configured
-    if (EMAIL_DRIVER === 'ses') {
-      if (!process.env.AWS_SES_REGION || !process.env.AWS_SES_ACCESS_KEY || !process.env.AWS_SES_SECRET || !process.env.SES_FROM_EMAIL) {
-        return NextResponse.json({ success: false, error: 'AWS SES email service not configured' }, { status: 500 });
-      }
-    } else if (!SENDGRID_API_KEY) {
-      return NextResponse.json({ success: false, error: 'SendGrid email service not configured' }, { status: 500 });
+    // Check if AWS SES email service is configured
+    if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY || !process.env.SES_FROM_EMAIL) {
+      return NextResponse.json({ success: false, error: 'AWS SES email service not configured' }, { status: 500 });
     }
 
     const body = await request.json();
