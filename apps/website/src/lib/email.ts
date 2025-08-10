@@ -1,18 +1,6 @@
-import sgMail from '@sendgrid/mail';
-import { db } from './supabase';
-import pino from 'pino';
-
-const logger = pino();
-
-// Initialize SendGrid
-const sendGridApiKey = process.env.SENDGRID_API_KEY;
-const fromEmail = process.env.SENDGRID_FROM_EMAIL || 'contact@stratanoble.com';
-
-if (!sendGridApiKey) {
-  logger.warn('SENDGRID_API_KEY not found. Email functionality will be disabled.');
-} else {
-  sgMail.setApiKey(sendGridApiKey);
-}
+import { sendEmail as sendEmailSES } from './mailer';
+import { logger } from './logger';
+import { env } from './env';
 
 // Email template types
 export type EmailTemplate = 
@@ -22,7 +10,7 @@ export type EmailTemplate =
   | 'order-confirmation'
   | 'welcome';
 
-// Email service class
+// Email service class using AWS SES
 class EmailService {
   private async sendEmail(data: {
     to: string;
@@ -32,67 +20,20 @@ class EmailService {
     template: EmailTemplate;
     metadata?: Record<string, unknown>;
   }) {
-    if (!sendGridApiKey) {
-      logger.warn('Attempted to send email but SendGrid is not configured');
-      await db.logEmail({
-        recipient: data.to,
-        subject: data.subject,
-        template: data.template,
-        status: 'failed',
-        error_message: 'SendGrid not configured',
-        metadata: data.metadata,
-      });
-      return { success: false, error: 'Email service not configured' };
-    }
-
     try {
-      const msg = {
-        to: data.to,
-        from: {
-          email: fromEmail,
-          name: 'Strata Noble',
-        },
-        subject: data.subject,
-        text: data.text || data.html.replace(/<[^>]*>/g, ''), // Strip HTML for text version
-        html: data.html,
-      };
-
-      const response = await sgMail.send(msg);
+      // Use AWS SES to send email
+      await sendEmailSES(data.to, data.subject, data.html);
       
-      await db.logEmail({
-        recipient: data.to,
-        subject: data.subject,
-        template: data.template,
-        status: 'sent',
-        metadata: {
-          ...data.metadata,
-          sendgrid_message_id: response[0].headers['x-message-id'],
-        },
-      });
-
-      logger.info({
-        msg: 'Email sent successfully',
+      logger.info('Email sent successfully via AWS SES', {
         recipient: data.to,
         template: data.template,
-        messageId: response[0].headers['x-message-id'],
       });
 
-      return { success: true, messageId: response[0].headers['x-message-id'] };
+      return { success: true };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       
-      await db.logEmail({
-        recipient: data.to,
-        subject: data.subject,
-        template: data.template,
-        status: 'failed',
-        error_message: errorMessage,
-        metadata: data.metadata,
-      });
-
-      logger.error({
-        msg: 'Failed to send email',
-        error: errorMessage,
+      logger.error('Failed to send email via AWS SES', new Error(errorMessage), {
         recipient: data.to,
         template: data.template,
       });
@@ -138,7 +79,7 @@ class EmailService {
     `;
 
     return await this.sendEmail({
-      to: fromEmail, // Send to team email
+      to: env.ADMIN_EMAIL, // Send to team email
       subject,
       html,
       template: 'contact-form-notification',

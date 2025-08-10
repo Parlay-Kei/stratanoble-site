@@ -93,8 +93,8 @@ const nextConfig = {
     ignoreDuringBuilds: process.env.NODE_ENV === 'development',
   },
   typescript: {
-    // Skip type checking during development for faster builds
-    ignoreBuildErrors: process.env.NODE_ENV === 'development',
+    // Only ignore build errors in development if explicitly set
+    ignoreBuildErrors: process.env.IGNORE_TYPESCRIPT_ERRORS === 'true',
   },
   // Production optimizations
   compress: true,

@@ -45,11 +45,11 @@ export async function assertUserWithTier(request: NextRequest, requiredTier?: st
   const user = await assertUser(request);
   
   if (requiredTier) {
-    // Get user tier from database
-    const { getUserTier } = await import('./auth-guard');
-    const userTier = await getUserTier(user.id);
+    // Get user profile from database
+    const { getUserProfile } = await import('./auth-guard');
+    const userProfile = await getUserProfile(user.id);
     
-    if (!userTier || userTier.status !== 'active') {
+    if (!userProfile || userProfile.status !== 'active') {
       throw new ForbiddenError('Active subscription required');
     }
     
@@ -57,11 +57,33 @@ export async function assertUserWithTier(request: NextRequest, requiredTier?: st
     if (requiredTier !== 'any') {
       const { hasAccess } = await import('./auth-guard');
       
-      if (!hasAccess(userTier.tier, requiredTier)) {
+      if (!hasAccess(userProfile.tier, requiredTier)) {
         throw new ForbiddenError(`${requiredTier} tier or higher required`);
       }
     }
   }
   
   return user;
+}
+
+export async function assertUserWithRole(request: NextRequest, requiredRole: string) {
+  const user = await assertUser(request);
+  
+  // Get user profile from database
+  const { getUserProfile, hasRoleAccess } = await import('./auth-guard');
+  const userProfile = await getUserProfile(user.id);
+  
+  if (!userProfile) {
+    throw new ForbiddenError('User profile not found');
+  }
+  
+  if (!hasRoleAccess(userProfile.role, requiredRole)) {
+    throw new ForbiddenError(`${requiredRole} role required`);
+  }
+  
+  return { user, profile: userProfile };
+}
+
+export async function assertAdmin(request: NextRequest) {
+  return await assertUserWithRole(request, 'admin');
 }
