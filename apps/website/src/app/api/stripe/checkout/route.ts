@@ -73,7 +73,7 @@ async function checkoutHandler(request: NextRequest) {
     );
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    logger.error('Checkout session creation error:', { error: errorMessage });
+    logger.error({ error: errorMessage }, 'Checkout session creation error');
     return NextResponse.json(
       { error: 'Failed to create checkout session' },
       { status: 500 }
