@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm install --ignore-scripts && pnpm --filter @strata-noble/website run build"
+  command = "pnpm install && pnpm --filter @strata-noble/website run build"
   publish = "apps/website/.next"
 
 [[plugins]]
@@ -9,6 +9,8 @@
   NODE_VERSION = "20"
   # Ensure Netlify Next.js plugin is NOT skipped
   NETLIFY_NEXT_PLUGIN_SKIP = "false"
+  # Skip Supabase CLI binary download in production builds
+  SKIP_DOWNLOAD = "true"
 
 # Security headers
 [[headers]]
