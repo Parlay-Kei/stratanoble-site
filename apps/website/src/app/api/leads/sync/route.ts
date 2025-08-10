@@ -152,7 +152,7 @@ export async function GET(request: NextRequest) {
       email,
       syncHistory: recentSyncs,
       totalSyncs: recentSyncs.length,
-      lastSuccessfulSync: recentSyncs.find(sync => sync.success)?.syncedAt || null,
+      lastSuccessfulSync: recentSyncs.find((sync: { success: boolean; syncedAt: Date }) => sync.success)?.syncedAt || null,
     });
 
   } catch (error) {
