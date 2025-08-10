@@ -56,7 +56,7 @@ async function handler(request: NextRequest) {
             body: JSON.stringify({ event })
           });
         } catch (provisionError) {
-          logger.error('Error calling provision function:', provisionError);
+          logger.error({ error: provisionError }, 'Error calling provision function');
         }
       }
     } else {
