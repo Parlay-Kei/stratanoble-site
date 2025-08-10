@@ -271,6 +271,53 @@ AWS SES email service is now fully configured and operational for both developme
 4. Context data preserved in separate parameter
 5. Build process completes successfully
 
+## Netlify Build Error - Pino Logger Type Error
+**Status**: ✅ COMPLETED
+**Time**: 2025-08-08 (Sixth Issue)
+**Commit**: 644edd3
+
+### Issue
+- TypeScript error in queues/stripe route at line 59
+- Error: "Argument of type 'unknown' is not assignable to parameter of type 'undefined'"
+- Different logger library (pino) with different API signature than custom logger
+
+### Root Cause
+- Mixed logger usage across codebase: custom logger vs pino logger
+- Pino logger signature: `logger.error(object, message)` vs custom logger: `logger.error(message, error, context)`
+- Incorrect method call passing error as second parameter instead of within object
+- TypeScript strict mode detecting parameter type mismatch
+
+### Changes Made
+
+#### 1. Logger API Correction
+- **File**: `apps/website/src/app/api/queues/stripe/route.ts:59`
+- **Logger Type**: Pino logger (direct import)
+- **Before**: `logger.error('Error calling provision function:', provisionError)`
+- **After**: `logger.error({ error: provisionError }, 'Error calling provision function')`
+
+#### 2. API Signature Understanding
+- **Custom Logger** (logger.ts): `error(message, error, context)`
+- **Pino Logger** (direct): `error(object, message)` or `error(message)`
+- **Pattern Alignment**: Use pino's standard object-first pattern
+- **Type Safety**: Error object passed within structured logging object
+
+### Technical Details
+- **Error Location**: Line 59 in Stripe webhook queue processor
+- **Logger Library**: pino@9.7.0 (direct import)
+- **Method Signature**: `error(mergingObject, message?, ...interpolationValues)`
+- **Usage Pattern**: Structured logging with error in object parameter
+
+### Files Using Each Logger Pattern
+- **Custom Logger**: Most API routes (logger.ts import)
+- **Pino Logger**: queues/stripe/route.ts (direct pino import)
+- **Consistency**: Each follows their respective library's API
+
+### Verification Steps
+1. Pino logger call uses correct object-first signature
+2. Error information properly structured in logging object
+3. TypeScript compilation passes without type errors
+4. Logging pattern consistent with other pino calls in same file
+
 ---
 *Last Updated: 2025-08-08*
-*Next Review: Monitor Netlify deployment success with all systematic errors resolved*
+*Next Review: Monitor Netlify deployment success with all logger API issues resolved*
