@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    logger.error('NDA initiation failed', { error });
+    logger.error('NDA initiation failed', error instanceof Error ? error : new Error(String(error)));
     
     if (error instanceof Error) {
       if (error.message.includes('DocuSign')) {

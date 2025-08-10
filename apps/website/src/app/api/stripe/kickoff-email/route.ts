@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     try {
       order = await db.getOrderByStripeSession(sessionId);
     } catch (error) {
-      logger.error('Order not found in database:', { sessionId, error });
+      logger.error('Order not found in database:', error instanceof Error ? error : new Error(String(error)), { sessionId });
       return NextResponse.json(
         { error: 'Order not found' },
         { status: 404 }

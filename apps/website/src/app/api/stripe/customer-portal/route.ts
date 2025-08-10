@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         );
       }
     } catch (dbError) {
-      logger.error('Database error verifying customer ownership:', { error: dbError });
+      logger.error('Database error verifying customer ownership:', dbError instanceof Error ? dbError : new Error(String(dbError)));
       return NextResponse.json(
         { error: 'Unable to verify customer access' },
         { status: 500 }
