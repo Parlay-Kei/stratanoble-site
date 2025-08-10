@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    logger.error('Webhook processing error', { error });
+    logger.error('Webhook processing error', error instanceof Error ? error : new Error(String(error)));
     return NextResponse.json(
       { error: 'Webhook processing failed' },
       { status: 500 }
@@ -122,7 +122,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
 
     logger.info('User provisioning completed', { userId: user.id });
   } catch (error) {
-    logger.error('User provisioning failed', { error, email: customerEmail });
+    logger.error('User provisioning failed', error instanceof Error ? error : new Error(String(error)), { email: customerEmail });
     throw error;
   }
 }
@@ -184,7 +184,7 @@ async function updateUserTier(email: string, tier: string | null) {
 
     logger.info('Updated user tier', { email, tier });
   } catch (error) {
-    logger.error('Failed to update user tier', { error, email, tier });
+    logger.error('Failed to update user tier', error instanceof Error ? error : new Error(String(error)), { email, tier });
   }
 }
 
@@ -196,7 +196,7 @@ async function getUserIdByStripeCustomerId(stripeCustomerId: string): Promise<st
     });
     return user?.id || null;
   } catch (error) {
-    logger.error('Failed to get user ID', { error, stripeCustomerId });
+    logger.error('Failed to get user ID', error instanceof Error ? error : new Error(String(error)), { stripeCustomerId });
     return null;
   }
 }
@@ -209,7 +209,7 @@ async function getClientIdByStripeCustomerId(stripeCustomerId: string): Promise<
     });
     return client?.id || null;
   } catch (error) {
-    logger.error('Failed to get client ID', { error, stripeCustomerId });
+    logger.error('Failed to get client ID', error instanceof Error ? error : new Error(String(error)), { stripeCustomerId });
     return null;
   }
 }
@@ -287,6 +287,6 @@ async function sendWelcomeEmail(email: string, name: string, tier: string) {
     await sendEmail(email, subject, html);
     logger.info('Welcome email sent', { email });
   } catch (error) {
-    logger.error('Failed to send welcome email', { error, email });
+    logger.error('Failed to send welcome email', error instanceof Error ? error : new Error(String(error)), { email });
   }
 }

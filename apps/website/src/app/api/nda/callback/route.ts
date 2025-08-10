@@ -71,7 +71,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect('/dashboard?nda_status=' + status);
 
   } catch (error) {
-    logger.error('NDA callback processing failed', { error, envelopeId });
+    logger.error(
+      'NDA callback processing failed',
+      error instanceof Error ? error : new Error(String(error)),
+      { envelopeId }
+    );
     return NextResponse.redirect('/dashboard?nda_error=processing_failed');
   }
 }
@@ -124,7 +128,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    logger.error('NDA webhook processing failed', { error });
+    logger.error('NDA webhook processing failed', error instanceof Error ? error : new Error(String(error)));
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
   }
 }
@@ -215,6 +219,6 @@ async function sendCompletionEmails(
 
     logger.info('NDA completion emails sent', { userEmail, clientEmail });
   } catch (error) {
-    logger.error('Failed to send NDA completion emails', { error, userEmail, clientEmail });
+    logger.error('Failed to send NDA completion emails', error instanceof Error ? error : new Error(String(error)), { userEmail, clientEmail });
   }
 }
