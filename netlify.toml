@@ -1,13 +1,12 @@
 [build]
-  command = "npm run build"
-  publish = ".next"
+  command = "pnpm install --ignore-scripts && pnpm --filter @strata-noble/website run build"
+  publish = "apps/website/.next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
 [build.environment]
   NODE_VERSION = "20"
-  NPM_FLAGS = "--production=false"
   # Ensure Netlify Next.js plugin is NOT skipped
   NETLIFY_NEXT_PLUGIN_SKIP = "false"
 
