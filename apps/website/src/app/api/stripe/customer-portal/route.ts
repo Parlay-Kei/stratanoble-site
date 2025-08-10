@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    logger.error('Customer portal session creation error:', { error: errorMessage });
+    logger.error({ error: errorMessage }, 'Customer portal session creation error');
     return NextResponse.json(
       { error: 'Failed to create customer portal session' },
       { status: 500 }
