@@ -187,6 +187,47 @@ AWS SES email service is now fully configured and operational for both developme
 3. Error messages properly formatted for logging
 4. Build process completes successfully
 
+## Netlify Build Error - Missing Dependency (framer-motion)
+**Status**: ✅ COMPLETED
+**Time**: 2025-08-08 (Fourth Issue)
+**Commit**: 9edc654
+
+### Issue
+- Netlify build failing with module resolution error
+- Error: "Cannot find module 'framer-motion'"
+- Package exists in package.json but not being installed during build
+
+### Root Cause
+- `--ignore-scripts` flag in build command was too aggressive
+- Prevented proper installation of dependencies with postinstall scripts
+- framer-motion and other packages not being installed correctly
+- Build process skipping essential dependency resolution steps
+
+### Changes Made
+
+#### 1. Netlify Build Configuration Fix
+- **File**: `netlify.toml`
+- **Before**: `pnpm install --ignore-scripts && pnpm --filter @strata-noble/website run build`
+- **After**: `pnpm install && pnpm --filter @strata-noble/website run build`
+- **Added**: `SKIP_DOWNLOAD=true` environment variable for Supabase CLI specifically
+
+#### 2. Selective Script Skipping
+- Removed blanket `--ignore-scripts` flag
+- Added targeted `SKIP_DOWNLOAD=true` to prevent only Supabase binary download
+- Allows proper dependency installation while avoiding problematic scripts
+
+### Technical Details
+- **Affected Package**: framer-motion@12.23.0 (and potentially others)
+- **Build Process**: pnpm monorepo with workspace filtering
+- **Resolution**: Selective script control vs blanket ignore
+- **Environment**: Netlify production build environment
+
+### Verification Steps
+1. framer-motion and all dependencies properly installed
+2. Supabase CLI binary download still skipped
+3. Build process completes without module resolution errors
+4. All required packages available during compilation
+
 ---
 *Last Updated: 2025-08-08*
-*Next Review: Monitor Netlify deployment success with all TypeScript errors resolved*
+*Next Review: Monitor Netlify deployment success with all build issues resolved*
