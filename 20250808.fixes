@@ -228,6 +228,49 @@ AWS SES email service is now fully configured and operational for both developme
 3. Build process completes without module resolution errors
 4. All required packages available during compilation
 
+## Netlify Build Error - Systematic Logger Type Errors
+**Status**: ✅ COMPLETED
+**Time**: 2025-08-08 (Fifth Issue - Batch Fix)
+**Commit**: b485fa2
+
+### Issue
+- Additional logger.error type errors discovered across multiple API routes
+- Similar issue to previous fix but affecting 10+ files
+- Error: "Object literal may only specify known properties, and 'error' does not exist in type 'Error'"
+- Pattern: `logger.error(message, { error })` instead of correct signature
+
+### Root Cause
+- Systematic misuse of logger.error() method signature across codebase
+- Logger signature is `error(message, error, context)` but code was using `error(message, context)`
+- TypeScript strict mode catching incorrect object literal properties
+- Pattern replicated across multiple API routes
+
+### Files Fixed
+- **apps/website/src/app/api/nda/callback/route.ts** - 3 instances (lines 74, 131, 222)
+- **apps/website/src/app/api/nda/initiate/route.ts** - 1 instance (line 99)
+- **apps/website/src/app/api/provision/route.ts** - 6 instances (lines 55, 125, 187, 199, 212, 290)
+- **apps/website/src/app/api/stripe/customer-portal/route.ts** - 1 instance (line 36)
+- **apps/website/src/app/api/stripe/kickoff-email/route.ts** - 1 instance (line 36)
+
+### Solution Applied
+- **Pattern**: Convert `logger.error(message, { error, ...context })` 
+- **To**: `logger.error(message, error instanceof Error ? error : new Error(String(error)), { ...context })`
+- **Total**: 12 logger calls fixed across 5 files
+- **Type Safety**: Handle both Error instances and other error types
+
+### Technical Details
+- **Method Signature**: `error(message: string, error?: Error, context?: LogContext)`
+- **Error Handling**: Safe conversion with `instanceof Error` check
+- **Context Preservation**: Moved other context properties to third parameter
+- **Consistency**: Applied same pattern used in previous fix
+
+### Verification Steps
+1. All logger.error calls now use correct method signature
+2. TypeScript compilation passes without type errors
+3. Error objects properly passed as Error instances
+4. Context data preserved in separate parameter
+5. Build process completes successfully
+
 ---
 *Last Updated: 2025-08-08*
-*Next Review: Monitor Netlify deployment success with all build issues resolved*
+*Next Review: Monitor Netlify deployment success with all systematic errors resolved*
