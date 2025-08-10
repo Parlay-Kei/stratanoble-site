@@ -156,7 +156,9 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
-    logger.error('Lead sync status error', { error });
+    logger.error('Lead sync status error', { 
+      error: error instanceof Error ? error.message : String(error) 
+    });
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
