@@ -22,21 +22,21 @@
     "db:new": "cd infra/supabase && supabase migration new"
   },
   "devDependencies": {
-    "eslint-config-next": "15.3.5",
-    "next": "15.3.5",
+    "eslint-config-next": "15.4.6",
+    "next": "15.4.6",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.6.13",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "packageManager": "pnpm@9.0.0",
   "overrides": {
-    "next": "15.3.5",
-    "eslint-config-next": "15.3.5"
+    "next": "15.4.6",
+    "eslint-config-next": "15.4.6"
   },
   "pnpm": {
     "overrides": {
-      "next": "15.3.5",
-      "eslint-config-next": "15.3.5"
+      "next": "15.4.6",
+      "eslint-config-next": "15.4.6"
     }
   }
 }
