@@ -1,0 +1,17 @@
+
+site_name: Strata Noble Ops Playbook
+site_description: Internal runbooks and SOPs for automations, monitoring, and incident response
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - content.code.copy
+    - content.code.annotate
+repo_url: https://github.com/your-org/your-repo
+nav:
+  - Home: index.md
+  - Monitoring SOP: monitoring-sop.md
+  - How We Monitor: how-we-monitor.md
+  - Runbooks:
+    - Incident Postmortem: runbooks/incident-template.md
+
