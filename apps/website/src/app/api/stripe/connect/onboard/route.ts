@@ -1,9 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe-server';
+import { getStripe, hasStripeConfig } from '@/lib/stripe-conditional';
 import { assertUserWithTier, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Stripe is configured
+    if (!hasStripeConfig()) {
+      return NextResponse.json(
+        { error: 'Stripe Connect is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
+    const stripe = getStripe();
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Stripe Connect is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
     // Require authentication - only authenticated users can create merchant accounts
     const user = await assertUserWithTier(request, 'any');
     
@@ -96,8 +112,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log other errors for debugging (in production, use proper logging service)
-    console.error('Stripe Connect onboarding error:', error);
     return NextResponse.json(
       { error: 'Failed to initiate merchant onboarding' },
       { status: 500 }
@@ -107,6 +121,22 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    // Check if Stripe is configured
+    if (!hasStripeConfig()) {
+      return NextResponse.json(
+        { error: 'Stripe Connect is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
+    const stripe = getStripe();
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Stripe Connect is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
     // Require authentication - only authenticated users can check merchant account status
     await assertUserWithTier(request, 'any');
     
@@ -153,8 +183,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Log other errors for debugging (in production, use proper logging service)
-    console.error('Stripe Connect account retrieval error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve account details' },
       { status: 500 }

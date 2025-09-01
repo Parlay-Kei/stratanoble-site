@@ -1,0 +1,46 @@
+[
+  {
+    "id": "strata-noble-frontend-tests",
+    "title": "Strata Noble Frontend Testing Suite",
+    "description": "Comprehensive frontend testing for Next.js application including components, APIs, user flows, security, and performance",
+    "project_name": "StrataNoble",
+    "test_type": "frontend",
+    "tests": [
+      {
+        "id": "frontend_component_test",
+        "name": "Frontend Component Testing",
+        "description": "Test all React components and pages",
+        "type": "component",
+        "priority": "high"
+      },
+      {
+        "id": "api_endpoint_test",
+        "name": "API Endpoint Testing",
+        "description": "Test all API routes and endpoints",
+        "type": "api",
+        "priority": "high"
+      },
+      {
+        "id": "user_flow_test",
+        "name": "User Flow Testing",
+        "description": "Test complete user journeys",
+        "type": "e2e",
+        "priority": "high"
+      },
+      {
+        "id": "security_test",
+        "name": "Security Testing",
+        "description": "Test security features and protections",
+        "type": "security",
+        "priority": "high"
+      },
+      {
+        "id": "performance_test",
+        "name": "Performance Testing",
+        "description": "Test performance and Core Web Vitals",
+        "type": "performance",
+        "priority": "medium"
+      }
+    ]
+  }
+]

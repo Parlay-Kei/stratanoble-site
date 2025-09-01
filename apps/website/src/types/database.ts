@@ -208,12 +208,202 @@ export interface Database {
           metadata?: Json | null
         }
       }
+      clients: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          stripe_customer_id: string | null
+          tier: 'lite' | 'growth' | 'partner'
+          status: 'active' | 'cancelled' | 'suspended'
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          stripe_customer_id?: string | null
+          tier?: 'lite' | 'growth' | 'partner'
+          status?: 'active' | 'cancelled' | 'suspended'
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          stripe_customer_id?: string | null
+          tier?: 'lite' | 'growth' | 'partner'
+          status?: 'active' | 'cancelled' | 'suspended'
+        }
+      }
+      subscriptions: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          client_id: string
+          stripe_subscription_id: string
+          status: 'active' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'past_due' | 'trialing' | 'unpaid'
+          current_period_start: string | null
+          current_period_end: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          client_id: string
+          stripe_subscription_id: string
+          status: 'active' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'past_due' | 'trialing' | 'unpaid'
+          current_period_start?: string | null
+          current_period_end?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          client_id?: string
+          stripe_subscription_id?: string
+          status?: 'active' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'past_due' | 'trialing' | 'unpaid'
+          current_period_start?: string | null
+          current_period_end?: string | null
+        }
+      }
+      offerings: {
+        Row: {
+          id: 'lite' | 'growth' | 'partner'
+          created_at: string
+          stripe_price_id: string
+          nickname: string
+          monthly_price: number
+        }
+        Insert: {
+          id: 'lite' | 'growth' | 'partner'
+          created_at?: string
+          stripe_price_id: string
+          nickname: string
+          monthly_price: number
+        }
+        Update: {
+          id?: 'lite' | 'growth' | 'partner'
+          created_at?: string
+          stripe_price_id?: string
+          nickname?: string
+          monthly_price?: number
+        }
+      }
+      stripe_event_log: {
+        Row: {
+          id: number
+          created_at: string
+          event_id: string
+          type: string
+          received_at: string
+          handled: boolean
+        }
+        Insert: {
+          id?: number
+          created_at?: string
+          event_id: string
+          type: string
+          received_at?: string
+          handled?: boolean
+        }
+        Update: {
+          id?: number
+          created_at?: string
+          event_id?: string
+          type?: string
+          received_at?: string
+          handled?: boolean
+        }
+      }
+      onboarding_status: {
+        Row: {
+          client_id: string
+          created_at: string
+          updated_at: string
+          has_airtable: boolean
+          has_geniuslink: boolean
+          welcome_email_sent: boolean
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          updated_at?: string
+          has_airtable?: boolean
+          has_geniuslink?: boolean
+          welcome_email_sent?: boolean
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          updated_at?: string
+          has_airtable?: boolean
+          has_geniuslink?: boolean
+          welcome_email_sent?: boolean
+        }
+      }
+      metric_feed: {
+        Row: {
+          id: string
+          created_at: string
+          client_id: string
+          source: 'youtube' | 'tiktok'
+          payload: Json
+          fetched_at: string
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          client_id: string
+          source: 'youtube' | 'tiktok'
+          payload: Json
+          fetched_at?: string
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          client_id?: string
+          source?: 'youtube' | 'tiktok'
+          payload?: Json
+          fetched_at?: string
+        }
+      }
+      metric_summary: {
+        Row: {
+          client_id: string
+          date: string
+          views: number
+          watch_hours: number
+          subs: number
+          rpm: number
+        }
+        Insert: {
+          client_id: string
+          date: string
+          views?: number
+          watch_hours?: number
+          subs?: number
+          rpm?: number
+        }
+        Update: {
+          client_id?: string
+          date?: string
+          views?: number
+          watch_hours?: number
+          subs?: number
+          rpm?: number
+        }
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      handle_stripe_event: {
+        Args: {
+          event_data: Json
+        }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never

@@ -3,6 +3,7 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
+import * as Sentry from '@sentry/nextjs';
 
 interface Props {
   children: ReactNode;
@@ -42,13 +43,23 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Log error details
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    // Capture error with Sentry
+    const eventId = Sentry.captureException(error, {
+      contexts: {
+        react: {
+          componentStack: errorInfo.componentStack,
+        },
+      },
+      tags: {
+        component: 'ErrorBoundary',
+      },
+    });
 
     // Update state with error info
     this.setState({
       error,
       errorInfo,
+      eventId,
     });
 
     // Call custom error handler if provided
@@ -211,8 +222,7 @@ export function useErrorHandler() {
       throw error;
     }
     
-    // In production, log the error and report to tracking service
-    console.error('Error caught by useErrorHandler:', error, errorInfo);
+    // In production, report to tracking service
     
     if (typeof window !== 'undefined' && window.Sentry) {
       window.Sentry.captureException(error, {
@@ -225,7 +235,6 @@ export function useErrorHandler() {
 // Specialized error boundaries for different parts of the app
 export function DashboardErrorBoundary({ children }: { children: ReactNode }) {
   const handleError = (error: Error, errorInfo: ErrorInfo) => {
-    console.error('Dashboard error:', error, errorInfo);
     
     // Track dashboard-specific errors
     if (typeof window !== 'undefined' && window.gtag) {
@@ -261,7 +270,6 @@ export function DashboardErrorBoundary({ children }: { children: ReactNode }) {
 
 export function CheckoutErrorBoundary({ children }: { children: ReactNode }) {
   const handleError = (error: Error, errorInfo: ErrorInfo) => {
-    console.error('Checkout error:', error, errorInfo);
     
     // Track checkout-specific errors (critical for revenue)
     if (typeof window !== 'undefined' && window.gtag) {

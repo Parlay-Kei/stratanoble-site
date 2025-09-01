@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { assertAdmin, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
 import { supabase } from '@/lib/supabase';
+import { Database } from '@/types/database';
+
+type Order = Database['public']['Tables']['orders']['Row'];
+type ContactSubmission = Database['public']['Tables']['contact_submissions']['Row'];
+type EmailLog = Database['public']['Tables']['email_logs']['Row'];
 
 export async function GET(request: NextRequest) {
   try {
@@ -81,12 +86,12 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Process the data
-    const orders = totalOrdersResult.data || [];
-    const revenue = revenueResult.data || [];
-    const contacts = contactSubmissionsResult.data || [];
-    const emails = emailMetricsResult.data || [];
-    const recentOrders = recentOrdersResult.data || [];
-    const funnelData = conversionFunnelResult.data || [];
+    const orders = (totalOrdersResult.data as Order[]) || [];
+    const revenue = (revenueResult.data as Order[]) || [];
+    const contacts = (contactSubmissionsResult.data as ContactSubmission[]) || [];
+    const emails = (emailMetricsResult.data as EmailLog[]) || [];
+    const recentOrders = (recentOrdersResult.data as Order[]) || [];
+    const funnelData = (conversionFunnelResult.data as ContactSubmission[]) || [];
 
     // Calculate metrics
     const totalRevenue = revenue.reduce((sum, order) => sum + Number(order.amount), 0);
@@ -202,7 +207,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    console.error('Analytics overview error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch analytics data' },
       { status: 500 }

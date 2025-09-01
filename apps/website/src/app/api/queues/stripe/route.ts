@@ -1,17 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendKickoffEmail } from '@/lib/stripe-server';
+import { hasStripeConfig } from '@/lib/stripe-conditional';
 import { db, handleStripeEvent } from '@/lib/supabase';
-import pino from 'pino';
-import Stripe from 'stripe';
-
-const logger = pino();
+import { logger } from '@/lib/logger';
 
 async function handler(request: NextRequest) {
   try {
-    const event: Stripe.Event = await request.json();
+    // Check if Stripe is configured
+    if (!hasStripeConfig()) {
+      logger.warn('Stripe not configured - webhook processing unavailable');
+      return NextResponse.json(
+        { error: 'Webhook processing is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
+    const event: any = await request.json();
     
-    logger.info({
-      msg: 'Processing Stripe webhook event from queue',
+    logger.info('Processing Stripe webhook event from queue', {
       eventId: event.id,
       eventType: event.type
     });
@@ -34,8 +39,7 @@ async function handler(request: NextRequest) {
 
     if (saasEvents.includes(event.type)) {
       const result = await handleStripeEvent(event as unknown as Record<string, unknown>);
-      logger.info({
-        msg: 'SaaS event processed via Supabase RPC',
+      logger.info('SaaS event processed via Supabase RPC', {
         eventType: event.type,
         eventId: event.id,
         result
@@ -56,7 +60,7 @@ async function handler(request: NextRequest) {
             body: JSON.stringify({ event })
           });
         } catch (provisionError) {
-          logger.error({ error: provisionError }, 'Error calling provision function');
+          logger.error('Error calling provision function:', provisionError instanceof Error ? provisionError : new Error(String(provisionError)));
         }
       }
     } else {
@@ -72,8 +76,7 @@ async function handler(request: NextRequest) {
           await handleInvoicePaymentSucceeded(event);
           break;
         default:
-          logger.info({
-            msg: 'Unhandled webhook event type',
+          logger.info('Unhandled webhook event type', {
             eventType: event.type,
             eventId: event.id
           });
@@ -88,8 +91,7 @@ async function handler(request: NextRequest) {
       payload: event as unknown as Record<string, unknown>
     });
 
-    logger.info({
-      msg: 'Successfully processed webhook event',
+    logger.info('Successfully processed webhook event', {
       eventId: event.id,
       eventType: event.type
     });
@@ -98,14 +100,13 @@ async function handler(request: NextRequest) {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     
-    logger.error({
-      msg: 'Error processing webhook event',
+    logger.error('Error processing webhook event', new Error(errorMessage), {
       error: errorMessage
     });
 
     // Log the error in the webhook log
     try {
-      const event: Stripe.Event = await request.json();
+      const event: any = await request.json();
       await db.logWebhook({
         event_id: event.id,
         event_type: event.type,
@@ -114,10 +115,7 @@ async function handler(request: NextRequest) {
         payload: event as unknown as Record<string, unknown>
       });
     } catch (logError) {
-      logger.error({
-        msg: 'Failed to log webhook error',
-        error: logError
-      });
+      logger.error('Failed to log webhook error', logError instanceof Error ? logError : new Error(String(logError)));
     }
 
     // Return 500 to signal QStash to retry
@@ -128,11 +126,10 @@ async function handler(request: NextRequest) {
   }
 }
 
-async function handleCheckoutSessionCompleted(event: Stripe.Event) {
-  const session = event.data.object as Stripe.Checkout.Session;
+async function handleCheckoutSessionCompleted(event: any) {
+  const session = event.data.object as any;
   
-  logger.info({
-    msg: 'Processing checkout session completed',
+  logger.info('Processing checkout session completed', {
     sessionId: session.id,
     customerEmail: session.customer_email,
     paymentStatus: session.payment_status
@@ -163,15 +160,16 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event) {
     }
 
     // Send kickoff email and trigger deliverables
-    await sendKickoffEmail(session.id);
+    // TODO: Re-enable when Stripe is properly configured
+    // await sendKickoffEmail(session.id);
+    logger.info('Kickoff email skipped - Stripe integration disabled');
   }
 }
 
-async function handlePaymentIntentSucceeded(event: Stripe.Event) {
-  const paymentIntent = event.data.object as Stripe.PaymentIntent;
+async function handlePaymentIntentSucceeded(event: any) {
+  const paymentIntent = event.data.object as any;
   
-  logger.info({
-    msg: 'Processing payment intent succeeded',
+  logger.info('Processing payment intent succeeded', {
     paymentIntentId: paymentIntent.id,
     amount: paymentIntent.amount,
     currency: paymentIntent.currency
@@ -187,11 +185,10 @@ async function handlePaymentIntentSucceeded(event: Stripe.Event) {
   }
 }
 
-async function handleInvoicePaymentSucceeded(event: Stripe.Event) {
-  const invoice = event.data.object as Stripe.Invoice;
+async function handleInvoicePaymentSucceeded(event: any) {
+  const invoice = event.data.object as any;
   
-  logger.info({
-    msg: 'Processing invoice payment succeeded',
+  logger.info('Processing invoice payment succeeded', {
     invoiceId: invoice.id,
     customerId: invoice.customer,
     amount: invoice.amount_paid

@@ -1,0 +1,155 @@
+1. Development AI Agents
+Core Capabilities
+Generate, review, and optimize code
+
+Automate testing and bug detection
+
+Manage CI/CD pipeline tasks
+
+Maintain and generate documentation
+
+Inputs
+Feature requirements (text or tickets)
+
+Existing codebases and repos
+
+Test case definitions
+
+Outputs
+Code commits, pull requests
+
+Test reports and bug tickets
+
+Updated documentation
+
+Integration Points
+Git repositories (GitHub, GitLab, Bitbucket)
+
+CI/CD tools (Jenkins, GitHub Actions, CircleCI)
+
+Issue trackers (Jira, Trello)
+
+Recommended Tools & APIs
+GitHub Copilot or OpenAI Codex for code generation
+
+SonarQube for code quality analysis
+
+Selenium or Playwright for automated testing
+
+Terraform or Ansible for infrastructure as code (IaC) automation
+
+2. Operations AI Agents
+Core Capabilities
+Real-time system monitoring and anomaly detection
+
+Incident detection and automated alerting
+
+Predictive maintenance recommendations
+
+Resource optimization and load balancing
+
+Inputs
+Telemetry from servers, containers, services (logs, metrics)
+
+Incident reports and historical failures
+
+Outputs
+Operational alerts and incident tickets
+
+Performance optimization suggestions
+
+Automated remediation scripts
+
+Integration Points
+Monitoring tools (Datadog, Prometheus, New Relic)
+
+Incident management systems (PagerDuty, Opsgenie)
+
+Cloud infrastructure (AWS, Azure, GCP)
+
+Recommended Tools & APIs
+Datadog AI Ops for anomaly detection
+
+Prometheus + Grafana for metrics and dashboards
+
+PagerDuty for incident automation
+
+Kubernetes native AI tools (e.g., KubeLens, Kube-AI)
+
+3. Administrative AI Agents
+Core Capabilities
+Calendar and schedule management
+
+Email triage and automated responses
+
+Document generation and management
+
+HR process automation (onboarding, payroll reminders)
+
+Inputs
+Calendar and email data
+
+HR system data and policies
+
+Document templates and forms
+
+Outputs
+Meeting schedules and reminders
+
+Automated email replies and summaries
+
+Processed HR workflows
+
+Integration Points
+Microsoft 365 or Google Workspace
+
+HR systems (Workday, BambooHR)
+
+Document management systems (SharePoint, Google Drive)
+
+Recommended Tools & APIs
+Microsoft Power Automate or Google Apps Script for workflow automation
+
+UiPath or Automation Anywhere for RPA
+
+Natural language processing APIs (OpenAI GPT, Google Dialogflow)
+
+4. Executive AI Agents
+Core Capabilities
+Business intelligence and KPI dashboards
+
+Financial forecasting and budgeting
+
+Market and competitor analysis
+
+Strategic scenario modeling and decision support
+
+Inputs
+Aggregated sales, marketing, finance data
+
+Market research and external data feeds
+
+Historical performance and trend data
+
+Outputs
+Visualized BI dashboards
+
+Forecast reports and budget plans
+
+Strategic recommendations and alerts
+
+Integration Points
+BI tools (Power BI, Tableau, Looker)
+
+ERP and CRM systems (SAP, Salesforce)
+
+Financial software (QuickBooks, Oracle Financials)
+
+Recommended Tools & APIs
+Power BI with Azure AI integration
+
+Tableau augmented analytics
+
+OpenAI GPT fine-tuned for strategic insights
+
+Alteryx for data preparation and analytics workflows

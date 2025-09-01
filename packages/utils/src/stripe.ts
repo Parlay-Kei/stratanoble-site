@@ -1,7 +1,8 @@
 import { loadStripe } from '@stripe/stripe-js';
+import { config } from './config';
 
 // Client-side Stripe initialization
-const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+const stripePublishableKey = config.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
 if (!stripePublishableKey) {
   // console.warn('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is missing');

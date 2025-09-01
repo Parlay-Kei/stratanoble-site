@@ -1,10 +1,11 @@
 import Stripe from 'stripe';
 import pino from 'pino';
+import { config } from './config';
 
 const logger = pino();
 
 // Server-side Stripe initialization
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripeSecretKey = config.STRIPE_SECRET_KEY;
 
 if (!stripeSecretKey) {
   throw new Error('STRIPE_SECRET_KEY environment variable is required');
@@ -19,16 +20,16 @@ export async function createCheckoutSession(
   customerName: string
 ) {
   const priceIds = {
-    lite: process.env.STRIPE_PRICE_ID_SOLUTION_LITE,
-    core: process.env.STRIPE_PRICE_ID_SOLUTION_CORE,
-    premium: process.env.STRIPE_PRICE_ID_SOLUTION_PREMIUM,
-    workshop_standard: process.env.STRIPE_PRICE_ID_WORKSHOP_STANDARD,
-    presence_standard: process.env.STRIPE_PRICE_ID_PRESENCE_STANDARD,
-    analysis_standard: process.env.STRIPE_PRICE_ID_ANALYSIS_STANDARD
-  };
+    lite: config.STRIPE_PRICE_ID_SOLUTION_LITE,
+    core: config.STRIPE_PRICE_ID_SOLUTION_CORE,
+    premium: config.STRIPE_PRICE_ID_SOLUTION_PREMIUM,
+    workshop_standard: config.STRIPE_PRICE_ID_WORKSHOP_STANDARD,
+    presence_standard: config.STRIPE_PRICE_ID_PRESENCE_STANDARD,
+    analysis_standard: config.STRIPE_PRICE_ID_ANALYSIS_STANDARD
+  } as const;
   
   const priceId = priceIds[packageType];
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
+  const baseUrl = config.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
   
   if (!priceId) {
     throw new Error(`Price ID not found for package type: ${packageType}`);
@@ -114,7 +115,7 @@ export async function sendKickoffEmail(sessionId: string) {
     // Trigger deliverable delivery if this is a Solution Services package
     if (session.metadata?.service === 'solution_services' && session.metadata?.package_type) {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
+        const baseUrl = config.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
         const deliverableResponse = await fetch(`${baseUrl}/api/deliverables/deliver`, {
           method: 'POST',
           headers: {

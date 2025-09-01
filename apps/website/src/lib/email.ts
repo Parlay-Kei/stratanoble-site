@@ -1,6 +1,20 @@
-import { sendEmail as sendEmailSES } from './mailer';
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import { logger } from './logger';
-import { env } from './env';
+const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+const AWS_SES_SECRET = process.env.AWS_SES_SECRET;
+const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL || 'info@stratanoble.com';
+
+// Initialize AWS SES client
+const sesClient = new SESClient({
+  region: AWS_REGION,
+  credentials: AWS_ACCESS_KEY_ID && AWS_SES_SECRET ? {
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SES_SECRET,
+  } : undefined,
+});
+
+const fromEmail = SES_FROM_EMAIL;
 
 // Email template types
 export type EmailTemplate = 
@@ -10,7 +24,7 @@ export type EmailTemplate =
   | 'order-confirmation'
   | 'welcome';
 
-// Email service class using AWS SES
+// Email service class
 class EmailService {
   private async sendEmail(data: {
     to: string;
@@ -20,20 +34,48 @@ class EmailService {
     template: EmailTemplate;
     metadata?: Record<string, unknown>;
   }) {
+    if (!AWS_ACCESS_KEY_ID || !AWS_SES_SECRET) {
+      logger.warn('AWS credentials not configured. Email functionality will be disabled.');
+      return { success: false, error: 'Email service not configured' };
+    }
+
     try {
-      // Use AWS SES to send email
-      await sendEmailSES(data.to, data.subject, data.html);
-      
+      const command = new SendEmailCommand({
+        Source: fromEmail,
+        Destination: {
+          ToAddresses: [data.to],
+        },
+        Message: {
+          Subject: {
+            Data: data.subject,
+            Charset: 'UTF-8',
+          },
+          Body: {
+            Html: {
+              Data: data.html,
+              Charset: 'UTF-8',
+            },
+            Text: {
+              Data: data.text || data.html.replace(/<[^>]*>/g, ''), // Strip HTML for text version
+              Charset: 'UTF-8',
+            },
+          },
+        },
+      });
+
+      const response = await sesClient.send(command);
+
       logger.info('Email sent successfully via AWS SES', {
         recipient: data.to,
         template: data.template,
+        messageId: response.MessageId,
       });
 
-      return { success: true };
+      return { success: true, messageId: response.MessageId };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       
-      logger.error('Failed to send email via AWS SES', new Error(errorMessage), {
+      logger.error('Failed to send email via AWS SES', error instanceof Error ? error : new Error(errorMessage), {
         recipient: data.to,
         template: data.template,
       });
@@ -79,7 +121,7 @@ class EmailService {
     `;
 
     return await this.sendEmail({
-      to: env.ADMIN_EMAIL, // Send to team email
+      to: fromEmail, // Send to team email
       subject,
       html,
       template: 'contact-form-notification',
@@ -124,7 +166,7 @@ class EmailService {
           <div style="text-align: center; margin-top: 30px;">
             <p style="color: #666;">
               Questions? Reply to this email or call us at 
-              <a href="tel:702-707-3168" style="color: #047857; text-decoration: none;">702-707-3168</a>
+              <a href="tel:702-721-3566" style="color: #047857; text-decoration: none;">(702) 721-3566</a>
             </p>
           </div>
         </div>
@@ -205,7 +247,7 @@ class EmailService {
           <div style="text-align: center; margin-top: 30px;">
             <p style="color: #666;">
               Questions? Reply to this email or call us at 
-              <a href="tel:702-707-3168" style="color: #047857; text-decoration: none;">702-707-3168</a>
+              <a href="tel:702-721-3566" style="color: #047857; text-decoration: none;">(702) 721-3566</a>
             </p>
           </div>
         </div>

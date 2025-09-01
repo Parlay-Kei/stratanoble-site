@@ -4,7 +4,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "echo 'No build needed for ESLint config'"
+    "build": "echo 'No build needed for ESLint config'",
+    "lint": "echo 'ESLint config package - no files to lint'"
   },
   "dependencies": {
     "@eslint/eslintrc": "^3.3.1",

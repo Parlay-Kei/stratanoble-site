@@ -82,7 +82,6 @@ export async function GET(request: NextRequest) {
     
     // Validate response structure
     if (!data || typeof data !== 'object') {
-      console.error('Invalid Calendly API response structure:', data);
       return NextResponse.json(
         { error: 'Invalid response from Calendly API' },
         { status: 500 }
@@ -125,13 +124,6 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
-    // Log the actual error for debugging
-    console.error('Calendly API error:', {
-      message: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined,
-      eventTypeUrl,
-    });
-    
     return NextResponse.json(
       { error: 'Failed to fetch upcoming events' },
       { status: 500 }

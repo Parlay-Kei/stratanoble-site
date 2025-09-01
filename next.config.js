@@ -1,5 +1,11 @@
+import { withSentryConfig } from '@sentry/nextjs';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    // Suppress Sentry global error handler warning since we have global-error.tsx
+    SENTRY_SUPPRESS_GLOBAL_ERROR_HANDLER_FILE_WARNING: '1',
+  },
   async headers() {
     return [
       {

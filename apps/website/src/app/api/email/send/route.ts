@@ -86,7 +86,7 @@ const createContactCustomerEmail = (data: ContactFormData) => ({
         <li>Relevant resources or case studies if applicable</li>
         <li>Next steps for moving forward</li>
       </ul>
-      <p>If you have any urgent questions, feel free to call us at <strong>702-707-3168</strong>.</p>
+      <p>If you have any urgent questions, feel free to call us at <strong>(702) 721-3566</strong>.</p>
       <p>Best regards,<br>The Strata Noble Team</p>
       <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
       <p style="color: #666; font-size: 12px;">
@@ -108,7 +108,7 @@ In the meantime, here's what you can expect:
 - Relevant resources or case studies if applicable
 - Next steps for moving forward
 
-If you have any urgent questions, feel free to call us at 702-707-3168.
+If you have any urgent questions, feel free to call us at (702) 721-3566.
 
 Best regards,
 The Strata Noble Team
@@ -165,7 +165,7 @@ const createDiscoveryCustomerEmail = (data: DiscoveryFormData) => ({
         <li>Main Challenge: ${data.mainChallenge}</li>
         <li>Service Interest: ${data.interestedTier}</li>
       </ul>
-      <p>If you don't receive your scheduling link within 2 hours, please check your spam folder or call us at <strong>702-707-3168</strong>.</p>
+      <p>If you don't receive your scheduling link within 2 hours, please check your spam folder or call us at <strong>(702) 721-3566</strong>.</p>
       <p>We look forward to speaking with you!</p>
       <p>Best regards,<br>The Strata Noble Team</p>
       <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
@@ -191,7 +191,7 @@ Your business details:
 - Main Challenge: ${data.mainChallenge}
 - Service Interest: ${data.interestedTier}
 
-If you don't receive your scheduling link within 2 hours, please check your spam folder or call us at 702-707-3168.
+If you don't receive your scheduling link within 2 hours, please check your spam folder or call us at (702) 721-3566.
 
 We look forward to speaking with you!
 

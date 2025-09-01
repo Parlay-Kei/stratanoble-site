@@ -1,13 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe-server';
+import { getStripe, hasStripeConfig } from '@/lib/stripe-conditional';
 import { db } from '@/lib/supabase';
 import { emailService } from '@/lib/email';
-import pino from 'pino';
+import { logger } from '@/lib/logger';
+import { Database } from '@/types/database';
 
-const logger = pino();
+type Order = Database['public']['Tables']['orders']['Row'];
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Stripe is configured
+    if (!hasStripeConfig()) {
+      return NextResponse.json(
+        { error: 'Kickoff email service is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
+    const stripe = getStripe();
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Kickoff email service is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json();
     const { sessionId } = body;
 
@@ -29,11 +46,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if order exists in database
-    let order;
+    let order: Order;
     try {
-      order = await db.getOrderByStripeSession(sessionId);
+      order = await db.getOrderByStripeSession(sessionId) as Order;
     } catch (error) {
-      logger.error('Order not found in database:', error instanceof Error ? error : new Error(String(error)), { sessionId });
+      logger.error('Order not found in database');
       return NextResponse.json(
         { error: 'Order not found' },
         { status: 404 }
@@ -52,18 +69,13 @@ export async function POST(request: NextRequest) {
     if (emailResult.success) {
       // Update order to mark email sent
       await db.updateOrderStatus(sessionId, order.status, {
-        ...order.metadata as Record<string, unknown>,
+        ...(order.metadata as Record<string, unknown>),
         kickoff_email_sent: true,
         kickoff_email_sent_at: new Date().toISOString(),
         kickoff_email_message_id: 'sent_via_ses',
       });
 
-      logger.info('Kickoff email sent successfully:', {
-        sessionId,
-        orderId: order.id,
-        customerEmail: session.customer_email,
-        emailSent: true,
-      });
+      logger.info('Kickoff email sent successfully');
 
       return NextResponse.json({
         success: true,
@@ -73,10 +85,7 @@ export async function POST(request: NextRequest) {
         order_id: order.id,
       });
     } else {
-      logger.error('Failed to send kickoff email:', {
-        sessionId,
-        error: emailResult.error,
-      });
+      logger.error('Failed to send kickoff email');
       
       return NextResponse.json(
         { error: `Failed to send kickoff email: ${emailResult.error}` },
@@ -84,9 +93,7 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (error) {
-    logger.error('Kickoff email error:', {
-      error: error instanceof Error ? error.message : 'Unknown error',
-    });
+    logger.error('Kickoff email error');
     
     return NextResponse.json(
       { error: 'Internal server error' },

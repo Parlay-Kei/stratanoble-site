@@ -1,0 +1,79 @@
+[
+    {
+        "id": "7a54daefb9056b5b",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "kuma_in",
+        "type": "http in",
+        "z": "7a54daefb9056b5b",
+        "name": "Kuma Webhook",
+        "url": "/hooks/kuma",
+        "method": "post",
+        "upload": false,
+        "x": 100,
+        "y": 200,
+        "wires": [
+            [
+                "fmt"
+            ]
+        ]
+    },
+    {
+        "id": "fmt",
+        "type": "function",
+        "z": "7a54daefb9056b5b",
+        "name": "Format message",
+        "func": "let b = msg.payload;\nif (typeof b === 'string') { try { b = JSON.parse(b); } catch(e) {} }\n\nconst name = b?.monitor?.name ?? b?.monitorName ?? 'unknown-monitor';\nconst status = String(b?.status ?? b?.msg ?? 'status-change');\n\nconst critical = /DOWN|CRIT|FAIL/i.test(status);\n\n// ntfy headers: title, priority, tag, 24h TTL\nmsg.headers = {\n  'Content-Type': 'text/plain',\n  'X-Title': `Uptime: ${name}`,\n  'X-Priority': critical ? '5' : '3',\n  'X-Tag': critical ? 'rotating_light' : 'white_check_mark',\n  'X-Message-TTL': '86400'\n};\n\nmsg.payload = `${name}: ${status}`;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 200,
+        "wires": [
+            [
+                "ntfy_req",
+                "kuma_resp"
+            ]
+        ]
+    },
+    {
+        "id": "ntfy_req",
+        "type": "http request",
+        "z": "7a54daefb9056b5b",
+        "name": "POST → ntfy (alerts.prod)",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://ntfy/alerts-prod",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 550,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "kuma_resp",
+        "type": "http response",
+        "z": "7a54daefb9056b5b",
+        "name": "200 OK",
+        "statusCode": "",
+        "x": 550,
+        "y": 240,
+        "wires": []
+    }
+]

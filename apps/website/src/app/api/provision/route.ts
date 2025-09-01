@@ -1,21 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
-import { prisma } from '@/lib/prisma';
+import { db } from '@/lib/supabase';
 import { sendEmail } from '@/lib/mailer';
 import { logger } from '@/lib/logger';
-import { Stripe } from 'stripe';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-07-30.basil',
-});
+import { getStripe, hasStripeConfig } from '@/lib/stripe-conditional';
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Stripe is configured
+    if (!hasStripeConfig()) {
+      logger.warn('Stripe not configured - provision webhook unavailable');
+      return NextResponse.json(
+        { error: 'Webhook processing is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
+    const stripe = getStripe();
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Webhook processing is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
     const body = await request.text();
     const headersList = await headers();
     const sig = headersList.get('stripe-signature') as string;
 
-    let event: Stripe.Event;
+    let event: any;
 
     try {
       event = stripe.webhooks.constructEvent(
@@ -32,19 +45,19 @@ export async function POST(request: NextRequest) {
 
     switch (event.type) {
       case 'checkout.session.completed':
-        await handleCheckoutSessionCompleted(event.data.object as Stripe.Checkout.Session);
+        await handleCheckoutSessionCompleted(event.data.object as any);
         break;
       case 'customer.subscription.created':
-        await handleSubscriptionCreated(event.data.object as Stripe.Subscription);
+        await handleSubscriptionCreated(event.data.object as any);
         break;
       case 'customer.subscription.updated':
-        await handleSubscriptionUpdated(event.data.object as Stripe.Subscription);
+        await handleSubscriptionUpdated(event.data.object as any);
         break;
       case 'customer.subscription.deleted':
-        await handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
+        await handleSubscriptionDeleted(event.data.object as any);
         break;
       case 'invoice.payment_succeeded':
-        await handlePaymentSucceeded(event.data.object as Stripe.Invoice);
+        await handlePaymentSucceeded(event.data.object as any);
         break;
       default:
         logger.info('Unhandled event type', { type: event.type });
@@ -60,7 +73,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
+async function handleCheckoutSessionCompleted(session: any) {
   logger.info('Processing checkout session completed', { sessionId: session.id });
 
   if (!session.customer_email || !session.customer) {
@@ -72,149 +85,94 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   const stripeCustomerId = typeof session.customer === 'string' ? session.customer : session.customer.id;
 
   try {
-    // Check if user already exists
-    let user = await prisma.user.findUnique({
-      where: { email: customerEmail }
+    // Upsert customer in Supabase customers table
+    await db.upsertCustomer({
+      email: customerEmail,
+      name: session.customer_details?.name || 'Customer',
+      stripe_customer_id: stripeCustomerId,
+      metadata: session.metadata as Record<string, unknown> | undefined,
     });
 
-    if (!user) {
-      // Create new user
-      user = await prisma.user.create({
-        data: {
-          email: customerEmail,
-          name: session.customer_details?.name || null,
-          stripeCustomerId: stripeCustomerId,
-          tier: determineTierFromSession(session),
-        }
-      });
-      logger.info('Created new user', { userId: user.id, email: customerEmail });
-    } else {
-      // Update existing user
-      user = await prisma.user.update({
-        where: { id: user.id },
-        data: {
-          stripeCustomerId: stripeCustomerId,
-          tier: determineTierFromSession(session),
-        }
-      });
-      logger.info('Updated existing user', { userId: user.id, email: customerEmail });
-    }
+    // Ensure a client exists keyed by stripe_customer_id
+    const tier = determineTierFromSession(session) as 'lite' | 'growth' | 'partner';
+    await db.upsertClientByStripeCustomerId(stripeCustomerId, { tier, status: 'active' });
 
-    // Create or update Client record for backwards compatibility
-    await prisma.client.upsert({
-      where: { email: customerEmail },
-      update: {
-        stripeCustomerId: stripeCustomerId,
-        tier: user.tier || 'lite',
-        userId: user.id,
-      },
-      create: {
-        email: customerEmail,
-        name: user.name || 'Customer',
-        stripeCustomerId: stripeCustomerId,
-        tier: user.tier || 'lite',
-        userId: user.id,
-      }
+    // Create order record for this checkout
+    await db.createOrder({
+      stripe_session_id: session.id,
+      customer_name: session.customer_details?.name || 'Customer',
+      customer_email: customerEmail,
+      package_type: session.metadata?.package_type || 'unknown',
+      amount: (session.amount_total || 0) / 100,
+      status: 'paid',
+      metadata: session.metadata as Record<string, unknown> | undefined,
     });
 
     // Send welcome email
-    await sendWelcomeEmail(user.email, user.name || 'Customer', user.tier || 'lite');
+    await sendWelcomeEmail(customerEmail, session.customer_details?.name || 'Customer', tier);
 
-    logger.info('User provisioning completed', { userId: user.id });
+    logger.info('User provisioning completed', { email: customerEmail, stripeCustomerId });
   } catch (error) {
     logger.error('User provisioning failed', error instanceof Error ? error : new Error(String(error)), { email: customerEmail });
     throw error;
   }
 }
 
-async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
+async function handleSubscriptionCreated(subscription: any) {
   logger.info('Processing subscription created', { subscriptionId: subscription.id });
   
-  const customer = await stripe.customers.retrieve(subscription.customer as string);
-  if ('email' in customer && customer.email) {
-    await updateUserTier(customer.email, determineTierFromSubscription(subscription));
-  }
+  const stripeCustomerId = subscription.customer as string;
+  await updateClientTierByStripeCustomerId(stripeCustomerId, determineTierFromSubscription(subscription));
 }
 
-async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
+async function handleSubscriptionUpdated(subscription: any) {
   logger.info('Processing subscription updated', { subscriptionId: subscription.id });
   
-  const customer = await stripe.customers.retrieve(subscription.customer as string);
-  if ('email' in customer && customer.email) {
-    await updateUserTier(customer.email, determineTierFromSubscription(subscription));
-  }
+  const stripeCustomerId = subscription.customer as string;
+  await updateClientTierByStripeCustomerId(stripeCustomerId, determineTierFromSubscription(subscription));
 }
 
-async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+async function handleSubscriptionDeleted(subscription: any) {
   logger.info('Processing subscription deleted', { subscriptionId: subscription.id });
   
-  const customer = await stripe.customers.retrieve(subscription.customer as string);
-  if ('email' in customer && customer.email) {
-    await updateUserTier(customer.email, null); // Remove tier when subscription is deleted
-  }
+  const stripeCustomerId = subscription.customer as string;
+  await updateClientTierByStripeCustomerId(stripeCustomerId, null); // Remove tier when subscription is deleted
 }
 
-async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
+async function handlePaymentSucceeded(invoice: any) {
   logger.info('Processing payment succeeded', { invoiceId: invoice.id });
   
-  // Create invoice record
-  await prisma.invoice.create({
-    data: {
-      stripeInvoiceId: invoice.id,
-      amount: invoice.amount_paid,
-      status: invoice.status || 'paid',
-      userId: await getUserIdByStripeCustomerId(invoice.customer as string),
-      clientId: await getClientIdByStripeCustomerId(invoice.customer as string),
-    }
+  // Log stripe event and upsert customer/client via Supabase
+  await db.logStripeEvent({
+    event_id: invoice.id || crypto.randomUUID(),
+    type: 'invoice.payment_succeeded',
+    handled: true,
   });
-}
-
-async function updateUserTier(email: string, tier: string | null) {
-  try {
-    await prisma.user.update({
-      where: { email },
-      data: { tier }
+  if (invoice.customer) {
+    const stripeCustomerId = String(invoice.customer);
+    await db.upsertCustomer({
+      email: invoice.customer_email || 'unknown@unknown',
+      name: invoice.customer_name || 'Customer',
+      stripe_customer_id: stripeCustomerId,
+      metadata: invoice as unknown as Record<string, unknown>,
     });
-
-    // Also update Client record for backwards compatibility
-    await prisma.client.update({
-      where: { email },
-      data: { tier: tier || 'lite' }
-    });
-
-    logger.info('Updated user tier', { email, tier });
-  } catch (error) {
-    logger.error('Failed to update user tier', error instanceof Error ? error : new Error(String(error)), { email, tier });
+    await db.upsertClientByStripeCustomerId(stripeCustomerId, { status: 'active' });
   }
 }
 
-async function getUserIdByStripeCustomerId(stripeCustomerId: string): Promise<string | null> {
+async function updateClientTierByStripeCustomerId(stripeCustomerId: string, tier: string | null) {
   try {
-    const user = await prisma.user.findUnique({
-      where: { stripeCustomerId },
-      select: { id: true }
-    });
-    return user?.id || null;
+    const mappedTier = (tier ?? 'lite') as 'lite' | 'growth' | 'partner';
+    await db.upsertClientByStripeCustomerId(stripeCustomerId, { tier: mappedTier, status: 'active' });
+    logger.info('Updated client tier', { stripeCustomerId, tier: mappedTier });
   } catch (error) {
-    logger.error('Failed to get user ID', error instanceof Error ? error : new Error(String(error)), { stripeCustomerId });
-    return null;
+    logger.error('Failed to update client tier', error instanceof Error ? error : new Error(String(error)), { stripeCustomerId, tier });
   }
 }
 
-async function getClientIdByStripeCustomerId(stripeCustomerId: string): Promise<string | null> {
-  try {
-    const client = await prisma.client.findUnique({
-      where: { stripeCustomerId },
-      select: { id: true }
-    });
-    return client?.id || null;
-  } catch (error) {
-    logger.error('Failed to get client ID', error instanceof Error ? error : new Error(String(error)), { stripeCustomerId });
-    return null;
-  }
-}
+// Removed Prisma ID helpers; Supabase client operations are keyed by stripe_customer_id
 
-function determineTierFromSession(session: Stripe.Checkout.Session): string {
+function determineTierFromSession(session: any): string {
   // Extract tier from metadata or price ID
   if (session.metadata?.tier) {
     return session.metadata.tier;
@@ -225,7 +183,7 @@ function determineTierFromSession(session: Stripe.Checkout.Session): string {
   return 'lite';
 }
 
-function determineTierFromSubscription(subscription: Stripe.Subscription): string {
+function determineTierFromSubscription(subscription: any): string {
   // Extract tier from subscription metadata or price ID
   if (subscription.metadata?.tier) {
     return subscription.metadata.tier;

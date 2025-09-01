@@ -1,9 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database } from './types';
+import { config } from './config';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseUrl = config.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = config.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseServiceRoleKey = config.SUPABASE_SERVICE_ROLE_KEY;
 
 // Only throw error at runtime, not during build
 if (typeof window !== 'undefined' && (!supabaseUrl || !supabaseAnonKey)) {
@@ -50,9 +51,9 @@ export const db = {
           topic: data.topic,
           message: data.message,
           source: data.source || 'website',
-          status: 'new',
+          status: 'new' as const,
         },
-      ])
+      ] as any)
       .select()
       .single();
 
@@ -72,7 +73,7 @@ export const db = {
   }) {
     const { data: order, error } = await supabaseAdmin
       .from('orders')
-      .insert([data])
+      .insert([data] as any)
       .select()
       .single();
 
@@ -86,7 +87,7 @@ export const db = {
       updateData.metadata = metadata;
     }
 
-    const { data: order, error } = await supabaseAdmin
+    const { data: order, error } = await (supabaseAdmin as any)
       .from('orders')
       .update(updateData)
       .eq('stripe_session_id', stripeSessionId)
@@ -118,7 +119,7 @@ export const db = {
   }) {
     const { data: customer, error } = await supabaseAdmin
       .from('customers')
-      .upsert([data], { onConflict: 'email' })
+      .upsert([data] as any, { onConflict: 'email' })
       .select()
       .single();
 
@@ -136,7 +137,7 @@ export const db = {
   }) {
     const { data: log, error } = await supabaseAdmin
       .from('webhook_logs')
-      .insert([data])
+      .insert([data] as any)
       .select()
       .single();
 
@@ -155,7 +156,7 @@ export const db = {
   }) {
     const { data: log, error } = await supabaseAdmin
       .from('email_logs')
-      .insert([data])
+      .insert([data] as any)
       .select()
       .single();
 
@@ -172,13 +173,13 @@ export const db = {
   }) {
     const insertData = {
       ...data,
-      tier: data.tier || 'lite',
-      status: data.status || 'active'
+      tier: data.tier || 'lite' as const,
+      status: data.status || 'active' as const
     };
     
     const { data: client, error } = await supabaseAdmin
       .from('clients')
-      .insert([insertData])
+      .insert([insertData] as any)
       .select()
       .single();
 
@@ -195,7 +196,7 @@ export const db = {
   }) {
     const { data: subscription, error } = await supabaseAdmin
       .from('subscriptions')
-      .upsert([data], { onConflict: 'stripe_subscription_id' })
+      .upsert([data] as any, { onConflict: 'stripe_subscription_id' })
       .select()
       .single();
 
@@ -204,7 +205,7 @@ export const db = {
   },
 
   async updateClientTier(clientId: string, tier: 'lite' | 'growth' | 'partner') {
-    const { data: client, error } = await supabaseAdmin
+    const { data: client, error } = await (supabaseAdmin as any)
       .from('clients')
       .update({ tier })
       .eq('id', clientId)
@@ -227,7 +228,7 @@ export const db = {
         type: data.type,
         handled: data.handled || false,
         received_at: new Date().toISOString()
-      }], { onConflict: 'event_id' })
+      }] as any, { onConflict: 'event_id' })
       .select()
       .single();
 
@@ -264,7 +265,7 @@ export const db = {
         has_airtable: false,
         has_geniuslink: false,
         welcome_email_sent: false
-      }], { onConflict: 'client_id' })
+      }] as any, { onConflict: 'client_id' })
       .select()
       .single();
 
@@ -276,7 +277,7 @@ export const db = {
 
 // Supabase Admin RPC function for handling Stripe events
 export async function handleStripeEvent(event: Record<string, unknown>) {
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await (supabaseAdmin as any)
     .rpc('handle_stripe_event', { event_data: event });
 
   if (error) throw error;

@@ -17,7 +17,7 @@ const structuredData = {
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+1-702-707-3168',
+    telephone: '+1-702-721-3566',
     contactType: 'customer service',
     email: 'contact@stratanoble.com',
   },

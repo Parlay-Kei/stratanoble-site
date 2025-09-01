@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import csrf from 'csrf';
 import { cookies } from 'next/headers';
+const NODE_ENV = process.env.NODE_ENV;
 
 // Initialize CSRF tokens generator
 const tokens = new csrf();
@@ -55,7 +56,7 @@ export async function getCSRFSecret(): Promise<{ secret: string; isNew: boolean 
 export function setCSRFCookie(response: NextResponse, secret: string): NextResponse {
   response.cookies.set(CSRF_COOKIE_NAME, secret, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: NODE_ENV === 'production',
     sameSite: 'strict',
     maxAge: 60 * 60 * 24, // 24 hours
     path: '/',
@@ -109,7 +110,7 @@ export function withCSRFProtection(handler: (req: NextRequest) => Promise<NextRe
     }
     
     // Skip CSRF protection in development if configured
-    if (process.env.NODE_ENV === 'development' && process.env.SKIP_CSRF_PROTECTION === 'true') {
+    if (NODE_ENV === 'development' && (process.env.SKIP_CSRF_PROTECTION === 'true')) {
       return handler(request);
     }
     
@@ -153,7 +154,6 @@ export function withCSRFProtection(handler: (req: NextRequest) => Promise<NextRe
       
       return handler(newRequest);
     } catch (error) {
-      console.error('CSRF validation error:', error);
       return NextResponse.json(
         {
           error: 'CSRF validation failed',
@@ -184,7 +184,6 @@ export async function getCSRFTokenEndpoint(): Promise<NextResponse> {
     
     return response;
   } catch (error) {
-    console.error('Error generating CSRF token:', error);
     return NextResponse.json(
       { error: 'Failed to generate CSRF token' },
       { status: 500 }
@@ -199,7 +198,7 @@ export function verifyOrigin(origin: string | null, allowedOrigins?: string[]): 
   if (!origin) return false;
   
   const allowed = allowedOrigins || [
-    process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com',
+    (process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com'),
     'http://localhost:3000',
     'http://localhost:8080',
     'https://localhost:3000',
