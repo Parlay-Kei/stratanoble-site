@@ -22,7 +22,7 @@ const ChartContainer = React.forwardRef<HTMLDivElement, ChartContainerProps>(
         style={{
           ...Object.entries(config).reduce((acc, [key, value]) => {
             if (value.color) {
-              (acc as any)[`--color-${key}`] = value.color;
+              (acc as Record<string, string>)[`--color-${key}`] = value.color;
             }
             return acc;
           }, {} as React.CSSProperties),
@@ -41,7 +41,7 @@ interface ChartTooltipContentProps {
   payload?: Array<{
     dataKey: string;
     value: number;
-    payload: any;
+    payload: Record<string, unknown>;
   }>;
   label?: string;
 }
@@ -59,7 +59,7 @@ const ChartTooltipContent: React.FC<ChartTooltipContentProps> = ({
           <div key={index} className="flex items-center gap-2">
             <div
               className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: entry.payload?.fill || '#8884d8' }}
+              style={{ backgroundColor: (entry.payload?.fill as string) || '#8884d8' }}
             />
             <span className="text-sm">
               {entry.dataKey}: {typeof entry.value === 'number' && entry.dataKey === 'revenue' 
