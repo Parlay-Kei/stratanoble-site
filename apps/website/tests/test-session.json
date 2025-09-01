@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-09-01T11:49:42.145Z",
+  "baseURL": "http://localhost:8080",
+  "browsers": [
+    "chromium",
+    "firefox",
+    "webkit",
+    "mobile-chrome",
+    "mobile-safari",
+    "security-tests",
+    "performance-tests"
+  ],
+  "testRunner": "Playwright",
+  "environment": "test",
+  "completedAt": "2025-09-01T11:50:46.653Z",
+  "duration": 64508
+}
