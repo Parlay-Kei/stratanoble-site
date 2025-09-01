@@ -3,9 +3,10 @@ import { db } from '@/lib/supabase';
 import { emailService } from '@/lib/email';
 import { ContactFormSchema, validateRequest, createValidationErrorResponse, createSuccessResponse } from '@/lib/validators';
 import { withEnhancedCSRFProtection } from '@/lib/csrf';
-import pino from 'pino';
+import { logger } from '@/lib/logger';
+import { Database } from '@/types/database';
 
-const logger = pino();
+type ContactSubmission = Database['public']['Tables']['contact_submissions']['Row'];
 
 async function contactHandler(request: NextRequest) {
   try {
@@ -30,10 +31,9 @@ async function contactHandler(request: NextRequest) {
       topic,
       message,
       source,
-    });
+    }) as ContactSubmission;
 
-    logger.info({
-      msg: 'Contact form submission stored',
+    logger.info('Contact form submission stored', {
       submissionId: submission.id,
       email,
     });
@@ -55,8 +55,7 @@ async function contactHandler(request: NextRequest) {
         message,
       })
     ]).then(([teamResult, customerResult]) => {
-      logger.info({
-        msg: 'Contact form emails processed',
+      logger.info('Contact form emails processed', {
         submissionId: submission.id,
         teamNotificationSent: teamResult.status === 'fulfilled' && teamResult.value.success,
         customerConfirmationSent: customerResult.status === 'fulfilled' && customerResult.value.success,
@@ -64,10 +63,8 @@ async function contactHandler(request: NextRequest) {
         customerError: customerResult.status === 'rejected' ? customerResult.reason : undefined,
       });
     }).catch((error) => {
-      logger.error({
-        msg: 'Email processing error',
+      logger.error('Email processing error', error instanceof Error ? error : new Error('Unknown error'), {
         submissionId: submission.id,
-        error: error instanceof Error ? error.message : 'Unknown error',
       });
     });
 
@@ -81,10 +78,7 @@ async function contactHandler(request: NextRequest) {
     );
 
   } catch (error) {
-    logger.error({
-      msg: 'Contact form error',
-      error: error instanceof Error ? error.message : 'Unknown error',
-    });
+    logger.error('Contact form error', error instanceof Error ? error : new Error('Unknown error'));
     
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }

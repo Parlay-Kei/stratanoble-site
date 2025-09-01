@@ -100,7 +100,6 @@ function IntakeForm() {
         throw new Error('Failed to submit form');
       }
     } catch (error) {
-      console.error('Form submission error:', error);
       alert('There was an error submitting your form. Please try again.');
     }
   };

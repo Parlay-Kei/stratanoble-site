@@ -66,10 +66,10 @@ export default function Error({
               Contact Support
             </Link>
             <a
-              href="tel:+1-702-707-3168"
+              href="tel:+1-702-721-3566"
               className="text-emerald-600 hover:text-emerald-700 transition-colors"
             >
-              Call: (702) 707-3168
+              Call: (702) 721-3566
             </a>
           </div>
         </div>

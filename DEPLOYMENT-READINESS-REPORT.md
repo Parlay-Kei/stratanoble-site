@@ -1,3 +1,15 @@
+## September 2025 Cadence Update
+
+- Deployment status remains READY; platform stable post logger and SES updates
+- Pipeline: Netlify build stabilized with workspace-aware commands; selective script execution
+- Focus: page performance, dashboard completion, monitoring (Sentry, Web Vitals)
+
+Note: Original generation date is retained below. This section reflects the latest sprint cadence.
+
+Last Updated: September 1, 2025
+
+---
+
 # DEPLOYMENT READINESS REPORT
 **Generated:** August 10, 2025  
 **Project:** Strata Noble Platform (Monorepo)  

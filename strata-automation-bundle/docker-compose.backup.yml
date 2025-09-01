@@ -1,0 +1,71 @@
+
+version: "3.8"
+
+# Strata Noble - $0 automation bundle (core services)
+# Profiles:
+#   core: Node-RED (automation), Uptime Kuma (uptime/status), ntfy (push alerts), DocuSeal (e-sign)
+# Optional heavy services (PostHog, Zulip) are recommended via cloud free tiers for simplicity and lower hosting cost.
+# You can later add separate compose files for self-hosted PostHog/Zulip if desired.
+
+services:
+  nodered:
+    image: nodered/node-red:latest
+    container_name: sn-nodered
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ:-America/Los_Angeles}
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./data/nodered:/data
+    profiles: ["core"]
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: sn-uptime-kuma
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./data/uptime-kuma:/app/data
+    profiles: ["core"]
+
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: sn-ntfy
+    restart: unless-stopped
+    # Warning: 80 is the container's HTTP port. Expose 2586 externally by default; change as needed.
+    ports:
+      - "2586:80"
+    environment:
+      # Publicly reachable base URL if you expose it on the internet; keep localhost for local-only.
+      - NTFY_BASE_URL=${NTFY_BASE_URL:-http://localhost:2586}
+      # Allow anonymous publish/subscribe for local dev. Tighten for prod; see README.
+      - NTFY_CACHE_FILE=/var/lib/ntfy/cache.db
+    volumes:
+      - ./data/ntfy:/var/lib/ntfy
+    profiles: ["core"]
+
+  docuseal:
+    image: docuseal/docuseal:latest
+    container_name: sn-docuseal
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      # Set this to your public URL if routed behind a proxy/domain.
+      - DOCUSEAL_HOST=${DOCUSEAL_HOST:-http://localhost:3002}
+      # Change this in .env before production use.
+      - DOCUSEAL_SECRET_KEY=${DOCUSEAL_SECRET_KEY:-changeme}
+    volumes:
+      - ./data/docuseal:/data
+    profiles: ["core"]
+
+volumes:
+  # Named volumes not required; using local bind mounts under ./data for simplicity.
+  # Define named volumes here if you prefer: e.g., nodered_data:, uptime_kuma_data:, etc.
+  # nodered_data:
+  # uptime_kuma_data:
+  # ntfy_data:
+  # docuseal_data:
+

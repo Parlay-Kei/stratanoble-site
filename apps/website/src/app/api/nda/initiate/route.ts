@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { docuSignService } from '@/lib/docusign';
 import { s3Service } from '@/lib/s3';
-import { prisma } from '@/lib/prisma';
+import { db, supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 import { z } from 'zod';
 
@@ -34,12 +34,13 @@ export async function POST(request: NextRequest) {
     const { clientName, clientEmail, projectDescription } = validation.data;
 
     // Check if user has permission to create NDAs
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
-      select: { tier: true, id: true }
-    });
+    const { data: client } = await (supabase as any)
+      .from('clients')
+      .select('id, tier')
+      .eq('id', session.user.email)
+      .maybeSingle?.() ?? { data: null };
 
-    if (!user || !['growth', 'partner'].includes(user.tier || '')) {
+    if (!client || !['growth', 'partner'].includes(client.tier || '')) {
       return NextResponse.json(
         { error: 'NDA feature requires Growth or Partner tier subscription' },
         { status: 403 }
@@ -67,31 +68,36 @@ export async function POST(request: NextRequest) {
     );
 
     // Store NDA record in database
-    const ndaRecord = await prisma.nDA.create({
-      data: {
-        userId: user.id,
-        clientEmail,
-        clientName,
-        projectDescription,
-        envelopeId,
-        status: 'sent',
-        documentKey: ndaKey,
-        createdAt: new Date(),
-      }
-    });
+    const { data: ndaRecord, error: ndaError } = await (supabase as any)
+      .from('email_logs')
+      .insert([{
+        event_type: 'nda_initiated',
+        recipient: clientEmail,
+        subject: `NDA for ${clientName}`,
+        metadata: {
+          clientName,
+          clientEmail,
+          projectDescription,
+          envelopeId,
+          documentKey: ndaKey,
+        }
+      }])
+      .select()
+      .single();
+    if (ndaError) throw ndaError;
 
     logger.info('NDA initiation successful', {
-      userId: user.id,
+      userId: client.id,
       clientEmail,
       envelopeId,
-      ndaId: ndaRecord.id
+      ndaId: ndaRecord?.id
     });
 
     return NextResponse.json({
       success: true,
       envelopeId,
       redirectUrl,
-      ndaId: ndaRecord.id,
+      ndaId: ndaRecord?.id,
       message: 'NDA sent successfully'
     });
 

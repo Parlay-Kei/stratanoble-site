@@ -230,8 +230,8 @@ function ThanksContent() {
             >
               <p className="text-sm text-[#C0C0C0]">
                 Need immediate assistance? Call us at{' '}
-                <a href="tel:702-707-3168" className="text-[#50C878] hover:text-[#3DB067]">
-                  702-707-3168
+                <a href="tel:702-721-3566" className="text-[#50C878] hover:text-[#3DB067]">
+                  (702) 721-3566
                 </a>
               </p>
             </motion.div>

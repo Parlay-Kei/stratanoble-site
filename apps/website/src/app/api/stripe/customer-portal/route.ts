@@ -1,12 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe-server';
+import { getStripe, hasStripeConfig } from '@/lib/stripe-conditional';
 import { assertUserWithTier, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
-import pino from 'pino';
+import { logger } from '@/lib/logger';
+import { Database } from '@/types/database';
 
-const logger = pino();
+type Client = Database['public']['Tables']['clients']['Row'];
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Stripe is configured
+    if (!hasStripeConfig()) {
+      return NextResponse.json(
+        { error: 'Customer portal is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
+    const stripe = getStripe();
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Customer portal is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
     // Authenticate user first
     const user = await assertUserWithTier(request, 'any');
     
@@ -24,7 +41,7 @@ export async function POST(request: NextRequest) {
     // Verify customer belongs to authenticated user
     const { db } = await import('@/lib/supabase');
     try {
-      const userClient = await db.getClientByStripeCustomerId(customerId);
+      const userClient = await db.getClientByStripeCustomerId(customerId) as Client | null;
       
       if (!userClient || userClient.id !== user.id) {
         return NextResponse.json(
@@ -33,7 +50,7 @@ export async function POST(request: NextRequest) {
         );
       }
     } catch (dbError) {
-      logger.error({ error: dbError }, 'Database error verifying customer ownership');
+      logger.error('Database error verifying customer ownership', dbError instanceof Error ? dbError : new Error(String(dbError)));
       return NextResponse.json(
         { error: 'Unable to verify customer access' },
         { status: 500 }
@@ -71,7 +88,7 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    logger.error({ error: errorMessage }, 'Customer portal session creation error');
+    logger.error('Customer portal session creation error', new Error(errorMessage));
     return NextResponse.json(
       { error: 'Failed to create customer portal session' },
       { status: 500 }

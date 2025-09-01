@@ -1,0 +1,63 @@
+
+
+# Strata Noble - $0 automation bundle (core services)
+# Profiles:
+#   core: Node-RED (automation), Uptime Kuma (uptime/status), ntfy (push alerts), DocuSeal (e-sign)
+# Optional heavy services (PostHog, Zulip) are recommended via cloud free tiers for simplicity and lower hosting cost.
+# You can later add separate compose files for self-hosted PostHog/Zulip if desired.
+
+services:
+  nodered:
+    image: nodered/node-red:latest
+    container_name: sn-nodered
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ:-America/Los_Angeles}
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./data/nodered:/data
+    profiles: ["core"]
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: sn-uptime-kuma
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./data/uptime-kuma:/app/data
+    profiles: ["core"]
+
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: sn-ntfy
+    restart: unless-stopped
+    ports:
+      - "2586:80"
+    command: ["serve"]                        # <-- add this
+    environment:
+      - NTFY_BASE_URL=${NTFY_BASE_URL:-http://localhost:2586}
+      - NTFY_AUTH_DEFAULT_ACCESS=${NTFY_AUTH_DEFAULT_ACCESS:-read-write}
+    volumes:
+      - ./data/ntfy:/var/cache/ntfy          # <-- use /var/cache/ntfy
+    profiles: ["core"]
+
+
+  docuseal:
+    image: docuseal/docuseal:latest
+    container_name: sn-docuseal
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      # Set this to your public URL if routed behind a proxy/domain.
+      - DOCUSEAL_HOST=${DOCUSEAL_HOST:-http://localhost:3002}
+      # Change this in .env before production use.
+      - DOCUSEAL_SECRET_KEY=${DOCUSEAL_SECRET_KEY:-changeme}
+    volumes:
+      - ./data/docuseal:/data
+    profiles: ["core"]
+
+volumes: {}
+

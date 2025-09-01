@@ -1,0 +1,26 @@
+{
+  "NEXT_PUBLIC_SUPABASE_URL": "https://bvneqoevtwodyfqglpzi.supabase.co",
+  "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2bmVxb2V2dHdvZHlmcWdscHppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0MzM4OTQsImV4cCI6MjA2NzAwOTg5NH0.7yTUwwa7UMfX5-ZBvG9T8LWDsst9SjQ2P0MON6iWTkw",
+  "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2bmVxb2V2dHdvZHlmcWdscHppIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTQzMzg5NCwiZXhwIjoyMDY3MDA5ODk0fQ.nuRSCa-USL25H7_8qgFjFs4noMUHVPIlD8Yz2Z2CGuQ",
+
+  "AWS_REGION": "us-west-2",
+  "AWS_ACCESS_KEY_ID": "AKIA...",
+  "AWS_SES_SECRET": "...",
+  "SES_FROM_EMAIL": "noreply@stratanoble.com",
+
+  "STRIPE_SECRET_KEY": "sk_live_...",
+  "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_live_...",
+  "STRIPE_WEBHOOK_SECRET": "whsec_...",
+
+  "UPSTASH_REDIS_REST_URL": "https://us1-...upstash.io",
+  "UPSTASH_REDIS_REST_TOKEN": "...",
+
+  "NEXTAUTH_SECRET": "...",
+  "NEXTAUTH_URL": "https://your-app.com",
+  "GOOGLE_CLIENT_ID": "...apps.googleusercontent.com",
+  "GOOGLE_CLIENT_SECRET": "...",
+
+  "MCP_SERVER_ENDPOINTS": "http://localhost:4000,https://mcp.example.com",
+  "MCP_SERVER_CONFIG": "{}",
+  "MCP_API_KEYS_JSON": "{}"
+}

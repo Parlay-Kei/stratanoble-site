@@ -1,20 +1,23 @@
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
-import { env } from './env';
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+const AWS_SES_SECRET = process.env.AWS_SES_SECRET;
+const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
+const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;
 import { logger } from './logger';
 
 let sesClient: SESv2Client | null = null;
 
 function getSESClient(): SESv2Client {
   if (!sesClient) {
-    if (!env.AWS_ACCESS_KEY_ID || !env.AWS_SES_SECRET) {
+    if (!AWS_ACCESS_KEY_ID || !AWS_SES_SECRET) {
       throw new Error('AWS credentials not configured. Email functionality is disabled.');
     }
     
     sesClient = new SESv2Client({
-      region: env.AWS_REGION,
+      region: AWS_REGION,
       credentials: {
-        accessKeyId: env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: env.AWS_SES_SECRET,
+        accessKeyId: AWS_ACCESS_KEY_ID,
+        secretAccessKey: AWS_SES_SECRET,
       },
     });
   }
@@ -26,13 +29,13 @@ export async function sendEmail(to: string, subject: string, html: string): Prom
   try {
     const ses = getSESClient();
     
-    if (!env.SES_FROM_EMAIL) {
+    if (!SES_FROM_EMAIL) {
       throw new Error('SES_FROM_EMAIL not configured');
     }
     
     const cmd = new SendEmailCommand({
       Destination: { ToAddresses: [to] },
-      FromEmailAddress: env.SES_FROM_EMAIL,
+      FromEmailAddress: SES_FROM_EMAIL,
       Content: {
         Simple: {
           Subject: { Data: subject },

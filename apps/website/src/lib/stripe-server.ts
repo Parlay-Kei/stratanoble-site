@@ -1,10 +1,9 @@
 import Stripe from 'stripe';
-import pino from 'pino';
-
-const logger = pino();
+import { logger } from '@/lib/logger';
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
 
 // Server-side Stripe initialization
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripeSecretKey = STRIPE_SECRET_KEY;
 
 if (!stripeSecretKey) {
   throw new Error('STRIPE_SECRET_KEY environment variable is required');
@@ -27,7 +26,7 @@ export async function createCheckoutSession(
     workshop_standard: process.env.STRIPE_PRICE_ID_WORKSHOP_STANDARD,
     presence_standard: process.env.STRIPE_PRICE_ID_PRESENCE_STANDARD,
     analysis_standard: process.env.STRIPE_PRICE_ID_ANALYSIS_STANDARD
-  };
+  } as const;
   
   const priceId = priceIds[packageType];
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
@@ -37,14 +36,7 @@ export async function createCheckoutSession(
   }
   
   try {
-    logger.info({
-      msg: 'Creating checkout session with params',
-      packageType,
-      priceId,
-      customerEmail,
-      customerName,
-      baseUrl
-    });
+    logger.info('Creating checkout session with params');
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -65,12 +57,7 @@ export async function createCheckoutSession(
       },
     });
 
-    logger.info({
-      msg: 'Stripe session created successfully',
-      id: session.id,
-      url: session.url,
-      status: session.status
-    });
+    logger.info('Stripe session created successfully');
 
     if (!session.url) {
       throw new Error('Stripe session created but no URL returned');
@@ -78,19 +65,11 @@ export async function createCheckoutSession(
 
     return session;
   } catch (error) {
-    logger.error({
-      msg: 'Stripe checkout session creation error',
-      error
-    });
+    logger.error('Stripe checkout session creation error', error instanceof Error ? error : new Error(String(error)));
     
     // Log more details about the error
     if (error instanceof Error) {
-      logger.error({
-        msg: 'Error details',
-        message: error.message,
-        stack: error.stack,
-        name: error.name
-      });
+      logger.error('Error details', error);
     }
     
     throw new Error(`Failed to create checkout session: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -104,8 +83,7 @@ export async function sendKickoffEmail(sessionId: string) {
     
     // TODO: Integrate with AWS SES email service
     // For now, log the email details
-    logger.info({
-      msg: 'Kickoff email should be sent to',
+    logger.info('Kickoff email should be sent to', {
       customer_email: session.customer_email,
       package_type: session.metadata?.package_type,
       customer_name: session.metadata?.customer_name,
@@ -130,15 +108,11 @@ export async function sendKickoffEmail(sessionId: string) {
         });
 
         const deliverableResult = await deliverableResponse.json();
-        logger.info({
-          msg: 'Deliverable delivery result',
+        logger.info('Deliverable delivery result', {
           deliverableResult
         });
       } catch (error) {
-        logger.error({
-          msg: 'Error triggering deliverable delivery',
-          error
-        });
+        logger.error('Error triggering deliverable delivery', error instanceof Error ? error : new Error(String(error)));
       }
     }
     
@@ -148,10 +122,7 @@ export async function sendKickoffEmail(sessionId: string) {
       package_type: session.metadata?.package_type
     };
   } catch (error) {
-    logger.error({
-      msg: 'Error sending kickoff email',
-      error
-    });
+    logger.error('Error sending kickoff email', error instanceof Error ? error : new Error(String(error)));
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'
@@ -180,10 +151,7 @@ export async function createConnectedAccount(businessName: string, email: string
 
     return account;
   } catch (error) {
-    logger.error({
-      msg: 'Error creating connected account',
-      error
-    });
+    logger.error('Error creating connected account', error instanceof Error ? error : new Error(String(error)));
     throw new Error(`Failed to create connected account: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
@@ -200,10 +168,7 @@ export async function createAccountLink(accountId: string, returnUrl: string) {
 
     return accountLink;
   } catch (error) {
-    logger.error({
-      msg: 'Error creating account link',
-      error
-    });
+    logger.error('Error creating account link', error instanceof Error ? error : new Error(String(error)));
     throw new Error(`Failed to create account link: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }

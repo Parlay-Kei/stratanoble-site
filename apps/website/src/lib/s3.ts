@@ -2,19 +2,24 @@ import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } fro
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { logger } from './logger';
 
+const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME || 'strata-noble-documents';
+
 class S3Service {
   private client: S3Client;
   private bucket: string;
 
   constructor() {
     this.client = new S3Client({
-      region: process.env.AWS_REGION || 'us-east-1',
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-      },
+      region: AWS_REGION,
+      credentials: AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY ? {
+        accessKeyId: AWS_ACCESS_KEY_ID,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY,
+      } : undefined,
     });
-    this.bucket = process.env.S3_BUCKET_NAME || 'strata-noble-documents';
+    this.bucket = S3_BUCKET_NAME;
   }
 
   async uploadDocument(
@@ -37,7 +42,7 @@ class S3Service {
 
       await this.client.send(command);
       
-      const url = `https://${this.bucket}.s3.${process.env.AWS_REGION || 'us-east-1'}.amazonaws.com/${key}`;
+      const url = `https://${this.bucket}.s3.${AWS_REGION}.amazonaws.com/${key}`;
       
       logger.info('Document uploaded to S3', { key, url });
       return url;

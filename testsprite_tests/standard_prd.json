@@ -1,0 +1,84 @@
+{
+  "product_name": "Strata Noble Platform",
+  "description": "Scalable Consulting-as-a-Service (CaaS) for Underserved Entrepreneurs & Small Teams",
+  "purpose": "Democratize high-impact business consulting by giving overlooked founders and under-optimized small businesses a subscription-based toolkit—combining data analytics, guided playbooks, and on-demand expert support—that turns passion into profit without enterprise-level budgets.",
+  "vision": "Become the trusted operating partner for every self-funded entrepreneur who needs systems, strategy, and accountability, delivering AI-powered insights and human expertise through a single friction-free experience.",
+  "target_users": [
+    {
+      "segment": "Solo Hustler",
+      "needs": "Step-by-step playbooks, affordable coaching, KPI visibility"
+    },
+    {
+      "segment": "Small Team Operator", 
+      "needs": "Process automation, team task tracking, shared dashboards"
+    },
+    {
+      "segment": "Side-Hustle Starter",
+      "needs": "Rapid business setup, compliance guidance, mindset coaching"
+    },
+    {
+      "segment": "Growth-Stage Founder",
+      "needs": "Advanced analytics, funding prep, scalable SOPs"
+    }
+  ],
+  "core_features": [
+    {
+      "name": "Diagnostic Wizard",
+      "description": "Guided questionnaire imports financial & operational data, auto-generates baseline KPI dashboard & priority roadmap"
+    },
+    {
+      "name": "Playbook Library",
+      "description": "Modular SOPs (marketing, operations, finance) with task templates and progress tracking"
+    },
+    {
+      "name": "Workflow Builder",
+      "description": "No-code automations with Zapier/webhooks for external tool triggers"
+    },
+    {
+      "name": "KPI Dashboards",
+      "description": "Real-time metrics: revenue, conversion, cost per lead, burn rate with peer benchmarking"
+    },
+    {
+      "name": "Expert Hub",
+      "description": "Book on-demand sessions with vetted consultants, in-app messaging & Slack integration"
+    },
+    {
+      "name": "Resource Marketplace",
+      "description": "Templates, calculators, industry checklists with pay-as-you-go or tiered plans"
+    },
+    {
+      "name": "AI Insight Engine",
+      "description": "GPT-powered recommendations and natural-language query over client data warehouse"
+    }
+  ],
+  "technical_requirements": {
+    "architecture": "Multi-tenant Postgres (Supabase) with Row-Level Security",
+    "frontend": "Next.js 15 on Netlify with ISR; Tailwind UI",
+    "serverless_functions": "Supabase Edge Functions for webhooks & automations",
+    "auth": "Supabase Auth (email/OAuth) + SAML add-on for larger teams",
+    "analytics": "Supabase → BigQuery → MetriQL semantic layer",
+    "payments": "Stripe Billing for tiered subscriptions & one-off products",
+    "messaging": "AWS SES for email; Slack API for community channels",
+    "performance": "p95 API responses < 250 ms under 5k concurrent users",
+    "compliance": "GDPR & CCPA ready; SOC 2 Type I target Q2-2027"
+  },
+  "dependencies": [
+    "Stripe", "Slack", "Google Sheets", "QuickBooks", "Notion", "Zapier",
+    "GPT-4o via OpenAI API", "Upstash Redis", "LaunchDarkly"
+  ],
+  "success_metrics": {
+    "year_1_goals": [
+      "Reduce time-to-system implementation from 12 weeks → 4 weeks",
+      "Achieve ≥ 80 NPS across active subscribers", 
+      "Deliver 20% average revenue growth for engaged clients within six months",
+      "Reach 1,000 paid seats with < 2% monthly logo churn"
+    ],
+    "key_metrics": [
+      "Average onboarding completion time",
+      "% clients using diagnostics wizard monthly",
+      "Playbook adoption rate (plays run per client per month)",
+      "Client MRR growth vs baseline",
+      "Support tickets per 100 users"
+    ]
+  }
+}

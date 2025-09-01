@@ -1,9 +1,6 @@
-import { PrismaClient } from '@prisma/client'
-
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
-
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+// Prisma removed in favor of Supabase. This module intentionally throws if used.
+export const prisma: any = new Proxy({}, {
+  get() {
+    throw new Error('Prisma has been removed. Use Supabase helpers from lib/supabase instead.')
+  }
+})
