@@ -10,7 +10,7 @@ if (!stripeSecretKey) {
 }
 
 export const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: '2025-07-30.basil',
+  apiVersion: '2025-08-27.basil',
 });
 
 // Create checkout session
