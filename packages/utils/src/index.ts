@@ -5,6 +5,7 @@ export * from './auth-guard';
 export * from './csrf';
 export * from './cta-labels';
 export * from './deliverables';
+export * from './config';
 export * from './logger';
 export * from './mailer';
 export * from './qstash';

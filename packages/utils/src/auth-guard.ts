@@ -17,9 +17,12 @@ export async function getUserTier(userId: string): Promise<UserTier | null> {
       return null
     }
 
+    // Explicitly type the client data
+    const typedClient = client as { tier: 'lite' | 'growth' | 'partner'; status: 'active' | 'cancelled' | 'suspended' }
+
     return {
-      tier: client.tier as 'lite' | 'growth' | 'partner',
-      status: client.status as 'active' | 'cancelled' | 'suspended'
+      tier: typedClient.tier,
+      status: typedClient.status
     }
   } catch {
     // Error fetching user tier - return null to deny access

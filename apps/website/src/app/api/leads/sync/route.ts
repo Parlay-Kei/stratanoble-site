@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { NextRequest, NextResponse } from 'next/server'
+import { supabase } from '@/lib/supabase';
 import { mailchimpService } from '@/lib/mailchimp';
 import { logger } from '@/lib/logger';
 import { z } from 'zod';
@@ -94,19 +94,21 @@ export async function POST(request: NextRequest) {
 
     // Log the lead sync attempt
     try {
-      await prisma.leadSync.create({
-        data: {
-          email,
-          firstName: firstName || null,
-          lastName: lastName || null,
-          source,
-          serviceType: serviceType || null,
-          tier: tier || null,
-          amount: amount || null,
-          success,
-          syncedAt: new Date(),
-        }
-      });
+      await (supabase as any)
+        .from('metric_feed')
+        .insert([{
+          event_type: 'lead_sync',
+          payload: {
+            email,
+            firstName: firstName || null,
+            lastName: lastName || null,
+            source,
+            serviceType: serviceType || null,
+            tier: tier || null,
+            amount: amount || null,
+            success,
+          }
+        }]);
     } catch (dbError) {
       // Don't fail the request if logging fails
       logger.error('Failed to log lead sync', dbError instanceof Error ? dbError : new Error(String(dbError)), { 
@@ -142,11 +144,11 @@ export async function GET(request: NextRequest) {
     }
 
     // Get recent sync attempts for this email
-    const recentSyncs = await prisma.leadSync.findMany({
-      where: { email },
-      orderBy: { syncedAt: 'desc' },
-      take: 5,
-    });
+    const { data: recentSyncs = [] } = await (supabase as any)
+      .from('metric_feed')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(5);
 
     return NextResponse.json({
       email,

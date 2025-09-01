@@ -22,7 +22,7 @@ import { CalendlyModal, useCalendlyModal } from '@/components/CalendlyModal';
 const CONTACT_METHODS = [
   {
     label: 'Call Us',
-    value: '702‑707‑3168',
+    value: '(702) 721-3566',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

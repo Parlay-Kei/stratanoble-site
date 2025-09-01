@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { assertAdmin, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
 import { supabase } from '@/lib/supabase';
+import { Database } from '@/types/database';
+
+type Customer = Database['public']['Tables']['customers']['Row'];
+type Order = Database['public']['Tables']['orders']['Row'];
 
 export async function GET(request: NextRequest) {
   try {
@@ -39,7 +43,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get customer order history for each customer
-    const customerIds = customers?.map(c => c.email) || [];
+    const customerIds = (customers as Customer[])?.map(c => c.email) || [];
     const { data: orders } = await supabase
       .from('orders')
       .select('customer_email, amount, status, package_type, created_at')
@@ -47,16 +51,16 @@ export async function GET(request: NextRequest) {
       .order('created_at', { ascending: false });
 
     // Group orders by customer
-    const ordersByCustomer = (orders || []).reduce((acc, order) => {
+    const ordersByCustomer = ((orders as Order[]) || []).reduce((acc, order) => {
       if (!acc[order.customer_email]) {
         acc[order.customer_email] = [];
       }
       acc[order.customer_email]?.push(order);
       return acc;
-    }, {} as Record<string, typeof orders>);
+    }, {} as Record<string, Order[]>);
 
     // Enhance customer data with order details
-    const enhancedCustomers = customers?.map(customer => ({
+    const enhancedCustomers = (customers as Customer[])?.map(customer => ({
       ...customer,
       orders: ordersByCustomer[customer.email] || [],
       recent_orders: (ordersByCustomer[customer.email] || []).slice(0, 3),
@@ -112,7 +116,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    console.error('Customer analytics error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch customer analytics' },
       { status: 500 }
@@ -120,7 +123,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-function getMostFrequentPackage(orders: any[]): string | null {
+function getMostFrequentPackage(orders: Order[]): string | null {
   if (!orders.length) return null;
   
   const packageCounts = orders.reduce((acc, order) => {

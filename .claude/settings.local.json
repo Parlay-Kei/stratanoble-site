@@ -39,6 +39,7 @@
       "Bash(supabase status:*)",
       "Bash(where docker)",
       "Bash(docker:*)",
+      "Bash(podman:*)",
       "Bash(npx:*)",
       "Bash(env)",
       "Bash(cp:*)",
@@ -53,8 +54,21 @@
       "Bash(true)",
       "Bash(pkill:*)",
       "Bash(__NEW_LINE__ echo \"5. TESTING STATIC ASSETS\")",
-      "Bash(del \"C:\\dev\\strata-noble\\tailwind.config.js\")"
+      "Bash(del \"C:\\dev\\strata-noble\\tailwind.config.js\")",
+      "Bash(supabase start:*)",
+      "Bash(powershell:*)",
+      "Bash(echo:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(cross-env:*)",
+      "Bash(PORT=3000 npm run dev)",
+      "Bash(for path in / /services /portfolio /methodology /technology /data-analysis /about /case-studies /contact)",
+      "Bash(time curl:*)",
+      "Bash(done)",
+      "Bash(/dev/null)"
     ],
-    "deny": []
+    "deny": [],
+    "additionalDirectories": [
+      "C:\\c\\Dev"
+    ]
   }
 }

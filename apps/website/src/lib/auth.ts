@@ -1,29 +1,33 @@
 import { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import EmailProvider from 'next-auth/providers/email';
-import { PrismaAdapter } from '@auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
+import { supabase } from './supabase';
 import { sendEmail } from './mailer';
-
-const prisma = new PrismaClient();
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
+const SMTP_HOST = process.env.SMTP_HOST;
+const SMTP_PORT = parseInt(process.env.SMTP_PORT || '587');
+const SMTP_USER = process.env.SMTP_USER;
+const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
+const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
     }),
     EmailProvider({
       server: {
-        host: process.env.SMTP_HOST,
-        port: parseInt(process.env.SMTP_PORT || '587'),
+        host: SMTP_HOST,
+        port: SMTP_PORT,
         auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASSWORD,
+          user: SMTP_USER,
+          pass: SMTP_PASSWORD,
         },
       },
-      from: process.env.SES_FROM_EMAIL,
+      from: SES_FROM_EMAIL,
       sendVerificationRequest: async ({ identifier: email, url, provider }) => {
         const subject = 'Sign in to Strata Noble';
         const html = `
@@ -70,15 +74,15 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        // Add custom fields from User model
-        const userData = await prisma.user.findUnique({
-          where: { id: user.id },
-          select: { tier: true, stripeCustomerId: true }
-        });
-        session.user.tier = userData?.tier;
-        session.user.stripeCustomerId = userData?.stripeCustomerId;
+      // Enrich session from Supabase clients if available via email
+      if (session.user?.email) {
+        const { data: client } = await (supabase as any)
+          .from('clients')
+          .select('tier, stripe_customer_id')
+          .eq('id', session.user.email)
+          .maybeSingle?.() ?? { data: null };
+        session.user.tier = client?.tier;
+        session.user.stripeCustomerId = client?.stripe_customer_id;
       }
       return session;
     },
@@ -95,17 +99,17 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     async createUser({ user }) {
-      console.log('New user created:', user.email);
+      // User creation event
     },
     async signIn({ user, account, profile, isNewUser }) {
       if (isNewUser) {
-        console.log('First-time sign-in:', user.email);
+        // First-time sign-in event
       }
     },
   },
   session: {
-    strategy: 'database',
+    strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: NEXTAUTH_SECRET,
 };

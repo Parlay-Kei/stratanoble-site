@@ -1,14 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe-server';
+import { getStripe, hasStripeConfig } from '@/lib/stripe-conditional';
 import { headers } from 'next/headers';
-import pino from 'pino';
 import { qstash } from '@/lib/qstash';
-
-const logger = pino();
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+import { logger } from '@/lib/logger';
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Stripe is configured
+    if (!hasStripeConfig()) {
+      logger.warn('Stripe not configured - webhook unavailable');
+      return NextResponse.json(
+        { error: 'Webhook processing is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
+    const stripe = getStripe();
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Webhook processing is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
     const body = await request.text();
     const headersList = await headers();
     const signature = headersList.get('stripe-signature');
@@ -23,10 +38,10 @@ export async function POST(request: NextRequest) {
 
     let event;
     try {
-      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);      
+      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('Webhook signature verification failed:', { error: errorMessage });
+      logger.error('Webhook signature verification failed', err instanceof Error ? err : new Error(errorMessage));
       return NextResponse.json(
         { error: 'Webhook signature verification failed' },
         { status: 400 }
@@ -53,7 +68,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    logger.error('Webhook error:', { error: errorMessage });
+    logger.error('Webhook error:', error instanceof Error ? error : new Error(errorMessage));
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 }

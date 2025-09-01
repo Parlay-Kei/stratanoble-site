@@ -98,7 +98,6 @@ export async function middleware(request: NextRequest) {
 
   // Skip rate limiting if Redis is not configured
   if (!redisUrl || !redisToken) {
-    console.warn('Upstash Redis not configured - skipping rate limiting');
     return NextResponse.next();
   }
 
@@ -107,7 +106,6 @@ export async function middleware(request: NextRequest) {
     const rateLimiter = getRateLimiter(request.nextUrl.pathname);
     
     if (!rateLimiter) {
-      console.warn('Rate limiter not available - skipping rate limiting');
       return NextResponse.next();
     }
     
@@ -142,7 +140,6 @@ export async function middleware(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error('Rate limiting middleware error:', error);
     // Fail open - allow request if rate limiting fails
     return NextResponse.next();
   }

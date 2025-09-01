@@ -35,61 +35,55 @@ class Logger {
   }
 
   private async sendToExternalService(level: string, message: string, context?: LogContext, error?: Error) {
-    // In production, you would integrate with services like:
-    // - Sentry for error tracking
-    // - LogRocket for session replay
-    // - Axiom for log aggregation
-    // - DataDog for monitoring
-    
-    if (this.isProduction) {
-      try {
-        // Example: Sentry integration
-        if (typeof window !== 'undefined' && (window as unknown as Record<string, unknown>).Sentry) {
-          const Sentry = (window as unknown as Record<string, unknown>).Sentry as {
-            captureException: (error: Error, options?: unknown) => void;
-            captureMessage: (message: string, level: string, options?: unknown) => void;
-          };
-          
-          if (level === LOG_LEVELS.ERROR && error) {
-            Sentry.captureException(error, {
-              tags: { component: 'api' },
-              extra: context,
-            });
-          } else {
-            Sentry.captureMessage(message, level as 'info' | 'warning' | 'error', {
-              tags: { component: 'api' },
-              extra: context,
-            });
-          }
-        }
-
-        // Example: Custom logging endpoint
-        if (process.env.LOGGING_ENDPOINT) {
-          await fetch(process.env.LOGGING_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              level,
-              message,
-              context,
-              error: error ? {
-                name: error.name,
-                message: error.message,
-                stack: error.stack,
-              } : undefined,
-              timestamp: new Date().toISOString(),
-            }),
+    // Send to Sentry for error tracking in both client and server
+    try {
+      // Import Sentry dynamically to avoid issues with SSR
+      const { captureException, captureMessage, withScope } = await import('@sentry/nextjs');
+      
+      withScope((scope) => {
+        // Set context information
+        if (context) {
+          Object.entries(context).forEach(([key, value]) => {
+            scope.setContext(key, value as any);
           });
         }
-      } catch (logError) {
-        // Fallback to console if external logging fails
-        // Only log in development to avoid console statements in production
-        if (this.isDevelopment) {
-          // eslint-disable-next-line no-console
-          console.error('Failed to send log to external service:', logError);
-          // eslint-disable-next-line no-console
-          console.error('Original log:', { level, message, context, error });
+        
+        scope.setTag('logger', 'custom');
+        scope.setLevel(level as 'info' | 'warning' | 'error' | 'debug');
+        
+        if (level === LOG_LEVELS.ERROR && error) {
+          captureException(error);
+        } else {
+          captureMessage(message, level as 'info' | 'warning' | 'error');
         }
+      });
+
+      // Example: Custom logging endpoint
+      if (process.env.LOGGING_ENDPOINT) {
+        await fetch(process.env.LOGGING_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            level,
+            message,
+            context,
+            error: error ? {
+              name: error.name,
+              message: error.message,
+              stack: error.stack,
+            } : undefined,
+            timestamp: new Date().toISOString(),
+          }),
+        });
+      }
+    } catch (logError) {
+      // Fallback to console if external logging fails
+      // Only log in development to avoid console statements in production
+      if (this.isDevelopment) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to send log to external service:', logError);
+        // eslint-disable-next-line no-console
+        console.error('Original log:', { level, message, context, error });
       }
     }
   }
