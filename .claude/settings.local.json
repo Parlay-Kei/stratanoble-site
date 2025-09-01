@@ -64,7 +64,11 @@
       "Bash(for path in / /services /portfolio /methodology /technology /data-analysis /about /case-studies /contact)",
       "Bash(time curl:*)",
       "Bash(done)",
-      "Bash(/dev/null)"
+      "Bash(/dev/null)",
+      "Bash(npm ls:*)",
+      "Bash(npm update:*)",
+      "Bash(cat:*)",
+      "Bash(timeout 300 npx playwright test tests/e2e/comprehensive-qa.spec.ts --timeout=120000)"
     ],
     "deny": [],
     "additionalDirectories": [

@@ -1,0 +1,252 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - navigation "Main navigation" [ref=e3]:
+      - generic [ref=e4]:
+        - link "Strata Noble - Home Strata Noble" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7] [cursor=pointer]: Strata Noble - Home
+          - generic [ref=e9] [cursor=pointer]:
+            - generic [ref=e10] [cursor=pointer]: Strata
+            - generic [ref=e11] [cursor=pointer]: Noble
+        - generic [ref=e12]:
+          - link "Services" [ref=e13] [cursor=pointer]:
+            - /url: /services
+            - text: Services
+          - link "Portfolio" [ref=e14] [cursor=pointer]:
+            - /url: /portfolio
+            - text: Portfolio
+          - link "Methodology" [ref=e15] [cursor=pointer]:
+            - /url: /methodology
+            - text: Methodology
+          - link "Technology" [ref=e16] [cursor=pointer]:
+            - /url: /technology
+            - text: Technology
+          - link "Data Analysis" [ref=e17] [cursor=pointer]:
+            - /url: /data-analysis
+            - text: Data Analysis
+          - link "About" [ref=e18] [cursor=pointer]:
+            - /url: /about
+            - text: About
+          - link "Case Studies" [ref=e19] [cursor=pointer]:
+            - /url: /case-studies
+            - text: Case Studies
+          - link "Contact" [ref=e20] [cursor=pointer]:
+            - /url: /contact
+            - text: Contact
+        - link "Get Started" [ref=e22] [cursor=pointer]:
+          - /url: /contact
+  - main [ref=e23]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - heading "Our Services" [level=1] [ref=e27]
+        - paragraph [ref=e28]: Comprehensive solutions to transform your passion into a profitable business
+      - generic [ref=e29]:
+        - button "All Services" [ref=e30] [cursor=pointer]
+        - button "Strategy & Consulting" [ref=e31] [cursor=pointer]
+        - button "Workshops & Training" [ref=e32] [cursor=pointer]
+        - button "Data & Analytics" [ref=e33] [cursor=pointer]
+        - button "Brand & Digital" [ref=e34] [cursor=pointer]
+      - generic [ref=e35]:
+        - generic [ref=e38] [cursor=pointer]:
+          - img [ref=e40] [cursor=pointer]
+          - heading "Solution Services" [level=3] [ref=e42] [cursor=pointer]
+          - paragraph [ref=e43] [cursor=pointer]: Strategy & Execution for Solo / Small Biz
+          - paragraph [ref=e44] [cursor=pointer]: Transform your vision into actionable strategy with proven frameworks and hands-on execution support.
+          - generic [ref=e46] [cursor=pointer]: Schedule a discovery call for a tailored quote
+          - generic:
+            - heading "What You Get:" [level=4] [ref=e47] [cursor=pointer]
+            - list [ref=e48] [cursor=pointer]:
+              - listitem [ref=e49] [cursor=pointer]:
+                - generic [ref=e50] [cursor=pointer]: ✓
+                - text: Strategic business roadmap
+              - listitem [ref=e51] [cursor=pointer]:
+                - generic [ref=e52] [cursor=pointer]: ✓
+                - text: Market analysis & positioning
+              - listitem [ref=e53] [cursor=pointer]:
+                - generic [ref=e54] [cursor=pointer]: ✓
+                - text: Revenue model design
+              - listitem [ref=e55] [cursor=pointer]:
+                - generic [ref=e56] [cursor=pointer]: ✓
+                - text: 90-day action plan
+          - generic [ref=e57] [cursor=pointer]:
+            - button "Book Free Discovery" [ref=e58] [cursor=pointer]:
+              - text: Book Free Discovery
+              - img [ref=e59] [cursor=pointer]
+            - link "Download One-Pager" [ref=e61] [cursor=pointer]:
+              - /url: /services
+        - generic [ref=e64] [cursor=pointer]:
+          - img [ref=e66] [cursor=pointer]
+          - heading "Side-Hustle Workshops" [level=3] [ref=e68] [cursor=pointer]
+          - paragraph [ref=e69] [cursor=pointer]: Hands-on learning for aspiring entrepreneurs
+          - paragraph [ref=e70] [cursor=pointer]: Join interactive workshops designed to help you launch and scale your side hustle with proven strategies.
+          - generic [ref=e72] [cursor=pointer]: Schedule a discovery call for a tailored quote
+          - generic:
+            - heading "What You Get:" [level=4] [ref=e73] [cursor=pointer]
+            - list [ref=e74] [cursor=pointer]:
+              - listitem [ref=e75] [cursor=pointer]:
+                - generic [ref=e76] [cursor=pointer]: ✓
+                - text: Live interactive sessions
+              - listitem [ref=e77] [cursor=pointer]:
+                - generic [ref=e78] [cursor=pointer]: ✓
+                - text: Take-home templates
+              - listitem [ref=e79] [cursor=pointer]:
+                - generic [ref=e80] [cursor=pointer]: ✓
+                - text: Q&A with experts
+              - listitem [ref=e81] [cursor=pointer]:
+                - generic [ref=e82] [cursor=pointer]: ✓
+                - text: Resource vault access
+              - listitem [ref=e83] [cursor=pointer]:
+                - generic [ref=e84] [cursor=pointer]: ✓
+                - text: Join Slack community for ongoing support
+          - generic [ref=e85] [cursor=pointer]:
+            - link "View Upcoming Workshops" [ref=e86] [cursor=pointer]:
+              - /url: https://calendly.com/stratanoble/workshop
+              - text: View Upcoming Workshops
+              - img [ref=e87] [cursor=pointer]
+            - link "Join Waitlist" [ref=e89] [cursor=pointer]:
+              - /url: /services
+        - generic [ref=e92] [cursor=pointer]:
+          - img [ref=e94] [cursor=pointer]
+          - heading "Data & Operations Analysis" [level=3] [ref=e96] [cursor=pointer]
+          - paragraph [ref=e97] [cursor=pointer]: Optimize your business with data-driven insights
+          - paragraph [ref=e98] [cursor=pointer]: Unlock hidden opportunities in your operations with comprehensive data analysis and actionable recommendations.
+          - generic [ref=e100] [cursor=pointer]: Schedule a discovery call for a tailored quote
+          - generic:
+            - heading "What You Get:" [level=4] [ref=e101] [cursor=pointer]
+            - list [ref=e102] [cursor=pointer]:
+              - listitem [ref=e103] [cursor=pointer]:
+                - generic [ref=e104] [cursor=pointer]: ✓
+                - text: KPI dashboard setup
+              - listitem [ref=e105] [cursor=pointer]:
+                - generic [ref=e106] [cursor=pointer]: ✓
+                - text: Data collection strategy
+              - listitem [ref=e107] [cursor=pointer]:
+                - generic [ref=e108] [cursor=pointer]: ✓
+                - text: Performance reports
+              - listitem [ref=e109] [cursor=pointer]:
+                - generic [ref=e110] [cursor=pointer]: ✓
+                - text: Optimization recommendations
+          - generic [ref=e111] [cursor=pointer]:
+            - link "Request Sample Analysis" [ref=e112] [cursor=pointer]:
+              - /url: https://calendly.com/stratanoble/data-analysis
+              - text: Request Sample Analysis
+              - img [ref=e113] [cursor=pointer]
+            - link "View Case Studies" [ref=e115] [cursor=pointer]:
+              - /url: /data-analysis
+        - generic [ref=e118] [cursor=pointer]:
+          - img [ref=e120] [cursor=pointer]
+          - heading "Brand & Digital Presence" [level=3] [ref=e122] [cursor=pointer]
+          - paragraph [ref=e123] [cursor=pointer]: Complete brand identity and digital strategy
+          - paragraph [ref=e124] [cursor=pointer]: Build a compelling brand identity and establish a strong digital presence that resonates with your audience.
+          - generic [ref=e126] [cursor=pointer]: Schedule a discovery call for a tailored quote
+          - generic:
+            - heading "What You Get:" [level=4] [ref=e127] [cursor=pointer]
+            - list [ref=e128] [cursor=pointer]:
+              - listitem [ref=e129] [cursor=pointer]:
+                - generic [ref=e130] [cursor=pointer]: ✓
+                - text: Brand identity design
+              - listitem [ref=e131] [cursor=pointer]:
+                - generic [ref=e132] [cursor=pointer]: ✓
+                - text: Website development
+              - listitem [ref=e133] [cursor=pointer]:
+                - generic [ref=e134] [cursor=pointer]: ✓
+                - text: Social media strategy
+              - listitem [ref=e135] [cursor=pointer]:
+                - generic [ref=e136] [cursor=pointer]: ✓
+                - text: Content creation
+          - generic [ref=e137] [cursor=pointer]:
+            - link "Get Custom Quote" [ref=e138] [cursor=pointer]:
+              - /url: https://calendly.com/stratanoble/brand-consultation
+              - text: Get Custom Quote
+              - img [ref=e139] [cursor=pointer]
+            - link "View Portfolio" [ref=e141] [cursor=pointer]:
+              - /url: /services
+      - link "Explore Brand & Digital Presence Packages" [ref=e143] [cursor=pointer]:
+        - /url: /services/brand-digital
+  - contentinfo "Footer" [ref=e144]:
+    - heading "Footer" [level=2] [ref=e145]
+    - generic [ref=e146]:
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - generic [ref=e150]:
+            - generic [ref=e151]: Strata
+            - generic [ref=e152]: Noble
+          - paragraph [ref=e153]: Transforming passion into profit through strategic excellence and proven business frameworks.
+          - generic [ref=e154]:
+            - link "Follow us on LinkedIn" [ref=e155] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e156] [cursor=pointer]: LinkedIn
+              - img [ref=e157] [cursor=pointer]
+            - link "Follow us on Twitter" [ref=e159] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e160] [cursor=pointer]: Twitter
+              - img [ref=e161] [cursor=pointer]
+        - generic [ref=e163]:
+          - generic [ref=e164]:
+            - generic [ref=e165]:
+              - heading "Services" [level=3] [ref=e166]
+              - list [ref=e167]:
+                - listitem [ref=e168]:
+                  - link "All Services" [ref=e169] [cursor=pointer]:
+                    - /url: /services
+                - listitem [ref=e170]:
+                  - link "Data Analysis" [ref=e171] [cursor=pointer]:
+                    - /url: /data-analysis
+                - listitem [ref=e172]:
+                  - link "Brand & Digital" [ref=e173] [cursor=pointer]:
+                    - /url: /services/brand-digital
+                - listitem [ref=e174]:
+                  - link "Case Studies" [ref=e175] [cursor=pointer]:
+                    - /url: /case-studies
+            - generic [ref=e176]:
+              - heading "Company" [level=3] [ref=e177]
+              - list [ref=e178]:
+                - listitem [ref=e179]:
+                  - link "About" [ref=e180] [cursor=pointer]:
+                    - /url: /about
+                - listitem [ref=e181]:
+                  - link "Contact" [ref=e182] [cursor=pointer]:
+                    - /url: /contact
+                - listitem [ref=e183]:
+                  - link "Dashboard" [ref=e184] [cursor=pointer]:
+                    - /url: /dashboard
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - heading "Legal & Accessibility" [level=3] [ref=e187]
+              - list [ref=e188]:
+                - listitem [ref=e189]:
+                  - link "Privacy Policy" [ref=e190] [cursor=pointer]:
+                    - /url: /privacy
+                - listitem [ref=e191]:
+                  - link "Terms of Service" [ref=e192] [cursor=pointer]:
+                    - /url: /terms
+                - listitem [ref=e193]:
+                  - link "Cookie Policy" [ref=e194] [cursor=pointer]:
+                    - /url: /cookies
+                - listitem [ref=e195]:
+                  - link "Accessibility Statement" [ref=e196] [cursor=pointer]:
+                    - /url: /accessibility
+            - generic [ref=e197]:
+              - heading "Newsletter" [level=3] [ref=e198]
+              - paragraph [ref=e199]: Get the latest insights and strategies delivered to your inbox.
+              - generic [ref=e200]:
+                - generic [ref=e201]: Email address
+                - textbox "Email address" [active] [ref=e202]
+                - button "Subscribe" [ref=e204] [cursor=pointer]
+              - paragraph [ref=e205]: We respect your privacy. Unsubscribe at any time.
+      - generic [ref=e207]:
+        - paragraph [ref=e208]: © 2025 Strata Noble. All rights reserved.
+        - generic [ref=e209]:
+          - link "Privacy Policy" [ref=e210] [cursor=pointer]:
+            - /url: /privacy
+          - link "Accessibility Statement" [ref=e211] [cursor=pointer]:
+            - /url: /accessibility
+          - link "Sitemap" [ref=e212] [cursor=pointer]:
+            - /url: /sitemap
+  - button "Open Next.js Dev Tools" [ref=e218] [cursor=pointer]:
+    - img [ref=e219] [cursor=pointer]
+  - alert [ref=e223]
+```
