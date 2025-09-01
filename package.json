@@ -26,13 +26,13 @@
     "db:new": "cd infra/supabase && supabase migration new"
   },
   "devDependencies": {
-    "@eslint/js": "^9.33.0",
+    "@eslint/js": "^9.34.0",
     "eslint-config-next": "15.3.5",
     "eslint-config-prettier": "^10.1.8",
     "next": "15.3.5",
     "prettier": "^3.1.1",
-    "prettier-plugin-tailwindcss": "^0.6.13",
-    "typescript": "5.8.3"
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "typescript": "5.9.2"
   },
   "overrides": {
     "next": "15.3.5",

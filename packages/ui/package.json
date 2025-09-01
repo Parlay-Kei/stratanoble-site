@@ -20,20 +20,20 @@
     "@strata-noble/utils": "file:../utils",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.0",
-    "lucide-react": "^0.536.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "lucide-react": "^0.542.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "tailwind-merge": "^3.3.1",
     "recharts": "^3.1.1",
     "isomorphic-dompurify": "^2.26.0"
   },
   "devDependencies": {
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "typescript": "5.8.3"
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "typescript": "5.9.2"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   }
 }
