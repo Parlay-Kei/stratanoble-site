@@ -14,7 +14,7 @@ export default function PricingPage() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (searchParams.get('canceled') === '1') {
+    if (searchParams?.get('canceled') === '1') {
       setShowCancelMessage(true);
       // Auto-hide after 5 seconds
       setTimeout(() => setShowCancelMessage(false), 5000);

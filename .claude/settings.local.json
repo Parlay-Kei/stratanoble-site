@@ -68,7 +68,12 @@
       "Bash(npm ls:*)",
       "Bash(npm update:*)",
       "Bash(cat:*)",
-      "Bash(timeout 300 npx playwright test tests/e2e/comprehensive-qa.spec.ts --timeout=120000)"
+      "Bash(timeout 300 npx playwright test tests/e2e/comprehensive-qa.spec.ts --timeout=120000)",
+      "Read(\\c\\Dev\\StrataNoble/**)",
+      "Read(\\c\\Dev\\StrataNoble\\apps\\website/**)",
+      "Read(\\c\\Dev\\StrataNoble/**)",
+      "Read(\\c\\Dev\\StrataNoble\\apps\\website/**)",
+      "Read(\\c\\Dev\\StrataNoble\\apps\\website/**)"
     ],
     "deny": [],
     "additionalDirectories": [

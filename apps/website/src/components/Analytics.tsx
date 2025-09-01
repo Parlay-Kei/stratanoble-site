@@ -16,8 +16,8 @@ export function Analytics() {
   // Track page views on route changes
   useEffect(() => {
     if (pathname) {
-      const fullPath = searchParams.toString() 
-        ? `${pathname}?${searchParams.toString()}` 
+      const fullPath = searchParams?.toString() 
+        ? `${pathname}?${searchParams?.toString()}` 
         : pathname;
       
       trackPageView(fullPath, {
