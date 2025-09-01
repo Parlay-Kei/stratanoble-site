@@ -7,7 +7,7 @@ import { CheckCircleIcon, EnvelopeIcon, CalendarIcon } from '@heroicons/react/24
 
 function SuccessContent() {
   const searchParams = useSearchParams();
-  const sessionId = searchParams.get('session_id');
+  const sessionId = searchParams?.get('session_id');
   const [isLoading, setIsLoading] = useState(true);
   const [emailSent, setEmailSent] = useState(false);
 

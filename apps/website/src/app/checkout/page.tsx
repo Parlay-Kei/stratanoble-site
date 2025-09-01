@@ -20,13 +20,15 @@ function CheckoutPageContent() {
 
   useEffect(() => {
     // Get parameters from URL (from discovery form)
-    setCustomerInfo({
-      name: searchParams.get('name') || '',
-      email: searchParams.get('email') || '',
-      businessStage: searchParams.get('businessStage') || '',
-      challenge: searchParams.get('challenge') || '',
-      tier: searchParams.get('tier') || ''
-    });
+    if (searchParams) {
+      setCustomerInfo({
+        name: searchParams?.get('name') || '',
+        email: searchParams?.get('email') || '',
+        businessStage: searchParams?.get('businessStage') || '',
+        challenge: searchParams?.get('challenge') || '',
+        tier: searchParams?.get('tier') || ''
+      });
+    }
   }, [searchParams]);
 
   const getTierDetails = (tier: string) => {

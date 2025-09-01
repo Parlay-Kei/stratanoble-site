@@ -20,7 +20,7 @@ export default function RouteGuard({ children }: RouteGuardProps) {
       try {
         // Check if this is a public route first - no auth needed
         const publicRoutes = ['/', '/pricing', '/contact', '/about', '/services']
-        if (publicRoutes.includes(pathname)) {
+        if (pathname && publicRoutes.includes(pathname)) {
           setAccessDenied(null)
           setLoading(false)
           return
@@ -31,7 +31,7 @@ export default function RouteGuard({ children }: RouteGuardProps) {
         
         // If there's an error with Supabase (like missing env vars), allow access to public routes
         if (error) {
-          if (publicRoutes.includes(pathname)) {
+          if (pathname && publicRoutes.includes(pathname)) {
             setAccessDenied(null)
             setLoading(false)
             return
@@ -52,7 +52,7 @@ export default function RouteGuard({ children }: RouteGuardProps) {
         }
 
         // Check route access
-        const accessResult = checkRouteAccess(pathname, tier)
+        const accessResult = checkRouteAccess(pathname || '/', tier)
         
         if (!accessResult.hasAccess) {
           if (accessResult.redirectTo) {
@@ -69,7 +69,7 @@ export default function RouteGuard({ children }: RouteGuardProps) {
       } catch (error) {
         // For public routes, allow access even if there's an error
         const publicRoutes = ['/', '/pricing', '/contact', '/about', '/services']
-        if (publicRoutes.includes(pathname)) {
+        if (pathname && publicRoutes.includes(pathname)) {
           setAccessDenied(null)
         } else {
           setAccessDenied('An error occurred while checking access.')
