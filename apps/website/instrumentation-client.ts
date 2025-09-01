@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/nextjs";
+import type { ErrorEvent, EventHint } from "@sentry/nextjs";
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
@@ -24,7 +25,7 @@ Sentry.init({
     }),
   ],
 
-  beforeSend(event, hint) {
+  beforeSend(event: ErrorEvent, hint: EventHint) {
     // Filter out development errors
     if (process.env.NODE_ENV === 'development') {
       // Skip certain errors in development
