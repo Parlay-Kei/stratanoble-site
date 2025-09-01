@@ -48,8 +48,8 @@ export function ContactFormClient() {
 
   // Auto-populate form based on URL parameters
   useEffect(() => {
-    const type = searchParams.get('type');
-    const service = searchParams.get('service');
+    const type = searchParams?.get('type');
+    const service = searchParams?.get('service');
 
     if (type === 'workshop') {
       setForm((prev) => ({ ...prev, topic: 'Workshop' }));
