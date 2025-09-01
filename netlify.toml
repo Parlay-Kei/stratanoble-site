@@ -6,7 +6,7 @@
   package = "@netlify/plugin-nextjs"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "20.18.0"
   # Ensure Netlify Next.js plugin is NOT skipped
   NETLIFY_NEXT_PLUGIN_SKIP = "false"
   # Skip Supabase CLI binary download in production builds
