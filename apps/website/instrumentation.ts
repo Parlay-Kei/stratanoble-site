@@ -9,3 +9,19 @@ export async function register() {
     init()
   }
 }
+
+export async function onRequestError(error: any, request: any, context: any) {
+  const { captureException } = await import('@sentry/nextjs')
+  captureException(error, {
+    tags: {
+      source: 'nextjs_request_error'
+    },
+    contexts: {
+      request: {
+        url: request?.url,
+        method: request?.method,
+        headers: request?.headers,
+      },
+    },
+  })
+}

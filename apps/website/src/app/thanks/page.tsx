@@ -7,7 +7,7 @@ import { CheckCircleIcon, EnvelopeIcon, CalendarIcon, ChatBubbleLeftRightIcon, C
 
 function ThanksContent() {
   const searchParams = useSearchParams();
-  const source = searchParams.get('src') || 'contact';
+  const source = searchParams?.get('src') || 'contact';
   const [config, setConfig] = useState<{
     title: string;
     subtitle: string;

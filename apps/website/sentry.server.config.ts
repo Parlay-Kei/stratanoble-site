@@ -29,6 +29,23 @@ export function init() {
     },
 
     environment: process.env.NODE_ENV,
+    
+    // Configure integrations
+    integrations: [],
+    
+    // Performance monitoring
+    profilesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
+    
+    // Reduce noise in development
+    beforeSendTransaction(event) {
+      if (process.env.NODE_ENV === 'development') {
+        // Filter out development transactions that aren't useful
+        if (event.transaction?.includes('/_next/')) {
+          return null;
+        }
+      }
+      return event;
+    },
   });
 }
 

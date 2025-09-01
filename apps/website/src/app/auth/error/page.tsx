@@ -14,7 +14,7 @@ const errorMessages: Record<string, string> = {
 export default function AuthError() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const error = searchParams.get('error') || 'Default';
+  const error = searchParams?.get('error') || 'Default';
 
   const errorMessage = errorMessages[error] || errorMessages.Default;
 
