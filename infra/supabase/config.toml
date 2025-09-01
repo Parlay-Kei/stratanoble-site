@@ -2,6 +2,11 @@
 # working directory name when running `supabase init`.
 project_id = "strata-noble"
 
+# Production project reference
+# Project URL: https://bvneqoevtwodyfqglpzi.supabase.co
+# Project Reference: bvneqoevtwodyfqglpzi
+# Region: us-west-1
+
 [api]
 enabled = true
 port = 54321
@@ -29,7 +34,7 @@ file_size_limit = "50MiB"
 [auth]
 enabled = true
 site_url = "http://localhost:3000"
-additional_redirect_urls = ["https://localhost:3000"]
+additional_redirect_urls = ["https://localhost:3000", "https://stratanoble.com"]
 jwt_expiry = 3600
 
 [auth.email]

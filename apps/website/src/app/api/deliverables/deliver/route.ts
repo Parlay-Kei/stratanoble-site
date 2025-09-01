@@ -1,7 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { deliverAllPackageDeliverables } from '@/lib/deliverables';
 import { assertUserWithTier, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
 import { supabase } from '@/lib/supabase';
+import { Database } from '@/types/database';
+
+type Order = Database['public']['Tables']['orders']['Row'];
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     // Validate required fields
     if (!customerEmail || !customerName || !packageType) {
-      return NextResponse.json(
+      return Response.json(
         { error: 'Missing required fields: customerEmail, customerName, packageType' },
         { status: 400 }
       );
@@ -21,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     // Validate package type
     if (!['lite', 'core', 'premium'].includes(packageType)) {
-      return NextResponse.json(
+      return Response.json(
         { error: 'Invalid package type. Must be lite, core, or premium' },
         { status: 400 }
       );
@@ -30,7 +33,7 @@ export async function POST(request: NextRequest) {
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(customerEmail)) {
-      return NextResponse.json(
+      return Response.json(
         { error: 'Invalid email format' },
         { status: 400 }
       );
@@ -39,29 +42,31 @@ export async function POST(request: NextRequest) {
     // Verify the user owns this order/has permission to deliver to this customer
     const { data: order, error: orderError } = await supabase
       .from('orders')
-      .select('id, customer_email, customer_id, status')
+      .select('id, customer_email, status')
       .eq('customer_email', customerEmail)
       .eq('package_type', packageType)
       .single();
 
     if (orderError || !order) {
-      return NextResponse.json(
+      return Response.json(
         { error: 'Order not found or access denied' },
         { status: 404 }
       );
     }
 
+    const orderData = order as Order;
+
     // Check if user is either the customer or an admin
-    if (order.customer_id !== user.id && user.email !== process.env.ADMIN_EMAIL) {
-      return NextResponse.json(
+    if (orderData.customer_email !== user.email && user.email !== process.env.ADMIN_EMAIL) {
+      return Response.json(
         { error: 'Unauthorized: You can only access your own orders' },
         { status: 403 }
       );
     }
 
     // Check if order is in a valid state for delivery
-    if (order.status !== 'paid' && order.status !== 'processing') {
-      return NextResponse.json(
+    if (orderData.status !== 'paid') {
+      return Response.json(
         { error: 'Order not in valid state for delivery' },
         { status: 400 }
       );
@@ -75,14 +80,14 @@ export async function POST(request: NextRequest) {
     );
 
     if (result.success) {
-      return NextResponse.json({
+      return Response.json({
         success: true,
         message: 'All deliverables delivered successfully',
         delivered: result.delivered,
         failed: result.failed
       });
     } else {
-      return NextResponse.json({
+      return Response.json({
         success: false,
         message: 'Some deliverables failed to deliver',
         delivered: result.delivered,
@@ -92,22 +97,20 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     // Handle authentication errors specifically
     if (error instanceof UnauthorizedError) {
-      return NextResponse.json(
+      return Response.json(
         { error: error.message },
         { status: 401 }
       );
     }
     
     if (error instanceof ForbiddenError) {
-      return NextResponse.json(
+      return Response.json(
         { error: error.message },
         { status: 403 }
       );
     }
 
-    // Log other errors for debugging (in production, use proper logging service)
-    console.error('Deliverable delivery error:', error);
-    return NextResponse.json(
+    return Response.json(
       { error: 'Internal server error' },
       { status: 500 }
     );

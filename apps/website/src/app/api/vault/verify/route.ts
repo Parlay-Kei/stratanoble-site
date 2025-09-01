@@ -84,8 +84,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log other errors for debugging (in production, use proper logging service)
-    console.error('Error verifying vault access:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to verify access' },
       { status: 500 }

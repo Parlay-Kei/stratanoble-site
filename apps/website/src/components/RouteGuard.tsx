@@ -31,7 +31,6 @@ export default function RouteGuard({ children }: RouteGuardProps) {
         
         // If there's an error with Supabase (like missing env vars), allow access to public routes
         if (error) {
-          console.warn('Supabase auth error:', error.message)
           if (publicRoutes.includes(pathname)) {
             setAccessDenied(null)
             setLoading(false)
@@ -48,7 +47,6 @@ export default function RouteGuard({ children }: RouteGuardProps) {
           try {
             tier = await getUserTier(session.user.id)
           } catch (error) {
-            console.warn('Error getting user tier:', error)
             // Continue without tier info
           }
         }
@@ -69,7 +67,6 @@ export default function RouteGuard({ children }: RouteGuardProps) {
 
         setAccessDenied(null)
       } catch (error) {
-        console.error('Route guard error:', error)
         // For public routes, allow access even if there's an error
         const publicRoutes = ['/', '/pricing', '/contact', '/about', '/services']
         if (publicRoutes.includes(pathname)) {

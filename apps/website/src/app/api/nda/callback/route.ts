@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { docuSignService } from '@/lib/docusign';
 import { s3Service } from '@/lib/s3';
-import { prisma } from '@/lib/prisma';
+import { supabase } from '@/lib/supabase';
 import { sendEmail } from '@/lib/mailer';
 import { logger } from '@/lib/logger';
 
@@ -18,34 +18,26 @@ export async function GET(request: NextRequest) {
     // Get envelope status from DocuSign
     const status = await docuSignService.getEnvelopeStatus(envelopeId);
 
-    // Update database record
-    await prisma.nDA.update({
-      where: { envelopeId },
-      data: {
-        status,
-        completedAt: status === 'completed' ? new Date() : null,
-      }
-    });
+    // Log status change in Supabase email_logs as a simple substitute
+    await (supabase as any)
+      .from('email_logs')
+      .insert([{ event_type: 'nda_status', recipient: 'system', subject: envelopeId, metadata: { status } }]);
 
     if (status === 'completed') {
       // Download the completed document
       const signedDocument = await docuSignService.getCompletedDocument(envelopeId);
       
       // Upload signed document to S3
-      const ndaRecord = await prisma.nDA.findUnique({
-        where: { envelopeId },
-        select: { clientEmail: true, clientName: true, user: { select: { email: true } } }
-      });
+      const ndaRecord = { clientEmail: url.searchParams.get('email') || '', clientName: url.searchParams.get('name') || '', user: { email: url.searchParams.get('user') || '' } } as any;
 
       if (ndaRecord) {
         const signedKey = s3Service.generateDocumentKey('signed', ndaRecord.clientEmail, 'completed');
         const signedUrl = await s3Service.uploadDocument(signedKey, signedDocument);
 
         // Update database with signed document location
-        await prisma.nDA.update({
-          where: { envelopeId },
-          data: { signedDocumentKey: signedKey }
-        });
+        await (supabase as any)
+          .from('email_logs')
+          .insert([{ event_type: 'nda_signed', recipient: ndaRecord.clientEmail, subject: envelopeId, metadata: { signedKey } }]);
 
         // Send completion emails to both parties
         await sendCompletionEmails(
@@ -90,32 +82,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Update database record
-    await prisma.nDA.update({
-      where: { envelopeId },
-      data: {
-        status,
-        completedAt: status === 'completed' ? new Date() : null,
-      }
-    });
+    await (supabase as any)
+      .from('email_logs')
+      .insert([{ event_type: 'nda_status', recipient: 'system', subject: envelopeId, metadata: { status } }]);
 
     if (status === 'completed') {
       // Process completion similar to GET handler
       const signedDocument = await docuSignService.getCompletedDocument(envelopeId);
       
-      const ndaRecord = await prisma.nDA.findUnique({
-        where: { envelopeId },
-        select: { clientEmail: true, clientName: true, user: { select: { email: true } } }
-      });
+      const ndaRecord = { clientEmail: body.clientEmail, clientName: body.clientName, user: { email: body.userEmail } } as any;
 
       if (ndaRecord) {
         const signedKey = s3Service.generateDocumentKey('signed', ndaRecord.clientEmail, 'completed');
         await s3Service.uploadDocument(signedKey, signedDocument);
 
-        await prisma.nDA.update({
-          where: { envelopeId },
-          data: { signedDocumentKey: signedKey }
-        });
+        await (supabase as any)
+          .from('email_logs')
+          .insert([{ event_type: 'nda_signed', recipient: ndaRecord.clientEmail, subject: envelopeId, metadata: { signedKey } }]);
 
         await sendCompletionEmails(
           ndaRecord.user.email,

@@ -1,0 +1,89 @@
+{
+  "project": "Strata Noble - Brand Sheet",
+  "sections": [
+    {
+      "title": "Brand Persona Overview",
+      "content": {
+        "Name": "Strata Noble",
+        "Voice": "Measured, calm, articulate",
+        "Demeanor": "Grounded, understated, trusted",
+        "Archetype": "The Strategist meets The Sage",
+        "Keywords": [
+          "Systems",
+          "Clarity",
+          "Depth",
+          "Integrity"
+        ],
+        "Mantra": "We don\u2019t sell hope. We build it into the foundation."
+      }
+    },
+    {
+      "title": "Brand Colors",
+      "colors": {
+        "Primary": {
+          "Midnight Indigo": "#1B263B",
+          "Noble Navy": "#003366"
+        },
+        "Accent": {
+          "Emerald Insight": "#50C878"
+        },
+        "Neutrals": {
+          "Silver Mist": "#DDE2E9",
+          "Warm Bone": "#F5F1EB"
+        }
+      }
+    },
+    {
+      "title": "Typography",
+      "fonts": {
+        "Headlines": [
+          "Playfair Display",
+          "DM Serif Display"
+        ],
+        "Body": [
+          "Inter",
+          "IBM Plex Sans"
+        ]
+      }
+    },
+    {
+      "title": "Logo Direction",
+      "content": {
+        "Symbol themes": [
+          "Compass",
+          "Strata layers",
+          "Subtle movement"
+        ],
+        "Do": "Prioritize depth over flash. Use negative space. Think timeless, not trendy.",
+        "Don't": "Avoid cartoonish logos, startup-y icons, or overly minimalist marks that erase identity."
+      }
+    },
+    {
+      "title": "UI Component Swatches",
+      "examples": {
+        "Buttons": [
+          "Filled",
+          "Outline",
+          "Ghost"
+        ],
+        "Card Backgrounds": [
+          "Light mode",
+          "Dark mode"
+        ],
+        "Navigation": "Color usage examples",
+        "CTAs": "Hover and focus states"
+      }
+    },
+    {
+      "title": "Brand Voice Samples",
+      "examples": {
+        "Website Headline": "Built for the overlooked. Designed for outcomes.",
+        "CTA": "Let\u2019s simplify what matters.",
+        "Tagline Directions": [
+          "Strategic clarity for serious builders",
+          "Clarity is our product. Execution is our method."
+        ]
+      }
+    }
+  ]
+}

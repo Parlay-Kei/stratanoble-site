@@ -1,4 +1,5 @@
 import { logger } from './logger';
+const INTERNAL_API_TOKEN = process.env.INTERNAL_API_TOKEN;
 
 interface LeadSyncData {
   email: string;
@@ -16,7 +17,7 @@ export async function syncLead(data: LeadSyncData): Promise<boolean> {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.INTERNAL_API_TOKEN}`,
+        'Authorization': `Bearer ${INTERNAL_API_TOKEN || ''}`,
       },
       body: JSON.stringify(data),
     });

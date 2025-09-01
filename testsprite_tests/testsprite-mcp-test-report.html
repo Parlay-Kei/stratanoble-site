@@ -1,0 +1,218 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Markdown Preview</title>
+      <style>
+        body {
+          font-family: sans-serif;
+          padding: 40px;
+          line-height: 1.6;
+          background: #fdfdfd;
+          color: #333;
+        }
+        pre {
+          background: #f4f4f4;
+          padding: 10px;
+          border-radius: 5px;
+          overflow-x: auto;
+        }
+        code {
+          font-family: monospace;
+          background: #eee;
+          padding: 2px 4px;
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          margin-top: 20px;
+        }
+        th, td {
+          border: 1px solid #ccc;
+          padding: 8px 12px;
+          text-align: left;
+        }
+        th {
+          background-color: #f2f2f2;
+          font-weight: bold;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>TestSprite Test Report - Strata Noble Platform</h1>
+<p><strong>Date</strong>: August 31, 2025<br>
+<strong>Project</strong>: Strata Noble Platform<br>
+<strong>Test Type</strong>: Frontend Testing Suite<br>
+<strong>Status</strong>: Partial Success - Connection Established, Test Generation Issues Encountered</p>
+<h2>🎯 Executive Summary</h2>
+<p>TestSprite successfully established connection with the Strata Noble platform and initiated comprehensive testing. While test code generation encountered technical issues, the system successfully:</p>
+<ul>
+<li>✅ <strong>Connected to TestSprite API</strong> with valid authentication</li>
+<li>✅ <strong>Established secure tunnel</strong> to localhost:8080</li>
+<li>✅ <strong>Processed project configuration</strong> and test plans</li>
+<li>✅ <strong>Analyzed codebase structure</strong> and identified 10 major features</li>
+<li>✅ <strong>Generated comprehensive project documentation</strong></li>
+</ul>
+<h2>📊 Test Execution Results</h2>
+<h3>Connection Status</h3>
+<ul>
+<li><strong>API Authentication</strong>: ✅ SUCCESS</li>
+<li><strong>Tunnel Establishment</strong>: ✅ SUCCESS</li>
+<li><strong>Project Analysis</strong>: ✅ SUCCESS</li>
+<li><strong>Test Plan Processing</strong>: ✅ SUCCESS</li>
+<li><strong>Test Code Generation</strong>: ❌ FAILED (Internal Server Error)</li>
+</ul>
+<h3>Test Results Summary</h3>
+<pre><code>Progress: ████████████████████████████████████████ 1/1 Completed
+Status: 0 passed | 1 failed
+Error: Test code generation failed - Internal server error
+</code></pre>
+<h2>🔍 Project Analysis Completed</h2>
+<h3>Technology Stack Identified</h3>
+<ul>
+<li><strong>Frontend</strong>: Next.js 15.3.5, React 19, TypeScript 5.8.3</li>
+<li><strong>Styling</strong>: Tailwind CSS, shadcn/ui components</li>
+<li><strong>Backend</strong>: Supabase Edge Functions, PostgreSQL 15</li>
+<li><strong>Authentication</strong>: NextAuth.js, JWT tokens</li>
+<li><strong>Payments</strong>: Stripe integration</li>
+<li><strong>Email</strong>: AWS SES v2</li>
+<li><strong>Cache</strong>: Upstash Redis</li>
+<li><strong>Testing</strong>: Jest, Playwright</li>
+</ul>
+<h3>10 Major Features Analyzed</h3>
+<ol>
+<li><strong>Contact Form API</strong> - Form validation and submission handling</li>
+<li><strong>Stripe Checkout API</strong> - Payment processing and subscription management</li>
+<li><strong>Analytics Dashboard API</strong> - Admin metrics and performance data</li>
+<li><strong>Waitlist Management API</strong> - Email signups with Mailchimp integration</li>
+<li><strong>Vault Access API</strong> - Secure client resource access</li>
+<li><strong>Lead Sync API</strong> - CRM integration and lead management</li>
+<li><strong>Calendly Integration API</strong> - Appointment scheduling</li>
+<li><strong>Email Service API</strong> - Transactional email handling</li>
+<li><strong>Authentication API</strong> - User authentication flows</li>
+<li><strong>CSRF Protection API</strong> - Security token management</li>
+</ol>
+<h2>🚨 Issues Identified</h2>
+<h3>TestSprite Service Issues</h3>
+<ol>
+<li><strong>Test Code Generation Failure</strong>: Internal server error during test code generation</li>
+<li><strong>Report Generation Error</strong>: 500 Internal Server Error when generating test reports</li>
+<li><strong>Test Execution</strong>: Tests failed due to code generation issues</li>
+</ol>
+<h3>Project Configuration Issues</h3>
+<ol>
+<li><strong>Sentry Configuration Warnings</strong>: Multiple Sentry configuration issues detected</li>
+<li><strong>Missing Instrumentation File</strong>: Next.js instrumentation file not found</li>
+<li><strong>Global Error Handler</strong>: Recommended global error handler not implemented</li>
+</ol>
+<h2>📋 Recommended Actions</h2>
+<h3>Immediate Actions</h3>
+<ol>
+<li><strong>Contact TestSprite Support</strong>: Report the internal server error for test code generation</li>
+<li><strong>Retry Testing</strong>: Attempt test execution again after TestSprite service issues are resolved</li>
+<li><strong>Alternative Testing</strong>: Consider running manual tests while TestSprite issues are being resolved</li>
+</ol>
+<h3>Project Improvements</h3>
+<ol>
+<li>
+<p><strong>Fix Sentry Configuration</strong>:</p>
+<pre><code class="language-bash"># Create instrumentation file
+touch apps/website/instrumentation.ts
+# Move Sentry config to instrumentation file
+# Add global error handler
+</code></pre>
+</li>
+<li>
+<p><strong>Environment Variables</strong>:</p>
+<pre><code class="language-bash"># Suppress Sentry warnings temporarily
+export SENTRY_SUPPRESS_INSTRUMENTATION_FILE_WARNING=1
+export SENTRY_SUPPRESS_GLOBAL_ERROR_HANDLER_FILE_WARNING=1
+</code></pre>
+</li>
+<li>
+<p><strong>Manual Testing Checklist</strong>:</p>
+<ul>
+<li>[ ] Test all 10 API endpoints manually</li>
+<li>[ ] Verify form validations</li>
+<li>[ ] Check payment flow functionality</li>
+<li>[ ] Test authentication flows</li>
+<li>[ ] Verify security headers</li>
+<li>[ ] Test responsive design</li>
+<li>[ ] Check accessibility compliance</li>
+</ul>
+</li>
+</ol>
+<h2>🎯 Test Coverage Plan</h2>
+<h3>Frontend Component Testing</h3>
+<ul>
+<li>[ ] React component rendering</li>
+<li>[ ] User interface interactions</li>
+<li>[ ] Form validations</li>
+<li>[ ] Navigation flows</li>
+<li>[ ] Responsive design</li>
+</ul>
+<h3>API Endpoint Testing</h3>
+<ul>
+<li>[ ] Contact form submission</li>
+<li>[ ] Stripe checkout flow</li>
+<li>[ ] Analytics data retrieval</li>
+<li>[ ] Waitlist signup</li>
+<li>[ ] Vault access verification</li>
+<li>[ ] Lead synchronization</li>
+<li>[ ] Calendly integration</li>
+<li>[ ] Email sending</li>
+<li>[ ] Authentication flows</li>
+<li>[ ] CSRF token generation</li>
+</ul>
+<h3>Security Testing</h3>
+<ul>
+<li>[ ] Input validation</li>
+<li>[ ] CSRF protection</li>
+<li>[ ] Authentication security</li>
+<li>[ ] API endpoint security</li>
+<li>[ ] Data sanitization</li>
+</ul>
+<h3>Performance Testing</h3>
+<ul>
+<li>[ ] Page load times</li>
+<li>[ ] API response times</li>
+<li>[ ] Core Web Vitals</li>
+<li>[ ] Bundle size optimization</li>
+<li>[ ] Image optimization</li>
+</ul>
+<h2>📈 Next Steps</h2>
+<ol>
+<li><strong>Resolve TestSprite Issues</strong>: Contact support to resolve internal server errors</li>
+<li><strong>Implement Manual Testing</strong>: Execute comprehensive manual testing checklist</li>
+<li><strong>Fix Configuration Issues</strong>: Address Sentry and instrumentation warnings</li>
+<li><strong>Retry Automated Testing</strong>: Re-run TestSprite once service issues are resolved</li>
+<li><strong>Generate Final Report</strong>: Create comprehensive test report with all findings</li>
+</ol>
+<h2>🔧 Technical Details</h2>
+<h3>TestSprite Configuration</h3>
+<ul>
+<li><strong>Project ID</strong>: 0b914845-7943-4b85-b1a1-ef3052d3bc5e</li>
+<li><strong>Test ID</strong>: e5882f4e-befa-45e7-b74c-caf01df795e4</li>
+<li><strong>User ID</strong>: 24881498-c031-70fa-8402-97342034f3fb</li>
+<li><strong>Test Type</strong>: BACKEND (Frontend testing via backend service)</li>
+<li><strong>Created</strong>: 2025-08-31T09:57:38.324Z</li>
+</ul>
+<h3>Files Generated</h3>
+<ul>
+<li><code>code_summary.json</code> - Complete feature analysis</li>
+<li><code>standard_prd.json</code> - Product requirements document</li>
+<li><code>testsprite_backend_test_plan.json</code> - Test plan structure</li>
+<li><code>config.json</code> - TestSprite configuration</li>
+<li><code>test_results.json</code> - Test execution results</li>
+</ul>
+<h2>📞 Support Information</h2>
+<p><strong>TestSprite Support</strong>: Contact TestSprite support team regarding internal server error (500) during test code generation.</p>
+<p><strong>Project Status</strong>: Ready for comprehensive testing once TestSprite service issues are resolved.</p>
+<hr>
+<p><em>Report generated by TestSprite MCP integration for Strata Noble Platform</em></p>
+
+    </body>
+    </html>
+  

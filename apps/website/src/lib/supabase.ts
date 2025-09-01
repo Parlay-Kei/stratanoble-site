@@ -1,33 +1,32 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database } from '@/types/database';
+import { publicConfig } from './public-config';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-// Only throw error at runtime, not during build
-if (typeof window !== 'undefined' && (!supabaseUrl || !supabaseAnonKey)) {
-  throw new Error('Missing Supabase environment variables');
-}
-
-// Provide defaults for build time
-const defaultUrl = supabaseUrl || 'https://placeholder.supabase.co';
-const defaultAnonKey = supabaseAnonKey || 'placeholder-key';
+const supabaseUrl = publicConfig.supabaseUrl;
+const supabaseAnonKey = publicConfig.supabaseAnonKey;
 
 // Client-side Supabase client (uses anon key)
-export const supabase = createClient<Database>(defaultUrl, defaultAnonKey);
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
 // Server-side Supabase client (uses service role key for admin operations)
-export const supabaseAdmin = createClient<Database>(
-  defaultUrl,
-  supabaseServiceRoleKey || defaultAnonKey,
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
+let _admin: ReturnType<typeof createClient<Database>> | null = null;
+async function getSupabaseAdmin(): Promise<ReturnType<typeof createClient<Database>>> {
+  if (typeof window !== 'undefined') {
+    throw new Error('supabase admin client is server-only');
   }
-);
+  if (_admin) return _admin;
+  _admin = createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)!,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    }
+  );
+  return _admin;
+}
 
 // Database helper functions
 export const db = {
@@ -40,7 +39,8 @@ export const db = {
     message: string;
     source?: string;
   }) {
-    const { data: submission, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: submission, error } = await (admin as any)
       .from('contact_submissions')
       .insert([
         {
@@ -51,7 +51,7 @@ export const db = {
           message: data.message,
           source: data.source || 'website',
           status: 'new',
-        },
+        }
       ])
       .select()
       .single();
@@ -70,7 +70,8 @@ export const db = {
     status: string;
     metadata?: Record<string, unknown>;
   }) {
-    const { data: order, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: order, error } = await (admin as any)
       .from('orders')
       .insert([data])
       .select()
@@ -86,7 +87,8 @@ export const db = {
       updateData.metadata = metadata;
     }
 
-    const { data: order, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: order, error } = await (admin as any)
       .from('orders')
       .update(updateData)
       .eq('stripe_session_id', stripeSessionId)
@@ -98,7 +100,8 @@ export const db = {
   },
 
   async getOrderByStripeSession(stripeSessionId: string) {
-    const { data: order, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: order, error } = await (admin as any)
       .from('orders')
       .select('*')
       .eq('stripe_session_id', stripeSessionId)
@@ -116,7 +119,8 @@ export const db = {
     stripe_customer_id?: string;
     metadata?: Record<string, unknown>;
   }) {
-    const { data: customer, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: customer, error } = await (admin as any)
       .from('customers')
       .upsert([data], { onConflict: 'email' })
       .select()
@@ -134,7 +138,8 @@ export const db = {
     error_message?: string;
     payload: Record<string, unknown>;
   }) {
-    const { data: log, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: log, error } = await (admin as any)
       .from('webhook_logs')
       .insert([data])
       .select()
@@ -153,7 +158,8 @@ export const db = {
     error_message?: string;
     metadata?: Record<string, unknown>;
   }) {
-    const { data: log, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: log, error } = await (admin as any)
       .from('email_logs')
       .insert([data])
       .select()
@@ -176,7 +182,8 @@ export const db = {
       status: data.status || 'active'
     };
     
-    const { data: client, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: client, error } = await (admin as any)
       .from('clients')
       .insert([insertData])
       .select()
@@ -193,7 +200,8 @@ export const db = {
     current_period_start?: string;
     current_period_end?: string;
   }) {
-    const { data: subscription, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: subscription, error } = await (admin as any)
       .from('subscriptions')
       .upsert([data], { onConflict: 'stripe_subscription_id' })
       .select()
@@ -204,10 +212,32 @@ export const db = {
   },
 
   async updateClientTier(clientId: string, tier: 'lite' | 'growth' | 'partner') {
-    const { data: client, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: client, error } = await (admin as any)
       .from('clients')
       .update({ tier })
       .eq('id', clientId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return client;
+  },
+
+  async upsertClientByStripeCustomerId(
+    stripeCustomerId: string,
+    updates: { tier?: 'lite' | 'growth' | 'partner'; status?: 'active' | 'cancelled' | 'suspended' } = {}
+  ) {
+    const insertData: Database['public']['Tables']['clients']['Insert'] = {
+      stripe_customer_id: stripeCustomerId,
+      tier: updates.tier ?? 'lite',
+      status: updates.status ?? 'active',
+    } as any;
+
+    const admin = await getSupabaseAdmin();
+    const { data: client, error } = await (admin as any)
+      .from('clients')
+      .upsert([insertData], { onConflict: 'stripe_customer_id' })
       .select()
       .single();
 
@@ -220,7 +250,8 @@ export const db = {
     type: string;
     handled?: boolean;
   }) {
-    const { data: log, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: log, error } = await (admin as any)
       .from('stripe_event_log')
       .upsert([{
         event_id: data.event_id,
@@ -236,7 +267,8 @@ export const db = {
   },
 
   async getClientByStripeCustomerId(stripeCustomerId: string) {
-    const { data: client, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: client, error } = await (admin as any)
       .from('clients')
       .select('*')
       .eq('stripe_customer_id', stripeCustomerId)
@@ -247,7 +279,8 @@ export const db = {
   },
 
   async getOfferings() {
-    const { data: offerings, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: offerings, error } = await (admin as any)
       .from('offerings')
       .select('*')
       .order('monthly_price');
@@ -257,7 +290,8 @@ export const db = {
   },
 
   async initializeOnboarding(clientId: string) {
-    const { data: onboarding, error } = await supabaseAdmin
+    const admin = await getSupabaseAdmin();
+    const { data: onboarding, error } = await (admin as any)
       .from('onboarding_status')
       .upsert([{
         client_id: clientId,
@@ -276,7 +310,8 @@ export const db = {
 
 // Supabase Admin RPC function for handling Stripe events
 export async function handleStripeEvent(event: Record<string, unknown>) {
-  const { data, error } = await supabaseAdmin
+  const admin = await getSupabaseAdmin();
+  const { data, error } = await (admin as any)
     .rpc('handle_stripe_event', { event_data: event });
 
   if (error) throw error;

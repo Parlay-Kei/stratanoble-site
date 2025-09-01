@@ -1,4 +1,7 @@
 import { supabase } from './supabase'
+import { Database } from '@/types/database';
+
+type Client = Database['public']['Tables']['clients']['Row'];
 
 export interface UserTier {
   tier: 'lite' | 'growth' | 'partner'
@@ -17,28 +20,10 @@ export interface UserProfile {
 
 export async function getUserProfile(userId: string): Promise<UserProfile | null> {
   try {
-    // Try to get from users table first (new schema)
-    const { data: user, error: userError } = await supabase
-      .from('users')
-      .select('id, email, tier, status, role, stripe_customer_id')
-      .eq('id', userId)
-      .single()
-
-    if (user) {
-      return {
-        id: user.id,
-        email: user.email,
-        tier: user.tier as 'lite' | 'growth' | 'partner',
-        status: user.status as 'active' | 'cancelled' | 'suspended',
-        role: user.role as 'user' | 'admin' | 'superuser',
-        stripeCustomerId: user.stripe_customer_id
-      }
-    }
-
-    // Fallback to clients table (backwards compatibility)
+    // Get from clients table
     const { data: client, error } = await supabase
       .from('clients')
-      .select('id, email, tier, status')
+      .select('id, stripe_customer_id, tier, status')
       .eq('id', userId)
       .single()
 
@@ -46,12 +31,16 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
       return null
     }
 
+    const clientData = client as Client;
+
+    // For now, we'll use the user ID as email since clients table doesn't have email
+    // In a real implementation, you'd want to join with auth.users or store email in clients
     return {
-      id: client.id,
-      email: client.email,
-      tier: client.tier as 'lite' | 'growth' | 'partner',
-      status: client.status as 'active' | 'cancelled' | 'suspended',
-      role: 'user' // Default role for legacy clients
+      id: clientData.id,
+      email: userId, // This is a temporary workaround
+      tier: clientData.tier,
+      status: clientData.status,
+      role: 'user' // Default role for clients
     }
   } catch {
     return null

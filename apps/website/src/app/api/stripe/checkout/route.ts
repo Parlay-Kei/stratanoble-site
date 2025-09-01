@@ -1,15 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { OFFERINGS } from '@/data/offerings';
-import { stripe } from '@/lib/stripe-server';
+import { getStripe, hasStripeConfig } from '@/lib/stripe-conditional';
 import { CheckoutSessionSchema, validateRequest, createValidationErrorResponse, createSuccessResponse } from '@/lib/validators';
 import { withEnhancedCSRFProtection } from '@/lib/csrf';
-import pino from 'pino';
-import Stripe from 'stripe';
-
-const logger = pino();
+import { logger } from '@/lib/logger';
 
 async function checkoutHandler(request: NextRequest) {
   try {
+    // Check if Stripe is configured
+    if (!hasStripeConfig()) {
+      logger.warn('Stripe not configured - checkout unavailable');
+      return NextResponse.json(
+        { error: 'Payment processing is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
+    const stripe = getStripe();
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Payment processing is currently unavailable' },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json();
     
     // Validate request body using Zod schema
@@ -36,7 +50,7 @@ async function checkoutHandler(request: NextRequest) {
         : [{ price: (offering as typeof OFFERINGS.lite | typeof OFFERINGS.growth).priceId, quantity: 1 }];
 
     // Build checkout session parameters
-    const sessionParams: Stripe.Checkout.SessionCreateParams = {
+    const sessionParams: any = {
       mode: 'subscription',
       line_items,
       customer_email: customerEmail,
@@ -73,7 +87,7 @@ async function checkoutHandler(request: NextRequest) {
     );
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    logger.error({ error: errorMessage }, 'Checkout session creation error');
+    logger.error('Checkout session creation error', new Error(errorMessage));
     return NextResponse.json(
       { error: 'Failed to create checkout session' },
       { status: 500 }

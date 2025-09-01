@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { assertAdmin, UnauthorizedError, ForbiddenError } from '@/lib/authGuard';
 import { supabase } from '@/lib/supabase';
+import { Database } from '@/types/database';
+
+type Order = Database['public']['Tables']['orders']['Row'];
+type ContactSubmission = Database['public']['Tables']['contact_submissions']['Row'];
+type EmailLog = Database['public']['Tables']['email_logs']['Row'];
+type WebhookLog = Database['public']['Tables']['webhook_logs']['Row'];
 
 export async function GET(request: NextRequest) {
   try {
@@ -95,13 +101,13 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Calculate metrics
-    const currentOrders = currentPeriodOrders.data || [];
-    const previousOrders = previousPeriodOrders.data || [];
-    const currentContacts = currentPeriodContacts.data || [];
-    const previousContacts = previousPeriodContacts.data || [];
-    const currentEmails = currentPeriodEmails.data || [];
-    const previousEmails = previousPeriodEmails.data || [];
-    const webhooks = webhookLogs.data || [];
+    const currentOrders = (currentPeriodOrders.data as Order[]) || [];
+    const previousOrders = (previousPeriodOrders.data as Order[]) || [];
+    const currentContacts = (currentPeriodContacts.data as ContactSubmission[]) || [];
+    const previousContacts = (previousPeriodContacts.data as ContactSubmission[]) || [];
+    const currentEmails = (currentPeriodEmails.data as EmailLog[]) || [];
+    const previousEmails = (previousPeriodEmails.data as EmailLog[]) || [];
+    const webhooks = (webhookLogs.data as WebhookLog[]) || [];
 
     // Revenue metrics
     const currentRevenue = currentOrders
@@ -197,38 +203,39 @@ export async function GET(request: NextRequest) {
         current: { start: startDate.toISOString(), end: now.toISOString() },
         previous: { start: previousStartDate.toISOString(), end: startDate.toISOString() }
       },
-      kpis: {
+      metrics: {
         revenue: {
           current: currentRevenue,
           previous: previousRevenue,
           growth: revenueGrowth,
-          trend: revenueGrowth > 0 ? 'up' : revenueGrowth < 0 ? 'down' : 'flat'
+          trend: Object.entries(dailyOrderTrend).map(([date, data]) => ({
+            date,
+            revenue: data.revenue
+          }))
         },
         orders: {
           current: currentOrderCount,
           previous: previousOrderCount,
           growth: orderGrowth,
-          trend: orderGrowth > 0 ? 'up' : orderGrowth < 0 ? 'down' : 'flat'
+          trend: Object.entries(dailyOrderTrend).map(([date, data]) => ({
+            date,
+            orders: data.orders
+          }))
         },
-        conversion_rate: {
-          current: currentConversionRate,
-          previous: previousConversionRate,
-          change: currentConversionRate - previousConversionRate
+        conversion: {
+          current_rate: currentConversionRate,
+          previous_rate: previousConversionRate,
+          improvement: currentConversionRate - previousConversionRate
         },
-        email_success_rate: {
-          current: currentEmailSuccess,
-          previous: previousEmailSuccess,
-          change: currentEmailSuccess - previousEmailSuccess
+        email_performance: {
+          current_success_rate: currentEmailSuccess,
+          previous_success_rate: previousEmailSuccess,
+          improvement: currentEmailSuccess - previousEmailSuccess
+        },
+        system_performance: {
+          webhook_success_rate: webhookSuccessRate,
+          avg_processing_time_ms: avgProcessingTime
         }
-      },
-      system_health: {
-        webhook_success_rate: webhookSuccessRate,
-        avg_processing_time_ms: avgProcessingTime,
-        recent_errors: webhooks.filter(w => w.error_message).slice(0, 5).map(w => ({
-          id: w.id,
-          error: w.error_message,
-          created_at: w.created_at
-        }))
       },
       trends: {
         daily_orders: Object.entries(dailyOrderTrend).map(([date, data]) => ({
@@ -238,16 +245,10 @@ export async function GET(request: NextRequest) {
         })),
         daily_contacts: Object.entries(dailyContactTrend).map(([date, count]) => ({
           date,
-          contacts: count
+          count
         }))
       },
-      package_performance: Object.entries(packagePerformance).map(([pkg, data]) => ({
-        package: pkg,
-        orders: data.count,
-        revenue: data.revenue,
-        conversion_rate: data.conversion_rate,
-        avg_order_value: data.count > 0 ? data.revenue / data.count : 0
-      }))
+      package_performance: packagePerformance
     };
 
     return NextResponse.json(response);
@@ -267,9 +268,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    console.error('Performance analytics error:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch performance analytics' },
+      { error: 'Failed to fetch performance data' },
       { status: 500 }
     );
   }
