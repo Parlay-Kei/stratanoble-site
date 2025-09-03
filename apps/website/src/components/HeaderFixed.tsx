@@ -1,12 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { CTA_LABELS } from '@/lib/cta-labels'
 import { Bars3Icon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 
-import { useMobileMenuTracking } from '@/lib/useAnalytics'
 import { Logo } from './Logo'
 
 const navigation = [
@@ -14,88 +12,47 @@ const navigation = [
     name: 'Services', 
     href: '/services', 
     description: 'Explore our solutions',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-      </svg>
-    )
   },
   { 
     name: 'Portfolio', 
     href: '/portfolio', 
     description: 'Enterprise development showcase',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-      </svg>
-    )
   },
   { 
     name: 'Methodology', 
     href: '/methodology', 
     description: 'Development best practices',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-      </svg>
-    )
   },
   { 
     name: 'Technology', 
     href: '/technology', 
     description: 'AI automation strategy',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    )
   },
   { 
     name: 'Data Analysis', 
     href: '/data-analysis', 
     description: 'Unlock operational insights',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-      </svg>
-    )
   },
   { 
     name: 'About', 
     href: '/about', 
     description: 'Learn about our mission',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    )
   },
   { 
     name: 'Case Studies', 
     href: '/case-studies', 
     description: 'See our results',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
-    )
   },
   { 
     name: 'Contact', 
     href: '/contact', 
     description: 'Get started today',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    )
   },
 ]
 
-export function Header() {
+export function HeaderFixed() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { trackOpen, trackClose } = useMobileMenuTracking()
 
   // Handle scroll for sticky behavior
   useEffect(() => {
@@ -111,7 +68,6 @@ export function Header() {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setMobileMenuOpen(false)
-        trackClose()
       }
     }
     
@@ -126,35 +82,7 @@ export function Header() {
       document.body.style.overflow = 'unset'
       document.body.style.touchAction = 'auto'
     }
-  }, [mobileMenuOpen, trackClose])
-
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      const target = e.target as Element
-      if (mobileMenuOpen && !target.closest('[data-mobile-menu]')) {
-        setMobileMenuOpen(false)
-        trackClose()
-      }
-    }
-
-    if (mobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [mobileMenuOpen, trackClose])
-
-  const handleMobileMenuToggle = (open: boolean) => {
-    setMobileMenuOpen(open)
-    if (open) {
-      trackOpen()
-    } else {
-      trackClose()
-    }
-  }
+  }, [mobileMenuOpen])
 
   return (
     <header className={`sticky top-0 z-40 transition-all duration-300 ${
@@ -172,28 +100,23 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile menu button - improved touch target */}
+          {/* Mobile menu button */}
           <div className="flex lg:hidden">
             <button
               type="button"
               className="relative -m-2.5 inline-flex items-center justify-center rounded-xl p-3 text-navy-700 hover:bg-navy-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-200 active:scale-95"
-              onClick={() => handleMobileMenuToggle(true)}
+              onClick={() => setMobileMenuOpen(true)}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
               aria-label="Open main menu"
             >
-              <motion.div
-                animate={mobileMenuOpen ? { rotate: 90 } : { rotate: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-              </motion.div>
+              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
 
           {/* Desktop navigation */}
           <div className="hidden lg:flex lg:gap-x-8">
-            {navigation.map((item) => (
+            {navigation.slice(0, 6).map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
@@ -212,12 +135,12 @@ export function Header() {
               href="/contact"
               className="btn-primary btn-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
             >
-{CTA_LABELS.GET_STARTED}
+              Get Started
             </Link>
           </div>
         </div>
 
-        {/* Enhanced Mobile menu */}
+        {/* Mobile menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div 
@@ -225,7 +148,6 @@ export function Header() {
               role="dialog" 
               aria-modal="true" 
               aria-labelledby="mobile-menu-title"
-              data-mobile-menu
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -253,7 +175,7 @@ export function Header() {
                   <Link 
                     href="/" 
                     className="-m-1.5 p-1.5 transition-colors hover:bg-silver-50 rounded-lg" 
-                    onClick={() => handleMobileMenuToggle(false)}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="sr-only">Strata Noble</span>
                     <Logo className="h-8 w-auto" />
@@ -261,15 +183,10 @@ export function Header() {
                   <button
                     type="button"
                     className="relative -m-2.5 rounded-xl p-3 text-navy-700 hover:bg-navy-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-200 active:scale-95"
-                    onClick={() => handleMobileMenuToggle(false)}
+                    onClick={() => setMobileMenuOpen(false)}
                     aria-label="Close menu"
                   >
-                    <motion.div
-                      animate={{ rotate: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                    </motion.div>
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
                 
@@ -285,17 +202,12 @@ export function Header() {
                         <Link
                           href={item.href}
                           className="group flex items-center justify-between rounded-xl px-4 py-4 text-base font-semibold text-navy-900 hover:bg-emerald-50 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-200 active:scale-95"
-                          onClick={() => handleMobileMenuToggle(false)}
+                          onClick={() => setMobileMenuOpen(false)}
                           title={item.description}
                         >
-                          <div className="flex items-center space-x-3">
-                            <div className="text-emerald-600 group-hover:text-emerald-700 transition-colors">
-                              {item.icon}
-                            </div>
-                            <div>
-                              <div className="font-semibold">{item.name}</div>
-                              <div className="text-sm text-navy-500 font-normal">{item.description}</div>
-                            </div>
+                          <div>
+                            <div className="font-semibold">{item.name}</div>
+                            <div className="text-sm text-navy-500 font-normal">{item.description}</div>
                           </div>
                           <ChevronRightIcon className="h-5 w-5 text-navy-400 group-hover:text-emerald-600 transition-colors" />
                         </Link>
@@ -303,7 +215,7 @@ export function Header() {
                     ))}
                   </div>
                   
-                  {/* Enhanced CTA section */}
+                  {/* CTA section */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -313,9 +225,9 @@ export function Header() {
                     <Link
                       href="/contact"
                       className="btn-primary btn-lg w-full justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95"
-                      onClick={() => handleMobileMenuToggle(false)}
+                      onClick={() => setMobileMenuOpen(false)}
                     >
-        {CTA_LABELS.GET_STARTED} Today
+                      Get Started Today
                     </Link>
                     <p className="mt-3 text-center text-sm text-navy-500">
                       Ready to build your prosperity?

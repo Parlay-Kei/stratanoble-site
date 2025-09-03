@@ -3,7 +3,7 @@ import { logger } from './logger';
 interface RequiredEnvVars {
   AWS_REGION?: string;
   AWS_ACCESS_KEY_ID?: string;
-  AWS_SES_SECRET?: string;
+  AWS_SECRET_ACCESS_KEY?: string;
   SES_FROM_EMAIL?: string;
   ADMIN_EMAIL?: string;
   NEXT_PUBLIC_SUPABASE_URL?: string;
@@ -64,9 +64,9 @@ export function validateEnvironment(): void {
  */
 export const env = {
   // AWS Configuration
-  AWS_REGION: process.env.AWS_REGION || 'us-west-2',
+  AWS_REGION: process.env.AWS_REGION || 'us-east-1',
   AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-  AWS_SES_SECRET: process.env.AWS_SES_SECRET,
+  AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
   SES_FROM_EMAIL: process.env.SES_FROM_EMAIL || 'info@stratanoble.com',
   ADMIN_EMAIL: process.env.ADMIN_EMAIL || 'admin@stratanoble.com',
 

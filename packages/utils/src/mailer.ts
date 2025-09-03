@@ -3,9 +3,9 @@ import { config } from './config';
 
 const ses = new SESv2Client({
   region: config.AWS_REGION,
-  credentials: config.AWS_ACCESS_KEY_ID && config.AWS_SES_SECRET ? {
+  credentials: config.AWS_ACCESS_KEY_ID && config.AWS_SECRET_ACCESS_KEY ? {
     accessKeyId: config.AWS_ACCESS_KEY_ID,
-    secretAccessKey: config.AWS_SES_SECRET,
+    secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
   } : undefined,
 });
 

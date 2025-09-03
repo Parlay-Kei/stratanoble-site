@@ -1,24 +1,21 @@
 import { CtaSection } from '@/components/CtaSection';
-import { DevelopmentPortfolio } from '@/components/DevelopmentPortfolio';
-import { HeroSection } from '@/components/HeroSection';
-import { LazySectionWrapper, LazyServicesSection } from '@/components/LazyComponents';
-import { MissionSection } from '@/components/MissionSection';
+import { CompactHeroSection } from '@/components/CompactHeroSection';
+import { MarketRealitySection } from '@/components/MarketRealitySection';
+import { TransformationFlow } from '@/components/TransformationFlow';
+import { InnovativeServicesGrid } from '@/components/InnovativeServicesGrid';
+import { UrgencyBar } from '@/components/UrgencyBar';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
-      <HeroSection />
-      <MissionSection />
-      
-      {/* Development Portfolio Section */}
-      <DevelopmentPortfolio />
-      
-      {/* Lazy load services section for better performance */}
-      <LazySectionWrapper>
-        <LazyServicesSection />
-      </LazySectionWrapper>
-      
-      <CtaSection />
-    </main>
+    <>
+      <UrgencyBar />
+      <main className="min-h-screen relative overflow-hidden">
+        <CompactHeroSection />
+        <MarketRealitySection />
+        <TransformationFlow />
+        <InnovativeServicesGrid />
+        <CtaSection />
+      </main>
+    </>
   );
 }
