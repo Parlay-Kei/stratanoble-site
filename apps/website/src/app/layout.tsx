@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
 import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
+import { HeaderFixed } from '@/components/HeaderFixed';
 import { ToastProvider } from '@/components/ui/toast';
 import RouteGuard from '@/components/RouteGuard';
 
@@ -168,7 +168,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="font-sans antialiased">
-        <Header />
+        <HeaderFixed />
         <ToastProvider>
           <RouteGuard>{children}</RouteGuard>
         </ToastProvider>

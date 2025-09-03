@@ -38,9 +38,9 @@ const schema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
 
   // AWS SES
-  AWS_REGION: z.string().min(1).default('us-west-2'),
+  AWS_REGION: z.string().min(1).default('us-east-1'),
   AWS_ACCESS_KEY_ID: z.string().min(1).optional(),
-  AWS_SES_SECRET: z.string().min(1).optional(),
+  AWS_SECRET_ACCESS_KEY: z.string().min(1).optional(),
   SES_FROM_EMAIL: z.string().email().optional(),
 
   // Stripe
@@ -95,9 +95,9 @@ const collected: Record<string, string | undefined> = {
   NEXT_PUBLIC_SUPABASE_ANON_KEY: fromSources('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
   SUPABASE_SERVICE_ROLE_KEY: fromSources('SUPABASE_SERVICE_ROLE_KEY'),
 
-  AWS_REGION: fromSources('AWS_REGION') ?? 'us-west-2',
+  AWS_REGION: fromSources('AWS_REGION') ?? 'us-east-1',
   AWS_ACCESS_KEY_ID: fromSources('AWS_ACCESS_KEY_ID'),
-  AWS_SES_SECRET: fromSources('AWS_SES_SECRET'),
+  AWS_SECRET_ACCESS_KEY: fromSources('AWS_SECRET_ACCESS_KEY'),
   SES_FROM_EMAIL: fromSources('SES_FROM_EMAIL'),
 
   STRIPE_SECRET_KEY: fromSources('STRIPE_SECRET_KEY'),
@@ -135,7 +135,7 @@ if (!parsed.success) {
       NEXT_PUBLIC_SUPABASE_URL: 'https://placeholder.supabase.co',
       NEXT_PUBLIC_SUPABASE_ANON_KEY: 'placeholder-key',
       SUPABASE_SERVICE_ROLE_KEY: 'placeholder-service-key',
-      AWS_REGION: 'us-west-2',
+      AWS_REGION: 'us-east-1',
       NODE_ENV: 'production' as const,
       ...collected
     };

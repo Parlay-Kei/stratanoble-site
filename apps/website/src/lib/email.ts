@@ -2,15 +2,15 @@ import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import { logger } from './logger';
 const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
-const AWS_SES_SECRET = process.env.AWS_SES_SECRET;
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL || 'info@stratanoble.com';
 
 // Initialize AWS SES client
 const sesClient = new SESClient({
   region: AWS_REGION,
-  credentials: AWS_ACCESS_KEY_ID && AWS_SES_SECRET ? {
+  credentials: AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY ? {
     accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SES_SECRET,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
   } : undefined,
 });
 
@@ -34,7 +34,7 @@ class EmailService {
     template: EmailTemplate;
     metadata?: Record<string, unknown>;
   }) {
-    if (!AWS_ACCESS_KEY_ID || !AWS_SES_SECRET) {
+    if (!AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY) {
       logger.warn('AWS credentials not configured. Email functionality will be disabled.');
       return { success: false, error: 'Email service not configured' };
     }

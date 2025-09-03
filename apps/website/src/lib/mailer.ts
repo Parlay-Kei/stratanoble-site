@@ -1,6 +1,6 @@
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
-const AWS_SES_SECRET = process.env.AWS_SES_SECRET;
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
 const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;
 import { logger } from './logger';
@@ -9,7 +9,7 @@ let sesClient: SESv2Client | null = null;
 
 function getSESClient(): SESv2Client {
   if (!sesClient) {
-    if (!AWS_ACCESS_KEY_ID || !AWS_SES_SECRET) {
+    if (!AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY) {
       throw new Error('AWS credentials not configured. Email functionality is disabled.');
     }
     
@@ -17,7 +17,7 @@ function getSESClient(): SESv2Client {
       region: AWS_REGION,
       credentials: {
         accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SES_SECRET,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY,
       },
     });
   }

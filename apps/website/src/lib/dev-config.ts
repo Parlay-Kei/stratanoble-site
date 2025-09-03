@@ -39,9 +39,9 @@ export const devConfig = {
   
   // AWS fallbacks
   aws: {
-    region: process.env.AWS_REGION || 'us-west-2',
+    region: process.env.AWS_REGION || 'us-east-1',
     accessKeyId: process.env.AWS_ACCESS_KEY_ID || 'placeholder-access-key',
-    sesSecret: process.env.AWS_SES_SECRET || 'placeholder-secret',
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || 'placeholder-secret',
   },
   
   // Redis/Upstash fallbacks

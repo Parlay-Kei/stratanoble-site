@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cross-env PORT=8080 next dev",
+    "dev": "cross-env PORT=3000 next dev",
     "dev:fast": "cross-env PORT=8080 NODE_ENV=development next dev --turbo",
     "dev:8080": "cross-env PORT=8080 next dev",
     "build": "next build",
