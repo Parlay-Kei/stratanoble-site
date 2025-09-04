@@ -119,7 +119,7 @@ export function WhyStrataNobleGrid() {
                   {/* Statistics */}
                   <motion.div
                     whileHover={{ scale: 1.05 }}
-                    className={`bg-gradient-to-r ${prop.gradient} p-4 rounded-xl text-navy`}
+                    className={`bg-gradient-to-r ${prop.gradient} p-4 rounded-xl ${prop.gradient.includes('navy') ? 'text-white' : 'text-navy'}`}
                   >
                     <div className="text-2xl font-bold">{prop.stat}</div>
                     <div className="text-sm opacity-80">{prop.statLabel}</div>
