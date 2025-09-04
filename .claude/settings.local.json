@@ -98,7 +98,17 @@
       "Read(/C:\\Dev\\StrataNoble\\apps\\website/**)",
       "Read(/C:\\Dev\\StrataNoble\\apps\\website/**)",
       "Read(/C:\\Dev\\StrataNoble\\apps\\website/**)",
-      "Read(/C:\\Dev\\StrataNoble\\apps\\website/**)"
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\components/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\components/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\components/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\portfolio/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\data-analysis/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\components/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\data-analysis/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\data-analysis/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\case-studies/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\components\\archive/**)"
     ],
     "deny": [],
     "additionalDirectories": [

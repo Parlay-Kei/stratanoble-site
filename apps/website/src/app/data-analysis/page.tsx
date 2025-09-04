@@ -33,21 +33,6 @@ const caseStudies: CaseStudy[] = [
     ],
     savings: '$75,000 annually',
     image: '/img/waste-ops-case-study.png'
-  },
-  {
-    title: 'Returns Processing Optimization',
-    company: 'DHL Returns Division',
-    industry: 'Logistics',
-    challenge: 'Complex returns processing causing delays and customer dissatisfaction',
-    solution: 'Developed intelligent routing system with real-time analytics and automated decision making',
-    results: [
-      'Reduced processing time by 45%',
-      'Improved customer satisfaction scores by 30%',
-      'Decreased operational costs by 25%',
-      'Enhanced tracking accuracy to 99.8%'
-    ],
-    savings: '$200,000 annually',
-    image: '/img/dhl-case-study.png'
   }
 ];
 

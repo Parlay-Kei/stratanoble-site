@@ -14,11 +14,6 @@ const navigation = [
     description: 'Explore our solutions',
   },
   { 
-    name: 'Portfolio', 
-    href: '/portfolio', 
-    description: 'Enterprise development showcase',
-  },
-  { 
     name: 'Methodology', 
     href: '/methodology', 
     description: 'Development best practices',
