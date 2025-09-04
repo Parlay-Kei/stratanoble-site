@@ -24,11 +24,6 @@ const navigation = [
     description: 'AI automation strategy',
   },
   { 
-    name: 'Data Analysis', 
-    href: '/data-analysis', 
-    description: 'Unlock operational insights',
-  },
-  { 
     name: 'About', 
     href: '/about', 
     description: 'Learn about our mission',
