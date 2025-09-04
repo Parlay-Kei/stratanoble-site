@@ -1,0 +1,30 @@
+{
+  "_comment": "SAMPLE CONFIGURATION FILE - Replace all placeholder values with your actual credentials",
+  "_security_note": "DO NOT commit actual credentials to version control!",
+  
+  "NEXT_PUBLIC_SUPABASE_URL": "https://your-project-id.supabase.co",
+  "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your-anon-key",
+  "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your-service-role-key",
+
+  "AWS_REGION": "us-east-1",
+  "AWS_ACCESS_KEY_ID": "AKIA1234567890EXAMPLE",
+  "AWS_SECRET_ACCESS_KEY": "your-aws-secret-access-key-here",
+  "AWS_SES_SECRET": "your-aws-ses-secret-key-here", 
+  "SES_FROM_EMAIL": "noreply@yourdomain.com",
+
+  "STRIPE_SECRET_KEY": "sk_test_placeholder_replace_with_your_actual_stripe_secret_key",
+  "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_test_placeholder_replace_with_your_actual_stripe_publishable_key",
+  "STRIPE_WEBHOOK_SECRET": "whsec_placeholder_replace_with_your_actual_webhook_secret",
+
+  "UPSTASH_REDIS_REST_URL": "https://your-region-redis.upstash.io",
+  "UPSTASH_REDIS_REST_TOKEN": "your-upstash-token-here",
+
+  "NEXTAUTH_SECRET": "your-nextauth-secret-32-chars-long",
+  "NEXTAUTH_URL": "https://yourdomain.com",
+  "GOOGLE_CLIENT_ID": "your-google-client-id.googleusercontent.com",
+  "GOOGLE_CLIENT_SECRET": "your-google-client-secret",
+
+  "MCP_SERVER_ENDPOINTS": "http://localhost:4000,https://mcp.example.com",
+  "MCP_SERVER_CONFIG": "{}",
+  "MCP_API_KEYS_JSON": "{}"
+}
