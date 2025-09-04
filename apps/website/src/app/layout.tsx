@@ -167,7 +167,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased pt-12">
         <HeaderFixed />
         <ToastProvider>
           <RouteGuard>{children}</RouteGuard>

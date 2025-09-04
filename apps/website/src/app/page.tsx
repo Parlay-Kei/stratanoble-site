@@ -1,19 +1,19 @@
 import { CtaSection } from '@/components/CtaSection';
-import { CompactHeroSection } from '@/components/CompactHeroSection';
-import { MarketRealitySection } from '@/components/MarketRealitySection';
-import { TransformationFlow } from '@/components/TransformationFlow';
-import { InnovativeServicesGrid } from '@/components/InnovativeServicesGrid';
-import { UrgencyBar } from '@/components/UrgencyBar';
+import { HeroSectionAligned } from '@/components/HeroSectionAligned';
+import { OpportunityInsightSection } from '@/components/OpportunityInsightSection';
+import { WhatWeDoFlow } from '@/components/WhatWeDoFlow';
+import { WhyStrataNobleGrid } from '@/components/WhyStrataNobleGrid';
+import { SmartConsultingBar } from '@/components/SmartConsultingBar';
 
 export default function HomePage() {
   return (
     <>
-      <UrgencyBar />
+      <SmartConsultingBar />
       <main className="min-h-screen relative overflow-hidden">
-        <CompactHeroSection />
-        <MarketRealitySection />
-        <TransformationFlow />
-        <InnovativeServicesGrid />
+        <HeroSectionAligned />
+        <OpportunityInsightSection />
+        <WhatWeDoFlow />
+        <WhyStrataNobleGrid />
         <CtaSection />
       </main>
     </>
