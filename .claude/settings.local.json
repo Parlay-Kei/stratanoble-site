@@ -119,7 +119,8 @@
       "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\services/**)",
       "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\methodology/**)",
       "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\pricing/**)",
-      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\components/**)"
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\components/**)",
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website/**)"
     ],
     "deny": [],
     "additionalDirectories": [
