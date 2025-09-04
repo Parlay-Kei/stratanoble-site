@@ -77,7 +77,6 @@ const schema = z.object({
 
   // S3
   S3_BUCKET_NAME: z.string().optional(),
-  AWS_SECRET_ACCESS_KEY: z.string().optional(),
 
   // General App
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
