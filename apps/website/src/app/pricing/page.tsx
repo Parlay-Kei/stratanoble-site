@@ -57,8 +57,10 @@ export default function PricingPage() {
         )}
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-white mb-6">
-            Choose Your Growth Plan
+          <h1 className="text-5xl font-bold mb-6 drop-shadow-lg">
+            <span className="bg-gradient-to-r from-emerald-400 via-blue-300 to-emerald-200 bg-clip-text text-transparent">
+              Choose Your Growth Plan
+            </span>
           </h1>
           <p className="text-xl text-[#C0C0C0] max-w-3xl mx-auto">
             Transform your social media presence with data-driven insights, automation tools, and revenue optimization strategies.

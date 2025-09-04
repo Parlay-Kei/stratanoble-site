@@ -128,8 +128,13 @@ export function TransformationFlow() {
               ))}
             </div>
 
-            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-6">
-              While Others Wait, You Can <span className="text-emerald-400">Build</span>
+            <h2 className="text-4xl font-bold tracking-tight sm:text-5xl mb-6 drop-shadow-lg">
+              <span className="bg-gradient-to-r from-white via-emerald-100 to-blue-100 bg-clip-text text-transparent">
+                While Others Wait, You Can{' '}
+              </span>
+              <span className="bg-gradient-to-r from-emerald-400 to-emerald-200 bg-clip-text text-transparent">
+                Build
+              </span>
             </h2>
             <p className="text-xl text-navy-200 max-w-4xl mx-auto">
               The market crisis is your opportunity. Here's how to transform uncertainty into your competitive advantage.

@@ -42,8 +42,10 @@ export default function AboutPage() {
       <section className="bg-gradient-to-br from-navy-900 via-navy-800 to-emerald-900 text-white py-24">
         <Container>
           <div className="mx-auto max-w-4xl text-center">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 heading-primary">
-              Building Prosperity Through Strategic Innovation
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 heading-primary drop-shadow-lg">
+              <span className="bg-gradient-to-r from-emerald-400 via-blue-300 to-emerald-200 bg-clip-text text-transparent">
+                Building Prosperity Through Strategic Innovation
+              </span>
             </h1>
             <p className="text-xl md:text-2xl text-navy-100 leading-relaxed">
               We transform businesses by combining data-driven insights with proven strategic methodologies.

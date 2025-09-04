@@ -646,8 +646,10 @@ export default function MethodologyPage() {
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-emerald-600">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Experience Professional Development?
+          <h2 className="text-4xl font-bold mb-6 drop-shadow-lg">
+            <span className="bg-gradient-to-r from-emerald-400 via-blue-300 to-emerald-200 bg-clip-text text-transparent">
+              Ready to Experience Professional Development?
+            </span>
           </h2>
           <p className="text-xl text-emerald-100 mb-8 leading-relaxed">
             Let's apply our proven methodology to create an enterprise-grade platform 
