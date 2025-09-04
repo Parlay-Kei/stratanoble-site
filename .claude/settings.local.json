@@ -74,7 +74,8 @@
       "Read(\\c\\Dev\\StrataNoble/**)",
       "Read(\\c\\Dev\\StrataNoble\\apps\\website/**)",
       "Read(\\c\\Dev\\StrataNoble\\apps\\website/**)",
-      "Bash(git check-ignore:*)"
+      "Bash(git check-ignore:*)",
+      "Bash(git pull:*)"
     ],
     "deny": [],
     "additionalDirectories": [
