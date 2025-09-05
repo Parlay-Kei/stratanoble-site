@@ -5,6 +5,7 @@ import { ArrowRightIcon, CalendarIcon, ChartBarIcon, ClockIcon, ArrowTrendingUpI
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useCTATracking } from '@/lib/useAnalytics'
+import { Logo } from './Logo'
 
 // Market statistics dashboard data
 const MARKET_STATS = [
@@ -29,12 +30,22 @@ export function CompactHeroSection() {
             
             {/* Left Column - Hero Content */}
             <div className="text-center lg:text-left">
+              {/* Logo */}
+              <motion.div
+                className="mb-6 flex justify-center lg:justify-start"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Logo variant="full" theme="white" className="w-24 h-24" />
+              </motion.div>
+
               {/* Market Alert Badge */}
               <motion.div 
                 className="mb-6 inline-flex items-center rounded-full bg-accent-red/20 px-4 py-2 text-sm font-medium text-accent-red ring-1 ring-inset ring-accent-red/30"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
               >
                 <span className="mr-2">🚨</span>
                 Market Reality Check
@@ -46,7 +57,7 @@ export function CompactHeroSection() {
                 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
                 Don't Wait for the{' '}
                 <span className="text-accent-red">Job Market</span>
@@ -60,7 +71,7 @@ export function CompactHeroSection() {
                 className="mt-6 text-lg leading-8 text-navy-100 sm:text-xl max-w-2xl mx-auto lg:mx-0"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
               >
                 While others wait for opportunities, you can build your own AI-powered income stream. 
                 <span className="font-bold text-emerald-200"> The market won't save you - but you can save yourself.</span>
@@ -71,7 +82,7 @@ export function CompactHeroSection() {
                 className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
               >
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
@@ -107,7 +118,7 @@ export function CompactHeroSection() {
                 className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-navy-200"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
               >
                 <motion.div 
                   className="flex items-center gap-x-2"

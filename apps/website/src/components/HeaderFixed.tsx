@@ -81,12 +81,12 @@ export function HeaderFixed() {
         : 'bg-white/90 backdrop-blur-sm'
     }`}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg transition-colors hover:bg-silver-50">
               <span className="sr-only">Strata Noble - Home</span>
-              <Logo className="h-8 w-auto" />
+              <Logo className="h-16 w-auto" />
             </Link>
           </div>
 
@@ -168,7 +168,7 @@ export function HeaderFixed() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="sr-only">Strata Noble</span>
-                    <Logo className="h-8 w-auto" />
+                    <Logo className="h-16 w-auto" />
                   </Link>
                   <button
                     type="button"
