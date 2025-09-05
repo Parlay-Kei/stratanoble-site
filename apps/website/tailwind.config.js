@@ -30,6 +30,19 @@ export default {
     'duration-300',
     'transform',
     'scale-105',
+    // Logo height classes to prevent purging
+    'h-12',
+    'h-14',
+    'h-16',
+    'h-20',
+    'h-24',
+    'h-32',
+    'h-48',
+    'h-64',
+    'w-auto',
+    // Header height classes
+    'brightness-0',
+    'invert',
   ],
   // Enable dark mode using a class
   darkMode: ['class'],
