@@ -1,0 +1,31 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  
+  <!-- Main Logo Container -->
+  <g transform="translate(200, 100)">
+    
+    <!-- Outer Ring - Subtle Navy -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#6B7B8C" stroke-width="2" opacity="0.8"/>
+    
+    <!-- Inner Ring - Very Light Green -->
+    <circle cx="0" cy="0" r="68" fill="none" stroke="#B8D4C2" stroke-width="1.5" opacity="0.6"/>
+    
+    <!-- Foundation Strata - Three Clean Bars -->
+    
+    <!-- Top Layer - Light Mint Green -->
+    <rect x="-30" y="-15" width="60" height="8" rx="4" fill="#B8D4C2"/>
+    
+    <!-- Middle Layer - Medium Green -->
+    <rect x="-35" y="-3" width="70" height="8" rx="4" fill="#5A9B6B"/>
+    
+    <!-- Bottom Layer - Muted Navy -->
+    <rect x="-40" y="9" width="80" height="8" rx="4" fill="#2C3E50"/>
+    
+  </g>
+  
+  <!-- Company Name -->
+  <text x="200" y="220" text-anchor="middle" font-family="Playfair Display, serif" font-size="36" font-weight="700" fill="#2C3E50" letter-spacing="2px">STRATA NOBLE</text>
+  
+  <!-- Tagline -->
+  <text x="200" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#6B7B8C" letter-spacing="1px">WE BUILD SYSTEMS INTO THE FOUNDATION</text>
+  
+</svg>
