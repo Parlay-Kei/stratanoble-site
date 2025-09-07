@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
 import { Footer } from '@/components/Footer';
-import { HeaderFixed } from '@/components/HeaderFixed';
+import { HeaderSimple } from '@/components/HeaderSimple';
 import { ToastProvider } from '@/components/ui/toast';
 import RouteGuard from '@/components/RouteGuard';
 
@@ -116,7 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@type": "Organization",
     "name": "Strata Noble",
     "url": "https://stratanoble.com",
-    "logo": "https://stratanoble.com/img/logo.svg",
+    "logo": "https://stratanoble.com/stratanoble_logoICON.svg",
     "description": "We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution because your vision deserves to thrive.",
     "address": {
       "@type": "PostalAddress",
@@ -168,7 +168,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="font-sans antialiased pt-12">
-        <HeaderFixed />
+        <HeaderSimple />
         <ToastProvider>
           <RouteGuard>{children}</RouteGuard>
         </ToastProvider>
