@@ -333,8 +333,39 @@ async function handleFormSubmission(formType: string, formData: unknown) {
 export async function POST(request: NextRequest) {
   try {
     // Check if AWS SES email service is configured
-    if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY || !process.env.SES_FROM_EMAIL) {
-      return NextResponse.json({ success: false, error: 'AWS SES email service not configured' }, { status: 500 });
+    const hasValidAWSCredentials = 
+      process.env.AWS_ACCESS_KEY_ID && 
+      process.env.AWS_ACCESS_KEY_ID !== 'your_aws_access_key_id' &&
+      process.env.AWS_SECRET_ACCESS_KEY && 
+      process.env.AWS_SECRET_ACCESS_KEY !== 'your_aws_secret_access_key' &&
+      process.env.SES_FROM_EMAIL;
+
+    if (!hasValidAWSCredentials) {
+      // In development mode, simulate email sending for testing
+      if (process.env.NODE_ENV === 'development') {
+        const body = await request.json();
+        const { formType, ...formData } = body;
+        
+        // Validate the form data but don't send emails
+        if (formType === 'contact') {
+          contactFormSchema.parse(formData);
+        } else if (formType === 'discovery') {
+          discoveryFormSchema.parse(formData);
+        } else if (formType === 'analysis') {
+          analysisFormSchema.parse(formData);
+        } else {
+          throw new Error('Invalid form type');
+        }
+        
+        // Simulate success response in development
+        return NextResponse.json({ 
+          success: true, 
+          message: `${formType} form submitted successfully (development mode - emails not sent)`,
+          data: formData
+        });
+      }
+      
+      return NextResponse.json({ success: false, error: 'AWS SES email service not configured for production' }, { status: 500 });
     }
 
     const body = await request.json();

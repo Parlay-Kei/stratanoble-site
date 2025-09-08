@@ -57,7 +57,7 @@ export function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Logo and description */}
           <div className="space-y-8 xl:col-span-1">
-            <Logo className="h-8 w-auto text-white" />
+            <Logo className="h-16 w-auto" theme="white" />
             <p className="text-sm leading-6 text-navy-300">
               Transforming passion into profit through strategic excellence and proven business
               frameworks.

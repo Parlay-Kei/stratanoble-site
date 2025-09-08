@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../..
 import { Separator } from '../../../components/ui/separator';
 import { Mail, ArrowRight, AlertCircle } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
+import { Logo } from '../../../components/Logo';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -67,7 +68,10 @@ export default function SignIn() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 px-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center space-y-2">
+        <CardHeader className="text-center space-y-4">
+          <div className="flex justify-center mb-4">
+            <Logo className="h-16 w-auto" />
+          </div>
           <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
           <CardDescription>
             Sign in to your Strata Noble account to access your dashboard

@@ -43,12 +43,12 @@ const packages = [
 const portfolio = [
   {
     name: "Nimbus Chronicles",
-    image: "/img/logo.svg",
+    image: "/stratanoble_logoICON.svg",
     description: "Brand identity, web, and launch campaign for a SaaS startup."
   },
   {
     name: "Megan's Munchies",
-    image: "/img/logo.svg",
+    image: "/stratanoble_logoICON.svg",
     description: "Logo, packaging, and digital presence for a DTC food brand."
   }
 ];

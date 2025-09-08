@@ -6,7 +6,7 @@ const structuredData = {
   '@type': 'Organization',
   name: 'Strata Noble',
   url: 'https://stratanoble.com',
-  logo: 'https://stratanoble.com/img/logo.svg',
+  logo: 'https://stratanoble.com/stratanoble_logoICON.svg',
   description:
     'Transform your passion into a profitable business with expert guidance and proven strategies.',
   address: {
@@ -30,7 +30,7 @@ export function CustomHead() {
   return (
     <>
       {/* Preload critical resources */}
-      <link rel="preload" href="/img/logo.svg" as="image" type="image/svg+xml" />
+      <link rel="preload" href="/stratanoble_logoICON.svg" as="image" type="image/svg+xml" />
       
       {/* Preconnect to external domains */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />

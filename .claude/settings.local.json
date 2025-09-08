@@ -120,7 +120,12 @@
       "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\methodology/**)",
       "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\pricing/**)",
       "Read(/C:\\Dev\\StrataNoble\\apps\\website\\src\\components/**)",
-      "Read(/C:\\Dev\\StrataNoble\\apps\\website/**)"
+      "Read(/C:\\Dev\\StrataNoble\\apps\\website/**)",
+      "Bash(netstat:*)",
+      "Read(//c/Users/MrSte/Pictures/Screenshots/**)",
+      "WebFetch(domain:stratanoble.com)",
+      "mcp__puppeteer__puppeteer_navigate",
+      "mcp__puppeteer__puppeteer_screenshot"
     ],
     "deny": [],
     "additionalDirectories": [
