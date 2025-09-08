@@ -79,10 +79,10 @@ export function CtaSection() {
             </motion.div>
             <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
               <Link
-                href="/contact?utm_source=cta_secondary&utm_medium=cta&utm_campaign=discovery-session"
+                href="/platform?utm_source=cta_secondary&utm_medium=cta&utm_campaign=preview-tools"
                 className="inline-flex items-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg hover:border-white/50 hover:bg-white/20 transition-all duration-300"
               >
-                Schedule Discovery Session
+                Preview Our Tools
               </Link>
             </motion.div>
           </motion.div>

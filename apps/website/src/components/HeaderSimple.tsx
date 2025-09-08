@@ -12,7 +12,7 @@ export function HeaderSimple() {
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Strata Noble - Home</span>
-              <Logo className="h-8 w-auto" />
+              <Logo className="h-16 w-auto" />
             </Link>
           </div>
 

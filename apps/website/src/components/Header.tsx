@@ -148,7 +148,7 @@ export function Header() {
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg transition-colors hover:bg-silver-50">
               <span className="sr-only">Strata Noble - Home</span>
-              <Logo className="h-8 w-auto" />
+              <Logo className="h-16 w-auto" />
             </Link>
           </div>
 
@@ -236,7 +236,7 @@ export function Header() {
                     onClick={() => handleMobileMenuToggle(false)}
                   >
                     <span className="sr-only">Strata Noble</span>
-                    <Logo className="h-8 w-auto" />
+                    <Logo className="h-16 w-auto" />
                   </Link>
                   <button
                     type="button"
