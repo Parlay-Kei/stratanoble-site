@@ -393,6 +393,182 @@ export interface Database {
           rpm?: number
         }
       }
+      // ACHIEVERY Platform Tables
+      user_dreams: {
+        Row: {
+          id: string
+          user_id: string
+          dream_text: string
+          current_phase: 'explore' | 'build' | 'launch'
+          starter_actions: string[]
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          dream_text: string
+          current_phase?: 'explore' | 'build' | 'launch'
+          starter_actions?: string[]
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          dream_text?: string
+          current_phase?: 'explore' | 'build' | 'launch'
+          starter_actions?: string[]
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      user_actions: {
+        Row: {
+          id: string
+          user_id: string
+          dream_id: string | null
+          original_text: string
+          reframed_text: string | null
+          category: 'learning' | 'building' | 'connecting'
+          phase: 'explore' | 'build' | 'launch'
+          logged_date: string
+          is_significant: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          dream_id?: string | null
+          original_text: string
+          reframed_text?: string | null
+          category: 'learning' | 'building' | 'connecting'
+          phase: 'explore' | 'build' | 'launch'
+          logged_date?: string
+          is_significant?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          dream_id?: string | null
+          original_text?: string
+          reframed_text?: string | null
+          category?: 'learning' | 'building' | 'connecting'
+          phase?: 'explore' | 'build' | 'launch'
+          logged_date?: string
+          is_significant?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      weekly_narratives: {
+        Row: {
+          id: string
+          user_id: string
+          week_start: string
+          narrative_text: string
+          actions_count: number
+          phase_progression: string | null
+          key_insights: string[]
+          next_suggestions: string[]
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          week_start: string
+          narrative_text: string
+          actions_count?: number
+          phase_progression?: string | null
+          key_insights?: string[]
+          next_suggestions?: string[]
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          week_start?: string
+          narrative_text?: string
+          actions_count?: number
+          phase_progression?: string | null
+          key_insights?: string[]
+          next_suggestions?: string[]
+          created_at?: string
+        }
+      }
+      trust_ledger_shares: {
+        Row: {
+          id: string
+          user_id: string
+          shared_with_email: string
+          access_level: string
+          expires_at: string | null
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          shared_with_email: string
+          access_level?: string
+          expires_at?: string | null
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          shared_with_email?: string
+          access_level?: string
+          expires_at?: string | null
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      user_platform_settings: {
+        Row: {
+          id: string
+          user_id: string
+          onboarding_completed: boolean
+          weekly_narrative_email: boolean
+          action_reminders: boolean
+          preferred_phase: 'explore' | 'build' | 'launch'
+          weekly_action_limit: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          onboarding_completed?: boolean
+          weekly_narrative_email?: boolean
+          action_reminders?: boolean
+          preferred_phase?: 'explore' | 'build' | 'launch'
+          weekly_action_limit?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          onboarding_completed?: boolean
+          weekly_narrative_email?: boolean
+          action_reminders?: boolean
+          preferred_phase?: 'explore' | 'build' | 'launch'
+          weekly_action_limit?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -404,9 +580,29 @@ export interface Database {
         }
         Returns: Json
       }
+      get_user_action_limit: {
+        Args: {
+          user_uuid: string
+        }
+        Returns: number
+      }
+      can_log_action: {
+        Args: {
+          user_uuid: string
+        }
+        Returns: boolean
+      }
+      generate_weekly_narrative: {
+        Args: {
+          user_uuid: string
+          week_date: string
+        }
+        Returns: string
+      }
     }
     Enums: {
-      [_ in never]: never
+      achievery_action_category: 'learning' | 'building' | 'connecting'
+      achievery_phase: 'explore' | 'build' | 'launch'
     }
     CompositeTypes: {
       [_ in never]: never

@@ -1,36 +1,119 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../providers'
 import { Container, Card, Button, Input } from '@strata-noble/ui'
 import { MobileNavigation } from '../../components/layout/MobileNavigation'
+import { supabase } from '@strata-noble/utils'
 import { PlusCircle, BookOpen, Hammer, Users } from 'lucide-react'
+import type { AchieveryActionCategory, UserAction, UserDream } from '../../types/platform'
 
 const categories = [
-  { id: 'learning', label: 'Learning', icon: BookOpen, color: 'bg-blue-100 text-blue-700' },
-  { id: 'building', label: 'Building', icon: Hammer, color: 'bg-green-100 text-green-700' },
-  { id: 'connecting', label: 'Connecting', icon: Users, color: 'bg-purple-100 text-purple-700' },
+  { id: 'learning' as AchieveryActionCategory, label: 'Learning', icon: BookOpen, color: 'bg-blue-100 text-blue-700' },
+  { id: 'building' as AchieveryActionCategory, label: 'Building', icon: Hammer, color: 'bg-green-100 text-green-700' },
+  { id: 'connecting' as AchieveryActionCategory, label: 'Connecting', icon: Users, color: 'bg-purple-100 text-purple-700' },
 ]
 
 export default function ActionsPage() {
   const { user } = useAuth()
   const [actionText, setActionText] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<AchieveryActionCategory | null>(null)
   const [loading, setLoading] = useState(false)
+  const [userDream, setUserDream] = useState<UserDream | null>(null)
+  const [todaysActions, setTodaysActions] = useState<UserAction[]>([])
+  const [canLogAction, setCanLogAction] = useState(true)
+
+  useEffect(() => {
+    if (user) {
+      loadUserData()
+    }
+  }, [user])
+
+  const loadUserData = async () => {
+    if (!user) return
+
+    // Load user's primary dream
+    const { data: dreams } = await supabase
+      .from('user_dreams')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('is_active', true)
+      .order('created_at', { ascending: false })
+      .limit(1)
+
+    if (dreams && dreams.length > 0) {
+      setUserDream(dreams[0])
+    }
+
+    // Load today's actions
+    const today = new Date().toISOString().split('T')[0]
+    const { data: actions } = await supabase
+      .from('user_actions')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('logged_date', today)
+      .order('created_at', { ascending: false })
+
+    if (actions) {
+      setTodaysActions(actions)
+    }
+
+    // Check if user can log more actions
+    const { data: canLog } = await supabase
+      .rpc('can_log_action', { user_uuid: user.id })
+
+    setCanLogAction(canLog || false)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!actionText.trim() || !selectedCategory) return
+    if (!actionText.trim() || !selectedCategory || !user) return
+
+    if (!canLogAction) {
+      alert('You have reached your weekly action limit. Upgrade to Pro for unlimited actions.')
+      return
+    }
 
     setLoading(true)
-    
-    // TODO: Save to database
-    console.log('Saving action:', { actionText, selectedCategory })
-    
-    // Reset form
-    setActionText('')
-    setSelectedCategory(null)
-    setLoading(false)
+
+    try {
+      // Determine phase based on user's dream or default to explore
+      const phase = userDream?.current_phase || 'explore'
+
+      // Save the action
+      const { data: newAction, error } = await supabase
+        .from('user_actions')
+        .insert({
+          user_id: user.id,
+          dream_id: userDream?.id || null,
+          original_text: actionText.trim(),
+          category: selectedCategory,
+          phase: phase,
+        })
+        .select()
+        .single()
+
+      if (error) throw error
+
+      // Add to today's actions
+      setTodaysActions(prev => [newAction, ...prev])
+
+      // Reset form
+      setActionText('')
+      setSelectedCategory(null)
+
+      // Refresh action limit check
+      const { data: canLog } = await supabase
+        .rpc('can_log_action', { user_uuid: user.id })
+      
+      setCanLogAction(canLog || false)
+
+    } catch (error) {
+      console.error('Error saving action:', error)
+      alert('Failed to save action. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (!user) {
@@ -134,13 +217,60 @@ export default function ActionsPage() {
           {/* Today's Actions */}
           <Card className="p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Today's Actions
+              Today's Actions ({todaysActions.length})
             </h2>
-            <div className="text-center py-8 text-gray-500">
-              <PlusCircle className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-              <p>No actions logged today.</p>
-              <p className="text-sm">Your first action will appear here.</p>
-            </div>
+            
+            {!canLogAction && (
+              <div className="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded-md mb-4">
+                <p className="font-medium">Weekly limit reached</p>
+                <p className="text-sm">Upgrade to ACHIEVERY Pro for unlimited actions.</p>
+              </div>
+            )}
+
+            {todaysActions.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                <PlusCircle className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <p>No actions logged today.</p>
+                <p className="text-sm">Your first action will appear here.</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {todaysActions.map((action) => {
+                  const category = categories.find(c => c.id === action.category)
+                  const Icon = category?.icon || PlusCircle
+                  
+                  return (
+                    <div key={action.id} className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-start space-x-3">
+                        <div className={`p-2 rounded-lg ${category?.color || 'bg-gray-100 text-gray-600'}`}>
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-medium text-gray-600 capitalize">
+                              {action.category} • {action.phase}
+                            </span>
+                            <span className="text-xs text-gray-400">
+                              {new Date(action.created_at).toLocaleTimeString([], { 
+                                hour: '2-digit', 
+                                minute: '2-digit' 
+                              })}
+                            </span>
+                          </div>
+                          <p className="text-gray-800">{action.original_text}</p>
+                          {action.reframed_text && (
+                            <div className="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                              <p className="text-sm font-medium text-blue-800 mb-1">Professional reframe:</p>
+                              <p className="text-blue-700">{action.reframed_text}</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </Card>
 
         </div>
