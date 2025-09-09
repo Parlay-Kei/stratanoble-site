@@ -4,19 +4,35 @@ import { useAuth } from './providers'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Container, Card } from '@strata-noble/ui'
+import { supabase } from '@strata-noble/utils'
 
 export default function PlatformHome() {
   const { user, loading } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!loading) {
-      if (user) {
-        router.push('/dashboard')
-      } else {
-        router.push('/auth')
+    const checkOnboardingAndRedirect = async () => {
+      if (!loading) {
+        if (user) {
+          // Check if user has completed onboarding
+          const { data: settings } = await supabase
+            .from('user_platform_settings')
+            .select('onboarding_completed')
+            .eq('user_id', user.id)
+            .single()
+
+          if (settings?.onboarding_completed) {
+            router.push('/dashboard')
+          } else {
+            router.push('/onboarding')
+          }
+        } else {
+          router.push('/auth')
+        }
       }
     }
+
+    checkOnboardingAndRedirect()
   }, [user, loading, router])
 
   if (loading) {
