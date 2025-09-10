@@ -26,6 +26,13 @@ export default function RouteGuard({ children }: RouteGuardProps) {
           return
         }
 
+        // For development mode, skip auth checks on public routes
+        if (process.env.NODE_ENV === 'development' && pathname && publicRoutes.includes(pathname)) {
+          setAccessDenied(null)
+          setLoading(false)
+          return
+        }
+
         // Only check auth for protected routes
         const { data: { session }, error } = await supabase.auth.getSession()
         
