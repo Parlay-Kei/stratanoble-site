@@ -21,10 +21,10 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.0",
     "isomorphic-dompurify": "^2.26.0",
-    "lucide-react": "^0.536.0",
+    "lucide-react": "^0.543.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "recharts": "^3.1.1",
+    "recharts": "^3.2.0",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
     "@types/json5": "^0.0.30",
     "@types/mailchimp__mailchimp_marketing": "^3.0.21",
     "@types/mysql": "^2.15.27",
-    "@types/node": "^24.3.0",
+    "@types/node": "^24.3.1",
     "@types/pg": "^8.15.5",
     "@types/pg-pool": "^2.0.6",
     "@types/phoenix": "^1.6.6",
@@ -51,7 +51,7 @@
     "@types/react-dom": "^19.0.0",
     "@types/tedious": "^4.0.14",
     "@types/trusted-types": "^2.0.7",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "peerDependencies": {
     "react": "^19.0.0",
