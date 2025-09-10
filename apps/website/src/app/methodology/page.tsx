@@ -138,7 +138,7 @@ export default function MethodologyPage() {
                 subtitle: 'We hear your vision',
                 color: 'emerald',
                 icon: EyeIcon,
-                description: 'We start by really listening to you. What's your dream? What's holding you back? What success looks like to you? This isn\'t a sales call - it\'s about understanding your unique situation.',
+                description: 'We start by really listening to you. What\'s your dream? What\'s holding you back? What success looks like to you? This isn\'t a sales call - it\'s about understanding your unique situation.',
                 whatWeAsk: [
                   'What inspired this idea?',
                   'What does success mean to you?',
