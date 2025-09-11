@@ -1,7 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import csrf from 'csrf';
-import { cookies } from 'next/headers';
 import { config } from './config';
+
+// Conditionally import cookies only in server context
+let getCookies: () => Promise<any>;
+try {
+  getCookies = async () => {
+    const { cookies } = await import('next/headers');
+    return cookies();
+  };
+} catch {
+  // Fallback for client-side usage
+  getCookies = async () => null;
+}
 
 // Initialize CSRF tokens generator
 const tokens = new csrf();
@@ -38,16 +49,28 @@ export function verifyCSRFToken(secret: string, token: string): boolean {
  * Get or create CSRF secret from cookies
  */
 export async function getCSRFSecret(): Promise<{ secret: string; isNew: boolean }> {
-  const cookieStore = await cookies();
-  const existingSecret = cookieStore.get(CSRF_COOKIE_NAME)?.value;
-  
-  if (existingSecret) {
-    return { secret: existingSecret, isNew: false };
+  try {
+    const cookieStore = await getCookies();
+    if (!cookieStore) {
+      // Client-side fallback
+      const secret = tokens.secretSync();
+      return { secret, isNew: true };
+    }
+    
+    const existingSecret = cookieStore.get(CSRF_COOKIE_NAME)?.value;
+    
+    if (existingSecret) {
+      return { secret: existingSecret, isNew: false };
+    }
+    
+    // Generate new secret
+    const secret = tokens.secretSync();
+    return { secret, isNew: true };
+  } catch {
+    // Fallback for client-side
+    const secret = tokens.secretSync();
+    return { secret, isNew: true };
   }
-  
-  // Generate new secret
-  const secret = tokens.secretSync();
-  return { secret, isNew: true };
 }
 
 /**

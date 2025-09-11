@@ -125,7 +125,9 @@
       "Read(//c/Users/MrSte/Pictures/Screenshots/**)",
       "WebFetch(domain:stratanoble.com)",
       "mcp__puppeteer__puppeteer_navigate",
-      "mcp__puppeteer__puppeteer_screenshot"
+      "mcp__puppeteer__puppeteer_screenshot",
+      "Bash(PORT=3002 npm run dev)",
+      "Bash(netlify:*)"
     ],
     "deny": [],
     "additionalDirectories": [

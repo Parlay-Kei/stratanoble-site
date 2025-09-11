@@ -6,9 +6,19 @@ const supabaseUrl = config.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = config.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabaseServiceRoleKey = config.SUPABASE_SERVICE_ROLE_KEY;
 
-// Only throw error at runtime, not during build
-if (typeof window !== 'undefined' && (!supabaseUrl || !supabaseAnonKey)) {
+// Only throw error in production when actual values are missing
+const isDevelopment = process.env.NODE_ENV === 'development';
+const isPlaceholder = (value: string | undefined) => {
+  return !value || value.includes('placeholder') || value === 'your_supabase_url' || value === 'your_supabase_anon_key';
+};
+
+if (typeof window !== 'undefined' && !isDevelopment && (!supabaseUrl || !supabaseAnonKey)) {
   throw new Error('Missing Supabase environment variables');
+}
+
+// Warn about placeholder values in development
+if (typeof window !== 'undefined' && isDevelopment && (isPlaceholder(supabaseUrl) || isPlaceholder(supabaseAnonKey))) {
+  console.warn('⚠️  Using placeholder Supabase values - database features will not work until real credentials are provided');
 }
 
 // Provide defaults for build time
