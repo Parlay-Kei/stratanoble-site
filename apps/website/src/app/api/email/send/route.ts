@@ -334,15 +334,15 @@ export async function POST(request: NextRequest) {
   try {
     // Check if AWS SES email service is configured
     const hasValidAWSCredentials = 
-      process.env.AWS_ACCESS_KEY_ID && 
-      process.env.AWS_ACCESS_KEY_ID !== 'your_aws_access_key_id' &&
-      process.env.AWS_SECRET_ACCESS_KEY && 
-      process.env.AWS_SECRET_ACCESS_KEY !== 'your_aws_secret_access_key' &&
+      (process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID) && 
+      (process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID) !== 'your_aws_access_key_id' &&
+      (process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY) && 
+      (process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY) !== 'your_aws_secret_access_key' &&
       process.env.SES_FROM_EMAIL;
 
     if (!hasValidAWSCredentials) {
       // In development mode, simulate email sending for testing
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV) {
         const body = await request.json();
         const { formType, ...formData } = body;
         
