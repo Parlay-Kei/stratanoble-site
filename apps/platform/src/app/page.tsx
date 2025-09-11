@@ -4,7 +4,7 @@ import { useAuth } from './providers'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Container, Card } from '@strata-noble/ui'
-import { supabase } from '@strata-noble/utils'
+import { supabase } from '../lib/supabase'
 
 export default function PlatformHome() {
   const { user, loading } = useAuth()

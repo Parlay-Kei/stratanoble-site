@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Plus, Calendar, TrendingUp } from 'lucide-react'
-import { Button } from '@strata-noble/ui/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@strata-noble/ui/components/ui/card'
-import { Alert, AlertDescription } from '@strata-noble/ui/components/ui/alert'
+import { Button, Card } from '@strata-noble/ui'
 import { WeeklyNarrativeCard } from './WeeklyNarrativeCard'
 import { narrativeScheduler, getWeekStart } from '../../../lib/narrative-scheduler'
 import type { WeeklyNarrative } from '../../../types/platform'
@@ -74,17 +72,15 @@ export function WeeklyNarrativesList() {
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <div className="h-8 bg-muted animate-pulse rounded" />
+        <div className="h-8 bg-gray-200 animate-pulse rounded" />
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
-            <Card key={i} className="h-48 animate-pulse">
-              <CardContent className="p-6">
-                <div className="space-y-3">
-                  <div className="h-4 bg-muted rounded w-3/4" />
-                  <div className="h-4 bg-muted rounded w-1/2" />
-                  <div className="h-16 bg-muted rounded" />
-                </div>
-              </CardContent>
+            <Card key={i} className="h-48 animate-pulse p-6">
+              <div className="space-y-3">
+                <div className="h-4 bg-gray-200 rounded w-3/4" />
+                <div className="h-4 bg-gray-200 rounded w-1/2" />
+                <div className="h-16 bg-gray-200 rounded" />
+              </div>
             </Card>
           ))}
         </div>
@@ -97,7 +93,7 @@ export function WeeklyNarrativesList() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Weekly Narratives</h1>
-          <p className="text-muted-foreground">
+          <p className="text-gray-600">
             Your automated progress summaries and insights
           </p>
         </div>
@@ -115,27 +111,27 @@ export function WeeklyNarrativesList() {
       </div>
 
       {error && (
-        <Alert variant="destructive">
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
+        <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
+          {error}
+        </div>
       )}
 
       {narratives.length === 0 && !error ? (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
-              <Calendar className="h-8 w-8 text-muted-foreground" />
+        <Card className="p-12">
+          <div className="flex flex-col items-center justify-center">
+            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+              <Calendar className="h-8 w-8 text-gray-400" />
             </div>
             <h3 className="text-lg font-semibold mb-2">No narratives yet</h3>
-            <p className="text-muted-foreground text-center mb-6 max-w-md">
+            <p className="text-gray-600 text-center mb-6 max-w-md">
               Weekly narratives are generated automatically based on your logged actions. 
               Start logging actions throughout the week to get your first narrative.
             </p>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
               <TrendingUp className="h-4 w-4" />
               Narratives help you see patterns and progress in your journey
             </div>
-          </CardContent>
+          </div>
         </Card>
       ) : (
         <div className="space-y-6">
@@ -153,7 +149,7 @@ export function WeeklyNarrativesList() {
 
       {narratives.length > 0 && (
         <div className="text-center py-8">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-600">
             Showing your most recent weekly narratives.
             {narratives.length >= 10 && ' Older narratives are archived.'}
           </p>

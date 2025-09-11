@@ -1,24 +1,16 @@
 // API route for generating weekly narratives
 import { NextRequest, NextResponse } from 'next/server'
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
-import { generateWeeklyNarrative } from '@/lib/narrative-engine'
-import type { Database } from '@/lib/supabase'
+import { supabase } from '../../../../lib/supabase'
+import type { Database } from '../../../../lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient<Database>({ cookies })
+    // For now, we'll create a simple narrative generation without auth
+    // In production, you'd want proper authentication
+    const { weekStart, userId } = await request.json()
     
-    // Get authenticated user
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    const { weekStart } = await request.json()
-    
-    if (!weekStart) {
-      return NextResponse.json({ error: 'Week start date is required' }, { status: 400 })
+    if (!weekStart || !userId) {
+      return NextResponse.json({ error: 'Week start date and user ID are required' }, { status: 400 })
     }
 
     const weekStartDate = new Date(weekStart)
@@ -28,7 +20,7 @@ export async function POST(request: NextRequest) {
     const { data: existingNarrative } = await supabase
       .from('weekly_narratives')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .eq('week_start', weekStartDate.toISOString().split('T')[0])
       .single()
 
@@ -44,7 +36,7 @@ export async function POST(request: NextRequest) {
     const { data: actions, error: actionsError } = await supabase
       .from('user_actions')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .gte('logged_date', weekStartDate.toISOString().split('T')[0])
       .lt('logged_date', weekEndDate.toISOString().split('T')[0])
       .order('logged_date', { ascending: true })
@@ -57,7 +49,7 @@ export async function POST(request: NextRequest) {
     const { data: dreamData } = await supabase
       .from('user_dreams')
       .select('dream_text')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .eq('is_active', true)
       .single()
 
@@ -65,25 +57,29 @@ export async function POST(request: NextRequest) {
     const { data: previousNarratives } = await supabase
       .from('weekly_narratives')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .lt('week_start', weekStartDate.toISOString().split('T')[0])
       .order('week_start', { ascending: false })
       .limit(2)
 
-    // Generate narrative
-    const narrativeResult = await generateWeeklyNarrative({
-      userId: user.id,
-      weekStart: weekStartDate,
-      actions: actions || [],
-      userDream: dreamData?.dream_text,
-      previousNarratives: previousNarratives || [],
-    })
+    // Generate simple narrative (placeholder for AI integration)
+    const narrativeResult = {
+      narrativeText: `This week you logged ${actions?.length || 0} actions. ${
+        actions && actions.length > 0 
+          ? 'You\'re making steady progress toward your goals. Keep building momentum!'
+          : 'Consider logging more activities to track your progress better.'
+      }`,
+      phaseProgression: null,
+      keyInsights: actions && actions.length > 3 ? ['Strong activity week', 'Building consistent habits'] : ['Room for more activity'],
+      nextSuggestions: ['Continue logging daily actions', 'Focus on your current phase activities'],
+      significantActions: actions?.filter((_, i) => i < 2) || []
+    }
 
     // Save narrative to database
     const { data: savedNarrative, error: saveError } = await supabase
       .from('weekly_narratives')
       .insert({
-        user_id: user.id,
+        user_id: userId,
         week_start: weekStartDate.toISOString().split('T')[0],
         narrative_text: narrativeResult.narrativeText,
         actions_count: actions?.length || 0,
@@ -131,21 +127,18 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient<Database>({ cookies })
-    
-    // Get authenticated user
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
     const url = new URL(request.url)
     const weekStart = url.searchParams.get('weekStart')
+    const userId = url.searchParams.get('userId')
+    
+    if (!userId) {
+      return NextResponse.json({ error: 'User ID is required' }, { status: 400 })
+    }
     
     let query = supabase
       .from('weekly_narratives')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .order('week_start', { ascending: false })
 
     if (weekStart) {

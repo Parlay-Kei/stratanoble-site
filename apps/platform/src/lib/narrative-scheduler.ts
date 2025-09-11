@@ -1,7 +1,7 @@
 // ACHIEVERY Weekly Narrative Scheduler
 // Handles automated generation of weekly narratives
 
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { supabase } from './supabase'
 import type { Database } from './supabase'
 
 export interface ScheduledNarrativeResult {
@@ -12,7 +12,7 @@ export interface ScheduledNarrativeResult {
 }
 
 class NarrativeScheduler {
-  private supabase = createClientComponentClient<Database>()
+  private supabase = supabase
 
   /**
    * Generate narrative for a specific week

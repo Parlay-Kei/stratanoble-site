@@ -6,6 +6,9 @@ import {
   Home, 
   PlusCircle, 
   BarChart3, 
+  Map,
+  Shield,
+  FileText,
   User, 
   LogOut 
 } from 'lucide-react'
@@ -13,9 +16,10 @@ import { useAuth } from '../../app/providers'
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Dashboard' },
-  { href: '/actions', icon: PlusCircle, label: 'Log Action' },
-  { href: '/progress', icon: BarChart3, label: 'Progress' },
-  { href: '/profile', icon: User, label: 'Profile' },
+  { href: '/actions', icon: PlusCircle, label: 'Actions' },
+  { href: '/roadmap', icon: Map, label: 'Roadmap' },
+  { href: '/narratives', icon: FileText, label: 'Narratives' },
+  { href: '/trust-ledger', icon: Shield, label: 'Trust' },
 ]
 
 export function MobileNavigation() {
@@ -33,8 +37,8 @@ export function MobileNavigation() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
-      <div className="flex items-center justify-around max-w-md mx-auto">
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2">
+      <div className="flex items-center justify-around max-w-lg mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href
@@ -42,16 +46,16 @@ export function MobileNavigation() {
           return (
             <Button
               key={item.href}
-              variant={isActive ? "default" : "ghost"}
+              variant={isActive ? "primary" : "outline"}
               size="sm"
               onClick={() => router.push(item.href)}
-              className={`flex flex-col items-center space-y-1 h-12 px-3 ${
+              className={`flex flex-col items-center space-y-1 h-12 px-2 ${
                 isActive 
                   ? 'text-white' 
                   : 'text-gray-600 hover:text-gray-800'
               }`}
             >
-              <Icon className="w-5 h-5" />
+              <Icon className="w-4 h-4" />
               <span className="text-xs font-medium">{item.label}</span>
             </Button>
           )
@@ -59,13 +63,13 @@ export function MobileNavigation() {
         
         {/* Sign out button */}
         <Button
-          variant="ghost"
+          variant="outline"
           size="sm"
           onClick={handleSignOut}
-          className="flex flex-col items-center space-y-1 h-12 px-3 text-red-600 hover:text-red-700"
+          className="flex flex-col items-center space-y-1 h-12 px-2 text-red-600 hover:text-red-700"
         >
-          <LogOut className="w-5 h-5" />
-          <span className="text-xs font-medium">Sign Out</span>
+          <LogOut className="w-4 h-4" />
+          <span className="text-xs font-medium">Out</span>
         </Button>
       </div>
     </div>
