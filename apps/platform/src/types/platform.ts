@@ -1,5 +1,5 @@
 // ACHIEVERY Platform Types
-import { Database } from '@strata-noble/utils'
+import { Database } from '../lib/supabase'
 
 // Base types from database
 export type UserDream = Database['public']['Tables']['user_dreams']['Row']

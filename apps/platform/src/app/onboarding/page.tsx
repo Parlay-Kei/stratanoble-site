@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../providers'
 import { Container, Card, Button, Input } from '@strata-noble/ui'
-import { supabase } from '@strata-noble/utils'
+import { supabase } from '../../lib/supabase'
 import { Sparkles, ArrowRight, Target, Lightbulb } from 'lucide-react'
 import type { DreamFormData, AchieveryPhase } from '../../types/platform'
 

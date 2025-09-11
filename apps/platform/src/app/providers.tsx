@@ -2,7 +2,8 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import { User, Session } from '@supabase/supabase-js'
-import { supabase } from '@strata-noble/utils'
+import { supabase } from '../lib/supabase'
+import { SessionProvider } from '../components/providers/SessionProvider'
 
 interface AuthContextType {
   user: User | null
@@ -130,7 +131,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         resetPassword
       }}
     >
-      {children}
+      <SessionProvider user={user}>
+        {children}
+      </SessionProvider>
     </AuthContext.Provider>
   )
 }
