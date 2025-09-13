@@ -170,15 +170,27 @@ export function HeroSectionAligned() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 pt-8"
+            className="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-4 pt-8"
           >
             <motion.a
-              href="/contact?utm_source=hero&utm_medium=cta&utm_campaign=start-journey"
+              href="http://localhost:3001?utm_source=hero&utm_medium=cta&utm_campaign=preview-platform"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale:0.95 }}
+              className="group bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-8 py-4 rounded-full font-bold text-lg flex items-center space-x-3 shadow-xl hover:shadow-2xl transition-all duration-300"
+            >
+              <span>Preview Platform</span>
+              <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
+            </motion.a>
+
+            <motion.a
+              href="/achievery-early-access?utm_source=hero&utm_medium=cta&utm_campaign=early-access-signup"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               className="group bg-gradient-to-r from-accent-gold to-accent-gold/90 text-navy px-8 py-4 rounded-full font-bold text-lg flex items-center space-x-3 shadow-xl hover:shadow-2xl transition-all duration-300"
             >
-              <span>Start Your Journey</span>
+              <span>Early Access Signup</span>
               <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
             </motion.a>
 
