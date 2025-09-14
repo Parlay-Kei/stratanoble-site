@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRightIcon, ChartBarIcon, LightBulbIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';
 import { Logo } from './Logo';
+import { publicConfig } from '@/lib/public-config';
 
 export function HeroSectionAligned() {
   const [currentStatIndex, setCurrentStatIndex] = useState(0);
@@ -173,7 +174,7 @@ export function HeroSectionAligned() {
             className="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-4 pt-8"
           >
             <motion.a
-              href="http://localhost:3001?utm_source=hero&utm_medium=cta&utm_campaign=preview-platform"
+              href={`${publicConfig.achieveryUrl}?utm_source=hero&utm_medium=cta&utm_campaign=preview-platform`}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05, y: -2 }}

@@ -89,6 +89,15 @@ Become the trusted operating partner for every self‑funded entrepreneur who ne
 * Templates, calculators, industry checklists
 * Pay‑as‑you‑go or included with tiered plans
 
+### ACHIEVERY Achievement Platform
+
+* Integrated personal achievement tracking system
+* AI‑powered activity reframing engine transforms daily actions into professional achievements
+* Three‑phase journey progression (Explore → Build → Launch)
+* Weekly narrative generation with automated progress summaries
+* Trust Ledger for private achievement records with optional coach sharing
+* Mobile‑responsive design with tier‑based access controls
+
 ### AI Insight Engine
 
 * GPT‑powered recommendations (e.g., pricing tweaks, expense cuts)
@@ -101,7 +110,8 @@ Become the trusted operating partner for every self‑funded entrepreneur who ne
 1. **Account Creation & Assessment** → OAuth → diagnostic wizard → roadmap.
 2. **Playbook Execution** → select play → auto‑generate tasks → progress updates.
 3. **KPI Monitoring** → data connectors sync → dashboard → anomaly alerts.
-4. **Expert Session** → choose topic → schedule → notes auto‑attach to roadmap.
+4. **ACHIEVERY Tracking** → log daily activities → AI reframing → progress visualization → weekly narratives.
+5. **Expert Session** → choose topic → schedule → notes auto‑attach to roadmap.
 
 (Detailed BPMN diagrams will live in `/docs/processes/SN_UserFlows.drawio`.)
 
@@ -139,6 +149,7 @@ Become the trusted operating partner for every self‑funded entrepreneur who ne
 | **MVP‑3** | **KPI Dashboard v0**          | Connect Stripe & Google Sheets; 5 KPIs tracked |
 | **MVP‑4** | **Stripe Billing**            | Self‑serve plan upgrades & coupon codes        |
 | **MVP‑5** | **Slack Community Bridge**    | Auto‑adds new customers to #strata‑clients     |
+| **MVP‑6** | **ACHIEVERY Platform**        | Personal achievement tracking, AI reframing, progress dashboards |
 
 **Phase 1 Success** = ≥ 50 paying clients on Pilot Plan, 70+ NPS, ≤ 1 hour median support response.
 

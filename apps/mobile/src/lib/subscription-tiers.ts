@@ -429,7 +429,7 @@ export const useFeatureAccess = (userTier: SubscriptionTier) => {
 export const PAYWALL_MESSAGES = {
   actions_per_week: {
     title: 'Weekly Action Limit Reached',
-    message: 'You've logged your maximum actions for this week. Upgrade to continue tracking your progress.',
+    message: 'You\'ve logged your maximum actions for this week. Upgrade to continue tracking your progress.',
     upgradeText: 'Upgrade for unlimited actions',
   },
   advanced_analytics: {

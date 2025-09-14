@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
+import { createClient } from '@supabase/supabase-js';
+import { handleAppLink } from '@/lib/deepLinking';
 
 // Initialize Redis connection with secure env vars
 const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
@@ -85,7 +87,62 @@ function getClientIP(request: NextRequest): string {
   return '127.0.0.1';
 }
 
+async function checkAchieveryAuth(request: NextRequest) {
+  try {
+    // Get Supabase URL and anon key from environment
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return false;
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    // Get the session token from cookies
+    const token = request.cookies.get('sb-access-token')?.value || 
+                  request.cookies.get('sb-refresh-token')?.value;
+
+    if (!token) {
+      return false;
+    }
+
+    // Verify the session with Supabase
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+    
+    return !error && user;
+  } catch (error) {
+    return false;
+  }
+}
+
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  
+  // Handle deep linking app requests
+  const appLinkResponse = handleAppLink(request);
+  if (appLinkResponse) {
+    return appLinkResponse;
+  }
+
+  // Handle ACHIEVERY route protection
+  if (pathname.startsWith('/achievery/') || pathname === '/achievery') {
+    // Allow public access to preview page and auth page
+    if (pathname === '/achievery/auth' || pathname === '/achievery-preview') {
+      return NextResponse.next();
+    }
+
+    // Check authentication for protected ACHIEVERY routes (dashboard, actions, etc.)
+    const isAuthenticated = await checkAchieveryAuth(request);
+
+    if (!isAuthenticated) {
+      // Redirect to auth page with return URL
+      const authUrl = new URL('/achievery/auth', request.url);
+      authUrl.searchParams.set('redirectTo', pathname);
+      return NextResponse.redirect(authUrl);
+    }
+  }
+
   // Only apply rate limiting to API routes
   if (!request.nextUrl.pathname.startsWith('/api/')) {
     return NextResponse.next();
@@ -148,12 +205,13 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all API routes except:
-     * - Webhooks (they have their own rate limiting)
-     * - Health checks
-     * - Static files and assets
-     * - CSRF endpoint
+     * Match:
+     * - All API routes (for rate limiting) except webhooks, health, csrf
+     * - All /achievery routes (for authentication)
+     * - Deep linking routes
      */
     '/api/((?!webhook|health|csrf|_next/static|favicon.ico).*)',
+    '/achievery/:path*',
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 };

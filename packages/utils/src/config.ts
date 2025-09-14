@@ -144,7 +144,13 @@ export type AppConfig = typeof config;
 export function requireServerSecret(name: keyof AppConfig | string): string {
   const value = fromEnv(String(name)) ?? '';
   if (!value) {
-    throw new Error(`Missing required server secret: ${String(name)}`);
+    // Only throw error in production or when explicitly required
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error(`Missing required server secret: ${String(name)}`);
+    } else {
+      console.warn(`⚠️ Missing server secret: ${String(name)} - using placeholder in development`);
+      return 'placeholder-value-for-development';
+    }
   }
   return value;
 }

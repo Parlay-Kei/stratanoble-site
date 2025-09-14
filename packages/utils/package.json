@@ -5,7 +5,11 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*.ts"
+    "./*": "./src/*.ts",
+    "./src/stripe-server": "./src/stripe-server.ts",
+    "./src/stripe-server.server": {
+      "node": "./src/stripe-server.server.ts"
+    }
   },
   "scripts": {
     "dev": "tsc --watch",
