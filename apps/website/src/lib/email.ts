@@ -17,12 +17,14 @@ const sesClient = new SESClient({
 const fromEmail = SES_FROM_EMAIL;
 
 // Email template types
-export type EmailTemplate = 
+export type EmailTemplate =
   | 'contact-form-notification'
   | 'contact-form-confirmation'
   | 'order-kickoff'
   | 'order-confirmation'
-  | 'welcome';
+  | 'welcome'
+  | 'early-access-confirmation'
+  | 'early-access-notification';
 
 // Email service class
 class EmailService {
@@ -268,6 +270,160 @@ class EmailService {
         packageType: data.packageType,
         orderId: data.orderId,
         amount: data.amount,
+      },
+    });
+  }
+
+  // Early access confirmation email (to user)
+  async sendEarlyAccessConfirmation(data: {
+    name: string;
+    email: string;
+    role?: string;
+    goals?: string;
+  }) {
+    const subject = 'Welcome to ACHIEVERY Early Access - You\'re In!';
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #001122 0%, #50C878 100%); color: white; border-radius: 8px 8px 0 0;">
+          <h1 style="margin: 0; font-size: 28px;">🎉 You're In!</h1>
+          <p style="margin: 10px 0 0; font-size: 18px; opacity: 0.9;">Welcome to ACHIEVERY Early Access</p>
+        </div>
+
+        <div style="padding: 30px 20px; background: white; border-radius: 0 0 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          <p style="color: #333; font-size: 16px; line-height: 1.6;">
+            Hi ${data.name},
+          </p>
+
+          <p style="color: #333; font-size: 16px; line-height: 1.6;">
+            Congratulations! You've successfully joined the exclusive ACHIEVERY early access program.
+            You're now among the first to transform your daily activities into recognized professional achievements.
+          </p>
+
+          <div style="background: #f0f8f0; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #50C878;">
+            <h3 style="color: #001122; margin-top: 0;">🚀 What You Get as an Early Access Member:</h3>
+            <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 20px;">
+              <li><strong>50% Off Launch Pricing</strong> - Exclusive founding member discount</li>
+              <li><strong>Priority Platform Access</strong> - First to experience ACHIEVERY</li>
+              <li><strong>Personal Onboarding</strong> - One-on-one setup with our team</li>
+              <li><strong>Direct Feedback Channel</strong> - Help shape the platform</li>
+              <li><strong>Founding Member Badge</strong> - Lifetime recognition</li>
+            </ul>
+          </div>
+
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #001122; margin-top: 0;">📅 What Happens Next?</h3>
+            <ol style="color: #666; line-height: 1.8; margin: 0; padding-left: 20px;">
+              <li><strong>Development Updates</strong> - Regular progress reports and sneak peeks</li>
+              <li><strong>Beta Testing Invitation</strong> - Try features before anyone else</li>
+              <li><strong>Launch Notification</strong> - Priority access when we go live (Q1 2025)</li>
+            </ol>
+          </div>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <p style="color: #666; font-size: 14px; margin: 0;">
+              Follow our progress and connect with other early access members:
+            </p>
+            <div style="margin-top: 15px;">
+              <a href="https://linkedin.com/company/stratanoble" style="display: inline-block; margin: 0 10px; color: #50C878; text-decoration: none; font-weight: bold;">LinkedIn</a>
+              <a href="https://stratanoble.com/achievery-preview" style="display: inline-block; margin: 0 10px; color: #50C878; text-decoration: none; font-weight: bold;">Platform Preview</a>
+            </div>
+          </div>
+
+          <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <p style="margin: 0; font-size: 14px; color: #666; text-align: center;">
+              <strong>💡 Pro Tip:</strong> Start thinking about your daily activities that could become achievements.
+              When ACHIEVERY launches, you'll be ready to hit the ground running!
+            </p>
+          </div>
+
+          <div style="text-align: center; margin-top: 30px;">
+            <p style="color: #666; font-size: 14px;">
+              Questions about early access?
+              <a href="mailto:info@stratanoble.com" style="color: #50C878; text-decoration: none;">info@stratanoble.com</a>
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
+          <p>© 2025 Strata Noble. Building ACHIEVERY for ambitious professionals.</p>
+          <p>
+            <a href="#" style="color: #999; text-decoration: none;">Unsubscribe</a> |
+            <a href="https://stratanoble.com/privacy" style="color: #999; text-decoration: none;">Privacy Policy</a>
+          </p>
+        </div>
+      </div>
+    `;
+
+    return await this.sendEmail({
+      to: data.email,
+      subject,
+      html,
+      template: 'early-access-confirmation',
+      metadata: {
+        customerName: data.name,
+        role: data.role,
+        goals: data.goals,
+      },
+    });
+  }
+
+  // Early access notification email (to team)
+  async sendEarlyAccessNotification(data: {
+    name: string;
+    email: string;
+    role?: string;
+    goals?: string;
+    signupId: string;
+  }) {
+    const subject = `🚀 New ACHIEVERY Early Access Signup - ${data.name}`;
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #001122;">🚀 New ACHIEVERY Early Access Signup</h2>
+
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="color: #001122; margin-top: 0;">Contact Details</h3>
+          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
+          ${data.role ? `<p><strong>Role:</strong> ${data.role}</p>` : ''}
+        </div>
+
+        ${data.goals ? `
+        <div style="background: #fff; padding: 20px; border: 1px solid #e9ecef; border-radius: 8px; margin: 20px 0;">
+          <h3 style="color: #001122; margin-top: 0;">Professional Growth Challenge</h3>
+          <p style="white-space: pre-wrap;">${data.goals}</p>
+        </div>
+        ` : ''}
+
+        <div style="background: #f0f8f0; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #50C878;">
+          <h3 style="color: #001122; margin-top: 0;">🎯 Follow-up Actions</h3>
+          <ul style="color: #666; line-height: 1.6; margin: 0; padding-left: 20px;">
+            <li>Add to early access CRM segment</li>
+            <li>Include in development update emails</li>
+            <li>Prioritize for beta testing program</li>
+            <li>Send launch notification with discount code</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 8px;">
+          <p style="margin: 0; font-size: 14px; color: #666;">
+            <strong>Signup ID:</strong> ${data.signupId}<br>
+            <strong>Submitted:</strong> ${new Date().toLocaleString()}<br>
+            <strong>Source:</strong> ACHIEVERY Early Access Page
+          </p>
+        </div>
+      </div>
+    `;
+
+    return await this.sendEmail({
+      to: fromEmail, // Send to team email
+      subject,
+      html,
+      template: 'early-access-notification',
+      metadata: {
+        signupId: data.signupId,
+        customerEmail: data.email,
+        customerName: data.name,
+        role: data.role
       },
     });
   }

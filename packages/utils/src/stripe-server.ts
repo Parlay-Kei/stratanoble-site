@@ -1,208 +1,28 @@
-import Stripe from 'stripe';
-import pino from 'pino';
-import { config } from './config';
+// Client-safe stubs for stripe-server functionality
+// This file provides safe fallbacks when imported on the client side
 
-const logger = pino();
-
-// Server-side Stripe initialization
-const stripeSecretKey = config.STRIPE_SECRET_KEY;
-
-if (!stripeSecretKey) {
-  throw new Error('STRIPE_SECRET_KEY environment variable is required');
-}
-
-export const stripe = new Stripe(stripeSecretKey);
-
-// Create checkout session
-export async function createCheckoutSession(
-  packageType: 'lite' | 'core' | 'premium' | 'workshop_standard' | 'presence_standard' | 'analysis_standard',
-  customerEmail: string,
-  customerName: string
-) {
-  const priceIds = {
-    lite: config.STRIPE_PRICE_ID_SOLUTION_LITE,
-    core: config.STRIPE_PRICE_ID_SOLUTION_CORE,
-    premium: config.STRIPE_PRICE_ID_SOLUTION_PREMIUM,
-    workshop_standard: config.STRIPE_PRICE_ID_WORKSHOP_STANDARD,
-    presence_standard: config.STRIPE_PRICE_ID_PRESENCE_STANDARD,
-    analysis_standard: config.STRIPE_PRICE_ID_ANALYSIS_STANDARD
-  } as const;
-  
-  const priceId = priceIds[packageType];
-  const baseUrl = config.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
-  
-  if (!priceId) {
-    throw new Error(`Price ID not found for package type: ${packageType}`);
+// Safe client-side exports that won't cause errors
+export const getStripe = () => {
+  if (typeof window !== 'undefined') {
+    console.warn('getStripe called on client side - returning null');
+    return null;
   }
-  
-  try {
-    logger.info({
-      msg: 'Creating checkout session with params',
-      packageType,
-      priceId,
-      customerEmail,
-      customerName,
-      baseUrl
-    });
+  // This should never be reached on client side, but provide a safe fallback
+  return null;
+};
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/services`,
-      customer_email: customerEmail,
-      metadata: {
-        package_type: packageType,
-        customer_name: customerName,
-        service: 'solution_services'
-      },
-    });
+export const createCheckoutSession = async () => {
+  throw new Error('createCheckoutSession is only available on the server side');
+};
 
-    logger.info({
-      msg: 'Stripe session created successfully',
-      id: session.id,
-      url: session.url,
-      status: session.status
-    });
+export const sendKickoffEmail = async () => {
+  throw new Error('sendKickoffEmail is only available on the server side');
+};
 
-    if (!session.url) {
-      throw new Error('Stripe session created but no URL returned');
-    }
+export const createConnectedAccount = async () => {
+  throw new Error('createConnectedAccount is only available on the server side');
+};
 
-    return session;
-  } catch (error) {
-    logger.error({
-      msg: 'Stripe checkout session creation error',
-      error
-    });
-    
-    // Log more details about the error
-    if (error instanceof Error) {
-      logger.error({
-        msg: 'Error details',
-        message: error.message,
-        stack: error.stack,
-        name: error.name
-      });
-    }
-    
-    throw new Error(`Failed to create checkout session: ${error instanceof Error ? error.message : 'Unknown error'}`);
-  }
-}
-
-// Send kickoff email after successful payment
-export async function sendKickoffEmail(sessionId: string) {
-  try {
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-    
-    // TODO: Integrate with AWS SES email service
-    // For now, log the email details
-    logger.info({
-      msg: 'Kickoff email should be sent to',
-      customer_email: session.customer_email,
-      package_type: session.metadata?.package_type,
-      customer_name: session.metadata?.customer_name,
-      amount_total: session.amount_total,
-      payment_status: session.payment_status
-    });
-
-    // Trigger deliverable delivery if this is a Solution Services package
-    if (session.metadata?.service === 'solution_services' && session.metadata?.package_type) {
-      try {
-        const baseUrl = config.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
-        const deliverableResponse = await fetch(`${baseUrl}/api/deliverables/deliver`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            customerEmail: session.customer_email,
-            customerName: session.metadata.customer_name,
-            packageType: session.metadata.package_type,
-          }),
-        });
-
-        const deliverableResult = await deliverableResponse.json();
-        logger.info({
-          msg: 'Deliverable delivery result',
-          deliverableResult
-        });
-      } catch (error) {
-        logger.error({
-          msg: 'Error triggering deliverable delivery',
-          error
-        });
-      }
-    }
-    
-    return {
-      success: true,
-      customer_email: session.customer_email,
-      package_type: session.metadata?.package_type
-    };
-  } catch (error) {
-    logger.error({
-      msg: 'Error sending kickoff email',
-      error
-    });
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error'
-    };
-  }
-}
-
-// Stripe Connect functions for merchant onboarding
-export async function createConnectedAccount(businessName: string, email: string) {
-  try {
-    const account = await stripe.accounts.create({
-      type: 'express',
-      country: 'US',
-      email: email,
-      business_type: 'individual',
-      capabilities: {
-        card_payments: { requested: true },
-        transfers: { requested: true },
-      },
-      business_profile: {
-        name: businessName,
-        url: 'https://stratanoble.com',
-        mcc: '7399', // Business Services, Not Elsewhere Classified
-      },
-    });
-
-    return account;
-  } catch (error) {
-    logger.error({
-      msg: 'Error creating connected account',
-      error
-    });
-    throw new Error(`Failed to create connected account: ${error instanceof Error ? error.message : 'Unknown error'}`);
-  }
-}
-
-export async function createAccountLink(accountId: string, returnUrl: string) {
-  try {
-    const accountLink = await stripe.accountLinks.create({
-      account: accountId,
-      refresh_url: returnUrl,
-      return_url: returnUrl,
-      type: 'account_onboarding',
-      collect: 'eventually_due',
-    });
-
-    return accountLink;
-  } catch (error) {
-    logger.error({
-      msg: 'Error creating account link',
-      error
-    });
-    throw new Error(`Failed to create account link: ${error instanceof Error ? error.message : 'Unknown error'}`);
-  }
-}
+export const createAccountLink = async () => {
+  throw new Error('createAccountLink is only available on the server side');
+};

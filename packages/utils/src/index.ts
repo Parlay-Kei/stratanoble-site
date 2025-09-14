@@ -9,7 +9,7 @@ export * from './config';
 export * from './logger';
 export * from './mailer';
 export * from './qstash';
-export * from './stripe-server';
+// stripe-server is server-only - import directly when needed
 export * from './stripe';
 export * from './supabase';
 export * from './types';

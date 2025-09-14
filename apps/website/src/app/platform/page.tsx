@@ -305,13 +305,13 @@ export default function PlatformPage() {
                 <div className="text-gray-600 text-sm mb-6">Platform access + guided support</div>
                 
                 <Link
-                  href="/contact?utm_source=platform-preview&utm_medium=cta&utm_campaign=get-access"
+                  href="/achievery?utm_source=platform-preview&utm_medium=cta&utm_campaign=open-achievery"
                   className="block bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold py-4 px-6 rounded-xl hover:from-emerald-700 hover:to-emerald-600 transition-all duration-300 text-center"
                 >
-                  Get Early Access
+                  ACHIEVERY Platform
                 </Link>
                 
-                <p className="text-gray-500 text-xs mt-3">Platform launching soon - join waitlist</p>
+                <p className="text-gray-500 text-xs mt-3">Part of the Strata Noble ecosystem - available now!</p>
               </div>
             </div>
           </div>
@@ -372,11 +372,11 @@ export default function PlatformPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/contact?utm_source=platform-preview&utm_medium=cta&utm_campaign=join-waitlist"
+              href="/achievery?utm_source=platform-preview&utm_medium=cta&utm_campaign=open-achievery"
               className="bg-white text-emerald-600 font-bold py-4 px-8 rounded-2xl hover:bg-emerald-50 transition-colors inline-flex items-center justify-center"
             >
               <SparklesIcon className="h-5 w-5 mr-2" />
-              Join Early Access List
+              ACHIEVERY Platform
             </Link>
             <Link 
               href="/methodology?utm_source=platform-preview&utm_medium=cta&utm_campaign=learn-approach"

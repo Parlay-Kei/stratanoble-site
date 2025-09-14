@@ -104,6 +104,18 @@ export const metadata: Metadata = {
     'theme-color': '#30232d',
     'msapplication-TileColor': '#30232d',
     'color-scheme': 'light dark',
+    // iOS Smart App Banner
+    'apple-itunes-app': 'app-id=ACHIEVERY_APP_ID, app-argument=achievery://dashboard',
+    // Android App Install Banner
+    'google-play-app': 'app-id=com.stratanoble.achievery',
+    // Deep linking support
+    'al:ios:app_store_id': 'ACHIEVERY_APP_ID',
+    'al:ios:app_name': 'ACHIEVERY',
+    'al:ios:url': 'achievery://dashboard',
+    'al:android:package': 'com.stratanoble.achievery',
+    'al:android:app_name': 'ACHIEVERY',
+    'al:android:url': 'achievery://dashboard',
+    'al:web:url': 'https://stratanoble.com/achievery',
   },
 };
 
@@ -166,6 +178,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify(organizationSchema),
           }}
         />
+        {/* Google Analytics */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-0TGKD1S1HB"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-0TGKD1S1HB');
+            `,
+          }}
+        />
       </head>
       <body className="font-sans antialiased pt-12">
         <HeaderSimple />
@@ -181,6 +208,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           data-domain="stratanoble.com"
           src="https://plausible.io/js/script.js"
           strategy="afterInteractive"
+        />
+        {/* Service Worker Registration */}
+        <Script
+          id="sw-register"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                      console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                      console.log('SW registration failed: ', registrationError);
+                    });
+                });
+              }
+            `,
+          }}
         />
       </body>
     </html>

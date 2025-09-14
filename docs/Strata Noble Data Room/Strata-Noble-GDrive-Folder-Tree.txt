@@ -1,0 +1,39 @@
+Strata Noble Data Room/
+├── 1. Corporate & Legal/
+│   ├── Incorporation Documents/
+│   ├── Equity & Ownership/
+│   ├── Contracts & Agreements/
+│   └── Governance/
+├── 2. Financial/
+│   ├── Historical Financials/
+│   ├── Forecasts & Projections/
+│   └── Capitalization/
+├── 3. Product & Technology/
+│   ├── Proprietary Platforms/
+│   │   ├── Q by Strata Noble/
+│   │   └── ACHIEVERY/
+│   ├── Architecture & Infrastructure/
+│   └── Documentation & Deliverables/
+├── 4. Operations/
+│   ├── Business Model/
+│   ├── Playbooks & Workflows/
+│   ├── Compliance Policies/
+│   └── KPIs/
+├── 5. Sales & Marketing/
+│   ├── Brand Strategy & Style Guides/
+│   ├── Market Research/
+│   ├── Pitch Decks/
+│   └── Content Calendars/
+├── 6. Team & HR/
+│   ├── Team Overview & Key Contributors/
+│   ├── Contributor Agreements/
+│   └── Policies & Roadmaps/
+├── 7. Legal & Compliance/
+│   ├── Data Privacy & Security/
+│   ├── Service Agreements/
+│   └── IP Protection/
+└── 8. Investor Relations/
+    ├── Executive Overview/
+    ├── Milestone Reports/
+    ├── Exit Strategy/
+    └── Data Room Index/

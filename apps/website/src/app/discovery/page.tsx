@@ -57,33 +57,75 @@ export default function DiscoveryPage() {
     setIsSubmitting(true);
     
     try {
-      // Convert stepData to match your existing API format
-      const formData = {
+      // Create lead in CRM system with comprehensive data
+      const leadData = {
         name: stepData.name || '',
         email: stepData.email || '',
-        businessStage: stepData.stage || '',
-        mainChallenge: `${stepData.challenge} - Time available: ${stepData.timeCommitment} - Success goal: ${stepData.successGoal} - Passion area: ${stepData.passion}`,
-        interestedTier: stepData.support || '',
+        passion_area: stepData.passion || '',
+        business_stage: stepData.stage || '',
+        main_challenge: stepData.challenge || '',
+        time_commitment: stepData.timeCommitment || '',
+        success_goal: stepData.successGoal || '',
+        interested_tier: stepData.support || '',
+        // Extract UTM parameters from URL if available
+        utm_source: new URLSearchParams(window.location.search).get('utm_source') || 'organic',
+        utm_medium: new URLSearchParams(window.location.search).get('utm_medium') || 'website',
+        utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign') || 'discovery_form',
+        referrer: document.referrer || '',
+        metadata: {
+          form_completed_at: new Date().toISOString(),
+          user_agent: navigator.userAgent,
+          screen_resolution: `${window.screen.width}x${window.screen.height}`,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+        }
       };
 
-      const response = await fetch('/api/email/send', {
+      // Call CRM API to create lead and schedule email sequences
+      const crmResponse = await fetch('/api/crm/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          formType: 'discovery',
-          ...formData,
-        }),
+        body: JSON.stringify(leadData),
       });
 
-      const result: unknown = await response.json();
-      const errorMsg = (typeof result === 'object' && result !== null && 'error' in result && typeof (result as { error?: string }).error === 'string') ? (result as { error: string }).error : '';
-
-      if (!response.ok) {
-        throw new Error(errorMsg || 'Failed to submit form');
+      const crmResult: unknown = await crmResponse.json();
+      
+      if (!crmResponse.ok) {
+        const errorMsg = (typeof crmResult === 'object' && crmResult !== null && 'error' in crmResult && typeof (crmResult as { error?: string }).error === 'string') 
+          ? (crmResult as { error: string }).error 
+          : 'Failed to create lead in CRM';
+        throw new Error(errorMsg);
       }
 
-      router.push('/thanks?src=discovery');
+      // Also send the traditional email for backward compatibility (optional)
+      try {
+        const emailData = {
+          formType: 'discovery',
+          name: stepData.name || '',
+          email: stepData.email || '',
+          businessStage: stepData.stage || '',
+          mainChallenge: `${stepData.challenge} - Time: ${stepData.timeCommitment} - Goal: ${stepData.successGoal} - Passion: ${stepData.passion}`,
+          interestedTier: stepData.support || '',
+        };
+
+        await fetch('/api/email/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(emailData),
+        });
+      } catch (emailError) {
+        console.error('Traditional email send failed (non-critical):', emailError);
+        // Don't fail the form submission if the old email system fails
+      }
+
+      // Success - redirect to thanks page with CRM tracking
+      const leadId = (crmResult as any)?.data?.id;
+      const redirectUrl = leadId 
+        ? `/thanks?src=discovery&lead_id=${leadId}` 
+        : '/thanks?src=discovery';
+      
+      router.push(redirectUrl);
     } catch (error) {
+      console.error('Discovery form submission error:', error);
       alert(`Error: ${error instanceof Error ? error.message : 'There was an error submitting your form. Please try again.'}`);
     } finally {
       setIsSubmitting(false);

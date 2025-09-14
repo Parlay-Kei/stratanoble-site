@@ -1,0 +1,97 @@
+{
+  "expo": {
+    "name": "ACHIEVERY",
+    "slug": "achievery-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#001122"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.stratanoble.achievery",
+      "buildNumber": "1",
+      "infoPlist": {
+        "UIBackgroundModes": ["background-processing", "background-fetch"],
+        "NSUserNotificationsUsageDescription": "ACHIEVERY sends notifications to help you maintain your progress streaks and celebrate milestones."
+      },
+      "associatedDomains": [
+        "applinks:stratanoble.com",
+        "applinks:www.stratanoble.com"
+      ]
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#001122"
+      },
+      "package": "com.stratanoble.achievery",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.VIBRATE",
+        "android.permission.WAKE_LOCK"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "stratanoble.com"
+            },
+            {
+              "scheme": "https",
+              "host": "www.stratanoble.com"
+            },
+            {
+              "scheme": "achievery"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-notifications",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": false
+          },
+          "android": {
+            "newArchEnabled": false
+          }
+        }
+      ]
+    ],
+    "scheme": "achievery",
+    "notification": {
+      "icon": "./assets/notification-icon.png",
+      "color": "#50C878",
+      "androidMode": "default",
+      "androidCollapsedTitle": "ACHIEVERY Progress Update"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "your-eas-project-id-here"
+      }
+    }
+  }
+}

@@ -1,8 +1,6 @@
 'use client'
 
-import * as Sentry from '@sentry/nextjs'
 import { useEffect } from 'react'
-import { ArrowLeftIcon, HomeIcon } from '@heroicons/react/24/outline'
 
 export default function GlobalError({
   error,
@@ -12,10 +10,17 @@ export default function GlobalError({
   reset: () => void
 }) {
   useEffect(() => {
-    try {
-      Sentry.captureException(error)
-    } catch (sentryError) {
-      console.error('Failed to report error to Sentry:', sentryError)
+    // Log error for debugging
+    console.error('Global error occurred:', error)
+
+    // Report to Sentry if available
+    if (typeof window !== 'undefined') {
+      try {
+        const Sentry = require('@sentry/nextjs')
+        Sentry.captureException(error)
+      } catch (sentryError) {
+        console.error('Failed to report error to Sentry:', sentryError)
+      }
     }
   }, [error])
 

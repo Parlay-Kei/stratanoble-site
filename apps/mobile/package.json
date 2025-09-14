@@ -1,5 +1,5 @@
 {
-  "name": "@strata-noble/achievery-mobile",
+  "name": "@strata-noble/mobile-legacy",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "private": true,

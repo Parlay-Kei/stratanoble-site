@@ -393,6 +393,169 @@ export interface Database {
           rpm?: number
         }
       }
+      leads: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          name: string
+          email: string
+          phone: string | null
+          passion_area: string | null
+          business_stage: string
+          main_challenge: string
+          time_commitment: string | null
+          success_goal: string | null
+          interested_tier: string
+          stage: 'discovery' | 'scheduled' | 'called' | 'qualified' | 'converted' | 'dormant'
+          source: string
+          achievery_user_id: string | null
+          assigned_tasks: number
+          completed_tasks: number
+          assigned_to: string | null
+          notes: string | null
+          last_activity: string
+          priority: number
+          utm_source: string | null
+          utm_medium: string | null
+          utm_campaign: string | null
+          referrer: string | null
+          metadata: Json | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          name: string
+          email: string
+          phone?: string | null
+          passion_area?: string | null
+          business_stage: string
+          main_challenge: string
+          time_commitment?: string | null
+          success_goal?: string | null
+          interested_tier: string
+          stage?: 'discovery' | 'scheduled' | 'called' | 'qualified' | 'converted' | 'dormant'
+          source?: string
+          achievery_user_id?: string | null
+          assigned_tasks?: number
+          completed_tasks?: number
+          assigned_to?: string | null
+          notes?: string | null
+          last_activity?: string
+          priority?: number
+          utm_source?: string | null
+          utm_medium?: string | null
+          utm_campaign?: string | null
+          referrer?: string | null
+          metadata?: Json | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          name?: string
+          email?: string
+          phone?: string | null
+          passion_area?: string | null
+          business_stage?: string
+          main_challenge?: string
+          time_commitment?: string | null
+          success_goal?: string | null
+          interested_tier?: string
+          stage?: 'discovery' | 'scheduled' | 'called' | 'qualified' | 'converted' | 'dormant'
+          source?: string
+          achievery_user_id?: string | null
+          assigned_tasks?: number
+          completed_tasks?: number
+          assigned_to?: string | null
+          notes?: string | null
+          last_activity?: string
+          priority?: number
+          utm_source?: string | null
+          utm_medium?: string | null
+          utm_campaign?: string | null
+          referrer?: string | null
+          metadata?: Json | null
+        }
+      }
+      email_sequences: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          lead_id: string
+          sequence_type: string
+          sequence_day: number
+          scheduled_for: string
+          status: 'pending' | 'sending' | 'sent' | 'failed' | 'cancelled'
+          template_name: string
+          recipient_email: string
+          subject: string | null
+          personalization_data: Json | null
+          sent_at: string | null
+          delivered_at: string | null
+          opened_at: string | null
+          clicked_at: string | null
+          attempts: number
+          max_attempts: number
+          error_message: string | null
+          next_retry: string | null
+          email_provider_id: string | null
+          email_log_id: string | null
+          metadata: Json | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          lead_id: string
+          sequence_type: string
+          sequence_day?: number
+          scheduled_for: string
+          status?: 'pending' | 'sending' | 'sent' | 'failed' | 'cancelled'
+          template_name: string
+          recipient_email: string
+          subject?: string | null
+          personalization_data?: Json | null
+          sent_at?: string | null
+          delivered_at?: string | null
+          opened_at?: string | null
+          clicked_at?: string | null
+          attempts?: number
+          max_attempts?: number
+          error_message?: string | null
+          next_retry?: string | null
+          email_provider_id?: string | null
+          email_log_id?: string | null
+          metadata?: Json | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          lead_id?: string
+          sequence_type?: string
+          sequence_day?: number
+          scheduled_for?: string
+          status?: 'pending' | 'sending' | 'sent' | 'failed' | 'cancelled'
+          template_name?: string
+          recipient_email?: string
+          subject?: string | null
+          personalization_data?: Json | null
+          sent_at?: string | null
+          delivered_at?: string | null
+          opened_at?: string | null
+          clicked_at?: string | null
+          attempts?: number
+          max_attempts?: number
+          error_message?: string | null
+          next_retry?: string | null
+          email_provider_id?: string | null
+          email_log_id?: string | null
+          metadata?: Json | null
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -403,6 +566,33 @@ export interface Database {
           event_data: Json
         }
         Returns: Json
+      }
+      schedule_email_sequences: {
+        Args: {
+          p_lead_id: string
+          p_recipient_email: string
+          p_lead_name?: string
+          p_business_stage?: string
+          p_main_challenge?: string
+        }
+        Returns: {
+          sequence_id: string
+          sequence_type: string
+          scheduled_for: string
+        }[]
+      }
+      get_pending_email_sequences: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          lead_id: string
+          sequence_type: string
+          template_name: string
+          recipient_email: string
+          subject: string
+          personalization_data: Json
+          scheduled_for: string
+        }[]
       }
     }
     Enums: {
