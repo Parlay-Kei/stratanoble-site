@@ -1,7 +1,6 @@
 [build]
-  command = "cd apps/website && npm install --legacy-peer-deps && npm run build"
+  command = "rm -rf apps/achievery-mobile && npm install --legacy-peer-deps && npm run build --workspace=@strata-noble/website"
   publish = "apps/website/.next"
-  base = "apps/website"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
