@@ -1,7 +1,17 @@
 {
+  "name": "stratanoble",
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/achievery",
+      "destination": "/achievery-preview",
+      "permanent": false
+    }
+  ]
 } 
