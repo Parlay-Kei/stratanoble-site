@@ -1,0 +1,24 @@
+# Ignore mobile app and other workspaces
+../achievery-mobile/
+../platform/
+../mobile-legacy/
+../../packages/
+../../docs/
+../../scripts/
+../../supabase/
+../../tests/
+
+# Ignore development files
+node_modules/
+.env
+.env.local
+.DS_Store
+*.log
+.vscode/
+.idea/
+
+# Ignore build artifacts from other apps
+../**/node_modules/
+../**/.next/
+../**/dist/
+../**/build/

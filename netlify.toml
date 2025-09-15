@@ -1,5 +1,5 @@
 [build]
-  command = "cd apps/website && npm install && npm run build"
+  command = "cd apps/website && npm install --legacy-peer-deps && npm run build"
   publish = "apps/website/.next"
   base = "apps/website"
 
