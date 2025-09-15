@@ -1,10 +1,9 @@
 {
-  "name": "stratanoble",
   "framework": "nextjs",
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "outputDirectory": ".next",
+  "buildCommand": "cd apps/website && npm install && npm run build",
+  "devCommand": "cd apps/website && npm run dev",
+  "installCommand": "npm ci",
+  "outputDirectory": "apps/website/.next",
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
