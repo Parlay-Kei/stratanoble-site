@@ -9,6 +9,12 @@ node_modules
 # Mobile app (deployed separately)
 apps/achievery-mobile
 
+# Platform app (not needed for website deployment)
+apps/platform
+
+# Package workspace configs that cause dependency conflicts
+packages/*/node_modules
+
 # Claude Code configuration
 .claude
 
