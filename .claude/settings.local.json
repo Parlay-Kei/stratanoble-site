@@ -158,7 +158,10 @@
       "mcp__playwright__browser_tabs",
       "Bash(vercel:*)",
       "mcp__playwright__browser_snapshot",
-      "mcp__playwright__browser_close"
+      "mcp__playwright__browser_close",
+      "Bash(npm cache:*)",
+      "Bash(where yarn)",
+      "Bash(git restore:*)"
     ],
     "deny": [],
     "additionalDirectories": [
