@@ -1,5 +1,5 @@
 [build]
-  command = "rm -rf apps/achievery-mobile && npm install --legacy-peer-deps && npm run build --workspace=@strata-noble/website"
+  command = "npm run build"
   publish = "apps/website/.next"
 
 [[plugins]]
