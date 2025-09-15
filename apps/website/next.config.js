@@ -58,10 +58,25 @@ const nextConfig = {
       },
     },
   },
-  // Simplified webpack config to avoid module system conflicts
+  // Enhanced webpack config to handle JSX/TSX files properly
   webpack: (config, { dev, isServer }) => {
-    // Only apply minimal changes to avoid "exports is not defined" errors
-    return config
+    // Ensure proper JSX/TSX handling for Netlify builds
+    config.module.rules.push({
+      test: /\.(js|jsx|ts|tsx)$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'next/dist/compiled/babel/loader',
+        options: {
+          presets: ['next/babel'],
+          plugins: []
+        }
+      }
+    });
+
+    // Handle any remaining JSX files that might cause issues
+    config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.json'];
+
+    return config;
   },
   images: {
     remotePatterns: [

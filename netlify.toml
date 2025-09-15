@@ -1,6 +1,7 @@
 [build]
-  command = "pnpm install && pnpm --filter @strata-noble/website run build"
+  command = "cd apps/website && npm install && npm run build"
   publish = "apps/website/.next"
+  base = "apps/website"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
