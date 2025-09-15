@@ -155,7 +155,10 @@
       "Bash(timeout:*)",
       "mcp__playwright__browser_evaluate",
       "mcp__playwright__browser_resize",
-      "mcp__playwright__browser_tabs"
+      "mcp__playwright__browser_tabs",
+      "Bash(vercel:*)",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_close"
     ],
     "deny": [],
     "additionalDirectories": [

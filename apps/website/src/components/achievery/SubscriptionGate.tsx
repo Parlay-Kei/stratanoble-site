@@ -3,7 +3,7 @@
 // Force recompilation after syntax fixes
 import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
-import { supabase } from '@strata-noble/utils'
+import { supabase } from '@/lib/supabase'
 import { Crown, Zap, Sparkles, X } from 'lucide-react'
 import Link from 'next/link'
 

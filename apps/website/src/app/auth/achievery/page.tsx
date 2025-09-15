@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@strata-noble/utils'
+import { supabase } from '@/lib/supabase'
 import { Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 

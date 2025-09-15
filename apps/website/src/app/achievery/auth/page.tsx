@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { supabase } from '@strata-noble/utils'
+import { supabase } from '@/lib/supabase'
 
 export default function AchieveryAuthBridge() {
   const router = useRouter()
