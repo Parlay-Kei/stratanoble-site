@@ -1,8 +1,8 @@
 {
   "framework": "nextjs",
-  "buildCommand": "cd apps/website && npm install && npm run build",
+  "buildCommand": "cd apps/website && npm ci && npm run build",
   "devCommand": "cd apps/website && npm run dev",
-  "installCommand": "npm ci",
+  "installCommand": "echo 'Skipping root install'",
   "outputDirectory": "apps/website/.next",
   "cleanUrls": true,
   "trailingSlash": false,
