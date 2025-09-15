@@ -1,5 +1,5 @@
 [build]
-  command = "npm install --force --legacy-peer-deps && npm run build"
+  command = "rm -rf node_modules package-lock.json && npm cache clean --force && npm install --force --legacy-peer-deps && npm run build"
   publish = "apps/website/.next"
 
 [[plugins]]
