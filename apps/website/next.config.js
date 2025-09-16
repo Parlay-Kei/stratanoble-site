@@ -48,6 +48,22 @@ const nextConfig = {
   // Production optimizations
   experimental: {
     optimizePackageImports: ['@heroicons/react', 'lucide-react'],
+    serverComponentsExternalPackages: ['@supabase/realtime-js', '@opentelemetry/instrumentation'],
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.ignoreWarnings = [
+        {
+          module: /@opentelemetry/,
+          message: /Critical dependency: the request of a dependency is an expression/,
+        },
+        {
+          module: /@supabase\/realtime-js/,
+          message: /Critical dependency: the request of a dependency is an expression/,
+        },
+      ];
+    }
+    return config;
   },
   // Use Turbopack for faster builds
   turbopack: {
