@@ -27,10 +27,12 @@ jobs:
       run: npm install --legacy-peer-deps
     
     - name: Install website dependencies
-      run: cd apps/website && npm install --legacy-peer-deps
+      working-directory: apps/website
+      run: npm install --legacy-peer-deps
 
     - name: Enforce ESLint 8 (Next.js compatible)
-      run: cd apps/website && npm install --no-save eslint@8.57.0
+      working-directory: apps/website
+      run: npm install --no-save eslint@8.57.0
     
     - name: Show every eslint copy & caller
       run: |
@@ -47,15 +49,18 @@ jobs:
         git grep -n -- "--use-eslintrc\|--resolvePluginsRelativeTo\|--ignore-path" || true
     
     - name: Check Next + eslint-config-next versions
+      working-directory: apps/website
       run: |
-        cd apps/website && npx next --version
-        cd apps/website && node -e "console.log(require('eslint-config-next/package.json').version)"
+        npx next --version
+        node -e "console.log(require('eslint-config-next/package.json').version)"
     
     - name: Run linting
-      run: cd apps/website && npm run lint
+      working-directory: apps/website
+      run: npm run lint
     
     - name: Run security audit
-      run: cd apps/website && npm audit --audit-level moderate
+      working-directory: apps/website
+      run: npm audit --audit-level moderate
     
     - name: Build project
       run: npm run build
