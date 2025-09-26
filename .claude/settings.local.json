@@ -164,7 +164,8 @@
       "Bash(git restore:*)",
       "Bash(findstr:*)",
       "Bash(PORT=3000 npx next dev)",
-      "WebFetch(domain:localhost)"
+      "WebFetch(domain:localhost)",
+      "Bash(gh pr create:*)"
     ],
     "deny": [],
     "additionalDirectories": [
