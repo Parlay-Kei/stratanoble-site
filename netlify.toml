@@ -12,15 +12,12 @@
   NETLIFY_NEXT_PLUGIN_SKIP = "false"
   # Skip Supabase CLI binary download in production builds
   SKIP_DOWNLOAD = "true"
-  # npm configuration for workspace compatibility
+  # npm configuration for single-app builds
   NPM_CONFIG_LEGACY_PEER_DEPS = "true"
   NPM_CONFIG_AUDIT = "false"
   NPM_CONFIG_FUND = "false"
   NPM_CONFIG_PROGRESS = "false"
   NPM_CONFIG_LOGLEVEL = "error"
-  # Workspace-specific settings
-  NPM_CONFIG_WORKSPACES = "true"
-  NPM_CONFIG_INCLUDE_WORKSPACE_ROOT = "true"
 
 # Security headers
 [[headers]]
