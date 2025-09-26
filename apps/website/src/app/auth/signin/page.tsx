@@ -1,7 +1,7 @@
 'use client'
 
 import { signIn, getSession } from 'next-auth/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
@@ -11,7 +11,7 @@ import { Mail, ArrowRight, AlertCircle } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 import { Logo } from '../../../components/Logo';
 
-export default function SignIn() {
+function SignInContent() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -158,6 +158,25 @@ export default function SignIn() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function SignIn() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 px-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center space-y-4">
+            <div className="flex justify-center mb-4">
+              <Logo className="h-16 w-auto" />
+            </div>
+            <div className="animate-pulse">Loading...</div>
+          </CardHeader>
+        </Card>
+      </div>
+    }>
+      <SignInContent />
+    </Suspense>
   );
 }
 
