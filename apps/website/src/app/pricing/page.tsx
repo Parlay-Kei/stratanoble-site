@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { OFFERINGS, type OfferingId } from '@/data/offerings';
 import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import CheckoutModal from '@/components/CheckoutModal';
 
-export default function PricingPage() {
+function PricingPageContent() {
   const [showCancelMessage, setShowCancelMessage] = useState(false);
   const [selectedOffering, setSelectedOffering] = useState<OfferingId | null>(null);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
@@ -201,5 +201,20 @@ export default function PricingPage() {
         customerName="Demo User"
       />
     </div>
+  );
+}
+
+export default function PricingPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#0066CC] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400 mx-auto mb-4"></div>
+          <p className="text-white">Loading pricing...</p>
+        </div>
+      </div>
+    }>
+      <PricingPageContent />
+    </Suspense>
   );
 }
