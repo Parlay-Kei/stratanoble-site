@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
-import { createClient } from '@supabase/supabase-js';
+// Temporarily disable Supabase import for Edge Runtime compatibility
+// import { createClient } from '@supabase/supabase-js';
 import { handleAppLink } from '@/lib/deepLinking';
 
 // Initialize Redis connection with secure env vars
@@ -88,11 +89,16 @@ function getClientIP(request: NextRequest): string {
 }
 
 async function checkAchieveryAuth(request: NextRequest) {
+  // Temporarily disabled for Edge Runtime compatibility
+  // TODO: Re-implement with Edge Runtime compatible approach
+  return false;
+
+  /*
   try {
     // Get Supabase URL and anon key from environment
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    
+
     if (!supabaseUrl || !supabaseAnonKey) {
       return false;
     }
@@ -100,7 +106,7 @@ async function checkAchieveryAuth(request: NextRequest) {
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
     // Get the session token from cookies
-    const token = request.cookies.get('sb-access-token')?.value || 
+    const token = request.cookies.get('sb-access-token')?.value ||
                   request.cookies.get('sb-refresh-token')?.value;
 
     if (!token) {
@@ -109,11 +115,12 @@ async function checkAchieveryAuth(request: NextRequest) {
 
     // Verify the session with Supabase
     const { data: { user }, error } = await supabase.auth.getUser(token);
-    
+
     return !error && user;
   } catch (error) {
     return false;
   }
+  */
 }
 
 export async function middleware(request: NextRequest) {
