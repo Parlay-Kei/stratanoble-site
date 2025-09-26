@@ -1,11 +1,14 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const path = require('path');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  compiler: {
+    // Enable React JSX runtime
+    reactRemoveProperties: false,
+    // Ensure proper JSX runtime handling
+    emotion: false,
+  },
   outputFileTracingRoot: path.join(__dirname, '../../'),
   async headers() {
     return [
@@ -45,12 +48,30 @@ const nextConfig = {
       },
     ];
   },
-  // Production optimizations
+  // Disable experimental optimizations to fix module loading errors
   experimental: {
-    optimizePackageImports: ['@heroicons/react', 'lucide-react'],
-    serverComponentsExternalPackages: ['@supabase/realtime-js', '@opentelemetry/instrumentation'],
+    // optimizePackageImports: ['@heroicons/react', 'lucide-react'],
   },
-  webpack: (config, { isServer }) => {
+  serverExternalPackages: ['@supabase/realtime-js', '@opentelemetry/instrumentation'],
+  webpack: (config, { isServer, dev }) => {
+    // Ensure proper module resolution
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+      crypto: false,
+      stream: false,
+      util: false,
+      buffer: false,
+    };
+
+    // Minimal webpack configuration to fix React issues
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, 'src'),
+    };
+
     if (isServer) {
       config.ignoreWarnings = [
         {
@@ -63,6 +84,7 @@ const nextConfig = {
         },
       ];
     }
+
     return config;
   },
   // Use Turbopack for faster builds
@@ -103,8 +125,8 @@ const nextConfig = {
   // Production optimizations
   compress: true,
   poweredByHeader: false,
-  // Reduce bundle size
+  // Reduce bundle size by skipping source maps in production
+  productionBrowserSourceMaps: false,
 }
 
-// Export without Sentry wrapper to fix Turbopack compatibility
-export default nextConfig;
+module.exports = nextConfig;

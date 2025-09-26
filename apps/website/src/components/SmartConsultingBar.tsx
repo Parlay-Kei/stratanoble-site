@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react'
 import { useState } from 'react';
 import { XMarkIcon, LightBulbIcon } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';

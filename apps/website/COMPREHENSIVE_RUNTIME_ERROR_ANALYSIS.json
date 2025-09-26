@@ -1,0 +1,274 @@
+{
+  "timestamp": "2025-09-26T03:50:57.870Z",
+  "url": "http://localhost:3000",
+  "loadTime": 4742,
+  "reactHydrated": true,
+  "pageState": {
+    "readyState": "complete",
+    "scripts": [
+      {
+        "src": "http://localhost:3000/_next/static/chunks/main-app.js?v=1758858645153",
+        "loaded": true
+      },
+      {
+        "src": "http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "loaded": true
+      },
+      {
+        "src": "http://localhost:3000/_next/static/chunks/app/layout.js",
+        "loaded": true
+      },
+      {
+        "src": "http://localhost:3000/_next/static/chunks/app/error.js",
+        "loaded": true
+      },
+      {
+        "src": "http://localhost:3000/_next/static/chunks/app/not-found.js",
+        "loaded": true
+      },
+      {
+        "src": "http://localhost:3000/_next/static/chunks/app/page.js",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "http://localhost:3000/_next/static/chunks/polyfills.js",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "http://localhost:3000/_next/static/chunks/webpack.js?v=1758858645153",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "https://www.googletagmanager.com/gtag/js?id=G-0TGKD1S1HB",
+        "loaded": true
+      },
+      {
+        "src": "",
+        "loaded": true
+      },
+      {
+        "src": "https://plausible.io/js/script.js",
+        "loaded": false
+      },
+      {
+        "src": "",
+        "loaded": true
+      }
+    ],
+    "stylesheets": [
+      {
+        "href": "http://localhost:3000/_next/static/css/app/layout.css?v=1758858645153",
+        "disabled": false
+      },
+      {
+        "href": null,
+        "disabled": false
+      }
+    ],
+    "hasReactRoot": false,
+    "bodyClass": "font-sans antialiased pt-12",
+    "headContent": 3840,
+    "bodyContent": 115892
+  },
+  "interactiveTests": [
+    "Found 1 navigation elements",
+    "Found 4 button elements",
+    "Found 1 form elements",
+    "First button clickable: FAILED - locator.click: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button, [role=\"button\"], .btn').first()\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-expanded=\"false\" aria-controls=\"mobile-menu\" aria-label=\"Open main menu\" class=\"relative -m-2.5 inline-flex items-center justify-center rounded-xl p-3 text-navy-700 hover:bg-navy-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-200 active:scale-95\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    9 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n"
+  ],
+  "totalErrors": 5,
+  "errorBreakdown": {
+    "consoleErrors": 4,
+    "networkErrors": 0,
+    "javascriptErrors": 0,
+    "resourceFailures": 1
+  },
+  "errors": {
+    "consoleErrors": [
+      {
+        "type": "console-warning",
+        "message": "Sentry Logger [warn]: No DSN provided, client will not send events.",
+        "timestamp": "2025-09-26T03:50:45.929Z",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/./node_modules/@sentry/core/build/esm/utils/debug-logger.js",
+          "lineNumber": 96,
+          "columnNumber": 74
+        }
+      },
+      {
+        "type": "console-warning",
+        "message": "Ignoring Event: localhost",
+        "timestamp": "2025-09-26T03:50:46.170Z",
+        "location": {
+          "url": "https://plausible.io/js/script.js",
+          "lineNumber": 0,
+          "columnNumber": 1888
+        }
+      },
+      {
+        "type": "console-warning",
+        "message": "Ignoring Event: localhost",
+        "timestamp": "2025-09-26T03:50:46.192Z",
+        "location": {
+          "url": "https://plausible.io/js/script.js",
+          "lineNumber": 0,
+          "columnNumber": 1888
+        }
+      },
+      {
+        "type": "console-warning",
+        "message": "Ignoring Event: localhost",
+        "timestamp": "2025-09-26T03:50:46.192Z",
+        "location": {
+          "url": "https://plausible.io/js/script.js",
+          "lineNumber": 0,
+          "columnNumber": 1888
+        }
+      }
+    ],
+    "networkErrors": [],
+    "jsErrors": [],
+    "resourceFailures": [
+      {
+        "type": "request-failed",
+        "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-0TGKD1S1HB&gtm=45je59n2v9229639773za200zd9229639773&_p=1758858646166&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=588574100.1758858649&ul=en-us&sr=1280x720&uaa=x86&uab=64&uafvl=Chromium%3B139.0.7258.5%7CNot%253BA%253DBrand%3B99.0.0.0&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_s=1&tag_exp=101509157~102015666~103116026~103200004~103233427~104527907~104528500~104684208~104684211~104948813~115480709&sid=1758858648&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2F&dt=Strata%20Noble%20-%20Transform%20Your%20Passion%20Into%20Profit&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=3923",
+        "failure": "net::ERR_ABORTED",
+        "method": "POST",
+        "timestamp": "2025-09-26T03:50:49.317Z"
+      }
+    ],
+    "windowErrors": []
+  }
+}

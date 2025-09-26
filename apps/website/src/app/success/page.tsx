@@ -119,7 +119,7 @@ function SuccessContent() {
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
-                    href="https://calendly.com/stratanoble/discovery"
+                    href="https://calendly.com/contact-stratanoble/30min"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-8 py-3 bg-[#50C878] hover:bg-[#3DB067] text-white font-medium rounded-lg transition-colors flex items-center justify-center"

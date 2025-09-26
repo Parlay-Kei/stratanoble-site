@@ -61,7 +61,7 @@ export default function ThankYouPage() {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-2">Spread the word</h2>
         <p>Know someone who wants to build a side hustle? Share this link:<br />
-          <span className="bg-gray-100 px-2 py-1 rounded text-sm select-all">https://calendly.com/stratanoble/workshop</span>
+          <span className="bg-gray-100 px-2 py-1 rounded text-sm select-all">https://calendly.com/contact-stratanoble/30min</span>
         </p>
       </section>
       <hr className="my-8" />

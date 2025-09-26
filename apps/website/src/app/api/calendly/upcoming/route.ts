@@ -38,7 +38,7 @@ function getEventTypeSlugFromUrl(calendlyUrl: string): string | null {
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const eventTypeUrl = searchParams.get('event_type_url') || 'https://calendly.com/stratanoble/side-hustle';
+  const eventTypeUrl = searchParams.get('event_type_url') || 'https://calendly.com/contact-stratanoble/30min';
   
   try {
     if (!CALENDLY_TOKEN) {

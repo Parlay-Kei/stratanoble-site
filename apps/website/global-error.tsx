@@ -16,8 +16,11 @@ export default function GlobalError({
     // Report to Sentry if available
     if (typeof window !== 'undefined') {
       try {
-        const Sentry = require('@sentry/nextjs')
-        Sentry.captureException(error)
+        import('@sentry/nextjs').then((Sentry) => {
+          Sentry.captureException(error)
+        }).catch((sentryError) => {
+          console.error('Failed to report error to Sentry:', sentryError)
+        })
       } catch (sentryError) {
         console.error('Failed to report error to Sentry:', sentryError)
       }

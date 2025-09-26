@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Browser Test for Runtime Errors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007cba;
+        }
+        .success { border-left-color: #28a745; background: #d4edda; }
+        .warning { border-left-color: #ffc107; background: #fff3cd; }
+        .error { border-left-color: #dc3545; background: #f8d7da; }
+        .code {
+            background: #f8f9fa;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            border-radius: 3px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        button {
+            background: #007cba;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #005a8b;
+        }
+        #results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Manual Browser Test for Runtime Errors</h1>
+
+    <div class="instructions">
+        <h2>📋 Test Instructions</h2>
+        <p>This page will help you manually test for the "Cannot read properties of undefined (reading 'call')" runtime error and hydration issues.</p>
+
+        <h3>Method 1: Direct Console Testing</h3>
+        <ol>
+            <li>Open <strong>localhost:3000</strong> in a new tab</li>
+            <li>Press <strong>F12</strong> to open Developer Tools</li>
+            <li>Go to the <strong>Console</strong> tab</li>
+            <li>Look for any red error messages</li>
+            <li>Copy and paste the script below into the console</li>
+            <li>Press Enter and wait 3 seconds for the full report</li>
+        </ol>
+
+        <div class="code" id="testScript">
+// Browser Console Runtime Error Detection Test
+// Copy and paste this entire script into the browser console
+
+(function() {
+    console.log('🚀 Starting Browser Console Runtime Error Test');
+    console.log('='.repeat(50));
+
+    const testResults = {
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        errors: [],
+        warnings: [],
+        hydrationStatus: 'unknown',
+        reactStatus: 'unknown',
+        nextjsStatus: 'unknown',
+        interactivityTest: {},
+        consoleErrorsDetected: []
+    };
+
+    // Override console.error to catch runtime errors
+    const originalConsoleError = console.error;
+    const detectedErrors = [];
+
+    console.error = function(...args) {
+        const errorMessage = args.join(' ');
+
+        detectedErrors.push({
+            message: errorMessage,
+            timestamp: new Date().toISOString(),
+            stack: new Error().stack
+        });
+
+        // Check for specific runtime error
+        if (errorMessage.includes('Cannot read properties of undefined (reading \'call\')')) {
+            console.log('❌ TARGET RUNTIME ERROR DETECTED:', errorMessage);
+            testResults.errors.push({
+                type: 'target-runtime-error',
+                message: errorMessage,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        // Check for hydration errors
+        if (errorMessage.includes('hydration') || errorMessage.includes('Hydration')) {
+            console.log('🔥 HYDRATION ERROR DETECTED:', errorMessage);
+            testResults.errors.push({
+                type: 'hydration-error',
+                message: errorMessage,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        // Call original console.error
+        originalConsoleError.apply(console, args);
+    };
+
+    // Test 1: Check React/Next.js Status
+    function checkFrameworkStatus() {
+        console.log('\n📊 Checking Framework Status...');
+
+        // Check React
+        if (typeof window.React !== 'undefined') {
+            testResults.reactStatus = `loaded-${window.React.version || 'unknown'}`;
+            console.log('✅ React is loaded:', window.React.version || 'unknown version');
+        } else {
+            testResults.reactStatus = 'not-loaded';
+            console.log('⚠️ React is not detected in global scope');
+        }
+
+        // Check Next.js elements
+        const nextRoot = document.getElementById('__next');
+        const reactRoot = document.querySelector('[data-reactroot]');
+
+        if (nextRoot || reactRoot) {
+            testResults.nextjsStatus = 'elements-found';
+            console.log('✅ Next.js/React root elements found');
+        } else {
+            testResults.nextjsStatus = 'elements-missing';
+            testResults.warnings.push('Next.js/React root elements not found');
+            console.log('⚠️ Next.js/React root elements not found');
+        }
+
+        // Check for Next.js scripts
+        const nextScripts = Array.from(document.scripts).filter(script =>
+            script.src.includes('_next/static')
+        );
+
+        if (nextScripts.length > 0) {
+            console.log(`✅ Found ${nextScripts.length} Next.js scripts`);
+        } else {
+            testResults.warnings.push('No Next.js scripts found');
+            console.log('⚠️ No Next.js scripts found');
+        }
+    }
+
+    // Test 2: Check Hydration Status
+    function checkHydrationStatus() {
+        console.log('\n💧 Checking Hydration Status...');
+
+        try {
+            // Check if body has content
+            const bodyContent = document.body.children.length;
+            const hasInteractiveElements = document.querySelectorAll('button, input, select, textarea, [onclick]').length;
+
+            if (bodyContent > 0) {
+                testResults.hydrationStatus = 'content-rendered';
+                console.log(`✅ Page has rendered content (${bodyContent} elements in body)`);
+            } else {
+                testResults.hydrationStatus = 'no-content';
+                testResults.errors.push({
+                    type: 'hydration-issue',
+                    message: 'No content rendered in body',
+                    timestamp: new Date().toISOString()
+                });
+                console.log('❌ No content rendered in body');
+            }
+
+            if (hasInteractiveElements > 0) {
+                console.log(`✅ Found ${hasInteractiveElements} interactive elements`);
+            } else {
+                testResults.warnings.push('No interactive elements found');
+                console.log('⚠️ No interactive elements found');
+            }
+
+        } catch (error) {
+            testResults.errors.push({
+                type: 'hydration-check-error',
+                message: error.message,
+                timestamp: new Date().toISOString()
+            });
+            console.error('❌ Error checking hydration status:', error);
+        }
+    }
+
+    // Test 3: Interactivity Test
+    function testInteractivity() {
+        console.log('\n🖱️ Testing Basic Interactivity...');
+
+        const interactivityResults = {
+            navigationLinks: 0,
+            buttons: 0,
+            forms: 0,
+            clickHandlers: 0
+        };
+
+        try {
+            // Test navigation links
+            const navLinks = document.querySelectorAll('nav a, header a');
+            interactivityResults.navigationLinks = navLinks.length;
+            console.log(`📍 Found ${navLinks.length} navigation links`);
+
+            // Test buttons
+            const buttons = document.querySelectorAll('button');
+            interactivityResults.buttons = buttons.length;
+            console.log(`🔘 Found ${buttons.length} buttons`);
+
+            // Test forms
+            const forms = document.querySelectorAll('form');
+            interactivityResults.forms = forms.length;
+            console.log(`📝 Found ${forms.length} forms`);
+
+            // Test elements with click handlers
+            const clickableElements = document.querySelectorAll('[onclick], [data-testid]');
+            interactivityResults.clickHandlers = clickableElements.length;
+            console.log(`⚡ Found ${clickableElements.length} elements with click handlers`);
+
+            testResults.interactivityTest = interactivityResults;
+
+        } catch (error) {
+            testResults.errors.push({
+                type: 'interactivity-test-error',
+                message: error.message,
+                timestamp: new Date().toISOString()
+            });
+            console.error('❌ Error testing interactivity:', error);
+        }
+    }
+
+    // Generate Test Report
+    function generateReport() {
+        console.log('\n📊 BROWSER CONSOLE TEST REPORT');
+        console.log('='.repeat(40));
+        console.log(`🕒 Timestamp: ${testResults.timestamp}`);
+        console.log(`🔗 URL: ${testResults.url}`);
+
+        console.log('\n🔍 STATUS SUMMARY:');
+        console.log(`React Status: ${testResults.reactStatus}`);
+        console.log(`Next.js Status: ${testResults.nextjsStatus}`);
+        console.log(`Hydration Status: ${testResults.hydrationStatus}`);
+
+        console.log('\n📊 INTERACTIVITY:');
+        console.log(`Navigation Links: ${testResults.interactivityTest.navigationLinks || 0}`);
+        console.log(`Buttons: ${testResults.interactivityTest.buttons || 0}`);
+        console.log(`Forms: ${testResults.interactivityTest.forms || 0}`);
+        console.log(`Click Handlers: ${testResults.interactivityTest.clickHandlers || 0}`);
+
+        console.log('\n🎯 ERROR ANALYSIS:');
+        console.log(`Total Errors: ${testResults.errors.length}`);
+        console.log(`Total Warnings: ${testResults.warnings.length}`);
+        console.log(`Console Errors: ${detectedErrors.length}`);
+
+        if (testResults.errors.length > 0) {
+            console.log('\n❌ ERRORS FOUND:');
+            testResults.errors.forEach((error, index) => {
+                console.log(`${index + 1}. [${error.type}] ${error.message}`);
+            });
+        }
+
+        if (testResults.warnings.length > 0) {
+            console.log('\n⚠️ WARNINGS:');
+            testResults.warnings.forEach((warning, index) => {
+                console.log(`${index + 1}. ${warning}`);
+            });
+        }
+
+        if (detectedErrors.length > 0) {
+            console.log('\n❌ CONSOLE ERRORS DETECTED:');
+            detectedErrors.forEach((error, index) => {
+                console.log(`${index + 1}. ${error.message}`);
+            });
+        }
+
+        // Final verdict
+        const hasTargetError = testResults.errors.some(error => error.type === 'target-runtime-error');
+        const hasHydrationErrors = testResults.errors.some(error => error.type === 'hydration-error');
+
+        console.log('\n🎯 FINAL VERDICT:');
+        if (!hasTargetError && !hasHydrationErrors && testResults.errors.length === 0 && detectedErrors.length === 0) {
+            console.log('🎉 SUCCESS: No "Cannot read properties of undefined (reading \'call\')" error detected!');
+            console.log('✅ No hydration errors detected');
+            console.log('✅ No console errors detected');
+            console.log('✅ Client-side functionality appears to be working');
+        } else {
+            if (hasTargetError) {
+                console.log('❌ TARGET RUNTIME ERROR DETECTED: "Cannot read properties of undefined (reading \'call\')" error found');
+            }
+            if (hasHydrationErrors) {
+                console.log('❌ HYDRATION ERRORS DETECTED');
+            }
+            if (detectedErrors.length > 0) {
+                console.log(`❌ ${detectedErrors.length} console errors detected`);
+            }
+            if (testResults.errors.length > 0) {
+                console.log(`❌ ${testResults.errors.length} total errors found`);
+            }
+        }
+
+        // Restore original console.error
+        console.error = originalConsoleError;
+
+        // Return results for programmatic access
+        window.browserTestResults = testResults;
+        console.log('\n💾 Results saved to window.browserTestResults');
+
+        return testResults;
+    }
+
+    // Run all tests in sequence
+    function runAllTests() {
+        try {
+            checkFrameworkStatus();
+            checkHydrationStatus();
+            testInteractivity();
+
+            // Wait a bit to catch any delayed errors
+            setTimeout(() => {
+                generateReport();
+            }, 2000);
+
+        } catch (error) {
+            console.error('❌ Test execution failed:', error);
+            testResults.errors.push({
+                type: 'test-execution-error',
+                message: error.message,
+                timestamp: new Date().toISOString()
+            });
+            generateReport();
+        }
+    }
+
+    // Start the test
+    runAllTests();
+
+    console.log('\n⏳ Test running... Full report will be available in 2 seconds');
+})();
+        </div>
+
+        <button onclick="copyScript()">📋 Copy Script to Clipboard</button>
+        <button onclick="openLocalhost()">🔗 Open localhost:3000</button>
+    </div>
+
+    <div class="test-section">
+        <h3>Method 2: Embedded Test (Limited)</h3>
+        <p>This will load localhost:3000 in an iframe below. Note that some functionality may be limited due to browser security policies.</p>
+
+        <button onclick="loadIframe()">🔄 Load localhost:3000 in iframe</button>
+        <button onclick="runEmbeddedTest()">🧪 Run Embedded Test</button>
+
+        <iframe id="testFrame" style="display: none;"></iframe>
+    </div>
+
+    <div class="test-section">
+        <h3>🔍 What to Look For</h3>
+        <ul>
+            <li><strong>Console Errors:</strong> Any red error messages in the developer console</li>
+            <li><strong>Target Error:</strong> "Cannot read properties of undefined (reading 'call')"</li>
+            <li><strong>Hydration Errors:</strong> Messages containing "hydration" or "Hydration"</li>
+            <li><strong>White Screen:</strong> Page loading but showing blank content</li>
+            <li><strong>Broken Functionality:</strong> Buttons, links, or forms not working</li>
+        </ul>
+    </div>
+
+    <div id="results" style="display: none;">
+        <h3>📊 Test Results</h3>
+        <div id="resultContent"></div>
+    </div>
+
+    <script>
+        function copyScript() {
+            const script = document.getElementById('testScript').textContent;
+            navigator.clipboard.writeText(script).then(() => {
+                alert('✅ Script copied to clipboard! Now open localhost:3000 and paste it in the browser console.');
+            }).catch(() => {
+                alert('❌ Failed to copy to clipboard. Please select and copy the script manually.');
+            });
+        }
+
+        function openLocalhost() {
+            window.open('http://localhost:3000', '_blank');
+        }
+
+        function loadIframe() {
+            const iframe = document.getElementById('testFrame');
+            iframe.src = 'http://localhost:3000';
+            iframe.style.display = 'block';
+
+            iframe.onload = function() {
+                document.getElementById('results').style.display = 'block';
+                document.getElementById('resultContent').innerHTML =
+                    '✅ Iframe loaded successfully\n' +
+                    '🔗 URL: ' + iframe.src + '\n' +
+                    '📊 Ready for embedded testing\n\n' +
+                    'Note: Due to security restrictions, embedded testing has limitations.\n' +
+                    'For best results, use Method 1 (Direct Console Testing).';
+            };
+
+            iframe.onerror = function() {
+                document.getElementById('results').style.display = 'block';
+                document.getElementById('resultContent').innerHTML =
+                    '❌ Failed to load iframe\n' +
+                    '🔗 URL: ' + iframe.src + '\n' +
+                    '💡 Try Method 1 (Direct Console Testing) instead.';
+            };
+        }
+
+        function runEmbeddedTest() {
+            const iframe = document.getElementById('testFrame');
+
+            if (!iframe.src) {
+                alert('Please load the iframe first using "Load localhost:3000 in iframe" button');
+                return;
+            }
+
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('resultContent').innerHTML =
+                '⏳ Running embedded test...\n\n' +
+                'Note: Embedded testing is limited due to browser security policies.\n' +
+                'The iframe may not allow cross-origin script execution.\n\n' +
+                '💡 For complete testing, please use Method 1:\n' +
+                '1. Open localhost:3000 in a new tab\n' +
+                '2. Open Developer Tools (F12)\n' +
+                '3. Go to Console tab\n' +
+                '4. Copy and paste the script above\n' +
+                '5. Press Enter and wait for results';
+
+            try {
+                // This will likely fail due to CORS, but we'll try anyway
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                if (iframeDoc) {
+                    const testResults = {
+                        hasContent: iframeDoc.body.children.length > 0,
+                        hasScripts: iframeDoc.scripts.length > 0,
+                        hasNavigation: iframeDoc.querySelectorAll('nav').length > 0,
+                        hasButtons: iframeDoc.querySelectorAll('button').length > 0,
+                        url: iframe.src,
+                        timestamp: new Date().toISOString()
+                    };
+
+                    setTimeout(() => {
+                        document.getElementById('resultContent').innerHTML =
+                            '🔍 EMBEDDED TEST RESULTS\n' +
+                            '========================\n\n' +
+                            '🕒 Timestamp: ' + testResults.timestamp + '\n' +
+                            '🔗 URL: ' + testResults.url + '\n\n' +
+                            '📊 BASIC CHECKS:\n' +
+                            'Has Content: ' + (testResults.hasContent ? '✅ YES' : '❌ NO') + '\n' +
+                            'Has Scripts: ' + (testResults.hasScripts ? '✅ YES' : '❌ NO') + '\n' +
+                            'Has Navigation: ' + (testResults.hasNavigation ? '✅ YES' : '❌ NO') + '\n' +
+                            'Has Buttons: ' + (testResults.hasButtons ? '✅ YES' : '❌ NO') + '\n\n' +
+                            '⚠️ LIMITED TESTING: This embedded test cannot detect JavaScript runtime errors.\n' +
+                            '💡 For complete error detection, use Method 1 (Direct Console Testing).';
+                    }, 1000);
+                } else {
+                    throw new Error('Cannot access iframe content due to security restrictions');
+                }
+            } catch (error) {
+                setTimeout(() => {
+                    document.getElementById('resultContent').innerHTML =
+                        '❌ EMBEDDED TEST FAILED\n' +
+                        '=====================\n\n' +
+                        'Error: ' + error.message + '\n\n' +
+                        '🔒 This is likely due to browser security policies (CORS).\n' +
+                        '💡 Please use Method 1 (Direct Console Testing) for accurate results:\n\n' +
+                        '1. Click "Copy Script to Clipboard" above\n' +
+                        '2. Click "Open localhost:3000" to open a new tab\n' +
+                        '3. Press F12 to open Developer Tools\n' +
+                        '4. Go to Console tab\n' +
+                        '5. Paste the script and press Enter\n' +
+                        '6. Wait 3 seconds for the complete report';
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>

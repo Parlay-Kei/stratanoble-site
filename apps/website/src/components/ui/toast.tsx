@@ -1,13 +1,19 @@
 'use client';
 
+import React, { 
+  createContext, 
+  useCallback, 
+  useContext, 
+  useEffect, 
+  useState 
+} from 'react';
 import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { AnimatePresence,motion } from 'framer-motion';
-import { useEffect,useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 
@@ -84,7 +90,6 @@ function ToastComponent({ toast, onDismiss }: ToastProps) {
 }
 
 // Toast context and provider
-import { createContext, useCallback,useContext } from 'react';
 
 interface ToastContextType {
   showToast: (toast: Omit<Toast, 'id'>) => void;

@@ -48,7 +48,7 @@ export default async function WorkshopsPage() {
         
         {events.length > 0 ? (
           <div className="max-w-4xl mx-auto">
-            <CalendlyWidget url="https://calendly.com/stratanoble/side-hustle" />
+            <CalendlyWidget url="https://calendly.com/contact-stratanoble/30min" />
           </div>
         ) : (
           <WaitlistFallback />

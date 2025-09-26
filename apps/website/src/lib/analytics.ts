@@ -59,25 +59,6 @@ export const ANALYTICS_EVENTS = {
   NEWSLETTER_SIGNUP: 'newsletter_signup',
 } as const;
 
-// Initialize Plausible analytics
-export function initAnalytics(): void {
-  if (typeof window !== 'undefined') {
-    // Add Plausible script if not already present
-    if (!window.plausible) {
-      const script = document.createElement('script');
-      script.async = true;
-      script.defer = true;
-      script.setAttribute('data-domain', 'stratanoble.com');
-      script.src = 'https://plausible.io/js/script.js';
-      document.head.appendChild(script);
-      
-      // Initialize plausible function
-      window.plausible = function(_eventName: string, _options?: PlausibleOptions) {
-        // console.log('Plausible event:', _eventName, _options);
-      };
-    }
-  }
-}
 
 // Track a custom event
 export function trackEvent(event: AnalyticsEvent): void {
@@ -182,6 +163,10 @@ export function trackScrollDepth(depth: number): void {
 
 // Track page view
 export function trackPageView(page: string, properties?: Record<string, string | number | boolean>): void {
+  if (typeof window === 'undefined' || typeof document === 'undefined' || typeof navigator === 'undefined') {
+    return;
+  }
+  
   trackEvent({
     name: ANALYTICS_EVENTS.PAGE_VIEW,
     category: 'navigation',
@@ -255,30 +240,65 @@ export function getCurrentPage(): string {
 
 // Auto-track page views
 export function autoTrackPageViews(): void {
-  if (typeof window !== 'undefined') {
+  if (typeof window === 'undefined' || typeof document === 'undefined' || typeof MutationObserver === 'undefined') {
+    return;
+  }
+
+  try {
     // Track initial page view
     trackPageView(getCurrentPage());
-    
+
     // Track navigation changes (for SPA)
     let currentPage = getCurrentPage();
-    
+
     const observer = new MutationObserver(() => {
-      const newPage = getCurrentPage();
-      if (newPage !== currentPage) {
-        currentPage = newPage;
-        trackPageView(currentPage);
+      try {
+        const newPage = getCurrentPage();
+        if (newPage !== currentPage) {
+          currentPage = newPage;
+          trackPageView(currentPage);
+        }
+      } catch (error) {
+        console.warn('Error tracking page view:', error);
       }
     });
-    
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
+
+    if (document.body) {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    }
+  } catch (error) {
+    console.warn('Error initializing auto-tracking:', error);
   }
 }
 
 // Initialize analytics on app start
 export function initializeAnalytics(): void {
-  initAnalytics();
-  autoTrackPageViews();
+  // Add safety checks to prevent hydration errors
+  if (typeof window === 'undefined') return;
+
+  // Initialize Plausible analytics
+  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    // Add Plausible script if not already present
+    if (!window.plausible) {
+      const script = document.createElement('script');
+      script.async = true;
+      script.defer = true;
+      script.setAttribute('data-domain', 'stratanoble.com');
+      script.src = 'https://plausible.io/js/script.js';
+      document.head.appendChild(script);
+
+      // Initialize plausible function
+      window.plausible = function(_eventName: string, _options?: PlausibleOptions) {
+        // console.log('Plausible event:', _eventName, _options);
+      };
+    }
+  }
+
+  // Defer auto-tracking to avoid hydration issues
+  setTimeout(() => {
+    autoTrackPageViews();
+  }, 0);
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react'
 import { motion } from 'framer-motion';
 import { ChatBubbleLeftRightIcon, MagnifyingGlassIcon, DocumentTextIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 

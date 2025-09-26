@@ -1,0 +1,9 @@
+{
+  "serverTimeout": 180000,
+  "connectionRetries": 5,
+  "retryDelay": 5000,
+  "traceEnabled": true,
+  "videoEnabled": true,
+  "screenshotEnabled": true,
+  "preserveOutput": true
+}

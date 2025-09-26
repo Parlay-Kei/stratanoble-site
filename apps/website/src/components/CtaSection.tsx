@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react'
 import { ArrowRightIcon, HeartIcon, SparklesIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { motion } from 'framer-motion';

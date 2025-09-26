@@ -1,6 +1,8 @@
 // Conditional Stripe imports to prevent build failures
 // Only import Stripe when environment variables are available
 
+import Stripe from 'stripe';
+
 let stripe: any = null;
 
 export const getStripe = () => {
@@ -8,9 +10,8 @@ export const getStripe = () => {
     // Server-side: only initialize if environment variable exists
     if (process.env.STRIPE_SECRET_KEY) {
       if (!stripe) {
-        const Stripe = require('stripe');
         stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-          apiVersion: '2023-10-16',
+          apiVersion: '2025-07-30.basil',
         });
       }
     }

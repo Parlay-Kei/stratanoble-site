@@ -1,0 +1,184 @@
+{
+  "timestamp": "2025-09-25T13:23:48.403Z",
+  "serverAccessible": true,
+  "pages": {
+    "/": {
+      "path": "/",
+      "name": "Homepage",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 169,
+      "contentLength": 65410,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    },
+    "/about": {
+      "path": "/about",
+      "name": "About Page",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 1104,
+      "contentLength": 90955,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    },
+    "/contact": {
+      "path": "/contact",
+      "name": "Contact Page",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 1461,
+      "contentLength": 77372,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    },
+    "/services": {
+      "path": "/services",
+      "name": "Services Page",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 880,
+      "contentLength": 80725,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    },
+    "/methodology": {
+      "path": "/methodology",
+      "name": "Methodology Page",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 1694,
+      "contentLength": 243931,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    },
+    "/technology": {
+      "path": "/technology",
+      "name": "Technology Page",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 1846,
+      "contentLength": 372309,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    },
+    "/case-studies": {
+      "path": "/case-studies",
+      "name": "Case Studies Page",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 955,
+      "contentLength": 87007,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    },
+    "/discovery": {
+      "path": "/discovery",
+      "name": "Discovery Page",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 1865,
+      "contentLength": 70219,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    },
+    "/achievery-preview": {
+      "path": "/achievery-preview",
+      "name": "ACHIEVERY Preview Page",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 1550,
+      "contentLength": 248346,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    },
+    "/workshops": {
+      "path": "/workshops",
+      "name": "Workshops Page",
+      "accessible": true,
+      "statusCode": 200,
+      "loadTime": 1409,
+      "contentLength": 66980,
+      "hasReactElements": false,
+      "hasNextElements": false,
+      "hasScripts": true,
+      "hasNavigation": true,
+      "errors": [],
+      "warnings": [
+        "Contains error-related content",
+        "Missing Next.js root elements"
+      ]
+    }
+  },
+  "errors": [],
+  "summary": {
+    "totalPages": 10,
+    "successfulPages": 10,
+    "errorPages": 0,
+    "serverErrors": [],
+    "htmlParsingErrors": []
+  }
+}
