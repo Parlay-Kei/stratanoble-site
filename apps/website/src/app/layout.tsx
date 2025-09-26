@@ -1,5 +1,6 @@
 import './globals.css';
 
+import React from 'react'
 import type { Metadata } from 'next';
 import { Bitter, Inter } from 'next/font/google';
 import Script from 'next/script';
@@ -7,9 +8,8 @@ import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
 import { Footer } from '@/components/Footer';
-import { HeaderSimple } from '@/components/HeaderSimple';
+import { Header } from '@/components/Header';
 import { ToastProvider } from '@/components/ui/toast';
-import RouteGuard from '@/components/RouteGuard';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -178,31 +178,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify(organizationSchema),
           }}
         />
-        {/* Google Analytics */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-0TGKD1S1HB"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-0TGKD1S1HB');
-            `,
-          }}
-        />
+        {/* Google Analytics - moved to Script components below */}
       </head>
       <body className="font-sans antialiased pt-12">
-        <HeaderSimple />
+        <Header />
         <ToastProvider>
-          <RouteGuard>{children}</RouteGuard>
+          {children}
         </ToastProvider>
         <Footer />
         <Suspense fallback={null}>
           <Analytics />
         </Suspense>
+        {/* Google Analytics with Next.js Script component */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-0TGKD1S1HB"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-config" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-0TGKD1S1HB');
+          `}
+        </Script>
         <Script
           defer
           data-domain="stratanoble.com"

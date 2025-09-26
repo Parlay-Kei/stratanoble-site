@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-09-25T23:06:13.025Z",
+  "cleanupActions": [
+    "Cleaned pattern: tests/temp-*.json",
+    "Cleaned pattern: tests/*.tmp",
+    "Cleaned pattern: tests/mcp-temp-*",
+    "Cleaned pattern: tests/.playwright-*"
+  ],
+  "preservedFiles": [
+    "tests/test-session.json",
+    "tests/mcp-config.json",
+    "tests/reports/",
+    "tests/screenshots/",
+    "tests/videos/",
+    "tests/traces/",
+    "tests/mcp-logs/",
+    "tests/mcp-logs/connection-error.json"
+  ],
+  "errors": []
+}

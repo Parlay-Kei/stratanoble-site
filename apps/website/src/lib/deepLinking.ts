@@ -14,21 +14,23 @@ export class DeepLinkManager {
   private static readonly ANDROID_PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.stratanoble.achievery'
   private static readonly DEEP_LINK_SCHEME = 'achievery'
   
-  static isIOS(): boolean {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent)
+  static isIOS(userAgent?: string): boolean {
+    const ua = userAgent || (typeof navigator !== 'undefined' ? navigator.userAgent : '')
+    return /iPad|iPhone|iPod/.test(ua)
   }
   
-  static isAndroid(): boolean {
-    return /Android/.test(navigator.userAgent)
+  static isAndroid(userAgent?: string): boolean {
+    const ua = userAgent || (typeof navigator !== 'undefined' ? navigator.userAgent : '')
+    return /Android/.test(ua)
   }
   
-  static isMobile(): boolean {
-    return this.isIOS() || this.isAndroid()
+  static isMobile(userAgent?: string): boolean {
+    return this.isIOS(userAgent) || this.isAndroid(userAgent)
   }
   
-  static getAppStoreUrl(): string {
-    if (this.isIOS()) return this.IOS_APP_STORE_URL
-    if (this.isAndroid()) return this.ANDROID_PLAY_STORE_URL
+  static getAppStoreUrl(userAgent?: string): string {
+    if (this.isIOS(userAgent)) return this.IOS_APP_STORE_URL
+    if (this.isAndroid(userAgent)) return this.ANDROID_PLAY_STORE_URL
     return this.IOS_APP_STORE_URL // Default fallback
   }
   
@@ -294,6 +296,10 @@ export function handleAppLink(request: Request): Response | null {
     const appPath = url.searchParams.get('app_path') || 'dashboard'
     const deepLink = DeepLinkManager.createDeepLink({ path: appPath })
     
+    // Get user agent from request headers for server-side detection
+    const userAgent = (request as any).headers?.get?.('user-agent') || ''
+    const appStoreUrl = DeepLinkManager.getAppStoreUrl(userAgent)
+    
     // Create HTML response that attempts to open mobile app
     const html = `
       <!DOCTYPE html>
@@ -347,7 +353,7 @@ export function handleAppLink(request: Request): Response | null {
             <div class="spinner"></div>
             <h1>Opening ACHIEVERY...</h1>
             <p>If the app doesn't open automatically, tap the link below:</p>
-            <a href="${DeepLinkManager.getAppStoreUrl()}" class="fallback-link">
+            <a href="${appStoreUrl}" class="fallback-link">
               Download ACHIEVERY App
             </a>
           </div>
@@ -358,7 +364,7 @@ export function handleAppLink(request: Request): Response | null {
             // Fallback to app store after 3 seconds
             setTimeout(() => {
               if (!document.hidden) {
-                window.location.href = "${DeepLinkManager.getAppStoreUrl()}";
+                window.location.href = "${appStoreUrl}";
               }
             }, 3000);
           </script>

@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react'
 import { motion } from 'framer-motion';
 import { EyeIcon, ChartBarIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 

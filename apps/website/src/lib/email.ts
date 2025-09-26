@@ -231,7 +231,7 @@ class EmailService {
           </div>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="https://calendly.com/stratanoble/discovery" 
+            <a href="https://calendly.com/contact-stratanoble/30min"
                style="display: inline-block; background: #047857; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
               Schedule Your Discovery Call
             </a>
@@ -315,7 +315,7 @@ class EmailService {
             <ol style="color: #666; line-height: 1.8; margin: 0; padding-left: 20px;">
               <li><strong>Development Updates</strong> - Regular progress reports and sneak peeks</li>
               <li><strong>Beta Testing Invitation</strong> - Try features before anyone else</li>
-              <li><strong>Launch Notification</strong> - Priority access when we go live (Q1 2025)</li>
+              <li><strong>Launch Notification</strong> - Priority access when we go live (Q1 2026)</li>
             </ol>
           </div>
 

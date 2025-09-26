@@ -225,7 +225,7 @@ export default function AchieveryEarlyAccessPage() {
           <div className="mt-12 p-6 bg-emerald-50 rounded-2xl border border-emerald-200">
             <p className="text-emerald-800 font-medium">
               <SparklesIcon className="h-5 w-5 mr-2 inline" />
-              Expected Launch: Q1 2025 - Early access members get 30-day head start
+              Expected Launch: Q1 2026 - Early access members get 30-day head start
             </p>
           </div>
         </div>

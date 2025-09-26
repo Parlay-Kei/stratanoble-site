@@ -161,7 +161,10 @@
       "mcp__playwright__browser_close",
       "Bash(npm cache:*)",
       "Bash(where yarn)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(findstr:*)",
+      "Bash(PORT=3000 npx next dev)",
+      "WebFetch(domain:localhost)"
     ],
     "deny": [],
     "additionalDirectories": [

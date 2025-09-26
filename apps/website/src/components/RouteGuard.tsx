@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { checkRouteAccess, getUserTier, type UserTier } from '@/lib/auth-guard'
@@ -19,15 +20,8 @@ export default function RouteGuard({ children }: RouteGuardProps) {
     async function checkAccess() {
       try {
         // Check if this is a public route first - no auth needed
-        const publicRoutes = ['/', '/pricing', '/contact', '/about', '/services']
-        if (pathname && publicRoutes.includes(pathname)) {
-          setAccessDenied(null)
-          setLoading(false)
-          return
-        }
-
-        // For development mode, skip auth checks on public routes
-        if (process.env.NODE_ENV === 'development' && pathname && publicRoutes.includes(pathname)) {
+        const publicRoutes = ['/', '/pricing', '/contact', '/about', '/services', '/case-studies', '/data-analysis', '/methodology', '/technology', '/portfolio', '/workshops', '/discovery', '/success', '/achievery-preview', '/achievery-early-access']
+        if (pathname && publicRoutes.some(route => pathname.startsWith(route))) {
           setAccessDenied(null)
           setLoading(false)
           return

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function AchieveryAuth() {
   const [isLogin, setIsLogin] = useState(true)
@@ -58,10 +59,13 @@ export default function AchieveryAuth() {
               <span>Back to Strata Noble</span>
             </Link>
             <div className="flex items-center space-x-3">
-              <img
+              <Image
                 src="/stratanoble_logoICON.svg"
                 alt="Strata Noble"
+                width={32}
+                height={32}
                 className="h-8 w-auto"
+                priority
               />
               <h1 className="text-xl font-bold text-gray-900">ACHIEVERY</h1>
             </div>

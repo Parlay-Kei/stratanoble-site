@@ -272,7 +272,7 @@ Prefer to talk? {CTA_LABELS.SCHEDULE_CALL}
             </p>
             <button
               onClick={() => openModal(
-                'https://calendly.com/stratanoble/intro-call?hide_event_type_details=1&hide_gdpr_banner=1',
+                'https://calendly.com/contact-stratanoble/30min?hide_event_type_details=1',
 CTA_LABELS.SCHEDULE_CONSULTATION
               )}
               className="btn-primary btn-lg shadow-lg hover:shadow-xl transition-all duration-300"

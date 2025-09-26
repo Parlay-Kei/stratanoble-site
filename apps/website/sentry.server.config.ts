@@ -49,5 +49,7 @@ export function init() {
   });
 }
 
-// Initialize immediately for backward compatibility
-init();
+// Initialize conditionally to avoid issues
+if (process.env.SENTRY_DSN) {
+  init();
+}

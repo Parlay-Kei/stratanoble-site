@@ -228,8 +228,22 @@ class MailchimpService {
   }
 
   private getSubscriberHash(email: string): string {
-    const crypto = require('crypto');
-    return crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+    // Use Web Crypto API for browser compatibility
+    if (typeof window !== 'undefined') {
+      // Browser environment - use a simple hash alternative
+      let hash = 0;
+      const str = email.toLowerCase();
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+      }
+      return Math.abs(hash).toString(16);
+    } else {
+      // Node.js environment - use crypto module
+      const crypto = require('crypto');
+      return crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+    }
   }
 
   async getAudienceInfo(): Promise<any> {

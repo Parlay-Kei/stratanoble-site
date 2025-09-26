@@ -35,6 +35,12 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error): Partial<State> {
+    // Skip React DevTools internal errors in development
+    if (process.env.NODE_ENV === 'development' &&
+        error.message.includes('recentlyCreatedOwnerStacks')) {
+      return { hasError: false };
+    }
+
     // Update state so the next render will show the fallback UI
     return {
       hasError: true,
@@ -43,6 +49,14 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    // Skip React DevTools internal errors in development
+    if (process.env.NODE_ENV === 'development' &&
+        error.message.includes('recentlyCreatedOwnerStacks')) {
+      console.warn('React DevTools internal error suppressed:', error.message);
+      this.setState({ hasError: false, error: null, errorInfo: null });
+      return;
+    }
+
     // Capture error with Sentry
     const eventId = Sentry.captureException(error, {
       contexts: {

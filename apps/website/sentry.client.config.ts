@@ -54,5 +54,7 @@ export function init() {
   });
 }
 
-// Initialize immediately for backward compatibility
-init();
+// Initialize conditionally to avoid issues
+if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_SENTRY_DSN) {
+  init();
+}

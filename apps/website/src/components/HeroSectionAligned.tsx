@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react'
 import { motion } from 'framer-motion';
 import { ArrowRightIcon, ChartBarIcon, LightBulbIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';
@@ -26,7 +27,7 @@ export function HeroSectionAligned() {
       setCurrentStatIndex((prev) => (prev + 1) % marketStats.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [marketStats.length]);
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-navy via-navy/95 to-emerald-900/20">

@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 // Force recompilation after syntax fixes
 import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'

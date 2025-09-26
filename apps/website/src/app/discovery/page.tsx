@@ -689,7 +689,10 @@ export default function DiscoveryPage() {
             {/* Step Header */}
             <div className="text-center mb-12">
               <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${steps[currentStep - 1].color} mb-6`}>
-                {React.createElement(steps[currentStep - 1].icon, { className: "h-8 w-8 text-white" })}
+                {(() => {
+                  const IconComponent = steps[currentStep - 1]?.icon;
+                  return IconComponent ? <IconComponent className="h-8 w-8 text-white" /> : null;
+                })()}
               </div>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
                 {steps[currentStep - 1].title}

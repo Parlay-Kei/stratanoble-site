@@ -32,7 +32,7 @@ export const services = [
     ],
     ctaPrimary: 'Book Free Discovery',
     ctaSecondary: 'Download One-Pager',
-    calendlyLink: 'https://calendly.com/stratanoble/discovery',
+    calendlyLink: 'https://calendly.com/contact-stratanoble/30min',
     category: 'strategy'
   },
   {
@@ -63,7 +63,7 @@ export const services = [
     ],
     ctaPrimary: 'View Upcoming Workshops',
     ctaSecondary: 'Join Waitlist',
-    calendlyLink: 'https://calendly.com/stratanoble/workshop',
+    calendlyLink: 'https://calendly.com/contact-stratanoble/30min',
     category: 'education'
   },
   {
@@ -93,7 +93,7 @@ export const services = [
     ],
     ctaPrimary: 'Request Sample Analysis',
     ctaSecondary: 'View Case Studies',
-    calendlyLink: 'https://calendly.com/stratanoble/data-analysis',
+    calendlyLink: 'https://calendly.com/contact-stratanoble/30min',
     category: 'analytics'
   },
   {
@@ -128,7 +128,7 @@ export const services = [
     ],
     ctaPrimary: 'Get Custom Quote',
     ctaSecondary: 'View Portfolio',
-    calendlyLink: 'https://calendly.com/stratanoble/brand-consultation',
+    calendlyLink: 'https://calendly.com/contact-stratanoble/30min',
     category: 'branding'
   },
 ];
