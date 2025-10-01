@@ -7,6 +7,15 @@ import { useState, useEffect } from 'react';
 import { Logo } from './Logo';
 import { publicConfig } from '@/lib/public-config';
 
+// Error boundary wrapper
+function SafeMotion({ children, ...props }: any) {
+  try {
+    return <motion.div {...props}>{children}</motion.div>;
+  } catch (error) {
+    return <div>{children}</div>;
+  }
+}
+
 export function HeroSectionAligned() {
   const [currentStatIndex, setCurrentStatIndex] = useState(0);
   
@@ -62,14 +71,14 @@ export function HeroSectionAligned() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center space-y-8">
           {/* Logo */}
-          <motion.div
+          <SafeMotion
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex justify-center mb-8"
           >
             <Logo variant="full" className="h-64 w-auto" theme="white" />
-          </motion.div>
+          </SafeMotion>
 
           {/* Main Headline */}
           <motion.div

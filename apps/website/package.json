@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env PORT=3000 next dev",
+    "dev:debug": "cross-env PORT=3000 NODE_OPTIONS='--inspect' next dev",
     "dev:fast": "cross-env PORT=8080 NODE_ENV=development next dev --turbo",
     "dev:8080": "cross-env PORT=8080 next dev",
     "build": "next build",
@@ -61,7 +62,7 @@
     "framer-motion": "^12.23.0",
     "isomorphic-dompurify": "^2.26.0",
     "lucide-react": "^0.536.0",
-    "next": "15.5.2",
+    "next": "14.2.18",
     "next-auth": "^4.24.11",
     "pino": "^9.7.0",
     "prisma": "^6.13.0",
@@ -99,8 +100,8 @@
     "@types/mysql": "^2.15.27",
     "@types/node": "^24.0.10",
     "@types/phoenix": "^1.6.6",
-    "@types/react": "^18.3.24",
-    "@types/react-dom": "^18.3.7",
+    "@types/react": "^19.1.17",
+    "@types/react-dom": "^19.1.11",
     "@types/supertest": "^6.0.3",
     "@types/tedious": "^4.0.14",
     "@types/trusted-types": "^2.0.7",
@@ -112,7 +113,7 @@
     "autoprefixer": "^10.4.21",
     "cross-env": "^7.0.3",
     "eslint": "^9.30.1",
-    "eslint-config-next": "15.5.2",
+    "eslint-config-next": "14.2.18",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",
@@ -138,7 +139,7 @@
     "npm": ">=10.8.0"
   },
   "overrides": {
-    "next": "15.5.2",
-    "eslint-config-next": "15.5.2"
+    "next": "14.2.18",
+    "eslint-config-next": "14.2.18"
   }
 }
