@@ -1,7 +1,7 @@
-'use client'
+﻿'use client'
 
 import { Suspense, useEffect, useState } from 'react';
-import { useAuth } from '../../../lib/auth';
+import { useAuth } from '../../providers';
 import { supabase } from '../../../lib/supabase';
 import { CrossPlatformIntegration } from '../../../components/achievery/CrossPlatformIntegration';
 
