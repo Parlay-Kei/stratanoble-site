@@ -12,9 +12,9 @@ export async function POST(request: NextRequest) {
       (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
     if (!hasSupabaseConfig && process.env.NODE_ENV === 'development') {
-      console.log('🧪 CRM API Development Mode - Supabase not configured');
-      console.log('📝 Lead data received:', JSON.stringify(body, null, 2));
-      
+      console.warn('[CRM] Supabase not configured; returning mock response');
+      console.warn('[CRM] Lead data received:', JSON.stringify(body, null, 2));
+
       return NextResponse.json({
         success: true,
         message: 'Lead created successfully (development mode - database not connected)',
@@ -79,7 +79,9 @@ export async function POST(request: NextRequest) {
         lead.main_challenge
       );
 
-      console.log(`Scheduled ${sequences.length} email sequences for lead ${lead.id}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(`Scheduled ${sequences.length} email sequences for lead ${lead.id}`);
+      }
     } catch (emailError) {
       console.error('Failed to schedule email sequences:', emailError);
       // Don't fail the lead creation if email scheduling fails
@@ -157,3 +159,6 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+
+
