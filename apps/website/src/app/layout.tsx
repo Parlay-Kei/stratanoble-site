@@ -1,3 +1,4 @@
+﻿import NextDynamic from 'next/dynamic';
 import './globals.css';
 
 import React from 'react'
@@ -6,10 +7,11 @@ import { Bitter, Inter } from 'next/font/google';
 import Script from 'next/script';
 import { Suspense } from 'react';
 
-import { Analytics } from '@/components/Analytics';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { ToastProvider } from '@/components/ui/toast';
+
+const AnalyticsClient = NextDynamic(() => import('@/components/Analytics').then(mod => mod.Analytics), { ssr: false });
 
 const inter = Inter({
   subsets: ['latin'],
@@ -24,6 +26,10 @@ const bitter = Bitter({
   variable: '--font-bitter',
   preload: true,
 });
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
 
 export const metadata: Metadata = {
   title: {
@@ -187,7 +193,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </ToastProvider>
         <Footer />
         <Suspense fallback={null}>
-          <Analytics />
+          <AnalyticsClient />
         </Suspense>
         {/* Google Analytics with Next.js Script component */}
         <Script
@@ -232,3 +238,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
+
+
+
+
+
+
+

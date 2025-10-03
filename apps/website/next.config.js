@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
 
@@ -17,18 +17,9 @@ const nextConfig = {
       tls: false,
     };
 
-    // Resolve React from the website's node_modules to prevent multiple instances
-    const reactPath = path.resolve(__dirname, 'node_modules/react');
-    const reactDomPath = path.resolve(__dirname, 'node_modules/react-dom');
-
-    // Force all packages to use the same React instance
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname, 'src'),
-      'react': reactPath,
-      'react-dom': reactDomPath,
-      'react/jsx-runtime': path.join(reactPath, 'jsx-runtime.js'),
-      'react/jsx-dev-runtime': path.join(reactPath, 'jsx-dev-runtime.js'),
     };
 
     // Ensure shared packages resolve modules from website's node_modules
@@ -64,3 +55,7 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+
+
+
