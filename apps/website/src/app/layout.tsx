@@ -1,4 +1,4 @@
-import NextDynamic from 'next/dynamic';
+﻿import NextDynamic from 'next/dynamic';
 import './globals.css';
 
 import React from 'react'
@@ -221,10 +221,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 window.addEventListener('load', function() {
                   navigator.serviceWorker.register('/sw.js')
                     .then(function(registration) {
-                      console.log('SW registered: ', registration);
+                      console.warn('SW registered: ', registration);
                     })
                     .catch(function(registrationError) {
-                      console.log('SW registration failed: ', registrationError);
+                      console.warn('SW registration failed: ', registrationError);
                     });
                 });
               }
@@ -235,3 +235,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
