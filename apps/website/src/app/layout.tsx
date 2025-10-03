@@ -1,4 +1,4 @@
-﻿import NextDynamic from 'next/dynamic';
+import NextDynamic from 'next/dynamic';
 import './globals.css';
 
 import React from 'react'
@@ -27,9 +27,6 @@ const bitter = Bitter({
   preload: true,
 });
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
 
 export const metadata: Metadata = {
   title: {
@@ -238,11 +235,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-
-
-
-
-
-
-
-
