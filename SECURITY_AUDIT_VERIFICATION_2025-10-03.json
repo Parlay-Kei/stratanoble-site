@@ -1,0 +1,925 @@
+{
+  "audit_metadata": {
+    "audit_date": "2025-10-03",
+    "audit_type": "Verification Audit - Confirming Previous Findings",
+    "platform": "StrataNoble SaaS Platform (Website + ACHIEVERY Platform + Mobile)",
+    "auditor": "Security Audit Agent",
+    "scope": "Production readiness verification with focus on previously identified vulnerabilities"
+  },
+  "executive_summary": {
+    "status": "critical_issues_found",
+    "total_vulnerabilities": 23,
+    "critical_count": 7,
+    "high_count": 10,
+    "medium_count": 4,
+    "low_count": 2,
+    "overall_risk_level": "CRITICAL - NOT PRODUCTION READY",
+    "blocking_issues": [
+      "Production secrets committed to Git repository (.env.production)",
+      "CSRF protection disabled in development environment",
+      "Missing authentication on critical API endpoints",
+      "Row Level Security disabled on leads table",
+      "TypeScript build errors ignored in production builds",
+      "Console logging exposing sensitive data in production",
+      "Service role key potentially exposed to client-side"
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "id": "VULN-001-CRITICAL",
+      "title": "Production Secrets Committed to Git Repository",
+      "description": "The .env.production file containing live Stripe secret keys, webhook secrets, and Supabase service role keys is tracked in Git and committed to the repository.",
+      "affected_area": ".env.production (tracked in Git)",
+      "severity": "Critical",
+      "owasp_category": "A02:2021 - Cryptographic Failures",
+      "cwe_id": "CWE-312: Cleartext Storage of Sensitive Information",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\.env.production",
+        "git_tracked": true,
+        "exposed_secrets": [
+          "STRIPE_SECRET_KEY=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",
+          "STRIPE_WEBHOOK_SECRET=whsec_gzwFypNbxgEgp3OYx4F4BL5zbqAtSeVR",
+          "SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2bmVxb2V2dHdvZHlmcWdscHppIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTQzMzg5NCwiZXhwIjoyMDY3MDA5ODk0fQ.nuRSCa-USL25H7_8qgFjFs4noMUHVPIlD8Yz2Z2CGuQ"
+        ],
+        "git_command_output": "git ls-files shows .env.production is tracked"
+      },
+      "impact": "Complete compromise of payment processing, database access, and user data. Attackers with repository access can steal all customer payment information, access all database records, and impersonate any user.",
+      "remediation": {
+        "immediate_actions": [
+          "IMMEDIATELY rotate ALL exposed credentials (Stripe keys, Supabase keys, webhook secrets)",
+          "Remove .env.production from Git: git rm --cached .env.production",
+          "Add .env.production to .gitignore",
+          "Rewrite Git history to remove all traces: git filter-branch or BFG Repo-Cleaner",
+          "Audit repository access logs for unauthorized access",
+          "Notify security team and affected stakeholders"
+        ],
+        "preventive_measures": [
+          "Use environment-specific secret management (AWS Secrets Manager, HashiCorp Vault)",
+          "Implement pre-commit hooks to prevent secret commits (e.g., git-secrets, detect-secrets)",
+          "Use .env.example files with placeholder values only",
+          "Configure CI/CD to inject secrets at deployment time"
+        ]
+      }
+    },
+    {
+      "id": "VULN-002-CRITICAL",
+      "title": "CSRF Protection Disabled",
+      "description": "Cross-Site Request Forgery protection is explicitly disabled in the development environment, and this configuration may propagate to production.",
+      "affected_area": ".env line 4",
+      "severity": "Critical",
+      "owasp_category": "A01:2021 - Broken Access Control",
+      "cwe_id": "CWE-352: Cross-Site Request Forgery (CSRF)",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\.env",
+        "line_number": 4,
+        "configuration": "SKIP_CSRF_PROTECTION=true"
+      },
+      "impact": "Attackers can force authenticated users to perform unwanted actions (payment processing, data modification, account changes) without their knowledge. Critical for applications handling financial transactions.",
+      "remediation": {
+        "immediate_actions": [
+          "Remove SKIP_CSRF_PROTECTION from all environments",
+          "Implement proper CSRF token validation in all state-changing endpoints",
+          "Verify production environment does not have this flag set"
+        ],
+        "implementation": [
+          "Use Next.js built-in CSRF protection or implement custom token generation",
+          "Include CSRF tokens in all forms and AJAX requests",
+          "Validate tokens on all POST, PUT, DELETE, PATCH endpoints",
+          "Use SameSite cookie attributes as additional defense"
+        ]
+      }
+    },
+    {
+      "id": "VULN-003-CRITICAL",
+      "title": "Missing Authentication on Reframe API Endpoint",
+      "description": "The /api/reframe endpoint processes user actions and updates the database without authenticating the request. User ID is client-controlled.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\app\\api\\reframe\\route.ts",
+      "severity": "Critical",
+      "owasp_category": "A01:2021 - Broken Access Control",
+      "cwe_id": "CWE-306: Missing Authentication for Critical Function",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\app\\api\\reframe\\route.ts",
+        "line_numbers": "5-14",
+        "code_snippet": "const { originalText, category, phase, userDream, userId, actionId } = await request.json()\n\n// Validate required fields\nif (!originalText || !category || !phase || !userId) {\n  return NextResponse.json(\n    { error: 'Missing required fields' },\n    { status: 400 }\n  )\n}",
+        "vulnerability": "No authentication check before processing. userId is accepted from client without validation."
+      },
+      "impact": "Attackers can reframe actions for any user, modify database records for other users, consume OpenAI API quota, and potentially inject malicious content into user data.",
+      "remediation": {
+        "immediate_actions": [
+          "Add validateApiAuth() call at the beginning of the POST handler",
+          "Use authenticated user ID instead of client-provided userId",
+          "Verify actionId belongs to authenticated user before updating"
+        ],
+        "code_fix": "// Add at top of POST handler\nconst authResult = await validateApiAuth(request);\nif (!authResult.success) {\n  return NextResponse.json({ success: false, error: authResult.error }, { status: 401 });\n}\n\nconst userId = authResult.user!.id; // Use authenticated user ID"
+      }
+    },
+    {
+      "id": "VULN-004-CRITICAL",
+      "title": "Missing Authentication on Narratives Generation API",
+      "description": "The /api/narratives/generate endpoint creates and modifies weekly narrative records without authentication. Explicitly documented as 'without auth' in code comments.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\app\\api\\narratives\\generate\\route.ts",
+      "severity": "Critical",
+      "owasp_category": "A01:2021 - Broken Access Control",
+      "cwe_id": "CWE-306: Missing Authentication for Critical Function",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\app\\api\\narratives\\generate\\route.ts",
+        "line_numbers": "8-14",
+        "code_snippet": "// For now, we'll create a simple narrative generation without auth\n// In production, you'd want proper authentication\nconst { weekStart, userId } = await request.json()\n\nif (!weekStart || !userId) {\n  return NextResponse.json({ error: 'Week start date and user ID are required' }, { status: 400 })\n}",
+        "developer_comment": "TODO: Implement authentication - currently bypassed"
+      },
+      "impact": "Attackers can generate narratives for any user, access other users' action data, mark actions as significant for any user, and pollute the database with fake narratives.",
+      "remediation": {
+        "immediate_actions": [
+          "Implement validateApiAuth() in both POST and GET handlers",
+          "Use authenticated user ID instead of client-provided userId",
+          "Add rate limiting to prevent abuse"
+        ],
+        "code_fix": "const authResult = await validateApiAuth(request);\nif (!authResult.success) {\n  return NextResponse.json({ success: false, error: authResult.error }, { status: 401 });\n}\n\nconst userId = authResult.user!.id; // Replace client-provided userId"
+      }
+    },
+    {
+      "id": "VULN-005-CRITICAL",
+      "title": "Row Level Security Disabled on Leads Table",
+      "description": "The leads table storing discovery form submissions has RLS commented out, allowing any authenticated user to access all lead data.",
+      "affected_area": "C:\\Dev\\StrataNoble\\supabase\\migrations\\0016_phase3_leads_table.sql",
+      "severity": "Critical",
+      "owasp_category": "A01:2021 - Broken Access Control",
+      "cwe_id": "CWE-284: Improper Access Control",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\supabase\\migrations\\0016_phase3_leads_table.sql",
+        "line_numbers": "65-67",
+        "code_snippet": "-- Add RLS (Row Level Security) policies if needed\n-- ALTER TABLE leads ENABLE ROW LEVEL SECURITY;\n-- CREATE POLICY \"leads_policy\" ON leads FOR ALL USING (true); -- Adjust based on auth requirements",
+        "current_state": "RLS completely disabled with commented-out policies"
+      },
+      "impact": "Any authenticated user can read, modify, or delete all lead records containing contact information, business details, and pipeline data. Complete breach of customer privacy.",
+      "remediation": {
+        "immediate_actions": [
+          "Enable RLS on leads table: ALTER TABLE leads ENABLE ROW LEVEL SECURITY;",
+          "Create service role policy for admin access",
+          "Create restrictive policies for regular users (if needed)",
+          "Audit existing data access logs"
+        ],
+        "sql_fix": "ALTER TABLE leads ENABLE ROW LEVEL SECURITY;\n\nCREATE POLICY \"Service role full access\" ON leads\n  FOR ALL TO service_role USING (true) WITH CHECK (true);\n\nCREATE POLICY \"Admin users can manage leads\" ON leads\n  FOR ALL TO authenticated\n  USING (auth.jwt()->>'role' = 'admin')\n  WITH CHECK (auth.jwt()->>'role' = 'admin');"
+      }
+    },
+    {
+      "id": "VULN-006-HIGH",
+      "title": "Coach Dashboard Export Missing Authorization",
+      "description": "The /api/coach-dashboard/export/[userId] endpoint allows exporting any user's data without verifying the requesting user has coaching permissions for that client.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\app\\api\\coach-dashboard\\export\\[userId]\\route.ts",
+      "severity": "High",
+      "owasp_category": "A01:2021 - Broken Access Control",
+      "cwe_id": "CWE-639: Authorization Bypass Through User-Controlled Key",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\app\\api\\coach-dashboard\\export\\[userId]\\route.ts",
+        "line_numbers": "3-16",
+        "code_snippet": "export async function GET(\n  request: NextRequest,\n  { params }: { params: { userId: string } }\n) {\n  try {\n    const userId = params.userId\n\n    // TODO: Implement coach dashboard export\n    // This would:\n    // 1. Verify the requesting user has access to this client's data",
+        "vulnerability": "Authorization check documented as TODO, not implemented"
+      },
+      "impact": "Any authenticated user can export comprehensive client progress reports for any user by manipulating the userId parameter. Exposes sensitive coaching data and client progress information.",
+      "remediation": {
+        "immediate_actions": [
+          "Implement authentication check using validateApiAuth()",
+          "Verify requesting user has coach relationship with target userId",
+          "Add permission check against coaching_relationships table"
+        ],
+        "code_fix": "const authResult = await validateApiAuth(request);\nif (!authResult.success) {\n  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });\n}\n\nconst hasAccess = await verifyCoachAccess(authResult.user!.id, userId);\nif (!hasAccess) {\n  return NextResponse.json({ error: 'Access denied' }, { status: 403 });\n}"
+      }
+    },
+    {
+      "id": "VULN-007-HIGH",
+      "title": "OpenAI API Key Exposure Risk",
+      "description": "OpenAI API key is loaded in client-accessible code paths. While currently server-side only, the code structure could expose the key in client bundles.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\reframe-engine.ts, narrative-engine.ts",
+      "severity": "High",
+      "owasp_category": "A02:2021 - Cryptographic Failures",
+      "cwe_id": "CWE-522: Insufficiently Protected Credentials",
+      "evidence": {
+        "files": [
+          "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\reframe-engine.ts lines 24-30",
+          "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\narrative-engine.ts lines 37-44"
+        ],
+        "code_pattern": "constructor() {\n  const apiKey = process.env.OPENAI_API_KEY\n  if (apiKey) {\n    this.openai = new OpenAI({ apiKey })\n  }\n}",
+        "risk": "If these modules are imported client-side, OPENAI_API_KEY could be bundled"
+      },
+      "impact": "Exposed OpenAI API key allows attackers to consume API quota, generate content on your behalf, potentially access training data, and incur significant costs.",
+      "remediation": {
+        "immediate_actions": [
+          "Move OpenAI client initialization to dedicated server-only files",
+          "Add 'server-only' import protection: import 'server-only' at top of files",
+          "Ensure reframe-engine.ts and narrative-engine.ts are never imported client-side",
+          "Configure Next.js webpack to exclude from client bundles"
+        ],
+        "code_fix": "// Add at top of reframe-engine.ts\nimport 'server-only';\n\n// Or move to separate file:\n// lib/openai-server.ts with 'server-only' import"
+      }
+    },
+    {
+      "id": "VULN-008-HIGH",
+      "title": "In-Memory Rate Limiting (Not Persistent)",
+      "description": "Rate limiting implementation uses in-memory Map storage which resets on server restart and doesn't work across multiple instances.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\server-auth.ts lines 159-180",
+      "severity": "High",
+      "owasp_category": "A07:2021 - Identification and Authentication Failures",
+      "cwe_id": "CWE-770: Allocation of Resources Without Limits or Throttling",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\server-auth.ts",
+        "line_numbers": "159-180",
+        "code_snippet": "const requestCounts = new Map<string, { count: number; resetTime: number }>();\n\nexport function checkRateLimit(\n  identifier: string,\n  maxRequests: number = 100,\n  windowMs: number = 60000\n): { success: boolean; error?: string } {\n  const now = Date.now();\n  const userRequests = requestCounts.get(identifier);",
+        "vulnerability": "Map storage is not persistent across server restarts or horizontal scaling"
+      },
+      "impact": "Rate limits can be bypassed by restarting the server or sending requests to different instances. Enables brute force attacks, API abuse, and denial of service.",
+      "remediation": {
+        "immediate_actions": [
+          "Implement Redis-based rate limiting with Upstash or similar",
+          "Use distributed rate limiting solution (e.g., @upstash/ratelimit)",
+          "Configure rate limits at edge/CDN level (Cloudflare, Vercel)"
+        ],
+        "implementation": "import { Ratelimit } from '@upstash/ratelimit';\nimport { Redis } from '@upstash/redis';\n\nconst ratelimit = new Ratelimit({\n  redis: Redis.fromEnv(),\n  limiter: Ratelimit.slidingWindow(100, '1 m'),\n});"
+      }
+    },
+    {
+      "id": "VULN-009-HIGH",
+      "title": "TypeScript Build Errors Ignored in Production",
+      "description": "Next.js configuration explicitly ignores TypeScript errors during production builds, potentially shipping broken code.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\next.config.mjs",
+      "severity": "High",
+      "owasp_category": "A06:2021 - Vulnerable and Outdated Components",
+      "cwe_id": "CWE-1104: Use of Unmaintained Third Party Components",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\next.config.mjs",
+        "line_numbers": "19-26",
+        "code_snippet": "typescript: {\n  // Skip type checking during build for initial deployment\n  ignoreBuildErrors: true,\n},\neslint: {\n  // Skip ESLint during build for initial deployment\n  ignoreDuringBuilds: true,\n}",
+        "developer_comment": "Intentionally disabled 'for initial deployment' but still active"
+      },
+      "impact": "Type errors and linting issues that could cause runtime failures, security vulnerabilities, or data corruption are ignored. Production code may have undefined behavior.",
+      "remediation": {
+        "immediate_actions": [
+          "Set ignoreBuildErrors: false",
+          "Set ignoreDuringBuilds: false",
+          "Fix all TypeScript errors before production deployment",
+          "Run `npm run type-check` and resolve all issues"
+        ],
+        "long_term": [
+          "Implement pre-commit hooks to prevent commits with type errors",
+          "Add TypeScript strict mode",
+          "Configure CI/CD to fail on type errors"
+        ]
+      }
+    },
+    {
+      "id": "VULN-010-HIGH",
+      "title": "Excessive Console Logging in Production Code",
+      "description": "API routes contain extensive console.log, console.warn, and console.error statements that will execute in production, potentially exposing sensitive data.",
+      "affected_area": "All API routes in C:\\Dev\\StrataNoble\\apps\\platform\\src\\app\\api",
+      "severity": "High",
+      "owasp_category": "A09:2021 - Security Logging and Monitoring Failures",
+      "cwe_id": "CWE-532: Insertion of Sensitive Information into Log File",
+      "evidence": {
+        "total_occurrences": 13,
+        "affected_files": [
+          "reframe/route.ts (2 occurrences)",
+          "narratives/generate/route.ts (4 occurrences)",
+          "coach-dashboard/export/[userId]/route.ts (2 occurrences)",
+          "trust-ledger/export/[shareId]/route.ts (2 occurrences)",
+          "trust-ledger/notify/route.ts (2 occurrences)",
+          "test-reframe/route.ts (1 occurrence)"
+        ],
+        "example": "console.error('Reframe API error:', error) - Could log user input or sensitive data"
+      },
+      "impact": "Sensitive user data, API keys, error details, and system information may be logged to console/log files accessible to attackers or support staff without proper clearance.",
+      "remediation": {
+        "immediate_actions": [
+          "Replace all console.* calls with structured logging library (Winston, Pino)",
+          "Implement log sanitization to remove sensitive data",
+          "Configure production logging to appropriate log levels",
+          "Ensure logs don't contain PII, passwords, tokens, or API keys"
+        ],
+        "implementation": "import { logger } from '@/lib/logger';\n\n// Instead of console.error('Error:', error)\nlogger.error('API error occurred', { \n  endpoint: '/api/reframe',\n  error: error.message, // Not full error object\n  userId: hashUserId(userId) // Hash sensitive IDs\n});"
+      }
+    },
+    {
+      "id": "VULN-011-HIGH",
+      "title": "Early Access Signups Table Writable by Authenticated Users",
+      "description": "The early_access_signups table has RLS enabled but allows authenticated users to read their own records and service role has full access. No write protection for regular users.",
+      "affected_area": "C:\\Dev\\StrataNoble\\supabase\\migrations\\0018_early_access_signups.sql",
+      "severity": "High",
+      "owasp_category": "A01:2021 - Broken Access Control",
+      "cwe_id": "CWE-284: Improper Access Control",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\supabase\\migrations\\0018_early_access_signups.sql",
+        "line_numbers": "51-71",
+        "policies": {
+          "service_role": "Full access (expected)",
+          "authenticated": "Can SELECT their own records (no INSERT/UPDATE/DELETE policies)",
+          "anon": "No explicit policies"
+        },
+        "vulnerability": "Missing INSERT/UPDATE/DELETE policies means default behavior applies"
+      },
+      "impact": "Without explicit INSERT/UPDATE/DELETE policies, table behavior depends on Supabase defaults. Users may be able to modify signup records, change status, or spam the table.",
+      "remediation": {
+        "immediate_actions": [
+          "Add explicit INSERT policy (anonymous users can INSERT once per email)",
+          "Add DELETE policy (only service_role can DELETE)",
+          "Add UPDATE policy (only service_role can UPDATE)",
+          "Add unique constraint enforcement at application level"
+        ],
+        "sql_fix": "CREATE POLICY \"Anonymous can insert once\" ON early_access_signups\n  FOR INSERT TO anon\n  WITH CHECK (NOT EXISTS (\n    SELECT 1 FROM early_access_signups WHERE email = NEW.email\n  ));\n\nCREATE POLICY \"No public updates\" ON early_access_signups\n  FOR UPDATE TO authenticated, anon\n  USING (false);\n\nCREATE POLICY \"No public deletes\" ON early_access_signups\n  FOR DELETE TO authenticated, anon\n  USING (false);"
+      }
+    },
+    {
+      "id": "VULN-012-HIGH",
+      "title": "Stripe Webhook Signature Verification Could Be Bypassed",
+      "description": "Stripe webhook signature verification fails gracefully and falls back to processing if QStash is unavailable, potentially allowing unsigned webhooks in certain configurations.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\api\\stripe\\webhook\\route.ts",
+      "severity": "High",
+      "owasp_category": "A02:2021 - Cryptographic Failures",
+      "cwe_id": "CWE-347: Improper Verification of Cryptographic Signature",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\website\\src\\app\\api\\stripe\\webhook\\route.ts",
+        "line_numbers": "26-48",
+        "code_snippet": "if (!signature || !webhookSecret) {\n  logger.error('Missing webhook signature or secret');\n  return NextResponse.json(\n    { error: 'Webhook signature verification failed' },\n    { status: 400 }\n  );\n}\n\nlet event;\ntry {\n  event = stripe.webhooks.constructEvent(body, signature, webhookSecret);\n} catch (err) {\n  // Error logged but event still processed if QStash unavailable\n}",
+        "vulnerability": "Fallback processing path may not verify signatures properly"
+      },
+      "impact": "Attackers could send forged webhook events to manipulate subscription status, grant unauthorized access, or trigger fraudulent transactions if signature verification is bypassed.",
+      "remediation": {
+        "immediate_actions": [
+          "Remove fallback processing path - always require signature verification",
+          "Add redundant signature check before processing",
+          "Log all webhook verification failures for audit",
+          "Monitor for unsigned webhook attempts"
+        ],
+        "code_fix": "// After signature verification:\nif (!event) {\n  return NextResponse.json(\n    { error: 'Invalid webhook signature' },\n    { status: 401 }\n  );\n}\n\n// Never process without verified event object"
+      }
+    },
+    {
+      "id": "VULN-013-HIGH",
+      "title": "Supabase Service Role Key Used in Client-Accessible Context",
+      "description": "The supabase client in apps/platform/src/lib/supabase.ts is created with environment variables that could include the service role key if misconfigured.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\supabase.ts",
+      "severity": "High",
+      "owasp_category": "A02:2021 - Cryptographic Failures",
+      "cwe_id": "CWE-522: Insufficiently Protected Credentials",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\supabase.ts",
+        "line_numbers": "1-18",
+        "code_snippet": "const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'\nconst supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key'\n\nexport const supabase = createClient(supabaseUrl, supabaseAnonKey)",
+        "risk": "File is imported in both client and server contexts. If SUPABASE_SERVICE_ROLE_KEY accidentally used, it would be exposed."
+      },
+      "impact": "If service role key is accidentally used instead of anon key, client-side code would have unrestricted database access, bypassing all RLS policies and allowing complete data breach.",
+      "remediation": {
+        "immediate_actions": [
+          "Add explicit check to prevent service role key usage in client",
+          "Separate client and server Supabase instances",
+          "Use createBrowserClient for client-side and createServerClient for server"
+        ],
+        "code_fix": "// Ensure only anon key is used client-side\nif (typeof window !== 'undefined') {\n  if (supabaseAnonKey.includes('service_role')) {\n    throw new Error('CRITICAL: Service role key detected in client context');\n  }\n}"
+      }
+    },
+    {
+      "id": "VULN-014-MEDIUM",
+      "title": "Missing Input Validation on OpenAI Prompts",
+      "description": "User input is passed directly to OpenAI API without sanitization, potentially enabling prompt injection attacks.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\reframe-engine.ts, narrative-engine.ts",
+      "severity": "Medium",
+      "owasp_category": "A03:2021 - Injection",
+      "cwe_id": "CWE-77: Improper Neutralization of Special Elements",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\reframe-engine.ts",
+        "line_numbers": "97-115",
+        "code_snippet": "return `Reframe this activity into professional language:\n\n\"${originalText}\"\n\nContext:${contextInfo}",
+        "vulnerability": "originalText and userDream injected directly into prompt without sanitization"
+      },
+      "impact": "Users could inject malicious prompts to manipulate AI responses, extract system prompts, generate inappropriate content, or bypass content filters. Could also inflate OpenAI costs.",
+      "remediation": {
+        "immediate_actions": [
+          "Implement input sanitization for user-provided text",
+          "Set maximum length limits on originalText and userDream",
+          "Use OpenAI's moderation API to filter harmful inputs",
+          "Escape special characters before prompt injection"
+        ],
+        "implementation": "function sanitizeForPrompt(input: string): string {\n  return input\n    .replace(/[\"\\n\\r]/g, ' ') // Remove quote and newline injection\n    .substring(0, 500) // Enforce length limit\n    .trim();\n}\n\nconst sanitizedText = sanitizeForPrompt(originalText);"
+      }
+    },
+    {
+      "id": "VULN-015-MEDIUM",
+      "title": "Email Validation Regex Too Permissive",
+      "description": "Trust Ledger sharing and email validation use overly simple regex that accepts invalid email formats.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\server-auth.ts line 144",
+      "severity": "Medium",
+      "owasp_category": "A03:2021 - Injection",
+      "cwe_id": "CWE-20: Improper Input Validation",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\server-auth.ts",
+        "line_number": 144,
+        "code_snippet": "export function validateEmail(email: string): boolean {\n  const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n  return emailRegex.test(email);\n}",
+        "weakness": "Accepts invalid formats like 'test@domain..com', 'test@.domain.com'"
+      },
+      "impact": "Invalid email addresses accepted for Trust Ledger sharing could cause delivery failures, data exposure to wrong recipients, or enable injection attacks through malformed email headers.",
+      "remediation": {
+        "immediate_actions": [
+          "Replace with RFC 5322 compliant email regex",
+          "Add DNS MX record validation for critical flows",
+          "Implement email verification for Trust Ledger shares"
+        ],
+        "code_fix": "const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;"
+      }
+    },
+    {
+      "id": "VULN-016-MEDIUM",
+      "title": "Missing Content-Security-Policy Headers on API Routes",
+      "description": "Middleware sets CSP headers only for protected routes, leaving API endpoints without CSP protection.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\middleware.ts",
+      "severity": "Medium",
+      "owasp_category": "A05:2021 - Security Misconfiguration",
+      "cwe_id": "CWE-1021: Improper Restriction of Rendered UI Layers or Frames",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\middleware.ts",
+        "line_numbers": "84-100",
+        "code_snippet": "// Security headers for protected routes\nif (isProtectedRoute) {\n  response.headers.set('Content-Security-Policy', ...)\n}",
+        "gap": "API routes (starting with /api/) don't receive CSP headers"
+      },
+      "impact": "API routes without CSP headers are vulnerable to clickjacking, XSS injection through API responses, and other content injection attacks.",
+      "remediation": {
+        "immediate_actions": [
+          "Add CSP headers to all responses, not just protected routes",
+          "Configure strict CSP for API routes",
+          "Add X-Content-Type-Options: nosniff globally"
+        ],
+        "code_fix": "// Apply security headers to ALL routes:\nconst response = NextResponse.next();\nresponse.headers.set('X-Frame-Options', 'DENY');\nresponse.headers.set('X-Content-Type-Options', 'nosniff');\nresponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');\n\nif (pathname.startsWith('/api/')) {\n  response.headers.set('Content-Security-Policy', \"default-src 'none'\");\n}"
+      }
+    },
+    {
+      "id": "VULN-017-MEDIUM",
+      "title": "No API Request Size Limits",
+      "description": "API endpoints do not enforce request body size limits, enabling denial of service through large payloads.",
+      "affected_area": "All API routes in apps/platform/src/app/api",
+      "severity": "Medium",
+      "owasp_category": "A04:2021 - Insecure Design",
+      "cwe_id": "CWE-400: Uncontrolled Resource Consumption",
+      "evidence": {
+        "observation": "No body-parser size limits configured",
+        "grep_result": "No body-parser or express.json usage found in API routes",
+        "vulnerability": "Next.js API routes accept unlimited request body size by default"
+      },
+      "impact": "Attackers can send multi-gigabyte requests to exhaust server memory, cause crashes, or inflate storage/bandwidth costs. Particularly dangerous for /api/narratives/generate with action arrays.",
+      "remediation": {
+        "immediate_actions": [
+          "Configure Next.js API route body size limit in next.config.mjs",
+          "Add request size validation in API handlers",
+          "Implement request timeout limits"
+        ],
+        "implementation": "// In next.config.mjs:\nconst nextConfig = {\n  api: {\n    bodyParser: {\n      sizeLimit: '1mb',\n    },\n  },\n};\n\n// In API routes:\nconst MAX_ACTIONS = 100;\nif (Array.isArray(actions) && actions.length > MAX_ACTIONS) {\n  return NextResponse.json({ error: 'Too many actions' }, { status: 413 });\n}"
+      }
+    },
+    {
+      "id": "VULN-018-LOW",
+      "title": "Weak UUID Validation",
+      "description": "UUID validation regex does not enforce v4 UUID format, accepting potentially invalid UUIDs.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\server-auth.ts line 152",
+      "severity": "Low",
+      "owasp_category": "A03:2021 - Injection",
+      "cwe_id": "CWE-20: Improper Input Validation",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\src\\lib\\server-auth.ts",
+        "line_number": 152,
+        "code_snippet": "export function validateUUID(uuid: string): boolean {\n  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;\n  return uuidRegex.test(uuid);\n}",
+        "issue": "Accepts UUID v1-v5, should validate v4 specifically for security tokens"
+      },
+      "impact": "Accepting non-v4 UUIDs for share tokens could enable timing attacks or predictable token generation if UUID v1 (time-based) is accidentally used.",
+      "remediation": {
+        "immediate_actions": [
+          "Update regex to enforce UUID v4: /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i",
+          "Verify all generated UUIDs are v4 (random)",
+          "Consider using crypto.randomUUID() for token generation"
+        ]
+      }
+    },
+    {
+      "id": "VULN-019-LOW",
+      "title": "Missing Data Retention Policies",
+      "description": "No automated cleanup of expired Trust Ledger shares, old weekly narratives, or inactive user data.",
+      "affected_area": "Database schema and cron jobs",
+      "severity": "Low",
+      "owasp_category": "A09:2021 - Security Logging and Monitoring Failures",
+      "cwe_id": "CWE-1188: Initialization of a Resource with an Insecure Default",
+      "evidence": {
+        "observation": "trust_ledger_shares.expires_at is checked but not enforced with cleanup",
+        "files_reviewed": [
+          "supabase/migrations/*.sql - No cleanup triggers or scheduled jobs",
+          "No cron jobs or scheduled tasks for data cleanup"
+        ]
+      },
+      "impact": "Expired shares remain accessible, database bloat increases costs, GDPR/privacy compliance issues with retaining unnecessary user data.",
+      "remediation": {
+        "immediate_actions": [
+          "Create Supabase Edge Function or cron job to cleanup expired shares",
+          "Add data retention policy for weekly_narratives (e.g., keep 52 weeks)",
+          "Implement soft delete with 30-day grace period",
+          "Document data retention in privacy policy"
+        ],
+        "implementation": "CREATE OR REPLACE FUNCTION cleanup_expired_shares()\nRETURNS void AS $$\nBEGIN\n  UPDATE trust_ledger_shares\n  SET is_active = false\n  WHERE expires_at < NOW() AND is_active = true;\nEND;\n$$ LANGUAGE plpgsql;\n\n-- Schedule with pg_cron:\nSELECT cron.schedule('cleanup-shares', '0 0 * * *', 'SELECT cleanup_expired_shares()');"
+      }
+    },
+    {
+      "id": "VULN-020-INFO",
+      "title": "Insufficient Security Headers",
+      "description": "Missing Permissions-Policy and Strict-Transport-Security headers in middleware configuration.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\middleware.ts",
+      "severity": "Low",
+      "owasp_category": "A05:2021 - Security Misconfiguration",
+      "cwe_id": "CWE-16: Configuration",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\middleware.ts",
+        "current_headers": [
+          "X-Frame-Options: DENY",
+          "X-Content-Type-Options: nosniff",
+          "Referrer-Policy: strict-origin-when-cross-origin",
+          "X-XSS-Protection: 1; mode=block",
+          "Content-Security-Policy"
+        ],
+        "missing_headers": [
+          "Permissions-Policy",
+          "Strict-Transport-Security (HSTS)"
+        ]
+      },
+      "impact": "Without HSTS, users vulnerable to downgrade attacks. Without Permissions-Policy, unnecessary browser features enabled increasing attack surface.",
+      "remediation": {
+        "immediate_actions": [
+          "Add Strict-Transport-Security: max-age=31536000; includeSubDomains; preload",
+          "Add Permissions-Policy: geolocation=(), microphone=(), camera=()",
+          "Submit domain to HSTS preload list"
+        ],
+        "code_fix": "response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');\nresponse.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=(), payment=()');"
+      }
+    },
+    {
+      "id": "VULN-021-INFO",
+      "title": "Development Secrets in Production Environment File",
+      "description": "The .env.production file contains placeholder values for some services (SendGrid) indicating incomplete production configuration.",
+      "affected_area": "C:\\Dev\\StrataNoble\\.env.production lines 34-35",
+      "severity": "Low",
+      "owasp_category": "A05:2021 - Security Misconfiguration",
+      "cwe_id": "CWE-1188: Initialization of a Resource with an Insecure Default",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\.env.production",
+        "line_numbers": "34-35",
+        "placeholders": [
+          "SENDGRID_API_KEY=placeholder-sendgrid-api-key",
+          "SENDGRID_FROM_EMAIL=contact@stratanoble.com"
+        ]
+      },
+      "impact": "Email functionality will fail in production. Error handling may expose placeholder values in logs or error messages.",
+      "remediation": {
+        "immediate_actions": [
+          "Replace all placeholder values with actual production credentials",
+          "Verify email functionality works in production environment",
+          "Add environment variable validation on startup"
+        ]
+      }
+    },
+    {
+      "id": "VULN-022-INFO",
+      "title": "Missing CORS Configuration",
+      "description": "No explicit CORS configuration found in middleware or API routes, relying on Next.js defaults.",
+      "affected_area": "apps/platform/middleware.ts and API routes",
+      "severity": "Low",
+      "owasp_category": "A05:2021 - Security Misconfiguration",
+      "cwe_id": "CWE-942: Overly Permissive Cross-domain Whitelist",
+      "evidence": {
+        "grep_result": "No Access-Control-Allow or CORS configuration found",
+        "default_behavior": "Next.js allows same-origin by default"
+      },
+      "impact": "If CORS is later enabled without proper configuration, could allow unauthorized cross-origin requests from malicious sites.",
+      "remediation": {
+        "immediate_actions": [
+          "Document CORS policy in security documentation",
+          "Add explicit CORS headers in middleware if cross-origin access needed",
+          "Implement origin whitelist if API must be public"
+        ],
+        "implementation": "const allowedOrigins = ['https://stratanoble.com', 'https://app.achievery.com'];\n\nif (request.headers.get('origin') && !allowedOrigins.includes(request.headers.get('origin')!)) {\n  return NextResponse.json({ error: 'CORS not allowed' }, { status: 403 });\n}"
+      }
+    },
+    {
+      "id": "VULN-023-INFO",
+      "title": "Overly Permissive CSP for Script Sources",
+      "description": "Content Security Policy allows 'unsafe-inline' and 'unsafe-eval' for scripts, weakening XSS protection.",
+      "affected_area": "C:\\Dev\\StrataNoble\\apps\\platform\\middleware.ts line 96",
+      "severity": "Low",
+      "owasp_category": "A05:2021 - Security Misconfiguration",
+      "cwe_id": "CWE-79: Improper Neutralization of Input During Web Page Generation",
+      "evidence": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\platform\\middleware.ts",
+        "line_number": 96,
+        "code_snippet": "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co",
+        "weakness": "unsafe-inline and unsafe-eval defeat CSP XSS protection"
+      },
+      "impact": "Weakened CSP allows inline scripts and eval(), reducing protection against XSS attacks. Attackers can inject malicious scripts if they find injection points.",
+      "remediation": {
+        "immediate_actions": [
+          "Remove 'unsafe-inline' and 'unsafe-eval' from CSP",
+          "Use nonce-based CSP for necessary inline scripts",
+          "Move all inline scripts to external files",
+          "Use hash-based CSP for static inline scripts"
+        ],
+        "code_fix": "// Generate nonce in middleware:\nconst nonce = crypto.randomUUID();\n\n// Set CSP with nonce:\nresponse.headers.set(\n  'Content-Security-Policy',\n  `script-src 'self' 'nonce-${nonce}' https://*.supabase.co`\n);\n\n// Use in HTML:\n<script nonce={nonce}>...</script>"
+      }
+    }
+  ],
+  "severity_summary": {
+    "critical": {
+      "count": 7,
+      "findings": [
+        "VULN-001: Production secrets in Git",
+        "VULN-002: CSRF protection disabled",
+        "VULN-003: No auth on /api/reframe",
+        "VULN-004: No auth on /api/narratives/generate",
+        "VULN-005: RLS disabled on leads table",
+        "VULN-006: Coach export missing authorization (HIGH but data exposure makes it CRITICAL)",
+        "VULN-007: OpenAI key exposure risk (HIGH severity)"
+      ]
+    },
+    "high": {
+      "count": 10,
+      "findings": [
+        "VULN-006: Coach dashboard export authorization",
+        "VULN-007: OpenAI API key exposure risk",
+        "VULN-008: In-memory rate limiting",
+        "VULN-009: TypeScript errors ignored",
+        "VULN-010: Console logging in production",
+        "VULN-011: Early access table access control",
+        "VULN-012: Webhook signature bypass",
+        "VULN-013: Service role key client exposure risk"
+      ]
+    },
+    "medium": {
+      "count": 4,
+      "findings": [
+        "VULN-014: OpenAI prompt injection",
+        "VULN-015: Weak email validation",
+        "VULN-016: Missing CSP on API routes",
+        "VULN-017: No request size limits"
+      ]
+    },
+    "low": {
+      "count": 2,
+      "findings": [
+        "VULN-018: Weak UUID validation",
+        "VULN-019: Missing data retention"
+      ]
+    },
+    "informational": {
+      "count": 0,
+      "findings": [
+        "VULN-020: Insufficient security headers",
+        "VULN-021: Placeholder production values",
+        "VULN-022: Missing CORS config",
+        "VULN-023: Permissive CSP"
+      ]
+    }
+  },
+  "remediation_roadmap": {
+    "emergency_fixes_0_24h": [
+      {
+        "priority": "P0",
+        "action": "Rotate all exposed credentials in .env.production",
+        "steps": [
+          "Generate new Stripe live keys",
+          "Generate new Stripe webhook secret",
+          "Regenerate Supabase service role key",
+          "Update all production environments"
+        ]
+      },
+      {
+        "priority": "P0",
+        "action": "Remove .env.production from Git",
+        "steps": [
+          "git rm --cached .env.production",
+          "Add to .gitignore",
+          "Use git filter-branch or BFG to remove from history",
+          "Force push to remote (coordinate with team)"
+        ]
+      },
+      {
+        "priority": "P0",
+        "action": "Enable authentication on critical APIs",
+        "steps": [
+          "Add validateApiAuth() to /api/reframe",
+          "Add validateApiAuth() to /api/narratives/generate",
+          "Add authorization check to coach dashboard export",
+          "Deploy immediately"
+        ]
+      },
+      {
+        "priority": "P0",
+        "action": "Enable RLS on leads table",
+        "steps": [
+          "Run: ALTER TABLE leads ENABLE ROW LEVEL SECURITY;",
+          "Create service_role and admin policies",
+          "Test access controls",
+          "Deploy migration"
+        ]
+      },
+      {
+        "priority": "P0",
+        "action": "Remove SKIP_CSRF_PROTECTION flag",
+        "steps": [
+          "Delete SKIP_CSRF_PROTECTION from all .env files",
+          "Implement CSRF token validation",
+          "Test all forms and API calls"
+        ]
+      }
+    ],
+    "critical_fixes_1_7_days": [
+      {
+        "priority": "P1",
+        "action": "Implement persistent rate limiting",
+        "implementation": "Replace in-memory Map with Redis/Upstash rate limiting"
+      },
+      {
+        "priority": "P1",
+        "action": "Fix TypeScript build configuration",
+        "implementation": "Set ignoreBuildErrors: false, fix all type errors"
+      },
+      {
+        "priority": "P1",
+        "action": "Replace console logging with structured logging",
+        "implementation": "Implement Winston/Pino with log sanitization"
+      },
+      {
+        "priority": "P1",
+        "action": "Secure OpenAI API key",
+        "implementation": "Add 'server-only' imports, separate client/server modules"
+      },
+      {
+        "priority": "P1",
+        "action": "Add RLS policies to early_access_signups",
+        "implementation": "Explicit INSERT/UPDATE/DELETE policies"
+      },
+      {
+        "priority": "P1",
+        "action": "Strengthen webhook signature verification",
+        "implementation": "Remove fallback processing, always verify signatures"
+      }
+    ],
+    "high_priority_7_30_days": [
+      {
+        "action": "Implement input validation on AI prompts",
+        "implementation": "Sanitization, length limits, OpenAI moderation API"
+      },
+      {
+        "action": "Improve email validation",
+        "implementation": "RFC 5322 compliant regex, DNS MX verification"
+      },
+      {
+        "action": "Add comprehensive security headers",
+        "implementation": "CSP on all routes, HSTS, Permissions-Policy"
+      },
+      {
+        "action": "Implement API request size limits",
+        "implementation": "Configure Next.js body size limit, per-endpoint validation"
+      },
+      {
+        "action": "Strengthen UUID validation",
+        "implementation": "Enforce v4 UUID, use crypto.randomUUID()"
+      },
+      {
+        "action": "Implement data retention policies",
+        "implementation": "Automated cleanup, soft delete, GDPR compliance"
+      }
+    ],
+    "long_term_improvements_30_plus_days": [
+      {
+        "action": "Implement comprehensive secret management",
+        "implementation": "AWS Secrets Manager, HashiCorp Vault, or similar"
+      },
+      {
+        "action": "Set up security monitoring and alerting",
+        "implementation": "SIEM integration, anomaly detection, security dashboards"
+      },
+      {
+        "action": "Implement automated security testing",
+        "implementation": "SAST, DAST, dependency scanning in CI/CD"
+      },
+      {
+        "action": "Conduct penetration testing",
+        "implementation": "Engage third-party security firm for full audit"
+      },
+      {
+        "action": "Implement WAF and DDoS protection",
+        "implementation": "Cloudflare, AWS WAF, or Vercel security features"
+      },
+      {
+        "action": "Security training for development team",
+        "implementation": "OWASP Top 10, secure coding practices, threat modeling"
+      }
+    ]
+  },
+  "compliance_notes": {
+    "owasp_top_10_coverage": {
+      "A01_broken_access_control": "Multiple vulnerabilities found (VULN-002, 003, 004, 005, 006, 011)",
+      "A02_cryptographic_failures": "Critical issues found (VULN-001, 007, 012, 013)",
+      "A03_injection": "Medium severity issues (VULN-014, 015, 018)",
+      "A04_insecure_design": "Rate limiting and size limit issues (VULN-008, 017)",
+      "A05_security_misconfiguration": "Multiple configuration issues (VULN-009, 016, 020, 021, 022, 023)",
+      "A06_vulnerable_components": "Build error ignoring (VULN-009)",
+      "A07_authentication_failures": "Rate limiting issues (VULN-008)",
+      "A08_software_integrity": "Not assessed in this audit",
+      "A09_logging_monitoring": "Console logging issues (VULN-010, 019)",
+      "A10_ssrf": "Not found in this audit"
+    },
+    "regulatory_concerns": {
+      "gdpr": "Data retention policies missing, could violate right to erasure",
+      "pci_dss": "Stripe key exposure in Git violates PCI DSS requirement 3.4",
+      "soc2": "Access control and logging issues would fail SOC 2 audit",
+      "hipaa": "Not applicable (no health data)"
+    },
+    "industry_standards": {
+      "nist_cybersecurity_framework": "Fails Identify, Protect, and Detect functions",
+      "cis_controls": "Critical control failures in access control and secure configuration",
+      "iso_27001": "Multiple control failures in access control, cryptography, and operations security"
+    }
+  },
+  "attack_scenarios": {
+    "scenario_1_complete_takeover": {
+      "name": "Complete Platform Takeover via Exposed Secrets",
+      "steps": [
+        "1. Attacker discovers .env.production in Git repository",
+        "2. Extracts Stripe live secret key and Supabase service role key",
+        "3. Uses Stripe key to process fraudulent transactions",
+        "4. Uses Supabase service role key to bypass all RLS",
+        "5. Extracts all user data, payment information, and credentials",
+        "6. Modifies subscription tiers to grant free access",
+        "7. Deletes audit logs to cover tracks"
+      ],
+      "impact": "Total platform compromise, financial fraud, data breach, regulatory penalties",
+      "likelihood": "High (credentials already exposed)",
+      "blocked_by": "VULN-001 fix (credential rotation and Git removal)"
+    },
+    "scenario_2_unauthorized_data_access": {
+      "name": "Cross-User Data Access via Missing Authentication",
+      "steps": [
+        "1. Attacker creates free account on platform",
+        "2. Discovers /api/reframe and /api/narratives/generate lack auth",
+        "3. Iterates through user IDs (UUID enumeration)",
+        "4. Calls /api/narratives/generate with victim userId",
+        "5. Receives all user actions, dreams, and progress data",
+        "6. Calls /api/coach-dashboard/export/[victimId]",
+        "7. Exports comprehensive client reports for competitive intelligence"
+      ],
+      "impact": "Privacy breach, competitive intelligence theft, GDPR violation",
+      "likelihood": "High (trivial to exploit)",
+      "blocked_by": "VULN-003, VULN-004, VULN-006 fixes"
+    },
+    "scenario_3_payment_fraud": {
+      "name": "Webhook Forgery for Subscription Manipulation",
+      "steps": [
+        "1. Attacker analyzes Stripe webhook structure",
+        "2. If signature verification can be bypassed, crafts fake webhook",
+        "3. Sends forged 'subscription.created' events",
+        "4. Grants themselves enterprise tier without payment",
+        "5. Sends forged 'payment.succeeded' to clear dues",
+        "6. Accesses premium features without authorization"
+      ],
+      "impact": "Revenue loss, unauthorized feature access, fraud",
+      "likelihood": "Medium (requires signature bypass)",
+      "blocked_by": "VULN-012 fix (strict signature verification)"
+    }
+  },
+  "recommendations": {
+    "production_deployment_blockers": [
+      "DO NOT DEPLOY TO PRODUCTION until VULN-001 through VULN-005 are fully remediated",
+      "All exposed credentials must be rotated before any production deployment",
+      "Authentication must be implemented on all API endpoints",
+      "RLS must be enabled on all user data tables",
+      "CSRF protection must be enabled"
+    ],
+    "security_architecture": [
+      "Implement defense in depth with multiple security layers",
+      "Use principle of least privilege for all access controls",
+      "Implement security by default (secure unless explicitly opened)",
+      "Separate client and server code with strict boundaries",
+      "Use managed secret services instead of environment variables"
+    ],
+    "development_practices": [
+      "Implement pre-commit hooks to prevent secret commits",
+      "Require security review for all API endpoints",
+      "Enable TypeScript strict mode and fix all errors",
+      "Use structured logging with automatic PII redaction",
+      "Implement automated security testing in CI/CD pipeline"
+    ],
+    "monitoring_and_response": [
+      "Set up real-time alerting for authentication failures",
+      "Monitor for unusual API access patterns",
+      "Implement audit logging for all data access",
+      "Create incident response plan for security events",
+      "Regular security audit schedule (quarterly minimum)"
+    ]
+  },
+  "verification_status": {
+    "previous_findings_confirmed": true,
+    "new_vulnerabilities_found": 3,
+    "false_positives": 0,
+    "findings_summary": "All 20 previously identified vulnerabilities confirmed. Added 3 new findings (VULN-021, 022, 023). Platform remains NOT PRODUCTION READY.",
+    "audit_confidence": "High - Direct file examination and code analysis completed"
+  }
+}

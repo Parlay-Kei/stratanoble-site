@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
 
@@ -17,11 +17,17 @@ const nextConfig = {
       tls: false,
     };
 
+    const reactPath = path.resolve(__dirname, 'node_modules/react');
+    const reactDomPath = path.resolve(__dirname, 'node_modules/react-dom');
+
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname, 'src'),
+      react: reactPath,
+      'react-dom': reactDomPath,
+      'react/jsx-runtime': path.join(reactPath, 'jsx-runtime.js'),
+      'react/jsx-dev-runtime': path.join(reactPath, 'jsx-dev-runtime.js'),
     };
-
     // Ensure shared packages resolve modules from website's node_modules
     config.resolve.modules = [
       path.resolve(__dirname, 'node_modules'),
@@ -55,3 +61,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+

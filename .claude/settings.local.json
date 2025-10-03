@@ -166,7 +166,9 @@
       "Bash(PORT=3000 npx next dev)",
       "WebFetch(domain:localhost)",
       "Bash(gh pr create:*)",
-      "Bash(pnpm:*)"
+      "Bash(pnpm:*)",
+      "Bash(bc)",
+      "Bash(git mv:*)"
     ],
     "deny": [],
     "additionalDirectories": [
