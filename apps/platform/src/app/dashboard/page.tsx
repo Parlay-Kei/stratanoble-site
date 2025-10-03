@@ -47,54 +47,63 @@ export default function DashboardPage() {
 
     setLoading(true)
     try {
-      // Load user's primary dream
-      const { data: dreams } = await supabase
-        .from('user_dreams')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('is_active', true)
-        .order('created_at', { ascending: false })
-        .limit(1)
-
-      const dream = dreams?.[0] || null
-
-      // Load today's actions
+      // Calculate dates once
       const today = new Date().toISOString().split('T')[0]
-      const { data: todaysActions } = await supabase
-        .from('user_actions')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('logged_date', today)
-        .order('created_at', { ascending: false })
-
-      // Load this week's actions
       const weekStart = new Date()
       weekStart.setDate(weekStart.getDate() - weekStart.getDay())
-      const { data: weeklyActions } = await supabase
-        .from('user_actions')
-        .select('*')
-        .eq('user_id', user.id)
-        .gte('logged_date', weekStart.toISOString().split('T')[0])
-        .order('created_at', { ascending: false })
+      const weekStartStr = weekStart.toISOString().split('T')[0]
 
-      // Load most recent narrative
-      const { data: narratives } = await supabase
-        .from('weekly_narratives')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('week_start', { ascending: false })
-        .limit(1)
+      // Parallelize all database queries for better performance
+      const [
+        { data: dreams },
+        { data: todaysActions },
+        { data: weeklyActions },
+        { data: narratives },
+        { data: canLog },
+        { data: limit }
+      ] = await Promise.all([
+        // Load user's primary dream
+        supabase
+          .from('user_dreams')
+          .select('*')
+          .eq('user_id', user.id)
+          .eq('is_active', true)
+          .order('created_at', { ascending: false })
+          .limit(1),
 
-      // Check action limit
-      const { data: canLog } = await supabase
-        .rpc('can_log_action', { user_uuid: user.id })
+        // Load today's actions
+        supabase
+          .from('user_actions')
+          .select('*')
+          .eq('user_id', user.id)
+          .eq('logged_date', today)
+          .order('created_at', { ascending: false }),
 
-      // Get user limit
-      const { data: limit } = await supabase
-        .rpc('get_user_action_limit', { user_uuid: user.id })
+        // Load this week's actions
+        supabase
+          .from('user_actions')
+          .select('*')
+          .eq('user_id', user.id)
+          .gte('logged_date', weekStartStr)
+          .order('created_at', { ascending: false }),
+
+        // Load most recent narrative
+        supabase
+          .from('weekly_narratives')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('week_start', { ascending: false })
+          .limit(1),
+
+        // Check action limit
+        supabase.rpc('can_log_action', { user_uuid: user.id }),
+
+        // Get user limit
+        supabase.rpc('get_user_action_limit', { user_uuid: user.id })
+      ])
 
       setDashboardData({
-        dream,
+        dream: dreams?.[0] || null,
         todaysActions: todaysActions || [],
         weeklyActions: weeklyActions || [],
         recentNarrative: narratives?.[0] || null,
