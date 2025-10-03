@@ -125,11 +125,7 @@ async function checkAchieveryAuth(request: NextRequest) {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  
-  // Temporarily disable middleware to fix runtime error
-  // TODO: Re-enable after fixing Upstash Redis issues
-  return NextResponse.next();
-  
+
   // Handle deep linking app requests
   const appLinkResponse = handleAppLink(request);
   if (appLinkResponse) {

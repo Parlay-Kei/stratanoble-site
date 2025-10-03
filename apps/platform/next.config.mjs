@@ -2,7 +2,7 @@
 const nextConfig = {
   transpilePackages: ['@strata-noble/ui', '@strata-noble/utils'],
   experimental: {
-    optimizePackageImports: ['@strata-noble/ui'],
+    optimizePackageImports: ['@strata-noble/ui', 'lucide-react'],
   },
   // Ensure Next.js looks in the src directory
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
@@ -17,12 +17,12 @@ const nextConfig = {
     return config
   },
   typescript: {
-    // Skip type checking during build for initial deployment
-    ignoreBuildErrors: true,
+    // Enable type checking in production builds
+    ignoreBuildErrors: false,
   },
   eslint: {
-    // Skip ESLint during build for initial deployment
-    ignoreDuringBuilds: true,
+    // Enable ESLint in production builds
+    ignoreDuringBuilds: false,
   },
 }
 
