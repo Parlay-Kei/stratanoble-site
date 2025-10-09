@@ -1,18 +1,16 @@
 {
   "config": {
-    "configFile": "C:\\Dev\\StrataNoble\\apps\\website\\playwright-mcp-fix.config.ts",
+    "configFile": "C:\\Dev\\StrataNoble\\apps\\website\\playwright.config.ts",
     "rootDir": "C:/Dev/StrataNoble/apps/website/tests/e2e",
     "forbidOnly": false,
-    "fullyParallel": false,
-    "globalSetup": "C:\\Dev\\StrataNoble\\apps\\website\\tests\\mcp-global-setup.ts",
-    "globalTeardown": "C:\\Dev\\StrataNoble\\apps\\website\\tests\\mcp-global-teardown.ts",
-    "globalTimeout": 600000,
+    "fullyParallel": true,
+    "globalSetup": "C:\\Dev\\StrataNoble\\apps\\website\\tests\\global-setup.ts",
+    "globalTeardown": "C:\\Dev\\StrataNoble\\apps\\website\\tests\\global-teardown.ts",
+    "globalTimeout": 0,
     "grep": {},
     "grepInvert": null,
     "maxFailures": 0,
-    "metadata": {
-      "actualWorkers": 1
-    },
+    "metadata": {},
     "preserveOutput": "always",
     "reporter": [
       [
@@ -20,6 +18,12 @@
         {
           "outputFolder": "./tests/reports/html",
           "open": "never"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "./tests/reports/junit.xml"
         }
       ],
       [
@@ -42,105 +46,134 @@
       {
         "outputDir": "C:/Dev/StrataNoble/apps/website/tests/results",
         "repeatEach": 1,
-        "retries": 1,
-        "metadata": {
-          "actualWorkers": 1
-        },
-        "id": "mcp-chromium",
-        "name": "mcp-chromium",
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
         "testDir": "C:/Dev/StrataNoble/apps/website/tests/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.spec.ts"
         ],
-        "timeout": 30000
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Dev/StrataNoble/apps/website/tests/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Dev/StrataNoble/apps/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Dev/StrataNoble/apps/website/tests/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Dev/StrataNoble/apps/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Dev/StrataNoble/apps/website/tests/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "mobile-chrome",
+        "name": "mobile-chrome",
+        "testDir": "C:/Dev/StrataNoble/apps/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/mobile.*.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Dev/StrataNoble/apps/website/tests/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "mobile-safari",
+        "name": "mobile-safari",
+        "testDir": "C:/Dev/StrataNoble/apps/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/mobile.*.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Dev/StrataNoble/apps/website/tests/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "security-tests",
+        "name": "security-tests",
+        "testDir": "C:/Dev/StrataNoble/apps/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/security.*.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Dev/StrataNoble/apps/website/tests/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "performance-tests",
+        "name": "performance-tests",
+        "testDir": "C:/Dev/StrataNoble/apps/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/performance.*.spec.ts"
+        ],
+        "timeout": 60000
       }
     ],
     "shard": null,
     "updateSnapshots": "missing",
     "updateSourceMethod": "patch",
-    "version": "1.54.2",
-    "workers": 1,
-    "webServer": null
+    "version": "1.55.1",
+    "workers": 6,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000,
+      "env": {
+        "NODE_ENV": "test"
+      }
+    }
   },
-  "suites": [
+  "suites": [],
+  "errors": [
     {
-      "title": "cross-browser.spec.ts",
-      "file": "cross-browser.spec.ts",
-      "column": 0,
-      "line": 0,
-      "specs": [],
-      "suites": [
-        {
-          "title": "Cross-Browser Compatibility Tests",
-          "file": "cross-browser.spec.ts",
-          "line": 17,
-          "column": 6,
-          "specs": [
-            {
-              "title": "Homepage loads correctly across browsers",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "mcp-chromium",
-                  "projectName": "mcp-chromium",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 3844,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Testing Homepage on chromium\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2025-09-25T23:06:08.789Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "C:\\Dev\\StrataNoble\\apps\\website\\tests\\results\\cross-browser-Cross-Browse-301c5-s-correctly-across-browsers-mcp-chromium\\test-finished-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "C:\\Dev\\StrataNoble\\apps\\website\\tests\\results\\cross-browser-Cross-Browse-301c5-s-correctly-across-browsers-mcp-chromium\\video.webm"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Dev\\StrataNoble\\apps\\website\\tests\\results\\cross-browser-Cross-Browse-301c5-s-correctly-across-browsers-mcp-chromium\\trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "988e5ab7a922d34581e7-1fdec97e15a2b578b611",
-              "file": "cross-browser.spec.ts",
-              "line": 25,
-              "column": 9
-            }
-          ]
-        }
-      ]
+      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\MrSte\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1193\\chrome-win\\headless_shell.exe\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝",
+      "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\MrSte\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1193\\chrome-win\\headless_shell.exe\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝\n    at globalSetup (C:\\Dev\\StrataNoble\\apps\\website\\tests\\global-setup.ts:44:34)",
+      "location": {
+        "file": "C:\\Dev\\StrataNoble\\apps\\website\\tests\\global-setup.ts",
+        "column": 34,
+        "line": 44
+      },
+      "snippet": "\u001b[90m   at \u001b[39m..\\global-setup.ts:44\n\n\u001b[0m \u001b[90m 42 |\u001b[39m\n \u001b[90m 43 |\u001b[39m   \u001b[90m// Verify application is responsive\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 44 |\u001b[39m   \u001b[36mconst\u001b[39m browser \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m chromium\u001b[33m.\u001b[39mlaunch()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 45 |\u001b[39m   \u001b[36mconst\u001b[39m page \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m browser\u001b[33m.\u001b[39mnewPage()\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m   \n \u001b[90m 47 |\u001b[39m   \u001b[36mtry\u001b[39m {\u001b[0m"
     }
   ],
-  "errors": [],
   "stats": {
-    "startTime": "2025-09-25T23:06:06.038Z",
-    "duration": 6989.986,
-    "expected": 1,
+    "startTime": "2025-10-06T09:35:25.069Z",
+    "duration": 687.53,
+    "expected": 0,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

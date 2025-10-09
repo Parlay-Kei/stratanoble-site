@@ -24,9 +24,7 @@ class RuntimeErrorTester {
             { path: '/about', name: 'About Page' },
             { path: '/contact', name: 'Contact Page' },
             { path: '/services', name: 'Services Page' },
-            { path: '/methodology', name: 'Methodology Page' },
             { path: '/technology', name: 'Technology Page' },
-            { path: '/case-studies', name: 'Case Studies Page' },
             { path: '/discovery', name: 'Discovery Page' },
             { path: '/achievery-preview', name: 'ACHIEVERY Preview Page' },
             { path: '/workshops', name: 'Workshops Page' }

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRightIcon, ChartBarIcon, LightBulbIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';
@@ -9,6 +9,9 @@ import { publicConfig } from '@/lib/public-config';
 
 export function HeroSectionAligned() {
   const [currentStatIndex, setCurrentStatIndex] = useState(0);
+  const [idea, setIdea] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   
   const successPrinciples = [
     { icon: LightBulbIcon, label: 'Clarity Over Confusion', value: '100%' },
@@ -28,6 +31,49 @@ export function HeroSectionAligned() {
     }, 3000);
     return () => clearInterval(interval);
   }, [marketStats.length]);
+
+  const handleSubmit = async () => {
+  setError(null);
+  if (!idea?.trim()) {
+    setError('Please enter your idea.');
+    return;
+  }
+  try {
+    setSubmitting(true);
+    const res = await fetch('/api/validate-idea', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idea: idea.trim() })
+    });
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      throw new Error(data?.error || 'Something went wrong. Please try again.');
+    }
+
+    if (data?.success && data?.analysis) {
+      try {
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('ideaAnalysis', JSON.stringify(data.analysis));
+          sessionStorage.setItem('userIdea', idea.trim());
+          window.location.href = '/get-started';
+        }
+      } catch (error) {
+        console.error('Failed to save to sessionStorage:', error);
+        // Fallback - still redirect but without cached data
+        if (typeof window !== 'undefined') {
+          window.location.href = '/get-started';
+        }
+      }
+    } else {
+      throw new Error('Failed to validate idea. Please try again.');
+    }
+  } catch (e: any) {
+    setError(e?.message || 'Submission failed. Please try again.');
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-navy via-navy/95 to-emerald-900/20">
@@ -68,7 +114,7 @@ export function HeroSectionAligned() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex justify-center mb-8"
           >
-            <Logo variant="full" className="h-64 w-auto" theme="white" />
+            {/* <Logo variant="full" className="h-64 w-auto" theme="white" /> */}
           </motion.div>
 
           {/* Main Headline */}
@@ -78,24 +124,24 @@ export function HeroSectionAligned() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
-              Turn Your{' '}
+              Turn Any{' '}
               <motion.span
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="bg-gradient-to-r from-accent-gold to-accent-cream bg-clip-text text-transparent"
               >
-                Ideas
+                Idea
               </motion.span>
               <br />
-              Into{' '}
+              Into a{' '}
               <motion.span
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
                 className="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent"
               >
-                Income
+                Real Business
               </motion.span>
             </h1>
           </motion.div>
@@ -107,8 +153,7 @@ export function HeroSectionAligned() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
           >
-            Smarter, faster, more personalized consulting that helps everyday people
-            and small businesses succeed doing what they love
+            You’ve got the idea. We’ve got the AI that builds it. Zero experience needed.
           </motion.p>
 
           {/* Success Principles Dashboard */}
@@ -167,6 +212,45 @@ export function HeroSectionAligned() {
             </div>
           </motion.div>
 
+          {/* Idea Capture */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
+            className="max-w-3xl mx-auto w-full"
+          >
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 sm:p-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="md:col-span-2">
+                  <label htmlFor="idea" className="sr-only">Your idea</label>
+                  <input
+                    id="idea"
+                    type="text"
+                    value={idea}
+                    onChange={(e) => setIdea(e.target.value)}
+                    placeholder="Describe your idea (e.g., meal kits for students)"
+                    className="w-full rounded-xl px-4 py-3 bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                    disabled={submitting}
+                  />
+                </div>
+                <div className="flex items-stretch md:justify-end">
+                  <button
+                    onClick={handleSubmit}
+                    disabled={submitting}
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-xl px-5 py-3 font-semibold text-white bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy focus:ring-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed w-full md:w-auto"
+                    aria-label="Validate my idea for free"
+                  >
+                    {submitting ? 'Submitting...' : 'Validate My Idea Free'}
+                  </button>
+                </div>
+              </div>
+              {error && (
+                <div className="mt-3 text-sm text-red-200">{error}</div>
+              )}
+              <p className="mt-2 text-xs text-gray-300">Free instant check. No spam. Unsubscribe anytime.</p>
+            </div>
+          </motion.div>
+
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -197,12 +281,12 @@ export function HeroSectionAligned() {
             </motion.a>
 
             <motion.a
-              href="/methodology?utm_source=hero&utm_medium=cta&utm_campaign=explore-approach"
+              href="/services?utm_source=hero&utm_medium=cta&utm_campaign=explore-services"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               className="group bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30 hover:border-white/50 hover:bg-white/20 transition-all duration-300 flex items-center space-x-3"
             >
-              <span>Explore Our Approach</span>
+              <span>Explore Our Services</span>
               <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
             </motion.a>
           </motion.div>
@@ -216,9 +300,9 @@ export function HeroSectionAligned() {
           >
             <p className="text-sm text-gray-400 mb-4">Trusted by everyday entrepreneurs</p>
             <div className="flex justify-center items-center space-x-8 text-gray-500">
-              <div className="text-sm">✓ Proven Strategies</div>
-              <div className="text-sm">✓ AI-Powered Tools</div>
-              <div className="text-sm">✓ Personalized Guidance</div>
+              <div className="text-sm">• Proven Strategies</div>
+              <div className="text-sm">• AI-Powered Tools</div>
+              <div className="text-sm">• Personalized Guidance</div>
             </div>
           </motion.div>
         </div>

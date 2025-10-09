@@ -56,12 +56,10 @@ const testResults: TestResults = {
 const keyPages = [
   { path: '/', name: 'Homepage' },
   { path: '/portfolio', name: 'Portfolio' },
-  { path: '/methodology', name: 'Methodology' },
   { path: '/technology', name: 'Technology' },
   { path: '/services', name: 'Services' },
   { path: '/data-analysis', name: 'Data Analysis' },
   { path: '/about', name: 'About' },
-  { path: '/case-studies', name: 'Case Studies' },
   { path: '/contact', name: 'Contact' }
 ];
 

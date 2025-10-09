@@ -1,4 +1,4 @@
-import Script from 'next/script';
+﻿import Script from 'next/script';
 
 // Structured data for better SEO
 const structuredData = {
@@ -30,7 +30,7 @@ export function CustomHead() {
   return (
     <>
       {/* Preload critical resources */}
-      <link rel="preload" href="/stratanoble_logoICON.svg" as="image" type="image/svg+xml" />
+      <link rel="prefetch" href="/stratanoble_logoICON.svg" as="image" type="image/svg+xml" />
       
       {/* Preconnect to external domains */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,3 +53,4 @@ export function CustomHead() {
     </>
   );
 }
+

@@ -8,34 +8,24 @@ import Link from 'next/link'
 import { Logo } from './Logo'
 
 const navigation = [
-  { 
-    name: 'Services', 
-    href: '/services', 
+  {
+    name: 'Services',
+    href: '/services',
     description: 'Explore our solutions',
   },
-  { 
-    name: 'Methodology', 
-    href: '/methodology', 
-    description: 'Development best practices',
-  },
-  { 
-    name: 'Technology', 
-    href: '/technology', 
+  {
+    name: 'Technology',
+    href: '/technology',
     description: 'AI automation strategy',
   },
-  { 
-    name: 'About', 
-    href: '/about', 
+  {
+    name: 'About',
+    href: '/about',
     description: 'Learn about our mission',
   },
-  { 
-    name: 'Case Studies', 
-    href: '/case-studies', 
-    description: 'See our results',
-  },
-  { 
-    name: 'Contact', 
-    href: '/contact', 
+  {
+    name: 'Contact',
+    href: '/contact',
     description: 'Get started today',
   },
 ]

@@ -75,8 +75,6 @@ const keyPages = [
   { path: '/portfolio', name: 'Portfolio', priority: 'high' },
   { path: '/about', name: 'About', priority: 'medium' },
   { path: '/contact', name: 'Contact', priority: 'critical' },
-  { path: '/case-studies', name: 'Case Studies', priority: 'medium' },
-  { path: '/methodology', name: 'Methodology', priority: 'medium' },
   { path: '/technology', name: 'Technology', priority: 'medium' },
   { path: '/data-analysis', name: 'Data Analysis', priority: 'medium' }
 ];

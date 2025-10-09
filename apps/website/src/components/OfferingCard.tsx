@@ -1,29 +1,36 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { OFFERINGS, type OfferingId } from '@/data/offerings';
+import { PLATFORM_TIERS, type PlatformTierId } from '@/data/offerings';
 
 interface OfferingCardProps {
-  offeringId: OfferingId;
+  offeringId: PlatformTierId;
   isPopular?: boolean;
 }
 
 export default function OfferingCard({ offeringId, isPopular = false }: OfferingCardProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const offering = OFFERINGS[offeringId];
+  const offering = PLATFORM_TIERS.find(tier => tier.id === offeringId);
+
+  if (!offering) {
+    return <div className="text-red-500">Offering not found</div>;
+  }
 
   const handleStartCheckout = async () => {
     setIsLoading(true);
     
     try {
+      const csrf = await fetch('/api/csrf', { credentials: 'include' }).then(r => r.json()).catch(() => ({} as any));
       const response = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-csrf-token': (csrf?.csrfToken || '')
         },
-        body: JSON.stringify({
+        credentials: 'include',body: JSON.stringify({
           offeringId,
+          priceId: (offering as any).stripePriceId,
           customerEmail: 'demo@stratanoble.com', // This would come from auth in production
           customerName: 'Demo User', // This would come from auth in production
           test: process.env.NODE_ENV === 'development' // Enable test mode in development
@@ -33,12 +40,18 @@ export default function OfferingCard({ offeringId, isPopular = false }: Offering
       const result = await response.json();
 
       if (response.ok && result.url) {
-        window.location.href = result.url;
+        if (typeof window !== 'undefined') {
+          window.location.href = result.url;
+        }
       } else {
-        alert('Error creating checkout session. Please try again.');
+        if (typeof window !== 'undefined') {
+          alert('Error creating checkout session. Please try again.');
+        }
       }
     } catch {
-      alert('Network error. Please try again.');
+      if (typeof window !== 'undefined') {
+        alert('Network error. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -66,17 +79,17 @@ export default function OfferingCard({ offeringId, isPopular = false }: Offering
           {offering.name}
         </h3>
         <p className="text-[#C0C0C0] mb-4">
-          {offering.description}
+          {offering.subtitle || ''}
         </p>
         <div className="text-3xl font-bold text-[#50C878]">
-          {offering.price}
+          {offering.priceLabel}
         </div>
       </div>
 
       {/* Features List */}
       <div className="mb-8">
         <ul className="space-y-3">
-          {offering.featureList.map((feature, index) => (
+          {offering.features.map((feature: string, index: number) => (
             <li key={index} className="flex items-start text-[#C0C0C0]">
               <svg
                 className="w-5 h-5 text-[#50C878] mr-3 mt-0.5 flex-shrink-0"
@@ -119,10 +132,13 @@ export default function OfferingCard({ offeringId, isPopular = false }: Offering
       {process.env.NODE_ENV === 'development' && (
         <div className="mt-4 text-center">
           <span className="text-xs text-yellow-400">
-            🧪 Test mode: 99.8% discount applied
+            ðŸ§ª Test mode: 99.8% discount applied
           </span>
         </div>
       )}
     </div>
   );
 }
+
+
+
