@@ -378,12 +378,12 @@ export default function PlatformPage() {
               <SparklesIcon className="h-5 w-5 mr-2" />
               ACHIEVERY Platform
             </Link>
-            <Link 
-              href="/methodology?utm_source=platform-preview&utm_medium=cta&utm_campaign=learn-approach"
+            <Link
+              href="/services?utm_source=platform-preview&utm_medium=cta&utm_campaign=learn-services"
               className="border-2 border-white text-white font-bold py-4 px-8 rounded-2xl hover:bg-white hover:text-emerald-600 transition-colors inline-flex items-center justify-center"
             >
               <HeartIcon className="h-5 w-5 mr-2" />
-              Learn Our Approach
+              Learn Our Services
             </Link>
           </div>
           

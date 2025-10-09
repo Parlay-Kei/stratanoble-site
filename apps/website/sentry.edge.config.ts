@@ -1,7 +1,8 @@
-import * as Sentry from "@sentry/nextjs";
+﻿import * as Sentry from "@sentry/nextjs";
 
 export function init() {
   Sentry.init({
+  enabled: Boolean(process.env.SENTRY_DSN),
     dsn: process.env.SENTRY_DSN,
     
     // Adjust this value in production, or use tracesSampler for greater control

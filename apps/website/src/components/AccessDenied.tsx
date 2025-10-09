@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { Card } from './ui/card'
@@ -16,19 +16,26 @@ export default function AccessDenied({
   requiredTier,
   showUpgrade = true 
 }: AccessDeniedProps) {
-  const [isUpgrading, setIsUpgrading] = useState(false)
-
+  const [isUpgrading, setIsUpgrading] = useState(false)\r\n  const priceIdByTier: Record<string, string | null> = {
+    builder: process.env.NEXT_PUBLIC_STRIPE_BUILDER_PRICE_ID || null,
+    prosperity: process.env.NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID || null,
+    growth: process.env.NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID || null,
+    partner: process.env.NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID || null,
+  };\r\n
   const handleUpgrade = async () => {
     setIsUpgrading(true)
     
     try {
+      const csrf = await fetch('/api/csrf', { credentials: 'include' }).then(r => r.json()).catch(() => ({} as any));
       const response = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-csrf-token': (csrf?.csrfToken || '')
         },
-        body: JSON.stringify({
+        credentials: 'include',body: JSON.stringify({
           offeringId: requiredTier || 'growth',
+          priceId: priceIdByTier[requiredTier || 'growth'] || undefined,
           customerEmail: 'user@example.com', // This should come from auth context
           customerName: 'Current User'
         })
@@ -113,3 +120,5 @@ export default function AccessDenied({
     </div>
   )
 }
+
+

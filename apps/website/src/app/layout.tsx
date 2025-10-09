@@ -181,6 +181,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Google Analytics - moved to Script components below */}
       </head>
       <body className="font-sans antialiased pt-12">
+        {process.env.NODE_ENV !== 'production' && (
+          <Script
+            id="sw-unregister-dev"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(){
+                  try {
+                    if ('serviceWorker' in navigator) {
+                      navigator.serviceWorker.getRegistrations().then((regs) => {
+                        regs.forEach((reg) => reg.unregister());
+                      }).catch(()=>{});
+                    }
+                    if (typeof caches !== 'undefined' && caches.keys) {
+                      caches.keys().then((keys) => keys.forEach((k) => caches.delete(k))).catch(()=>{});
+                    }
+                  } catch {}
+                })();
+              `,
+            }}
+          />
+        )}
+
         <Header />
         <ToastProvider>
           {children}
@@ -188,8 +211,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <Suspense fallback={null}>
           <Analytics />
-        </Suspense>
-        {/* Google Analytics with Next.js Script component */}
+        </Suspense>        {/* Google Analytics with Next.js Script component */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-0TGKD1S1HB"
           strategy="afterInteractive"
@@ -208,26 +230,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           src="https://plausible.io/js/script.js"
           strategy="afterInteractive"
         />
-        {/* Service Worker Registration */}
-        <Script
-          id="sw-register"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                      console.log('SW registered: ', registration);
-                    })
-                    .catch(function(registrationError) {
-                      console.log('SW registration failed: ', registrationError);
-                    });
-                });
-              }
-            `,
-          }}
-        />
+                {/* Service Worker Registration */}
+        {process.env.NODE_ENV === 'production' && (
+          <Script
+            id="sw-register"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                if ('serviceWorker' in navigator) {
+                  window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js')
+                      .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                      })
+                      .catch(function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                      });
+                  });
+                }
+              `,
+            }}
+          />
+        )}
       </body>
     </html>
   );

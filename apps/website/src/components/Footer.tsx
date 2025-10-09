@@ -9,7 +9,6 @@ const navigation = {
     { name: 'All Services', href: '/services' },
     { name: 'Data Analysis', href: '/data-analysis' },
     { name: 'Brand & Digital', href: '/services/brand-digital' },
-    { name: 'Case Studies', href: '/case-studies' },
   ],
   company: [
     { name: 'About', href: '/about' },

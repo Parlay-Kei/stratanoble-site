@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -6,12 +6,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/toast'
 import { CheckoutErrorBoundary } from '@/components/ErrorBoundary'
-import { OFFERINGS, type OfferingId } from '@/data/offerings'
+import { getOfferingById, isPlatformTier, isConsultingService } from '@/data/offerings'
 
 interface CheckoutModalProps {
   isOpen: boolean
   onClose: () => void
-  offeringId: OfferingId | null
+  offeringId: string | null
   customerEmail?: string
   customerName?: string
 }
@@ -28,21 +28,36 @@ export default function CheckoutModal({
   const [showPromoInput, setShowPromoInput] = useState(false)
   const { showToast } = useToast()
 
-  const offering = offeringId ? OFFERINGS[offeringId] : null
+  const offering = offeringId ? getOfferingById(offeringId) : null
 
   const handleCheckout = async () => {
     if (!offeringId || !offering) return
 
+    // For free tier, redirect to signup instead of payment
+    if (offering.id === 'free') {
+      window.location.href = '/auth/signup';
+      return;
+    }
+
+    // For consulting services without price IDs, redirect to contact
+    if (isConsultingService(offering) && !offering.stripePriceId) {
+      window.location.href = '/contact?service=' + offering.id;
+      return;
+    }
+
     setIsLoading(true)
     
     try {
+      const csrf = await fetch('/api/csrf', { credentials: 'include' }).then(r => r.json()).catch(() => ({} as any));
       const response = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-csrf-token': (csrf?.csrfToken || '')
         },
-        body: JSON.stringify({
+        credentials: 'include',body: JSON.stringify({
           offeringId,
+          priceId: offering.stripePriceId,
           customerEmail: customerEmail || 'demo@stratanoble.com',
           customerName: customerName || 'Demo User',
           promoCode: promoCode || undefined,
@@ -74,9 +89,19 @@ export default function CheckoutModal({
 
   if (!offering) return null
 
+  // Get display price
+  const displayPrice = isPlatformTier(offering) 
+    ? offering.priceLabel + (offering.period || '')
+    : offering.priceLabel;
+
+  // Get features to display
+  const featuresToShow = isPlatformTier(offering) 
+    ? offering.features 
+    : offering.features;
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent aria-describedby="checkout-dialog-description" className="sm:max-w-md">
         <CheckoutErrorBoundary>
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-gray-900">
@@ -91,18 +116,23 @@ export default function CheckoutModal({
               {offering.name}
             </h3>
             <p className="text-gray-600 text-sm mb-3">
-              {offering.description}
+              {offering.subtitle || ''}
             </p>
             <div className="text-2xl font-bold text-blue-600">
-              {offering.price}
+              {displayPrice}
             </div>
+            {offering.id === 'free' && (
+              <p className="text-xs text-gray-500 mt-2">
+                No credit card required
+              </p>
+            )}
           </div>
 
           {/* Key Features */}
           <div>
             <h4 className="font-medium text-gray-900 mb-2">What&apos;s included:</h4>
             <ul className="space-y-1 text-sm text-gray-600">
-              {offering.featureList.slice(0, 4).map((feature, index) => (
+              {featuresToShow.slice(0, 4).map((feature, index) => (
                 <li key={index} className="flex items-center">
                   <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -110,53 +140,55 @@ export default function CheckoutModal({
                   {feature}
                 </li>
               ))}
-              {offering.featureList.length > 4 && (
+              {featuresToShow.length > 4 && (
                 <li className="text-gray-500 text-xs">
-                  + {offering.featureList.length - 4} more features
+                  + {featuresToShow.length - 4} more features
                 </li>
               )}
             </ul>
           </div>
 
-          {/* Promo Code Section */}
-          <div>
-            {!showPromoInput ? (
-              <button
-                onClick={() => setShowPromoInput(true)}
-                className="text-blue-600 text-sm hover:text-blue-700 font-medium"
-              >
-                Have a promo code? Click here
-              </button>
-            ) : (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Promo Code
-                </label>
-                <div className="flex space-x-2">
-                  <Input
-                    type="text"
-                    value={promoCode}
-                    onChange={(e) => setPromoCode(e.target.value)}
-                    placeholder="Enter promo code"
-                    className="flex-1"
-                  />
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setShowPromoInput(false)
-                      setPromoCode('')
-                    }}
-                  >
-                    Cancel
-                  </Button>
+          {/* Promo Code Section - Only for paid tiers */}
+          {offering.id !== 'free' && !isConsultingService(offering) && (
+            <div>
+              {!showPromoInput ? (
+                <button
+                  onClick={() => setShowPromoInput(true)}
+                  className="text-blue-600 text-sm hover:text-blue-700 font-medium"
+                >
+                  Have a promo code? Click here
+                </button>
+              ) : (
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Promo Code
+                  </label>
+                  <div className="flex space-x-2">
+                    <Input
+                      type="text"
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                      placeholder="Enter promo code"
+                      className="flex-1"
+                    />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setShowPromoInput(false)
+                        setPromoCode('')
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
 
           {/* Test Mode Indicator */}
-          {process.env.NODE_ENV === 'development' && (
+          {process.env.NODE_ENV === 'development' && offering.id !== 'free' && (
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
               <div className="flex items-center">
                 <svg className="w-5 h-5 text-yellow-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -190,21 +222,30 @@ export default function CheckoutModal({
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                   Processing...
                 </div>
+              ) : offering.id === 'free' ? (
+                'Create Free Account'
+              ) : isConsultingService(offering) && !offering.stripePriceId ? (
+                'Contact Us'
               ) : (
                 'Continue to Payment'
               )}
             </Button>
           </div>
 
-          {/* Security Notice */}
-          <div className="text-center pt-2">
-            <p className="text-xs text-gray-500">
-              🔒 Secure checkout powered by Stripe
-            </p>
-          </div>
+          {/* Security Notice - Only for paid tiers */}
+          {offering.id !== 'free' && isPlatformTier(offering) && (
+            <div className="text-center pt-2">
+              <p className="text-xs text-gray-500">
+                ðŸ”’ Secure checkout powered by Stripe
+              </p>
+            </div>
+          )}
         </div>
         </CheckoutErrorBoundary>
       </DialogContent>
     </Dialog>
   )
 }
+
+
+

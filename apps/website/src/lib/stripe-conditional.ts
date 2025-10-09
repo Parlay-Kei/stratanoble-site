@@ -1,4 +1,4 @@
-// Conditional Stripe imports to prevent build failures
+﻿// Conditional Stripe imports to prevent build failures
 // Only import Stripe when environment variables are available
 
 import Stripe from 'stripe';
@@ -11,7 +11,7 @@ export const getStripe = () => {
     if (process.env.STRIPE_SECRET_KEY) {
       if (!stripe) {
         stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-          apiVersion: '2025-08-27.basil',
+          apiVersion: '2024-06-20',
         });
       }
     }
@@ -22,3 +22,4 @@ export const getStripe = () => {
 export const hasStripeConfig = () => {
   return !!(process.env.STRIPE_SECRET_KEY && process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 };
+

@@ -54,7 +54,7 @@ export function checkRouteAccess(
   userTier: UserTier | null
 ): RouteGuardResult {
   // Public routes that don't require authentication
-  const publicRoutes = ['/', '/pricing', '/contact', '/about', '/case-studies']
+  const publicRoutes = ['/', '/pricing', '/contact', '/about']
   if (publicRoutes.includes(currentPath)) {
     return { hasAccess: true }
   }

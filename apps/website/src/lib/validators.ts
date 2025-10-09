@@ -38,13 +38,14 @@ export type CreateLeadData = z.infer<typeof CreateLeadSchema>;
 
 // Stripe checkout validation
 export const CheckoutSessionSchema = z.object({
-  offeringId: z.enum(['lite', 'growth', 'partner'], {
+  offeringId: z.enum(['free','builder','prosperity','consulting-strategy','consulting-brand','consulting-data','lite','growth','partner'], {
     errorMap: () => ({ message: 'Please select a valid offering' }),
   }),
   customerEmail: emailSchema,
   customerName: nameSchema,
   promoCode: z.string().max(50, 'Promo code must be less than 50 characters').optional(),
   test: z.boolean().default(false),
+  priceId: z.string().min(1, 'priceId is required for platform tiers').optional(),
 });
 
 export type CheckoutSessionData = z.infer<typeof CheckoutSessionSchema>;
