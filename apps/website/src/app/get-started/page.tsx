@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 import { Suspense } from 'react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { 
   CheckCircleIcon, 
   LightBulbIcon, 
@@ -67,13 +68,13 @@ function GetStartedInner() {
           <p className="text-[#C0C0C0] mb-6">
             Please submit your idea from the homepage to get started.
           </p>
-          <a 
+          <Link
             href="/"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-[#50C878] to-[#40B068] text-white font-bold px-6 py-3 rounded-full hover:shadow-lg transition-all"
           >
             Go to Homepage
             <ArrowRightIcon className="h-5 w-5" />
-          </a>
+          </Link>
         </div>
       </div>
     );

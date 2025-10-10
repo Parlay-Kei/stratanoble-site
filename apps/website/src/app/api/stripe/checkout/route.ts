@@ -78,7 +78,10 @@ async function checkoutHandler(request: NextRequest) {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     logger.error('Checkout session creation error', new Error(errorMessage));
-    if (process.env.NODE_ENV !== 'production') {\n      return NextResponse.json({ error: 'Failed to create checkout session', detail: errorMessage }, { status: 500 });\n    }\n    return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 });
+    if (process.env.NODE_ENV !== 'production') {
+      return NextResponse.json({ error: 'Failed to create checkout session', detail: errorMessage }, { status: 500 });
+    }
+    return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 });
   }
 }
 

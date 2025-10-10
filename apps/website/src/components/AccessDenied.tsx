@@ -16,12 +16,14 @@ export default function AccessDenied({
   requiredTier,
   showUpgrade = true 
 }: AccessDeniedProps) {
-  const [isUpgrading, setIsUpgrading] = useState(false)\r\n  const priceIdByTier: Record<string, string | null> = {
+  const [isUpgrading, setIsUpgrading] = useState(false);
+  const priceIdByTier: Record<string, string | null> = {
     builder: process.env.NEXT_PUBLIC_STRIPE_BUILDER_PRICE_ID || null,
     prosperity: process.env.NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID || null,
     growth: process.env.NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID || null,
     partner: process.env.NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID || null,
-  };\r\n
+  };
+
   const handleUpgrade = async () => {
     setIsUpgrading(true)
     
