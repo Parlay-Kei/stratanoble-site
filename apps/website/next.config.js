@@ -28,6 +28,25 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/services',
+        destination: '/solutions',
+        permanent: true,
+      },
+      {
+        source: '/services/:path*',
+        destination: '/solutions',
+        permanent: true,
+      },
+      {
+        source: '/technology',
+        destination: '/platform',
+        permanent: true,
+      },
+    ];
+  },
   experimental: {
     // optimizePackageImports: ['@heroicons/react', 'lucide-react'],
   },

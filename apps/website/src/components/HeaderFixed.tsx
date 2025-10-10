@@ -9,24 +9,24 @@ import { Logo } from './Logo'
 
 const navigation = [
   {
-    name: 'Services',
-    href: '/services',
-    description: 'Explore our solutions',
+    name: 'Platform',
+    href: '/platform',
+    description: 'Your CaaS toolkit',
   },
   {
-    name: 'Technology',
-    href: '/technology',
-    description: 'AI automation strategy',
+    name: 'Solutions',
+    href: '/solutions',
+    description: 'Choose your package',
   },
   {
     name: 'About',
     href: '/about',
-    description: 'Learn about our mission',
+    description: 'Meet Steve',
   },
   {
     name: 'Contact',
     href: '/contact',
-    description: 'Get started today',
+    description: 'Start your journey',
   },
 ]
 
