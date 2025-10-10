@@ -6,9 +6,9 @@ import { Logo } from './Logo';
 
 const navigation = {
   services: [
-    { name: 'All Services', href: '/services' },
+    { name: 'Platform', href: '/platform' },
+    { name: 'Solutions', href: '/solutions' },
     { name: 'Data Analysis', href: '/data-analysis' },
-    { name: 'Brand & Digital', href: '/services/brand-digital' },
   ],
   company: [
     { name: 'About', href: '/about' },

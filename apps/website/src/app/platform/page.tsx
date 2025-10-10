@@ -22,9 +22,9 @@ import {
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Platform Preview | Strata Noble - Tools That Support Your Journey',
-  description: 'Preview the supportive tools and resources that help everyday entrepreneurs turn their ideas into income through our guided platform.',
-  keywords: 'entrepreneur tools, business platform, idea validation, progress tracking, supportive business tools',
+  title: 'Platform | Strata Noble - Your CaaS Toolkit',
+  description: 'Your Consulting-as-a-Service platform with guided diagnostics, achievement tracking, and expert support. Turn your ideas into income with supportive tools and human guidance.',
+  keywords: 'CaaS platform, consulting as a service, entrepreneur tools, business platform, idea validation, progress tracking, ACHIEVERY',
 };
 
 export default function PlatformPage() {
@@ -40,14 +40,14 @@ export default function PlatformPage() {
               Platform Preview
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Tools That{' '}
+              Your{' '}
               <span className="bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-                Support Your Journey
+                Consulting-as-a-Service Platform
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Simple, helpful tools designed to guide you from idea to income without the overwhelm. 
-              Each tool builds on the next, supporting you every step of the way.
+              Guided tools and expert support designed to help everyday entrepreneurs turn ideas into income.
+              Each component builds on the next, supporting you every step of the way.
             </p>
           </div>
         </div>
@@ -379,11 +379,11 @@ export default function PlatformPage() {
               ACHIEVERY Platform
             </Link>
             <Link
-              href="/services?utm_source=platform-preview&utm_medium=cta&utm_campaign=learn-services"
+              href="/solutions?utm_source=platform-preview&utm_medium=cta&utm_campaign=explore-solutions"
               className="border-2 border-white text-white font-bold py-4 px-8 rounded-2xl hover:bg-white hover:text-emerald-600 transition-colors inline-flex items-center justify-center"
             >
               <HeartIcon className="h-5 w-5 mr-2" />
-              Learn Our Services
+              Explore Solutions
             </Link>
           </div>
           
