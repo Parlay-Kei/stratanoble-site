@@ -1,4 +1,4 @@
-# ACHIEVERY Development Execution Guide
+﻿# ACHIEVERY Development Execution Guide
 
 **Status:** Production-Ready (85% Complete) | **Priority:** High | **Updated:** December 2025
 
@@ -507,10 +507,10 @@ export const trackActionLogged = (category: string) => {
 ## 📚 Documentation References
 
 ### **Technical Documentation**
-- [ACHIEVERY Implementation Summary](./ACHIEVERY_IMPLEMENTATION_SUCCESS_SUMMARY.md)
-- [Dual Platform Implementation Guide](./ACHIEVERY_DUAL_PLATFORM_IMPLEMENTATION_GUIDE.md)
-- [PRD Compliance Assessment](./ACHIEVERY_PRD_COMPLIANCE_ASSESSMENT.md)
-- [Database Migration](./infra/supabase/migrations/0016_achievery_platform_tables.sql)
+- [ACHIEVERY Implementation Summary](../ACHIEVERY_IMPLEMENTATION_SUCCESS_SUMMARY.md)
+- [Dual Platform Implementation Guide](../ACHIEVERY_DUAL_PLATFORM_IMPLEMENTATION_GUIDE.md)
+- [PRD Compliance Assessment](../ACHIEVERY_PRD_COMPLIANCE_ASSESSMENT.md)
+- [Database Migration](../../../../infra/supabase/migrations/0016_achievery_platform_tables.sql)
 
 ### **External Resources**
 - [Expo Documentation](https://docs.expo.dev/)

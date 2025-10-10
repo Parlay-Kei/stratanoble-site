@@ -1,4 +1,11 @@
-# Product Requirements Document (PRD)
+﻿# Product Requirements Document (PRD)
+
+> **📌 CANONICAL DOCUMENT**: This is the authoritative PRD for Strata Noble Platform.  
+> **Last Updated**: October 2025  
+> **Owner**: Steve Hubbard  
+> **Status**: Living Document - Active Development  
+> **Supplementary PRDs**: See [Product Documentation Index](README.md) for phase and component-specific PRDs
+
 
 ## Product Name
 
@@ -178,3 +185,4 @@ Created: 6 Aug 2025*
 ---
 
 *This document will be version‑controlled in the Strata Noble repository. All updates require pull requests with reviewer approval.*
+

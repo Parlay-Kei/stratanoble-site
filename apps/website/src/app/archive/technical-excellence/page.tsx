@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Metadata } from 'next';
 import {
   CodeBracketIcon,
@@ -614,7 +614,7 @@ export default function TechnicalExcellencePage() {
               Schedule Technical Consultation
             </a>
             <a 
-              href="/services"
+              href="/solutions"
               className="border-2 border-white text-white font-bold py-4 px-8 rounded-2xl hover:bg-white hover:text-blue-600 transition-colors"
             >
               Explore Our Services

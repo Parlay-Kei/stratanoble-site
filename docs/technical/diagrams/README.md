@@ -1,4 +1,4 @@
-# Technical Diagrams
+﻿# Technical Diagrams
 
 This directory contains technical diagrams referenced in the [Technical Specification](../TECH_SPEC.md).
 
@@ -34,7 +34,7 @@ This directory contains technical diagrams referenced in the [Technical Specific
 
 ### Example Reference
 ```markdown
-*Reference: [System Architecture Diagram](diagrams/system-architecture.png)*
+*Reference: System Architecture Diagram: system-architecture.png*
 ```
 
 ## Maintenance

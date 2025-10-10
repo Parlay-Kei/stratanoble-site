@@ -1,4 +1,4 @@
-# Strata Noble Data Room - Google Drive Upload Guide
+﻿# Strata Noble Data Room - Google Drive Upload Guide
 
 **Date:** October 8, 2025  
 **Status:** Ready for Upload  
@@ -21,7 +21,7 @@ All documentation has been organized into the Data Room structure:
 - **Description:** Comprehensive partnership framework with John Hope Bryant's Operation HOPE
 
 ✅ **Strata Noble Platform PRD**
-- **Local Path:** `3. Product & Technology/System Documentation/Strata_Noble_Platform_PRD.md`
+- **Local Path:** `../product/PRD.md (canonical)`
 - **Status:** Complete  
 - **Description:** Complete product requirements document for Strata Noble platform
 
@@ -75,8 +75,8 @@ All documentation has been organized into the Data Room structure:
 1. Navigate to: https://drive.google.com/drive/folders/11U5n8FMLRi3XeVsklPnFPxbAg_wD29Pm
    - (This is "3. Product & Technology")
 2. Find or create folder: "System Documentation"
-3. Upload: `Strata_Noble_Platform_PRD.md`
-   - Local path: `C:\Dev\StrataNoble\docs\Strata Noble Data Room\3. Product & Technology\System Documentation\Strata_Noble_Platform_PRD.md`
+3. Upload: `PRD.md (canonical)`
+   - Local path: `C:\Dev\StrataNoble\docs\Strata Noble Data Room\3. Product & Technology\System Documentation\PRD.md (canonical)`
 
 #### Step 4: Upload Mobile UI Design
 1. Stay in "3. Product & Technology" folder
@@ -134,7 +134,7 @@ Use this checklist to track your upload progress:
 ### Core Documents
 - [ ] Strata-Noble-Data-Room-Index.md (Data Room root)
 - [ ] Operation_HOPE_Partnership_Strategy.md (5. Sales & Marketing → Go-to-Market Strategy)
-- [ ] Strata_Noble_Platform_PRD.md (3. Product & Technology → System Documentation)
+- [ ] PRD.md (canonical) (3. Product & Technology → System Documentation)
 - [ ] ACHIEVERY_Business_Dashboard_Mobile_UI.html (3. Product & Technology → IP Assets)
 
 ### Supporting Documents (Optional - for future uploads)
@@ -162,7 +162,7 @@ After uploading, verify the structure:
 
 3. **Check Platform PRD**
    - Navigate to Product & Technology folder
-   - Open: `Strata_Noble_Platform_PRD.md`
+   - Open: `PRD.md (canonical)`
    - Verify all sections are readable
 
 4. **Test Mobile UI Design**
@@ -239,3 +239,4 @@ If you encounter issues:
 ---
 
 **© 2025 Strata Noble. All rights reserved.**
+

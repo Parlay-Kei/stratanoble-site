@@ -1,4 +1,4 @@
-import './globals.css';
+﻿import './globals.css';
 
 import React from 'react'
 import type { Metadata } from 'next';
@@ -27,11 +27,11 @@ const bitter = Bitter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Strata Noble - Transform Your Passion Into Profit',
+    default: 'Strata Noble - Your CaaS Platform',
     template: '%s | Strata Noble',
   },
   description:
-    'We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution because your vision deserves to thrive.',
+    'Consulting-as-a-Service platform with guided diagnostics, ACHIEVERY achievement tracking, playbooks, dashboards, and expert support for entrepreneurs.',
   keywords: [
     'business strategy',
     'startup consulting',
@@ -55,24 +55,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://stratanoble.com',
-    title: 'Strata Noble - Transform Your Passion Into Profit',
+    title: 'Strata Noble - Your CaaS Platform',
     description:
-      'We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution.',
+      'Consulting-as-a-Service platform with guided diagnostics, ACHIEVERY achievement tracking, playbooks, dashboards, and expert support for entrepreneurs.',
     siteName: 'Strata Noble',
     images: [
       {
         url: '/img/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'Strata Noble - Transform Your Passion Into Profit',
+        alt: 'Strata Noble - Your CaaS Platform',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Strata Noble - Transform Your Passion Into Profit',
+    title: 'Strata Noble - Your CaaS Platform',
     description:
-      'We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution.',
+      'Consulting-as-a-Service platform with guided diagnostics, ACHIEVERY achievement tracking, playbooks, dashboards, and expert support for entrepreneurs.',
     images: ['/img/og-image.svg'],
   },
   robots: {
@@ -129,7 +129,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "name": "Strata Noble",
     "url": "https://stratanoble.com",
     "logo": "https://stratanoble.com/stratanoble_logoICON.svg",
-    "description": "We turn your passion into a profitable business through proven strategies, expert guidance, and systematic execution because your vision deserves to thrive.",
+    "description": "Consulting-as-a-Service platform with guided diagnostics, ACHIEVERY achievement tracking, playbooks, dashboards, and expert support for entrepreneurs.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Las Vegas",

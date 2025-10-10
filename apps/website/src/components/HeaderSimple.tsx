@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import React from 'react'
 import Link from 'next/link'
@@ -19,7 +19,7 @@ export function HeaderSimple() {
 
           {/* Simple Navigation */}
           <div className="hidden lg:flex lg:gap-x-8">
-            <Link href="/services" className="text-sm font-semibold text-navy-900 hover:text-emerald-600">
+            <Link href="/solutions" className="text-sm font-semibold text-navy-900 hover:text-emerald-600">
               Services
             </Link>
             <Link href="/about" className="text-sm font-semibold text-navy-900 hover:text-emerald-600">
@@ -33,7 +33,7 @@ export function HeaderSimple() {
           {/* Simple CTA */}
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Link href="/contact" className="btn-primary btn-md">
-              Get Started
+              Start Your Free Assessment
             </Link>
           </div>
         </div>

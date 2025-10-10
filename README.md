@@ -1,6 +1,6 @@
-# Strata Noble
+﻿# Strata Noble
 
-A modern monorepo for Strata Noble's digital platform, built with Next.js 15 and organized for scalability and maintainability.
+A CaaS (Consulting-as-a-Service) platform monorepo for Strata Noble — powering supportive entrepreneurship with guided diagnostics, ACHIEVERY achievement tracking, playbooks, dashboards, and expert support.
 
 ## 🚀 **LATEST UPDATE - September 17, 2025**
 
@@ -245,18 +245,18 @@ Database migrations are managed in `infra/supabase/`:
 ### **Core Documentation**
 - **[Product Requirements](docs/product/PRD.md)** - Product vision and roadmap
 - **[Technical Specification](docs/technical/TECH_SPEC.md)** - Architecture details
-- **[Development Log](docs/devlog.md)** - Complete development history and current status
+- **[Development Log](docs/development-history/devlog.md)** - Complete development history and current status
 - **[Contributing Guide](CONTRIBUTING.md)** - Development workflows
 
 ### **Setup & Configuration**
-- **[Production Deployment Guide](PRODUCTION_DEPLOYMENT_GUIDE.md)** - Complete deployment instructions
-- **[Cross-Platform Testing Guide](CROSS_PLATFORM_TESTING_GUIDE.md)** - Testing procedures
-- **[ACHIEVERY Implementation Guide](ACHIEVERY_DUAL_PLATFORM_IMPLEMENTATION_GUIDE.md)** - Platform integration
+- **[Production Deployment Guide](docs/technical/deployment/PRODUCTION_DEPLOYMENT_GUIDE.md)** - Complete deployment instructions
+- **[Cross-Platform Testing Guide](docs/development/CROSS_PLATFORM_TESTING_GUIDE.md)** - Testing procedures
+- **[ACHIEVERY Implementation Guide](docs/product/achievery/ACHIEVERY_DUAL_PLATFORM_IMPLEMENTATION_GUIDE.md)** - Platform integration
 
 ### **Recent Implementation Reports**
-- **[ACHIEVERY Execution Complete](ACHIEVERY_EXECUTION_COMPLETE_SUMMARY.md)** - Latest development summary
-- **[Deployment Readiness Report](DEPLOYMENT-READINESS-REPORT.md)** - Production readiness status
-- **[Comprehensive Testing Report](COMPREHENSIVE_TEST_REPORT.md)** - Quality assurance results
+- **[ACHIEVERY Execution Complete](docs/product/achievery/ACHIEVERY_EXECUTION_COMPLETE_SUMMARY.md)** - Latest development summary
+- **[Deployment Readiness Report](docs/technical/deployment/DEPLOYMENT-READINESS-REPORT.md)** - Production readiness status
+- **[Comprehensive Testing Report](docs/audits/COMPREHENSIVE_TEST_REPORT.md)** - Quality assurance results
 
 ## 🔒 Security
 
@@ -434,3 +434,11 @@ The StrataNoble platform is fully prepared for production deployment and app sto
 *Last Updated: September 17, 2025*  
 *Platform Status: Production Ready - ACHIEVERY Complete*  
 *Next Phase: App Store Submission & Growth Optimization*
+
+
+## Site Navigation
+
+- Platform: `/platform` — Your CaaS toolkit overview
+- Solutions: `/solutions` — Choose your package (Starter/Growth/Partner)
+- About: `/about`
+- Contact: `/contact`
