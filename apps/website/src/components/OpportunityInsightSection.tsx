@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react'
 import { motion } from 'framer-motion';
@@ -173,7 +173,7 @@ export function OpportunityInsightSection() {
             </motion.a>
             
             <motion.a
-              href="/services?utm_source=opportunity-insight&utm_medium=cta&utm_campaign=learn-services"
+              href="/solutions"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30 hover:border-white/50 hover:bg-white/20 transition-all duration-300"

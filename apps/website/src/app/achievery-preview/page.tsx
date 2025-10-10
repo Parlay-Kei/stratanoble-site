@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -522,7 +522,7 @@ export default function AchieveryPage() {
                 dashboardImage: '/images/achievery/dashboard-growth-tier.webp'
               },
               {
-                tier: 'Enterprise',
+                tier: 'partner',
                 price: '$197/month',
                 limit: '100 actions/week + coach tools',
                 features: [

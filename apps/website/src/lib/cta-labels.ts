@@ -1,9 +1,9 @@
-// Standardized CTA (Call-to-Action) labels across the application
+﻿// Standardized CTA (Call-to-Action) labels across the application
 // This ensures consistent messaging and user experience
 
 export const CTA_LABELS = {
   // Primary Actions
-  GET_STARTED: 'Get Started',
+  GET_STARTED: 'Start Your Free Assessment',
   SCHEDULE_CALL: 'Schedule Free Discovery Call',
   CONTACT_US: 'Contact Us',
   

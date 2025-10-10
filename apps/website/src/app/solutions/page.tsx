@@ -1,108 +1,191 @@
-'use client';
+﻿import { Metadata } from 'next';
+import Link from 'next/link';
+import { CheckIcon, StarIcon } from '@heroicons/react/24/outline';
 
-import { useState } from 'react';
-import { 
-  LightBulbIcon,
-  AcademicCapIcon,
-  ChartBarIcon,
-  PaintBrushIcon
-} from '@heroicons/react/24/outline';
-import { services, serviceCategories } from '@/data/services';
-import { ServiceCard } from './ServiceCard';
+export const metadata: Metadata = {
+  title: 'Solutions | Strata Noble - Choose Your Package',
+  description: 'Flexible CaaS platform packages for entrepreneurs. From self-service tools to full coaching support, find the right fit for your journey.',
+  keywords: 'consulting packages, CaaS tiers, business coaching packages, platform subscription',
+};
 
-export default function ServicesPage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-
-  const filteredServices = selectedCategory === 'all' 
-    ? services 
-    : services.filter(service => service.category === selectedCategory);
-
-  // Get the appropriate icon component for each service
-  const getServiceIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'lightbulb':
-        return <LightBulbIcon className="h-8 w-8 text-[#50C878]" />
-      case 'academic-cap':
-        return <AcademicCapIcon className="h-8 w-8 text-[#50C878]" />
-      case 'chart-bar':
-        return <ChartBarIcon className="h-8 w-8 text-[#50C878]" />
-      case 'paint-brush':
-        return <PaintBrushIcon className="h-8 w-8 text-[#50C878]" />
-      default:
-        return <LightBulbIcon className="h-8 w-8 text-[#50C878]" />
+export default function SolutionsPage() {
+  const tiers = [
+    {
+      name: 'Starter',
+      price: 'Free',
+      description: 'Perfect for exploring and getting started',
+      features: [
+        'Diagnostic Wizard access',
+        'Basic ACHIEVERY (5 actions/week)',
+        'Playbook library access (read-only)',
+        'Community Slack access',
+        'Weekly progress emails'
+      ],
+      cta: 'Get Started Free',
+      ctaHref: '/discovery',
+      popular: false,
+      color: 'gray'
+    },
+    {
+      name: 'Growth',
+      price: '$97',
+      period: '/month',
+      description: 'For serious builders ready to scale',
+      features: [
+        'Everything in Starter',
+        'Full ACHIEVERY (25 actions/week)',
+        'AI reframing engine',
+        'Full playbook execution',
+        'KPI Dashboard access',
+        'Monthly expert session (1 hour)',
+        'Priority email support',
+        'Workflow automation tools'
+      ],
+      cta: 'Start Growing',
+      ctaHref: '/checkout?tier=growth',
+      popular: true,
+      color: 'emerald'
+    },
+    {
+      name: 'Partner',
+      price: '$197',
+      period: '/month',
+      description: 'Full-service coaching and accountability',
+      features: [
+        'Everything in Growth',
+        'Unlimited ACHIEVERY actions',
+        'Weekly expert sessions (4 hours/month)',
+        'Coach dashboard access',
+        'Trust Ledger sharing',
+        'Custom workflows & automations',
+        'Priority chat support',
+        'Advanced analytics & reporting',
+        'Direct Slack channel with coach'
+      ],
+      cta: 'Become a Partner',
+      ctaHref: '/contact?tier=partner',
+      popular: false,
+      color: 'blue'
     }
-  }
+  ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#003366] via-[#004080] to-[#002244]">
-      <div className="py-24 sm:py-32">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl drop-shadow-lg">
-              <span className="bg-gradient-to-r from-emerald-400 via-blue-300 to-emerald-200 bg-clip-text text-transparent">
-                Our Services
-              </span>
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-[#C0C0C0]">
-              Comprehensive solutions to transform your passion into a profitable business
-            </p>
-          </div>
-
-          {/* Category Filter */}
-          <div className="mt-12 flex flex-wrap justify-center gap-4">
-            {serviceCategories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
-                  selectedCategory === category.id
-                    ? 'bg-[#50C878] text-white shadow-lg'
-                    : 'bg-white/10 text-[#C0C0C0] hover:bg-white/20 border border-white/20'
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-
-          {/* Services Grid */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {filteredServices.map((service, index) => (
-              <ServiceCard
-                key={index}
-                title={service.title}
-                subtitle={service.subtitle}
-                description={service.description}
-                icon={getServiceIcon(service.icon)}
-                price={service.price}
-                whatYouGet={service.whatYouGet}
-                packages={service.packages}
-                ctaPrimary={service.ctaPrimary}
-                ctaSecondary={service.ctaSecondary}
-                calendlyLink={service.calendlyLink}
-                category={service.category}
-                link={service.link}
-              />
-            ))}
-          </div>
-
-          {/* Add a direct link to Brand & Digital Presence Packages */}
-          <div className="mt-12 text-center">
-            <a href="/services/brand-digital" className="inline-block px-8 py-3 bg-[#003366] hover:bg-[#50C878] text-white font-bold rounded-full transition-colors border border-white/20">
-              Explore Brand & Digital Presence Packages
-            </a>
-          </div>
-
-          {/* No services message */}
-          {filteredServices.length === 0 && (
-            <div className="mt-16 text-center">
-              <p className="text-[#C0C0C0] text-lg">
-                No services found for the selected category.
-              </p>
-            </div>
-          )}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50">
+      {/* Hero */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            Choose Your Path to{' '}
+            <span className="bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+              Prosperity
+            </span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+            Whether you're just starting or ready to scale, we have a package 
+            that meets you where you are—and helps you get where you want to go.
+          </p>
         </div>
-      </div>
-    </main>
+      </section>
+
+      {/* Pricing Tiers */}
+      <section className="py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8">
+            {tiers.map((tier, index) => (
+              <div
+                id={tier.name.toLowerCase()}
+                key={index}
+                className={`relative bg-white rounded-3xl p-8 border-2 ${
+                  tier.popular 
+                    ? 'border-emerald-500 shadow-2xl scale-105' 
+                    : 'border-gray-200 hover:border-gray-300'
+                } transition-all duration-300`}
+              >
+                {tier.popular && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-emerald-500 text-white px-6 py-2 rounded-full text-sm font-bold flex items-center gap-2">
+                      <StarIcon className="h-4 w-4" />
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+                
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{tier.name}</h3>
+                  <p className="text-gray-600 mb-4">{tier.description}</p>
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className={`text-5xl font-bold ${tier.popular ? 'text-emerald-600' : 'text-gray-900'}`}>
+                      {tier.price}
+                    </span>
+                    {tier.period && (
+                      <span className="text-gray-500">{tier.period}</span>
+                    )}
+                  </div>
+                </div>
+
+                <ul className="space-y-4 mb-8">
+                  {tier.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-start">
+                      <CheckIcon className={`h-5 w-5 ${tier.popular ? 'text-emerald-600' : 'text-gray-600'} mt-0.5 mr-3 flex-shrink-0`} />
+                      <span className="text-gray-700">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href={tier.ctaHref}
+                  className={`block text-center font-bold py-4 px-6 rounded-xl transition-all duration-300 ${
+                    tier.popular
+                      ? 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg hover:shadow-xl'
+                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                  }`}
+                >
+                  {tier.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Comparison Table */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Compare Packages
+          </h2>
+          {/* Add detailed comparison table here */}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Frequently Asked Questions
+          </h2>
+          {/* Add FAQ accordion here */}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-emerald-600 to-blue-600">
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h2 className="text-4xl font-bold mb-6">
+            Not Sure Which Package to Choose?
+          </h2>
+          <p className="text-xl mb-10 opacity-90">
+            Start with a free discovery call. We'll help you find the right fit.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-block bg-white text-emerald-600 font-bold py-4 px-10 rounded-2xl hover:bg-gray-50 transition-all duration-300 hover:scale-105"
+          >
+            Schedule Discovery Call
+          </Link>
+        </div>
+      </section>
+    </div>
   );
 }
+

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import React from 'react'
 import { useEffect, useState } from 'react'
@@ -20,7 +20,7 @@ export default function RouteGuard({ children }: RouteGuardProps) {
     async function checkAccess() {
       try {
         // Check if this is a public route first - no auth needed
-        const publicRoutes = ['/', '/pricing', '/contact', '/about', '/services', '/data-analysis', '/technology', '/portfolio', '/workshops', '/discovery', '/success', '/achievery-preview', '/achievery-early-access']
+        const publicRoutes = ['/', '/pricing', '/contact', '/about', '/solutions', '/data-analysis', '/platform', '/portfolio', '/workshops', '/discovery', '/success', '/achievery-preview', '/achievery-early-access']
         if (pathname && publicRoutes.some(route => pathname.startsWith(route))) {
           setAccessDenied(null)
           setLoading(false)
@@ -69,7 +69,7 @@ export default function RouteGuard({ children }: RouteGuardProps) {
         setAccessDenied(null)
       } catch (error) {
         // For public routes, allow access even if there's an error
-        const publicRoutes = ['/', '/pricing', '/contact', '/about', '/services']
+        const publicRoutes = ['/', '/pricing', '/contact', '/about', '/solutions']
         if (pathname && publicRoutes.includes(pathname)) {
           setAccessDenied(null)
         } else {
@@ -118,3 +118,5 @@ export default function RouteGuard({ children }: RouteGuardProps) {
 
   return <>{children}</>
 }
+
+

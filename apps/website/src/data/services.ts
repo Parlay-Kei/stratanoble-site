@@ -1,11 +1,11 @@
-// ServiceCardGrid data for landing page - Updated for four core offerings
+﻿// ServiceCardGrid data for landing page - Updated for four core offerings
 export const services = [
   {
     icon: 'lightbulb',
     title: 'Solution Services',
     subtitle: 'Strategy & Execution for Solo / Small Biz',
     description: 'Transform your vision into actionable strategy with proven frameworks and hands-on execution support.',
-    link: '/services',
+    link: '/solutions',
     price: 'From $1,200', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
     whatYouGet: [
       'Strategic business roadmap',
@@ -40,7 +40,7 @@ export const services = [
     title: 'Side-Hustle Workshops',
     subtitle: 'Hands-on learning for aspiring entrepreneurs',
     description: 'Join interactive workshops designed to help you launch and scale your side hustle with proven strategies.',
-    link: '/services',
+    link: '/solutions',
     price: 'From $97', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
     whatYouGet: [
       'Live interactive sessions',
@@ -101,7 +101,7 @@ export const services = [
     title: 'Brand & Digital Presence',
     subtitle: 'Complete brand identity and digital strategy',
     description: 'Build a compelling brand identity and establish a strong digital presence that resonates with your audience.',
-    link: '/services',
+    link: '/solutions',
     price: 'From $1,500', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
     whatYouGet: [
       'Brand identity design',
@@ -141,3 +141,4 @@ export const serviceCategories = [
   { id: 'analytics', name: 'Data & Analytics' },
   { id: 'branding', name: 'Brand & Digital' },
 ];
+

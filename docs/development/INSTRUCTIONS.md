@@ -1,4 +1,13 @@
-# Quick Fix: Access Your Analytics Platform
+﻿
+---
+
+## Website Navigation & Messaging (Updated Oct 2025)
+
+- Navigation: Platform, Solutions, About, Contact
+- Use supportive entrepreneurship tone; avoid enterprise/technical jargon on customer pages
+- Promote ACHIEVERY prominently (achievement tracking, AI reframing)
+- CTAs: Use "Start Your Free Assessment" where appropriate
+- Old routes: `/services` and `/technology` now redirect to `/solutions` and `/platform`# Quick Fix: Access Your Analytics Platform
 
 ## 🚨 Immediate Solution (5 minutes)
 

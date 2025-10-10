@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -74,7 +74,7 @@ function ThanksContent() {
           actions: [
             {
               text: 'Explore Our Services',
-              href: '/services',
+              href: '/solutions',
               primary: true
             }
           ]
@@ -108,7 +108,7 @@ function ThanksContent() {
             },
             {
               text: 'Learn How We Help',
-              href: '/services'
+              href: '/solutions'
             }
           ]
         });
@@ -141,7 +141,7 @@ function ThanksContent() {
             },
             {
               text: 'Explore Other Services',
-              href: '/services'
+              href: '/solutions'
             }
           ]
         });
@@ -168,7 +168,7 @@ function ThanksContent() {
             },
             {
               text: 'Learn Our Approach',
-              href: '/services'
+              href: '/solutions'
             }
           ]
         });

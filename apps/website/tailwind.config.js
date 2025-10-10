@@ -43,6 +43,13 @@ export default {
     // Header height classes
     'brightness-0',
     'invert',
+    // Platform page dynamic color classes (for tool cards)
+    {
+      pattern: /^(bg|text|border)-(emerald|blue|purple|amber)-(50|100|200|600|700|800|900)$/,
+    },
+    {
+      pattern: /^(hover:)?(bg|text|border)-(emerald|blue|purple|amber)-(50|100|200|600|700|800|900)$/,
+    },
   ],
   // Enable dark mode using a class
   darkMode: ['class'],

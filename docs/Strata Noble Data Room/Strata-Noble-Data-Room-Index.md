@@ -1,4 +1,4 @@
-# Strata Noble Data Room Index
+﻿# Strata Noble Data Room Index
 *Strategic Documentation Repository & Navigation Guide*
 
 **Prepared by:** Strata Noble  
@@ -76,7 +76,7 @@ This Data Room Index provides investors, partners, and stakeholders with strateg
 **Location:** `3. Product & Technology/`
 
 #### System Documentation
-- ✅ **Strata Noble Platform PRD** (`Strata_Noble_Platform_PRD.md`)
+- ✅ **Strata Noble Platform PRD** (`../product/PRD.md`)
   - Core product requirements
   - Feature specifications
   - Technical requirements
@@ -101,7 +101,7 @@ This Data Room Index provides investors, partners, and stakeholders with strateg
 - UX research findings
 
 **Key Documents Added:**
-- Strata_Noble_Platform_PRD.md (October 8, 2025)
+- PRD.md (Canonical; October 8, 2025)
 - ACHIEVERY_Business_Dashboard_Mobile_UI.html (uploaded)
 
 ---
@@ -241,21 +241,21 @@ This Data Room Index provides investors, partners, and stakeholders with strateg
 ## 🎯 Quick Access: Critical Documents
 
 ### **Partnership & Business Development**
-- [Operation HOPE Partnership Strategy](./5. Sales & Marketing/Go-to-Market Strategy/Operation_HOPE_Partnership_Strategy.md)
+- [Operation HOPE Partnership Strategy](./5.%20Sales%20%26%20Marketing/Go-to-Market%20Strategy/Operation_HOPE_Partnership_Strategy.md)
   - **Status:** Proposal Draft
   - **Owner:** Stephen Hubbard
   - **Date:** October 8, 2025
   - **Summary:** Comprehensive strategy for partnering with Operation HOPE (John Hope Bryant) to scale ACHIEVERY platform across 50+ locations and 5,000+ participants
 
 ### **Product Documentation**
-- [Strata Noble Platform PRD](./3. Product & Technology/System Documentation/Strata_Noble_Platform_PRD.md)
+- [Strata Noble Platform PRD](../product/PRD.md)
   - **Status:** Active
   - **Version:** 1.0
   - **Date:** August 6, 2025
   - **Summary:** Complete product requirements for Strata Noble platform including ACHIEVERY achievement tracking system
 
 ### **Design Assets**
-- [ACHIEVERY Business Dashboard - Mobile UI](./3. Product & Technology/IP Assets (UX, Wireframes, Patents)/ACHIEVERY_Business_Dashboard_Mobile_UI.html)
+- [ACHIEVERY Business Dashboard - Mobile UI](./3.%20Product%20%26%20Technology/IP%20Assets%20%28UX,%20Wireframes,%20Patents%29/ACHIEVERY_Business_Dashboard_Mobile_UI.html)
   - **Status:** Design Complete
   - **Type:** Interactive HTML/CSS Prototype
   - **Date:** October 2025
@@ -411,3 +411,7 @@ This Data Room Index provides investors, partners, and stakeholders with strateg
 
 **© 2025 Strata Noble. All rights reserved.**  
 *Confidential and proprietary information. Do not distribute without authorization.*
+
+
+
+

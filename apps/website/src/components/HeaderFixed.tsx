@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState } from 'react'
 import { Bars3Icon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -112,11 +112,9 @@ export function HeaderFixed() {
           {/* Desktop CTA */}
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Link
-              href="/contact"
+              href="/discovery"
               className="btn-primary btn-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-            >
-              Get Started
-            </Link>
+            >Start Your Free Assessment</Link>
           </div>
         </div>
 
@@ -203,7 +201,7 @@ export function HeaderFixed() {
                     className="mt-8 pt-6 border-t border-silver-200"
                   >
                     <Link
-                      href="/contact"
+                      href="/discovery"
                       className="btn-primary btn-lg w-full justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95"
                       onClick={() => setMobileMenuOpen(false)}
                     >

@@ -1,25 +1,24 @@
-import React from 'react'
+﻿import React from 'react'
 import Link from 'next/link';
 import { SVGProps } from 'react';
 
 import { Logo } from './Logo';
 
 const navigation = {
-  services: [
-    { name: 'Platform', href: '/platform' },
-    { name: 'Solutions', href: '/solutions' },
-    { name: 'Data Analysis', href: '/data-analysis' },
+  platform: [
+    { name: 'Platform Overview', href: '/platform' },
+    { name: 'ACHIEVERY', href: '/achievery-preview' },
+    { name: 'Dashboard', href: '/dashboard' },
+  ],
+  solutions: [
+    { name: 'Starter (Free)', href: '/solutions#starter' },
+    { name: 'Growth', href: '/solutions#growth' },
+    { name: 'Partner', href: '/solutions#partner' },
   ],
   company: [
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
-    { name: 'Dashboard', href: '/dashboard' },
-  ],
-  legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
-    { name: 'Accessibility Statement', href: '/accessibility' },
+    { name: 'Privacy', href: '/privacy' },
   ],
   social: [
     {
@@ -50,26 +49,18 @@ const navigation = {
 export function Footer() {
   return (
     <footer className="bg-navy-900" aria-labelledby="footer-heading">
-      <h2 id="footer-heading" className="sr-only">
-        Footer
-      </h2>
+      <h2 id="footer-heading" className="sr-only">Footer</h2>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Logo and description */}
           <div className="space-y-8 xl:col-span-1">
             <Logo className="h-16 w-auto" theme="white" />
             <p className="text-sm leading-6 text-navy-300">
-              Transforming passion into profit through strategic excellence and proven business
-              frameworks.
+              Supportive tools and expert guidance to turn ideas into income.
             </p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-navy-400 hover:text-navy-300 transition-colors"
-                  aria-label={`Follow us on ${item.name}`}
-                >
+                <a key={item.name} href={item.href} className="text-navy-400 hover:text-navy-300 transition-colors" aria-label={`Follow us on ${item.name}`}>
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
                 </a>
@@ -81,14 +72,11 @@ export function Footer() {
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">Services</h3>
+                <h3 className="text-sm font-semibold leading-6 text-white">Platform</h3>
                 <ul role="list" className="mt-6 space-y-4">
-                  {navigation.services.map((item) => (
+                  {navigation.platform.map((item) => (
                     <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm leading-6 text-navy-300 hover:text-white transition-colors"
-                      >
+                      <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
                         {item.name}
                       </Link>
                     </li>
@@ -100,10 +88,7 @@ export function Footer() {
                 <ul role="list" className="mt-6 space-y-4">
                   {navigation.company.map((item) => (
                     <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm leading-6 text-navy-300 hover:text-white transition-colors"
-                      >
+                      <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
                         {item.name}
                       </Link>
                     </li>
@@ -113,16 +98,11 @@ export function Footer() {
             </div>
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">
-                  Legal & Accessibility
-                </h3>
+                <h3 className="text-sm font-semibold leading-6 text-white">Solutions</h3>
                 <ul role="list" className="mt-6 space-y-4">
-                  {navigation.legal.map((item) => (
+                  {navigation.solutions.map((item) => (
                     <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm leading-6 text-navy-300 hover:text-white transition-colors"
-                      >
+                      <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
                         {item.name}
                       </Link>
                     </li>
@@ -130,36 +110,13 @@ export function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-white">Newsletter</h3>
-                <p className="mt-6 text-sm leading-6 text-navy-300">
-                  Get the latest insights and strategies delivered to your inbox.
-                </p>
-                <form className="mt-6 sm:flex sm:max-w-md">
-                  <label htmlFor="email-address" className="sr-only">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    name="email-address"
-                    id="email-address"
-                    autoComplete="email"
-                    required
-                    className="w-full min-w-0 appearance-none rounded-md border-0 bg-white/5 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-navy-400 focus:ring-2 focus:ring-inset focus:ring-emerald-500 sm:w-56 sm:text-sm sm:leading-6"
-                    placeholder="Enter your email"
-                    aria-describedby="newsletter-description"
-                  />
-                  <div className="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
-                    <button
-                      type="submit"
-                      className="flex w-full items-center justify-center rounded-md bg-emerald-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 transition-colors"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </form>
-                <p id="newsletter-description" className="mt-2 text-xs text-navy-400">
-                  We respect your privacy. Unsubscribe at any time.
-                </p>
+                <h3 className="text-sm font-semibold leading-6 text-white">Legal & Accessibility</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  <li><Link href="/privacy" className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">Privacy Policy</Link></li>
+                  <li><Link href="/terms" className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">Terms of Service</Link></li>
+                  <li><Link href="/cookies" className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">Cookie Policy</Link></li>
+                  <li><Link href="/accessibility" className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">Accessibility Statement</Link></li>
+                </ul>
               </div>
             </div>
           </div>
@@ -172,15 +129,9 @@ export function Footer() {
               &copy; {new Date().getFullYear()} Strata Noble. All rights reserved.
             </p>
             <div className="flex flex-wrap gap-4 text-xs text-navy-400">
-              <Link href="/privacy" className="hover:text-navy-300 transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/accessibility" className="hover:text-navy-300 transition-colors">
-                Accessibility Statement
-              </Link>
-              <Link href="/sitemap" className="hover:text-navy-300 transition-colors">
-                Sitemap
-              </Link>
+              <Link href="/privacy" className="hover:text-navy-300 transition-colors">Privacy Policy</Link>
+              <Link href="/accessibility" className="hover:text-navy-300 transition-colors">Accessibility Statement</Link>
+              <Link href="/sitemap" className="hover:text-navy-300 transition-colors">Sitemap</Link>
             </div>
           </div>
         </div>

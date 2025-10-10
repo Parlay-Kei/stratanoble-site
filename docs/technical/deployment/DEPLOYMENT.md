@@ -321,3 +321,17 @@ npx prisma db push --schema=./prisma/schema.backup.prisma
 5. Monitor and optimize
 
 **Launch Timeline**: 2-3 days for full deployment and testing
+## Redirects
+
+Next.js redirects are configured in `apps/website/next.config.js`:
+
+- `/services` → `/solutions` (301)
+- `/services/:path*` → `/solutions` (301)
+- `/technology` → `/platform` (301)
+## Site Map (Primary)
+
+- `/` (Homepage)
+- `/platform` (Platform Overview)
+- `/solutions` (Packages)
+- `/about`
+- `/contact`
