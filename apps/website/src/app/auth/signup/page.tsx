@@ -11,7 +11,7 @@ import { Mail, ArrowRight, AlertCircle } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 import { Logo } from '../../../components/Logo';
 
-function SignInContent() {
+function SignUpContent() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -29,7 +29,7 @@ function SignInContent() {
     checkSession();
   }, [router, callbackUrl]);
 
-  const handleEmailSignIn = async (e: React.FormEvent) => {
+  const handleEmailSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -42,7 +42,7 @@ function SignInContent() {
       });
 
       if (result?.error) {
-        setError('Failed to send sign-in email. Please try again.');
+        setError('Failed to send sign-up email. Please try again.');
       } else {
         router.push('/auth/verify-request?email=' + encodeURIComponent(email));
       }
@@ -53,14 +53,14 @@ function SignInContent() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignUp = async () => {
     setLoading(true);
     setError('');
 
     try {
       await signIn('google', { callbackUrl });
     } catch (err) {
-      setError('Failed to sign in with Google. Please try again.');
+      setError('Failed to sign up with Google. Please try again.');
       setLoading(false);
     }
   };
@@ -72,9 +72,9 @@ function SignInContent() {
           <div className="flex justify-center mb-4">
             <Logo className="h-16 w-auto" />
           </div>
-          <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
+          <CardTitle className="text-2xl font-bold">Create Your Account</CardTitle>
           <CardDescription>
-            Sign in to your Strata Noble account to access your dashboard
+            Join Strata Noble to access the ACHIEVERY platform and start building your business
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -85,9 +85,9 @@ function SignInContent() {
             </div>
           )}
 
-          {/* Google Sign In */}
+          {/* Google Sign Up */}
           <Button
-            onClick={handleGoogleSignIn}
+            onClick={handleGoogleSignUp}
             disabled={loading}
             variant="outline"
             className="w-full flex items-center gap-3"
@@ -103,8 +103,8 @@ function SignInContent() {
             </div>
           </div>
 
-          {/* Email Sign In */}
-          <form onSubmit={handleEmailSignIn} className="space-y-4">
+          {/* Email Sign Up */}
+          <form onSubmit={handleEmailSignUp} className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium">
                 Email Address
@@ -123,10 +123,10 @@ function SignInContent() {
                 />
               </div>
             </div>
-            
-            <Button 
-              type="submit" 
-              className="w-full flex items-center gap-2" 
+
+            <Button
+              type="submit"
+              className="w-full flex items-center gap-2"
               disabled={loading || !email}
             >
               {loading ? (
@@ -136,7 +136,7 @@ function SignInContent() {
                 </>
               ) : (
                 <>
-                  Continue with Email
+                  Create Account
                   <ArrowRight size={16} />
                 </>
               )}
@@ -155,9 +155,9 @@ function SignInContent() {
               </a>
             </p>
             <p>
-              Don't have an account?{' '}
-              <a href="/auth/signup" className="text-primary hover:underline font-medium">
-                Sign up
+              Already have an account?{' '}
+              <a href="/auth/signin" className="text-primary hover:underline font-medium">
+                Sign in
               </a>
             </p>
           </div>
@@ -167,7 +167,7 @@ function SignInContent() {
   );
 }
 
-export default function SignIn() {
+export default function SignUp() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 px-4">
@@ -181,8 +181,7 @@ export default function SignIn() {
         </Card>
       </div>
     }>
-      <SignInContent />
+      <SignUpContent />
     </Suspense>
   );
 }
-
