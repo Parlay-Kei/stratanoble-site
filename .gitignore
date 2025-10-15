@@ -30,6 +30,9 @@ pids
 .env.production.local
 secure.config.json
 
+# Claude Code settings (contains local secrets)
+.claude/settings.local.json
+
 # Logs
 logs
 *.log
