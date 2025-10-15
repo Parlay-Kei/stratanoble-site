@@ -1,15 +1,17 @@
 {
-  "timestamp": "2025-09-25T23:06:08.097Z",
+  "timestamp": "2025-10-14T20:22:35.399Z",
   "baseURL": "http://localhost:3000",
   "browsers": [
-    "mcp-chromium"
+    "chromium",
+    "firefox",
+    "webkit",
+    "mobile-chrome",
+    "mobile-safari",
+    "security-tests",
+    "performance-tests"
   ],
-  "testRunner": "Playwright-MCP",
+  "testRunner": "Playwright",
   "environment": "test",
-  "mcpMode": true,
-  "connectionRetries": 0,
-  "setupVersion": "1.0.0",
-  "completedAt": "2025-10-06T09:35:25.752Z",
-  "duration": 901757655,
-  "teardownVersion": "1.0.0"
+  "completedAt": "2025-10-14T20:24:05.989Z",
+  "duration": 90590
 }
