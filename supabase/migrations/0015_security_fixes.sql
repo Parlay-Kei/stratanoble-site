@@ -11,19 +11,37 @@ ALTER TABLE public.offerings ENABLE ROW LEVEL SECURITY;
 
 -- Grant read-only access to all authenticated users for offerings
 -- This table contains pricing information that should be publicly readable
-DROP POLICY IF EXISTS "Allow public read access to offerings" ON public.offerings;
-CREATE POLICY "Allow public read access to offerings" ON public.offerings
-    FOR SELECT 
-    TO public
-    USING (true);
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies
+        WHERE schemaname = 'public'
+        AND tablename = 'offerings'
+        AND policyname = 'Allow public read access to offerings'
+    ) THEN
+        CREATE POLICY "Allow public read access to offerings" ON public.offerings
+            FOR SELECT
+            TO public
+            USING (true);
+    END IF;
+END $$;
 
 -- Restrict write operations to service role only
-DROP POLICY IF EXISTS "Service role can modify offerings" ON public.offerings;
-CREATE POLICY "Service role can modify offerings" ON public.offerings
-    FOR ALL 
-    TO service_role
-    USING (true)
-    WITH CHECK (true);
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies
+        WHERE schemaname = 'public'
+        AND tablename = 'offerings'
+        AND policyname = 'Service role can modify offerings'
+    ) THEN
+        CREATE POLICY "Service role can modify offerings" ON public.offerings
+            FOR ALL
+            TO service_role
+            USING (true)
+            WITH CHECK (true);
+    END IF;
+END $$;
 
 -- =============================================================================
 -- 2. Fix SECURITY DEFINER functions (if needed)
