@@ -1,17 +1,23 @@
-import sgMail from '@sendgrid/mail';
+﻿import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 import { db } from './supabase';
 import pino from 'pino';
 
 const logger = pino();
 
-// Initialize SendGrid
-const sendGridApiKey = process.env.SENDGRID_API_KEY;
-const fromEmail = process.env.SENDGRID_FROM_EMAIL || 'contact@stratanoble.com';
+// Initialize AWS SES
+const AWS_REGION = process.env.STRATANOBLE_AWS_REGION || process.env.AWS_REGION || 'us-east-1';
+const AWS_ACCESS_KEY_ID = process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY = process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SES_SECRET;
+const fromEmail = process.env.SES_FROM_EMAIL || 'no-reply@stratanoble.com';
 
-if (!sendGridApiKey) {
-  logger.warn('SENDGRID_API_KEY not found. Email functionality will be disabled.');
+let sesClient: SESv2Client | null = null;
+if (AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY) {
+  sesClient = new SESv2Client({
+    region: AWS_REGION,
+    credentials: { accessKeyId: AWS_ACCESS_KEY_ID, secretAccessKey: AWS_SECRET_ACCESS_KEY },
+  });
 } else {
-  sgMail.setApiKey(sendGridApiKey);
+  logger.warn('AWS SES credentials not configured. Email functionality will be disabled.');
 }
 
 // Email template types
@@ -20,7 +26,14 @@ export type EmailTemplate =
   | 'contact-form-confirmation'
   | 'order-kickoff'
   | 'order-confirmation'
-  | 'welcome';
+  | 'welcome'
+  | 'idea-validation-welcome'
+  | 'roadmap-delivery'
+  | 'playbook-activation'
+  | 'weekly-checkin'
+  | 'revenue-celebration'
+  | 'monthly-insights'
+  | 're-engagement';
 
 // Email service class
 class EmailService {
@@ -32,32 +45,46 @@ class EmailService {
     template: EmailTemplate;
     metadata?: Record<string, unknown>;
   }) {
-    if (!sendGridApiKey) {
-      logger.warn('Attempted to send email but SendGrid is not configured');
+    if (!sesClient) {
+      logger.warn('Attempted to send email but SES client is not configured');
       await db.logEmail({
         recipient: data.to,
         subject: data.subject,
         template: data.template,
         status: 'failed',
-        error_message: 'SendGrid not configured',
+        error_message: 'SES client not configured',
         metadata: data.metadata,
       });
       return { success: false, error: 'Email service not configured' };
     }
 
     try {
-      const msg = {
-        to: data.to,
-        from: {
-          email: fromEmail,
-          name: 'Strata Noble',
+      const command = new SendEmailCommand({
+        Destination: {
+          ToAddresses: [data.to],
         },
-        subject: data.subject,
-        text: data.text || data.html.replace(/<[^>]*>/g, ''), // Strip HTML for text version
-        html: data.html,
-      };
+        Content: {
+          Simple: {
+            Body: {
+              Html: {
+                Charset: 'UTF-8',
+                Data: data.html,
+              },
+              Text: {
+                Charset: 'UTF-8',
+                Data: data.text || data.html.replace(/<[^>]*>/g, ''), // Strip HTML for text version
+              },
+            },
+            Subject: {
+              Charset: 'UTF-8',
+              Data: data.subject,
+            },
+          },
+        },
+        FromEmailAddress: fromEmail,
+      });
 
-      const response = await sgMail.send(msg);
+      const response = await sesClient.send(command);
       
       await db.logEmail({
         recipient: data.to,
@@ -66,7 +93,7 @@ class EmailService {
         status: 'sent',
         metadata: {
           ...data.metadata,
-          sendgrid_message_id: response[0].headers['x-message-id'],
+          ses_message_id: response.MessageId,
         },
       });
 
@@ -74,10 +101,10 @@ class EmailService {
         msg: 'Email sent successfully',
         recipient: data.to,
         template: data.template,
-        messageId: response[0].headers['x-message-id'],
+        messageId: response.MessageId,
       });
 
-      return { success: true, messageId: response[0].headers['x-message-id'] };
+      return { success: true, messageId: response.MessageId };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       
@@ -91,7 +118,7 @@ class EmailService {
       });
 
       logger.error({
-        msg: 'Failed to send email',
+        msg: 'Failed to send email via AWS SES',
         error: errorMessage,
         recipient: data.to,
         template: data.template,
@@ -189,7 +216,7 @@ class EmailService {
         </div>
 
         <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
-          <p>© 2024 Strata Noble. All rights reserved.</p>
+          <p>Â© 2024 Strata Noble. All rights reserved.</p>
         </div>
       </div>
     `;
@@ -270,7 +297,7 @@ class EmailService {
         </div>
 
         <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
-          <p>© 2024 Strata Noble. All rights reserved.</p>
+          <p>Â© 2024 Strata Noble. All rights reserved.</p>
         </div>
       </div>
     `;
@@ -288,7 +315,239 @@ class EmailService {
       },
     });
   }
+  async sendIdeaValidationWelcome(data: {
+    name: string;
+    email: string;
+    worksheetUrl: string;
+  }) {
+    const subject = "Welcome to Strata Noble - Let's Turn Your Idea Into Income! 🚀";
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #003366 0%, #047857 100%); color: white; border-radius: 8px 8px 0 0;">
+          <h1 style="margin: 0; font-size: 28px;">Welcome, ${data.name}! 👋</h1>
+          <p style="margin: 10px 0 0; font-size: 18px;">You're about to do something amazing.</p>
+        </div>
+        
+        <div style="padding: 30px 20px; background: white;">
+          <p style="color: #333; font-size: 16px; line-height: 1.6;">
+            Every successful business starts with a single idea — and you've already taken the first step by joining us.
+          </p>
+
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #047857;">
+            <h3 style="color: #003366; margin-top: 0;">Your Next Step: Validate Your Idea</h3>
+            <p style="color: #666;">We've created a simple worksheet to help you clarify your vision and test if your idea is ready for the market.</p>
+            <div style="text-align: center; margin: 20px 0;">
+              <a href="${data.worksheetUrl}" style="display: inline-block; background: #047857; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                Get Your Idea Validation Worksheet
+              </a>
+            </div>
+          </div>
+
+          <p style="color: #666; font-size: 14px; font-style: italic;">
+            We'll check in with you in 48 hours to see how it's going. You've got this! 💪
+          </p>
+        </div>
+      </div>
+    `;
+
+    return await this.sendEmail({
+      to: data.email,
+      subject,
+      html,
+      template: 'idea-validation-welcome',
+      metadata: { customerName: data.name },
+    });
+  }
+
+  async sendRoadmapDelivery(data: {
+    name: string;
+    email: string;
+    roadmapPdfUrl: string;
+    readinessScore: number;
+    quickWins: string[];
+  }) {
+    const subject = `Your Business Roadmap is Ready! (${data.readinessScore}% Ready to Launch)`;
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #003366;">Great News, ${data.name}! 📊</h2>
+        
+        <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
+          <p style="font-size: 18px; color: #047857; margin: 0;">Your Business Readiness Score:</p>
+          <p style="font-size: 48px; font-weight: bold; color: #003366; margin: 10px 0;">${data.readinessScore}%</p>
+        </div>
+
+        <p style="color: #333;">We've analyzed your diagnostic results and created a personalized roadmap just for you.</p>
+
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="color: #003366; margin-top: 0;">Your Top 3 Quick Wins:</h3>
+          <ol style="color: #666; line-height: 1.8;">
+            ${data.quickWins.map(win => `<li>${win}</li>`).join('')}
+          </ol>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${data.roadmapPdfUrl}" style="display: inline-block; background: #003366; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+            Download Your Roadmap (PDF)
+          </a>
+        </div>
+      </div>
+    `;
+
+    return await this.sendEmail({
+      to: data.email,
+      subject,
+      html,
+      template: 'roadmap-delivery',
+      metadata: { customerName: data.name, readinessScore: data.readinessScore },
+    });
+  }
+
+  async sendWeeklyCheckIn(data: {
+    name: string;
+    email: string;
+    tasksCompleted: number;
+    totalTasks: number;
+    dashboardUrl: string;
+  }) {
+    const completionRate = Math.round((data.tasksCompleted / data.totalTasks) * 100);
+    const subject = `Weekly Check-In: You've Completed ${completionRate}% of Your Goals! 🎯`;
+    
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #003366;">Hey ${data.name}, Let's Check Your Progress!</h2>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="color: #047857;">This Week's Wins:</h3>
+          <p style="font-size: 24px; font-weight: bold; color: #003366;">${data.tasksCompleted} of ${data.totalTasks} tasks completed</p>
+          <div style="background: #e8f5e8; height: 10px; border-radius: 5px; overflow: hidden;">
+            <div style="background: #047857; height: 100%; width: ${completionRate}%;"></div>
+          </div>
+        </div>
+
+        ${completionRate < 30 ? `
+          <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107;">
+            <p style="margin: 0; color: #856404;">
+              <strong>Feeling stuck?</strong> That's totally normal! Let's get you back on track.
+            </p>
+            <a href="${data.dashboardUrl}" style="color: #047857;">Book a 15-minute call with us →</a>
+          </div>
+        ` : `
+          <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; border-left: 4px solid #047857;">
+            <p style="margin: 0; color: #155724;">
+              <strong>You're crushing it!</strong> Keep up the amazing momentum! 🚀
+            </p>
+          </div>
+        `}
+
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${data.dashboardUrl}" style="display: inline-block; background: #003366; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px;">
+            View Your Dashboard
+          </a>
+        </div>
+      </div>
+    `;
+
+    return await this.sendEmail({
+      to: data.email,
+      subject,
+      html,
+      template: 'weekly-checkin',
+      metadata: { customerName: data.name, completionRate },
+    });
+  }
+
+  async sendRevenueCelebration(data: {
+    name: string;
+    email: string;
+    amount: number;
+    slackChannelUrl: string;
+  }) {
+    const subject = `🎉 You Made Your First Sale! ${(data.amount / 100).toFixed(2)}`;
+    
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #047857 0%, #10b981 100%); color: white; border-radius: 8px;">
+          <h1 style="margin: 0; font-size: 32px;">🎊 CONGRATULATIONS! 🎊</h1>
+          <p style="font-size: 20px; margin: 20px 0;">You just made your first sale!</p>
+          <p style="font-size: 48px; font-weight: bold; margin: 10px 0;">${(data.amount / 100).toFixed(2)}</p>
+        </div>
+        
+        <div style="padding: 30px 20px; background: white;">
+          <p style="color: #333; font-size: 18px; text-align: center;">
+            ${data.name}, this is HUGE! You've gone from idea to income. 🚀
+          </p>
+
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #003366;">What's Next?</h3>
+            <ul style="color: #666; line-height: 1.8;">
+              <li>✅ You're now a revenue-generating business</li>
+              <li>📈 New "Scale" playbooks are now unlocked</li>
+              <li>💬 Join our exclusive #achievers Slack channel</li>
+              <li>🎤 Share your story (optional case study)</li>
+            </ul>
+          </div>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${data.slackChannelUrl}" style="display: inline-block; background: #047857; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+              Join the #achievers Channel
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    return await this.sendEmail({
+      to: data.email,
+      subject,
+      html,
+      template: 'revenue-celebration',
+      metadata: { customerName: data.name, amount: data.amount },
+    });
+  }
+
+  async sendMonthlyInsights(data: {
+    name: string;
+    email: string;
+    insights: string;
+    nextPlaybooks: string[];
+    dashboardUrl: string;
+  }) {
+    const subject = `Your Monthly Growth Insights - ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
+    
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #003366;">Hi ${data.name}, Here's What We're Seeing 📈</h2>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="color: #047857;">AI-Generated Insights:</h3>
+          <p style="color: #666; line-height: 1.8; white-space: pre-wrap;">${data.insights}</p>
+        </div>
+
+        <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="color: #003366;">Recommended Next Steps:</h3>
+          <ul style="color: #666; line-height: 1.8;">
+            ${data.nextPlaybooks.map(playbook => `<li>${playbook}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${data.dashboardUrl}" style="display: inline-block; background: #003366; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px;">
+            View Full Report
+          </a>
+        </div>
+      </div>
+    `;
+
+    return await this.sendEmail({
+      to: data.email,
+      subject,
+      html,
+      template: 'monthly-insights',
+      metadata: { customerName: data.name },
+    });
+  }
 }
 
 // Export singleton instance
 export const emailService = new EmailService();
+

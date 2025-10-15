@@ -1,4 +1,4 @@
-// Test SES Configuration
+﻿// Test SES Configuration
 import { config } from 'dotenv';
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 
@@ -6,27 +6,22 @@ import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 config({ path: '.env.local' });
 
 async function testSESConfiguration() {
-  console.log('🧪 Testing AWS SES Configuration...\n');
+  console.log('ðŸ§ª Testing AWS SES Configuration...\n');
   
   // Check required environment variables
-  const requiredVars = [
-    'AWS_ACCESS_KEY_ID',
-    'AWS_SES_SECRET', 
-    'AWS_REGION',
-    'SES_FROM_EMAIL'
-  ];
+  const requiredVars = ['AWS_ACCESS_KEY_ID', 'AWS_REGION', 'SES_FROM_EMAIL'];
   
-  const missingVars = requiredVars.filter(varName => !process.env[varName]);
+  const missingVars = requiredVars.filter(varName => !process.env[varName]);`r`n  const secret = process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SES_SECRET;`r`n  if (!secret) missingVars.push('AWS_SECRET_ACCESS_KEY or AWS_SES_SECRET');
   
   if (missingVars.length > 0) {
-    console.error('❌ Missing required environment variables:');
+    console.error('âŒ Missing required environment variables:');
     missingVars.forEach(varName => {
       console.error(`   - ${varName}`);
     });
     process.exit(1);
   }
   
-  console.log('✅ All required environment variables are present');
+  console.log('âœ… All required environment variables are present');
   console.log(`   Region: ${process.env.AWS_REGION}`);
   console.log(`   From Email: ${process.env.SES_FROM_EMAIL}\n`);
   
@@ -36,11 +31,11 @@ async function testSESConfiguration() {
       region: process.env.AWS_REGION,
       credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SES_SECRET,
+        secretAccessKey: (process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SES_SECRET),
       },
     });
     
-    console.log('✅ SES Client initialized successfully\n');
+    console.log('âœ… SES Client initialized successfully\n');
     
     // Test email send
     const testEmail = process.env.SES_FROM_EMAIL; // Send to same verified email
@@ -67,29 +62,29 @@ async function testSESConfiguration() {
       },
     });
     
-    console.log(`📧 Attempting to send test email to: ${testEmail}`);
+    console.log(`ðŸ“§ Attempting to send test email to: ${testEmail}`);
     
     const result = await sesClient.send(command);
     
-    console.log('✅ Test email sent successfully!');
+    console.log('âœ… Test email sent successfully!');
     console.log(`   Message ID: ${result.MessageId}`);
     console.log(`   Check your inbox at: ${testEmail}\n`);
     
-    console.log('🎉 SES Configuration Test Complete - Everything looks good!');
+    console.log('ðŸŽ‰ SES Configuration Test Complete - Everything looks good!');
     
   } catch (error) {
-    console.error('❌ SES Configuration Test Failed:');
+    console.error('âŒ SES Configuration Test Failed:');
     console.error(`   Error: ${error.message}`);
     
     if (error.name === 'MessageRejected') {
-      console.error('\n💡 Possible solutions:');
+      console.error('\nðŸ’¡ Possible solutions:');
       console.error('   - Verify your email/domain in SES Console');
       console.error('   - Check if you\'re in SES Sandbox mode');
       console.error('   - Ensure your "from" email is verified');
     }
     
     if (error.name === 'InvalidParameterValue') {
-      console.error('\n💡 Possible solutions:');
+      console.error('\nðŸ’¡ Possible solutions:');
       console.error('   - Check your AWS credentials');
       console.error('   - Verify the AWS region is correct');
       console.error('   - Ensure SES service is available in your region');
@@ -100,3 +95,5 @@ async function testSESConfiguration() {
 }
 
 testSESConfiguration().catch(console.error);
+
+

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail } from '../../../../lib/mailer';
 import { z } from 'zod';
 
@@ -412,3 +412,4 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false, error: 'Failed to process email submission' }, { status: 500 });
   }
 }
+

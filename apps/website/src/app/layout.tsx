@@ -184,7 +184,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {process.env.NODE_ENV !== 'production' && (
           <Script
             id="sw-unregister-dev"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             dangerouslySetInnerHTML={{
               __html: `
                 (function(){
@@ -214,9 +214,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Suspense>        {/* Google Analytics with Next.js Script component */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-0TGKD1S1HB"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="ga-config" strategy="afterInteractive">
+        <Script id="ga-config" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -228,7 +228,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           defer
           data-domain="stratanoble.com"
           src="https://plausible.io/js/script.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
                 {/* Service Worker Registration */}
         {process.env.NODE_ENV === 'production' && (

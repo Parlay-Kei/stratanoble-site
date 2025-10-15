@@ -1,6 +1,6 @@
-import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
+﻿import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 const AWS_ACCESS_KEY_ID = process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
-const AWS_SECRET_ACCESS_KEY = process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY;
+const AWS_SECRET_ACCESS_KEY = process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SES_SECRET;
 const AWS_REGION = process.env.STRATANOBLE_AWS_REGION || process.env.AWS_REGION || 'us-east-1';
 const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;
 import { logger } from './logger';
@@ -51,3 +51,4 @@ export async function sendEmail(to: string, subject: string, html: string): Prom
     throw error;
   }
 }
+

@@ -1,6 +1,7 @@
 import { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import EmailProvider from 'next-auth/providers/email';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { supabase } from './supabase';
 import { sendEmail } from './mailer';
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
@@ -12,12 +13,40 @@ const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
 const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
 
-export const authOptions: NextAuthOptions = {
-  providers: [
+
+const providers: any[] = [];
+
+if (process.env.NEXTAUTH_DEV_LOGIN === 'true' || process.env.NODE_ENV === 'development') {
+  providers.push(
+    CredentialsProvider({
+      name: 'Dev Login',
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' }
+      },
+      async authorize(credentials) {
+        const email = credentials?.email as string;
+        const password = credentials?.password as string;
+        const expected = process.env.DEV_LOGIN_PASSWORD || 'dev';
+        if (!email || !password) return null;
+        if (password !== expected) return null;
+        return { id: `dev:${email}`, name: email, email } as any;
+      }
+    })
+  );
+}
+
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  providers.push(
     GoogleProvider({
       clientId: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-    }),
+    })
+  );
+}
+
+if (SMTP_HOST && SMTP_PORT && SMTP_USER && SMTP_PASSWORD && SES_FROM_EMAIL) {
+  providers.push(
     EmailProvider({
       server: {
         host: SMTP_HOST,
@@ -58,15 +87,17 @@ export const authOptions: NextAuthOptions = {
             </div>
 
             <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
-              <p>© 2025 Strata Noble. All rights reserved.</p>
+              <p>Â© 2025 Strata Noble. All rights reserved.</p>
             </div>
           </div>
         `;
-
         await sendEmail(email, subject, html);
       },
-    }),
-  ],
+    })
+  );
+}
+export const authOptions: NextAuthOptions = {
+  providers: providers,
   pages: {
     signIn: '/auth/signin',
     verifyRequest: '/auth/verify-request',
@@ -84,6 +115,7 @@ export const authOptions: NextAuthOptions = {
         session.user.tier = client?.tier;
         session.user.stripeCustomerId = client?.stripe_customer_id;
       }
+      if (process.env.NEXTAUTH_DEV_LOGIN === 'true' && session?.user) { (session.user as any).role = 'super_admin'; }
       return session;
     },
     async signIn({ user, account, profile }) {
