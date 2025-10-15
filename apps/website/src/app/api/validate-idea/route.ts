@@ -3,9 +3,6 @@ import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
 import { sendValidationEmail } from '@/lib/send-validation-email';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
 
 interface ValidationResult {
   marketSize: string;
@@ -72,7 +69,13 @@ async function generateFallbackAnalysis(idea: string): Promise<ValidationResult>
   };
 }
 
+function getOpenAI() { const key = process.env.OPENAI_API_KEY; return key ? new OpenAI({ apiKey: key }) : null; }
+
 async function analyzeIdea(idea: string): Promise<ValidationResult> {
+  const openai = getOpenAI();
+  if (!openai) {
+    return generateFallbackAnalysis(idea);
+  }
   const prompt = `You are a business consultant analyzing a new business idea. Provide a realistic, data-driven assessment.
 
 Business Idea: "${idea}"
