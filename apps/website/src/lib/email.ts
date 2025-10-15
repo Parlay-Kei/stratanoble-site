@@ -1,8 +1,8 @@
-import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
+﻿import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import { logger } from './logger';
-const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
-const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
-const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const AWS_REGION = process.env.STRATANOBLE_AWS_REGION || process.env.AWS_REGION || 'us-east-1';
+const AWS_ACCESS_KEY_ID = process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY = process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SES_SECRET;
 const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL || 'info@stratanoble.com';
 
 // Initialize AWS SES client
@@ -174,7 +174,7 @@ class EmailService {
         </div>
 
         <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
-          <p>© 2024 Strata Noble. All rights reserved.</p>
+          <p>Â© 2024 Strata Noble. All rights reserved.</p>
         </div>
       </div>
     `;
@@ -255,7 +255,7 @@ class EmailService {
         </div>
 
         <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
-          <p>© 2024 Strata Noble. All rights reserved.</p>
+          <p>Â© 2024 Strata Noble. All rights reserved.</p>
         </div>
       </div>
     `;
@@ -285,7 +285,7 @@ class EmailService {
     const html = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #001122 0%, #50C878 100%); color: white; border-radius: 8px 8px 0 0;">
-          <h1 style="margin: 0; font-size: 28px;">🎉 You're In!</h1>
+          <h1 style="margin: 0; font-size: 28px;">ðŸŽ‰ You're In!</h1>
           <p style="margin: 10px 0 0; font-size: 18px; opacity: 0.9;">Welcome to ACHIEVERY Early Access</p>
         </div>
 
@@ -300,7 +300,7 @@ class EmailService {
           </p>
 
           <div style="background: #f0f8f0; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #50C878;">
-            <h3 style="color: #001122; margin-top: 0;">🚀 What You Get as an Early Access Member:</h3>
+            <h3 style="color: #001122; margin-top: 0;">ðŸš€ What You Get as an Early Access Member:</h3>
             <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 20px;">
               <li><strong>50% Off Launch Pricing</strong> - Exclusive founding member discount</li>
               <li><strong>Priority Platform Access</strong> - First to experience ACHIEVERY</li>
@@ -311,7 +311,7 @@ class EmailService {
           </div>
 
           <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #001122; margin-top: 0;">📅 What Happens Next?</h3>
+            <h3 style="color: #001122; margin-top: 0;">ðŸ“… What Happens Next?</h3>
             <ol style="color: #666; line-height: 1.8; margin: 0; padding-left: 20px;">
               <li><strong>Development Updates</strong> - Regular progress reports and sneak peeks</li>
               <li><strong>Beta Testing Invitation</strong> - Try features before anyone else</li>
@@ -331,7 +331,7 @@ class EmailService {
 
           <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <p style="margin: 0; font-size: 14px; color: #666; text-align: center;">
-              <strong>💡 Pro Tip:</strong> Start thinking about your daily activities that could become achievements.
+              <strong>ðŸ’¡ Pro Tip:</strong> Start thinking about your daily activities that could become achievements.
               When ACHIEVERY launches, you'll be ready to hit the ground running!
             </p>
           </div>
@@ -345,7 +345,7 @@ class EmailService {
         </div>
 
         <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
-          <p>© 2025 Strata Noble. Building ACHIEVERY for ambitious professionals.</p>
+          <p>Â© 2025 Strata Noble. Building ACHIEVERY for ambitious professionals.</p>
           <p>
             <a href="#" style="color: #999; text-decoration: none;">Unsubscribe</a> |
             <a href="https://stratanoble.com/privacy" style="color: #999; text-decoration: none;">Privacy Policy</a>
@@ -375,10 +375,10 @@ class EmailService {
     goals?: string;
     signupId: string;
   }) {
-    const subject = `🚀 New ACHIEVERY Early Access Signup - ${data.name}`;
+    const subject = `ðŸš€ New ACHIEVERY Early Access Signup - ${data.name}`;
     const html = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #001122;">🚀 New ACHIEVERY Early Access Signup</h2>
+        <h2 style="color: #001122;">ðŸš€ New ACHIEVERY Early Access Signup</h2>
 
         <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3 style="color: #001122; margin-top: 0;">Contact Details</h3>
@@ -395,7 +395,7 @@ class EmailService {
         ` : ''}
 
         <div style="background: #f0f8f0; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #50C878;">
-          <h3 style="color: #001122; margin-top: 0;">🎯 Follow-up Actions</h3>
+          <h3 style="color: #001122; margin-top: 0;">ðŸŽ¯ Follow-up Actions</h3>
           <ul style="color: #666; line-height: 1.6; margin: 0; padding-left: 20px;">
             <li>Add to early access CRM segment</li>
             <li>Include in development update emails</li>
@@ -431,3 +431,4 @@ class EmailService {
 
 // Export singleton instance
 export const emailService = new EmailService();
+

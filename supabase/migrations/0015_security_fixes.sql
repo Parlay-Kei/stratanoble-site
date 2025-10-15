@@ -11,12 +11,14 @@ ALTER TABLE public.offerings ENABLE ROW LEVEL SECURITY;
 
 -- Grant read-only access to all authenticated users for offerings
 -- This table contains pricing information that should be publicly readable
+DROP POLICY IF EXISTS "Allow public read access to offerings" ON public.offerings;
 CREATE POLICY "Allow public read access to offerings" ON public.offerings
     FOR SELECT 
     TO public
     USING (true);
 
 -- Restrict write operations to service role only
+DROP POLICY IF EXISTS "Service role can modify offerings" ON public.offerings;
 CREATE POLICY "Service role can modify offerings" ON public.offerings
     FOR ALL 
     TO service_role

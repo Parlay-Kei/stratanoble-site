@@ -52,7 +52,7 @@ CREATE INDEX IF NOT EXISTS idx_email_sequences_lead_id ON email_sequences(lead_i
 CREATE INDEX IF NOT EXISTS idx_email_sequences_scheduled_for ON email_sequences(scheduled_for);
 CREATE INDEX IF NOT EXISTS idx_email_sequences_status ON email_sequences(status);
 CREATE INDEX IF NOT EXISTS idx_email_sequences_sequence_type ON email_sequences(sequence_type);
-CREATE INDEX IF NOT EXISTS idx_email_sequences_pending_ready ON email_sequences(status, scheduled_for) WHERE status = 'pending' AND scheduled_for <= NOW();
+CREATE INDEX IF NOT EXISTS idx_email_sequences_pending_ready ON email_sequences(status, scheduled_for) WHERE status = 'pending';
 
 -- Create updated_at trigger
 CREATE TRIGGER update_email_sequences_updated_at BEFORE UPDATE ON email_sequences

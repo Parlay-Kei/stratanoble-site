@@ -76,6 +76,15 @@ const nextConfig = {
       ];
     }
 
+    // Fix chunk loading timeout issues in development
+    if (dev && !isServer) {
+      config.output = {
+        ...config.output,
+        // Increase chunk loading timeout from default 120s to 300s
+        chunkLoadTimeout: 300000,
+      };
+    }
+
     return config;
   },
   turbopack: {
