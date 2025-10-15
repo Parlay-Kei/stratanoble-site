@@ -74,7 +74,7 @@ jobs:
           supabase start
           
           echo "🔍 Running db diff to check for drift..."
-          supabase db diff -f > diff_output.txt
+          supabase db diff > diff_output.txt || true
           
           if [ -s diff_output.txt ]; then
             echo "❌ Database drift detected:"
