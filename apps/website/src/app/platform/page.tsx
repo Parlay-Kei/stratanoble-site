@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+ï»¿import type { Metadata } from 'next';
 import Link from 'next/link';
 import { 
   ChartBarIcon,
@@ -29,7 +29,7 @@ export default function PlatformPage() {
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
             Everything you need to turn your ideas into income. Guided assessments, 
-            achievement tracking, expert playbooks, and real-time dashboards—all in one place.
+            achievement tracking, expert playbooks, and real-time dashboardsâ€”all in one place.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
@@ -115,7 +115,7 @@ export default function PlatformPage() {
             <PlatformFeatureCard
               icon={<ChartBarIcon className="h-8 w-8 text-amber-600" />}
               title="KPI Dashboard"
-              description="See your progress clearly with real-time metrics. Revenue, conversion, cost per lead, and burn rate—all in one view."
+              description="See your progress clearly with real-time metrics. Revenue, conversion, cost per lead, and burn rateâ€”all in one view."
               features={[
                 'Real-time metrics',
                 'Peer benchmarking',

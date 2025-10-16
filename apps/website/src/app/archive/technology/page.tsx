@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import {
   CpuChipIcon,
@@ -88,7 +88,7 @@ export default function TechnologyPage() {
 
           <div className="grid lg:grid-cols-2 gap-16 mb-20">
             <div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-8">🤖 Intelligent Orchestration</h3>
+              <h3 className="text-3xl font-bold text-gray-900 mb-8">ðŸ¤– Intelligent Orchestration</h3>
               <div className="space-y-6">
                 <p className="text-lg text-gray-700 leading-relaxed">
                   Traditional development processes are limited by human capacity and prone to 
@@ -119,7 +119,7 @@ export default function TechnologyPage() {
             </div>
 
             <div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-8">🎯 Strategic Integration</h3>
+              <h3 className="text-3xl font-bold text-gray-900 mb-8">ðŸŽ¯ Strategic Integration</h3>
               <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8">
                 <div className="text-center mb-8">
                   <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-full p-6 inline-block mb-4">
@@ -673,7 +673,7 @@ export default function TechnologyPage() {
                   <div className="space-y-1">
                     {phase.deliverables.map((deliverable, delIndex) => (
                       <div key={delIndex} className="text-xs text-gray-500">
-                        • {deliverable}
+                        â€¢ {deliverable}
                       </div>
                     ))}
                   </div>
@@ -709,7 +709,7 @@ export default function TechnologyPage() {
               Transformational Business Impact
             </h2>
             <p className="text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-              Suite of Agents technology doesn't just improve development—it revolutionizes 
+              Suite of Agents technology doesn't just improve developmentâ€”it revolutionizes 
               your entire business model and competitive positioning.
             </p>
           </div>

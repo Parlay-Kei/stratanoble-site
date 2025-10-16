@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { WeeklyNarrativesList } from '../../components/features/weekly-narratives/WeeklyNarrativesList'
 
 export const metadata: Metadata = {

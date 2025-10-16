@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import {
   BoltIcon,
@@ -82,7 +82,7 @@ export default function AchieveryEarlyAccessPage() {
                 <h3 className="text-xl font-bold text-navy-900 mb-4">{benefit.title}</h3>
                 <p className="text-gray-600 mb-4">{benefit.description}</p>
                 <div className={`bg-${benefit.color}-50 rounded-lg p-3 border border-${benefit.color}-200`}>
-                  <p className={`text-${benefit.color}-800 font-medium text-sm`}>💎 {benefit.benefit}</p>
+                  <p className={`text-${benefit.color}-800 font-medium text-sm`}>ðŸ’Ž {benefit.benefit}</p>
                 </div>
               </div>
             ))}

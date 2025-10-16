@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 
@@ -63,7 +63,7 @@ export default function AboutPage() {
 
           <div className="space-y-10 max-w-4xl">
             <p className="text-2xl md:text-3xl text-white leading-relaxed">
-              I spent years watching small operators â€” solo founders, side hustlers, first-time consultants â€” stall out because advice was either too fluffy or too expensive.
+              I spent years watching small operators Ã¢â‚¬â€ solo founders, side hustlers, first-time consultants Ã¢â‚¬â€ stall out because advice was either too fluffy or too expensive.
             </p>
             
             <p className="text-xl md:text-2xl text-silver-200 leading-relaxed">
@@ -109,7 +109,7 @@ export default function AboutPage() {
               {
                 number: '04',
                 title: 'Practical Tech Leverage',
-                description: "AI, no-code, automation — only what's useful now, without the overwhelm."
+                description: "AI, no-code, automation â€” only what's useful now, without the overwhelm."
               },
               {
                 number: '05',
@@ -119,7 +119,7 @@ export default function AboutPage() {
               {
                 number: '06',
                 title: 'Strategic Blueprint Design',
-                description: "I design the blueprint before you spend money on bricks — clarity before capital."
+                description: "I design the blueprint before you spend money on bricks â€” clarity before capital."
               }
             ].map((item, index) => (
               <div
@@ -149,7 +149,7 @@ export default function AboutPage() {
               &quot;
             </div>
             <p className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold leading-snug text-white mb-12 md:mb-16">
-              I think of myself like an architect for one-person empires â€” I design the blueprint before you spend money on bricks.
+              I think of myself like an architect for one-person empires Ã¢â‚¬â€ I design the blueprint before you spend money on bricks.
             </p>
             <div className="flex items-center gap-5 text-lg md:text-xl text-emerald-600 font-semibold">
               <div className="w-12 md:w-16 h-0.5 bg-emerald-600" />
