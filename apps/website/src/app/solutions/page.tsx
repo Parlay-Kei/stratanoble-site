@@ -1,4 +1,4 @@
-﻿import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckIcon, StarIcon } from '@heroicons/react/24/outline';
 
@@ -82,7 +82,7 @@ export default function SolutionsPage() {
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
             Whether you're just starting or ready to scale, we have a package 
-            that meets you where you are—and helps you get where you want to go.
+            that meets you where you are�and helps you get where you want to go.
           </p>
         </div>
       </section>

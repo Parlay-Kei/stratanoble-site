@@ -1,5 +1,5 @@
-﻿import React from 'react';
-import { Metadata } from 'next';
+import React from 'react';
+import type { Metadata } from 'next';
 import {
   CodeBracketIcon,
   CpuChipIcon,
@@ -507,7 +507,7 @@ export default function TechnicalExcellencePage() {
                   <div className="space-y-1">
                     {phase.tasks.map((task, taskIndex) => (
                       <div key={taskIndex} className="text-sm text-gray-600">
-                        • {task}
+                        � {task}
                       </div>
                     ))}
                   </div>
@@ -584,10 +584,10 @@ export default function TechnicalExcellencePage() {
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <div className="font-semibold text-gray-900 mb-3">Business Automation Ready</div>
                   <div className="space-y-2 text-sm text-gray-600">
-                    <div>✅ DocuSign NDA workflow automation</div>
-                    <div>✅ Mailchimp lead nurture sequences</div>
-                    <div>✅ AWS S3 document management</div>
-                    <div>✅ Stripe subscription automation</div>
+                    <div>? DocuSign NDA workflow automation</div>
+                    <div>? Mailchimp lead nurture sequences</div>
+                    <div>? AWS S3 document management</div>
+                    <div>? Stripe subscription automation</div>
                   </div>
                 </div>
               </div>
