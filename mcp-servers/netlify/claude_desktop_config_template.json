@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "netlify": {
+      "command": "node",
+      "args": ["C:\\Dev\\StrataNoble\\mcp-servers\\netlify\\index.js"],
+      "env": {
+        "NETLIFY_API_TOKEN": "YOUR_NETLIFY_API_TOKEN_HERE",
+        "NETLIFY_SITE_ID": "YOUR_NETLIFY_SITE_ID_HERE"
+      }
+    },
+    "n8n-docs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "n8n-mcp-server@latest"
+      ]
+    }
+  }
+}
