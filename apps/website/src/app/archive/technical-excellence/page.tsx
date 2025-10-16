@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import {
   CodeBracketIcon,
@@ -507,7 +507,7 @@ export default function TechnicalExcellencePage() {
                   <div className="space-y-1">
                     {phase.tasks.map((task, taskIndex) => (
                       <div key={taskIndex} className="text-sm text-gray-600">
-                        � {task}
+                        • {task}
                       </div>
                     ))}
                   </div>

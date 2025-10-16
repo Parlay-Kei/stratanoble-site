@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -83,7 +83,7 @@ export default function AchieveryPage() {
                 </Link>
               </div>
               <div className="mt-4 text-center">
-                <p className="text-sm text-gray-500">? No credit card required for preview � ? Full features available</p>
+                <p className="text-sm text-gray-500">? No credit card required for preview • ? Full features available</p>
               </div>
             </div>
 

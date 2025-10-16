@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import CalendlyWidget from '@/components/CalendlyWidget';
 import WaitlistFallback from '@/components/WaitlistFallback';
 
