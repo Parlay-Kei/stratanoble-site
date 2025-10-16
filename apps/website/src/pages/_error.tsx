@@ -1,4 +1,4 @@
-﻿import { NextPageContext } from 'next'
+import type { NextPageContext } from 'next';
 import * as Sentry from '@sentry/nextjs'
 import { ArrowLeftIcon, HomeIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
@@ -67,25 +67,25 @@ function ErrorPage({ statusCode, hasGetInitialPropsRun, err }: Props) {
               href="/solutions"
               className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
             >
-              → All Services
+              ? All Services
             </Link>
             <Link
               href="/data-analysis"
               className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
             >
-              → Data Analysis
+              ? Data Analysis
             </Link>
             <Link
               href="/discovery"
               className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
             >
-              → Discovery Call
+              ? Discovery Call
             </Link>
             <Link
               href="/about"
               className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
             >
-              → About Us
+              ? About Us
             </Link>
           </div>
         </div>

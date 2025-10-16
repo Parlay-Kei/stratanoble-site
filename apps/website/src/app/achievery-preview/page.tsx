@@ -1,6 +1,6 @@
-﻿import React from 'react';
+import React from 'react';
 import { Suspense } from 'react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import {
   ChartBarIcon,
@@ -83,7 +83,7 @@ export default function AchieveryPage() {
                 </Link>
               </div>
               <div className="mt-4 text-center">
-                <p className="text-sm text-gray-500">✓ No credit card required for preview • ✓ Full features available</p>
+                <p className="text-sm text-gray-500">? No credit card required for preview � ? Full features available</p>
               </div>
             </div>
 
@@ -108,7 +108,7 @@ export default function AchieveryPage() {
                 </Suspense>
               </div>
               <div className="absolute -bottom-4 -right-4 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                ✅ Live Preview Available
+                ? Live Preview Available
               </div>
             </div>
           </div>
@@ -287,14 +287,14 @@ export default function AchieveryPage() {
                   title: 'Reframe Engine',
                   icon: ArrowPathIcon,
                   color: 'navy',
-                  description: 'Transform "helped friend with email" → "practiced marketable tech skills"',
+                  description: 'Transform "helped friend with email" ? "practiced marketable tech skills"',
                   preview: 'AI-powered activity transformation that reveals the professional value in everyday actions'
                 },
                 {
                   title: 'Three-Phase Roadmap',
                   icon: ChartBarIcon,
                   color: 'silver',
-                  description: 'Track progress through Explore → Build → Launch phases',
+                  description: 'Track progress through Explore ? Build ? Launch phases',
                   preview: 'Visual progression system that shows exactly where you are and what comes next'
                 }
               ].map((feature, index) => (
@@ -333,7 +333,7 @@ export default function AchieveryPage() {
                     />
                   </Suspense>
                   <div className="absolute top-3 right-3 bg-emerald-100/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-emerald-700">
-                    ✨ Growth Tier
+                    ? Growth Tier
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
@@ -402,7 +402,7 @@ export default function AchieveryPage() {
                   loading="lazy"
                 />
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  🌐 Progressive Web App Ready
+                  ?? Progressive Web App Ready
                 </div>
               </div>
             </div>
@@ -414,21 +414,21 @@ export default function AchieveryPage() {
                 title: 'Web Browser',
                 subtitle: 'All Devices',
                 icon: ComputerDesktopIcon,
-                status: '✅ Available Now',
+                status: '? Available Now',
                 color: 'emerald'
               },
               {
                 title: 'Mobile Responsive',
                 subtitle: 'Optimized Experience',
                 icon: DevicePhoneMobileIcon,
-                status: '✅ Available Now',
+                status: '? Available Now',
                 color: 'navy'
               },
               {
                 title: 'Progressive Web App',
                 subtitle: 'App-Like Features',
                 icon: GlobeAltIcon,
-                status: '✅ Available Now',
+                status: '? Available Now',
                 color: 'silver'
               }
             ].map((access, index) => (
@@ -450,7 +450,7 @@ export default function AchieveryPage() {
               <h3 className="text-2xl font-bold text-navy-900 mb-4">Current Status: Early Access</h3>
               <p className="text-gray-600 mb-6">Integrated with your Strata Noble account</p>
               <p className="text-sm text-navy-600 bg-navy-100 rounded-lg px-4 py-2 inline-block">
-                📱 Native Apps Coming Soon
+                ?? Native Apps Coming Soon
               </p>
             </div>
           </div>
