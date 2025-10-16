@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
@@ -15,7 +15,8 @@ const errorMessages: Record<string, string> = {
 function AuthErrorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const error = searchParams?.get('error') || 'Default';
+  const rawError = searchParams?.get('error');
+  const error = !rawError || rawError === 'undefined' ? 'Default' : rawError;
 
   const errorMessage = errorMessages[error] || errorMessages.Default;
 

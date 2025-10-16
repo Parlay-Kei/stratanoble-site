@@ -1,17 +1,29 @@
-import { NextAuthOptions } from 'next-auth';
+﻿import { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import EmailProvider from 'next-auth/providers/email';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
 import { supabase } from './supabase';
 import { sendEmail } from './mailer';
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
+
+// Initialize Prisma Client
+const prisma = new PrismaClient();
+
+// Optional: Google OAuth credentials
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+
+// Optional: SMTP configuration for magic link emails
 const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = parseInt(process.env.SMTP_PORT || '587');
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
 const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;
+
+// Required: NextAuth secret for JWT encryption
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
+const NEXTAUTH_URL = process.env.NEXTAUTH_URL;
 
 
 const providers: any[] = [];
@@ -36,7 +48,8 @@ if (process.env.NEXTAUTH_DEV_LOGIN === 'true' || process.env.NODE_ENV === 'devel
   );
 }
 
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+// Google OAuth Provider (optional)
+if (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET) {
   providers.push(
     GoogleProvider({
       clientId: GOOGLE_CLIENT_ID,
@@ -45,15 +58,17 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   );
 }
 
-if (SMTP_HOST && SMTP_PORT && SMTP_USER && SMTP_PASSWORD && SES_FROM_EMAIL) {
+// Email Magic Link Provider using AWS SES
+// Always enabled if SES credentials are configured
+if (SES_FROM_EMAIL) {
   providers.push(
     EmailProvider({
       server: {
-        host: SMTP_HOST,
-        port: SMTP_PORT,
+        host: 'localhost', // Required by NextAuth but unused (we use AWS SES API instead)
+        port: 587,
         auth: {
-          user: SMTP_USER,
-          pass: SMTP_PASSWORD,
+          user: 'unused',
+          pass: 'unused',
         },
       },
       from: SES_FROM_EMAIL,
@@ -87,16 +102,29 @@ if (SMTP_HOST && SMTP_PORT && SMTP_USER && SMTP_PASSWORD && SES_FROM_EMAIL) {
             </div>
 
             <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
-              <p>Â© 2025 Strata Noble. All rights reserved.</p>
+              <p>Ã‚Â© 2025 Strata Noble. All rights reserved.</p>
             </div>
           </div>
         `;
-        await sendEmail(email, subject, html);
+
+        try {
+          await sendEmail(email, subject, html);
+          console.log(`âœ… Magic link email sent to ${email}`);
+        } catch (error) {
+          console.error('âŒ Failed to send verification email:', error);
+          throw new Error('Verification');
+        }
       },
     })
   );
 }
+// Validate required environment variables
+if (!NEXTAUTH_SECRET) {
+  console.error('âŒ NEXTAUTH_SECRET is required but not set. Authentication will fail.');
+}
+
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma) as any,
   providers: providers,
   pages: {
     signIn: '/auth/signin',
@@ -140,7 +168,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   session: {
-    strategy: 'jwt',
+    strategy: 'database',
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   secret: NEXTAUTH_SECRET,

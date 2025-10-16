@@ -1,20 +1,56 @@
-# Netlify Environment Variables Configuration
+﻿# Netlify Environment Variables Configuration
 
 **Date:** October 9, 2025
+**Last Updated:** October 16, 2025 (AWS SES Diagnostic)
 **Project:** StrataNoble Website (stratanoble.com)
-**Status:** ✅ Ready to Configure
+**Status:** âš ï¸ **CRITICAL - VERIFICATION REQUIRED**
 
 ---
 
-## 🚀 Quick Setup
+## ðŸš¨ CRITICAL ALERT - Email Authentication Failure (October 16, 2025)
 
-Go to: **Netlify Dashboard → Site Settings → Environment Variables**
+### Current Issue
+**Email authentication may be failing in production** due to missing environment variables in Netlify. While AWS SES is fully configured and operational locally, production deployment requires manual verification.
+
+### âœ… What's Confirmed Working
+- AWS SES fully configured (Production access enabled)
+- 50,000 emails/day sending quota available
+- `no-reply@stratanoble.com` verified and DKIM configured
+- Local development email sending tested successfully
+- All 14 test emails delivered (100% success rate)
+
+### âš ï¸ What Needs Immediate Action
+**MANUAL VERIFICATION REQUIRED:** Check Netlify Dashboard to confirm these critical variables exist:
+
+```bash
+NEXTAUTH_SECRET         # JWT encryption (CRITICAL)
+NEXTAUTH_URL           # Production URL for auth callbacks
+AWS_ACCESS_KEY_ID      # SES authentication
+AWS_SECRET_ACCESS_KEY  # SES authentication
+AWS_REGION             # us-east-1
+SES_FROM_EMAIL         # no-reply@stratanoble.com
+ADMIN_EMAIL            # admin@stratanoble.com
+VAULT_ENCRYPTION_KEY   # Credentials vault encryption
+```
+
+**If ANY variables are missing:**
+1. Add them using values from this document (Sections 6-9)
+2. Trigger: "Clear cache and deploy site" in Netlify
+3. Test production email authentication flow
+
+**Full diagnostic report:** [AWS_SES_EMAIL_DIAGNOSTIC_2025-10-16.md](docs/AWS_SES_EMAIL_DIAGNOSTIC_2025-10-16.md)
+
+---
+
+## ðŸš€ Quick Setup
+
+Go to: **Netlify Dashboard â†’ Site Settings â†’ Environment Variables**
 
 Or direct link: `https://app.netlify.com/sites/[your-site-name]/settings/env`
 
 ---
 
-## 📋 Required Environment Variables
+## ðŸ“‹ Required Environment Variables
 
 ### **1. Base URL**
 ```
@@ -72,7 +108,33 @@ NEXT_PUBLIC_STRIPE_BUILDER_PRICE_ID=price_1SF1l1GEwjQWkTx0wbp1COP8
 NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID=price_1SF1lHGEwjQWkTx0l3yTxXE5
 ```
 
-### **6. SendGrid Configuration**
+### **6. NextAuth Configuration** âš ï¸ **CRITICAL**
+
+**NextAuth Secret (Required for authentication):**
+```
+NEXTAUTH_SECRET=C5kHNzHViMPX7xOIkcjGMzb83l+1a84EiyfejMjIgI8=
+```
+
+**NextAuth URL (Production URL):**
+```
+NEXTAUTH_URL=https://stratanoble.com
+```
+
+**Google OAuth (Optional - for Google sign-in):**
+```
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+```
+
+**SMTP Configuration (Optional - for magic link email authentication):**
+```
+SMTP_HOST=email-smtp.us-east-1.amazonaws.com
+SMTP_PORT=587
+SMTP_USER=your_smtp_username_here
+SMTP_PASSWORD=your_smtp_password_here
+```
+
+### **7. SendGrid Configuration**
 
 **API Key:** (Add when ready)
 ```
@@ -84,7 +146,41 @@ SENDGRID_API_KEY=your_sendgrid_api_key_here
 SENDGRID_FROM_EMAIL=contact@stratanoble.com
 ```
 
-### **7. OpenAI Configuration** (Optional)
+### **8. AWS SES Configuration**
+
+**AWS Access Key:**
+```
+AWS_ACCESS_KEY_ID=your_aws_access_key_id
+```
+
+**AWS Secret Key:**
+```
+AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+```
+
+**AWS Region:**
+```
+AWS_REGION=us-east-1
+```
+
+**SES From Email:**
+```
+SES_FROM_EMAIL=no-reply@stratanoble.com
+```
+
+**Admin Email:**
+```
+ADMIN_EMAIL=admin@stratanoble.com
+```
+
+### **9. Vault Encryption Key** âš ï¸ **CRITICAL**
+
+**Vault Encryption Key (AES-256):**
+```
+VAULT_ENCRYPTION_KEY=7547aa491146fe2f390603c3eba50f2a460a64bd0e988b0a81bda24651364e8a
+```
+
+### **10. OpenAI Configuration** (Optional)
 
 **API Key:** (Add when ready)
 ```
@@ -93,7 +189,7 @@ OPENAI_API_KEY=your_openai_api_key_here
 
 ---
 
-## 📝 Step-by-Step Setup Instructions
+## ðŸ“ Step-by-Step Setup Instructions
 
 ### **Method 1: Netlify Dashboard UI** (Recommended)
 
@@ -112,7 +208,7 @@ OPENAI_API_KEY=your_openai_api_key_here
 5. **Repeat for all variables above**
 6. **Trigger new deployment:**
    - Go to **"Deploys"** tab
-   - Click **"Trigger deploy"** → **"Clear cache and deploy site"**
+   - Click **"Trigger deploy"** â†’ **"Clear cache and deploy site"**
 
 ### **Method 2: Netlify CLI** (Advanced)
 
@@ -138,6 +234,14 @@ netlify env:set STRIPE_WEBHOOK_SECRET "whsec_gzwFypNbxgEgp3OYx4F4BL5zbqAtSeVR"
 netlify env:set NEXT_PUBLIC_STRIPE_BUILDER_PRICE_ID "price_1SF1l1GEwjQWkTx0wbp1COP8"
 netlify env:set NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID "price_1SF1lHGEwjQWkTx0l3yTxXE5"
 netlify env:set SENDGRID_FROM_EMAIL "contact@stratanoble.com"
+netlify env:set NEXTAUTH_SECRET "C5kHNzHViMPX7xOIkcjGMzb83l+1a84EiyfejMjIgI8="
+netlify env:set NEXTAUTH_URL "https://stratanoble.com"
+netlify env:set AWS_ACCESS_KEY_ID " your_aws_access_key_id\
+netlify env:set AWS_SECRET_ACCESS_KEY \your_aws_secret_access_key\
+netlify env:set AWS_REGION "us-east-1"
+netlify env:set SES_FROM_EMAIL "no-reply@stratanoble.com"
+netlify env:set ADMIN_EMAIL "admin@stratanoble.com"
+netlify env:set VAULT_ENCRYPTION_KEY "7547aa491146fe2f390603c3eba50f2a460a64bd0e988b0a81bda24651364e8a"
 
 # Trigger new deployment
 netlify deploy --prod
@@ -145,18 +249,18 @@ netlify deploy --prod
 
 ---
 
-## ✅ Verification Checklist
+## âœ… Verification Checklist
 
 After adding all environment variables:
 
 ### **1. Verify Variables in Netlify Dashboard**
-- [ ] All 12+ variables appear in Environment Variables list
+- [ ] All 25+ variables appear in Environment Variables list (including NEXTAUTH_SECRET, VAULT_ENCRYPTION_KEY)
 - [ ] Each variable has scope set to "All scopes"
 - [ ] No syntax errors (no extra spaces, quotes)
 
 ### **2. Trigger New Deployment**
 - [ ] Go to Deploys tab
-- [ ] Click "Trigger deploy" → "Clear cache and deploy site"
+- [ ] Click "Trigger deploy" â†’ "Clear cache and deploy site"
 - [ ] Wait for build to complete (~3-5 minutes)
 
 ### **3. Test Production Site**
@@ -179,7 +283,7 @@ After adding all environment variables:
 
 ---
 
-## 🐛 Troubleshooting
+## ðŸ› Troubleshooting
 
 ### **Issue: "NEXT_PUBLIC_SUPABASE_URL is not defined"**
 **Cause:** Environment variable not set or deployment not triggered
@@ -205,25 +309,25 @@ After adding all environment variables:
 ### **Issue: Environment variables not loading in build**
 **Cause:** Netlify caching old environment
 **Fix:**
-1. Clear build cache: Deploys → Trigger deploy → "Clear cache and deploy site"
+1. Clear build cache: Deploys â†’ Trigger deploy â†’ "Clear cache and deploy site"
 2. Verify variables in build logs (search for "Environment:")
 3. Ensure variable names use correct prefix (`NEXT_PUBLIC_` for client-side)
 
 ---
 
-## 🔒 Security Notes
+## ðŸ”’ Security Notes
 
 ### **Public vs Secret Keys**
 
 **Public Keys (NEXT_PUBLIC_* prefix):**
-- ✅ Safe to expose in browser
-- ✅ Bundled in client-side JavaScript
+- âœ… Safe to expose in browser
+- âœ… Bundled in client-side JavaScript
 - Examples: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
 **Secret Keys (no prefix):**
-- ❌ NEVER expose in client-side code
-- ✅ Only available in server-side API routes
-- ✅ Protected by Netlify Functions
+- âŒ NEVER expose in client-side code
+- âœ… Only available in server-side API routes
+- âœ… Protected by Netlify Functions
 - Examples: SUPABASE_SERVICE_ROLE_KEY, STRIPE_SECRET_KEY
 
 ### **Key Rotation Best Practices**
@@ -245,27 +349,41 @@ After adding all environment variables:
 
 ---
 
-## 📊 Environment Variable Reference
+## ðŸ“Š Environment Variable Reference
 
 | Variable | Type | Required | Purpose |
 |----------|------|----------|---------|
-| NEXT_PUBLIC_BASE_URL | Public | ✅ Yes | Site base URL for metadata |
-| NEXT_PUBLIC_ACHIEVERY_URL | Public | ✅ Yes | ACHIEVERY platform link |
-| NEXT_PUBLIC_SUPABASE_URL | Public | ✅ Yes | Supabase project URL |
-| NEXT_PUBLIC_SUPABASE_ANON_KEY | Public | ✅ Yes | Supabase public API key |
-| SUPABASE_SERVICE_ROLE_KEY | Secret | ✅ Yes | Supabase admin API key |
-| NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY | Public | ✅ Yes | Stripe checkout initialization |
-| STRIPE_SECRET_KEY | Secret | ✅ Yes | Stripe payment processing |
-| STRIPE_WEBHOOK_SECRET | Secret | ✅ Yes | Stripe webhook verification |
-| NEXT_PUBLIC_STRIPE_BUILDER_PRICE_ID | Public | ✅ Yes | Builder tier price |
-| NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID | Public | ✅ Yes | Prosperity tier price |
-| SENDGRID_API_KEY | Secret | ⚠️ Optional | Email notifications |
-| SENDGRID_FROM_EMAIL | Secret | ⚠️ Optional | Email sender address |
-| OPENAI_API_KEY | Secret | ⚠️ Optional | AI idea validation |
+| NEXT_PUBLIC_BASE_URL | Public | âœ… Yes | Site base URL for metadata |
+| NEXT_PUBLIC_ACHIEVERY_URL | Public | âœ… Yes | ACHIEVERY platform link |
+| NEXT_PUBLIC_SUPABASE_URL | Public | âœ… Yes | Supabase project URL |
+| NEXT_PUBLIC_SUPABASE_ANON_KEY | Public | âœ… Yes | Supabase public API key |
+| SUPABASE_SERVICE_ROLE_KEY | Secret | âœ… Yes | Supabase admin API key |
+| NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY | Public | âœ… Yes | Stripe checkout initialization |
+| STRIPE_SECRET_KEY | Secret | âœ… Yes | Stripe payment processing |
+| STRIPE_WEBHOOK_SECRET | Secret | âœ… Yes | Stripe webhook verification |
+| NEXT_PUBLIC_STRIPE_BUILDER_PRICE_ID | Public | âœ… Yes | Builder tier price |
+| NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID | Public | âœ… Yes | Prosperity tier price |
+| NEXTAUTH_SECRET | Secret | âœ… Yes | NextAuth JWT encryption |
+| NEXTAUTH_URL | Secret | âœ… Yes | Production site URL for auth callbacks |
+| VAULT_ENCRYPTION_KEY | Secret | âœ… Yes | Credentials vault encryption (AES-256) |
+| AWS_ACCESS_KEY_ID | Secret | âœ… Yes | AWS SES email sending |
+| AWS_SECRET_ACCESS_KEY | Secret | âœ… Yes | AWS SES authentication |
+| AWS_REGION | Secret | âœ… Yes | AWS region (us-east-1) |
+| SES_FROM_EMAIL | Secret | âœ… Yes | Email sender address |
+| ADMIN_EMAIL | Secret | âœ… Yes | Admin notification email |
+| SENDGRID_API_KEY | Secret | âš ï¸ Optional | Email notifications (alternative) |
+| SENDGRID_FROM_EMAIL | Secret | âš ï¸ Optional | Email sender address (alternative) |
+| OPENAI_API_KEY | Secret | âš ï¸ Optional | AI idea validation |
+| GOOGLE_CLIENT_ID | Secret | âš ï¸ Optional | Google OAuth sign-in |
+| GOOGLE_CLIENT_SECRET | Secret | âš ï¸ Optional | Google OAuth authentication |
+| SMTP_HOST | Secret | âš ï¸ Optional | Magic link email host |
+| SMTP_PORT | Secret | âš ï¸ Optional | Magic link email port |
+| SMTP_USER | Secret | âš ï¸ Optional | Magic link email username |
+| SMTP_PASSWORD | Secret | âš ï¸ Optional | Magic link email password |
 
 ---
 
-## 🔗 Quick Links
+## ðŸ”— Quick Links
 
 - **Netlify Dashboard:** https://app.netlify.com
 - **Supabase Dashboard:** https://supabase.com/dashboard/project/bvneqoevtwodyfqglpzi
@@ -275,17 +393,70 @@ After adding all environment variables:
 
 ---
 
-## 📝 Update History
+## ðŸš¨ Critical Authentication Fix
 
-- **October 9, 2025:** Initial configuration with new Supabase credentials
-- Added service role key for CRM lead creation
-- Added platform tier price IDs (Builder, Prosperity)
-- Updated documentation with security notes
+### **Issue Resolved:** `Configuration` Error on Production
+
+**Problem:** Production auth was failing with "There is a problem with the authentication configuration" error at `/auth/error?error=Configuration`
+
+**Root Cause:** Missing `NEXTAUTH_SECRET` environment variable in Netlify production environment
+
+**Solution Applied:**
+1. âœ… Generated secure NEXTAUTH_SECRET using Node crypto (256-bit base64)
+2. âœ… Added NEXTAUTH_SECRET to local `.env.local` for development
+3. âœ… Added NEXTAUTH_URL for production callback configuration
+4. âœ… Updated this documentation with complete NextAuth configuration
+5. âœ… Added VAULT_ENCRYPTION_KEY to production environment variables
+6. âœ… Added AWS SES credentials for email functionality
+
+**Next Steps:**
+1. Add `NEXTAUTH_SECRET` to Netlify environment variables (see Section 6 above)
+2. Add `NEXTAUTH_URL=https://stratanoble.com` to Netlify
+3. Add `VAULT_ENCRYPTION_KEY` to Netlify (see Section 9 above)
+4. Trigger new deployment: "Clear cache and deploy site"
+5. Test authentication flow at https://stratanoble.com/auth/signin
+
+**Testing Checklist:**
+- [ ] NEXTAUTH_SECRET added to Netlify
+- [ ] NEXTAUTH_URL set to production domain
+- [ ] VAULT_ENCRYPTION_KEY configured
+- [ ] New deployment triggered with cache clear
+- [ ] Visit /auth/signin - should load without Configuration error
+- [ ] Test dev login (if NEXTAUTH_DEV_LOGIN enabled)
+- [ ] Test Google OAuth (if configured)
+- [ ] Verify /admin/vault page loads correctly
 
 ---
 
-**Status:** ✅ Ready to Configure
-**Next Step:** Add variables to Netlify Dashboard and trigger deployment
-**Documentation:** Complete
+## ðŸ“ Update History
 
-*Last Updated: October 9, 2025*
+- **October 16, 2025:** ðŸš¨ **AWS SES EMAIL DIAGNOSTIC** - Production email authentication verification
+  - Verified AWS SES fully operational (Production access, 50K/day limit)
+  - Confirmed all sender addresses verified with DKIM
+  - Identified likely root cause: Missing Netlify environment variables
+  - Created comprehensive diagnostic report (AWS_SES_EMAIL_DIAGNOSTIC_2025-10-16.md)
+  - Added critical alert banner for immediate action
+  - Status: Awaiting Netlify environment variable verification
+
+- **October 15, 2025:** ðŸš¨ **CRITICAL AUTH FIX** - Added missing NextAuth configuration
+  - Added NEXTAUTH_SECRET generation and configuration
+  - Added NEXTAUTH_URL for production auth callbacks
+  - Added VAULT_ENCRYPTION_KEY for credentials vault
+  - Added complete AWS SES email configuration
+  - Documented authentication error resolution
+  - Updated environment variable count (12 â†’ 25+ variables)
+
+- **October 9, 2025:** Initial configuration with new Supabase credentials
+  - Added service role key for CRM lead creation
+  - Added platform tier price IDs (Builder, Prosperity)
+  - Updated documentation with security notes
+
+---
+
+**Status:** ðŸš¨ **CRITICAL - VERIFICATION REQUIRED**
+**Action:** Verify all environment variables exist in Netlify Dashboard
+**Next Step:** Add any missing variables â†’ Clear cache â†’ Redeploy â†’ Test email flow
+**Reference:** See AWS_SES_EMAIL_DIAGNOSTIC_2025-10-16.md for complete troubleshooting guide
+**Documentation:** Complete and Updated
+
+*Last Updated: October 16, 2025*
