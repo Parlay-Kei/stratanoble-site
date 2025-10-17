@@ -112,8 +112,9 @@ NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID=price_1SF1lHGEwjQWkTx0l3yTxXE5
 
 **NextAuth Secret (Required for authentication):**
 ```
-NEXTAUTH_SECRET=C5kHNzHViMPX7xOIkcjGMzb83l+1a84EiyfejMjIgI8=
+NEXTAUTH_SECRET=your_nextauth_secret_here_base64_encoded
 ```
+**Note:** Generate using: `openssl rand -base64 32`
 
 **NextAuth URL (Production URL):**
 ```
@@ -177,8 +178,9 @@ ADMIN_EMAIL=admin@stratanoble.com
 
 **Vault Encryption Key (AES-256):**
 ```
-VAULT_ENCRYPTION_KEY=7547aa491146fe2f390603c3eba50f2a460a64bd0e988b0a81bda24651364e8a
+VAULT_ENCRYPTION_KEY=your_64_character_hex_encryption_key_here
 ```
+**Note:** Generate using: `openssl rand -hex 32`
 
 ### **10. OpenAI Configuration** (Optional)
 
@@ -234,14 +236,14 @@ netlify env:set STRIPE_WEBHOOK_SECRET "whsec_gzwFypNbxgEgp3OYx4F4BL5zbqAtSeVR"
 netlify env:set NEXT_PUBLIC_STRIPE_BUILDER_PRICE_ID "price_1SF1l1GEwjQWkTx0wbp1COP8"
 netlify env:set NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID "price_1SF1lHGEwjQWkTx0l3yTxXE5"
 netlify env:set SENDGRID_FROM_EMAIL "contact@stratanoble.com"
-netlify env:set NEXTAUTH_SECRET "C5kHNzHViMPX7xOIkcjGMzb83l+1a84EiyfejMjIgI8="
+netlify env:set NEXTAUTH_SECRET "your_nextauth_secret_here"
 netlify env:set NEXTAUTH_URL "https://stratanoble.com"
 netlify env:set AWS_ACCESS_KEY_ID " your_aws_access_key_id\
 netlify env:set AWS_SECRET_ACCESS_KEY \your_aws_secret_access_key\
 netlify env:set AWS_REGION "us-east-1"
 netlify env:set SES_FROM_EMAIL "no-reply@stratanoble.com"
 netlify env:set ADMIN_EMAIL "admin@stratanoble.com"
-netlify env:set VAULT_ENCRYPTION_KEY "7547aa491146fe2f390603c3eba50f2a460a64bd0e988b0a81bda24651364e8a"
+netlify env:set VAULT_ENCRYPTION_KEY "your_vault_encryption_key_here"
 
 # Trigger new deployment
 netlify deploy --prod

@@ -35,7 +35,7 @@ Based on the error pattern "email submission after form submission fails", the i
 
 **Required Variables Not Yet Confirmed on Netlify:**
 ```bash
-NEXTAUTH_SECRET=C5kHNzHViMPX7xOIkcjGMzb83l+1a84EiyfejMjIgI8=
+NEXTAUTH_SECRET=your_nextauth_secret_here
 NEXTAUTH_URL=https://stratanoble.com
 AWS_ACCESS_KEY_ID=your_aws_access_key_id
 AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
@@ -167,7 +167,7 @@ v=DMARC1; p=none; rua=mailto:admin@stratanoble.com
 
 **NextAuth Configuration:**
 ```bash
-âœ… NEXTAUTH_SECRET=C5kHNzHViMPX7xOIkcjGMzb83l+1a84EiyfejMjIgI8=
+âœ… NEXTAUTH_SECRET=your_nextauth_secret_here
 âœ… NEXTAUTH_URL=http://localhost:3000 (dev) / https://stratanoble.com (prod)
 ```
 
@@ -176,7 +176,7 @@ v=DMARC1; p=none; rua=mailto:admin@stratanoble.com
 âœ… NEXT_PUBLIC_SUPABASE_URL=https://REDACTED.supabase.co
 âœ… NEXT_PUBLIC_SUPABASE_ANON_KEY=[configured]
 âœ… SUPABASE_SERVICE_ROLE_KEY=[configured]
-âœ… VAULT_ENCRYPTION_KEY=7547aa491146fe2f390603c3eba50f2a460a64bd0e988b0a81bda24651364e8a
+âœ… VAULT_ENCRYPTION_KEY=your_vault_encryption_key_64_hex_chars
 ```
 
 ### Production (Netlify) - âš ï¸ NEEDS VERIFICATION
@@ -344,7 +344,7 @@ node apps/website/scripts/test-auth-email.mjs
 **Fix:**
 ```bash
 # In Netlify Dashboard, add:
-NEXTAUTH_SECRET=C5kHNzHViMPX7xOIkcjGMzb83l+1a84EiyfejMjIgI8=
+NEXTAUTH_SECRET=your_nextauth_secret_here
 NEXTAUTH_URL=https://stratanoble.com
 ```
 
