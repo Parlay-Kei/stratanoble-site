@@ -16,7 +16,7 @@ Successfully added **8 missing critical environment variables** to Netlify produ
 ### Critical Authentication Variables
 
 âœ… **NEXTAUTH_SECRET**
-- Value: `C5kHNzHViMPX7xOIkcjGMzb83l+1a84EiyfejMjIgI8=`
+- Value: `your_nextauth_secret_here`
 - Purpose: JWT encryption for NextAuth authentication
 - Impact: **CRITICAL** - Authentication will fail without this
 - Scope: All contexts
@@ -36,7 +36,7 @@ Successfully added **8 missing critical environment variables** to Netlify produ
 - Scope: All contexts
 
 âœ… **AWS_SECRET_ACCESS_KEY**
-- Value: `A5RUSaOKWV+hOPn0B31BsQx5E0/YG83osisXmc0h`
+- Value: `your_aws_secret_access_key`
 - Purpose: AWS SES API authentication
 - Impact: **CRITICAL** - Email sending will fail without this
 - Scope: All contexts
@@ -50,7 +50,7 @@ Successfully added **8 missing critical environment variables** to Netlify produ
 ### Security & Configuration Variables
 
 âœ… **VAULT_ENCRYPTION_KEY**
-- Value: `7547aa491146fe2f390603c3eba50f2a460a64bd0e988b0a81bda24651364e8a`
+- Value: `your_vault_encryption_key_64_hex_chars`
 - Purpose: AES-256 encryption for credentials vault
 - Impact: **CRITICAL** - Vault operations will fail without this
 - Scope: All contexts
