@@ -3,6 +3,7 @@
     "version":  "0.1.0",
     "private":  true,
     "type":  "module",
+    "packageManager":  "npm@10.8.2",
     "scripts":  {
                     "build":  "cd apps/website \u0026\u0026 npm run build",
                     "dev":  "cd apps/website \u0026\u0026 npm run dev",
