@@ -1,4 +1,6 @@
 [build]
+  base = "apps/website"
+  publish = ".next"
   command = "npm ci --no-audit --no-fund --legacy-peer-deps && npm run build --verbose"
 
 [[plugins]]
