@@ -27,7 +27,7 @@ const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 const AZURE_AD_CLIENT_ID = process.env.AZURE_AD_CLIENT_ID;
 const AZURE_AD_CLIENT_SECRET = process.env.AZURE_AD_CLIENT_SECRET;
 const AZURE_AD_TENANT_ID = process.env.AZURE_AD_TENANT_ID;
-const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;
+const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;\nconst HAS_AWS_CREDS = !!(process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID) && !!(process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SES_SECRET);
 
 // Required: NextAuth secret for JWT encryption
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
@@ -79,8 +79,7 @@ if (AZURE_AD_CLIENT_ID && AZURE_AD_CLIENT_SECRET && AZURE_AD_TENANT_ID) {
   );
 }
 
-// Email Magic Link Provider via SES (optional)
-if (SES_FROM_EMAIL) {
+// Email Magic Link Provider via SES (optional)\nconst EMAIL_ENABLED = !!SES_FROM_EMAIL && (HAS_AWS_CREDS || process.env.ALLOW_EMAIL_SIGNUP === 'true');\nif (EMAIL_ENABLED) {
   providers.push(
     EmailProvider({
       server: {
@@ -165,6 +164,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: NEXTAUTH_SECRET,
 };
+
 
 
 
