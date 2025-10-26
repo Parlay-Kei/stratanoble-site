@@ -1,5 +1,8 @@
-﻿const WebSocket = require('ws');\nconst { metrics } = require('./metrics');\nconst fs = require('fs');
+﻿const WebSocket = require('ws');
+const { metrics } = require('./metrics');
+const fs = require('fs');
 const path = require('path');
+
 function appendTranscript(testName, role, text) {
   try {
     const base = process.cwd();
@@ -12,7 +15,25 @@ function appendTranscript(testName, role, text) {
   }
 }
 
-// RealtimeSessionPatchMarker1\nclass RealtimeSession {\n  reconnectAttempts = 0;\n  reconnecting = false;\n  lastAppendAt = 0;\n  commitTimer = null;\n\n  scheduleCommit() {\n    if (this.commitTimer) return;\n    this.commitTimer = setTimeout(() => {\n      this.commitTimer = null;\n      this.commitAndRespond();\n    }, 600);\n  }\n\n  commitAndRespond() {\n    if (!this.openaiWs || this.openaiWs.readyState !== WebSocket.OPEN) return;\n    try {\n      this.openaiWs.send(JSON.stringify({ type: 'input_audio_buffer.commit' }));\n      this.openaiWs.send(JSON.stringify({ type: 'response.create', response: { instructions: 'Continue speaking naturally.' } }));\n    } catch (e) { console.error('[openai] commit/respond failed', e); }\n  }\n
+function resolveOpenAIKey() {
+  if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY.trim()) return process.env.OPENAI_API_KEY.trim();
+  try {
+    const p = path.join(__dirname, '..', '.env.local');
+    if (fs.existsSync(p)) {
+      const raw = fs.readFileSync(p, 'utf8');
+      const m = raw.match(/^OPENAI_API_KEY=(.+)$/m);
+      if (m) return m[1].trim();
+    }
+  } catch {}
+  return '';
+}
+
+class RealtimeSession {
+  reconnectAttempts = 0;
+  reconnecting = false;
+  lastAppendAt = 0;
+  commitTimer = null;
+
   constructor(twilioWs, testName) {
     this.openaiWs = null;
     this.twilioWs = twilioWs;
@@ -20,62 +41,83 @@ function appendTranscript(testName, role, text) {
     this.twilioStreamSid = null;
   }
 
-  setTwilioStreamSid(streamSid) {
-    this.twilioStreamSid = streamSid;
+  setTwilioStreamSid(streamSid) { this.twilioStreamSid = streamSid; }
+
+  scheduleCommit() {
+    if (this.commitTimer) return;
+    this.commitTimer = setTimeout(() => {
+      this.commitTimer = null;
+      this.commitAndRespond();
+    }, 600);
+  }
+
+  commitAndRespond() {
+    if (!this.openaiWs || this.openaiWs.readyState !== WebSocket.OPEN) return;
+    try {
+      this.openaiWs.send(JSON.stringify({ type: 'input_audio_buffer.commit' }));
+      this.openaiWs.send(JSON.stringify({ type: 'response.create', response: { instructions: 'Continue speaking naturally.' } }));
+    } catch (e) { console.error('[openai] commit/respond failed', e); }
   }
 
   async connect() {
     const model = process.env.OPENAI_REALTIME_MODEL || 'gpt-4o-realtime-preview';
     const url = `wss://api.openai.com/v1/realtime?model=${encodeURIComponent(model)}`;
 
+    const apiKey = resolveOpenAIKey();
+
     this.openaiWs = new WebSocket(url, {
       headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'OpenAI-Beta': 'realtime=v1',
       },
     });
 
     this.openaiWs.on('open', () => {
       console.log('[openai] Connected for test:', this.testName);
-      this.initializeSession();\n      // Request an opening response after session init\n      try {\n        this.openaiWs.send(JSON.stringify({ type: 'response.create', response: { instructions: 'You are connected to the caller. Continue the conversation naturally.' } }));\n      } catch (e) { console.error('[openai] response.create failed', e); }\n    });
-
-    this.openaiWs.on('message', (data) => {
-      this.handleOpenAIMessage(data);
+      this.initializeSession();
+      // Wait a moment for session.update to be processed, then trigger AI's greeting
+      setTimeout(() => {
+        try {
+          this.openaiWs.send(JSON.stringify({
+            type: 'response.create',
+            response: {
+              modalities: ['audio', 'text']  // Explicitly request audio output
+            }
+          }));
+        } catch (e) { console.error('[openai] response.create failed', e); }
+      }, 250);
     });
 
-    this.openaiWs.on('error', (error) => {
-      console.error('[openai] Error:', error);
-    });
+    this.openaiWs.on('message', (data) => { this.handleOpenAIMessage(data); });
 
-    this.openaiWs.on('close', () => {\n      console.log('[openai] Disconnected');\n      if (this.twilioWs && this.twilioWs.readyState === WebSocket.OPEN && !this.reconnecting && this.reconnectAttempts < 3) {\n        this.reconnecting = true;\n        const delay = Math.pow(2, this.reconnectAttempts++) * 500;\n        setTimeout(() => { this.reconnecting = false; this.connect().catch(()=>{}); }, delay);\n      }\n    });
+    this.openaiWs.on('error', (error) => { console.error('[openai] Error:', error); });
+
+    this.openaiWs.on('close', () => {
+      console.log('[openai] Disconnected');
+      if (this.twilioWs && this.twilioWs.readyState === WebSocket.OPEN && !this.reconnecting && this.reconnectAttempts < 3) {
+        this.reconnecting = true;
+        const delay = Math.pow(2, this.reconnectAttempts++) * 500;
+        setTimeout(() => { this.reconnecting = false; this.connect().catch(()=>{}); }, delay);
+      }
+    });
   }
 
   initializeSession() {
     const systemPrompt = this.getTestPrompt();
-
-    this.openaiWs?.send(
-      JSON.stringify({
-        type: 'session.update',
-        session: {
-          modalities: ['text', 'audio'],
-          instructions: systemPrompt,
-          voice: 'alloy',
-          input_audio_format: 'g711_ulaw',
-          output_audio_format: 'g711_ulaw',
-          input_audio_transcription: {
-            model: 'whisper-1',
-          },
-          turn_detection: {
-            type: 'server_vad',
-            threshold: 0.5,
-            prefix_padding_ms: 300,
-            silence_duration_ms: 500,
-          },
-          temperature: 0.8,
-          max_response_output_tokens: 4096,
-        },
-      })
-    );
+    this.openaiWs?.send(JSON.stringify({
+      type: 'session.update',
+      session: {
+        modalities: ['audio', 'text'],  // Audio first for voice responses, text for transcripts
+        instructions: systemPrompt,
+        voice: 'alloy',
+        input_audio_format: 'g711_ulaw',
+        output_audio_format: 'g711_ulaw',
+        input_audio_transcription: { model: 'whisper-1' },
+        turn_detection: { type: 'server_vad', threshold: 0.5, prefix_padding_ms: 300, silence_duration_ms: 500 },
+        temperature: 0.8,
+        max_response_output_tokens: 4096,
+      },
+    }));
   }
 
   getTestPrompt() {
@@ -96,46 +138,61 @@ Keep it natural and conversational. If they ask questions, answer briefly and st
 
   handleTwilioAudio(audioBuffer) {
     if (this.openaiWs && this.openaiWs.readyState === WebSocket.OPEN) {
-      this.openaiWs.send(JSON.stringify({ type: 'input_audio_buffer.append', audio: audioBuffer.toString('base64') }));\n      this.lastAppendAt = Date.now();\n      this.scheduleCommit();
+      this.openaiWs.send(JSON.stringify({ type: 'input_audio_buffer.append', audio: audioBuffer.toString('base64') }));
+      // Server-side VAD will automatically detect speech and trigger responses
+      // No need to manually commit - it causes "buffer too small" errors
     }
   }
 
   handleOpenAIMessage(data) {
     const message = JSON.parse(data.toString());
 
+    // Log all message types for debugging
+    if (!['response.audio.delta', 'input_audio_buffer.speech_started', 'input_audio_buffer.speech_stopped'].includes(message.type)) {
+      console.log('[openai] Event:', message.type);
+    }
+
     switch (message.type) {
       case 'session.created':
         console.log('[openai] Session created:', message.session?.id);
         break;
+      case 'session.updated':
+        console.log('[openai] Session updated successfully');
+        break;
+      case 'response.created':
+        console.log('[openai] Response created:', message.response?.id);
+        break;
+      case 'response.done':
+        console.log('[openai] Response completed:', message.response?.id);
+        break;
       case 'response.audio.delta': {
         if (this.twilioWs && this.twilioWs.readyState === WebSocket.OPEN) {
-          const twilioMessage = {
-            event: 'media',
-            streamSid: this.twilioStreamSid || undefined,
-            media: { payload: message.delta },
-          };
-          this.twilioWs.send(JSON.stringify(twilioMessage));\n        try { metrics.aiResponses += 1; } catch {}
+          const twilioMessage = { event: 'media', streamSid: this.twilioStreamSid || undefined, media: { payload: message.delta } };
+          this.twilioWs.send(JSON.stringify(twilioMessage));
+          try { metrics.aiResponses += 1; } catch {}
         }
+        break; }
+      case 'response.audio_transcript.done':
+        console.log('[openai] AI said:', message.transcript); try { metrics.aiTranscriptAssistant += 1; } catch {}
+        appendTranscript(this.testName, 'assistant', message.transcript);
         break;
-      }
-      case 'response.audio_transcript.done':\n        console.log('[openai] AI said:', message.transcript); try { metrics.aiTranscriptAssistant += 1; } catch {} appendTranscript(this.testName, 'assistant', message.transcript);\n        break;
       case 'conversation.item.input_audio_transcription.completed':
-        console.log('[openai] User said:', message.transcript); try { metrics.aiTranscriptUser += 1; } catch {} appendTranscript(this.testName, 'user', message.transcript);
+        console.log('[openai] User said:', message.transcript); try { metrics.aiTranscriptUser += 1; } catch {}
+        appendTranscript(this.testName, 'user', message.transcript);
         break;
       case 'error':
         console.error('[openai] Error:', message.error); try { metrics.aiErrors += 1; } catch {}
         break;
       default:
+        // Log unknown message types
+        if (message.type && !message.type.includes('audio.delta')) {
+          console.log('[openai] Unhandled event:', message.type);
+        }
         break;
     }
   }
 
-  disconnect() {
-    this.openaiWs?.close();
-  }
+  disconnect() { this.openaiWs?.close(); }
 }
 
 module.exports = { RealtimeSession };
-
-
-

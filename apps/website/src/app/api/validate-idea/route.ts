@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
 import { sendValidationEmail } from '@/lib/send-validation-email';
@@ -199,7 +199,7 @@ export async function POST(request: Request) {
       }
     }
 
-    if (email && process.env.SENDGRID_API_KEY) {
+    if (email && process.env.SES_FROM_EMAIL) {
       try {
         await sendValidationEmail({ email, idea, analysis });
       } catch (emailError) {

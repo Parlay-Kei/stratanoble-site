@@ -10,6 +10,12 @@
   startedAt: Date.now(),
 };
 
-module.exports = { metrics };\nmetrics.jobsQueued=metrics.jobsQueued||0; metrics.jobsStarted=metrics.jobsStarted||0; metrics.jobsCompleted=metrics.jobsCompleted||0; metrics.jobsFailed=metrics.jobsFailed||0; metrics.jobsRetried=metrics.jobsRetried||0; metrics.cpsCurrent=metrics.cpsCurrent||0;\n
-metrics.jobsSuppressed=metrics.jobsSuppressed||0;
+metrics.jobsQueued = 0;
+metrics.jobsStarted = 0;
+metrics.jobsCompleted = 0;
+metrics.jobsFailed = 0;
+metrics.jobsRetried = 0;
+metrics.cpsCurrent = 0;
+metrics.jobsSuppressed = 0;
 
+module.exports = { metrics };
