@@ -1,5 +1,5 @@
 [build]
-  command = "cd apps/website && npm ci && npm run build"
+  command = "cd apps/website && npm ci --no-audit --no-fund --legacy-peer-deps && npm run build --verbose"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
