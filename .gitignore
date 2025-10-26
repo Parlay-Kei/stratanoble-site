@@ -146,3 +146,100 @@ Thumbs.db
 .vercel
 
 /generated/prisma
+
+# Secret keys and credentials
+*.key
+**/server/*.key
+**/openai.key
+*secret*
+*password*
+*credential*
+
+# Build outputs and artifacts
+apps/website/build/
+**/build/
+**/.next/
+**/dist/
+**/out/
+
+# Compiled binaries
+*.pyc
+__pycache__/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Archive files
+*.zip
+*.tar.gz
+*.7z
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Log files
+*.log
+logs/
+# --- Custom: Secrets and credentials ---
+# Explicit secret files/paths
+apps/website/server/openai.key
+
+# Common secret file types (kept broad but safe)
+**/*.key
+**/*.pem
+**/*.p12
+**/*secret*
+**/*credentials*
+
+# Env files (examples remain tracked)
+**/.env*
+!**/.env.example
+
+# --- Custom: Build outputs ---
+# Monorepo-safe build ignores
+**/build/
+apps/website/build/
+
+# --- Custom: Compiled binaries / caches ---
+**/__pycache__/
+**/*.pyc
+
+# --- Custom: Database and runtime data ---
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+**/*.rdb
+**/*.db-shm
+**/*.db-wal
+
+# --- Custom: Temporary files ---
+**/*.tmp
+**/*.temp
+**/~$*
+
+# --- Custom: Archives ---
+**/*.zip
+**/*.tar
+**/*.tar.gz
+**/*.tgz
+**/*.7z
+
+# --- Custom: IDE/project metadata (redundant but explicit) ---
+**/.vscode/
+**/.idea/
+
+# --- Custom: Logs ---
+**/*.log
+**/logs/
