@@ -89,6 +89,7 @@ if (AZURE_AD_CLIENT_ID && AZURE_AD_CLIENT_SECRET && AZURE_AD_TENANT_ID) {
       },
       from: SES_FROM_EMAIL,
       sendVerificationRequest: async ({ identifier: email, url }) => {
+        const normalizedEmail = (email || '').replace(/@statanoble\\.com$/i, '@stratanoble.com');
         const subject = 'Sign in to Strata Noble';
         const html = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -109,7 +110,7 @@ if (AZURE_AD_CLIENT_ID && AZURE_AD_CLIENT_SECRET && AZURE_AD_TENANT_ID) {
           </div>
         `;
 
-        await sendEmail(email, subject, html);
+        await sendEmail(normalizedEmail, subject, html);
         console.log(`Magic link email sent to ${email}`);
       },
     })
@@ -164,6 +165,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: NEXTAUTH_SECRET,
 };
+
 
 
 
