@@ -82,7 +82,7 @@ if (AZURE_AD_CLIENT_ID && AZURE_AD_CLIENT_SECRET && AZURE_AD_TENANT_ID) {
 
 // Email Magic Link Provider via SES (optional)
 const EMAIL_ENABLED = !!SES_FROM_EMAIL && (HAS_AWS_CREDS || process.env.ALLOW_EMAIL_SIGNUP === 'true');
-if (EMAIL_ENABLED) {
+if (EMAIL_ENABLED && prisma) {
   providers.push(
     EmailProvider({
       server: {
@@ -168,6 +168,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: NEXTAUTH_SECRET,
 };
+
 
 
 
