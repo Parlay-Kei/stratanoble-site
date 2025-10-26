@@ -117,8 +117,12 @@ if (SES_FROM_EMAIL) {
   );
 }
 
+// Avoid noisy error during CI/build environments; NextAuth enforces this at runtime
 if (!NEXTAUTH_SECRET) {
-  console.error('NEXTAUTH_SECRET is required but not set. Authentication will fail.');
+  const isCI = process.env.CI === 'true' || process.env.NETLIFY === 'true' || !!process.env.GITHUB_ACTIONS;
+  if (!isCI) {
+    console.warn('NEXTAUTH_SECRET is not set. Authentication will fail in production.');
+  }
 }
 
 export const authOptions: NextAuthOptions = {
@@ -161,6 +165,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: NEXTAUTH_SECRET,
 };
+
 
 
 
