@@ -134,7 +134,7 @@
                             "typescript-eslint":  "^8.38.0"
                         },
     "engines":  {
-                    "node":  "20.18.0",
+                    "node":  ">=20.18.0 <21",
                     "npm":  "\u003e=10.8.0"
                 },
     "overrides":  {
