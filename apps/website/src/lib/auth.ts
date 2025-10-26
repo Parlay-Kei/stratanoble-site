@@ -27,7 +27,8 @@ const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 const AZURE_AD_CLIENT_ID = process.env.AZURE_AD_CLIENT_ID;
 const AZURE_AD_CLIENT_SECRET = process.env.AZURE_AD_CLIENT_SECRET;
 const AZURE_AD_TENANT_ID = process.env.AZURE_AD_TENANT_ID;
-const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;\nconst HAS_AWS_CREDS = !!(process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID) && !!(process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SES_SECRET);
+const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;
+const HAS_AWS_CREDS = !!(process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID) && !!(process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SES_SECRET);
 
 // Required: NextAuth secret for JWT encryption
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
@@ -79,7 +80,9 @@ if (AZURE_AD_CLIENT_ID && AZURE_AD_CLIENT_SECRET && AZURE_AD_TENANT_ID) {
   );
 }
 
-// Email Magic Link Provider via SES (optional)\nconst EMAIL_ENABLED = !!SES_FROM_EMAIL && (HAS_AWS_CREDS || process.env.ALLOW_EMAIL_SIGNUP === 'true');\nif (EMAIL_ENABLED) {
+// Email Magic Link Provider via SES (optional)
+const EMAIL_ENABLED = !!SES_FROM_EMAIL && (HAS_AWS_CREDS || process.env.ALLOW_EMAIL_SIGNUP === 'true');
+if (EMAIL_ENABLED) {
   providers.push(
     EmailProvider({
       server: {
@@ -89,7 +92,7 @@ if (AZURE_AD_CLIENT_ID && AZURE_AD_CLIENT_SECRET && AZURE_AD_TENANT_ID) {
       },
       from: SES_FROM_EMAIL,
       sendVerificationRequest: async ({ identifier: email, url }) => {
-        const normalizedEmail = (email || '').replace(/@statanoble\\.com$/i, '@stratanoble.com');
+        const normalizedEmail = (email || '').replace(/@statanoble\.com$/i, '@stratanoble.com');
         const subject = 'Sign in to Strata Noble';
         const html = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -165,6 +168,8 @@ export const authOptions: NextAuthOptions = {
   },
   secret: NEXTAUTH_SECRET,
 };
+
+
 
 
 
