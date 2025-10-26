@@ -1,1 +1,29 @@
-�
+[build]
+  command = "cd apps/website && npm ci && npm run build"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "20.18.0"
+  NPM_VERSION = "10.8.2"
+  NETLIFY_NEXT_PLUGIN_SKIP = "false"
+  SKIP_DOWNLOAD = "true"
+  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
+  NPM_CONFIG_AUDIT = "false"
+  NPM_CONFIG_FUND = "false"
+  NPM_CONFIG_PROGRESS = "false"
+  NPM_CONFIG_LOGLEVEL = "error"
+
+[build.processing]
+  secrets_scan_enabled = true
+  secrets_scan_omit_paths = [".claude/**"]
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
