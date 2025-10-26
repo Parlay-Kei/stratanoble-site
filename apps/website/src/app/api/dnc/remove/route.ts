@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     if (!number) return NextResponse.json({ error: 'number required' }, { status: 400 });
     const base = process.cwd();
     const { path: p, list } = load(base);
-    const next = list.filter((n) => n !== String(number).trim());
+    const next = list.filter((n: string) => n !== String(number).trim());
     fs.mkdirSync(path.dirname(p), { recursive: true });
     fs.writeFileSync(p, JSON.stringify({ numbers: next }, null, 2));
     return NextResponse.json({ ok: true, numbers: next });

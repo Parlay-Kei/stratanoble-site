@@ -1,9 +1,10 @@
-const path = require('path');
+﻿const path = require('path');
 
 /** @type {import('next').NextConfig} */
 const dev = process.env.NODE_ENV !== 'production';
 
 const nextConfig = {
+  distDir: 'build',
   reactStrictMode: true,
   compiler: {
     reactRemoveProperties: false,
@@ -115,3 +116,5 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+

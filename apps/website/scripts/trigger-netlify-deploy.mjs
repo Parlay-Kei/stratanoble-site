@@ -77,7 +77,12 @@ async function triggerDeploy(token, siteId, clearCache = true) {
 async function main(){
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
   console.log('Fetching Netlify credentials from Vault...');
-  const token = await getVaultCredential(supabase, 'Netlify', 'API Token', 'production');
+  let token;
+  try {
+    token = await getVaultCredential(supabase, 'Netlify', 'API Token', 'production');
+  } catch (e) {
+    token = await getVaultCredential(supabase, 'Netlify', 'Deploy Token', 'production');
+  }
   const siteId = await getVaultCredential(supabase, 'Netlify', 'Site ID', 'production');
   console.log('Triggering deploy (clear cache)...');
   await triggerDeploy(token, siteId, true);

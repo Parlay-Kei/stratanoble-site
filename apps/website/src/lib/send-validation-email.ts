@@ -1,6 +1,4 @@
-import sgMail from '@sendgrid/mail';
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+﻿import { sendEmail } from './mailer';
 
 interface EmailData {
   email: string;
@@ -39,19 +37,9 @@ export async function sendValidationEmail({ email, idea, analysis }: EmailData) 
     </div>
   </div>`;
 
-  const msg = {
-    to: email,
-    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@stratanoble.com',
-    subject: `Your Business Idea Analysis: ${analysis.viabilityScore}/100 Score`,
-    html: htmlContent,
-    text: `Idea: "${idea}"\nScore: ${analysis.viabilityScore}/100\nMarket Size: ${analysis.marketSize}\nCompetition: ${analysis.competition}\nOpportunity: ${analysis.opportunity}\nStartup Costs: ${analysis.startupCosts}\nPrice Range: ${analysis.priceRange}\nTime to First Sale: ${analysis.timeToFirstSale}\nView: ${resultsUrl}`,
-  } as any;
-
-  try {
-    await sgMail.send(msg);
-    console.log('Validation email sent to:', email);
-  } catch (error) {
-    console.error('SendGrid error:', error);
-    throw error;
-  }
+  await sendEmail(
+    email,
+    `Your Business Idea Analysis: ${analysis.viabilityScore}/100 Score`,
+    htmlContent
+  );
 }

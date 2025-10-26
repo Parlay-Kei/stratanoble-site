@@ -1,6 +1,6 @@
-'use client'
+﻿'use client'
 
-import { signIn, getSession } from 'next-auth/react';
+import { signIn, getSession, getProviders } from 'next-auth/react';
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '../../../components/ui/button';
@@ -13,21 +13,64 @@ import { Logo } from '../../../components/Logo';
 
 function SignInContent() {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [providers, setProviders] = useState<Record<string, any> | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get('callbackUrl') || '/dashboard';
 
   useEffect(() => {
-    const checkSession = async () => {
+    const init = async () => {
       const session = await getSession();
       if (session) {
         router.push(callbackUrl);
+        return;
+      }
+      try {
+        const prov = await getProviders();
+        setProviders(prov || {});
+      } catch { setError('Authentication is unavailable. Please try again later.'); }
+      const err = searchParams?.get('error');
+      if (err) {
+        const messages: Record<string, string> = {
+          OAuthSignin: 'Could not start Google sign-in. Please try again.',
+          OAuthCallback: 'Google sign-in cancelled or misconfigured.',
+          Configuration: 'Auth is not configured correctly.',
+          EmailSignin: 'Email sign-in is currently unavailable.',
+          Verification: 'We could not send the verification email.',
+        };
+        setError(messages[err] || 'An unexpected error occurred. Please try again.');
       }
     };
-    checkSession();
+    init();
   }, [router, callbackUrl]);
+
+  const handleCredentialsSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        callbackUrl,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setError('Invalid credentials. Please try again.');
+      } else if (result?.ok) {
+        router.push(callbackUrl);
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,24 +129,93 @@ function SignInContent() {
           )}
 
           {/* Google Sign In */}
-          <Button
-            onClick={handleGoogleSignIn}
-            disabled={loading}
-            variant="outline"
-            className="w-full flex items-center gap-3"
-          >
-            <FcGoogle size={20} />
-            Continue with Google
-          </Button>
-
-          <div className="relative">
-            <Separator />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="bg-white px-2 text-sm text-muted-foreground">or</span>
+          {providers?.google ? (
+            <Button
+              onClick={handleGoogleSignIn}
+              disabled={loading}
+              variant="outline"
+              className="w-full flex items-center gap-3"
+            >
+              <FcGoogle size={20} />
+              Continue with Google
+            </Button>
+          ) : (
+            <div className="w-full">
+              <Button
+                variant="outline"
+                disabled
+                className="w-full flex items-center gap-3 opacity-60"
+                title="Google sign-in is not available right now"
+              >
+                <FcGoogle size={20} />
+                Google sign-in unavailable
+              </Button>
             </div>
-          </div>
+          )}
+
+          {providers?.credentials || providers?.email ? (
+            <div className="relative">
+              <Separator />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="bg-white px-2 text-sm text-muted-foreground">or</span>
+              </div>
+            </div>
+          ) : null}
+
+          {/* Dev Login (Credentials) */}
+          {providers?.credentials && (
+            <form onSubmit={handleCredentialsSignIn} className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="dev-email" className="text-sm font-medium">
+                  Dev Login Email
+                </label>
+                <Input
+                  id="dev-email"
+                  type="email"
+                  placeholder="Enter any email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="dev-password" className="text-sm font-medium">
+                  Password
+                </label>
+                <Input
+                  id="dev-password"
+                  type="password"
+                  placeholder="Enter 'dev'"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full flex items-center gap-2"
+                disabled={loading || !email || !password}
+              >
+                {loading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Signing in...
+                  </>
+                ) : (
+                  <>
+                    Sign in (Dev)
+                    <ArrowRight size={16} />
+                  </>
+                )}
+              </Button>
+            </form>
+          )}
 
           {/* Email Sign In */}
+          {providers?.email && (
           <form onSubmit={handleEmailSignIn} className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium">
@@ -123,10 +235,10 @@ function SignInContent() {
                 />
               </div>
             </div>
-            
-            <Button 
-              type="submit" 
-              className="w-full flex items-center gap-2" 
+
+            <Button
+              type="submit"
+              className="w-full flex items-center gap-2"
               disabled={loading || !email}
             >
               {loading ? (
@@ -142,6 +254,13 @@ function SignInContent() {
               )}
             </Button>
           </form>
+          )}
+
+          {!providers?.credentials && !providers?.email && !providers?.google && (
+            <div className="text-sm text-muted-foreground text-center">
+              No sign-in methods are currently available. Please contact support.
+            </div>
+          )}
 
           <div className="text-center text-sm text-muted-foreground space-y-3">
             <p>
@@ -185,4 +304,5 @@ export default function SignIn() {
     </Suspense>
   );
 }
+
 

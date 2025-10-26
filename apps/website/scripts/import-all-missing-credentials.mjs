@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * Import All Missing Credentials to Vault
  *
@@ -90,19 +90,6 @@ const CREDENTIALS_TO_IMPORT = [
     rotation_days: 365,
     owner_email: 'admin@stratanoble.com'
   },
-
-  // SendGrid (placeholder - needs real value)
-  {
-    service_name: 'SendGrid',
-    environment: 'production',
-    credential_type: 'api_key',
-    credential_name: 'API Key',
-    credential_value: 'PLACEHOLDER_SENDGRID_KEY',
-    description: 'SendGrid API key for transactional emails (NEEDS REAL VALUE)',
-    rotation_days: 90,
-    owner_email: 'admin@stratanoble.com',
-    is_active: false
-  }
 ];
 
 // Encryption helper
@@ -124,15 +111,15 @@ function encryptValue(value) {
 
 // Import credentials
 async function importCredentials() {
-  console.log('ðŸ” Starting credential import to vault...\n');
+  console.log('Ã°Å¸â€Â Starting credential import to vault...\n');
 
   if (!VAULT_ENCRYPTION_KEY) {
-    console.error('âŒ VAULT_ENCRYPTION_KEY not found in environment');
+    console.error('Ã¢ÂÅ’ VAULT_ENCRYPTION_KEY not found in environment');
     process.exit(1);
   }
 
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
-    console.error('âŒ Supabase credentials not found in environment');
+    console.error('Ã¢ÂÅ’ Supabase credentials not found in environment');
     process.exit(1);
   }
 
@@ -154,7 +141,7 @@ async function importCredentials() {
         .single();
 
       if (existing) {
-        console.log(`â­ï¸  Skipping ${cred.service_name} - ${cred.credential_name} (already exists)`);
+        console.log(`Ã¢ÂÂ­Ã¯Â¸Â  Skipping ${cred.service_name} - ${cred.credential_name} (already exists)`);
         skipCount++;
         continue;
       }
@@ -186,29 +173,29 @@ async function importCredentials() {
         .single();
 
       if (error) {
-        console.error(`âŒ Failed to import ${cred.service_name} - ${cred.credential_name}:`, error.message);
+        console.error(`Ã¢ÂÅ’ Failed to import ${cred.service_name} - ${cred.credential_name}:`, error.message);
         errorCount++;
       } else {
-        console.log(`âœ… Imported ${cred.service_name} - ${cred.credential_name}`);
+        console.log(`Ã¢Å“â€¦ Imported ${cred.service_name} - ${cred.credential_name}`);
         successCount++;
       }
     } catch (err) {
-      console.error(`âŒ Error importing ${cred.service_name} - ${cred.credential_name}:`, err.message);
+      console.error(`Ã¢ÂÅ’ Error importing ${cred.service_name} - ${cred.credential_name}:`, err.message);
       errorCount++;
     }
   }
 
-  console.log('\nâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•');
-  console.log('ðŸ“Š Import Summary:');
-  console.log(`   âœ… Successfully imported: ${successCount}`);
-  console.log(`   â­ï¸  Skipped (already exist): ${skipCount}`);
-  console.log(`   âŒ Failed: ${errorCount}`);
-  console.log(`   ðŸ“ Total processed: ${CREDENTIALS_TO_IMPORT.length}`);
-  console.log('â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\n');
+  console.log('\nÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â');
+  console.log('Ã°Å¸â€œÅ  Import Summary:');
+  console.log(`   Ã¢Å“â€¦ Successfully imported: ${successCount}`);
+  console.log(`   Ã¢ÂÂ­Ã¯Â¸Â  Skipped (already exist): ${skipCount}`);
+  console.log(`   Ã¢ÂÅ’ Failed: ${errorCount}`);
+  console.log(`   Ã°Å¸â€œÂ Total processed: ${CREDENTIALS_TO_IMPORT.length}`);
+  console.log('Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â\n');
 
   if (successCount > 0) {
-    console.log('ðŸŽ‰ New credentials successfully encrypted and stored in vault!');
-    console.log('ðŸ”„ Next steps:');
+    console.log('Ã°Å¸Å½â€° New credentials successfully encrypted and stored in vault!');
+    console.log('Ã°Å¸â€â€ž Next steps:');
     console.log('   1. Run: node scripts/check-vault-credentials.mjs');
     console.log('   2. Visit: http://localhost:3000/admin/vault');
     console.log('   3. Update app code to fetch credentials from vault API\n');
@@ -217,6 +204,8 @@ async function importCredentials() {
 
 // Run import
 importCredentials().catch((err) => {
-  console.error('ðŸ’¥ Fatal error:', err);
+  console.error('Ã°Å¸â€™Â¥ Fatal error:', err);
   process.exit(1);
 });
+
+

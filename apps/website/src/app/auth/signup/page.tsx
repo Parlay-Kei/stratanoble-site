@@ -1,6 +1,6 @@
-'use client'
+﻿'use client'
 
-import { signIn, getSession } from 'next-auth/react';
+import { signIn, getSession, getProviders } from 'next-auth/react';
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '../../../components/ui/button';
@@ -15,18 +15,35 @@ function SignUpContent() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [providers, setProviders] = useState<Record<string, any> | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get('callbackUrl') || '/dashboard';
 
   useEffect(() => {
-    const checkSession = async () => {
+    const init = async () => {
       const session = await getSession();
       if (session) {
         router.push(callbackUrl);
+        return;
+      }
+      try {
+        const prov = await getProviders();
+        setProviders(prov || {});
+      } catch {}
+      const err = searchParams?.get('error');
+      if (err) {
+        const messages: Record<string, string> = {
+          OAuthSignin: 'Could not start Google sign-up. Please try again.',
+          OAuthCallback: 'Google sign-up cancelled or misconfigured.',
+          Configuration: 'Auth is not configured correctly.',
+          EmailSignin: 'Email sign-up is currently unavailable.',
+          Verification: 'We could not send the verification email.',
+        };
+        setError(messages[err] || 'An unexpected error occurred. Please try again.');
       }
     };
-    checkSession();
+    init();
   }, [router, callbackUrl]);
 
   const handleEmailSignUp = async (e: React.FormEvent) => {
@@ -85,63 +102,28 @@ function SignUpContent() {
             </div>
           )}
 
-          {/* Google Sign Up */}
-          <Button
-            onClick={handleGoogleSignUp}
-            disabled={loading}
-            variant="outline"
-            className="w-full flex items-center gap-3"
-          >
-            <FcGoogle size={20} />
-            Continue with Google
-          </Button>
-
-          <div className="relative">
-            <Separator />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="bg-white px-2 text-sm text-muted-foreground">or</span>
-            </div>
-          </div>
-
-          {/* Email Sign Up */}
-          <form onSubmit={handleEmailSignUp} className="space-y-4">
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
-                Email Address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10"
-                  required
-                  disabled={loading}
-                />
-              </div>
-            </div>
-
+          {/* Google OAuth */}
+          {providers?.google && (
             <Button
-              type="submit"
-              className="w-full flex items-center gap-2"
-              disabled={loading || !email}
+              onClick={handleGoogleSignUp}
+              disabled={loading}
+              variant="outline"
+              className="w-full flex items-center gap-3"
             >
-              {loading ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  Create Account
-                  <ArrowRight size={16} />
-                </>
-              )}
+              <FcGoogle size={20} />
+              Continue with Google
             </Button>
-          </form>
+          )}
+
+          <div className="text-center space-y-3">
+            <p className="text-sm text-muted-foreground">
+              Don't have a Google account?{' '}
+              <a href="/contact" className="text-primary hover:underline font-medium">
+                Contact us
+              </a>{' '}
+              for alternative signup options.
+            </p>
+          </div>
 
           <div className="text-center text-sm text-muted-foreground space-y-3">
             <p>
@@ -185,3 +167,5 @@ export default function SignUp() {
     </Suspense>
   );
 }
+
+
