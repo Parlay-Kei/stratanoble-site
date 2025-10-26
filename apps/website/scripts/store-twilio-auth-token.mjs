@@ -17,7 +17,7 @@ config({ path: join(__dirname, '..', '.env.local') });
 const VAULT_ENCRYPTION_KEY = process.env.VAULT_ENCRYPTION_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const TWILIO_AUTH_TOKEN = 'cec7f40c85a895b7876093e844e9f395';
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 
 /**
  * Encrypt a value using AES-256-GCM
@@ -146,4 +146,3 @@ async function main() {
 }
 
 main();
-
