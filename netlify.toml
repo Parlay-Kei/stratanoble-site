@@ -21,7 +21,11 @@
 
 [build.processing]
   secrets_scan_enabled = true
-  secrets_scan_omit_paths = [".claude/**"]
+  secrets_scan_omit_paths = [
+    ".claude/**",
+    "scripts/store-twilio-auth-token.mjs",
+    "scripts/store-twilio-vault.mjs"
+  ]
 
 [[headers]]
   for = "/*"
