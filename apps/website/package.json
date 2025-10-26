@@ -1,11 +1,11 @@
-{
+﻿{
     "name":  "@strata-noble/website",
     "version":  "0.1.0",
     "private":  true,
     "scripts":  {
                     "dev":  "cross-env PORT=3000 next dev",
                     "start":  "next start",
-                    "build":  "prisma generate \u0026\u0026 prisma db push \u0026\u0026 next build",
+                    "build":  "prisma generate \\u0026\\u0026 node scripts/db-push-if.js \\u0026\\u0026 next build",
                     "lint":  "next lint",
                     "lint:fix":  "next lint --fix",
                     "test":  "jest",
@@ -142,4 +142,6 @@
                       "eslint-config-next":  "15.5.2"
                   }
 }
+
+
 
