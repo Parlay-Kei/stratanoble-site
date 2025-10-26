@@ -6,7 +6,10 @@ const phoneNumber = process.env.TWILIO_PHONE_NUMBER_PRIMARY as string;
 
 if (!accountSid || !authToken) {
   // Do not throw at import-time to avoid build crashes; log for visibility
-  console.warn('[twilio] Missing TWILIO_ACCOUNT_SID or TWILIO_AUTH_TOKEN');
+  const isCI = process.env.CI === 'true' || process.env.NETLIFY === 'true' || !!process.env.GITHUB_ACTIONS;
+  if (!isCI) {
+    console.warn('[twilio] Missing TWILIO_ACCOUNT_SID or TWILIO_AUTH_TOKEN');
+  }
 }
 
 const apiKey = process.env.TWILIO_API_KEY as string;
