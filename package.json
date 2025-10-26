@@ -1,18 +1,18 @@
 {
-  "name": "strata-noble",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build": "cd apps/website && npm run build",
-    "dev": "cd apps/website && npm run dev",
-    "start": "cd apps/website && npm run start"
-  },
-  "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=10.0.0"
-  },
-  "dependencies": {
-    "pg": "^8.16.3"
-  }
+    "name":  "strata-noble",
+    "version":  "0.1.0",
+    "private":  true,
+    "type":  "module",
+    "scripts":  {
+                    "build":  "cd apps/website \u0026\u0026 npm run build",
+                    "dev":  "cd apps/website \u0026\u0026 npm run dev",
+                    "start":  "cd apps/website \u0026\u0026 npm run start"
+                },
+    "engines":  {
+                    "node":  "\u003e=20.0.0",
+                    "npm":  "\u003e=10.0.0"
+                },
+    "dependencies":  {
+                         "pg":  "^8.16.3"
+                     }
 }
