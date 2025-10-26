@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { CTA_LABELS } from '@/lib/cta-labels'
 import { Bars3Icon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -55,7 +56,13 @@ const navigation = [
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { trackOpen, trackClose } = useMobileMenuTracking()
+
+  // Handle mounting for portal
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Handle scroll for sticky behavior
   useEffect(() => {
@@ -116,10 +123,125 @@ export function Header() {
     }
   }
 
+  // Mobile menu content (JSX element)
+  const mobileMenuContent = (
+    <AnimatePresence>
+      {mobileMenuOpen && (
+          <motion.div
+            className="lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="mobile-menu-title"
+            data-mobile-menu
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Backdrop */}
+            <motion.div
+              className="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm"
+              aria-hidden="true"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            />
+
+            {/* Menu panel */}
+            <motion.div
+              className="fixed inset-y-0 right-0 z-[110] w-full overflow-y-auto bg-white shadow-2xl sm:max-w-sm"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            >
+              <div className="flex items-center justify-between p-6 border-b border-silver-200">
+                <Link
+                  href="/"
+                  className="-m-1.5 p-1.5 transition-colors hover:bg-silver-50 rounded-lg"
+                  onClick={() => handleMobileMenuToggle(false)}
+                >
+                  <span className="sr-only">Strata Noble</span>
+                  <Logo className="h-16 w-auto" />
+                </Link>
+                <button
+                  type="button"
+                  className="relative -m-2.5 rounded-xl p-3 text-navy-700 hover:bg-navy-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-200 active:scale-95"
+                  onClick={() => handleMobileMenuToggle(false)}
+                  aria-label="Close menu"
+                >
+                  <motion.div
+                    animate={{ rotate: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                  </motion.div>
+                </button>
+              </div>
+
+              <div className="px-6 py-8">
+                <div className="space-y-1">
+                  {navigation.map((item, index) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.3 }}
+                    >
+                      <Link
+                        href={item.href}
+                        className="group flex items-center justify-between rounded-xl px-4 py-4 text-base font-semibold text-navy-900 hover:bg-emerald-50 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-200 active:scale-95"
+                        onClick={() => handleMobileMenuToggle(false)}
+                        title={item.description}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="text-emerald-600 group-hover:text-emerald-700 transition-colors">
+                            {item.icon}
+                          </div>
+                          <div>
+                            <div className="font-semibold">{item.name}</div>
+                            <div className="text-sm text-navy-500 font-normal">{item.description}</div>
+                          </div>
+                        </div>
+                        <ChevronRightIcon className="h-5 w-5 text-navy-400 group-hover:text-emerald-600 transition-colors" />
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Enhanced CTA section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.3 }}
+                  className="mt-8 pt-6 border-t border-silver-200"
+                >
+                  <Link
+                    href="/contact"
+                    className="btn-primary btn-lg w-full justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95"
+                    onClick={() => handleMobileMenuToggle(false)}
+                  >
+                    {CTA_LABELS.GET_STARTED} Today
+                  </Link>
+                  <p className="mt-3 text-center text-sm text-navy-500">
+                    Ready to build your prosperity?
+                  </p>
+                </motion.div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+    </AnimatePresence>
+  )
+
+  // Render portal when mounted
+  const mobileMenuPortal = mounted ? createPortal(mobileMenuContent, document.body) : null
+
   return (
-    <header className={`sticky top-0 z-40 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-white/95 backdrop-blur-md border-b border-silver-200 shadow-sm' 
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${
+      scrolled
+        ? 'bg-white/95 backdrop-blur-md border-b border-silver-200 shadow-sm'
         : 'bg-white/90 backdrop-blur-sm'
     }`}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
@@ -177,115 +299,8 @@ export function Header() {
           </div>
         </div>
 
-        {/* Enhanced Mobile menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div 
-              className="lg:hidden" 
-              role="dialog" 
-              aria-modal="true" 
-              aria-labelledby="mobile-menu-title"
-              data-mobile-menu
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {/* Backdrop */}
-              <motion.div 
-                className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" 
-                aria-hidden="true"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              />
-              
-              {/* Menu panel */}
-              <motion.div 
-                className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white shadow-2xl sm:max-w-sm"
-                initial={{ x: '100%' }}
-                animate={{ x: 0 }}
-                exit={{ x: '100%' }}
-                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              >
-                <div className="flex items-center justify-between p-6 border-b border-silver-200">
-                  <Link 
-                    href="/" 
-                    className="-m-1.5 p-1.5 transition-colors hover:bg-silver-50 rounded-lg" 
-                    onClick={() => handleMobileMenuToggle(false)}
-                  >
-                    <span className="sr-only">Strata Noble</span>
-                    <Logo className="h-16 w-auto" />
-                  </Link>
-                  <button
-                    type="button"
-                    className="relative -m-2.5 rounded-xl p-3 text-navy-700 hover:bg-navy-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-200 active:scale-95"
-                    onClick={() => handleMobileMenuToggle(false)}
-                    aria-label="Close menu"
-                  >
-                    <motion.div
-                      animate={{ rotate: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                    </motion.div>
-                  </button>
-                </div>
-                
-                <div className="px-6 py-8">
-                  <div className="space-y-1">
-                    {navigation.map((item, index) => (
-                      <motion.div
-                        key={item.name}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1, duration: 0.3 }}
-                      >
-                        <Link
-                          href={item.href}
-                          className="group flex items-center justify-between rounded-xl px-4 py-4 text-base font-semibold text-navy-900 hover:bg-emerald-50 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-200 active:scale-95"
-                          onClick={() => handleMobileMenuToggle(false)}
-                          title={item.description}
-                        >
-                          <div className="flex items-center space-x-3">
-                            <div className="text-emerald-600 group-hover:text-emerald-700 transition-colors">
-                              {item.icon}
-                            </div>
-                            <div>
-                              <div className="font-semibold">{item.name}</div>
-                              <div className="text-sm text-navy-500 font-normal">{item.description}</div>
-                            </div>
-                          </div>
-                          <ChevronRightIcon className="h-5 w-5 text-navy-400 group-hover:text-emerald-600 transition-colors" />
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </div>
-                  
-                  {/* Enhanced CTA section */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.3 }}
-                    className="mt-8 pt-6 border-t border-silver-200"
-                  >
-                    <Link
-                      href="/contact"
-                      className="btn-primary btn-lg w-full justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95"
-                      onClick={() => handleMobileMenuToggle(false)}
-                    >
-        {CTA_LABELS.GET_STARTED} Today
-                    </Link>
-                    <p className="mt-3 text-center text-sm text-navy-500">
-                      Ready to build your prosperity?
-                    </p>
-                  </motion.div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Enhanced Mobile menu - rendered via portal */}
+        {mobileMenuPortal}
       </nav>
     </header>
   )
