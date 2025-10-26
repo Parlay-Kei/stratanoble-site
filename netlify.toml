@@ -15,7 +15,10 @@
   NPM_CONFIG_PROGRESS = "false"
   NPM_CONFIG_LOGLEVEL = "error"
 
-[build.processing]
+
+  CI = "true"
+  NEXT_DEBUG = "1"
+  NPM_FLAGS = "--no-audit --no-fund --legacy-peer-deps"[build.processing]
   secrets_scan_enabled = true
   secrets_scan_omit_paths = [".claude/**"]
 
