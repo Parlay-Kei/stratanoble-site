@@ -2,7 +2,6 @@
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
 
-type Params = { params: { id: string } };
 
 function encrypt(value: string, hexKey: string) {
   const key = Buffer.from(hexKey, 'hex');
@@ -16,7 +15,7 @@ function encrypt(value: string, hexKey: string) {
   return `${ivHex}:${tagHex}:${enc}`;
 }
 
-export async function POST(request: NextRequest, { params }: Params) {
+export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const id = params?.id;
     if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 });
