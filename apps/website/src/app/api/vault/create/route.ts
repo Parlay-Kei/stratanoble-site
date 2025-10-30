@@ -9,7 +9,9 @@ function encrypt(value: string, hexKey: string) {
   let enc = cipher.update(value, 'utf8', 'hex');
   enc += cipher.final('hex');
   const tag = cipher.getAuthTag();
-  return ${iv.toString('hex')}::;
+  const ivHex = iv.toString('hex');
+  const tagHex = tag.toString('hex');
+  return `${ivHex}:${tagHex}:${enc}`;
 }
 
 export async function POST(request: NextRequest) {
