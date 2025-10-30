@@ -7,7 +7,7 @@ import {
   type CampaignType 
 } from '@/lib/conversation-config';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// Note: Do NOT instantiate OpenAI at module load to avoid build-time env errors
 
 // Store conversation history and metadata (in production, use Redis/database)
 const conversations = new Map<string, {
@@ -97,6 +97,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Get AI response
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      console.warn('[conversation] Missing OPENAI_API_KEY at runtime, returning fallback response.');
+      const fallback = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say voice="${VOICE}">I'm unavailable right now. Please try again later.</Say>
+  <Hangup/>
+</Response>`;
+      return new NextResponse(fallback, { headers: { 'Content-Type': 'application/xml' } });
+    }
+    const openai = new OpenAI({ apiKey });
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: conversation.messages,
