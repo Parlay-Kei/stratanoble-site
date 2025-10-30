@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
 
@@ -15,7 +15,7 @@ function encrypt(value: string, hexKey: string) {
   return `${ivHex}:${tagHex}:${enc}`;
 }
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: Request, { params }: any) {
   try {
     const id = params?.id;
     if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 });
