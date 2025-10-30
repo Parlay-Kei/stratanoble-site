@@ -28,6 +28,7 @@ export const twilioClient = twilioClientLocal as ReturnType<typeof twilio>;
 export interface CallParams {
   to: string;
   testName?: string;
+  campaignType?: string;
   metadata?: Record<string, any>;
 }
 
@@ -39,16 +40,20 @@ export async function initiateTestCall(params: CallParams) {
   }
 
   try {
+    // Build URL with campaign type parameter
+    const campaignType = params.campaignType || 'internet';
+    const url = `${baseUrl}/api/voice/twiml?testName=${encodeURIComponent(params.testName || 'test')}&campaignType=${campaignType}`;
+
     const call = await (twilioClient as any).calls.create({
       to: params.to,
       from: phoneNumber,
-      url: `${baseUrl}/api/voice/twiml?testName=${encodeURIComponent(params.testName || 'test')}`,
+      url: url,
       statusCallback: `${baseUrl}/api/voice/status`,
       statusCallbackEvent: ['initiated', 'ringing', 'answered', 'completed'],
       statusCallbackMethod: 'POST',
     });
 
-    console.log(`[twilio] Test call initiated: ${call.sid}`);
+    console.log(`[twilio] Test call initiated: ${call.sid} for campaign: ${campaignType}`);
     return { success: true, callSid: call.sid };
   } catch (error: any) {
     console.error('[twilio] Call failed:', error?.message || error);
