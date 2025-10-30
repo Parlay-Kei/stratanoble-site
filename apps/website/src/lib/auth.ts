@@ -22,6 +22,7 @@ try {
 // OAuth and email configuration
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const HAS_REAL_GOOGLE = !!(GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET) && !/your-google-client-id/i.test(String(GOOGLE_CLIENT_ID)) && !/your-google-client-secret/i.test(String(GOOGLE_CLIENT_SECRET));
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 const AZURE_AD_CLIENT_ID = process.env.AZURE_AD_CLIENT_ID;
@@ -32,6 +33,31 @@ const HAS_AWS_CREDS = !!(process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.en
 
 // Required: NextAuth secret for JWT encryption
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
+
+// Startup env validator for clearer local warnings
+const __IS_PROD = process.env.NODE_ENV === 'production';
+const __isPlaceholder = (v?: string | undefined) => {
+  if (!v) return true;
+  const s = String(v);
+  return /your-google-client-id/i.test(s) || /your-google-client-secret/i.test(s);
+};
+function __emitAuthEnvWarnings() {
+  if (__IS_PROD) return; // keep dev-focused
+  const issues: string[] = [];
+  if (!HAS_REAL_GOOGLE) {
+    issues.push('Google OAuth disabled: set GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET and add redirect URI http://localhost:3000/api/auth/callback/google');
+  }
+  if (!process.env.NEXTAUTH_URL) {
+    issues.push('NEXTAUTH_URL missing (set to http://localhost:3000 for local dev)');
+  }
+  if (!NEXTAUTH_SECRET) {
+    issues.push('NEXTAUTH_SECRET missing; NextAuth will fail in production');
+  }
+  if (issues.length) {
+    console.warn('[Auth Env] ' + issues.join(' | '));
+  }
+}
+__emitAuthEnvWarnings();
 
 const providers: any[] = [];
 
@@ -56,10 +82,12 @@ if (process.env.NEXTAUTH_DEV_LOGIN === 'true') {
 }
 
 // Google OAuth Provider (optional)
-if (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET) {
+if (HAS_REAL_GOOGLE) {
   providers.push(
-    GoogleProvider({ clientId: GOOGLE_CLIENT_ID, clientSecret: GOOGLE_CLIENT_SECRET })
+    GoogleProvider({ clientId: GOOGLE_CLIENT_ID!, clientSecret: GOOGLE_CLIENT_SECRET! })
   );
+} else if (process.env.NODE_ENV !== 'production') {
+  console.warn('Google OAuth disabled: missing or placeholder GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET');
 }
 
 // GitHub OAuth Provider (optional)
@@ -168,6 +196,8 @@ export const authOptions: NextAuthOptions = {
   },
   secret: NEXTAUTH_SECRET,
 };
+
+
 
 
 

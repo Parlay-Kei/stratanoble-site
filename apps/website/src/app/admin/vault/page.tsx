@@ -1,4 +1,4 @@
-
+﻿
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -16,13 +16,22 @@ export default function VaultDashboard() {
   const [selectedEnvironment, setSelectedEnvironment] = useState<string>("all");
   const [showInactive, setShowInactive] = useState(false);
   useEffect(() => { fetchCredentials(); }, [selectedEnvironment, showInactive]);
-  async function fetchCredentials() {
+    async function fetchCredentials() {
     setLoading(true);
     try {
       const params = new URLSearchParams();
       if (selectedEnvironment !== 'all') params.append('environment', selectedEnvironment);
       if (showInactive) params.append('includeInactive', 'true');
-      const response = await fetch(`/api/vault/list-public?${params.toString()}`);
+
+      // Get Supabase session token and include in Authorization header
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+
+      const response = await fetch(`/api/vault/list-public?${params.toString()}`,
+        {
+          headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+        }
+      );
       const data = await response.json();
       if (response.ok) { setCredentials(data.credentials); setSummary(data.summary); } else { console.error('Failed to fetch credentials:', data.error); }
     } catch (e) { console.error('Error fetching credentials:', e); } finally { setLoading(false); }
@@ -105,3 +114,4 @@ export default function VaultDashboard() {
     </div>
   );
 }
+

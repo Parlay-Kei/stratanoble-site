@@ -243,3 +243,11 @@ apps/website/build/
 # --- Custom: Logs ---
 **/*.log
 **/logs/
+
+# Ignore Windows reserved names and temp artifacts
+CON
+nul
+*.tmp
+env_list.json
+tmp_*.json
+
