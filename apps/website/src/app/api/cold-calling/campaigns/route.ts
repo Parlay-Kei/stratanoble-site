@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // Simple in-memory storage for campaigns (for MVP)
 // In production, this would use a database
-let campaigns: any[] = [];
+const campaigns: any[] = [];
 
 export async function GET(request: NextRequest) {
   return NextResponse.json({
