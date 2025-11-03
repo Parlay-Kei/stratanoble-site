@@ -21,6 +21,7 @@ class PrePushValidator {
     await this.checkLinting();
     await this.checkTypeScript();
     await this.checkTests();
+    await this.checkSecurityAudit();
     await this.checkEnvironment();
     await this.checkBuildValidity();
     await this.checkGitStatus();
@@ -133,6 +134,72 @@ class PrePushValidator {
         console.log(chalk.yellow('   ⚠️  No tests found (skipped)'));
       }
     }
+  }
+
+  async checkSecurityAudit() {
+    console.log(chalk.blue('🔒 Checking Security Vulnerabilities...'));
+    
+    try {
+      const { stdout } = await execAsync('npm audit --audit-level moderate', {
+        maxBuffer: 10 * 1024 * 1024
+      });
+      
+      console.log(chalk.green('   ✅ No vulnerabilities found'));
+    } catch (error) {
+      // npm audit returns non-zero exit code if vulnerabilities found
+      const output = error.stdout || '';
+      
+      // Parse vulnerability counts
+      const criticalMatch = output.match(/(\d+) critical/i);
+      const highMatch = output.match(/(\d+) high/i);
+      const moderateMatch = output.match(/(\d+) moderate/i);
+      const lowMatch = output.match(/(\d+) low/i);
+      
+      const critical = criticalMatch ? parseInt(criticalMatch[1]) : 0;
+      const high = highMatch ? parseInt(highMatch[1]) : 0;
+      const moderate = moderateMatch ? parseInt(moderateMatch[1]) : 0;
+      const low = lowMatch ? parseInt(lowMatch[1]) : 0;
+      
+      const total = critical + high + moderate + low;
+      
+      if (critical > 0 || high > 0 || moderate > 0) {
+        const severityParts = [];
+        if (critical > 0) severityParts.push(`${critical} critical`);
+        if (high > 0) severityParts.push(`${high} high`);
+        if (moderate > 0) severityParts.push(`${moderate} moderate`);
+        
+        this.failures.push({
+          check: 'Security Audit',
+          message: `${total} vulnerability(ies) found: ${severityParts.join(', ')}`,
+          details: this.extractSecurityIssues(output)
+        });
+        console.log(chalk.red(`   ❌ ${total} vulnerability(ies) found`));
+      } else if (low > 0) {
+        this.warnings.push(`${low} low severity vulnerability(ies)`);
+        console.log(chalk.yellow(`   ⚠️  ${low} low severity vulnerability(ies)`));
+      }
+    }
+  }
+
+  extractSecurityIssues(output) {
+    const lines = output.split('\n');
+    const issues = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      // Extract package names and severity
+      if (line.match(/^[a-z0-9@/-]+\s+[<>=*]/i) || line.includes('Severity:')) {
+        issues.push(line.trim());
+        if (issues.length >= 8) break; // Limit to first 8 lines
+      }
+    }
+    
+    if (issues.length === 0) {
+      issues.push('Run: npm audit for details');
+      issues.push('Fix: npm audit fix');
+    }
+    
+    return issues;
   }
 
   async checkEnvironment() {
