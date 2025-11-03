@@ -140,7 +140,7 @@ class PrePushValidator {
     console.log(chalk.blue('🔒 Checking Security Vulnerabilities...'));
     
     try {
-      const { stdout } = await execAsync('npm audit --audit-level moderate', {
+      const { stdout } = await execAsync('cd apps/website && npm audit --audit-level moderate', {
         maxBuffer: 10 * 1024 * 1024
       });
       
@@ -149,16 +149,23 @@ class PrePushValidator {
       // npm audit returns non-zero exit code if vulnerabilities found
       const output = error.stdout || '';
       
-      // Parse vulnerability counts
-      const criticalMatch = output.match(/(\d+) critical/i);
-      const highMatch = output.match(/(\d+) high/i);
-      const moderateMatch = output.match(/(\d+) moderate/i);
-      const lowMatch = output.match(/(\d+) low/i);
+      // Parse vulnerability counts from the summary line
+      const vulnerabilitiesMatch = output.match(/(\d+)\s+vulnerabilities?\s*\(([^)]+)\)/i);
       
-      const critical = criticalMatch ? parseInt(criticalMatch[1]) : 0;
-      const high = highMatch ? parseInt(highMatch[1]) : 0;
-      const moderate = moderateMatch ? parseInt(moderateMatch[1]) : 0;
-      const low = lowMatch ? parseInt(lowMatch[1]) : 0;
+      let critical = 0, high = 0, moderate = 0, low = 0;
+      
+      if (vulnerabilitiesMatch) {
+        const summary = vulnerabilitiesMatch[2]; // e.g., "2 low, 2 moderate"
+        const criticalMatch = summary.match(/(\d+)\s+critical/i);
+        const highMatch = summary.match(/(\d+)\s+high/i);
+        const moderateMatch = summary.match(/(\d+)\s+moderate/i);
+        const lowMatch = summary.match(/(\d+)\s+low/i);
+        
+        critical = criticalMatch ? parseInt(criticalMatch[1]) : 0;
+        high = highMatch ? parseInt(highMatch[1]) : 0;
+        moderate = moderateMatch ? parseInt(moderateMatch[1]) : 0;
+        low = lowMatch ? parseInt(lowMatch[1]) : 0;
+      }
       
       const total = critical + high + moderate + low;
       
@@ -170,13 +177,16 @@ class PrePushValidator {
         
         this.failures.push({
           check: 'Security Audit',
-          message: `${total} vulnerability(ies) found: ${severityParts.join(', ')}`,
+          message: `${total} vulnerability(ies): ${severityParts.join(', ')}`,
           details: this.extractSecurityIssues(output)
         });
         console.log(chalk.red(`   ❌ ${total} vulnerability(ies) found`));
       } else if (low > 0) {
         this.warnings.push(`${low} low severity vulnerability(ies)`);
         console.log(chalk.yellow(`   ⚠️  ${low} low severity vulnerability(ies)`));
+      } else {
+        // If no vulnerabilities parsed but error occurred, show generic message
+        console.log(chalk.yellow('   ⚠️  Could not parse audit results'));
       }
     }
   }
