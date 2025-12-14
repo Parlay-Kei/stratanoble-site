@@ -46,7 +46,9 @@ const integrationTestConfig = {
   testEnvironment: 'node', // Integration tests may need Node environment
   testMatch: [
     '**/integration.test.*',
+    '**/integration-*.test.*',
     '**/tests/**/*.test.*',
+    '**/src/lib/test/**/*.test.*',
   ],
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
