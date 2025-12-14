@@ -59,11 +59,9 @@ jobs:
       run: npm install --legacy-peer-deps
 
     - name: Install Supabase CLI
-      run: |
-        # Use npx to run supabase commands (no global install needed)
-        # Or install via brew on ubuntu
-        curl -fsSL https://raw.githubusercontent.com/supabase/cli/main/scripts/install.sh | sh
-        supabase --version
+      uses: supabase/setup-cli@v1
+      with:
+        version: latest
 
     - name: Hard reset Supabase (clean state)
       run: |
