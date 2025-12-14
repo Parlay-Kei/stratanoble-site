@@ -48,9 +48,19 @@ function validateTestEnvironment(): { valid: boolean; reason?: string } {
     };
   }
 
+  // Guardrail 4: Check for production-like patterns in URL FIRST (fail fast)
+  // This check runs before URL format validation to catch obvious production URLs
+  if (supabaseUrl.includes('production') || supabaseUrl.includes('prod')) {
+    return {
+      valid: false,
+      reason: 'URL contains production indicators',
+    };
+  }
+
   // Extract project ref from URL (format: https://<ref>.supabase.co)
   // Also allow localhost URLs for CI/local development
-  const cloudUrlMatch = supabaseUrl.match(/https:\/\/([a-z0-9]+)\.supabase\.co/);
+  // Note: Project refs can contain hyphens, so we use [a-z0-9-]+
+  const cloudUrlMatch = supabaseUrl.match(/https:\/\/([a-z0-9-]+)\.supabase\.co/);
   const isLocalUrl = supabaseUrl.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/);
 
   if (!cloudUrlMatch && !isLocalUrl) {
@@ -68,14 +78,6 @@ function validateTestEnvironment(): { valid: boolean; reason?: string } {
     return {
       valid: false,
       reason: `Project ref '${projectRef}' is not in the allowed test project list`,
-    };
-  }
-
-  // Guardrail 4: Check for production-like patterns in URL
-  if (supabaseUrl.includes('production') || supabaseUrl.includes('prod')) {
-    return {
-      valid: false,
-      reason: 'URL contains production indicators',
     };
   }
 
