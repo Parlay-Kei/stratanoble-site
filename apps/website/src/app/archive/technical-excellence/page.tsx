@@ -15,6 +15,9 @@ import {
   ArrowPathIcon
 } from '@heroicons/react/24/outline';
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: 'Technical Excellence | Strata Noble - Enterprise Development Practices',
   description: 'Discover our Suite of Agents automation strategy, enterprise development methodology, and technical standards that drive superior SaaS solutions.',

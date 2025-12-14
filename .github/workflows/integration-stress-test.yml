@@ -1,0 +1,151 @@
+name: Integration Stress Test
+
+# Weekly stress test: Run integration tests with parallel workers
+# This catches drift early without slowing normal builds
+# 
+# Worker rotation schedule:
+# Week 1: workers=2
+# Week 2: workers=4
+# Week 3: workers=6
+# Week 4: workers=2 (back to baseline)
+# 
+# This creates a confidence curve and catches issues at different scales
+on:
+  schedule:
+    # Run every Monday at 2 AM UTC (weekly rotation)
+    - cron: '0 2 * * 1'
+    # Run first of month at 3 AM UTC (spike test)
+    - cron: '0 3 1 * *'
+  workflow_dispatch: # Allow manual trigger
+    inputs:
+      workers:
+        description: 'Number of workers (default: rotates weekly)'
+        required: false
+        type: string
+      spike:
+        description: 'Run spike test (maxWorkers=8)'
+        required: false
+        type: boolean
+
+jobs:
+  stress-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js 20.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x
+        cache: 'npm'
+        cache-dependency-path: |
+          package-lock.json
+          apps/website/package-lock.json
+    
+    - name: Install root dependencies
+      run: npm install --legacy-peer-deps
+    
+    - name: Install website dependencies
+      working-directory: apps/website
+      run: npm install --legacy-peer-deps
+
+    - name: Install Supabase CLI
+      run: |
+        npm install -g supabase
+
+    - name: Hard reset Supabase (clean state)
+      run: |
+        cd apps/website
+        supabase stop --no-backup || true
+        docker volume ls | grep supabase || true
+        docker ps -a | grep supabase | awk '{print $1}' | xargs -r docker rm -f || true
+
+    - name: Start local Supabase (fresh)
+      run: |
+        cd apps/website
+        supabase start
+      env:
+        SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+    - name: Run migrations (from scratch)
+      run: |
+        cd apps/website
+        supabase db reset
+        supabase migration list
+
+    - name: Determine worker count (rotates weekly, spike monthly)
+      id: workers
+      run: |
+        # Check if this is a spike test (first of month or manual trigger)
+        IS_SPIKE=false
+        if [ "${{ github.event.inputs.spike }}" == "true" ]; then
+          IS_SPIKE=true
+        elif [ "$(date +%d)" == "01" ]; then
+          IS_SPIKE=true
+        fi
+        
+        if [ "$IS_SPIKE" == "true" ]; then
+          # Spike test: maxWorkers=8 (or whatever would actually hurt)
+          WORKERS=8
+          echo "Running SPIKE test with $WORKERS workers (catches weird pooling/search_path issues)"
+        else
+          # Weekly rotation (1-4 cycle)
+          WEEK_NUM=$(( ($(date +%V) % 4) + 1 ))
+          
+          # Map week to worker count
+          case $WEEK_NUM in
+            1) WORKERS=2 ;;
+            2) WORKERS=4 ;;
+            3) WORKERS=6 ;;
+            4) WORKERS=2 ;;
+            *) WORKERS=2 ;;
+          esac
+          
+          echo "Running weekly rotation test with $WORKERS workers (week $WEEK_NUM of 4)"
+        fi
+        
+        # Allow override via workflow_dispatch
+        if [ "${{ github.event.inputs.workers }}" != "" ]; then
+          WORKERS="${{ github.event.inputs.workers }}"
+          echo "Manual override: $WORKERS workers"
+        fi
+        
+        echo "workers=$WORKERS" >> $GITHUB_OUTPUT
+        echo "is_spike=$IS_SPIKE" >> $GITHUB_OUTPUT
+
+    - name: Run integration tests with parallel workers (STRESS TEST)
+      working-directory: apps/website
+      run: |
+        # Run with rotating worker count to stress test schema isolation
+        # This validates that parallel execution works at different scales
+        WORKERS=${{ steps.workers.outputs.workers }}
+        echo "Running integration tests with $WORKERS workers..."
+        npm test -- --testPathPattern=integration --testPathIgnorePatterns=e2e --maxWorkers=$WORKERS --forceExit
+      env:
+        NODE_ENV: test
+        TEST_ENV: 'true'
+        NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+        SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.TEST_SUPABASE_SERVICE_ROLE_KEY }}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.TEST_SUPABASE_ANON_KEY }}
+
+    - name: Collect stress test metrics
+      working-directory: apps/website
+      run: |
+        node ../../scripts/test-metrics.mjs --test-output=test-results.json
+      if: always()
+
+    - name: Upload stress test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: stress-test-results
+        path: |
+          apps/website/test-metrics.json
+          apps/website/test-results.json
+        retention-days: 90
+
+    - name: Stop Supabase
+      if: always()
+      run: |
+        cd apps/website
+        supabase stop || true

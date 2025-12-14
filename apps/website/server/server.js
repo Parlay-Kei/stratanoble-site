@@ -142,6 +142,14 @@ wss.on('connection', async (ws, request) => {
   const session = new RealtimeSession(ws, testName);
   await session.connect();
 
+  // ✅ Add keepalive to prevent Twilio from timing out
+  const keepaliveInterval = setInterval(() => {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.ping();
+      logger.debug('[media-stream] keepalive ping sent');
+    }
+  }, 30000); // Ping every 30 seconds
+
   ws.on('message', (raw) => {
     metrics.wsMessages = (metrics.wsMessages || 0) + 1;
     try {
@@ -163,7 +171,13 @@ wss.on('connection', async (ws, request) => {
           session.handleTwilioAudio(audioBuffer);
           break; }
         case 'stop':
-          logger.info('[media-stream] stream stopped');
+          logger.info({ 
+            streamSid: message.streamSid, 
+            reason: message.stop?.reason || 'unknown',
+            accountSid: message.accountSid,
+            callSid: message.callSid
+          }, '[media-stream] stream stopped by Twilio');
+          clearInterval(keepaliveInterval);
           session.disconnect();
           break;
       }
@@ -175,6 +189,7 @@ wss.on('connection', async (ws, request) => {
 
   ws.on('close', () => {
     logger.info('[media-stream] ws closed');
+    clearInterval(keepaliveInterval);
     session.disconnect();
   });
 });

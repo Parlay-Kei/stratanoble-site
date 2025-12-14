@@ -2,6 +2,9 @@
 
 import React from "react";
 
+export const dynamic = 'force-dynamic';
+
+
 export default function ThankYouPage() {
   // These could be dynamically injected via query params or server-side props in a real app
   const event_name = "Passion-to-Prosperity Workshop";

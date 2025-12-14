@@ -1,3 +1,6 @@
+
+export const dynamic = 'force-dynamic';
+
 export default function TestPage() {
   return (
     <div className="p-8 bg-red-500 text-white">

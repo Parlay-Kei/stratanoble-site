@@ -8,6 +8,9 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: 'ACHIEVERY Early Access - Get Notified When We Launch',
   description: 'Join the ACHIEVERY early access list to be among the first to transform your daily activities into professional growth achievements.',

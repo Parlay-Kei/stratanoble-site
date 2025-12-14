@@ -11,16 +11,32 @@
         "pre-push-check": "node scripts/pre-push-validation.mjs",
         "validate": "npm run pre-push-check",
         "lint:fix": "cd apps/website && npm run lint:fix",
-        "auto-fix": "node scripts/auto-fix-lint.mjs"
+        "auto-fix": "node scripts/auto-fix-lint.mjs",
+        "agents": "tsx scripts/agents/cli.ts",
+        "agents:list": "npm run agents list",
+        "agents:status": "tsx scripts/agents/status.ts",
+        "agents:logs": "tail -f logs/agents/*.log",
+        "agents:setup": "bash scripts/setup-git-hooks.sh",
+        "agents:schedule": "node scripts/agents/scheduler.mjs",
+        "fix-lint": "node scripts/fix-current-lint-errors.mjs",
+        "prepare": "husky install"
     },
     "engines": {
         "node": ">=20.0.0",
         "npm": ">=10.0.0"
     },
     "dependencies": {
+        "open": "^11.0.0",
         "pg": "^8.16.3"
     },
     "devDependencies": {
-        "chalk": "^5.6.2"
+        "@types/node-notifier": "^8.0.5",
+        "boxen": "^8.0.1",
+        "chalk": "^5.6.2",
+        "cli-table3": "^0.6.5",
+        "husky": "^9.1.7",
+        "node-cron": "^4.2.1",
+        "node-notifier": "^10.0.1",
+        "tsx": "^4.20.6"
     }
 }

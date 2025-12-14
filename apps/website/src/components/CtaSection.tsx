@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react'
-import { ArrowRightIcon, HeartIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
@@ -11,141 +11,77 @@ export function CtaSection() {
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-20">
         <motion.div
-          animate={{ 
+          animate={{
             scale: [1, 1.1, 1],
-            rotate: [0, 180, 360] 
+            rotate: [0, 180, 360]
           }}
-          transition={{ 
-            duration: 20, 
-            repeat: Infinity, 
-            ease: "linear" 
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
           }}
           className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-accent-gold/10 to-transparent rounded-full"
         />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mx-auto max-w-5xl text-center">
-          {/* Success-Focused Header */}
-          <motion.div
+        <div className="mx-auto max-w-4xl text-center">
+          {/* Simplified CTA Content per MESSAGING_FRAMEWORK.md */}
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="mb-8"
+            className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl mb-6"
           >
-            <div className="inline-flex items-center rounded-full bg-gradient-to-r from-accent-gold to-accent-cream text-navy px-4 py-2 text-sm font-medium ring-1 ring-inset ring-accent-gold/50 mb-4">
-              ✨ Your Success Story Starts Here
-            </div>
-          </motion.div>
+            Ready to Stop{' '}
+            <span className="bg-gradient-to-r from-accent-gold to-accent-cream bg-clip-text text-transparent">
+              Guessing
+            </span>
+            ?
+          </motion.h2>
 
-          {/* Brand-Aligned CTA Content */}
-          <motion.h2 
+          <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl mb-6"
+            className="text-xl leading-8 text-blue-100 mb-10 max-w-2xl mx-auto"
           >
-            Ready to Turn Your <span className="bg-gradient-to-r from-accent-gold to-accent-cream bg-clip-text text-transparent">Ideas</span> Into <span className="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">Income</span>?
-          </motion.h2>
+            Get clarity on what actually matters for your business.
+            Start with a free assessment—no commitment, just honest answers.
+          </motion.p>
 
-          <motion.p 
+          {/* Single Primary CTA + Text Link */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl leading-8 text-blue-100 mb-10 max-w-3xl mx-auto"
-          >
-            Join the entrepreneurs who've discovered the power of combining passion with strategy. 
-            With our proven methodology and AI-powered tools, your dreams become your business plan.
-          </motion.p>
-
-          {/* Enhanced CTA Buttons */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+            className="flex flex-col items-center gap-4"
           >
             <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
               <Link
-                href="/contact?utm_source=cta_primary&utm_medium=cta&utm_campaign=start-journey"
-                className="inline-flex items-center bg-gradient-to-r from-accent-gold to-accent-cream text-navy px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 group"
+                href="/discovery?utm_source=cta_final&utm_medium=cta&utm_campaign=start-assessment"
+                className="inline-flex items-center bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 group"
               >
-                Start Your Journey Today
+                Start Your Free Assessment
                 <ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href="/platform?utm_source=cta_secondary&utm_medium=cta&utm_campaign=preview-tools"
-                className="inline-flex items-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg hover:border-white/50 hover:bg-white/20 transition-all duration-300"
-              >
-                Preview Our Tools
-              </Link>
-            </motion.div>
-          </motion.div>
 
-          {/* Brand-Aligned Trust Indicators */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="mb-16 flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-blue-200"
-          >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent-gold"></div>
-              <span>Proven Strategies</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
-              <span>AI-Powered Tools</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent-cream"></div>
-              <span>Personalized Guidance</span>
-            </div>
-          </motion.div>
-
-          {/* Success-Focused Social Proof */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-            className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20"
-          >
-            <div className="flex items-center justify-center mb-6">
-              <HeartIcon className="h-8 w-8 text-accent-gold mr-3" />
-              <h3 className="text-2xl font-bold text-white">Success Stories</h3>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-6">
-              <div>
-                <div className="text-3xl font-bold text-white mb-1">73%</div>
-                <div className="text-sm text-blue-200">Success Rate for Passion-Based Businesses</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-white mb-1">3x</div>
-                <div className="text-sm text-blue-200">Faster Results Than Going Alone</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-white mb-1">100%</div>
-                <div className="text-sm text-blue-200">Customized to Your Situation</div>
-              </div>
-            </div>
-            
-            <motion.div 
-              whileHover={{ scale: 1.02 }}
-              className="bg-gradient-to-r from-accent-gold/20 to-emerald-500/20 rounded-2xl p-6 border border-accent-gold/30"
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <SparklesIcon className="h-6 w-6 text-accent-gold mx-auto mb-2" />
-              <p className="text-blue-100 font-medium">
-                "Help people succeed doing what they love" - Our mission drives everything we do.
-              </p>
+              <Link
+                href="/platform?utm_source=cta_final&utm_medium=text-link&utm_campaign=preview-platform"
+                className="text-white/80 hover:text-white text-base underline transition-colors"
+              >
+                or preview the platform
+              </Link>
             </motion.div>
           </motion.div>
         </div>

@@ -9,6 +9,9 @@ import {
   SparklesIcon
 } from '@heroicons/react/24/outline';
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: 'Platform | Strata Noble - Your CaaS Toolkit',
   description: 'Consulting-as-a-Service platform with guided diagnostics, achievement tracking, playbooks, dashboards, and expert support for entrepreneurs.',

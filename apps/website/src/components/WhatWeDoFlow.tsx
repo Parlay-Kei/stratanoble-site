@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion';
-import { ChatBubbleLeftRightIcon, MagnifyingGlassIcon, DocumentTextIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftRightIcon, MagnifyingGlassIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 
 export function WhatWeDoFlow() {
   const steps = [
@@ -11,8 +11,8 @@ export function WhatWeDoFlow() {
       icon: ChatBubbleLeftRightIcon,
       title: 'Listen',
       subtitle: 'Discovery & Understanding',
-      description: 'We start by understanding your vision, passions, and goals. Through structured discovery sessions, we uncover what truly drives you and identify your unique strengths.',
-      features: ['Vision clarification', 'Passion assessment', 'Goal alignment', 'Strength analysis'],
+      description: 'We start by understanding your vision, your challenges, and what you actually need. No generic questionnaires—just a real conversation about where you are and where you want to go.',
+      features: ['Vision clarification', 'Challenge assessment', 'Goal alignment', 'Situation analysis'],
       gradient: 'from-accent-gold to-accent-cream',
       delay: 0.1
     },
@@ -21,30 +21,20 @@ export function WhatWeDoFlow() {
       icon: MagnifyingGlassIcon,
       title: 'Analyze',
       subtitle: 'Market Intelligence & Research',
-      description: 'Our team conducts comprehensive market research, competitor analysis, and opportunity assessment to identify the best path forward for your unique situation.',
-      features: ['Market analysis', 'Competitor research', 'Opportunity mapping', 'Risk assessment'],
+      description: 'We dig into the data—your market, your competitors, your opportunities. Evidence over guesswork. You get clarity on what actually matters and what to ignore.',
+      features: ['Market analysis', 'Competitor research', 'Opportunity mapping', 'Priority identification'],
       gradient: 'from-emerald-500 to-emerald-300',
       delay: 0.2
     },
     {
       number: '03',
-      icon: DocumentTextIcon,
-      title: 'Plan',
-      subtitle: 'Strategic Roadmap Creation',
-      description: 'We create a detailed, actionable strategic plan tailored to your specific situation, complete with timelines, milestones, and measurable objectives.',
-      features: ['Strategic roadmap', 'Action timelines', 'Milestone planning', 'Success metrics'],
-      gradient: 'from-blue-600 to-blue-400',
-      delay: 0.3
-    },
-    {
-      number: '04',
       icon: RocketLaunchIcon,
-      title: 'Execute',
-      subtitle: 'Implementation & Support',
-      description: 'We provide ongoing support, AI-powered tools, and personalized guidance to help you execute your plan and achieve sustainable growth.',
-      features: ['Implementation support', 'AI-powered tools', 'Progress tracking', 'Ongoing guidance'],
-      gradient: 'from-navy to-blue-800',
-      delay: 0.4
+      title: 'Build & Support',
+      subtitle: 'Systems & Ongoing Partnership',
+      description: 'We help you build the operational backbone your business needs, then stay in the background as a steady hand—not hovering, just available when you need us.',
+      features: ['Operational systems', 'AI-powered tools', 'Progress tracking', 'Quiet ongoing support'],
+      gradient: 'from-emerald-600 to-emerald-400',
+      delay: 0.3
     }
   ];
 
@@ -75,26 +65,26 @@ export function WhatWeDoFlow() {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            A proven four-step methodology that transforms your passion into a profitable, 
-            sustainable business with clarity, evidence, and ongoing support.
+            A simple three-step approach that turns chaos into clarity,
+            guesswork into evidence, and scattered operations into sustainable systems.
           </p>
         </motion.div>
 
         {/* Process Flow */}
         <div className="relative">
           {/* Connection Line - Desktop */}
-          <div className="hidden lg:block absolute top-1/2 left-1/4 right-1/4 transform -translate-y-1/2">
+          <div className="hidden lg:block absolute top-1/2 left-1/6 right-1/6 transform -translate-y-1/2">
             <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 2, delay: 0.5 }}
-              className="h-0.5 bg-gradient-to-r from-accent-gold via-emerald-500 via-blue-500 to-navy origin-left"
+              className="h-0.5 bg-gradient-to-r from-accent-gold via-emerald-500 to-emerald-600 origin-left"
             />
           </div>
 
           {/* Steps Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
             {steps.map((step, index) => (
               <motion.div
                 key={step.number}

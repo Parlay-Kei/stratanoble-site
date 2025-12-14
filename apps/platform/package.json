@@ -14,7 +14,9 @@
   "dependencies": {
     "@strata-noble/ui": "file:../../packages/ui",
     "@strata-noble/utils": "file:../../packages/utils",
+    "@supabase/supabase-js": "^2.53.0",
     "clsx": "^2.1.0",
+    "lucide-react": "^0.536.0",
     "next": "15.5.2",
     "openai": "^5.20.0",
     "react": "^19.0.0",
@@ -26,6 +28,7 @@
     "@types/node": "^24.0.10",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.21",
     "cross-env": "^7.0.3",
     "eslint": "^9.30.1",
     "eslint-config-next": "15.5.2",

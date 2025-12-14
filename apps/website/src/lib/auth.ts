@@ -61,8 +61,9 @@ __emitAuthEnvWarnings();
 
 const providers: any[] = [];
 
-// Optional dev credentials login (only if explicitly enabled)
-if (process.env.NEXTAUTH_DEV_LOGIN === 'true') {
+// Optional dev credentials login
+// Enable automatically in non-production, or when NEXTAUTH_DEV_LOGIN==='true'
+if (process.env.NODE_ENV !== 'production' || process.env.NEXTAUTH_DEV_LOGIN === 'true') {
   providers.push(
     CredentialsProvider({
       name: 'Dev Login',

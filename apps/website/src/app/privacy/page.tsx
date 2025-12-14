@@ -1,5 +1,8 @@
 ﻿import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: 'Privacy Policy | Strata Noble',
   description: 'Privacy policy for Strata Noble - how we collect, use, and protect your personal information.',

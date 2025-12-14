@@ -1,9 +1,9 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '../providers'
 import { Container, Card, Button } from '@strata-noble/ui'
-import { MobileNavigation } from '../../components/layout/MobileNavigation'
+import { MobileNavigation } from '../../../src/components/layout/MobileNavigation'
 import { supabase } from '../../lib/supabase'
 import { 
   BarChart3, 
@@ -505,3 +505,5 @@ export default function AnalyticsPage() {
     </>
   )
 }
+
+

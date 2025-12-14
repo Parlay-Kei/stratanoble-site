@@ -1,14 +1,13 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRightIcon, ChartBarIcon, LightBulbIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Logo } from './Logo';
 import { publicConfig } from '@/lib/public-config';
 
 export function HeroSectionAligned() {
-  const [currentStatIndex, setCurrentStatIndex] = useState(0);
   const [idea, setIdea] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -18,19 +17,6 @@ export function HeroSectionAligned() {
     { icon: ChartBarIcon, label: 'Evidence Over Guesswork', value: '100%' },
     { icon: CurrencyDollarIcon, label: 'Sustainability Over Quick Wins', value: '100%' }
   ];
-
-  const marketStats = [
-    { label: 'Passion-Based Businesses Succeed', value: '73%' },
-    { label: 'Entrepreneurs Start Without Plans', value: '68%' },
-    { label: 'Need Strategic Guidance', value: '84%' }
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentStatIndex((prev) => (prev + 1) % marketStats.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [marketStats.length]);
 
   const handleSubmit = async () => {
   setError(null);
@@ -183,35 +169,6 @@ export function HeroSectionAligned() {
             ))}
           </motion.div>
 
-          {/* Market Intelligence Insight */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-            className="bg-gradient-to-r from-accent-gold/20 to-emerald-500/20 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto border border-accent-gold/30"
-          >
-            <div className="text-center">
-              <motion.div
-                key={currentStatIndex}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5 }}
-                className="space-y-2"
-              >
-                <div className="text-3xl font-bold text-accent-gold">
-                  {marketStats[currentStatIndex].value}
-                </div>
-                <div className="text-white font-medium">
-                  {marketStats[currentStatIndex].label}
-                </div>
-              </motion.div>
-              <div className="text-sm text-gray-400 mt-2">
-                Market Intelligence • Live Data
-              </div>
-            </div>
-          </motion.div>
-
           {/* Idea Capture */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -256,38 +213,25 @@ export function HeroSectionAligned() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-4 pt-8"
+            className="flex flex-col items-center space-y-4 pt-8"
           >
             <motion.a
-              href={`${publicConfig.achieveryUrl}?utm_source=hero&utm_medium=cta&utm_campaign=preview-platform`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/discovery?utm_source=hero&utm_medium=cta&utm_campaign=start-assessment"
               whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale:0.95 }}
+              whileTap={{ scale: 0.95 }}
               className="group bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-8 py-4 rounded-full font-bold text-lg flex items-center space-x-3 shadow-xl hover:shadow-2xl transition-all duration-300"
             >
-              <span>Preview Platform</span>
+              <span>Start Your Free Assessment</span>
               <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
             </motion.a>
-
+            
             <motion.a
-              href="/achievery-early-access?utm_source=hero&utm_medium=cta&utm_campaign=early-access-signup"
-              whileHover={{ scale: 1.05, y: -2 }}
+              href="/platform?utm_source=hero&utm_medium=cta&utm_campaign=preview-platform"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group bg-gradient-to-r from-accent-gold to-accent-gold/90 text-navy px-8 py-4 rounded-full font-bold text-lg flex items-center space-x-3 shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="text-white/80 hover:text-white text-base underline transition-colors"
             >
-              <span>Early Access Signup</span>
-              <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
-            </motion.a>
-
-            <motion.a
-              href="/solutions?utm_source=hero&utm_medium=cta&utm_campaign=explore-services"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="group bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30 hover:border-white/50 hover:bg-white/20 transition-all duration-300 flex items-center space-x-3"
-            >
-              <span>Explore Our Services</span>
-              <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
+              or preview the platform
             </motion.a>
           </motion.div>
 

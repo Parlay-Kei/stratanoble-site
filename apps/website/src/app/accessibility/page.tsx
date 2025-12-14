@@ -1,5 +1,8 @@
 import React from 'react';
 
+export const dynamic = 'force-dynamic';
+
+
 export default function AccessibilityStatement() {
   return (
     <div className="min-h-screen bg-white">

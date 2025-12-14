@@ -1,0 +1,79 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🚀 PRE-PUSH: UNIT TESTS & VALIDATION"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# Show what's being pushed
+echo "📤 Commits to be pushed:"
+git log --oneline @{u}.. 2>/dev/null | sed 's/^/   /' || echo "   (Unable to determine commits)"
+echo ""
+
+# Run unit tests only (fast, no DB required)
+echo "🧪 Running unit tests..."
+cd apps/website
+npm test -- --testPathIgnorePatterns=integration --passWithNoTests
+
+UNIT_TEST_EXIT=$?
+
+if [ $UNIT_TEST_EXIT -ne 0 ]; then
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "❌ UNIT TESTS FAILED"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  echo "⚠️  Push blocked. Fix unit test failures before pushing."
+  echo "   (Integration tests will run in CI)"
+  echo ""
+  exit 1
+fi
+
+cd ../..
+
+# Scan for exposed secrets
+echo ""
+echo "🔍 Scanning for exposed secrets..."
+node scripts/check-secrets.mjs
+
+SECRET_CHECK_EXIT=$?
+
+if [ $SECRET_CHECK_EXIT -ne 0 ]; then
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "❌ SECRET SCAN FAILED"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  echo "⚠️  Push blocked. Remove exposed secrets before pushing."
+  echo "   If key was committed to git history, ROTATE THE KEY IMMEDIATELY."
+  echo ""
+  exit 1
+fi
+
+# Run comprehensive validation
+echo ""
+echo "🔍 Running pre-push validation..."
+npm run agents trigger pre-push
+
+VALIDATION_EXIT=$?
+
+if [ $VALIDATION_EXIT -eq 0 ] && [ $UNIT_TEST_EXIT -eq 0 ]; then
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "✅ PRE-PUSH VALIDATION PASSED"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "🚀 Pushing to remote..."
+  echo "   (Integration tests will run in CI)"
+  echo ""
+else
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "❌ PRE-PUSH VALIDATION FAILED"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  echo "⚠️  Push blocked. Fix issues before deploying to production."
+  echo ""
+  exit 1
+fi
