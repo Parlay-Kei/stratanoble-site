@@ -189,7 +189,9 @@ export async function assertTestDatabase(): Promise<void> {
 if (typeof jest !== 'undefined' && process.env.NODE_ENV === 'test') {
   // Run async validation, but don't block module load
   // The contract test will catch this synchronously
-  setImmediate(async () => {
+  // Use setTimeout as fallback for environments without setImmediate
+  const scheduleAsync = typeof setImmediate === 'function' ? setImmediate : (fn: () => void) => setTimeout(fn, 0);
+  scheduleAsync(async () => {
     try {
       await assertTestDatabase();
     } catch (error) {
