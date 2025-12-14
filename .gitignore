@@ -201,6 +201,8 @@ apps/website/server/openai.key
 **/*.pem
 **/*.p12
 **/*secret*
+!scripts/check-secrets.mjs
+!scripts/check-log-masking.mjs
 **/*credentials*
 
 # Env files (examples remain tracked)
