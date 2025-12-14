@@ -5,12 +5,21 @@
  * for Data Solutions LV's internet, VoIP, security, and Cisco campaigns
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Lazy-load Supabase client to avoid build-time errors when env vars aren't set
+let _supabase: SupabaseClient | null = null;
+function getSupabase(): SupabaseClient {
+  if (!_supabase) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !key) {
+      throw new Error('Supabase credentials not configured');
+    }
+    _supabase = createClient(url, key);
+  }
+  return _supabase;
+}
 
 export interface Campaign {
   id: string;
@@ -143,7 +152,7 @@ export class CampaignScheduler {
     };
 
     // Save to database
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('campaigns')
       .insert(campaign);
 
@@ -213,7 +222,7 @@ export class CampaignScheduler {
     }
 
     // Save schedules to database
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('call_schedules')
       .insert(schedules);
 
@@ -232,7 +241,7 @@ export class CampaignScheduler {
     const now = new Date();
     const fiveMinutesFromNow = this.addMinutes(now, 5);
 
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('call_schedules')
       .select('*')
       .eq('status', 'pending')
@@ -260,7 +269,7 @@ export class CampaignScheduler {
       next_action?: CallSchedule['next_action'];
     }
   ): Promise<void> {
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('call_schedules')
       .update({
         status: 'completed',
@@ -284,7 +293,7 @@ export class CampaignScheduler {
    * Schedule retry for failed/no-answer calls
    */
   async scheduleRetry(scheduleId: string): Promise<CallSchedule | null> {
-    const { data: schedule } = await supabase
+    const { data: schedule } = await getSupabase()
       .from('call_schedules')
       .select('*')
       .eq('id', scheduleId)
@@ -292,7 +301,7 @@ export class CampaignScheduler {
 
     if (!schedule) return null;
 
-    const { data: campaign } = await supabase
+    const { data: campaign } = await getSupabase()
       .from('campaigns')
       .select('*')
       .eq('id', schedule.campaign_id)
@@ -326,7 +335,7 @@ export class CampaignScheduler {
       updated_at: new Date(),
     };
 
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('call_schedules')
       .insert(retrySchedule);
 
@@ -341,7 +350,7 @@ export class CampaignScheduler {
    * Pause campaign (stop scheduling new calls)
    */
   async pauseCampaign(campaignId: string): Promise<void> {
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('campaigns')
       .update({
         status: 'paused',
@@ -358,7 +367,7 @@ export class CampaignScheduler {
    * Resume paused campaign
    */
   async resumeCampaign(campaignId: string): Promise<void> {
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('campaigns')
       .update({
         status: 'active',
@@ -375,7 +384,7 @@ export class CampaignScheduler {
    * Get campaign by ID
    */
   private async getCampaign(campaignId: string): Promise<Campaign> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('campaigns')
       .select('*')
       .eq('id', campaignId)
@@ -389,7 +398,7 @@ export class CampaignScheduler {
    * Update campaign metrics after call completion
    */
   private async updateCampaignMetrics(scheduleId: string): Promise<void> {
-    const { data: schedule } = await supabase
+    const { data: schedule } = await getSupabase()
       .from('call_schedules')
       .select('campaign_id, connected, outcome, cost_per_call')
       .eq('id', scheduleId)
@@ -398,7 +407,7 @@ export class CampaignScheduler {
     if (!schedule) return;
 
     // Get current campaign metrics
-    const { data: campaign } = await supabase
+    const { data: campaign } = await getSupabase()
       .from('campaigns')
       .select('metrics')
       .eq('id', schedule.campaign_id)
@@ -421,7 +430,7 @@ export class CampaignScheduler {
     metrics.conversion_rate = (metrics.appointments_booked / metrics.leads_called) * 100;
 
     // Update campaign
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('campaigns')
       .update({ metrics, updated_at: new Date().toISOString() })
       .eq('id', schedule.campaign_id);
