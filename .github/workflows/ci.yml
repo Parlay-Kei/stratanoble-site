@@ -116,7 +116,7 @@ jobs:
     - name: Run integration tests
       working-directory: apps/website
       run: |
-        npm test -- --testPathPattern=integration --testPathIgnorePatterns=e2e --json --outputFile=test-results.json
+        npm test -- --testPathPatterns=integration --testPathIgnorePatterns=e2e --json --outputFile=test-results.json
       env:
         NODE_ENV: test
         TEST_ENV: 'true'
