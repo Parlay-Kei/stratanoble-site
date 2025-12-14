@@ -18,6 +18,7 @@ import { createClient } from '@supabase/supabase-js';
 const TEST_PROJECT_REFS: string[] = [
   // Add your test Supabase project refs here
   // Example: 'abcdefghijklmnop'
+  'local', // Placeholder for localhost/CI environments
 ];
 
 // Environment validation
@@ -48,15 +49,19 @@ function validateTestEnvironment(): { valid: boolean; reason?: string } {
   }
 
   // Extract project ref from URL (format: https://<ref>.supabase.co)
-  const urlMatch = supabaseUrl.match(/https:\/\/([a-z0-9]+)\.supabase\.co/);
-  if (!urlMatch) {
+  // Also allow localhost URLs for CI/local development
+  const cloudUrlMatch = supabaseUrl.match(/https:\/\/([a-z0-9]+)\.supabase\.co/);
+  const isLocalUrl = supabaseUrl.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/);
+
+  if (!cloudUrlMatch && !isLocalUrl) {
     return {
       valid: false,
       reason: 'Invalid Supabase URL format',
     };
   }
 
-  const projectRef = urlMatch[1];
+  // For local URLs, use a placeholder project ref
+  const projectRef = cloudUrlMatch ? cloudUrlMatch[1] : 'local';
 
   // If TEST_PROJECT_REFS is configured, validate against it
   if (TEST_PROJECT_REFS.length > 0 && !TEST_PROJECT_REFS.includes(projectRef)) {

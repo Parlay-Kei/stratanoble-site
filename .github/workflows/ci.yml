@@ -94,6 +94,22 @@ jobs:
         # This recreates the database and runs all migrations sequentially
         supabase db reset
 
+    - name: Create test infrastructure (canary table)
+      run: |
+        cd apps/website
+        # Create the canary protection table required for integration tests
+        cat << 'EOSQL' | supabase db execute --file /dev/stdin
+        CREATE TABLE IF NOT EXISTS env_sentinel (
+          id TEXT PRIMARY KEY DEFAULT 'test-environment-sentinel',
+          canary_value TEXT NOT NULL DEFAULT 'TEST_ENVIRONMENT_VERIFIED_2025',
+          created_at TIMESTAMPTZ DEFAULT NOW(),
+          updated_at TIMESTAMPTZ DEFAULT NOW()
+        );
+        INSERT INTO env_sentinel (id, canary_value)
+        VALUES ('test-environment-sentinel', 'TEST_ENVIRONMENT_VERIFIED_2025')
+        ON CONFLICT (id) DO UPDATE SET updated_at = NOW();
+        EOSQL
+
     - name: Validate migrations (idempotent, reversible)
       run: node scripts/validate-migrations.mjs
 
