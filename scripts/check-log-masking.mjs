@@ -41,9 +41,11 @@ function checkForExposedKeys() {
       });
     }
   } else {
+    // Service role key not set - this is expected for repos without Supabase secrets configured
+    // Only warn, don't fail CI
     issues.push({
-      message: 'Service role key not set in CI environment',
-      severity: 'error',
+      message: 'Service role key not set in CI environment (this is OK for repos without Supabase)',
+      severity: 'warning',
     });
   }
 

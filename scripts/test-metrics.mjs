@@ -134,8 +134,9 @@ function main() {
 
   const testOutput = readFileSync(testOutputFile, 'utf-8');
   const metrics = parseJestOutput(testOutput);
-  const flakeInfo = calculateFlakeRate(metrics);
 
+  // Load existing metrics first so we can calculate flake rate
+  const existing = loadExistingMetrics();
   const previousRun = existing.runs.length > 0 ? existing.runs[existing.runs.length - 1] : null;
   const flakeInfo = calculateFlakeRate(metrics, previousRun);
 
@@ -150,8 +151,6 @@ function main() {
       commit: process.env.GITHUB_SHA || 'local',
     },
   };
-
-  const existing = loadExistingMetrics();
   existing.runs.push(runData);
 
   // Keep only last 100 runs
