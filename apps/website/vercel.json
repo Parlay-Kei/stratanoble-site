@@ -8,5 +8,11 @@
       "destination": "/achievery-preview",
       "permanent": false
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/execute-calls",
+      "schedule": "*/5 * * * *"
+    }
   ]
 }

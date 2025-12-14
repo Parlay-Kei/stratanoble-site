@@ -17,8 +17,6 @@ export function WhyStrataNobleGrid() {
       icon: ClockIcon,
       title: 'Faster Results',
       description: 'Skip the guesswork and trial-and-error. Our proven methodology and AI-powered tools accelerate your path from idea to income.',
-      stat: '3x faster',
-      statLabel: 'than going it alone',
       gradient: 'from-accent-gold to-accent-cream',
       delay: 0.1
     },
@@ -26,8 +24,6 @@ export function WhyStrataNobleGrid() {
       icon: ChartBarIcon,
       title: 'Better Decisions',
       description: 'Make informed choices backed by market intelligence, data analysis, and evidence-based strategies that actually work.',
-      stat: '73% success rate',
-      statLabel: 'for our clients',
       gradient: 'from-emerald-500 to-emerald-300',
       delay: 0.2
     },
@@ -35,8 +31,6 @@ export function WhyStrataNobleGrid() {
       icon: CurrencyDollarIcon,
       title: 'Affordable Expertise',
       description: 'Get enterprise-level consulting and AI tools at a fraction of traditional costs. Smart solutions that fit your budget.',
-      stat: 'Starting at $47/mo',
-      statLabel: 'comprehensive support',
       gradient: 'from-blue-600 to-blue-400',
       delay: 0.3
     },
@@ -44,11 +38,16 @@ export function WhyStrataNobleGrid() {
       icon: UserIcon,
       title: 'Customized to You',
       description: 'Every strategy is tailored to your unique situation, passions, and goals. No cookie-cutter solutions, just personalized guidance.',
-      stat: '100% personalized',
-      statLabel: 'to your situation',
       gradient: 'from-navy to-blue-800',
       delay: 0.4
     }
+  ];
+
+  // Consolidated statistics - appears ONCE on homepage (per MESSAGING_FRAMEWORK.md)
+  const trackRecord = [
+    { stat: '73%', label: 'Success rate for passion-based businesses' },
+    { stat: '3x faster', label: 'Than traditional methods' },
+    { stat: '40+ hours/mo', label: 'Time savings with automation' }
   ];
 
   return (
@@ -116,20 +115,37 @@ export function WhyStrataNobleGrid() {
                   <p className="text-blue-100 leading-relaxed">
                     {prop.description}
                   </p>
-
-                  {/* Statistics */}
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className={`bg-gradient-to-r ${prop.gradient} p-4 rounded-xl ${prop.gradient.includes('navy') ? 'text-white' : 'text-navy'}`}
-                  >
-                    <div className="text-2xl font-bold">{prop.stat}</div>
-                    <div className="text-sm opacity-80">{prop.statLabel}</div>
-                  </motion.div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Track Record - Consolidated Statistics (ONE location per MESSAGING_FRAMEWORK.md) */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-16 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/20"
+        >
+          <h3 className="text-2xl font-bold text-center text-white mb-8">Our Track Record</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {trackRecord.map((item, index) => (
+              <motion.div
+                key={item.stat}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-4xl font-bold text-accent-gold mb-2">{item.stat}</div>
+                <div className="text-blue-200 text-sm">{item.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Mission Statement Section */}
         <motion.div

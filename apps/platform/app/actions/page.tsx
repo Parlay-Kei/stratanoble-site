@@ -1,9 +1,9 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '../providers'
 import { Container, Card, Button, Input } from '@strata-noble/ui'
-import { MobileNavigation } from '../../components/layout/MobileNavigation'
+import { MobileNavigation } from '../../../src/components/layout/MobileNavigation'
 import { supabase } from '../../lib/supabase'
 import { PlusCircle, BookOpen, Hammer, Users, RefreshCw } from 'lucide-react'
 import type { AchieveryActionCategory, UserAction, UserDream } from '../../types/platform'
@@ -294,7 +294,7 @@ export default function ActionsPage() {
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">
                             <span className="text-sm font-medium text-gray-600 capitalize">
-                              {action.category} • {action.phase}
+                              {action.category} â€¢ {action.phase}
                             </span>
                             <span className="text-xs text-gray-400">
                               {new Date(action.created_at).toLocaleTimeString([], { 
@@ -365,3 +365,5 @@ export default function ActionsPage() {
     </>
   )
 }
+
+

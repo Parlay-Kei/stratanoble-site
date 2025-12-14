@@ -198,13 +198,17 @@ async function runTests() {
     // Cleanup: Remove test data
     console.log('\n🧹 Cleaning up test data...')
     
-    // Remove fake client and related data
-    await supabase.from('clients').delete().eq('id', fakeClientId)
-    await supabase.from('clients').delete().eq('stripe_customer_id', 'cus_test_123')
-    await supabase.from('metric_feed').delete().eq('client_id', fakeClientId)
-    await supabase.from('metric_summary').delete().eq('client_id', fakeClientId)
-    
-    console.log('✅ Cleanup completed')
+    // Note: This is a standalone script, not a Jest test, so we clean up specific test data
+    // For Jest integration tests, use testReset() from db-reset.ts instead
+    try {
+      await supabase.from('clients').delete().eq('id', fakeClientId)
+      await supabase.from('clients').delete().eq('stripe_customer_id', 'cus_test_123')
+      await supabase.from('metric_feed').delete().eq('client_id', fakeClientId)
+      await supabase.from('metric_summary').delete().eq('client_id', fakeClientId)
+      console.log('✅ Cleanup completed')
+    } catch (cleanupError) {
+      console.warn('⚠️  Cleanup warning (non-fatal):', cleanupError.message)
+    }
 
   } catch (error) {
     console.error('❌ Test suite failed:', error)

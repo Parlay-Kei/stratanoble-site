@@ -22,6 +22,9 @@ import {
 import Link from 'next/link';
 import { publicConfig } from '@/lib/public-config';
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: 'ACHIEVERY - Transform Daily Activities Into Professional Growth',
   description: 'The activity-to-possibility translator for professionals who want practical progress without gamification. Turn ordinary activities into recognized achievements.',

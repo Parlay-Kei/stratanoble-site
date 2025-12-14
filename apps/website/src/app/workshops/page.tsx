@@ -2,6 +2,9 @@
 import CalendlyWidget from '@/components/CalendlyWidget';
 import WaitlistFallback from '@/components/WaitlistFallback';
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: 'Side Hustle Workshops | Strata Noble',
   description: 'Join our live workshops to turn your passion into a profitable side hustle. Learn proven strategies from experts.',

@@ -1,4 +1,4 @@
-﻿import './globals.css';
+import './globals.css';
 
 import React from 'react'
 import type { Metadata } from 'next';
@@ -24,6 +24,10 @@ const bitter = Bitter({
   variable: '--font-bitter',
   preload: true,
 });
+
+// Force dynamic rendering to avoid prerender issues with client components in layout
+export const dynamic = 'force-dynamic';
+
 
 export const metadata: Metadata = {
   title: {

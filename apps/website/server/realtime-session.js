@@ -33,6 +33,7 @@ class RealtimeSession {
   reconnecting = false;
   lastAppendAt = 0;
   commitTimer = null;
+  greetingTimeout = null;
 
   constructor(twilioWs, testName) {
     this.openaiWs = null;
@@ -75,17 +76,21 @@ class RealtimeSession {
     this.openaiWs.on('open', () => {
       console.log('[openai] Connected for test:', this.testName);
       this.initializeSession();
-      // Wait a moment for session.update to be processed, then trigger AI's greeting
-      setTimeout(() => {
+      
+      // ✅ FIX: Wait for caller to speak first before Jake responds
+      // Server VAD will auto-trigger response when user speaks
+      // 3-second fallback in case caller is silent
+      this.greetingTimeout = setTimeout(() => {
+        console.log('[openai] Caller silent - sending fallback greeting');
         try {
           this.openaiWs.send(JSON.stringify({
             type: 'response.create',
             response: {
-              modalities: ['audio', 'text']  // Explicitly request audio output
+              modalities: ['audio', 'text']
             }
           }));
-        } catch (e) { console.error('[openai] response.create failed', e); }
-      }, 250);
+        } catch (e) { console.error('[openai] fallback greeting failed', e); }
+      }, 3000);
     });
 
     this.openaiWs.on('message', (data) => { this.handleOpenAIMessage(data); });
@@ -113,7 +118,13 @@ class RealtimeSession {
         input_audio_format: 'g711_ulaw',
         output_audio_format: 'g711_ulaw',
         input_audio_transcription: { model: 'whisper-1' },
-        turn_detection: { type: 'server_vad', threshold: 0.5, prefix_padding_ms: 300, silence_duration_ms: 500 },
+        turn_detection: { 
+          type: 'server_vad', 
+          threshold: 0.5, 
+          prefix_padding_ms: 300, 
+          silence_duration_ms: 500,
+          create_response: true  // ✅ Auto-generate responses when VAD detects speech
+        },
         temperature: 0.8,
         max_response_output_tokens: 4096,
       },
@@ -148,9 +159,7 @@ Keep it natural and conversational. If they ask questions, answer briefly and st
     const message = JSON.parse(data.toString());
 
     // Log all message types for debugging
-    if (!['response.audio.delta', 'input_audio_buffer.speech_started', 'input_audio_buffer.speech_stopped'].includes(message.type)) {
-      console.log('[openai] Event:', message.type);
-    }
+    console.log('[openai] Event:', message.type);
 
     switch (message.type) {
       case 'session.created':
@@ -176,9 +185,25 @@ Keep it natural and conversational. If they ask questions, answer briefly and st
         console.log('[openai] AI said:', message.transcript); try { metrics.aiTranscriptAssistant += 1; } catch {}
         appendTranscript(this.testName, 'assistant', message.transcript);
         break;
+      case 'input_audio_buffer.speech_stopped':
+        console.log('[openai] Speech stopped detected');
+        // Manually trigger response if auto-response isn't working
+        try {
+          this.openaiWs.send(JSON.stringify({ type: 'input_audio_buffer.commit' }));
+          this.openaiWs.send(JSON.stringify({ 
+            type: 'response.create',
+            response: { modalities: ['audio', 'text'] }
+          }));
+        } catch (e) { console.error('[openai] manual response trigger failed', e); }
+        break;
       case 'conversation.item.input_audio_transcription.completed':
         console.log('[openai] User said:', message.transcript); try { metrics.aiTranscriptUser += 1; } catch {}
         appendTranscript(this.testName, 'user', message.transcript);
+        // Cancel fallback greeting since user spoke
+        if (this.greetingTimeout) {
+          clearTimeout(this.greetingTimeout);
+          this.greetingTimeout = null;
+        }
         break;
       case 'error':
         console.error('[openai] Error:', message.error); try { metrics.aiErrors += 1; } catch {}
@@ -192,7 +217,13 @@ Keep it natural and conversational. If they ask questions, answer briefly and st
     }
   }
 
-  disconnect() { this.openaiWs?.close(); }
+  disconnect() { 
+    if (this.greetingTimeout) {
+      clearTimeout(this.greetingTimeout);
+      this.greetingTimeout = null;
+    }
+    this.openaiWs?.close(); 
+  }
 }
 
 module.exports = { RealtimeSession };

@@ -25,6 +25,9 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: 'Technology & AI Strategy | Strata Noble - Suite of Agents Automation',
   description: 'Discover our revolutionary Suite of Agents technology strategy featuring AI-powered development workflows, intelligent automation, and advanced enterprise integrations.',

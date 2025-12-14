@@ -2,6 +2,9 @@
 import Link from 'next/link';
 import { CheckIcon, StarIcon } from '@heroicons/react/24/outline';
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: 'Solutions | Strata Noble - Choose Your Package',
   description: 'Flexible CaaS platform packages for entrepreneurs. From self-service tools to full coaching support, find the right fit for your journey.',

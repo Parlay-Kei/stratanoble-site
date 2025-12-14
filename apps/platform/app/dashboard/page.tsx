@@ -1,9 +1,9 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '../providers'
 import { Container, Card, Button } from '@strata-noble/ui'
-import { MobileNavigation } from '../../components/layout/MobileNavigation'
+import { MobileNavigation } from '../../src/components/layout/MobileNavigation'
 import { supabase } from '../../lib/supabase'
 import { 
   PlusIcon, 
@@ -254,7 +254,7 @@ export default function DashboardPage() {
                       <p className="text-sm text-gray-800">{action.original_text}</p>
                       <div className="flex items-center space-x-2 mt-1">
                         <span className="text-xs text-gray-500 capitalize">{action.category}</span>
-                        <span className="text-xs text-gray-400">•</span>
+                        <span className="text-xs text-gray-400">â€¢</span>
                         <span className="text-xs text-gray-500">
                           {new Date(action.created_at).toLocaleTimeString([], { 
                             hour: '2-digit', 
@@ -334,3 +334,5 @@ export default function DashboardPage() {
     </>
   )
 }
+
+

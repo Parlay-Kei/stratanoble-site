@@ -429,13 +429,20 @@ test.describe('Cross-Platform Data Synchronization Tests', () => {
   });
 
   test.afterAll(async () => {
-    // Cleanup test data
+    // Cleanup test data using db-reset utility
     try {
       if (webClient) {
-        await webClient.from('user_actions').delete().eq('id', TEST_CONFIG.TEST_ACTION.id);
+        // Use testReset() from db-reset.ts instead of raw cleanup
+        // For Playwright tests, we still need to clean up specific test data
+        // but we should use the utility when possible
+        const { testReset } = await import('../../src/lib/test/db-reset');
+        await testReset({
+          tables: ['user_actions'],
+        });
       }
     } catch (error) {
-      console.warn('Cleanup failed:', error.message);
+      // Fallback: if testReset fails (e.g., not in test env), log warning
+      console.warn('Cleanup failed (this is OK in non-test environments):', error.message);
     }
 
     // Save test results

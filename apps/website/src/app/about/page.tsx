@@ -2,6 +2,9 @@
 import Link from 'next/link';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: 'About Steve - StrataNoble | The Architect for One-Person Empires',
   description: 'I help people build businesses when they don\'t have money, a network, or a clean map to follow. Strategic clarity for serious builders.',

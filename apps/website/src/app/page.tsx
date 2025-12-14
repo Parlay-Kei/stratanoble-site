@@ -5,6 +5,9 @@ import { WhatWeDoFlow } from '@/components/WhatWeDoFlow';
 import { WhyStrataNobleGrid } from '@/components/WhyStrataNobleGrid';
 import { SmartConsultingBar } from '@/components/SmartConsultingBar';
 
+export const dynamic = 'force-dynamic';
+
+
 export default function HomePage() {
   return (
     <>

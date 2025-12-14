@@ -1,14 +1,17 @@
-﻿import { WebSocket } from 'ws';
+import { WebSocket } from 'ws';
+import { getSystemPrompt, type CampaignType } from './conversation-config';
 
 export class RealtimeSession {
   private openaiWs: WebSocket | null = null;
   private twilioWs: WebSocket;
-  private testName: string;
+  private campaignType: CampaignType;
+  private callSid: string;
   private twilioStreamSid: string | null = null;
 
-  constructor(twilioWs: WebSocket, testName: string) {
+  constructor(twilioWs: WebSocket, campaignType: CampaignType, callSid: string) {
     this.twilioWs = twilioWs;
-    this.testName = testName;
+    this.campaignType = campaignType;
+    this.callSid = callSid;
   }
 
   setTwilioStreamSid(streamSid: string) {
@@ -27,7 +30,7 @@ export class RealtimeSession {
     });
 
     this.openaiWs.on('open', () => {
-      console.log('[openai] Connected for test:', this.testName);
+      console.log(`[openai] Connected for ${this.campaignType} call:`, this.callSid);
       this.initializeSession();
     });
 
@@ -64,6 +67,7 @@ export class RealtimeSession {
             threshold: 0.5,
             prefix_padding_ms: 300,
             silence_duration_ms: 500,
+            create_response: true,  // ✅ CRITICAL FIX: Auto-generate responses after user speaks
           },
           temperature: 0.8,
           max_response_output_tokens: 4096,
@@ -73,19 +77,8 @@ export class RealtimeSession {
   }
 
   private getTestPrompt(): string {
-    return `You are a friendly AI assistant testing a voice calling system for StrataNoble.
-
-Your goal: Have a brief, natural conversation to test the system.
-
-Script:
-1. Greet: "Hi! This is a test call from StrataNoble's AI system. Can you hear me clearly?"
-2. Wait for response
-3. Ask: "Great! How's the audio quality on your end?"
-4. Wait for response
-5. Confirm: "Perfect! This was just a quick test. The system is working well. Have a great day!"
-6. End call
-
-Keep it natural and conversational. If they ask questions, answer briefly and stay on track.`;
+    // Use campaign-specific system prompt from conversation-config
+    return getSystemPrompt(this.campaignType);
   }
 
   handleTwilioAudio(audioData: Buffer) {

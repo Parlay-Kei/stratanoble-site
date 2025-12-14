@@ -7,9 +7,7 @@
         "@modelcontextprotocol/server-google-drive"
       ],
       "env": {
-        "GOOGLE_DRIVE_CLIENT_ID": "${GOOGLE_DRIVE_CLIENT_ID}",
-        "GOOGLE_DRIVE_CLIENT_SECRET": "${GOOGLE_DRIVE_CLIENT_SECRET}",
-        "GOOGLE_DRIVE_REFRESH_TOKEN": "${GOOGLE_DRIVE_REFRESH_TOKEN}"
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
       }
     }
   }

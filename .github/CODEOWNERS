@@ -1,0 +1,20 @@
+# Code Owners
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Critical: Database reset utility (production-grade protection)
+apps/website/src/lib/test/db-reset.ts @strata-noble/security-team
+apps/website/src/lib/test/integration/index.ts @strata-noble/security-team
+
+# Test infrastructure (requires review)
+apps/website/src/lib/test/ @strata-noble/security-team
+scripts/check-secrets.mjs @strata-noble/security-team
+scripts/check-table-drift.mjs @strata-noble/security-team
+.github/workflows/integration-stress-test.yml @strata-noble/security-team
+
+# Database migrations (critical)
+supabase/migrations/ @strata-noble/database-team
+infra/supabase/migrations/ @strata-noble/database-team
+
+# Security-sensitive files
+.env.example @strata-noble/security-team
+scripts/bootstrap-test-project.mjs @strata-noble/security-team

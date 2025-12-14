@@ -1,5 +1,8 @@
 import React from 'react';
 
+export const dynamic = 'force-dynamic';
+
+
 export default function CookiePolicy() {
   return (
     <div className="min-h-screen bg-white">

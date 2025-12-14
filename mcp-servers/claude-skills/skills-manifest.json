@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-16T20:00:00Z",
+  "skills": [
+    {
+      "name": "call-troubleshooting",
+      "version": "1.0.0",
+      "path": "call-troubleshooting/SKILL.md",
+      "hash": "sha256:pending",
+      "autoUpdate": true,
+      "updateInterval": "6h",
+      "description": "Diagnose and repair voice calling issues with Twilio and OpenAI",
+      "capabilities": [
+        "call-pattern-analysis",
+        "integration-diagnostics",
+        "conversation-repair",
+        "automated-fixes"
+      ]
+    },
+    {
+      "name": "conversation-repair",
+      "version": "1.0.0",
+      "path": "conversation-repair/SKILL.md",
+      "hash": "sha256:pending",
+      "autoUpdate": true,
+      "updateInterval": "6h",
+      "description": "Optimize conversation quality, prompts, and voice models",
+      "capabilities": [
+        "prompt-optimization",
+        "voice-model-selection",
+        "vad-timing-optimization",
+        "quality-scoring"
+      ]
+    }
+  ],
+  "updateEndpoint": "https://raw.githubusercontent.com/Parlay-Kei/stratanoble-site/main/mcp-servers/claude-skills/skills-manifest.json",
+  "repository": {
+    "owner": "Parlay-Kei",
+    "repo": "stratanoble-site",
+    "branch": "main",
+    "path": "mcp-servers/claude-skills"
+  }
+}

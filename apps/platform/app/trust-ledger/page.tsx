@@ -1,9 +1,9 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '../providers'
 import { Container, Card, Button, Input } from '@strata-noble/ui'
-import { MobileNavigation } from '../../components/layout/MobileNavigation'
+import { MobileNavigation } from '../../../src/components/layout/MobileNavigation'
 import { supabase } from '../../lib/supabase'
 import { Shield, Share2, Eye, EyeOff, Plus, Trash2, Clock } from 'lucide-react'
 import type { TrustLedgerShare } from '../../types/platform'
@@ -352,3 +352,5 @@ export default function TrustLedgerPage() {
     </>
   )
 }
+
+

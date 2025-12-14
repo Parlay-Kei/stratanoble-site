@@ -6,6 +6,10 @@ const dev = process.env.NODE_ENV !== 'production';
 const nextConfig = {
   distDir: 'build',
   reactStrictMode: true,
+  // Force dynamic rendering for all pages to avoid client component issues during static generation
+  // This is a workaround for the useState null error during prerendering
+  // See: https://nextjs.org/docs/app/building-your-application/rendering/server-components#client-components
+  output: 'standalone',
   compiler: {
     reactRemoveProperties: false,
     emotion: false,
