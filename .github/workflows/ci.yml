@@ -85,9 +85,8 @@ jobs:
       run: |
         cd apps/website
         # Reset applies all migrations from scratch
+        # This recreates the database and runs all migrations sequentially
         supabase db reset
-        # Verify migrations applied
-        supabase migration list
 
     - name: Validate migrations (idempotent, reversible)
       run: node scripts/validate-migrations.mjs
