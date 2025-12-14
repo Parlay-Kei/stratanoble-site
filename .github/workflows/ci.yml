@@ -60,7 +60,10 @@ jobs:
 
     - name: Install Supabase CLI
       run: |
-        npm install -g supabase
+        # Use npx to run supabase commands (no global install needed)
+        # Or install via brew on ubuntu
+        curl -fsSL https://raw.githubusercontent.com/supabase/cli/main/scripts/install.sh | sh
+        supabase --version
 
     - name: Hard reset Supabase (clean state)
       run: |
