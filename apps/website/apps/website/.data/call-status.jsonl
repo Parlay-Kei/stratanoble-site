@@ -74,3 +74,4 @@
 {"timestamp":"2025-10-25T10:18:27.012Z","callSid":"CAc3f7dc4fd96de8db2cb42e1a533cefd0","status":"completed","duration":37,"from":"+17027668008","to":"+17027073168"}
 {"timestamp":"2025-12-14T11:05:44.051Z","callSid":"CA123","status":"completed","duration":5,"from":"+15551234567","to":"+15557654321"}
 {"timestamp":"2025-12-14T11:08:08.771Z","callSid":"CA123","status":"completed","duration":5,"from":"+15551234567","to":"+15557654321"}
+{"timestamp":"2025-12-14T12:04:32.340Z","callSid":"CA123","status":"completed","duration":5,"from":"+15551234567","to":"+15557654321"}
