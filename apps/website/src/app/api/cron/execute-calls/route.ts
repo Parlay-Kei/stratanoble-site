@@ -8,14 +8,23 @@
  */
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { campaignScheduler } from '@/lib/campaign-scheduler';
 import { initiateTestCall } from '@/lib/twilio';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Lazy-load Supabase client to avoid build-time errors when env vars aren't set
+let _supabase: SupabaseClient | null = null;
+function getSupabase(): SupabaseClient {
+  if (!_supabase) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !key) {
+      throw new Error('Supabase credentials not configured');
+    }
+    _supabase = createClient(url, key);
+  }
+  return _supabase;
+}
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300; // 5 minutes
@@ -55,7 +64,7 @@ export async function GET(request: Request) {
           console.log(`[cron] Processing schedule ${schedule.id} for lead ${schedule.lead_id}`);
 
           // Get lead details
-          const { data: lead, error: leadError } = await supabase
+          const { data: lead, error: leadError } = await getSupabase()
             .from('leads')
             .select('*')
             .eq('id', schedule.lead_id)
@@ -70,7 +79,7 @@ export async function GET(request: Request) {
           }
 
           // Get campaign details
-          const { data: campaign, error: campaignError } = await supabase
+          const { data: campaign, error: campaignError } = await getSupabase()
             .from('campaigns')
             .select('*')
             .eq('id', schedule.campaign_id)
@@ -85,7 +94,7 @@ export async function GET(request: Request) {
             console.log(`[cron] Skipping - campaign ${campaign.id} is ${campaign.status}`);
             
             // Cancel this schedule
-            await supabase
+            await getSupabase()
               .from('call_schedules')
               .update({ status: 'cancelled' })
               .eq('id', schedule.id);
@@ -98,7 +107,7 @@ export async function GET(request: Request) {
           }
 
           // Mark schedule as in-progress
-          await supabase
+          await getSupabase()
             .from('call_schedules')
             .update({ 
               status: 'in_progress',
@@ -125,7 +134,7 @@ export async function GET(request: Request) {
           });
 
           // Update schedule with call SID
-          await supabase
+          await getSupabase()
             .from('call_schedules')
             .update({ 
               call_sid: call.callSid,
@@ -147,7 +156,7 @@ export async function GET(request: Request) {
           console.error(`[cron] ❌ Error processing schedule ${schedule.id}:`, error);
           
           // Mark schedule as failed
-          await supabase
+          await getSupabase()
             .from('call_schedules')
             .update({ 
               status: 'failed',
