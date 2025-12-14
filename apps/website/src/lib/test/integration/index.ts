@@ -41,13 +41,25 @@ import { createClient } from '@supabase/supabase-js';
 let _adminClient: ReturnType<typeof createClient> | null = null;
 
 /**
+ * Clear the cached admin client (for testing purposes)
+ *
+ * This allows tests that modify environment variables to get a fresh client.
+ */
+export function resetAdminClient(): void {
+  _adminClient = null;
+}
+
+/**
  * Get the admin Supabase client
- * 
+ *
  * This is the ONLY way integration tests should access Supabase.
  * It ensures we're using the service role key and validates environment.
+ *
+ * @param options.skipCache - If true, always validate environment even if client is cached
  */
-export function getAdminClient(): ReturnType<typeof createClient> {
-  if (_adminClient) {
+export function getAdminClient(options: { skipCache?: boolean } = {}): ReturnType<typeof createClient> {
+  // If not skipping cache and client exists, return it
+  if (!options.skipCache && _adminClient) {
     return _adminClient;
   }
 
@@ -86,8 +98,10 @@ export function getAdminClient(): ReturnType<typeof createClient> {
   return _adminClient;
 }
 
-// Alias for convenience
-export const adminClient = getAdminClient();
+// Lazy-loaded admin client getter (doesn't eagerly create at module load)
+export function adminClient(): ReturnType<typeof createClient> {
+  return getAdminClient();
+}
 
 /**
  * Wrapper for integration tests that auto-resets database
