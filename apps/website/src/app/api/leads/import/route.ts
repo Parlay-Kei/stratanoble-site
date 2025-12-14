@@ -6,15 +6,24 @@
  */
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { campaignScheduler } from '@/lib/campaign-scheduler';
 import { normalizePhone } from '@/lib/core/phone-utils';
 import { checkDNC } from '@/lib/calling/dnc-checker';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Lazy-load Supabase client to avoid build-time errors when env vars aren't set
+let _supabase: SupabaseClient | null = null;
+function getSupabase(): SupabaseClient {
+  if (!_supabase) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !key) {
+      throw new Error('Supabase credentials not configured');
+    }
+    _supabase = createClient(url, key);
+  }
+  return _supabase;
+}
 
 export async function POST(request: Request) {
   try {
@@ -129,7 +138,7 @@ export async function POST(request: Request) {
     }
 
     // Insert into database
-    const { data: inserted, error: insertError } = await supabase
+    const { data: inserted, error: insertError } = await getSupabase()
       .from('leads')
       .insert(validated)
       .select();
