@@ -126,10 +126,19 @@ function main() {
   const args = process.argv.slice(2);
   const testOutputFile = args.find((arg) => arg.startsWith('--test-output='))?.split('=')[1];
 
-  if (!testOutputFile || !existsSync(testOutputFile)) {
-    console.error('❌ Test output file not found:', testOutputFile);
+  if (!testOutputFile) {
+    console.error('❌ No test output file specified');
     console.error('Usage: node scripts/test-metrics.mjs --test-output=<jest-output-file>');
     process.exit(1);
+  }
+
+  if (!existsSync(testOutputFile)) {
+    // File doesn't exist - tests may have failed before generating output
+    // This is expected when running with `if: always()` in CI
+    console.log('⚠️  Test output file not found:', testOutputFile);
+    console.log('   This is expected if tests failed before completion.');
+    console.log('   Skipping metrics collection.\n');
+    process.exit(0); // Exit successfully - don't fail CI for missing metrics
   }
 
   const testOutput = readFileSync(testOutputFile, 'utf-8');
