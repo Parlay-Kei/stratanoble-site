@@ -17,19 +17,22 @@ const MIGRATIONS_DIR = 'supabase/migrations';
 const ISSUES = [];
 
 // Patterns that indicate non-idempotent migrations
+// Note: We check the whole statement context to avoid false positives
 const NON_IDEMPOTENT_PATTERNS = [
   {
-    pattern: /CREATE\s+(?:TABLE|FUNCTION|TYPE|SCHEMA)\s+(\w+)\s+(?!IF\s+NOT\s+EXISTS)/i,
+    // Match CREATE TABLE/FUNCTION/etc that is NOT followed by IF NOT EXISTS
+    // Use a lookahead to check if IF NOT EXISTS follows the CREATE keyword
+    pattern: /CREATE\s+(TABLE|FUNCTION|TYPE|SCHEMA)\s+(?!IF\s+NOT\s+EXISTS)([a-z_][a-z0-9_]*)/i,
     message: 'CREATE without IF NOT EXISTS - migration may fail on re-run',
     severity: 'error',
   },
   {
-    pattern: /DROP\s+(?:TABLE|FUNCTION|TYPE|SCHEMA)\s+(\w+)\s+(?!IF\s+EXISTS)/i,
+    pattern: /DROP\s+(TABLE|FUNCTION|TYPE|SCHEMA)\s+(?!IF\s+EXISTS)([a-z_][a-z0-9_]*)/i,
     message: 'DROP without IF EXISTS - migration may fail on re-run',
     severity: 'error',
   },
   {
-    pattern: /ALTER\s+TABLE\s+(\w+)\s+ADD\s+COLUMN\s+(\w+)\s+(?!IF\s+NOT\s+EXISTS)/i,
+    pattern: /ALTER\s+TABLE\s+[a-z_][a-z0-9_]*\s+ADD\s+COLUMN\s+(?!IF\s+NOT\s+EXISTS)([a-z_][a-z0-9_]*)/i,
     message: 'ADD COLUMN without IF NOT EXISTS - may fail if column exists',
     severity: 'warning',
   },
