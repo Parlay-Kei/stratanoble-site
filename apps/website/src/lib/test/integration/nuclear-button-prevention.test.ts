@@ -15,7 +15,7 @@
  */
 
 import { testReset } from '../db-reset';
-import { getAdminClient, withDbTest } from './index';
+import { getAdminClient, withDbTest, resetAdminClient } from './index';
 
 describe('Nuclear Button Prevention', () => {
   // Snapshot original environment at start (hermetic)
@@ -41,6 +41,8 @@ describe('Nuclear Button Prevention', () => {
         process.env[key] = envSnapshot[key];
       }
     });
+    // Clear cached admin client so tests can modify environment
+    resetAdminClient();
   });
 
   afterEach(() => {
@@ -106,14 +108,16 @@ describe('Nuclear Button Prevention', () => {
     process.env.NODE_ENV = 'production';
     process.env.TEST_ENV = 'true';
 
-    expect(() => getAdminClient()).toThrow(/NODE_ENV must be "test"/);
+    // Use skipCache to force re-validation of environment
+    expect(() => getAdminClient({ skipCache: true })).toThrow(/NODE_ENV must be "test"/);
   });
 
   test('getAdminClient() refuses to run when TEST_ENV is not "true"', () => {
     process.env.NODE_ENV = 'test';
     process.env.TEST_ENV = 'false';
 
-    expect(() => getAdminClient()).toThrow(/TEST_ENV must be "true"/);
+    // Use skipCache to force re-validation of environment
+    expect(() => getAdminClient({ skipCache: true })).toThrow(/TEST_ENV must be "true"/);
   });
 
   test('withDbTest() refuses to run in invalid environment', async () => {

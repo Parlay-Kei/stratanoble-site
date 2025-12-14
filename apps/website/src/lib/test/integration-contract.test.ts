@@ -56,12 +56,15 @@ export async function validateIntegrationEnvironment(): Promise<void> {
     }
 
     // Check 5: Extract and validate project ref
-    const urlMatch = supabaseUrl.match(/https:\/\/([a-z0-9]+)\.supabase\.co/);
-    if (!urlMatch) {
+    // Also allow localhost URLs for CI/local development
+    const cloudUrlMatch = supabaseUrl.match(/https:\/\/([a-z0-9]+)\.supabase\.co/);
+    const isLocalUrl = supabaseUrl.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/);
+
+    if (!cloudUrlMatch && !isLocalUrl) {
       failures.push(`Invalid Supabase URL format: ${supabaseUrl}`);
-    } else {
-      const projectRef = urlMatch[1];
-      
+    } else if (cloudUrlMatch) {
+      const projectRef = cloudUrlMatch[1];
+
       // Check 6: Project ref should be in allowed list (if configured)
       // This is a soft check - we'll warn but not fail if not configured
       if (projectRef.length < 10) {
@@ -71,6 +74,7 @@ export async function validateIntegrationEnvironment(): Promise<void> {
         );
       }
     }
+    // For local URLs, no additional validation needed
   }
 
   // Check 7: Service role key must be set
@@ -168,12 +172,15 @@ describe('Integration Environment Contract', () => {
       }
 
       // Check 5: Extract and validate project ref
-      const urlMatch = supabaseUrl.match(/https:\/\/([a-z0-9]+)\.supabase\.co/);
-      if (!urlMatch) {
+      // Also allow localhost URLs for CI/local development
+      const cloudUrlMatch = supabaseUrl.match(/https:\/\/([a-z0-9]+)\.supabase\.co/);
+      const isLocalUrl = supabaseUrl.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/);
+
+      if (!cloudUrlMatch && !isLocalUrl) {
         failures.push(`Invalid Supabase URL format: ${supabaseUrl}`);
-      } else {
-        const projectRef = urlMatch[1];
-        
+      } else if (cloudUrlMatch) {
+        const projectRef = cloudUrlMatch[1];
+
         // Check 6: Project ref should be in allowed list (if configured)
         // This is a soft check - we'll warn but not fail if not configured
         if (projectRef.length < 10) {
@@ -183,6 +190,7 @@ describe('Integration Environment Contract', () => {
           );
         }
       }
+      // For local URLs, no additional validation needed
     }
 
     // Check 7: Service role key must be set
