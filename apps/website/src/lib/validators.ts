@@ -38,15 +38,20 @@ export type CreateLeadData = z.infer<typeof CreateLeadSchema>;
 
 // Stripe checkout validation
 export const CheckoutSessionSchema = z.object({
-  offeringId: z.enum(['free','builder','prosperity','consulting-strategy','consulting-brand','consulting-data','lite','growth','partner'], {
+  // Support both offeringId (from modal) and packageType (from checkout page)
+  offeringId: z.enum(['free','builder','prosperity','consulting-strategy','consulting-brand','consulting-data','lite','growth','partner', 'starter'], {
     errorMap: () => ({ message: 'Please select a valid offering' }),
-  }),
+  }).optional(),
+  packageType: z.string().optional(), // Legacy field from checkout page
   customerEmail: emailSchema,
   customerName: nameSchema,
   promoCode: z.string().max(50, 'Promo code must be less than 50 characters').optional(),
   test: z.boolean().default(false),
   priceId: z.string().min(1, 'priceId is required for platform tiers').optional(),
-});
+}).refine(
+  (data) => data.offeringId || data.packageType || data.priceId,
+  { message: 'Either offeringId, packageType, or priceId must be provided' }
+);
 
 export type CheckoutSessionData = z.infer<typeof CheckoutSessionSchema>;
 
