@@ -18,57 +18,61 @@ export default function SolutionsPage() {
       price: 'Free',
       description: 'Perfect for exploring and getting started',
       features: [
-        'Diagnostic Wizard access',
-        'Basic ACHIEVERY (5 actions/week)',
-        'Playbook library access (read-only)',
-        'Community Slack access',
-        'Weekly progress emails'
+        'AI idea validation',
+        'Market research report',
+        'Business name generator',
+        'Basic business plan',
+        '5 AI assists per month',
+        'Community forum access',
+        'Business templates library'
       ],
       cta: 'Get Started Free',
-      ctaHref: '/discovery',
+      ctaHref: '/auth/signup',
       popular: false,
-      color: 'gray'
+      color: 'gray',
+      tierId: 'free'
     },
     {
-      name: 'Growth',
-      price: '$97',
+      name: 'Builder',
+      price: '$47',
       period: '/month',
-      description: 'For serious builders ready to scale',
+      description: 'For serious builders ready to launch',
       features: [
         'Everything in Starter',
-        'Full ACHIEVERY (25 actions/week)',
-        'AI reframing engine',
-        'Full playbook execution',
-        'KPI Dashboard access',
-        'Monthly expert session (1 hour)',
-        'Priority email support',
-        'Workflow automation tools'
+        'Complete business plan',
+        'Brand identity package',
+        'Website builder with templates',
+        'Unlimited AI assists',
+        'Marketing automation',
+        'Launch playbook',
+        'Priority email support'
       ],
-      cta: 'Start Growing',
-      ctaHref: '/checkout?tier=growth',
+      cta: 'Start Building',
+      ctaHref: '/checkout?tier=builder',
       popular: true,
-      color: 'emerald'
+      color: 'emerald',
+      tierId: 'builder'
     },
     {
-      name: 'Partner',
-      price: '$197',
+      name: 'Prosperity',
+      price: '$97',
       period: '/month',
-      description: 'Full-service coaching and accountability',
+      description: 'Advanced automation with expert coaching',
       features: [
-        'Everything in Growth',
-        'Unlimited ACHIEVERY actions',
-        'Weekly expert sessions (4 hours/month)',
-        'Coach dashboard access',
-        'Trust Ledger sharing',
-        'Custom workflows & automations',
-        'Priority chat support',
-        'Advanced analytics & reporting',
-        'Direct Slack channel with coach'
+        'Everything in Builder',
+        'Advanced automation workflows',
+        '1-on-1 monthly coaching call',
+        'Priority support (2-hour response)',
+        'Funding assistance & grant finder',
+        'Custom growth strategies',
+        'Performance analytics dashboard',
+        'Dedicated success manager'
       ],
-      cta: 'Become a Partner',
-      ctaHref: '/contact?tier=partner',
+      cta: 'Go Pro',
+      ctaHref: '/checkout?tier=prosperity',
       popular: false,
-      color: 'blue'
+      color: 'blue',
+      tierId: 'prosperity'
     }
   ];
 
