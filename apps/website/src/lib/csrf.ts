@@ -101,39 +101,41 @@ export async function validateCSRFToken(request: NextRequest, body?: any): Promi
 
 /**
  * CSRF protection middleware wrapper
+ * Handler receives pre-parsed body to avoid re-reading consumed stream
  */
-export function withCSRFProtection(handler: (req: NextRequest) => Promise<NextResponse>) {
+export function withCSRFProtection(handler: (req: NextRequest, parsedBody?: any) => Promise<NextResponse>) {
   return async (request: NextRequest): Promise<NextResponse> => {
     // Skip CSRF protection for safe methods
     if (['GET', 'HEAD', 'OPTIONS'].includes(request.method)) {
       return handler(request);
     }
-    
+
     // Skip CSRF protection in development if configured
     if (NODE_ENV === 'development' && (process.env.SKIP_CSRF_PROTECTION === 'true')) {
       return handler(request);
     }
-    
+
     // Skip for webhook endpoints (they have their own verification)
     if (request.nextUrl.pathname.includes('/webhook')) {
       return handler(request);
     }
-    
+
     try {
-      // Parse request body to extract CSRF token
+      // Clone request to read body without consuming original
+      const clonedRequest = request.clone();
       let body: any = null;
       const contentType = request.headers.get('content-type');
-      
+
       if (contentType?.includes('application/json')) {
-        body = await request.json();
+        body = await clonedRequest.json();
       } else if (contentType?.includes('application/x-www-form-urlencoded')) {
-        const formData = await request.formData();
+        const formData = await clonedRequest.formData();
         body = Object.fromEntries(formData.entries());
       }
-      
+
       // Validate CSRF token
       const isValid = await validateCSRFToken(request, body);
-      
+
       if (!isValid) {
         return NextResponse.json(
           {
@@ -144,16 +146,11 @@ export function withCSRFProtection(handler: (req: NextRequest) => Promise<NextRe
           { status: 403 }
         );
       }
-      
-      // Create new request with parsed body
-      const newRequest = new NextRequest(request.url, {
-        method: request.method,
-        headers: request.headers,
-        body: body ? JSON.stringify(body) : null,
-      });
-      
-      return handler(newRequest);
+
+      // Pass parsed body to handler to avoid re-reading consumed stream
+      return handler(request, body);
     } catch (error) {
+      console.error('CSRF validation error:', error);
       return NextResponse.json(
         {
           error: 'CSRF validation failed',
@@ -215,18 +212,19 @@ export function verifyOrigin(origin: string | null, allowedOrigins?: string[]): 
 
 /**
  * Enhanced CSRF protection that also checks origin
+ * Handler receives pre-parsed body to avoid re-reading consumed stream
  */
-export function withEnhancedCSRFProtection(handler: (req: NextRequest) => Promise<NextResponse>) {
+export function withEnhancedCSRFProtection(handler: (req: NextRequest, parsedBody?: any) => Promise<NextResponse>) {
   return async (request: NextRequest): Promise<NextResponse> => {
     // Skip CSRF protection for safe methods
     if (['GET', 'HEAD', 'OPTIONS'].includes(request.method)) {
       return handler(request);
     }
-    
+
     // Verify origin first
     const origin = request.headers.get('origin');
     const referer = request.headers.get('referer');
-    
+
     if (!verifyOrigin(origin) && !verifyOrigin(referer)) {
       return NextResponse.json(
         {
@@ -236,8 +234,8 @@ export function withEnhancedCSRFProtection(handler: (req: NextRequest) => Promis
         { status: 403 }
       );
     }
-    
-    // Apply CSRF token validation
+
+    // Apply CSRF token validation (handler will receive parsed body)
     return withCSRFProtection(handler)(request);
   };
 }
