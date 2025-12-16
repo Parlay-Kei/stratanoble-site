@@ -201,6 +201,12 @@ function CheckoutPageContent() {
       return;
     }
 
+    // Verify price ID exists
+    if (!tierDetails.stripePriceId) {
+      alert('This plan is not yet available for purchase. Please contact support.');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -218,15 +224,20 @@ function CheckoutPageContent() {
       });
 
       const data: unknown = await response.json();
-      const url = (typeof data === 'object' && data !== null && 'url' in data && typeof (data as { url?: string }).url === 'string') ? (data as { url: string }).url : '';
+      // Handle both direct url and nested data.url from createSuccessResponse
+      const url = (typeof data === 'object' && data !== null)
+        ? ((data as any).url || (data as any).data?.url)
+        : '';
       const errorMsg = (typeof data === 'object' && data !== null && 'error' in data && typeof (data as { error?: string }).error === 'string') ? (data as { error: string }).error : '';
 
       if (response.ok && url) {
         window.location.href = url;
       } else {
+        console.error('Checkout failed:', data);
         throw new Error(errorMsg || 'Failed to create checkout session');
       }
-    } catch {
+    } catch (error) {
+      console.error('Checkout error:', error);
       alert('There was an error processing your request. Please try again.');
     } finally {
       setIsLoading(false);
