@@ -1,10 +1,10 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getStripe, hasStripeConfig } from '@/lib/stripe-conditional';
 import { CheckoutSessionSchema, validateRequest, createValidationErrorResponse, createSuccessResponse } from '@/lib/validators';
 import { withEnhancedCSRFProtection } from '@/lib/csrf';
 import { logger } from '@/lib/logger';
 
-async function checkoutHandler(request: NextRequest) {
+async function checkoutHandler(request: NextRequest, parsedBody?: any) {
   try {
     if (!hasStripeConfig()) {
       logger.warn('Stripe not configured - checkout unavailable');
@@ -22,36 +22,46 @@ async function checkoutHandler(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
+    // Use pre-parsed body from CSRF middleware, or parse if not available
+    const body = parsedBody || await request.json();
 
     const validation = validateRequest(CheckoutSessionSchema, body);
     if (!validation.success) {
+      logger.warn('Checkout validation failed', { errors: validation.errorMap });
       return NextResponse.json(
         createValidationErrorResponse(validation.errorMap),
         { status: 422 }
       );
     }
 
-    const { offeringId, customerEmail, customerName, promoCode, test, priceId } = validation.data as any;
+    const { offeringId, packageType, customerEmail, customerName, promoCode, test, priceId } = validation.data as any;
 
-    // Require priceId for platform tiers; consulting should not reach here (handled via redirect)
+    // Require priceId for platform tiers
     if (!priceId) {
+      logger.warn('Missing priceId for checkout', { offeringId, packageType });
       return NextResponse.json(
-        { error: 'Missing priceId for checkout' },
+        { error: 'Missing priceId for checkout. Please contact support.' },
         { status: 400 }
       );
     }
 
     const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
 
+    logger.info('Creating Stripe checkout session', {
+      offeringId: offeringId || packageType,
+      priceId,
+      customerEmail,
+      origin
+    });
+
     const sessionParams: any = {
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
       customer_email: customerEmail,
       success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/pricing`,
+      cancel_url: `${origin}/pricing?canceled=1`,
       metadata: {
-        offering_id: offeringId,
+        offering_id: offeringId || packageType,
         customer_name: customerName,
         test_mode: test ? 'true' : 'false',
       },
@@ -68,6 +78,8 @@ async function checkoutHandler(request: NextRequest) {
 
     const session = await stripe.checkout.sessions.create(sessionParams);
 
+    logger.info('Stripe checkout session created', { sessionId: session.id });
+
     return NextResponse.json(
       createSuccessResponse({
         sessionId: session.id,
@@ -78,10 +90,25 @@ async function checkoutHandler(request: NextRequest) {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     logger.error('Checkout session creation error', new Error(errorMessage));
-    if (process.env.NODE_ENV !== 'production') {
-      return NextResponse.json({ error: 'Failed to create checkout session', detail: errorMessage }, { status: 500 });
+
+    // Check for specific Stripe errors
+    if (errorMessage.includes('No such price')) {
+      return NextResponse.json(
+        { error: 'Invalid price configuration. Please contact support.' },
+        { status: 400 }
+      );
     }
-    return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 });
+
+    if (process.env.NODE_ENV !== 'production') {
+      return NextResponse.json(
+        { error: 'Failed to create checkout session', detail: errorMessage },
+        { status: 500 }
+      );
+    }
+    return NextResponse.json(
+      { error: 'Failed to create checkout session. Please try again.' },
+      { status: 500 }
+    );
   }
 }
 

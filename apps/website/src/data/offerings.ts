@@ -49,7 +49,8 @@ export const PLATFORM_TIERS = [
     price: 47,
     priceLabel: '$47',
     period: '/month',
-    stripePriceId: process.env.NEXT_PUBLIC_STRIPE_BUILDER_PRICE_ID || null,
+    // Hardcoded for reliability - env vars can fail at build time
+    stripePriceId: process.env.NEXT_PUBLIC_STRIPE_BUILDER_PRICE_ID || 'price_1SF1l1GEwjQWkTx0wbp1COP8',
     features: [
       'Everything in Free, plus:',
       'Complete business plan',
@@ -90,7 +91,8 @@ export const PLATFORM_TIERS = [
     price: 97,
     priceLabel: '$97',
     period: '/month',
-    stripePriceId: process.env.NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID || null,
+    // Hardcoded for reliability - env vars can fail at build time
+    stripePriceId: process.env.NEXT_PUBLIC_STRIPE_PROSPERITY_PRICE_ID || 'price_1SF1lHGEwjQWkTx0l3yTxXE5',
     features: [
       'Everything in Builder, plus:',
       'Advanced automation workflows',

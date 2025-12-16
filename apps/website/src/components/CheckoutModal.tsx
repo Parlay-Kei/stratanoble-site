@@ -45,43 +45,72 @@ export default function CheckoutModal({
       return;
     }
 
+    // Verify price ID exists before attempting checkout
+    if (!offering.stripePriceId) {
+      showToast({
+        type: 'error',
+        title: 'Configuration Error',
+        message: 'This plan is not yet available for purchase. Please contact support.'
+      });
+      console.error('Missing stripePriceId for offering:', offeringId);
+      return;
+    }
+
     setIsLoading(true)
-    
+
     try {
-      const csrf = await fetch('/api/csrf', { credentials: 'include' }).then(r => r.json()).catch(() => ({} as any));
+      // Get CSRF token
+      const csrfResponse = await fetch('/api/csrf', { credentials: 'include' });
+      if (!csrfResponse.ok) {
+        throw new Error('Failed to get security token');
+      }
+      const csrf = await csrfResponse.json();
+
+      const requestBody = {
+        offeringId,
+        priceId: offering.stripePriceId,
+        customerEmail: customerEmail || 'demo@stratanoble.com',
+        customerName: customerName || 'Demo User',
+        promoCode: promoCode || undefined,
+        test: process.env.NODE_ENV === 'development'
+      };
+
+      console.log('Checkout request:', { offeringId, hasCSRF: !!csrf?.csrfToken });
+
       const response = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-csrf-token': (csrf?.csrfToken || '')
+          'x-csrf-token': csrf?.csrfToken || ''
         },
-        credentials: 'include',body: JSON.stringify({
-          offeringId,
-          priceId: offering.stripePriceId,
-          customerEmail: customerEmail || 'demo@stratanoble.com',
-          customerName: customerName || 'Demo User',
-          promoCode: promoCode || undefined,
-          test: process.env.NODE_ENV === 'development'
-        }),
-      })
+        credentials: 'include',
+        body: JSON.stringify(requestBody),
+      });
 
-      const result = await response.json()
+      const result = await response.json();
+      console.log('Checkout response:', { status: response.status, hasUrl: !!result.url || !!result.data?.url });
 
-      if (response.ok && result.url) {
-        window.location.href = result.url
+      // Handle nested response structure from createSuccessResponse
+      const checkoutUrl = result.url || result.data?.url;
+
+      if (response.ok && checkoutUrl) {
+        window.location.href = checkoutUrl;
       } else {
+        const errorMessage = result.error || result.message || result.details?.message || 'Error creating checkout session';
+        console.error('Checkout failed:', result);
         showToast({
           type: 'error',
           title: 'Checkout Error',
-          message: result.error || 'Error creating checkout session. Please try again.'
-        })
+          message: errorMessage
+        });
       }
-    } catch {
+    } catch (error) {
+      console.error('Checkout exception:', error);
       showToast({
         type: 'error',
         title: 'Network Error',
         message: 'Unable to connect to checkout service. Please try again.'
-      })
+      });
     } finally {
       setIsLoading(false)
     }
@@ -236,7 +265,7 @@ export default function CheckoutModal({
           {offering.id !== 'free' && isPlatformTier(offering) && (
             <div className="text-center pt-2">
               <p className="text-xs text-gray-500">
-                ðŸ”’ Secure checkout powered by Stripe
+                Secure checkout powered by Stripe
               </p>
             </div>
           )}
