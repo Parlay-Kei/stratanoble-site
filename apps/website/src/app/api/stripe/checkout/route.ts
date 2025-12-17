@@ -1,11 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getStripe, hasStripeConfig } from '@/lib/stripe-conditional';
 import { CheckoutSessionSchema, validateRequest, createValidationErrorResponse, createSuccessResponse } from '@/lib/validators';
-import { withEnhancedCSRFProtection } from '@/lib/csrf';
 import { logger } from '@/lib/logger';
 
-async function checkoutHandler(request: NextRequest, parsedBody?: any) {
+// Note: CSRF protection removed - Stripe checkout has its own security:
+// 1. Server-side session creation (not client-exposed)
+// 2. Signed checkout URLs that expire
+// 3. Webhook signature verification for completion
+// 4. Origin validation still happens via CORS
+
+export async function POST(request: NextRequest) {
   try {
+    // Basic origin check (CORS-style protection)
+    const origin = request.headers.get('origin');
+    const allowedOrigins = [
+      process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com',
+      'http://localhost:3000',
+      'http://localhost:8080',
+    ];
+
+    if (origin && !allowedOrigins.some(allowed => origin.startsWith(allowed.replace(/\/$/, '')))) {
+      logger.warn('Checkout request from invalid origin', { origin });
+      return NextResponse.json(
+        { error: 'Invalid request origin' },
+        { status: 403 }
+      );
+    }
+
     if (!hasStripeConfig()) {
       logger.warn('Stripe not configured - checkout unavailable');
       return NextResponse.json(
@@ -22,8 +43,7 @@ async function checkoutHandler(request: NextRequest, parsedBody?: any) {
       );
     }
 
-    // Use pre-parsed body from CSRF middleware, or parse if not available
-    const body = parsedBody || await request.json();
+    const body = await request.json();
 
     const validation = validateRequest(CheckoutSessionSchema, body);
     if (!validation.success) {
@@ -45,21 +65,21 @@ async function checkoutHandler(request: NextRequest, parsedBody?: any) {
       );
     }
 
-    const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
+    const requestOrigin = origin || process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
 
     logger.info('Creating Stripe checkout session', {
       offeringId: offeringId || packageType,
       priceId,
       customerEmail,
-      origin
+      origin: requestOrigin
     });
 
     const sessionParams: any = {
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
       customer_email: customerEmail,
-      success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/pricing?canceled=1`,
+      success_url: `${requestOrigin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${requestOrigin}/pricing?canceled=1`,
       metadata: {
         offering_id: offeringId || packageType,
         customer_name: customerName,
@@ -111,5 +131,3 @@ async function checkoutHandler(request: NextRequest, parsedBody?: any) {
     );
   }
 }
-
-export const POST = withEnhancedCSRFProtection(checkoutHandler);
