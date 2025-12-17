@@ -11,7 +11,8 @@ export const getStripe = () => {
     if (process.env.STRIPE_SECRET_KEY) {
       if (!stripe) {
         stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-          apiVersion: '2024-12-18.acacia',
+          // Use latest stable API version - type assertion needed for SDK compatibility
+          apiVersion: '2024-12-18.acacia' as any,
         });
       }
     }
