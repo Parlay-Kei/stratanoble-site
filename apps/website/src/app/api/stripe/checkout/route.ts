@@ -114,19 +114,26 @@ export async function POST(request: NextRequest) {
     // Check for specific Stripe errors
     if (errorMessage.includes('No such price')) {
       return NextResponse.json(
-        { error: 'Invalid price configuration. Please contact support.' },
+        { error: 'Invalid price configuration. Please contact support.', code: 'INVALID_PRICE' },
         { status: 400 }
       );
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (errorMessage.includes('Invalid API Key') || errorMessage.includes('api_key')) {
       return NextResponse.json(
-        { error: 'Failed to create checkout session', detail: errorMessage },
-        { status: 500 }
+        { error: 'Payment system configuration error. Please contact support.', code: 'STRIPE_CONFIG' },
+        { status: 503 }
       );
     }
+
+    // Always return error details to help diagnose issues
     return NextResponse.json(
-      { error: 'Failed to create checkout session. Please try again.' },
+      {
+        error: 'Failed to create checkout session. Please try again.',
+        code: 'CHECKOUT_ERROR',
+        // Include sanitized error info for debugging
+        debug: process.env.NODE_ENV !== 'production' ? errorMessage : undefined
+      },
       { status: 500 }
     );
   }
