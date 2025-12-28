@@ -36,16 +36,25 @@ jobs:
     - name: Validate migration files
       run: |
         echo "🔍 Validating migration file structure..."
-        
+
         # Check that migrations are properly numbered and named
+        # Skip files that start with APPLY_VIA_SQL_EDITOR (manual scripts)
         for file in supabase/migrations/*.sql; do
-          if [[ ! $(basename "$file") =~ ^[0-9]{4}_[a-z_]+\.sql$ ]]; then
-            echo "❌ Invalid migration filename: $(basename "$file")"
+          filename=$(basename "$file")
+
+          # Skip manual SQL editor scripts
+          if [[ "$filename" =~ ^APPLY_VIA_SQL_EDITOR ]]; then
+            echo "⏭️  Skipping manual script: $filename"
+            continue
+          fi
+
+          if [[ ! "$filename" =~ ^[0-9]{4}_[a-z_]+\.sql$ ]]; then
+            echo "❌ Invalid migration filename: $filename"
             echo "   Expected format: 0001_description.sql"
             exit 1
           fi
         done
-        
+
         echo "✅ All migration files follow naming convention"
 
     - name: Check SQL syntax
