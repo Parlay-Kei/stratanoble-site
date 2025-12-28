@@ -121,7 +121,7 @@ test.describe('Cross-Platform Data Synchronization Tests', () => {
       testResults.issues_found.push({
         severity: 'critical',
         category: 'sync',
-        description: `Real-time sync failed: ${error.message}`,
+        description: `Real-time sync failed: ${error instanceof Error ? error.message : String(error)}`,
         location: 'Real-time subscription setup',
       });
     }
@@ -197,7 +197,7 @@ test.describe('Cross-Platform Data Synchronization Tests', () => {
       testResults.issues_found.push({
         severity: 'critical',
         category: 'integrity',
-        description: `Data consistency check failed: ${error.message}`,
+        description: `Data consistency check failed: ${error instanceof Error ? error.message : String(error)}`,
         location: 'Data comparison',
       });
     }
@@ -248,7 +248,7 @@ test.describe('Cross-Platform Data Synchronization Tests', () => {
           syncResults.push({
             id: queueItem.id,
             status: 'failed',
-            error: syncError.message,
+            error: syncError instanceof Error ? syncError.message : String(syncError),
           });
         }
       }
@@ -270,7 +270,7 @@ test.describe('Cross-Platform Data Synchronization Tests', () => {
       testResults.issues_found.push({
         severity: 'high',
         category: 'sync',
-        description: `Offline sync test failed: ${error.message}`,
+        description: `Offline sync test failed: ${error instanceof Error ? error.message : String(error)}`,
         location: 'Offline sync simulation',
       });
     }
@@ -319,7 +319,7 @@ test.describe('Cross-Platform Data Synchronization Tests', () => {
       testResults.issues_found.push({
         severity: 'high',
         category: 'conflict',
-        description: `Conflict resolution failed: ${error.message}`,
+        description: `Conflict resolution failed: ${error instanceof Error ? error.message : String(error)}`,
         location: 'Conflict resolution logic',
       });
     }
@@ -380,7 +380,7 @@ test.describe('Cross-Platform Data Synchronization Tests', () => {
       testResults.issues_found.push({
         severity: 'medium',
         category: 'sync',
-        description: `Tier sync validation failed: ${error.message}`,
+        description: `Tier sync validation failed: ${error instanceof Error ? error.message : String(error)}`,
         location: 'Subscription tier validation',
       });
     }
@@ -422,7 +422,7 @@ test.describe('Cross-Platform Data Synchronization Tests', () => {
       testResults.issues_found.push({
         severity: 'medium',
         category: 'performance',
-        description: `Performance benchmark failed: ${error.message}`,
+        description: `Performance benchmark failed: ${error instanceof Error ? error.message : String(error)}`,
         location: 'Performance testing',
       });
     }
@@ -442,7 +442,7 @@ test.describe('Cross-Platform Data Synchronization Tests', () => {
       }
     } catch (error) {
       // Fallback: if testReset fails (e.g., not in test env), log warning
-      console.warn('Cleanup failed (this is OK in non-test environments):', error.message);
+      console.warn('Cleanup failed (this is OK in non-test environments):', error instanceof Error ? error.message : String(error));
     }
 
     // Save test results

@@ -172,7 +172,7 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
       testResults.issues_found.push({
         severity: 'critical',
         category: 'functionality',
-        description: `User registration failed: ${error.message}`,
+        description: `User registration failed: ${error instanceof Error ? error.message : String(error)}`,
         location: '/early-access',
         reproduction_steps: '1. Navigate to homepage\n2. Click "Get Early Access"\n3. Fill form\n4. Submit',
       });
@@ -211,7 +211,7 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
       testResults.issues_found.push({
         severity: 'high',
         category: 'functionality',
-        description: `ACHIEVERY preview failed: ${error.message}`,
+        description: `ACHIEVERY preview failed: ${error instanceof Error ? error.message : String(error)}`,
         location: '/achievery-preview',
         reproduction_steps: '1. Navigate to /achievery-preview\n2. Check content loading\n3. Verify platform buttons',
       });
@@ -247,7 +247,7 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
       testResults.issues_found.push({
         severity: 'medium',
         category: 'functionality',
-        description: `Tier access testing failed: ${error.message}`,
+        description: `Tier access testing failed: ${error instanceof Error ? error.message : String(error)}`,
         location: '/achievery-preview',
         reproduction_steps: '1. Navigate to preview with tier parameter\n2. Check tier-specific content',
       });
@@ -278,7 +278,7 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
       testResults.issues_found.push({
         severity: 'critical',
         category: 'integration',
-        description: `Platform authentication failed: ${error.message}`,
+        description: `Platform authentication failed: ${error instanceof Error ? error.message : String(error)}`,
         location: TEST_CONFIG.PLATFORM_URL,
         reproduction_steps: '1. Navigate to platform URL\n2. Check auth form\n3. Test form validation',
       });
@@ -326,7 +326,7 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
         testResults.issues_found.push({
           severity: 'high',
           category: 'performance',
-          description: `Failed to load page: ${error.message}`,
+          description: `Failed to load page: ${error instanceof Error ? error.message : String(error)}`,
           location: pagePath,
           reproduction_steps: `1. Navigate to ${pagePath}`,
         });
@@ -366,7 +366,7 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
       testResults.issues_found.push({
         severity: 'critical',
         category: 'security',
-        description: `Security validation failed: ${error.message}`,
+        description: `Security validation failed: ${error instanceof Error ? error.message : String(error)}`,
         location: '/early-access',
         reproduction_steps: '1. Navigate to form\n2. Submit empty form\n3. Test XSS inputs',
       });
@@ -408,7 +408,7 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
       testResults.issues_found.push({
         severity: 'medium',
         category: 'functionality',
-        description: `Mobile integration failed: ${error.message}`,
+        description: `Mobile integration failed: ${error instanceof Error ? error.message : String(error)}`,
         location: '/achievery-preview',
         reproduction_steps: '1. Set mobile viewport\n2. Navigate to preview\n3. Test mobile features',
       });
