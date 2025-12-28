@@ -43,6 +43,7 @@
     "supabase/functions/**/*",
     "src/lib/test/**/*",
     "**/*.test.ts",
-    "**/*.test.tsx"
+    "**/*.test.tsx",
+    "build/standalone/**/*"
   ]
 }
