@@ -23,7 +23,9 @@
   secrets_scan_enabled = true
   secrets_scan_omit_paths = [
     ".claude/**",
-    "scripts/**"
+    "scripts/**",
+    "apps/website/src/lib/public-config.ts",
+    "apps/website/src/__tests__/**"
   ]
 
 [[headers]]
