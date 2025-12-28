@@ -182,6 +182,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify(organizationSchema),
           }}
         />
+        {/* Resource hints for performance optimization */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://plausible.io" />
+        <link rel="dns-prefetch" href="https://plausible.io" />
         {/* Google Analytics - moved to Script components below */}
       </head>
       <body className="font-sans antialiased pt-12">

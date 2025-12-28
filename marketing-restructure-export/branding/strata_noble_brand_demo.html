@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strata Noble: Brand Identity System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --midnight-indigo: #1B263B;
+            --noble-navy: #003366;
+            --emerald-insight: #50C878;
+            --silver-mist: #DDE2E9;
+            --warm-bone: #F5F1EB;
+            --midnight-dark: #0F1419;
+            --navy-light: #4A6C85;
+            --emerald-dark: #3A9B5C;
+            --emerald-light: #7DD894;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--midnight-indigo);
+            background: var(--warm-bone);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Typography Classes */
+        .heading-primary {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .heading-secondary {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        /* Brand Header */
+        .brand-header {
+            background: linear-gradient(135deg, var(--midnight-indigo) 0%, var(--noble-navy) 50%, var(--emerald-dark) 100%);
+            padding: 3rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        .brand-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--emerald-light), white, var(--emerald-insight));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-tagline {
+            font-size: 1.5rem;
+            color: var(--silver-mist);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-subtitle {
+            font-size: 1.1rem;
+            color: var(--warm-bone);
+            opacity: 0.9;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--midnight-indigo);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--navy-light);
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Color Palette */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .color-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(27, 38, 59, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .color-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(27, 38, 59, 0.15);
+        }
+
+        .color-swatch {
+            height: 120px;
+        }
+
+        .color-info {
+            padding: 1.5rem;
+        }
+
+        .color-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--midnight-indigo);
+        }
+
+        .color-hex {
+            font-family: 'Courier New', monospace;
+            color: var(--navy-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .color-usage {
+            font-size: 0.85rem;
+            color: var(--navy-light);
+            font-style: italic;
+        }
+
+        /* Typography Showcase */
+        .typography-showcase {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 25px rgba(27, 38, 59, 0.1);
+        }
+
+        .type-sample {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--silver-mist);
+        }
+
+        .type-sample:last-child {
+            border-bottom: none;
+        }
+
+        .type-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--emerald-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Component Showcase */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .component-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(27, 38, 59, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--emerald-insight);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--emerald-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(80, 200, 120, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--noble-navy);
+            border: 2px solid var(--noble-navy);
+        }
+
+        .btn-secondary:hover {
+            background: var(--noble-navy);
+            color: white;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--emerald-insight);
+            border: 1px solid var(--emerald-insight);
+        }
+
+        .btn-ghost:hover {
+            background: var(--emerald-insight);
+            color: white;
+        }
+
+        /* Cards */
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--silver-mist);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .demo-card:hover {
+            border-color: var(--emerald-insight);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(80, 200, 120, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--midnight-indigo);
+        }
+
+        /* Business Card Mockup */
+        .business-card {
+            width: 350px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--midnight-indigo), var(--noble-navy));
+            border-radius: 12px;
+            padding: 2rem;
+            color: white;
+            position: relative;
+            margin: 2rem auto;
+            box-shadow: 0 15px 40px rgba(27, 38, 59, 0.3);
+        }
+
+        .business-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: var(--emerald-insight);
+            opacity: 0.2;
+            border-radius: 0 12px 0 50px;
+        }
+
+        .business-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .business-card .role {
+            color: var(--emerald-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .business-card .contact {
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .brand-header h1 {
+                font-size: 2.5rem;
+            }
+            .brand-tagline {
+                font-size: 1.2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .business-card {
+                width: 300px;
+                height: 180px;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Utilities */
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        
+        /* Animation */
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Brand Header -->
+    <header class="brand-header">
+        <div class="container">
+            <h1 class="heading-primary fade-in">Strata Noble</h1>
+            <p class="brand-tagline">"We build systems into the foundation."</p>
+            <p class="brand-subtitle">We build systems into the foundation</p>
+        </div>
+    </header>
+
+    <!-- Color Palette Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title heading-secondary">Brand Color Palette</h2>
+            <p class="section-subtitle">A sophisticated palette that communicates trust, expertise, and innovation</p>
+            
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #1B263B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Midnight Indigo</div>
+                        <div class="color-hex">#1B263B</div>
+                        <div class="color-usage">Authority, depth, strategic thinking</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #003366;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Noble Navy</div>
+                        <div class="color-hex">#003366</div>
+                        <div class="color-usage">Trust, reliability, professional excellence</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #50C878;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Emerald Insight</div>
+                        <div class="color-hex">#50C878</div>
+                        <div class="color-usage">Growth, innovation, forward movement</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #DDE2E9;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Silver Mist</div>
+                        <div class="color-hex">#DDE2E9</div>
+                        <div class="color-usage">Clarity, sophistication, space</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #F5F1EB;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Warm Bone</div>
+                        <div class="color-hex">#F5F1EB</div>
+                        <div class="color-usage">Approachability, warmth, balance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <h2 class="section-title heading-secondary">Typography System</h2>
+            <p class="section-subtitle">Elegant and readable type that conveys authority and accessibility</p>
+            
+            <div class="typography-showcase">
+                <div class="type-sample">
+                    <div class="type-label">Headline 1 - Playfair Display Bold</div>
+                    <h1 class="heading-primary" style="font-size: 3rem; color: var(--midnight-indigo);">Strategic Innovation for Modern Business</h1>
+                </div>
+                
+                <div class="type-sample">
+                    <div class="type-label">Headline 2 - Playfair Display Semibold</div>
+                    <h2 class="heading-secondary" style="font-size: 2.25rem; color: var(--noble-navy);">Building Prosperity Through Intelligence</h2>
+                </div>
+                
+                <div class="type-sample">
+                    <div class="type-label">Headline 3 - Inter Bold</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--midnight-indigo);">Data-Driven Results You Can Trust</h3>
+                </div>
+                
+                <div class="type-sample">
+                    <div class="type-label">Body Text - Inter Regular</div>
+                    <p style="font-size: 1rem; color: var(--navy-light);">We transform operational noise into clear, data-driven action that unlocks measurable growth for businesses ready to build sustainable prosperity. Our strategic approach combines analytical precision with human insight to create solutions that work.</p>
+                </div>
+                
+                <div class="type-sample">
+                    <div class="type-label">Caption - Inter Medium</div>
+                    <p style="font-size: 0.875rem; font-weight: 500; color: var(--navy-light);">We build systems into the foundation - Strata Noble</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Component Showcase -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title heading-secondary">Brand Components</h2>
+            <p class="section-subtitle">UI elements that reflect our strategic and sophisticated brand personality</p>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3 class="card-title">Button Styles</h3>
+                    <div>
+                        <a href="#" class="btn btn-primary">Get Started</a>
+                        <a href="#" class="btn btn-secondary">Learn More</a>
+                        <a href="#" class="btn btn-ghost">Free Discovery Call</a>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="card-title">Card Components</h3>
+                    <div class="demo-card">
+                        <div class="card-title">Strategic Innovation</div>
+                        <p>Challenging conventional thinking to discover breakthrough solutions that create lasting competitive advantages.</p>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="card-title">Key Statistics</h3>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--emerald-insight); margin-bottom: 0.5rem;">6-12%</div>
+                        <div style="color: var(--navy-light);">Average Revenue Increase</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Card Mockup -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <h2 class="section-title heading-secondary">Brand Application</h2>
+            <p class="section-subtitle">Professional materials that communicate expertise and trustworthiness</p>
+            
+            <div class="business-card">
+                <h3 class="heading-primary">Strata Noble</h3>
+                <div class="role">Strategic Consulting & Technology Solutions</div>
+                <div class="contact">
+                    Steve Hubbard, Principal Consultant<br>
+                    stratanoble.co<br>
+                    "We build systems into the foundation."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Messaging Section -->
+    <section class="section" style="background: linear-gradient(135deg, var(--midnight-indigo), var(--noble-navy)); color: white;">
+        <div class="container text-center">
+            <h2 class="section-title heading-secondary" style="color: white;">Core Messaging</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="font-size: 1.5rem; margin-bottom: 2rem; color: var(--emerald-light);">
+                    "Built for the overlooked. Designed for outcomes."
+                </div>
+                <div style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+                    We democratize strategic innovation by making world-class business strategy accessible, actionable, and results-driven for businesses of all sizes.
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div>
+                        <div style="font-size: 1.1rem; font-weight: 600; color: var(--emerald-light); margin-bottom: 0.5rem;">Connectivity</div>
+                        <div style="opacity: 0.9;">Simplified</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.1rem; font-weight: 600; color: var(--emerald-light); margin-bottom: 0.5rem;">Your Time</div>
+                        <div style="opacity: 0.9;">Optimized</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.1rem; font-weight: 600; color: var(--emerald-light); margin-bottom: 0.5rem;">Smart Solutions</div>
+                        <div style="opacity: 0.9;">Real-Time</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.1rem; font-weight: 600; color: var(--emerald-light); margin-bottom: 0.5rem;">Business Growth</div>
+                        <div style="opacity: 0.9;">Empowered</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--midnight-dark); color: white; padding: 3rem 0; text-align: center;">
+        <div class="container">
+            <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--emerald-insight);">Strata Noble</div>
+            <div style="opacity: 0.8; margin-bottom: 1rem;">Building prosperity through strategic innovation</div>
+            <div style="font-style: italic; opacity: 0.7;">"We build systems into the foundation."</div>
+        </div>
+    </footer>
+</body>
+</html>

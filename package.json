@@ -19,7 +19,18 @@
         "agents:setup": "bash scripts/setup-git-hooks.sh",
         "agents:schedule": "node scripts/agents/scheduler.mjs",
         "fix-lint": "node scripts/fix-current-lint-errors.mjs",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "supabase:audit": "node scripts/supabase-admin-report.mjs",
+        "supabase:auto-fix": "node scripts/supabase-admin-autonomous.mjs",
+        "supabase:execute": "node scripts/supabase-sql-executor.mjs",
+        "supabase:verify": "node scripts/supabase-sql-executor.mjs verify",
+        "supabase:list-pending": "node scripts/supabase-sql-executor.mjs list-pending",
+        "docs:admin": "node scripts/docs-admin.mjs",
+        "docs:scan": "node scripts/docs-admin.mjs scan",
+        "docs:audit": "node scripts/docs-admin.mjs audit",
+        "docs:organize": "node scripts/docs-admin.mjs organize",
+        "docs:toc": "node scripts/docs-admin.mjs toc",
+        "docs:full": "node scripts/docs-admin.mjs full"
     },
     "engines": {
         "node": ">=20.0.0",
