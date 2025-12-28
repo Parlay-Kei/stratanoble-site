@@ -142,6 +142,17 @@ Thumbs.db
 # Local Netlify folder
 .netlify
 
+# Supabase local temp files (auto-generated)
+supabase/.temp/
+supabase/.temp/**
+
+# Local runtime/cached data produced by website app tooling
+apps/website/apps/website/.data/
+apps/website/apps/website/.data/**
+
+# Temporary SQL executor scratch file
+.temp-sql-execute.sql
+
 # Vercel
 .vercel
 

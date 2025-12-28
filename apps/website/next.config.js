@@ -106,6 +106,10 @@ const nextConfig = {
       { protocol: 'https', hostname: 'localhost', port: '', pathname: '/**' },
     ],
     formats: ['image/webp', 'image/avif'],
+    // Performance optimizations
+    minimumCacheTTL: 60,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   eslint: {
     dirs: ['src'],
@@ -117,6 +121,9 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
+  // Performance optimizations
+  swcMinify: true,
+  reactStrictMode: true,
 };
 
 module.exports = nextConfig;
