@@ -5,12 +5,12 @@
     "type": "module",
     "packageManager": "npm@10.8.2",
     "scripts": {
-        "build": "cd apps/website && npm run build",
-        "dev": "cd apps/website && npm run dev",
-        "start": "cd apps/website && npm run start",
+        "build": "cd apps/platform && npm run build",
+        "dev": "cd apps/platform && npm run dev",
+        "start": "cd apps/platform && npm run start",
         "pre-push-check": "node scripts/pre-push-validation.mjs",
         "validate": "npm run pre-push-check",
-        "lint:fix": "cd apps/website && npm run lint:fix",
+        "lint:fix": "cd apps/platform && npm run lint:fix",
         "auto-fix": "node scripts/auto-fix-lint.mjs",
         "agents": "tsx scripts/agents/cli.ts",
         "agents:list": "npm run agents list",
@@ -30,7 +30,10 @@
         "docs:audit": "node scripts/docs-admin.mjs audit",
         "docs:organize": "node scripts/docs-admin.mjs organize",
         "docs:toc": "node scripts/docs-admin.mjs toc",
-        "docs:full": "node scripts/docs-admin.mjs full"
+        "docs:full": "node scripts/docs-admin.mjs full",
+        "contract:check": "node scripts/contract-check.js",
+        "contract:version-check": "node scripts/contract-version-check.js",
+        "dep:check": "node scripts/dep-check.js"
     },
     "engines": {
         "node": ">=20.0.0",
