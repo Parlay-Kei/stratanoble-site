@@ -151,8 +151,42 @@ model LeadSync {
   amount      Int?
   success     Boolean  @default(false)
   syncedAt    DateTime @default(now())
-  
+
   @@index([email])
   @@index([source])
   @@index([syncedAt])
+}
+
+// Intake Infrastructure (Sprint 5)
+enum IntakeSource {
+  LEAD_RESCUE
+  PHASE_3
+  LEAD_LEAK_CHECK
+  RESOURCE_DOWNLOAD
+}
+
+enum IntakeStatus {
+  NEW
+  REVIEWED
+  CONVERTED
+  ARCHIVED
+}
+
+model LeadIntake {
+  id             String       @id @default(cuid())
+  source         IntakeSource
+  name           String
+  email          String
+  businessName   String
+  payload        Json
+  status         IntakeStatus @default(NEW)
+  createdAt      DateTime     @default(now())
+  ipHash         String?
+  userAgent      String?
+  idempotencyKey String?      @unique
+
+  @@index([email])
+  @@index([source])
+  @@index([status])
+  @@index([createdAt])
 }
