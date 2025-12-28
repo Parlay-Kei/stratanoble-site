@@ -62,26 +62,24 @@ test.describe('Homepage Revamp', () => {
 
   test('primary CTA routes to /lead-rescue', async ({ page }) => {
     const leadRescueLink = page.getByRole('link', { name: /lead rescue|48-hour/i }).first();
+    const isVisible = await leadRescueLink.isVisible({ timeout: 2000 }).catch(() => false);
 
-    if (await leadRescueLink.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await leadRescueLink.click();
-      await page.waitForURL('**/lead-rescue', { timeout: 5000 });
-      expect(page.url()).toContain('/lead-rescue');
-    } else {
-      test.skip('Lead Rescue CTA not implemented yet - requires Sprint 1-2');
-    }
+    test.skip(!isVisible, 'Lead Rescue CTA not implemented yet - requires Sprint 1-2');
+
+    await leadRescueLink.click();
+    await page.waitForURL('**/lead-rescue', { timeout: 5000 });
+    expect(page.url()).toContain('/lead-rescue');
   });
 
   test('secondary CTA routes to /phase-3', async ({ page }) => {
     const phase3Link = page.getByRole('link', { name: /phase 3/i }).first();
+    const isVisible = await phase3Link.isVisible({ timeout: 2000 }).catch(() => false);
 
-    if (await phase3Link.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await phase3Link.click();
-      await page.waitForURL('**/phase-3', { timeout: 5000 });
-      expect(page.url()).toContain('/phase-3');
-    } else {
-      test.skip('Phase 3 CTA not implemented yet - requires Sprint 1-2');
-    }
+    test.skip(!isVisible, 'Phase 3 CTA not implemented yet - requires Sprint 1-2');
+
+    await phase3Link.click();
+    await page.waitForURL('**/phase-3', { timeout: 5000 });
+    expect(page.url()).toContain('/phase-3');
   });
 
   test('mobile viewport renders correctly', async ({ page }) => {
