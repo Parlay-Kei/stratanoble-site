@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { CTA_LABELS } from '@/lib/cta-labels'
+import { isRevampEnabled } from '@/lib/feature-flags'
 import { Bars3Icon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
@@ -10,6 +11,7 @@ import Link from 'next/link'
 import { useMobileMenuTracking } from '@/lib/useAnalytics'
 import { Logo } from './Logo'
 
+// Original navigation (legacy)
 const navigation = [
   {
     name: 'Platform',
@@ -53,11 +55,65 @@ const navigation = [
   },
 ]
 
+// Revamped navigation with offer-first CTAs
+const revampedNavigation = [
+  {
+    name: 'About',
+    href: '/about',
+    description: 'Meet Steve',
+    icon: (
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+      </svg>
+    )
+  },
+  {
+    name: 'Contact',
+    href: '/contact',
+    description: 'Start your journey',
+    icon: (
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    )
+  },
+]
+
+// Offer-first CTAs for revamped navigation
+const offerCTAs = [
+  {
+    name: '48-Hr Lead Rescue',
+    href: '/lead-rescue',
+    description: 'Fix your lead leaks in 48 hours',
+    badge: '$997',
+    icon: (
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    )
+  },
+  {
+    name: 'Phase 3 Pipeline',
+    href: '/phase-3',
+    description: 'Complete pipeline in 21 days',
+    badge: '21 Days',
+    icon: (
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    )
+  },
+]
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
   const { trackOpen, trackClose } = useMobileMenuTracking()
+
+  // Feature flag for revamped navigation
+  const revampEnabled = isRevampEnabled()
+  const activeNavigation = revampEnabled ? revampedNavigation : navigation
 
   // Handle mounting for portal
   useEffect(() => {
@@ -181,13 +237,49 @@ export function Header() {
               </div>
 
               <div className="px-6 py-8">
+                {/* Offer CTAs for revamped navigation */}
+                {revampEnabled && (
+                  <div className="space-y-3 mb-6">
+                    {offerCTAs.map((offer, index) => (
+                      <motion.div
+                        key={offer.name}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1, duration: 0.3 }}
+                      >
+                        <Link
+                          href={offer.href}
+                          className="group block rounded-xl px-4 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all duration-200 active:scale-95"
+                          onClick={() => handleMobileMenuToggle(false)}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className="bg-white/20 rounded-lg p-2">
+                                {offer.icon}
+                              </div>
+                              <div>
+                                <div className="font-bold text-base">{offer.name}</div>
+                                <div className="text-sm text-white/90 font-normal">{offer.description}</div>
+                              </div>
+                            </div>
+                            <div className="bg-white/20 rounded-lg px-3 py-1 text-xs font-semibold">
+                              {offer.badge}
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Standard navigation links */}
                 <div className="space-y-1">
-                  {navigation.map((item, index) => (
+                  {activeNavigation.map((item, index) => (
                     <motion.div
                       key={item.name}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.3 }}
+                      transition={{ delay: revampEnabled ? (index + offerCTAs.length) * 0.1 : index * 0.1, duration: 0.3 }}
                     >
                       <Link
                         href={item.href}
@@ -210,24 +302,26 @@ export function Header() {
                   ))}
                 </div>
 
-                {/* Enhanced CTA section */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.3 }}
-                  className="mt-8 pt-6 border-t border-silver-200"
-                >
-                  <Link
-                    href="/contact"
-                    className="btn-primary btn-lg w-full justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95"
-                    onClick={() => handleMobileMenuToggle(false)}
+                {/* Enhanced CTA section (only for non-revamped version) */}
+                {!revampEnabled && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.3 }}
+                    className="mt-8 pt-6 border-t border-silver-200"
                   >
-                    {CTA_LABELS.GET_STARTED} Today
-                  </Link>
-                  <p className="mt-3 text-center text-sm text-navy-500">
-                    Ready to build your prosperity?
-                  </p>
-                </motion.div>
+                    <Link
+                      href="/contact"
+                      className="btn-primary btn-lg w-full justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95"
+                      onClick={() => handleMobileMenuToggle(false)}
+                    >
+                      {CTA_LABELS.GET_STARTED} Today
+                    </Link>
+                    <p className="mt-3 text-center text-sm text-navy-500">
+                      Ready to build your prosperity?
+                    </p>
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           </motion.div>
@@ -241,7 +335,7 @@ export function Header() {
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
       scrolled
-        ? 'bg-white/95 backdrop-blur-md border-b border-silver-200 shadow-sm'
+        ? 'bg-white/95 backdrop-blur-lg border-b border-silver-200 shadow-md'
         : 'bg-white/90 backdrop-blur-sm'
     }`}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
@@ -274,8 +368,9 @@ export function Header() {
           </div>
 
           {/* Desktop navigation */}
-          <div className="hidden lg:flex lg:gap-x-8">
-            {navigation.map((item) => (
+          <div className="hidden lg:flex lg:items-center lg:gap-x-6">
+            {/* Standard nav links */}
+            {activeNavigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
@@ -286,17 +381,37 @@ export function Header() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-600 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
+
+            {/* Offer CTAs (revamped navigation only) */}
+            {revampEnabled && (
+              <div className="flex items-center gap-x-3 ml-2">
+                {offerCTAs.map((offer) => (
+                  <Link
+                    key={offer.name}
+                    href={offer.href}
+                    className="group relative inline-flex items-center gap-x-2 rounded-lg px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 shadow-md hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all duration-200"
+                    title={offer.description}
+                  >
+                    <span className="hidden xl:inline">{offer.name}</span>
+                    <span className="xl:hidden">{offer.name.split(' ')[0]}</span>
+                    <span className="text-xs bg-white/20 rounded px-2 py-0.5">{offer.badge}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link
-              href="/contact"
-              className="btn-primary btn-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-            >
-{CTA_LABELS.GET_STARTED}
-            </Link>
-          </div>
+          {/* Desktop CTA (non-revamped version only) */}
+          {!revampEnabled && (
+            <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+              <Link
+                href="/contact"
+                className="btn-primary btn-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+              >
+                {CTA_LABELS.GET_STARTED}
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Enhanced Mobile menu - rendered via portal */}
