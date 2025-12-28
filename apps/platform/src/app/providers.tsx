@@ -5,6 +5,9 @@ import { User, Session } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 import { SessionProvider } from '../components/providers/SessionProvider'
 
+// Modular auth integration planned - UI calls API routes per SOP architecture
+// Types would be imported from modular contracts when path resolution is configured
+
 interface AuthContextType {
   user: User | null
   session: Session | null
