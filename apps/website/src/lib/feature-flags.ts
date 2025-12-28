@@ -18,7 +18,8 @@
  */
 export function isRevampEnabled(): boolean {
   // Default to false if not set (production safety)
-  const enabled = process.env.NEXT_PUBLIC_REVAMP_ENABLED === 'true';
+  // Case-insensitive check to handle 'true', 'True', 'TRUE', etc.
+  const enabled = process.env.NEXT_PUBLIC_REVAMP_ENABLED?.toLowerCase() === 'true';
 
   return enabled;
 }
