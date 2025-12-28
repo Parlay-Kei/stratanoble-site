@@ -215,12 +215,12 @@ function Pricing() {
 function FAQSection() {
   const faqs = [
     {
-      q: 'What if I don't have a CRM yet?',
-      a: 'No problem. We'll recommend the best tool for your needs (usually Notion or Airtable for simplicity) and set it up as part of the buildout.',
+      q: "What if I don't have a CRM yet?",
+      a: "No problem. We'll recommend the best tool for your needs (usually Notion or Airtable for simplicity) and set it up as part of the buildout.",
     },
     {
       q: 'Can you integrate with my existing tools?',
-      a: 'Yes. We work with most common tools: Notion, Airtable, HubSpot, Google Sheets, Zapier, etc. If you have a unique setup, we'll discuss it on the kickoff call.',
+      a: "Yes. We work with most common tools: Notion, Airtable, HubSpot, Google Sheets, Zapier, etc. If you have a unique setup, we'll discuss it on the kickoff call.",
     },
     {
       q: 'What happens after the 48 hours?',
@@ -232,7 +232,7 @@ function FAQSection() {
     },
     {
       q: 'Is this a good fit if I get less than 10 leads per month?',
-      a: 'It can be, but only if those leads are high-value. If you're just starting out, we recommend focusing on lead generation first.',
+      a: "It can be, but only if those leads are high-value. If you're just starting out, we recommend focusing on lead generation first.",
     },
   ];
 
