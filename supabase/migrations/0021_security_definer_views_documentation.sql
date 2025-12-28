@@ -23,101 +23,155 @@
 -- ============================================================================
 
 -- Document the views with comments explaining the SECURITY DEFINER choice
-COMMENT ON VIEW public.credentials_due_for_rotation IS
-'SECURITY DEFINER: Intentional - Provides rotation schedule summary for admin dashboard.
-Exposes credential metadata but NOT the encrypted values.
-Admin access required to view this dashboard.';
+-- Only add comments if views exist (production-only views may not exist locally)
+
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pg_views WHERE schemaname = 'public' AND viewname = 'credentials_due_for_rotation') THEN
+        COMMENT ON VIEW public.credentials_due_for_rotation IS
+        'SECURITY DEFINER: Intentional - Provides rotation schedule summary for admin dashboard.
+        Exposes credential metadata but NOT the encrypted values.
+        Admin access required to view this dashboard.';
+        RAISE NOTICE 'Added comment to credentials_due_for_rotation view';
+    ELSE
+        RAISE NOTICE 'View credentials_due_for_rotation does not exist, skipping comment';
+    END IF;
+END $$;
 
 -- NOTE: At time of report generation, the underlying view definition *does*
 -- include encrypted_value/encryption_key_id. This comment does not match reality.
 -- Fix the view definition before relying on this statement.
 
-COMMENT ON VIEW public.current_client_metrics IS
-'SECURITY DEFINER: Intentional - Provides aggregated client metrics for admin reporting.
-Shows 30-day rollups, not individual metric entries.
-Used by admin dashboards for client health monitoring.';
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pg_views WHERE schemaname = 'public' AND viewname = 'current_client_metrics') THEN
+        COMMENT ON VIEW public.current_client_metrics IS
+        'SECURITY DEFINER: Intentional - Provides aggregated client metrics for admin reporting.
+        Shows 30-day rollups, not individual metric entries.
+        Used by admin dashboards for client health monitoring.';
+        RAISE NOTICE 'Added comment to current_client_metrics view';
+    ELSE
+        RAISE NOTICE 'View current_client_metrics does not exist, skipping comment';
+    END IF;
+END $$;
 
-COMMENT ON VIEW public.recent_vault_access IS
-'SECURITY DEFINER: Intentional - Provides audit log access for security monitoring.
-Shows who accessed credentials and when.
-Critical for compliance and security auditing.';
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pg_views WHERE schemaname = 'public' AND viewname = 'recent_vault_access') THEN
+        COMMENT ON VIEW public.recent_vault_access IS
+        'SECURITY DEFINER: Intentional - Provides audit log access for security monitoring.
+        Shows who accessed credentials and when.
+        Critical for compliance and security auditing.';
+        RAISE NOTICE 'Added comment to recent_vault_access view';
+    ELSE
+        RAISE NOTICE 'View recent_vault_access does not exist, skipping comment';
+    END IF;
+END $$;
 
-COMMENT ON VIEW public.service_credentials_summary IS
-'SECURITY DEFINER: Intentional - Provides service-level credential overview.
-Shows counts and rotation status by service, not individual credentials.
-Used by admin dashboards for credential management.';
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pg_views WHERE schemaname = 'public' AND viewname = 'service_credentials_summary') THEN
+        COMMENT ON VIEW public.service_credentials_summary IS
+        'SECURITY DEFINER: Intentional - Provides service-level credential overview.
+        Shows counts and rotation status by service, not individual credentials.
+        Used by admin dashboards for credential management.';
+        RAISE NOTICE 'Added comment to service_credentials_summary view';
+    ELSE
+        RAISE NOTICE 'View service_credentials_summary does not exist, skipping comment';
+    END IF;
+END $$;
 
-COMMENT ON VIEW public.service_health_summary IS
-'SECURITY DEFINER: Intentional - Provides system health monitoring data.
-Shows heartbeat status for all services.
-Critical for operations monitoring dashboards.';
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pg_views WHERE schemaname = 'public' AND viewname = 'service_health_summary') THEN
+        COMMENT ON VIEW public.service_health_summary IS
+        'SECURITY DEFINER: Intentional - Provides system health monitoring data.
+        Shows heartbeat status for all services.
+        Critical for operations monitoring dashboards.';
+        RAISE NOTICE 'Added comment to service_health_summary view';
+    ELSE
+        RAISE NOTICE 'View service_health_summary does not exist, skipping comment';
+    END IF;
+END $$;
 
--- Ensure underlying tables have proper RLS policies
+-- Ensure underlying tables have proper RLS policies (only if tables exist)
 
 -- vault_credentials should only be accessible by service_role
 DO $$
 BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies
-        WHERE schemaname = 'public'
-        AND tablename = 'vault_credentials'
-        AND policyname = 'Service role can access vault_credentials'
-    ) THEN
-        CREATE POLICY "Service role can access vault_credentials"
-            ON public.vault_credentials
-            FOR ALL
-            USING (auth.role() = 'service_role')
-            WITH CHECK (auth.role() = 'service_role');
-        RAISE NOTICE 'Created policy for vault_credentials';
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'vault_credentials') THEN
+        IF NOT EXISTS (
+            SELECT 1 FROM pg_policies
+            WHERE schemaname = 'public'
+            AND tablename = 'vault_credentials'
+            AND policyname = 'Service role can access vault_credentials'
+        ) THEN
+            CREATE POLICY "Service role can access vault_credentials"
+                ON public.vault_credentials
+                FOR ALL
+                USING (auth.role() = 'service_role')
+                WITH CHECK (auth.role() = 'service_role');
+            RAISE NOTICE 'Created policy for vault_credentials';
+        END IF;
+    ELSE
+        RAISE NOTICE 'Table vault_credentials does not exist, skipping policy';
     END IF;
 END $$;
 
 -- vault_access_log should only be accessible by service_role
 DO $$
 BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies
-        WHERE schemaname = 'public'
-        AND tablename = 'vault_access_log'
-        AND policyname = 'Service role can access vault_access_log'
-    ) THEN
-        CREATE POLICY "Service role can access vault_access_log"
-            ON public.vault_access_log
-            FOR ALL
-            USING (auth.role() = 'service_role')
-            WITH CHECK (auth.role() = 'service_role');
-        RAISE NOTICE 'Created policy for vault_access_log';
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'vault_access_log') THEN
+        IF NOT EXISTS (
+            SELECT 1 FROM pg_policies
+            WHERE schemaname = 'public'
+            AND tablename = 'vault_access_log'
+            AND policyname = 'Service role can access vault_access_log'
+        ) THEN
+            CREATE POLICY "Service role can access vault_access_log"
+                ON public.vault_access_log
+                FOR ALL
+                USING (auth.role() = 'service_role')
+                WITH CHECK (auth.role() = 'service_role');
+            RAISE NOTICE 'Created policy for vault_access_log';
+        END IF;
+    ELSE
+        RAISE NOTICE 'Table vault_access_log does not exist, skipping policy';
     END IF;
 END $$;
 
 -- system_heartbeat should be readable by authenticated, writable by service_role
 DO $$
 BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies
-        WHERE schemaname = 'public'
-        AND tablename = 'system_heartbeat'
-        AND policyname = 'Service role can manage system_heartbeat'
-    ) THEN
-        CREATE POLICY "Service role can manage system_heartbeat"
-            ON public.system_heartbeat
-            FOR ALL
-            USING (auth.role() = 'service_role')
-            WITH CHECK (auth.role() = 'service_role');
-        RAISE NOTICE 'Created policy for system_heartbeat';
-    END IF;
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'system_heartbeat') THEN
+        IF NOT EXISTS (
+            SELECT 1 FROM pg_policies
+            WHERE schemaname = 'public'
+            AND tablename = 'system_heartbeat'
+            AND policyname = 'Service role can manage system_heartbeat'
+        ) THEN
+            CREATE POLICY "Service role can manage system_heartbeat"
+                ON public.system_heartbeat
+                FOR ALL
+                USING (auth.role() = 'service_role')
+                WITH CHECK (auth.role() = 'service_role');
+            RAISE NOTICE 'Created policy for system_heartbeat';
+        END IF;
 
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_policies
-        WHERE schemaname = 'public'
-        AND tablename = 'system_heartbeat'
-        AND policyname = 'Authenticated can read system_heartbeat'
-    ) THEN
-        CREATE POLICY "Authenticated can read system_heartbeat"
-            ON public.system_heartbeat
-            FOR SELECT
-            USING (auth.role() = 'authenticated');
-        RAISE NOTICE 'Created read policy for system_heartbeat';
+        IF NOT EXISTS (
+            SELECT 1 FROM pg_policies
+            WHERE schemaname = 'public'
+            AND tablename = 'system_heartbeat'
+            AND policyname = 'Authenticated can read system_heartbeat'
+        ) THEN
+            CREATE POLICY "Authenticated can read system_heartbeat"
+                ON public.system_heartbeat
+                FOR SELECT
+                USING (auth.role() = 'authenticated');
+            RAISE NOTICE 'Created read policy for system_heartbeat';
+        END IF;
+    ELSE
+        RAISE NOTICE 'Table system_heartbeat does not exist, skipping policies';
     END IF;
 END $$;
 
