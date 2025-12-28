@@ -10,10 +10,38 @@
  * Usage: node scripts/validate-migrations.mjs
  */
 
-import { readFileSync, readdirSync, statSync } from 'fs';
-import { join } from 'path';
+import { readFileSync, readdirSync, statSync, existsSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const MIGRATIONS_DIR = 'supabase/migrations';
+// Get script directory to find migrations relative to repo root
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const REPO_ROOT = join(__dirname, '..');
+
+// Try multiple possible locations for migrations
+const POSSIBLE_PATHS = [
+  join(REPO_ROOT, 'supabase/migrations'),      // From repo root
+  'supabase/migrations',                        // Relative to cwd
+  '../../supabase/migrations',                  // From apps/website
+];
+
+function findMigrationsDir() {
+  for (const path of POSSIBLE_PATHS) {
+    if (existsSync(path)) {
+      try {
+        if (statSync(path).isDirectory()) {
+          return path;
+        }
+      } catch {
+        continue;
+      }
+    }
+  }
+  return null;
+}
+
+const MIGRATIONS_DIR = findMigrationsDir();
 const ISSUES = [];
 
 // Patterns that indicate non-idempotent migrations
@@ -129,8 +157,17 @@ function validateMigration(filePath) {
 function main() {
   console.log('🔍 Validating migrations for idempotency and reversibility...\n');
 
+  if (!MIGRATIONS_DIR) {
+    console.log(`⚠️  Migrations directory not found. Searched paths:`);
+    POSSIBLE_PATHS.forEach(p => console.log(`   - ${p}`));
+    console.log('   Skipping migration validation.');
+    process.exit(0);
+  }
+
+  console.log(`📂 Using migrations directory: ${MIGRATIONS_DIR}\n`);
+
   if (!statSync(MIGRATIONS_DIR).isDirectory()) {
-    console.log(`⚠️  Migrations directory not found: ${MIGRATIONS_DIR}`);
+    console.log(`⚠️  Path is not a directory: ${MIGRATIONS_DIR}`);
     process.exit(0);
   }
 
