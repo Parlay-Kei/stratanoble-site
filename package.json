@@ -31,9 +31,9 @@
         "docs:organize": "node scripts/docs-admin.mjs organize",
         "docs:toc": "node scripts/docs-admin.mjs toc",
         "docs:full": "node scripts/docs-admin.mjs full",
-        "contract:check": "node scripts/contract-check.js",
-        "contract:version-check": "node scripts/contract-version-check.js",
-        "dep:check": "node scripts/dep-check.js"
+        "contract:check": "node scripts/contract-check.cjs",
+        "contract:version-check": "node scripts/contract-version-check.cjs",
+        "dep:check": "node scripts/dep-check.cjs"
     },
     "engines": {
         "node": ">=20.0.0",
