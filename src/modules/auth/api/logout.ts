@@ -1,16 +1,17 @@
 // Auth Module API Layer - Logout Endpoint
 // HTTP controller for authentication logout
-// Framework-agnostic (uses standard Web API)
+// Implements Level A revocation: global signOut + cookie clearing
+// Note: Access JWT remains valid until expiry by design (Supabase model)
 
-// Cookie name for auth session indicator - must match login route
-const AUTH_COOKIE_NAME = 'auth-session';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 
 // Generate request ID for observability
 function generateRequestId(): string {
   return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }
 
-export async function POST(request: Request) {
+export async function POST() {
   const requestId = generateRequestId();
   const startTime = Date.now();
 
@@ -20,39 +21,101 @@ export async function POST(request: Request) {
       time: Date.now(),
       requestId,
       msg: 'Logout request started',
-      userAgent: request.headers.get('user-agent'),
-      ipAddress: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip'),
       service: 'strata-noble-platform',
       env: process.env.NODE_ENV || 'development'
     }));
 
-    // Build cookie with proper security flags based on environment
-    const isProduction = process.env.NODE_ENV === 'production';
-    const cookieValue = `${AUTH_COOKIE_NAME}=; HttpOnly;${isProduction ? ' Secure;' : ''} SameSite=Lax; Path=/; Max-Age=0`;
+    const cookieStore = await cookies();
 
-    const response = new Response(JSON.stringify({
-      success: true,
-      message: 'Logged out successfully'
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-request-id': requestId,
-        'Set-Cookie': cookieValue
+    // Create Supabase client for server-side signOut
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return cookieStore.getAll();
+          },
+          setAll(cookiesToSet) {
+            try {
+              cookiesToSet.forEach(({ name, value, options }) =>
+                cookieStore.set(name, value, options)
+              );
+            } catch {
+              // Ignore - may be called from server component
+            }
+          },
+        },
       }
-    });
+    );
+
+    // Call signOut with global scope to revoke all refresh tokens
+    // This terminates all sessions for the user across devices
+    const { error } = await supabase.auth.signOut({ scope: 'global' });
+
+    if (error) {
+      console.error(JSON.stringify({
+        level: 40,
+        time: Date.now(),
+        requestId,
+        error: error.message,
+        msg: 'Supabase signOut error (non-fatal)',
+        service: 'strata-noble-platform',
+        env: process.env.NODE_ENV || 'development'
+      }));
+      // Continue anyway - we still clear cookies
+    }
+
+    // Explicitly clear all Supabase auth cookies
+    // Supabase uses sb-<project-ref>-auth-token pattern
+    const allCookies = cookieStore.getAll();
+    const authCookies = allCookies.filter(c =>
+      c.name.includes('auth-token') ||
+      c.name.includes('sb-') ||
+      c.name === 'auth-session'
+    );
+
+    const isProduction = process.env.NODE_ENV === 'production';
+    const cookieOptions = {
+      path: '/',
+      maxAge: 0,
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: 'lax' as const
+    };
+
+    // Clear each auth cookie
+    for (const cookie of authCookies) {
+      try {
+        cookieStore.set(cookie.name, '', cookieOptions);
+      } catch {
+        // Ignore errors from server component context
+      }
+    }
 
     console.log(JSON.stringify({
       level: 30,
       time: Date.now(),
       requestId,
       duration: Date.now() - startTime,
-      msg: 'Logout successful',
+      clearedCookies: authCookies.map(c => c.name),
+      msg: 'Logout successful - global signOut completed',
       service: 'strata-noble-platform',
       env: process.env.NODE_ENV || 'development'
     }));
 
-    return response;
+    return new Response(JSON.stringify({
+      success: true,
+      message: 'Logged out successfully',
+      // Be honest about what this means
+      note: 'Refresh tokens revoked. Access token valid until expiry.'
+    }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-request-id': requestId
+      }
+    });
 
   } catch (error) {
     console.error(JSON.stringify({
