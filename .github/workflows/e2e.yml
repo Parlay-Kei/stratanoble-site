@@ -1,0 +1,49 @@
+name: e2e
+
+on:
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            apps/platform/package-lock.json
+
+      - name: Install platform dependencies
+        working-directory: apps/platform
+        run: npm ci --legacy-peer-deps
+
+      - name: Install Playwright browsers
+        working-directory: apps/platform
+        run: npx playwright install --with-deps
+
+      - name: Seed E2E test users
+        working-directory: apps/platform
+        run: npm run seed:e2e
+        env:
+          E2E_SUPABASE_URL: ${{ secrets.E2E_SUPABASE_URL }}
+          E2E_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.E2E_SUPABASE_SERVICE_ROLE_KEY }}
+          E2E_COMPLETED_EMAIL: ${{ secrets.E2E_COMPLETED_EMAIL }}
+          E2E_COMPLETED_PASSWORD: ${{ secrets.E2E_COMPLETED_PASSWORD }}
+          E2E_INCOMPLETE_EMAIL: ${{ secrets.E2E_INCOMPLETE_EMAIL }}
+          E2E_INCOMPLETE_PASSWORD: ${{ secrets.E2E_INCOMPLETE_PASSWORD }}
+
+      - name: Run E2E smoke test
+        working-directory: apps/platform
+        run: npm run e2e
+        env:
+          E2E_APP_BASE_URL: ${{ secrets.E2E_APP_BASE_URL }}
+          E2E_COMPLETED_EMAIL: ${{ secrets.E2E_COMPLETED_EMAIL }}
+          E2E_COMPLETED_PASSWORD: ${{ secrets.E2E_COMPLETED_PASSWORD }}
+          E2E_INCOMPLETE_EMAIL: ${{ secrets.E2E_INCOMPLETE_EMAIL }}
+          E2E_INCOMPLETE_PASSWORD: ${{ secrets.E2E_INCOMPLETE_PASSWORD }}

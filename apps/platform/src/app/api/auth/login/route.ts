@@ -4,6 +4,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '../../../../lib/supabase';
 
+// Cookie name for auth session indicator
+const AUTH_COOKIE_NAME = 'auth-session';
+
 // TODO: Import modular services when path resolution is configured
 // import { AuthServiceContainer } from '@/modules/auth/services/auth-services';
 // import { AuthDomainServiceImpl } from '@/modules/auth/domain/auth-service';
@@ -34,8 +37,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (data.user) {
-      return NextResponse.json({
+    if (data.user && data.session) {
+      // Check onboarding status
+      let onboardingCompleted = false;
+      try {
+        const { data: settingsData } = await supabase
+          .from('user_platform_settings')
+          .select('onboarding_completed')
+          .eq('user_id', data.user.id)
+          .maybeSingle();
+
+        onboardingCompleted = !!settingsData?.onboarding_completed;
+      } catch (err) {
+        // Fail-safe: if we can't check onboarding, assume not completed
+        console.error('Error checking onboarding status:', err);
+        onboardingCompleted = false;
+      }
+
+      // Create response with user data
+      const response = NextResponse.json({
         success: true,
         user: {
           id: data.user.id,
@@ -45,8 +65,30 @@ export async function POST(request: NextRequest) {
         session: {
           token: data.session?.access_token,
           expiresAt: data.session?.expires_at
-        }
+        },
+        onboardingCompleted
       });
+
+      // Set httpOnly cookie for middleware auth check
+      // Cookie contains user ID for identification, expires when session expires
+      const expiresAt = data.session.expires_at 
+        ? new Date(data.session.expires_at * 1000) 
+        : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // Default 7 days
+
+      response.cookies.set(AUTH_COOKIE_NAME, JSON.stringify({
+        userId: data.user.id,
+        email: data.user.email,
+        expiresAt: expiresAt.toISOString(),
+        onboardingCompleted
+      }), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        expires: expiresAt
+      });
+
+      return response;
     }
 
     return NextResponse.json(

@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { Database } from './supabase';
 
@@ -16,12 +16,40 @@ export interface AuthValidationResult {
 }
 
 /**
+ * Create a Supabase client for server-side use
+ */
+async function createSupabaseServerClient() {
+  const cookieStore = await cookies();
+
+  return createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          } catch {
+            // Ignore - called from server component
+          }
+        },
+      },
+    }
+  );
+}
+
+/**
  * Server-side authentication validation utility
  * Validates user authentication and returns user data if valid
  */
 export async function validateServerAuth(): Promise<AuthValidationResult> {
   try {
-    const supabase = createServerComponentClient<Database>({ cookies });
+    const supabase = await createSupabaseServerClient();
 
     const { data: { session }, error } = await supabase.auth.getSession();
 
@@ -54,9 +82,7 @@ export async function validateServerAuth(): Promise<AuthValidationResult> {
  */
 export async function validateApiAuth(request: NextRequest): Promise<AuthValidationResult> {
   try {
-    // Get session from request cookies
-    const cookieStore = cookies();
-    const supabase = createServerComponentClient<Database>({ cookies: () => cookieStore });
+    const supabase = await createSupabaseServerClient();
 
     const { data: { session }, error } = await supabase.auth.getSession();
 

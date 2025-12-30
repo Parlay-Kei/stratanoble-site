@@ -251,7 +251,7 @@ function performSecurityChecks(env: EnvConfig): string[] {
     }
 
     if (process.env.NODE_ENV === 'production' && secretIsTest) {
-      warnings.push('Using Stripe test keys in production environment');
+      errors.push('Using Stripe test keys in production environment');
     }
   }
 

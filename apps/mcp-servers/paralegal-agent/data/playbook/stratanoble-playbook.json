@@ -1,0 +1,338 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-12-28",
+  "jurisdiction": "US-NV",
+  "organization": "StrataNoble LLC",
+  "rules": [
+    {
+      "ruleKey": "ip_preexisting",
+      "topic": "IP_OWNERSHIP",
+      "priority": 100,
+      "defaultPosition": "Provider (StrataNoble) retains all pre-existing IP, frameworks, methodologies, and reusable code components. Client receives a perpetual license to use pre-existing IP solely as incorporated into deliverables.",
+      "acceptableAlternatives": [
+        {
+          "position": "Shared ownership of novel innovations created specifically for the engagement",
+          "conditions": "Only for truly novel innovations that could not have existed without this specific client relationship",
+          "notes": "Requires separate IP addendum defining scope of shared IP"
+        },
+        {
+          "position": "Broader license for pre-existing IP",
+          "conditions": "Client may request usage beyond deliverables for internal purposes only",
+          "notes": "No sublicensing permitted; usage fee may apply"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "Client owns all code and work product including frameworks and tools",
+          "reason": "Would prevent Provider from reusing core tools and methodologies on other projects",
+          "hardStop": true
+        },
+        {
+          "position": "Work-for-hire treatment of all engagement work",
+          "reason": "Incompatible with our business model; we invest in reusable frameworks",
+          "hardStop": true
+        }
+      ],
+      "escalationRequired": false,
+      "notesForAI": "Be firm on pre-existing IP retention. This is core to the business model. Frame as protecting the investment that allows us to deliver efficiently."
+    },
+    {
+      "ruleKey": "ip_deliverables",
+      "topic": "IP_OWNERSHIP",
+      "priority": 90,
+      "defaultPosition": "Client owns final deliverables (specific to their engagement) upon full payment. This includes custom configurations, client-specific logic, and branded assets.",
+      "acceptableAlternatives": [
+        {
+          "position": "Provider retains right to showcase work in portfolio (anonymized if requested)",
+          "conditions": "Standard request; helps demonstrate capabilities",
+          "notes": "Client can request embargo period before portfolio use"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "Client ownership before full payment",
+          "reason": "Payment must be complete before IP transfer occurs",
+          "hardStop": true
+        }
+      ],
+      "escalationRequired": false,
+      "notesForAI": "Final deliverables ownership is typically negotiable. Focus on ensuring full payment is received before transfer."
+    },
+    {
+      "ruleKey": "liability_cap",
+      "topic": "LIABILITY",
+      "priority": 95,
+      "defaultPosition": "Total liability capped at fees paid in the 12 months preceding the claim. No liability for consequential, incidental, special, or punitive damages.",
+      "acceptableAlternatives": [
+        {
+          "position": "Cap at total contract value instead of 12-month lookback",
+          "conditions": "For fixed-price engagements where total is clear upfront",
+          "notes": "May be simpler for both parties to administer"
+        },
+        {
+          "position": "Higher cap multiplier (e.g., 2x fees)",
+          "conditions": "Only with corresponding insurance coverage and premium pricing",
+          "notes": "Requires escalation for approval of increased exposure"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "Unlimited liability",
+          "reason": "Uninsurable and existential risk to the business",
+          "hardStop": true
+        },
+        {
+          "position": "Liability for lost profits or business interruption",
+          "reason": "Consequential damages are unpredictable and potentially unlimited",
+          "hardStop": true
+        },
+        {
+          "position": "Cap below fees paid",
+          "reason": "Liability cap should at minimum cover what client paid",
+          "hardStop": false
+        }
+      ],
+      "escalationRequired": true,
+      "escalationReason": "Any deviation from standard liability cap requires leadership approval due to insurance and risk implications",
+      "notesForAI": "Liability is a hard negotiation point. Emphasize that our pricing assumes standard liability terms. Higher caps require premium pricing."
+    },
+    {
+      "ruleKey": "payment_deposit",
+      "topic": "PAYMENT",
+      "priority": 85,
+      "defaultPosition": "25% deposit due upon signing, balance according to milestone schedule defined in SOW. Net 30 payment terms.",
+      "acceptableAlternatives": [
+        {
+          "position": "20% deposit",
+          "conditions": "For established clients with payment history",
+          "notes": "Document the client relationship justifying reduced deposit"
+        },
+        {
+          "position": "Net 45 terms",
+          "conditions": "For enterprise clients with standard procurement cycles",
+          "notes": "Adjust project timeline accordingly to manage cash flow"
+        },
+        {
+          "position": "50% upfront, 50% on completion",
+          "conditions": "For smaller projects under $25K",
+          "notes": "Simplifies billing for quick engagements"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "No deposit / 100% upon completion",
+          "reason": "Exposes Provider to significant delivery risk without payment protection",
+          "hardStop": true
+        },
+        {
+          "position": "Net 90+ terms",
+          "reason": "Creates cash flow strain and implies client solvency concerns",
+          "hardStop": true
+        },
+        {
+          "position": "Payment contingent on third-party actions",
+          "reason": "Payment should not depend on factors outside our control",
+          "hardStop": false
+        }
+      ],
+      "escalationRequired": false,
+      "notesForAI": "Deposit protects against scope changes and ensures client commitment. Be flexible on structure but maintain deposit requirement."
+    },
+    {
+      "ruleKey": "termination_notice",
+      "topic": "TERMINATION",
+      "priority": 70,
+      "defaultPosition": "Either party may terminate for convenience with 30 days written notice. Client pays for work completed through termination date.",
+      "acceptableAlternatives": [
+        {
+          "position": "14-day notice period",
+          "conditions": "For short-term engagements under 60 days",
+          "notes": "Shorter notice is reasonable for shorter projects"
+        },
+        {
+          "position": "45-day notice period",
+          "conditions": "For enterprise clients with complex transition needs",
+          "notes": "Longer notice helps ensure orderly knowledge transfer"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "Immediate termination without payment for work in progress",
+          "reason": "Provider must be compensated for completed work regardless of termination",
+          "hardStop": true
+        },
+        {
+          "position": "Termination penalties or clawbacks of already-paid fees",
+          "reason": "Fees for completed work are non-refundable",
+          "hardStop": true
+        }
+      ],
+      "escalationRequired": false,
+      "notesForAI": "Termination rights should be balanced. Focus on ensuring compensation for completed work rather than restricting termination rights."
+    },
+    {
+      "ruleKey": "confidentiality_duration",
+      "topic": "CONFIDENTIALITY",
+      "priority": 60,
+      "defaultPosition": "Mutual confidentiality with 3-year survival period post-termination. Standard carve-outs for public information, prior knowledge, and independent development.",
+      "acceptableAlternatives": [
+        {
+          "position": "5-year survival period",
+          "conditions": "For particularly sensitive industries (healthcare, finance)",
+          "notes": "Longer period is reasonable for regulated industries"
+        },
+        {
+          "position": "Perpetual confidentiality for trade secrets",
+          "conditions": "Only for clearly designated trade secrets",
+          "notes": "Trade secrets retain protection as long as they remain secret"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "One-way confidentiality (only Provider bound)",
+          "reason": "Our methodologies and pricing are also confidential",
+          "hardStop": false
+        },
+        {
+          "position": "Confidentiality prevents portfolio use entirely",
+          "reason": "Need ability to reference engagement existence at minimum",
+          "hardStop": false
+        }
+      ],
+      "escalationRequired": false,
+      "notesForAI": "Confidentiality terms are usually straightforward. Ensure mutual obligations and reasonable carve-outs for our portfolio."
+    },
+    {
+      "ruleKey": "jurisdiction_nevada",
+      "topic": "JURISDICTION",
+      "jurisdiction": "US-NV",
+      "priority": 50,
+      "defaultPosition": "Nevada law governs. Disputes resolved by mediation, then binding arbitration in Las Vegas. No jury trials.",
+      "acceptableAlternatives": [
+        {
+          "position": "Delaware law (for corporate clients)",
+          "conditions": "Delaware is acceptable as a neutral, business-friendly jurisdiction",
+          "notes": "Keep arbitration in Las Vegas if possible"
+        },
+        {
+          "position": "Arbitration in client's state",
+          "conditions": "For major enterprise clients",
+          "notes": "May increase our costs for dispute resolution"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "Mandatory litigation instead of arbitration",
+          "reason": "Litigation is slower and more expensive than arbitration",
+          "hardStop": false
+        },
+        {
+          "position": "Foreign jurisdiction/governing law",
+          "reason": "Creates uncertainty and increased legal costs",
+          "hardStop": true
+        }
+      ],
+      "escalationRequired": false,
+      "notesForAI": "Nevada is strongly preferred. Arbitration protects both parties from expensive litigation. Be flexible on venue for good clients."
+    },
+    {
+      "ruleKey": "ai_subprocessor_disclosure",
+      "topic": "AI_DISCLOSURE",
+      "priority": 80,
+      "defaultPosition": "Provider uses AI-assisted coding tools as subprocessors. Human oversight applies to all AI outputs. AI tools are covered under confidentiality provisions.",
+      "acceptableAlternatives": [
+        {
+          "position": "Named disclosure of specific AI tools",
+          "conditions": "For regulated industries requiring subprocessor identification",
+          "notes": "List Claude, GitHub Copilot, or other tools used"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "Complete prohibition of AI tool usage",
+          "reason": "AI tools are integral to our development process and efficiency",
+          "hardStop": true
+        }
+      ],
+      "escalationRequired": false,
+      "notesForAI": "AI disclosure is non-negotiable. We use AI tools and must disclose this. Focus on human oversight and confidentiality protections."
+    },
+    {
+      "ruleKey": "indemnity_mutual",
+      "topic": "INDEMNITY",
+      "priority": 75,
+      "defaultPosition": "Mutual indemnification for third-party claims arising from gross negligence, willful misconduct, or IP infringement.",
+      "acceptableAlternatives": [
+        {
+          "position": "Broader indemnity for IP claims only",
+          "conditions": "Provider may accept broader IP indemnity with proper insurance",
+          "notes": "Ensure indemnity is limited to work created by Provider"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "Unlimited indemnification",
+          "reason": "Indemnity should be limited by the liability cap",
+          "hardStop": true
+        },
+        {
+          "position": "Indemnification for client-provided materials",
+          "reason": "Client responsible for materials they provide",
+          "hardStop": true
+        },
+        {
+          "position": "First-dollar indemnification",
+          "reason": "Should have opportunity to cure before indemnity applies",
+          "hardStop": false
+        }
+      ],
+      "escalationRequired": true,
+      "escalationReason": "Indemnity changes may affect insurance coverage",
+      "notesForAI": "Indemnity should mirror liability limitations. Be careful about open-ended indemnification obligations."
+    },
+    {
+      "ruleKey": "warranty_standard",
+      "topic": "WARRANTY",
+      "priority": 65,
+      "defaultPosition": "30-day warranty period. Deliverables will substantially conform to specifications. Remedy limited to repair or replacement.",
+      "acceptableAlternatives": [
+        {
+          "position": "60-day warranty",
+          "conditions": "For larger or more complex projects",
+          "notes": "Standard for enterprise engagements"
+        },
+        {
+          "position": "90-day warranty",
+          "conditions": "For critical systems with specific SLA requirements",
+          "notes": "May require additional fees to support extended warranty"
+        }
+      ],
+      "unacceptablePositions": [
+        {
+          "position": "Performance warranties beyond specifications",
+          "reason": "Warranty should be limited to meeting documented specs",
+          "hardStop": false
+        },
+        {
+          "position": "Warranty on third-party components",
+          "reason": "Cannot warranty items outside our control",
+          "hardStop": true
+        }
+      ],
+      "escalationRequired": false,
+      "notesForAI": "Warranty should be limited to documented specifications. Avoid open-ended performance guarantees."
+    }
+  ],
+  "globalSettings": {
+    "defaultCurrency": "USD",
+    "defaultDepositPercent": 25,
+    "defaultNetDays": 30,
+    "defaultLateFeePercent": 1.5,
+    "defaultWarrantyDays": 30,
+    "defaultConfidentialityYears": 3,
+    "defaultTerminationNoticeDays": 30,
+    "defaultMediationDays": 60,
+    "arbitrationVenue": "Las Vegas, Nevada",
+    "governingLaw": "Nevada"
+  }
+}

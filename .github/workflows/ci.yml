@@ -20,18 +20,54 @@ jobs:
         cache: 'npm'
         cache-dependency-path: |
           package-lock.json
-          apps/website/package-lock.json
+          apps/platform/package-lock.json
 
     - name: Install root dependencies
       run: npm install --legacy-peer-deps
 
-    - name: Install website dependencies
-      working-directory: apps/website
+    - name: Install platform dependencies
+      working-directory: apps/platform
       run: npm install --legacy-peer-deps
 
+    - name: Enforce import convention (prevent drift)
+      run: |
+        echo "Enforcing import convention: @modules/* is the ONLY standard"
+        echo "============================================================"
+        
+        # Block non-standard patterns (single and double quotes)
+        # Pattern 1: from 'modules/... (missing @)
+        # Pattern 2: from "modules/... (missing @, double quotes)
+        
+        VIOLATIONS=""
+        
+        # Check apps/platform
+        if grep -rIn "from ['\"]modules/" apps/platform/src apps/platform/e2e 2>/dev/null; then
+          VIOLATIONS="${VIOLATIONS}Found 'modules/' without @ prefix in apps/platform\n"
+        fi
+        
+        # Check src/modules (root modules shouldn't import each other with wrong pattern)
+        if grep -rIn "from ['\"]modules/" src/modules 2>/dev/null; then
+          VIOLATIONS="${VIOLATIONS}Found 'modules/' without @ prefix in src/modules\n"
+        fi
+        
+        if [ -n "$VIOLATIONS" ]; then
+          echo "❌ ERROR: Non-standard imports detected"
+          echo "$VIOLATIONS"
+          echo ""
+          echo "Standard: import { x } from '@modules/auth/...' (with @)"
+          echo "Blocked:  import { x } from 'modules/auth/...'  (without @)"
+          exit 1
+        fi
+        
+        echo "✅ Import convention enforced: @modules/* only"
+
     - name: Run unit tests
-      working-directory: apps/website
-      run: npm test -- --testPathIgnorePatterns=integration
+      working-directory: apps/platform
+      run: npm run test:run
+
+    - name: Run test coverage
+      working-directory: apps/platform
+      run: npm run test:coverage
       env:
         NODE_ENV: test
 
