@@ -18,6 +18,24 @@ import { join } from 'path';
 import { execSync } from 'child_process';
 
 const FORBIDDEN_PATTERNS = [
+  // Supabase Personal Access Tokens (PATs) - FULL ACCOUNT ACCESS
+  {
+    pattern: /\bsbp_[A-Za-z0-9]{20,}\b/,
+    message: 'Supabase Personal Access Token (PAT) found - ROTATE IMMEDIATELY',
+    severity: 'error',
+    context: 'PATs have full account access. Delete token at: Supabase Dashboard > Account > Access Tokens',
+  },
+  {
+    pattern: /SUPABASE_ACCESS_TOKEN\s*=\s*['"]?sbp_[A-Za-z0-9]{20,}/,
+    message: 'Supabase PAT assigned to variable - NEVER store PATs in code/config',
+    severity: 'error',
+    context: 'Use single-command env var injection only. See: docs/agents/SECURITY_SECRETS_HANDLING.md',
+  },
+  {
+    pattern: /Bearer\s+sbp_[A-Za-z0-9]{20,}/i,
+    message: 'Supabase PAT in Authorization header - exposed in code',
+    severity: 'error',
+  },
   // Supabase service role key (obvious)
   {
     pattern: /SUPABASE_SERVICE_ROLE_KEY\s*=\s*['"](eyJ[a-zA-Z0-9_-]+)['"]/,
@@ -153,6 +171,8 @@ function checkFile(filePath) {
 }
 
 function checkGitHistory() {
+  const issues = [];
+
   try {
     // Check if service role key was ever committed
     const result = execSync(
@@ -161,17 +181,73 @@ function checkGitHistory() {
     );
 
     if (result.trim()) {
-      return {
+      issues.push({
         severity: 'error',
         message: 'Service role key found in git history. Rotate the key immediately.',
         details: result.trim().split('\n').slice(0, 5),
-      };
+      });
     }
   } catch {
     // Git command failed, skip
   }
 
-  return null;
+  try {
+    // Check if Supabase PAT was ever committed (comprehensive history scan)
+    const patResult = execSync(
+      'git rev-list --all | xargs -n 50 git grep -l "sbp_[A-Za-z0-9]\\{20,\\}" -- 2>/dev/null || true',
+      { encoding: 'utf-8', stdio: 'pipe' }
+    );
+
+    if (patResult.trim()) {
+      issues.push({
+        severity: 'error',
+        message: 'Supabase PAT (sbp_) found in git history. DELETE the token immediately at Supabase Dashboard.',
+        details: patResult.trim().split('\n').slice(0, 5),
+      });
+    }
+  } catch {
+    // Git command failed, skip
+  }
+
+  return issues.length > 0 ? issues : null;
+}
+
+function checkEnvFiles() {
+  const issues = [];
+  const envPatterns = ['.env', '.env.local', '.env.development', '.env.production', '.env.test'];
+
+  for (const envFile of envPatterns) {
+    try {
+      const content = readFileSync(envFile, 'utf-8');
+
+      // SUPABASE_ACCESS_TOKEN should NEVER be in .env files
+      if (content.includes('SUPABASE_ACCESS_TOKEN')) {
+        issues.push({
+          file: envFile,
+          line: content.split('\n').findIndex(l => l.includes('SUPABASE_ACCESS_TOKEN')) + 1,
+          message: 'SUPABASE_ACCESS_TOKEN found in .env file - PATs should NEVER be stored in files',
+          severity: 'error',
+          context: 'Use single-command env var injection only. See: docs/agents/SECURITY_SECRETS_HANDLING.md',
+        });
+      }
+
+      // Check for actual PAT values
+      const patMatch = content.match(/sbp_[A-Za-z0-9]{20,}/);
+      if (patMatch) {
+        issues.push({
+          file: envFile,
+          line: content.split('\n').findIndex(l => l.includes('sbp_')) + 1,
+          message: 'Supabase PAT value found in .env file - ROTATE IMMEDIATELY',
+          severity: 'error',
+          context: 'Delete token at: Supabase Dashboard > Account > Access Tokens',
+        });
+      }
+    } catch {
+      // File doesn't exist, skip
+    }
+  }
+
+  return issues;
 }
 
 function main() {
@@ -184,6 +260,8 @@ function main() {
     'apps/platform/src',
     'scripts',
     '.github/workflows',
+    '.claude',
+    'docs/agents',
   ];
 
   testDirs.forEach((dir) => {
@@ -198,13 +276,19 @@ function main() {
     }
   });
 
-  // Check git history
-  const gitHistoryIssue = checkGitHistory();
-  if (gitHistoryIssue) {
-    issues.push({
-      file: 'git-history',
-      line: 0,
-      ...gitHistoryIssue,
+  // Check .env files for PAT storage (should NEVER happen)
+  const envIssues = checkEnvFiles();
+  issues.push(...envIssues);
+
+  // Check git history for both service role keys and PATs
+  const gitHistoryIssues = checkGitHistory();
+  if (gitHistoryIssues) {
+    gitHistoryIssues.forEach((issue) => {
+      issues.push({
+        file: 'git-history',
+        line: 0,
+        ...issue,
+      });
     });
   }
 
