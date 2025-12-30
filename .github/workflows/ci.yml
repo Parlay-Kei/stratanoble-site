@@ -7,9 +7,33 @@ on:
     branches: [ main ]
 
 jobs:
+  # Security gate: Run before anything expensive
+  security-gate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: HARD FAIL - Block Supabase PATs (sbp_)
+      run: |
+        # This check has ZERO false positives - any match is a real leak
+        if git grep -nE '\bsbp_[A-Za-z0-9]{20,}\b' -- . ':!node_modules' ':!.next' ':!dist' ':!build' 2>/dev/null; then
+          echo ""
+          echo "❌ CRITICAL: Supabase Personal Access Token (PAT) detected!"
+          echo "   PATs have FULL ACCOUNT ACCESS. This is a blocking error."
+          echo ""
+          echo "   Fix: Remove the token and DELETE it at Supabase Dashboard"
+          echo "   See: docs/agents/SECURITY_SECRETS_HANDLING.md"
+          exit 1
+        fi
+        echo "✅ No Supabase PATs (sbp_) found"
+
+    - name: Verify agent security headers
+      run: node scripts/verify-agent-security-headers.mjs
+
   # Unit tests: Fast, parallel, no DB required
   test-unit:
     runs-on: ubuntu-latest
+    needs: [security-gate]
     steps:
     - uses: actions/checkout@v6
 
@@ -74,7 +98,7 @@ jobs:
   # Integration tests: Serial, requires Supabase
   test-integration:
     runs-on: ubuntu-latest
-    # Always run integration tests - no graceful skips
+    needs: [security-gate]
     steps:
     - uses: actions/checkout@v6
 
@@ -167,25 +191,13 @@ jobs:
       working-directory: apps/website
       run: node ../../scripts/check-table-drift.mjs
 
-    - name: HARD FAIL - Block Supabase PATs (sbp_)
-      run: |
-        # This check has ZERO false positives - any match is a real leak
-        if git grep -nE '\bsbp_[A-Za-z0-9]{20,}\b' -- . ':!node_modules' ':!.next' ':!dist' ':!build' 2>/dev/null; then
-          echo ""
-          echo "❌ CRITICAL: Supabase Personal Access Token (PAT) detected!"
-          echo "   PATs have FULL ACCOUNT ACCESS. This is a blocking error."
-          echo ""
-          echo "   Fix: Remove the token and DELETE it at Supabase Dashboard"
-          echo "   See: docs/agents/SECURITY_SECRETS_HANDLING.md"
-          exit 1
-        fi
-        echo "✅ No Supabase PATs (sbp_) found"
+    # PAT check already ran in security-gate job (which this job depends on)
 
     - name: Scan for exposed secrets (non-blocking)
       working-directory: apps/website
       run: node ../../scripts/check-secrets.mjs || true
       # Note: Set to non-blocking due to known false positives (mock JWTs, public anon keys)
-      # The PAT check above is blocking and has zero false positives
+      # PAT check runs in security-gate and blocks before expensive work starts
 
     - name: Verify log masking
       working-directory: apps/website
@@ -228,6 +240,7 @@ jobs:
   # Typecheck: Ensure TypeScript compilation passes
   typecheck:
     runs-on: ubuntu-latest
+    needs: [security-gate]
     steps:
     - uses: actions/checkout@v6
 
@@ -254,6 +267,7 @@ jobs:
   # UI Package typecheck: Ensure shared UI library compiles in isolation
   typecheck-ui:
     runs-on: ubuntu-latest
+    needs: [security-gate]
     steps:
     - uses: actions/checkout@v6
 
@@ -275,6 +289,7 @@ jobs:
   # Contract checks: Validate API schemas, event payloads, and data contracts
   contract-checks:
     runs-on: ubuntu-latest
+    needs: [security-gate]
     steps:
     - uses: actions/checkout@v6
 
@@ -297,6 +312,7 @@ jobs:
   # Dependency policy checks: Ensure no banned packages, versions within policy
   dependency-checks:
     runs-on: ubuntu-latest
+    needs: [security-gate]
     steps:
     - uses: actions/checkout@v6
 
