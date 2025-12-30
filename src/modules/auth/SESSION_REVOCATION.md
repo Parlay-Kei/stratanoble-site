@@ -44,6 +44,26 @@ Result:
 
 This minimizes the window where a revoked user can still access the system.
 
+### Config Receipt
+
+| Setting | Value |
+|---------|-------|
+| Supabase project | `bvneqoevtwodyfqglpzi` (stratanoble-site) |
+| JWT expiry limit | `900 seconds (15 min)` |
+| Date configured | `2025-12-29` |
+| Configured by | `Claude Code (local config.toml)` |
+
+**Local development**: `supabase/config.toml` updated with `jwt_expiry = 900`
+
+**Production**: Update via Supabase Dashboard:
+- URL: `https://supabase.com/dashboard/project/bvneqoevtwodyfqglpzi/settings/auth`
+- Setting: Access token expiry time → 900 seconds
+
+**Verification checklist:**
+- [ ] Two-tab logout test passed
+- [ ] 16+ minute idle re-auth test passed
+- [ ] Onboarding gate works after refresh
+
 ---
 
 ## Level B (Not Implemented)
