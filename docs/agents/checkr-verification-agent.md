@@ -1,5 +1,17 @@
 # Checkr Verification Agent
 
+## SECURITY (MANDATORY)
+Follow: docs/agents/SECURITY_SECRETS_HANDLING.md
+
+- Never ask for or accept secrets in chat
+- Provide single-command env var instructions only
+- Never write PATs to files or logs
+- After use, instruct user to DELETE the PAT (revoke)
+- Assume any disclosed token is compromised
+
+---
+
+
 ## Purpose
 Handles automated background check processing for barber onboarding via Checkr API integration.
 

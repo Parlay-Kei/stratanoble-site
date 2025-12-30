@@ -4,24 +4,37 @@
  *
  * Updates the JWT expiry time for the Supabase project via Management API.
  *
- * Requirements:
- * - SUPABASE_ACCESS_TOKEN environment variable (Personal Access Token)
- * - Token must have 'auth:write' scope
+ * SECURITY REQUIREMENTS:
+ * - NEVER pass tokens via CLI args (they appear in process lists)
+ * - NEVER store tokens in .env files (they can be committed)
+ * - Use single-command env var injection only:
  *
- * Usage:
- *   SUPABASE_ACCESS_TOKEN=sbp_xxx node scripts/update-jwt-expiry.mjs
+ *   PowerShell:
+ *   $env:SUPABASE_ACCESS_TOKEN="PASTE_PAT"; node scripts/update-jwt-expiry.mjs; Remove-Item Env:SUPABASE_ACCESS_TOKEN
  *
- * Or add SUPABASE_ACCESS_TOKEN to .env.local and run:
- *   node scripts/update-jwt-expiry.mjs
+ *   Bash:
+ *   SUPABASE_ACCESS_TOKEN="PASTE_PAT" node scripts/update-jwt-expiry.mjs
+ *
+ * - DELETE the PAT after use: Supabase Dashboard > Account > Access Tokens > Delete
+ *
+ * See: docs/agents/SECURITY_SECRETS_HANDLING.md
  */
 
-import * as dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { dirname } from 'path';
 
-// Load environment variables
+// SECURITY: Block CLI arg token passing (visible in process lists)
+if (process.argv.some(arg => arg.includes('sbp_'))) {
+  console.error('❌ SECURITY ERROR: Do not pass tokens via CLI arguments!');
+  console.error('   CLI args are visible to all users via process lists.');
+  console.error('');
+  console.error('   Use environment variable injection instead:');
+  console.error('   $env:SUPABASE_ACCESS_TOKEN="sbp_xxx"; node scripts/update-jwt-expiry.mjs');
+  console.error('');
+  process.exit(1);
+}
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: join(__dirname, '..', '.env.local') });
 
 const PROJECT_REF = 'bvneqoevtwodyfqglpzi';
 const TARGET_JWT_EXPIRY = 900; // 15 minutes (for Level A session revocation)
@@ -33,10 +46,20 @@ async function updateJwtExpiry() {
   if (!accessToken) {
     console.error('❌ Error: SUPABASE_ACCESS_TOKEN not found in environment');
     console.error('');
-    console.error('To generate a Personal Access Token:');
-    console.error('1. Visit: https://supabase.com/dashboard/account/tokens');
-    console.error('2. Create new token with "auth:write" scope');
-    console.error('3. Add to .env.local: SUPABASE_ACCESS_TOKEN=sbp_your_token_here');
+    console.error('To use this script securely:');
+    console.error('');
+    console.error('1. Generate a PAT at: https://supabase.com/dashboard/account/tokens');
+    console.error('2. Run with single-command env var injection:');
+    console.error('');
+    console.error('   PowerShell:');
+    console.error('   $env:SUPABASE_ACCESS_TOKEN="sbp_xxx"; node scripts/update-jwt-expiry.mjs; Remove-Item Env:SUPABASE_ACCESS_TOKEN');
+    console.error('');
+    console.error('   Bash:');
+    console.error('   SUPABASE_ACCESS_TOKEN="sbp_xxx" node scripts/update-jwt-expiry.mjs');
+    console.error('');
+    console.error('3. DELETE the PAT after use (Supabase Dashboard > Account > Access Tokens)');
+    console.error('');
+    console.error('⚠️  NEVER store PATs in .env files or code. See: docs/agents/SECURITY_SECRETS_HANDLING.md');
     console.error('');
     process.exit(1);
   }
@@ -129,6 +152,13 @@ async function updateJwtExpiry() {
       console.log('     Change: jwt_expiry = 900');
       console.log('  2. Test logout flow to ensure tokens revoke correctly');
       console.log('  3. Monitor user sessions for any issues');
+      console.log('');
+      console.log('─'.repeat(60));
+      console.log('🔐 SECURITY: Delete the PAT you just used!');
+      console.log('   Go to: https://supabase.com/dashboard/account/tokens');
+      console.log('   Find your token and click "Delete" to revoke it.');
+      console.log('   This is the ONLY way to ensure it can never be used again.');
+      console.log('─'.repeat(60));
     } else {
       console.warn('⚠️  WARNING: JWT expiry mismatch!');
       console.warn(`   Expected: ${TARGET_JWT_EXPIRY}, Got: ${verifiedConfig.jwt_exp}`);

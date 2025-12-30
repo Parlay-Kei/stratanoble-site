@@ -167,11 +167,25 @@ jobs:
       working-directory: apps/website
       run: node ../../scripts/check-table-drift.mjs
 
-    - name: Scan for exposed secrets
+    - name: HARD FAIL - Block Supabase PATs (sbp_)
+      run: |
+        # This check has ZERO false positives - any match is a real leak
+        if git grep -nE '\bsbp_[A-Za-z0-9]{20,}\b' -- . ':!node_modules' ':!.next' ':!dist' ':!build' 2>/dev/null; then
+          echo ""
+          echo "❌ CRITICAL: Supabase Personal Access Token (PAT) detected!"
+          echo "   PATs have FULL ACCOUNT ACCESS. This is a blocking error."
+          echo ""
+          echo "   Fix: Remove the token and DELETE it at Supabase Dashboard"
+          echo "   See: docs/agents/SECURITY_SECRETS_HANDLING.md"
+          exit 1
+        fi
+        echo "✅ No Supabase PATs (sbp_) found"
+
+    - name: Scan for exposed secrets (non-blocking)
       working-directory: apps/website
       run: node ../../scripts/check-secrets.mjs || true
       # Note: Set to non-blocking due to known false positives (mock JWTs, public anon keys)
-      # TODO: Refine check-secrets.mjs to reduce false positives, then remove || true
+      # The PAT check above is blocking and has zero false positives
 
     - name: Verify log masking
       working-directory: apps/website
