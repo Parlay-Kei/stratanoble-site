@@ -274,7 +274,7 @@ export function TrustLedgerSharing({ user, shares, onSharesUpdate }: TrustLedger
                   id="email"
                   type="email"
                   value={newShareEmail}
-                  onChange={(e) => setNewShareEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewShareEmail(e.target.value)}
                   placeholder="coach@example.com"
                   required
                   className="w-full"
@@ -292,7 +292,7 @@ export function TrustLedgerSharing({ user, shares, onSharesUpdate }: TrustLedger
                   id="expiry"
                   type="date"
                   value={newShareExpiry}
-                  onChange={(e) => setNewShareExpiry(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewShareExpiry(e.target.value)}
                   min={new Date().toISOString().split('T')[0]}
                   className="w-full"
                 />

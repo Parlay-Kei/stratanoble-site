@@ -3,11 +3,11 @@
 import { useAuth } from '../providers'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { Container } from '@strata-noble/ui'
+import { Container, Button } from '@strata-noble/ui'
 import AnalyticsDashboard from '../../components/achievery/AnalyticsDashboard'
 
 export default function DashboardPage() {
-  const { user, loading } = useAuth()
+  const { user, loading, signOut } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -15,6 +15,17 @@ export default function DashboardPage() {
       router.push('/auth')
     }
   }, [user, loading, router])
+
+  const handleSignOut = async () => {
+    try {
+      await signOut()
+      router.push('/auth')
+    } catch (error) {
+      console.error('Sign out error:', error)
+      // Fallback: force redirect even if sign out fails
+      router.push('/auth')
+    }
+  }
 
   if (loading) {
     return (
@@ -33,6 +44,17 @@ export default function DashboardPage() {
 
   return (
     <Container className="py-8">
+      {/* Header with sign out button */}
+      <div className="flex justify-end mb-6">
+        <Button
+          onClick={handleSignOut}
+          variant="outline"
+          className="text-gray-600 hover:text-gray-800"
+        >
+          Sign out
+        </Button>
+      </div>
+
       <AnalyticsDashboard />
     </Container>
   )

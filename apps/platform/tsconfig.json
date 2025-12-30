@@ -1,14 +1,18 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/app/*": ["./src/app/*"],
-      "@/modules/*": ["../../src/modules/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@modules/*": [
+        "../../src/modules/*"
+      ]
     },
+    "types": [
+      "vitest/globals"
+    ],
     "plugins": [
       {
         "name": "next"
@@ -16,12 +20,19 @@
     ]
   },
   "include": [
+    "e2e/**/*.ts",
+    "instrumentation.ts",
+    "middleware.ts",
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "scripts/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "app",
+    ".next",
+    "../../packages"
   ]
 }

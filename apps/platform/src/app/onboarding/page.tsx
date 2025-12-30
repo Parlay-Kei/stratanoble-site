@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../providers'
 import { Container, Card, Button, Input } from '@strata-noble/ui'
-import { supabase } from '../../lib/supabase'
 import { Sparkles, ArrowRight, Target, Lightbulb } from 'lucide-react'
 import type { DreamFormData, AchieveryPhase } from '../../types/platform'
 
@@ -80,33 +79,31 @@ export default function OnboardingPage() {
     setError(null)
 
     try {
-      // Create the user dream
-      const { data: dreamData, error: dreamError } = await supabase
-        .from('user_dreams')
-        .insert({
-          user_id: user.id,
-          dream_text: dream,
-          current_phase: selectedPhase,
-          starter_actions: starterActionsByPhase[selectedPhase],
-        })
-        .select()
-        .single()
+      // Call the complete onboarding API endpoint
+      // This updates the auth-session cookie with onboardingCompleted: true
+      const response = await fetch('/api/onboarding/complete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          dreamText: dream,
+          phase: selectedPhase,
+        }),
+      })
 
-      if (dreamError) throw dreamError
+      const data = await response.json()
 
-      // Create or update platform settings
-      const { error: settingsError } = await supabase
-        .from('user_platform_settings')
-        .upsert({
-          user_id: user.id,
-          onboarding_completed: true,
-          preferred_phase: selectedPhase,
-        })
+      if (!response.ok || !data.success) {
+        throw new Error(data.error?.message || 'Failed to complete onboarding')
+      }
 
-      if (settingsError) throw settingsError
+      // Get the 'next' query param to redirect back to intended destination
+      const params = new URLSearchParams(window.location.search)
+      const nextUrl = params.get('next') || '/dashboard'
 
-      // Navigate to dashboard
-      router.push('/dashboard')
+      // Navigate to dashboard (or intended destination)
+      router.push(nextUrl)
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Failed to complete onboarding')
     } finally {
@@ -162,7 +159,7 @@ export default function OnboardingPage() {
               <div>
                 <Input
                   value={dream}
-                  onChange={(e) => setDream(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDream(e.target.value)}
                   placeholder="I want to start a podcast about sustainability..."
                   className="min-h-[120px] resize-none text-lg"
                   required
