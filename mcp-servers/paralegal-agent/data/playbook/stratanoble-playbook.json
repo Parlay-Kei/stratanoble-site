@@ -1,0 +1,313 @@
+{
+  "playbook_name": "StrataNoble Negotiation Playbook",
+  "version": "1.0",
+  "jurisdiction": "US-NV",
+  "last_updated": "2025-01-01",
+  "rules": [
+    {
+      "topic": "ip_ownership",
+      "rule_key": "ip_ownership_default",
+      "default_position": "Provider retains all pre-existing IP; Client owns custom deliverables and receives license to use Provider IP incorporated in deliverables",
+      "acceptable_alternatives": [
+        {
+          "position": "Shared ownership of custom IP developed jointly",
+          "conditions": "Only for significant client-funded R&D projects over $250k",
+          "notes": "Requires revenue/royalty sharing agreement"
+        },
+        {
+          "position": "Client owns all IP with Provider retaining portfolio rights",
+          "conditions": "Premium pricing (20-30% increase) and explicit portfolio/reference rights",
+          "notes": "Must negotiate case study and reference rights"
+        }
+      ],
+      "unacceptable_positions": [
+        {
+          "position": "Client owns Provider's core frameworks and methodologies",
+          "reason": "These are StrataNoble's competitive advantage and reusable across all clients",
+          "hard_stop": true
+        },
+        {
+          "position": "Transfer of Provider's pre-existing IP library",
+          "reason": "Pre-existing IP represents years of development investment",
+          "hard_stop": true
+        }
+      ],
+      "escalation_required": true,
+      "escalation_reason": "Any deviation from standard IP model requires executive approval",
+      "notes_for_ai": "IP ownership is a core negotiation point. Never concede Provider's pre-existing IP. Always emphasize that Client gets ownership of custom work product plus perpetual license to use Provider's tools/frameworks.",
+      "priority": 100
+    },
+    {
+      "topic": "limitation_of_liability",
+      "rule_key": "liability_cap_default",
+      "default_position": "Liability capped at total fees paid in preceding 12 months; no liability for consequential damages",
+      "acceptable_alternatives": [
+        {
+          "position": "Liability cap of 2x fees paid",
+          "conditions": "Enterprise clients (>$500k deals) with appropriate insurance coverage",
+          "notes": "Must verify we have adequate E&O insurance"
+        },
+        {
+          "position": "Liability cap of total project value",
+          "conditions": "Projects under $100k where risk is manageable",
+          "notes": "Standard for smaller engagements"
+        }
+      ],
+      "unacceptable_positions": [
+        {
+          "position": "Unlimited liability",
+          "reason": "Exposes company to existential risk",
+          "hard_stop": true
+        },
+        {
+          "position": "Liability for consequential damages without cap",
+          "reason": "Cannot predict or insure against consequential damages",
+          "hard_stop": true
+        },
+        {
+          "position": "Liability cap below total project fees",
+          "reason": "Insufficient to cover actual damages; unfair allocation",
+          "hard_stop": false
+        }
+      ],
+      "escalation_required": true,
+      "escalation_reason": "Any cap above 1x fees requires risk assessment and insurance verification",
+      "notes_for_ai": "Liability limitations are critical for business survival. Never agree to unlimited liability. Always exclude consequential damages. Standard cap is fees paid in last 12 months.",
+      "priority": 100
+    },
+    {
+      "topic": "payment_terms",
+      "rule_key": "payment_upfront_deposit",
+      "default_position": "50% upfront deposit, remainder on milestones; Net 15 payment terms",
+      "acceptable_alternatives": [
+        {
+          "position": "30% deposit, 70% on milestones",
+          "conditions": "Established clients with payment history, projects over $100k",
+          "notes": "Still requires meaningful upfront commitment"
+        },
+        {
+          "position": "40% deposit, 30% mid-project, 30% on completion",
+          "conditions": "Any size client willing to accept this structure",
+          "notes": "Good balance of risk"
+        },
+        {
+          "position": "Net 30 payment terms",
+          "conditions": "Enterprise clients with established payment processes",
+          "notes": "Only if deposit percentage is maintained"
+        }
+      ],
+      "unacceptable_positions": [
+        {
+          "position": "No upfront deposit",
+          "reason": "Necessary to secure commitment and cover setup costs",
+          "hard_stop": true
+        },
+        {
+          "position": "Payment only on final completion",
+          "reason": "Creates excessive cash flow risk and client leverage",
+          "hard_stop": true
+        },
+        {
+          "position": "Less than 30% upfront",
+          "reason": "Insufficient to justify resource allocation",
+          "hard_stop": false
+        }
+      ],
+      "escalation_required": false,
+      "notes_for_ai": "Payment terms protect cash flow. Always require meaningful upfront deposit (minimum 30%, prefer 50%). Never accept payment-on-completion-only terms. Milestones should align with deliverable completion.",
+      "priority": 90
+    },
+    {
+      "topic": "warranty",
+      "rule_key": "warranty_period_default",
+      "default_position": "30-day warranty on deliverables; correction or refund as sole remedy",
+      "acceptable_alternatives": [
+        {
+          "position": "60-day warranty period",
+          "conditions": "Complex projects where reasonable testing time is needed",
+          "notes": "Still maintains correction/refund sole remedy"
+        },
+        {
+          "position": "90-day warranty for enterprise clients",
+          "conditions": "Deals over $250k with extended testing/UAT requirements",
+          "notes": "May require ongoing support retainer"
+        }
+      ],
+      "unacceptable_positions": [
+        {
+          "position": "Unlimited warranty period",
+          "reason": "Creates indefinite liability exposure",
+          "hard_stop": true
+        },
+        {
+          "position": "Warranty covers client modifications",
+          "reason": "Cannot warrant work we didn't perform",
+          "hard_stop": true
+        },
+        {
+          "position": "Warranty covers third-party integrations",
+          "reason": "Cannot control third-party systems",
+          "hard_stop": false
+        }
+      ],
+      "escalation_required": false,
+      "notes_for_ai": "Warranty should be limited in time and scope. 30 days is standard, can extend to 90 for large deals. Never warrant client modifications or third-party components. Sole remedy is correction or refund.",
+      "priority": 70
+    },
+    {
+      "topic": "indemnification",
+      "rule_key": "indemnity_ip_only",
+      "default_position": "Provider indemnifies only for IP infringement of deliverables; Client indemnifies for misuse",
+      "acceptable_alternatives": [
+        {
+          "position": "Mutual indemnification for respective breaches",
+          "conditions": "Standard mutual indemnity is acceptable",
+          "notes": "Common in enterprise agreements"
+        },
+        {
+          "position": "Provider indemnity excludes third-party components",
+          "conditions": "When using significant third-party libraries/tools",
+          "notes": "Third-party components subject to their own licenses"
+        }
+      ],
+      "unacceptable_positions": [
+        {
+          "position": "Provider indemnifies for all third-party IP claims",
+          "reason": "Cannot control or verify all third-party IP rights",
+          "hard_stop": true
+        },
+        {
+          "position": "Indemnity not subject to liability cap",
+          "reason": "Creates unlimited exposure",
+          "hard_stop": true
+        },
+        {
+          "position": "Provider indemnifies client's modifications",
+          "reason": "Cannot control what client does with deliverables",
+          "hard_stop": true
+        }
+      ],
+      "escalation_required": false,
+      "notes_for_ai": "Indemnification for IP infringement is standard but must be limited. Never indemnify for third-party components, client modifications, or use cases outside scope. Indemnity should be subject to overall liability cap.",
+      "priority": 80
+    },
+    {
+      "topic": "termination",
+      "rule_key": "termination_for_convenience",
+      "default_position": "Either party can terminate with 30 days notice; Client pays for work completed",
+      "acceptable_alternatives": [
+        {
+          "position": "60-day termination notice",
+          "conditions": "Long-term engagements where resource planning is critical",
+          "notes": "Gives time to reallocate resources"
+        },
+        {
+          "position": "15-day notice for small projects",
+          "conditions": "Projects under $25k or under 3 months duration",
+          "notes": "More flexibility for smaller engagements"
+        }
+      ],
+      "unacceptable_positions": [
+        {
+          "position": "Client can terminate immediately without cause",
+          "reason": "Leaves Provider exposed with allocated resources",
+          "hard_stop": false
+        },
+        {
+          "position": "No payment for work-in-progress on termination",
+          "reason": "Provider must be compensated for work performed",
+          "hard_stop": true
+        }
+      ],
+      "escalation_required": false,
+      "notes_for_ai": "Termination provisions should be mutual and balanced. Always require notice period and payment for work completed. Never accept terms that allow client to walk away without paying for performed work.",
+      "priority": 75
+    },
+    {
+      "topic": "governing_law",
+      "rule_key": "jurisdiction_nevada",
+      "default_position": "Nevada law governs; disputes resolved in Nevada courts or arbitration",
+      "acceptable_alternatives": [
+        {
+          "position": "Client's home state law if in US",
+          "conditions": "Large deals (>$500k) where client insists on their jurisdiction",
+          "notes": "Prefer arbitration to mitigate forum issues"
+        },
+        {
+          "position": "Delaware law for corporate clients",
+          "conditions": "Common for enterprise agreements; well-established business law",
+          "notes": "Delaware law is predictable and business-friendly"
+        }
+      ],
+      "unacceptable_positions": [
+        {
+          "position": "Foreign jurisdiction (non-US)",
+          "reason": "Difficult and expensive to enforce; unfamiliar legal system",
+          "hard_stop": false
+        },
+        {
+          "position": "Jurisdiction with unfavorable IP or contractor laws",
+          "reason": "Could undermine our IP protections or create employment issues",
+          "hard_stop": false
+        }
+      ],
+      "escalation_required": true,
+      "escalation_reason": "Any jurisdiction change requires legal review",
+      "notes_for_ai": "Nevada is default but we can be flexible within the US. Prefer arbitration for dispute resolution. Foreign jurisdictions require careful review. Always confirm choice of law doesn't conflict with IP protections.",
+      "priority": 60
+    },
+    {
+      "topic": "confidentiality",
+      "rule_key": "confidentiality_mutual",
+      "default_position": "Mutual 5-year confidentiality; standard exclusions apply",
+      "acceptable_alternatives": [
+        {
+          "position": "Perpetual confidentiality for trade secrets",
+          "conditions": "When dealing with true trade secrets (not just confidential info)",
+          "notes": "Standard for highly sensitive information"
+        },
+        {
+          "position": "3-year term for routine business information",
+          "conditions": "Low-sensitivity projects",
+          "notes": "Shorter term acceptable for commodity information"
+        }
+      ],
+      "unacceptable_positions": [
+        {
+          "position": "One-way confidentiality (Provider only)",
+          "reason": "We also share confidential information about our methodologies",
+          "hard_stop": false
+        },
+        {
+          "position": "Confidentiality term less than 2 years",
+          "reason": "Insufficient protection period",
+          "hard_stop": false
+        }
+      ],
+      "escalation_required": false,
+      "notes_for_ai": "Confidentiality should be mutual. 5 years is standard, can adjust to 3-10 years based on information sensitivity. Always include standard exclusions (public domain, prior knowledge, independent development, required disclosure).",
+      "priority": 65
+    }
+  ],
+  "general_guidance": {
+    "negotiation_approach": "Collaborative problem-solving; understand client's concerns and find win-win solutions within playbook parameters",
+    "red_flags": [
+      "Requests for unlimited liability",
+      "Demands for Provider's core IP transfer",
+      "Payment only on final completion",
+      "Warranty of client modifications",
+      "Indemnification for all third-party claims"
+    ],
+    "escalation_thresholds": {
+      "executive_approval_required": "Deals over $250k or any hard-stop violation",
+      "legal_review_required": "Foreign jurisdiction, unusual IP arrangements, uncapped liability requests",
+      "cfo_approval_required": "Payment terms more generous than 40/60 split, extended payment terms beyond Net 30"
+    },
+    "deal_breakers": [
+      "Transfer of core StrataNoble IP/frameworks",
+      "Unlimited liability exposure",
+      "No upfront payment requirement",
+      "Client owns Provider's pre-existing IP"
+    ]
+  }
+}

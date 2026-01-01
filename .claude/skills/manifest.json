@@ -1,0 +1,334 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-12-16T12:00:00Z",
+  "skills": {
+    "project-orchestrator-ops": {
+      "name": "Project Orchestrator Operations",
+      "description": "Autonomous project management and multi-agent coordination for software development",
+      "version": "1.0.0",
+      "capabilities": [
+        "requirements-analysis",
+        "task-decomposition",
+        "agent-dispatch",
+        "progress-tracking",
+        "blocker-resolution",
+        "quality-gates",
+        "autonomous-decisions",
+        "multi-phase-execution"
+      ],
+      "fullSize": 8000,
+      "levels": {
+        "1": { "maxSize": 2000, "description": "Quick project status and task assignment" },
+        "2": { "maxSize": 5000, "description": "Full workflow and handoff protocols" },
+        "3": { "maxSize": 10000, "description": "Complete orchestration with templates" }
+      },
+      "lastModified": "2025-12-16T00:00:00Z"
+    },
+    "frontend-dev-ops": {
+      "name": "Frontend Development Operations",
+      "description": "Frontend development for web and mobile - React, Next.js, React Native, TypeScript, Tailwind",
+      "version": "1.0.0",
+      "capabilities": [
+        "react-nextjs",
+        "react-native-expo",
+        "typescript",
+        "tailwind-css",
+        "component-development",
+        "state-management",
+        "api-integration",
+        "responsive-design",
+        "auth-ui"
+      ],
+      "fullSize": 9000,
+      "levels": {
+        "1": { "maxSize": 2000, "description": "Quick component patterns and setup" },
+        "2": { "maxSize": 5000, "description": "Full patterns with state and API" },
+        "3": { "maxSize": 12000, "description": "Complete reference with all patterns" }
+      },
+      "lastModified": "2025-12-16T00:00:00Z"
+    },
+    "backend-dev-ops": {
+      "name": "Backend Development Operations",
+      "description": "Backend development - APIs, Node.js, Express, Next.js routes, Supabase, integrations",
+      "version": "1.0.0",
+      "capabilities": [
+        "api-design",
+        "nextjs-routes",
+        "express",
+        "supabase-queries",
+        "authentication",
+        "business-logic",
+        "third-party-integrations",
+        "webhooks",
+        "validation"
+      ],
+      "fullSize": 10000,
+      "levels": {
+        "1": { "maxSize": 2000, "description": "Quick route patterns and setup" },
+        "2": { "maxSize": 5000, "description": "Full patterns with auth and validation" },
+        "3": { "maxSize": 14000, "description": "Complete reference with integrations" }
+      },
+      "lastModified": "2025-12-16T00:00:00Z"
+    },
+    "docs-admin-ops": {
+      "name": "Documentation Admin Operations",
+      "description": "Manage, audit, and maintain project documentation across codebases",
+      "version": "1.0.0",
+      "capabilities": [
+        "documentation-audit",
+        "redundancy-detection",
+        "consolidation",
+        "link-validation",
+        "readme-sync",
+        "changelog-management",
+        "cross-reference-validation"
+      ],
+      "fullSize": 8500,
+      "levels": {
+        "1": { "maxSize": 2000, "description": "Quick commands and common fixes" },
+        "2": { "maxSize": 5000, "description": "Detailed workflows and strategies" },
+        "3": { "maxSize": 15000, "description": "Complete API reference" }
+      },
+      "lastModified": "2025-11-28T00:00:00Z"
+    },
+    "codebase-admin-ops": {
+      "name": "Codebase Admin Operations",
+      "description": "Manage, audit, and maintain project codebases for organization and health",
+      "version": "1.0.0",
+      "capabilities": [
+        "structure-audit",
+        "config-management",
+        "dependency-analysis",
+        "file-cleanup",
+        "env-consolidation",
+        "pre-production-audit",
+        "framework-conventions"
+      ],
+      "fullSize": 9200,
+      "levels": {
+        "1": { "maxSize": 2000, "description": "Quick health checks and cleanup" },
+        "2": { "maxSize": 5000, "description": "Structure and config audits" },
+        "3": { "maxSize": 15000, "description": "Full audit and automation" }
+      },
+      "lastModified": "2025-11-28T00:00:00Z"
+    },
+    "supabase-ops": {
+      "name": "Supabase Operations",
+      "description": "Comprehensive Supabase database management, optimization, and administration",
+      "version": "1.0.0",
+      "capabilities": [
+        "schema-management",
+        "migration-control",
+        "rls-policies",
+        "index-optimization",
+        "storage-buckets",
+        "edge-functions",
+        "realtime-config",
+        "performance-monitoring",
+        "type-generation",
+        "backup-restore",
+        "connection-pooling",
+        "security-audit"
+      ],
+      "fullSize": 12000,
+      "levels": {
+        "1": { "maxSize": 2000, "description": "Quick CLI commands and diagnostics" },
+        "2": { "maxSize": 5000, "description": "Schema, RLS, and index patterns" },
+        "3": { "maxSize": 15000, "description": "Complete reference with functions, edge functions, and monitoring" }
+      },
+      "lastModified": "2025-12-04T00:00:00Z"
+    },
+    "api-admin-ops": {
+      "name": "API Admin Operations",
+      "description": "Autonomous API administration for Twilio, OpenAI, Stripe - monitoring, error resolution, and configuration management",
+      "version": "1.0.0",
+      "capabilities": [
+        "api-monitoring",
+        "error-classification",
+        "twilio-management",
+        "openai-management",
+        "stripe-management",
+        "webhook-validation",
+        "credential-safety",
+        "rate-limit-handling",
+        "auto-remediation",
+        "incident-logging"
+      ],
+      "fullSize": 16000,
+      "levels": {
+        "1": { "maxSize": 2000, "description": "Quick health checks and error lookup" },
+        "2": { "maxSize": 5000, "description": "API operations and troubleshooting" },
+        "3": { "maxSize": 20000, "description": "Complete API reference with all services" }
+      },
+      "lastModified": "2025-12-04T12:00:00Z"
+    },
+    "github-ops": {
+      "name": "GitHub Operations",
+      "description": "Comprehensive GitHub repository management, CI/CD, and collaboration workflows",
+      "version": "1.0.0",
+      "capabilities": [
+        "repository-management",
+        "branch-strategy",
+        "pull-request-workflows",
+        "issue-management",
+        "actions-ci-cd",
+        "secrets-management",
+        "release-management",
+        "security-scanning",
+        "dependabot",
+        "codeowners",
+        "webhooks",
+        "github-api",
+        "branch-protection"
+      ],
+      "fullSize": 14000,
+      "levels": {
+        "1": { "maxSize": 2000, "description": "Quick CLI commands and diagnostics" },
+        "2": { "maxSize": 5000, "description": "Branch strategy, PR workflows, Actions basics" },
+        "3": { "maxSize": 18000, "description": "Complete reference with advanced Actions, API, security" }
+      },
+      "lastModified": "2025-12-04T00:00:00Z"
+    },
+    "cold-calling-ops": {
+      "name": "Cold Calling Operations",
+      "description": "Voice AI calling system operations and troubleshooting",
+      "version": "1.0.0",
+      "capabilities": [
+        "call-diagnostics",
+        "twilio-integration",
+        "openai-realtime",
+        "websocket-debugging",
+        "call-flow-analysis"
+      ],
+      "fullSize": 12000,
+      "lastModified": "2025-11-28T00:00:00Z"
+    },
+    "deployment-ops": {
+      "name": "Deployment Operations",
+      "description": "Manage deployments across Vercel, Railway, and Supabase",
+      "version": "1.0.0",
+      "capabilities": [
+        "pre-deployment-validation",
+        "staged-rollouts",
+        "rollback-management",
+        "deployment-monitoring",
+        "zero-downtime-deployment"
+      ],
+      "fullSize": 10000,
+      "lastModified": "2025-11-28T00:00:00Z"
+    },
+    "environment-ops": {
+      "name": "Environment Operations",
+      "description": "Manage environment variables and configuration",
+      "version": "1.0.0",
+      "capabilities": [
+        "env-validation",
+        "secret-management",
+        "config-sync",
+        "multi-environment"
+      ],
+      "fullSize": 6000,
+      "lastModified": "2025-11-28T00:00:00Z"
+    },
+    "monitoring-ops": {
+      "name": "Monitoring Operations",
+      "description": "System health monitoring and alerting",
+      "version": "1.0.0",
+      "capabilities": [
+        "health-checks",
+        "log-analysis",
+        "metrics-collection",
+        "alerting"
+      ],
+      "fullSize": 7000,
+      "lastModified": "2025-11-28T00:00:00Z"
+    },
+    "testing-ops": {
+      "name": "Testing Operations",
+      "description": "Test execution and quality assurance",
+      "version": "1.0.0",
+      "capabilities": [
+        "test-execution",
+        "coverage-analysis",
+        "integration-testing",
+        "e2e-testing"
+      ],
+      "fullSize": 8000,
+      "lastModified": "2025-11-28T00:00:00Z"
+    },
+    "paralegal-agent-ops": {
+      "name": "Paralegal Contract Agent Operations",
+      "description": "Autonomous contract drafting and review using templates, clause libraries, and negotiation playbooks",
+      "version": "1.0.0",
+      "capabilities": [
+        "contract-generation",
+        "template-management",
+        "clause-library",
+        "playbook-enforcement",
+        "version-comparison",
+        "deal-context-retrieval",
+        "msa-generation",
+        "sow-generation",
+        "nda-generation",
+        "change-orders",
+        "ip-addendums",
+        "payment-policies"
+      ],
+      "fullSize": 15000,
+      "levels": {
+        "1": { "maxSize": 2000, "description": "Quick contract templates and clause lookup" },
+        "2": { "maxSize": 5000, "description": "Full contract generation with playbook rules" },
+        "3": { "maxSize": 18000, "description": "Complete reference with all tools and workflows" }
+      },
+      "lastModified": "2025-12-30T00:00:00Z"
+    }
+  },
+  "problemTypeMapping": {
+    "project": ["project-orchestrator-ops"],
+    "build-app": ["project-orchestrator-ops", "frontend-dev-ops", "backend-dev-ops"],
+    "build-website": ["project-orchestrator-ops", "frontend-dev-ops"],
+    "frontend": ["frontend-dev-ops"],
+    "ui": ["frontend-dev-ops"],
+    "react": ["frontend-dev-ops"],
+    "nextjs": ["frontend-dev-ops", "backend-dev-ops"],
+    "mobile": ["frontend-dev-ops"],
+    "backend": ["backend-dev-ops"],
+    "api": ["backend-dev-ops", "api-admin-ops"],
+    "routes": ["backend-dev-ops"],
+    "documentation": ["docs-admin-ops"],
+    "codebase-cleanup": ["codebase-admin-ops", "docs-admin-ops"],
+    "call-failure": ["cold-calling-ops"],
+    "deployment": ["deployment-ops", "supabase-ops"],
+    "environment": ["environment-ops"],
+    "monitoring": ["monitoring-ops"],
+    "testing": ["testing-ops"],
+    "health-check": ["monitoring-ops", "cold-calling-ops"],
+    "pre-production": ["codebase-admin-ops", "docs-admin-ops", "deployment-ops", "testing-ops", "supabase-ops"],
+    "database": ["supabase-ops"],
+    "schema": ["supabase-ops"],
+    "rls": ["supabase-ops"],
+    "migration": ["supabase-ops"],
+    "supabase": ["supabase-ops"],
+    "github": ["github-ops"],
+    "ci-cd": ["github-ops", "deployment-ops"],
+    "actions": ["github-ops"],
+    "pull-request": ["github-ops"],
+    "repository": ["github-ops", "codebase-admin-ops"],
+    "release": ["github-ops"],
+    "security-scan": ["github-ops"],
+    "twilio": ["api-admin-ops", "cold-calling-ops"],
+    "openai": ["api-admin-ops"],
+    "stripe": ["api-admin-ops"],
+    "webhook": ["api-admin-ops", "github-ops", "backend-dev-ops"],
+    "api-errors": ["api-admin-ops"],
+    "phone-numbers": ["api-admin-ops"],
+    "contract": ["paralegal-agent-ops"],
+    "agreement": ["paralegal-agent-ops"],
+    "msa": ["paralegal-agent-ops"],
+    "sow": ["paralegal-agent-ops"],
+    "nda": ["paralegal-agent-ops"],
+    "legal": ["paralegal-agent-ops"],
+    "draft-contract": ["paralegal-agent-ops"],
+    "review-contract": ["paralegal-agent-ops"]
+  }
+}
