@@ -1,0 +1,31 @@
+{
+  "name": "@stratanoble/paralegal-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for autonomous contract drafting and review",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "seed": "node scripts/seed-data.js",
+    "smoke-test": "node scripts/smoke-test.js",
+    "rls-test": "node scripts/rls-test.js",
+    "test": "npm run smoke-test && npm run rls-test"
+  },
+  "keywords": ["mcp", "contracts", "legal", "paralegal", "document-generation"],
+  "author": "StrataNoble",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@supabase/supabase-js": "^2.39.0",
+    "diff": "^5.1.0",
+    "zod": "^3.22.4",
+    "marked": "^11.0.0",
+    "date-fns": "^3.0.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/diff": "^5.0.9",
+    "typescript": "^5.3.3"
+  }
+}
