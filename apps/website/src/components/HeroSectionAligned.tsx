@@ -110,25 +110,16 @@ export function HeroSectionAligned() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
-              Turn Any{' '}
+              Strata Noble builds revenue-producing{' '}
               <motion.span
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="bg-gradient-to-r from-accent-gold to-accent-cream bg-clip-text text-transparent"
               >
-                Idea
+                digital infrastructure
               </motion.span>
-              <br />
-              Into a{' '}
-              <motion.span
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent"
-              >
-                Real Business
-              </motion.span>
+              .
             </h1>
           </motion.div>
 
@@ -139,7 +130,7 @@ export function HeroSectionAligned() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
           >
-            You’ve got the idea. We’ve got the AI that builds it. Zero experience needed.
+            Websites, portals, and pipelines that turn leads into customers and keep revenue trackable.
           </motion.p>
 
           {/* Success Principles Dashboard */}

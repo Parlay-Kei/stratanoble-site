@@ -3,13 +3,24 @@ import { HeroSectionAligned } from '@/components/HeroSectionAligned';
 import { OpportunityInsightSection } from '@/components/OpportunityInsightSection';
 import { WhatWeDoFlow } from '@/components/WhatWeDoFlow';
 import { WhyStrataNobleGrid } from '@/components/WhyStrataNobleGrid';
-import { SmartConsultingBar } from '@/components/SmartConsultingBar';
 import { isRevampEnabled } from '@/lib/feature-flags';
 import { RevampedHero } from '@/components/revamp/RevampedHero';
 import { LeadLeakCheckSection } from '@/components/revamp/LeadLeakCheckSection';
-import { WhatWeInstallSection } from '@/components/revamp/WhatWeInstallSection';
-import { PrinciplesSection } from '@/components/revamp/PrinciplesSection';
 import { BuiltInPublicSection } from '@/components/revamp/BuiltInPublicSection';
+import nextDynamic from 'next/dynamic';
+
+// Lazy-load client components below the fold for better performance
+const SmartConsultingBar = nextDynamic(() => import('@/components/SmartConsultingBar').then(mod => ({ default: mod.SmartConsultingBar })), {
+  ssr: false,
+});
+
+const WhatWeInstallSection = nextDynamic(() => import('@/components/revamp/WhatWeInstallSection').then(mod => ({ default: mod.WhatWeInstallSection })), {
+  ssr: false,
+});
+
+const PrinciplesSection = nextDynamic(() => import('@/components/revamp/PrinciplesSection').then(mod => ({ default: mod.PrinciplesSection })), {
+  ssr: false,
+});
 
 export const dynamic = 'force-dynamic';
 

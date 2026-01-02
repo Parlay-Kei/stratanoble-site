@@ -28,6 +28,24 @@
     "apps/website/src/__tests__/**"
   ]
 
+[[redirects]]
+  from = "http://stratanoble.com/*"
+  to = "https://stratanoble.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://StrataNoble.com/*"
+  to = "https://stratanoble.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://StrataNoble.com/*"
+  to = "https://stratanoble.com/:splat"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]

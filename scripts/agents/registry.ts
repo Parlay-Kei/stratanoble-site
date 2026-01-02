@@ -17,28 +17,33 @@ export enum AgentEvent {
   PRE_COMMIT = 'pre-commit',
   PRE_PUSH = 'pre-push',
   POST_COMMIT = 'post-commit',
-  
+
   // Build events
   PRE_BUILD = 'pre-build',
   BUILD_FAILED = 'build-failed',
-  
+
   // Code quality events
   LINT_ERROR = 'lint-error',
   TYPE_ERROR = 'type-error',
   TEST_FAILURE = 'test-failure',
-  
+
   // Deployment events
   PRE_DEPLOY = 'pre-deploy',
   DEPLOY_FAILED = 'deploy-failed',
-  
+
   // System events
   SERVICE_DOWN = 'service-down',
   PERFORMANCE_DEGRADED = 'performance-degraded',
-  
+
   // Time-based events
   HOURLY = 'hourly',
   DAILY = 'daily',
-  WEEKLY = 'weekly'
+  WEEKLY = 'weekly',
+
+  // Sprint management events
+  SPRINT_PLAN = 'sprint-plan',
+  SPRINT_STATUS = 'sprint-status',
+  SPRINT_NEXT = 'sprint-next'
 }
 
 import { AgentLogger } from './logger.js';

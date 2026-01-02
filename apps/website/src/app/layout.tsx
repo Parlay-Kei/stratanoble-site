@@ -90,9 +90,10 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+  // Google verification - remove if not set, or add real value
+  // verification: {
+  //   google: process.env.GOOGLE_SITE_VERIFICATION || '',
+  // },
   category: 'business',
   manifest: '/manifest.json',
   appleWebApp: {
@@ -108,12 +109,14 @@ export const metadata: Metadata = {
     'theme-color': '#30232d',
     'msapplication-TileColor': '#30232d',
     'color-scheme': 'light dark',
-    // iOS Smart App Banner
-    'apple-itunes-app': 'app-id=ACHIEVERY_APP_ID, app-argument=achievery://dashboard',
+    // iOS Smart App Banner - only add if app is published
+    ...(process.env.NEXT_PUBLIC_ACHIEVERY_APP_ID ? {
+      'apple-itunes-app': `app-id=${process.env.NEXT_PUBLIC_ACHIEVERY_APP_ID}, app-argument=achievery://dashboard`,
+      'al:ios:app_store_id': process.env.NEXT_PUBLIC_ACHIEVERY_APP_ID,
+    } : {}),
     // Android App Install Banner
     'google-play-app': 'app-id=com.stratanoble.achievery',
     // Deep linking support
-    'al:ios:app_store_id': 'ACHIEVERY_APP_ID',
     'al:ios:app_name': 'ACHIEVERY',
     'al:ios:url': 'achievery://dashboard',
     'al:android:package': 'com.stratanoble.achievery',
@@ -133,7 +136,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "name": "Strata Noble",
     "url": "https://stratanoble.com",
     "logo": "https://stratanoble.com/stratanoble_logoICON.svg",
-    "description": "Consulting-as-a-Service platform with guided diagnostics, ACHIEVERY achievement tracking, playbooks, dashboards, and expert support for entrepreneurs.",
+    "description": "Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures, including websites, portals, marketplaces, and the systems that run them.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Las Vegas",
@@ -220,12 +223,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <Suspense fallback={null}>
           <Analytics />
-        </Suspense>        {/* Google Analytics with Next.js Script component */}
+        </Suspense>        {/* Google Analytics with Next.js Script component - afterInteractive for better performance */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-0TGKD1S1HB"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
-        <Script id="ga-config" strategy="lazyOnload">
+        <Script id="ga-config" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -237,7 +240,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           defer
           data-domain="stratanoble.com"
           src="https://plausible.io/js/script.js"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
                 {/* Service Worker Registration */}
         {process.env.NODE_ENV === 'production' && (

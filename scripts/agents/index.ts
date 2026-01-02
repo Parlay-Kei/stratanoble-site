@@ -2,6 +2,7 @@ import { registry, AgentEvent } from './registry';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { projectManagerAgent } from './pm-agent';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -109,5 +110,8 @@ registry.register({
     console.log('✅ Pre-push validation passed');
   }
 });
+
+// Register Project Manager Agent
+registry.register(projectManagerAgent);
 
 export { registry };

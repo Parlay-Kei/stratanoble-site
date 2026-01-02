@@ -10,14 +10,59 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
 // Server-side Supabase client (uses service role key for admin operations)
 let _admin: ReturnType<typeof createClient<Database>> | null = null;
+
+/**
+ * Validates that admin environment variables are configured correctly.
+ * @returns Validation result with any errors found
+ */
+export function validateAdminEnvVars(): { valid: boolean; errors: string[] } {
+  const errors: string[] = [];
+
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    errors.push('NEXT_PUBLIC_SUPABASE_URL is not set');
+  }
+
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    errors.push('SUPABASE_SERVICE_ROLE_KEY is not set');
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}
+
 async function getSupabaseAdmin(): Promise<ReturnType<typeof createClient<Database>>> {
+  // Prevent client-side usage
   if (typeof window !== 'undefined') {
     throw new Error('supabase admin client is server-only');
   }
+
+  // Return cached instance if available
   if (_admin) return _admin;
+
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  // Production requires service role key
+  if (!serviceRoleKey && process.env.NODE_ENV === 'production') {
+    throw new Error(
+      'SUPABASE_SERVICE_ROLE_KEY is required for admin operations in production. ' +
+      'This prevents privilege escalation attacks. Configure the service role key immediately.'
+    );
+  }
+
+  // Development warning for missing service role key
+  if (!serviceRoleKey) {
+    console.warn(
+      '[SECURITY WARNING] SUPABASE_SERVICE_ROLE_KEY not set in development. ' +
+      'Using anon key for admin operations. This is ONLY acceptable in local development. ' +
+      'DO NOT deploy to production without a service role key.'
+    );
+  }
+
   _admin = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)!,
+    serviceRoleKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       auth: {
         autoRefreshToken: false,
@@ -25,6 +70,7 @@ async function getSupabaseAdmin(): Promise<ReturnType<typeof createClient<Databa
       },
     }
   );
+
   return _admin;
 }
 
@@ -181,7 +227,7 @@ export const db = {
       tier: data.tier || 'lite',
       status: data.status || 'active'
     };
-    
+
     const admin = await getSupabaseAdmin();
     const { data: client, error } = await (admin as any)
       .from('clients')
@@ -324,7 +370,7 @@ export const db = {
     metadata?: Record<string, unknown>;
   }) {
     const admin = await getSupabaseAdmin();
-    
+
     const insertData = {
       name: data.name,
       email: data.email,
@@ -471,11 +517,11 @@ export const db = {
 
   async updateEmailSequenceStatus(sequenceId: string, status: 'sending' | 'sent' | 'failed' | 'cancelled', errorMessage?: string, emailProviderId?: string) {
     const admin = await getSupabaseAdmin();
-    const updateData: any = { 
+    const updateData: any = {
       status,
       attempts: (admin as any).raw('attempts + 1')
     };
-    
+
     if (status === 'sent') {
       updateData.sent_at = new Date().toISOString();
     }
