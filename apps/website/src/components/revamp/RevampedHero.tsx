@@ -44,17 +44,16 @@ export function RevampedHero() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
-              Stop Losing Leads.{' '}
+              Revenue-producing{' '}
               <motion.span
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="bg-gradient-to-r from-accent-gold to-accent-cream bg-clip-text text-transparent"
               >
-                Build a Business
+                digital infrastructure
               </motion.span>
-              <br />
-              That Closes.
+              {' '}for service businesses.
             </h1>
           </motion.div>
 
@@ -65,8 +64,7 @@ export function RevampedHero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl md:text-2xl text-gray-300 mt-6 max-w-3xl mx-auto leading-relaxed"
           >
-            We install a lead-to-customer pipeline in days: intake, follow-up, progress tracking.
-            Delivered manually now, automated inside the Strata Noble platform as it ships.
+            Websites, portals, and pipelines that turn leads into customers with trackable operations.
           </motion.p>
 
           {/* CTAs */}
@@ -80,7 +78,7 @@ export function RevampedHero() {
               href="/lead-rescue"
               className="bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary/90 transition inline-flex items-center justify-center shadow-xl hover:shadow-2xl"
             >
-              Get the 48-Hour Lead Rescue
+              Start with the 48-Hour Lead Rescue
             </Link>
             <Link
               href="/phase-3"

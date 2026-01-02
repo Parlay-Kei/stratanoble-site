@@ -23,7 +23,8 @@
         "campaign:worker": "node server/campaign-worker.js",
         "summarize": "node server/summarize.js",
         "test:auth": "tsx scripts/test-auth-providers.ts",
-        "list:auth": "tsx scripts/list-auth-providers.ts"
+        "list:auth": "tsx scripts/list-auth-providers.ts",
+        "validate-env": "npx tsx scripts/validate-env.ts"
     },
     "dependencies": {
         "@auth/prisma-adapter": "^2.10.0",

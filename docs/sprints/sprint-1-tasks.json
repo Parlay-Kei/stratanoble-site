@@ -1,0 +1,161 @@
+{
+  "sprint": 1,
+  "goal": "Security closeout proof + build stabilization",
+  "duration": "2 weeks",
+  "tasks": [
+    {
+      "id": "SEC-001",
+      "title": "Remove middleware bypass",
+      "assigneeRole": "security",
+      "priority": "critical",
+      "status": "completed",
+      "dependencies": [],
+      "acceptanceCriteria": [
+        "Middleware has no unconditional NextResponse.next() bypass",
+        "Security tests cover the chain"
+      ],
+      "artifacts": [
+        "docs/audits/proofs/2026-01-01/middleware-fix.log"
+      ],
+      "estimateHours": 4
+    },
+    {
+      "id": "SEC-002",
+      "title": "Supabase admin client fail-loud",
+      "assigneeRole": "security",
+      "priority": "critical",
+      "status": "completed",
+      "dependencies": [],
+      "acceptanceCriteria": [
+        "Service role key validation at startup",
+        "Loud failure prevents silent degradation"
+      ],
+      "artifacts": [
+        "docs/audits/proofs/2026-01-01/admin-client-validation.log"
+      ],
+      "estimateHours": 3
+    },
+    {
+      "id": "SEC-003",
+      "title": "Protected route enforcement",
+      "assigneeRole": "security",
+      "priority": "critical",
+      "status": "completed",
+      "dependencies": [],
+      "acceptanceCriteria": [
+        "Route guards implemented",
+        "Unauthenticated access blocked"
+      ],
+      "artifacts": [
+        "docs/audits/proofs/2026-01-01/route-protection-tests.log"
+      ],
+      "estimateHours": 4
+    },
+    {
+      "id": "SEC-004",
+      "title": "Middleware security tests",
+      "assigneeRole": "security",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [
+        "SEC-001"
+      ],
+      "acceptanceCriteria": [
+        "Tests cover CSRF protection",
+        "Tests cover auth validation"
+      ],
+      "artifacts": [
+        "docs/audits/proofs/2026-01-01/middleware-tests.log"
+      ],
+      "estimateHours": 3
+    },
+    {
+      "id": "SEC-005",
+      "title": "Environment validation CI script",
+      "assigneeRole": "platform",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "acceptanceCriteria": [
+        "Script checks all required env vars",
+        "CI fails if vars missing"
+      ],
+      "artifacts": [
+        "docs/audits/proofs/2026-01-01/env-validation.log"
+      ],
+      "estimateHours": 2
+    },
+    {
+      "id": "SEC-006",
+      "title": "Observability alert proof",
+      "assigneeRole": "platform",
+      "priority": "high",
+      "status": "in_progress",
+      "dependencies": [],
+      "acceptanceCriteria": [
+        "Test alert triggered",
+        "Screenshot/log saved",
+        "Monitoring verified functional"
+      ],
+      "artifacts": [
+        "docs/audits/proofs/2026-01-01/observability-alert.png"
+      ],
+      "estimateHours": 4
+    },
+    {
+      "id": "BUILD-001",
+      "title": "Fix Next.js 15 SSR build failures",
+      "assigneeRole": "tech-lead",
+      "priority": "critical",
+      "status": "not_started",
+      "dependencies": [],
+      "acceptanceCriteria": [
+        "Build completes without errors",
+        "All pages pass static generation",
+        "Build output saved to proof file"
+      ],
+      "artifacts": [
+        "docs/audits/proofs/<date>/build-success.log"
+      ],
+      "estimateHours": 12
+    },
+    {
+      "id": "CI-001",
+      "title": "Commit ESLint fix and verify CI",
+      "assigneeRole": "platform",
+      "priority": "high",
+      "status": "not_started",
+      "dependencies": [],
+      "acceptanceCriteria": [
+        "ESLint fix committed",
+        "CI pipeline runs and passes",
+        "CI output saved to proof file"
+      ],
+      "artifacts": [
+        "docs/audits/proofs/<date>/ci-success.log"
+      ],
+      "estimateHours": 2
+    },
+    {
+      "id": "DOC-001",
+      "title": "Security Gate Proof document",
+      "assigneeRole": "security",
+      "priority": "high",
+      "status": "not_started",
+      "dependencies": [
+        "SEC-006",
+        "BUILD-001",
+        "CI-001"
+      ],
+      "acceptanceCriteria": [
+        "All completed tasks referenced",
+        "All proof files linked",
+        "No claims without evidence"
+      ],
+      "artifacts": [
+        "docs/audits/security-gate-proof.md"
+      ],
+      "estimateHours": 4
+    }
+  ]
+}
