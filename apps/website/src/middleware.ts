@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import { handleAppLink } from '@/lib/deepLinking';
+import { rateLimit, createRateLimitHeaders, getClientIP } from '@/lib/rate-limit-buckets';
 
 // Initialize Redis connection with secure env vars
 const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
@@ -79,17 +80,8 @@ function getRateLimiter(pathname: string) {
   return rateLimiters.general;
 }
 
-function getClientIP(request: NextRequest): string {
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  const realIP = request.headers.get('x-real-ip');
-  const cfConnectingIP = request.headers.get('cf-connecting-ip');
-
-  if (cfConnectingIP) return cfConnectingIP;
-  if (realIP) return realIP;
-  if (forwardedFor) return forwardedFor.split(',')[0].trim();
-
-  return '127.0.0.1';
-}
+// Use Netlify-aware IP extraction from rate-limit-buckets
+// (getClientIP is imported from rate-limit-buckets)
 
 /**
  * Check if user is authenticated for Achievery routes
@@ -265,6 +257,107 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
+    // STEP 4a: Auth rate limiting (fail-soft) - targeted to high-risk endpoints only
+    if (pathname.startsWith('/api/auth/')) {
+      const method = request.method;
+      
+      // Benign endpoints that should NOT be rate limited (keep lobby open)
+      const benignEndpoints = [
+        '/api/auth/session',      // Session checks (frequent polling)
+        '/api/auth/providers',    // Provider list (UI needs this)
+        '/api/auth/csrf',         // CSRF token (needed for forms)
+        '/api/auth/error',         // Error page
+      ];
+      const isBenign = benignEndpoints.some(endpoint => pathname === endpoint) ||
+                       (pathname === '/api/auth/signin' && method === 'GET'); // Sign-in page
+      
+      if (isBenign) {
+        return NextResponse.next();
+      }
+      
+      // Determine which auth bucket to use based on endpoint (lock the vault)
+      let authBucket: 'auth_signin' | 'auth_verify' | null = null;
+      
+      // High-risk endpoints that need rate limiting (POST only)
+      if (method === 'POST') {
+        // Credentials sign-in (brute force target)
+        // NextAuth routes: /api/auth/callback/credentials or /api/auth/signin with credentials
+        if (pathname === '/api/auth/callback/credentials') {
+          authBucket = 'auth_signin';
+        }
+        // Email/magic link verification (bot target)
+        // NextAuth routes: /api/auth/callback/email or /api/auth/signin/email
+        else if (pathname === '/api/auth/callback/email' || 
+                 pathname === '/api/auth/signin/email') {
+          authBucket = 'auth_verify';
+        }
+        // Generic signin POST - could be credentials or email, default to signin bucket
+        // (More restrictive is safer for brute force protection)
+        else if (pathname === '/api/auth/signin') {
+          authBucket = 'auth_signin';
+        }
+      }
+      
+      // Apply rate limiting only to high-risk endpoints
+      if (authBucket) {
+        try {
+          const rateLimitResult = await rateLimit(authBucket, request);
+          
+          if (!rateLimitResult.success) {
+            // Fail-soft: Add delay to slow brute force (300-800ms)
+            const delay = 300 + Math.floor(Math.random() * 500);
+            await new Promise((resolve) => setTimeout(resolve, delay));
+            
+            return new NextResponse(
+              JSON.stringify({
+                error: 'Rate limit exceeded',
+                message: 'Try again shortly.',
+              }),
+              {
+                status: 429,
+                headers: {
+                  'Content-Type': 'application/json',
+                  ...createRateLimitHeaders(rateLimitResult),
+                },
+              }
+            );
+          }
+          
+          // Add rate limit headers to successful responses
+          const response = NextResponse.next();
+          const headers = createRateLimitHeaders(rateLimitResult);
+          Object.entries(headers).forEach(([key, value]) => {
+            response.headers.set(key, value);
+          });
+          
+          return response;
+        } catch (error) {
+          // Fail-soft: If rate limiting fails, return 429 with delay
+          console.error('[RATE LIMIT ERROR] Auth rate limiting failed:', error);
+          const delay = 300 + Math.floor(Math.random() * 500);
+          await new Promise((resolve) => setTimeout(resolve, delay));
+          
+          return new NextResponse(
+            JSON.stringify({
+              error: 'Rate limit exceeded',
+              message: 'Try again shortly.',
+            }),
+            {
+              status: 429,
+              headers: {
+                'Content-Type': 'application/json',
+                'Retry-After': '60',
+              },
+            }
+          );
+        }
+      }
+      
+      // Allow benign endpoints and non-matching auth routes through
+      return NextResponse.next();
+    }
+
+    // STEP 4b: General API rate limiting (fail-open for intake routes)
     // Gracefully degrade rate limiting in dev mode
     if (process.env.NODE_ENV === 'development') {
       if (process.env.SKIP_RATE_LIMITING === 'true') {
