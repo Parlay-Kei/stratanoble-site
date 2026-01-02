@@ -1,6 +1,7 @@
 [build]
   base = "apps/website"
-  command = "npm ci --no-audit --no-fund --legacy-peer-deps && npm run build --verbose"
+  # Run Prisma migrations before build to ensure database schema is up to date
+  command = "npm ci --no-audit --no-fund --legacy-peer-deps && npx prisma migrate deploy && npm run build --verbose"
   publish = "build"
 
 [[plugins]]
