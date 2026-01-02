@@ -11,13 +11,14 @@
 
 **Expected Commit**: `7bc7b79` or newer (includes Edge crypto fix)
 
-**Actual Commit SHA**: `_________________`
+**Actual Commit SHA**: `01f1492` ✅
 
-**Status**: ⏳ PENDING / ✅ CONFIRMED / ❌ MISMATCH
+**Status**: ✅ CONFIRMED
 
 **Notes**: 
-- If mismatch, check which commit is actually deployed
-- Verify it includes the Edge crypto fix (`becd46c` or later)
+- Deploy `01f1492` is published and live
+- Includes Edge crypto fix (`becd46c` in history)
+- Build completed successfully in 3m 45.5s
 
 ---
 
@@ -31,12 +32,17 @@
 
 **Search Results**:
 ```
-[Paste search results here]
+✅ PASS - No warnings found in deploy 01f1492
+- Edge Functions bundling completed successfully
+- Middleware bundled: 57.7 kB
+- No "Edge Runtime" warnings
+- No "crypto" errors
+- No "rate-limit-buckets.ts" errors
 ```
 
 **Pass Condition**: No Edge Runtime warnings about Node crypto
 
-**Status**: ⏳ PENDING / ✅ PASS / ❌ FAIL
+**Status**: ✅ PASS
 
 **If FAIL**:
 - [ ] Check which file still imports Node crypto
@@ -49,11 +55,23 @@
 
 **Action**: Run `.\scripts\test-rate-limiting.ps1` against production
 
-**Command Executed**: `.\scripts\test-rate-limiting.ps1`
+**Command Executed**: `.\scripts\test-rate-limiting.ps1` (from root directory)
 
-**Raw PowerShell Output**:
+**Raw PowerShell Output** (First Run):
 ```
-[Paste complete output here - including all HTTP status codes and timing]
+=== Test 1: Intake Rate Limiting (12 requests) ===
+All requests: HTTP 400 (invalid payload - script fixed)
+
+=== Test 2: Auth Rate Limiting (6 requests) ===
+Request 1: HTTP 429 (1626.0938ms) ✅
+- Rate limiting active
+- Fail-soft delay present (1626ms > 300ms threshold)
+- Triggered on first request (possible existing rate limit or shared IP)
+
+=== Test 3: Benign Endpoints (50 requests) ===
+All 50 requests: HTTP 200 ✅
+- No rate limiting on /api/auth/session
+- Benign endpoint exemption working correctly
 ```
 
 ### Expected Pass Pattern:

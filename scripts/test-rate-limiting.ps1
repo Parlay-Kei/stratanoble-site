@@ -15,10 +15,19 @@ Write-Host ""
 
 for ($i = 1; $i -le 12; $i++) {
     try {
+        # Send valid payload with all required fields
+        $body = @{
+            name = "Test User $i"
+            email = "test$i@example.com"
+            businessName = "Test Business $i"
+            leadSource = "other"
+            whatsBreaking = "Testing rate limiting - request $i"
+        } | ConvertTo-Json
+        
         $response = Invoke-WebRequest -Uri "$BaseUrl/api/intake/lead-leak-check" `
             -Method POST `
             -Headers @{"Content-Type"="application/json"} `
-            -Body '{"email":"test@example.com","name":"Test User"}' `
+            -Body $body `
             -UseBasicParsing `
             -ErrorAction SilentlyContinue
         
