@@ -7,15 +7,7 @@ import { isRevampEnabled } from '@/lib/feature-flags';
 import { RevampedHero } from '@/components/revamp/RevampedHero';
 import { LeadLeakCheckSection } from '@/components/revamp/LeadLeakCheckSection';
 import { BuiltInPublicSection } from '@/components/revamp/BuiltInPublicSection';
-import nextDynamic from 'next/dynamic';
-
-// Lazy-load client components below the fold for better performance
-// Note: These will still be lazy-loaded, just server-rendered on first load
-const SmartConsultingBar = nextDynamic(() => import('@/components/SmartConsultingBar').then(mod => ({ default: mod.SmartConsultingBar })));
-
-const WhatWeInstallSection = nextDynamic(() => import('@/components/revamp/WhatWeInstallSection').then(mod => ({ default: mod.WhatWeInstallSection })));
-
-const PrinciplesSection = nextDynamic(() => import('@/components/revamp/PrinciplesSection').then(mod => ({ default: mod.PrinciplesSection })));
+import { SmartConsultingBar, WhatWeInstallSection, PrinciplesSection } from '@/components/LazyLoadedSections';
 
 export const dynamic = 'force-dynamic';
 
