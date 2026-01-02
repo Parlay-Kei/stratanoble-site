@@ -72,7 +72,7 @@ export default function ThankYouPage() {
         <p className="mb-1">See you soon,</p>
         <p className="font-semibold">Steve Hubbard</p>
         <p>Data &amp; Operations Analyst, Strata Noble Consulting</p>
-        <a href="mailto:steve.hubbard@stratanova.com" className="text-blue-600 underline">steve.hubbard@stratanova.com</a>
+        <a href="mailto:steve.hubbard@stratanoble.com" className="text-blue-600 underline">steve.hubbard@stratanoble.com</a>
       </footer>
     </main>
   );
