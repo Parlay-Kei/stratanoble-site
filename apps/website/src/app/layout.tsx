@@ -31,11 +31,11 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Strata Noble - Your CaaS Platform',
+    default: 'Strata Noble',
     template: '%s | Strata Noble',
   },
   description:
-    'Consulting-as-a-Service platform with guided diagnostics, ACHIEVERY achievement tracking, playbooks, dashboards, and expert support for entrepreneurs.',
+    'Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures, including websites, portals, marketplaces, and the systems that run them.',
   keywords: [
     'business strategy',
     'startup consulting',
@@ -59,24 +59,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://stratanoble.com',
-    title: 'Strata Noble - Your CaaS Platform',
+    title: 'Strata Noble',
     description:
-      'Consulting-as-a-Service platform with guided diagnostics, ACHIEVERY achievement tracking, playbooks, dashboards, and expert support for entrepreneurs.',
+      'Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures, including websites, portals, marketplaces, and the systems that run them.',
     siteName: 'Strata Noble',
     images: [
       {
         url: '/img/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'Strata Noble - Your CaaS Platform',
+        alt: 'Strata Noble',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Strata Noble - Your CaaS Platform',
+    title: 'Strata Noble',
     description:
-      'Consulting-as-a-Service platform with guided diagnostics, ACHIEVERY achievement tracking, playbooks, dashboards, and expert support for entrepreneurs.',
+      'Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures, including websites, portals, marketplaces, and the systems that run them.',
     images: ['/img/og-image.svg'],
   },
   robots: {
