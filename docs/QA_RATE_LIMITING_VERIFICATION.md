@@ -3,11 +3,15 @@
 **Date**: January 2, 2026  
 **Purpose**: Verify rate limiting is working correctly in production after Upstash env vars are applied
 
+**See Also**: `docs/PRODUCTION_VERIFICATION_CHECKLIST.md` for complete verification steps
+
 ## Prerequisites
 
-1. ✅ Fresh production deploy triggered (commit `f8f65ce`)
-2. ✅ Confirm deploy ID matches the newest production deploy
-3. ✅ Verify build logs show no "Rate limiting disabled" warnings
+1. ✅ Fresh production deploy triggered (commit `01f1492` - Edge crypto fix)
+2. ✅ Async/await verification complete (all `generateRateLimitKey` calls properly awaited)
+3. ✅ Confirm deploy ID matches the newest production deploy
+4. ✅ Verify build logs show no "Rate limiting disabled" warnings
+5. ✅ Verify build logs show no Edge Runtime crypto warnings
 
 ## Test 1: Intake Rate Limiting (Fail-Open)
 
