@@ -12,6 +12,7 @@ const ALLOW_PATHS = [
   path.join(ROOT, "docs", "archive"),
   path.join(ROOT, "brand", "strata-noble", "proofs"),
   path.join(ROOT, "marketing-restructure-export"),
+  path.join(ROOT, "docs", "BRAND_FREEZE_2026-01-02.md"),
 ];
 
 function isAllowed(filePath) {
