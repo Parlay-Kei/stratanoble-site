@@ -122,7 +122,6 @@ const nextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   // Performance optimizations
-  swcMinify: true,
   reactStrictMode: true,
 };
 
