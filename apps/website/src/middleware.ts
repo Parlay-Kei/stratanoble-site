@@ -259,6 +259,12 @@ export async function middleware(request: NextRequest) {
 
   // STEP 4: Apply rate limiting to API routes
   if (pathname.startsWith('/api/')) {
+    // Disable rate limiting on Deploy Previews to avoid blocking QA
+    // Netlify sets CONTEXT=deploy-preview for preview deployments
+    if (process.env.CONTEXT === 'deploy-preview' || process.env.NETLIFY_DEV) {
+      return NextResponse.next();
+    }
+
     // Gracefully degrade rate limiting in dev mode
     if (process.env.NODE_ENV === 'development') {
       if (process.env.SKIP_RATE_LIMITING === 'true') {
@@ -268,12 +274,14 @@ export async function middleware(request: NextRequest) {
 
     // Skip rate limiting if Redis is not configured
     // In production, this was already logged as an error above
+    // Fail-open: allow requests through if rate limiting unavailable
     if (!redis) {
       if (process.env.NODE_ENV === 'development') {
         // In dev, this is expected - just continue
         return NextResponse.next();
       }
       // In production, continue without rate limiting (but we logged an error earlier)
+      // This is fail-open behavior - marketing pages should not be blocked
       return NextResponse.next();
     }
 

@@ -41,27 +41,37 @@ function hashIP(request: NextRequest): string | null {
 
 export async function POST(request: NextRequest) {
   try {
-    // Rate limit by IP
-    const ip =
-      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-    const ipLimit = await ipRateLimiter.limit(ip);
+    // Rate limit by IP (fail-open: if rate limiting fails, allow request through)
+    try {
+      const ip =
+        request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+      const ipLimit = await ipRateLimiter.limit(ip);
 
-    if (!ipLimit.success) {
-      return NextResponse.json(
-        { error: 'Too many requests. Please try again later.' },
-        { status: 429 }
-      );
+      if (!ipLimit.success) {
+        return NextResponse.json(
+          { error: 'Too many requests. Please try again later.' },
+          { status: 429 }
+        );
+      }
+    } catch (rateLimitError) {
+      // Fail-open: if rate limiting service is down, allow request through
+      console.error('[RATE LIMIT ERROR] IP rate limiting failed, allowing request:', rateLimitError);
     }
 
     const body = await request.json();
 
-    // Rate limit by email
-    const emailLimit = await emailRateLimiter.limit(body.email || 'unknown');
-    if (!emailLimit.success) {
-      return NextResponse.json(
-        { error: 'Too many requests from this email. Please try again later.' },
-        { status: 429 }
-      );
+    // Rate limit by email (fail-open: if rate limiting fails, allow request through)
+    try {
+      const emailLimit = await emailRateLimiter.limit(body.email || 'unknown');
+      if (!emailLimit.success) {
+        return NextResponse.json(
+          { error: 'Too many requests from this email. Please try again later.' },
+          { status: 429 }
+        );
+      }
+    } catch (rateLimitError) {
+      // Fail-open: if rate limiting service is down, allow request through
+      console.error('[RATE LIMIT ERROR] Email rate limiting failed, allowing request:', rateLimitError);
     }
 
     // Validate input

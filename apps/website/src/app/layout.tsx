@@ -223,12 +223,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <Suspense fallback={null}>
           <Analytics />
-        </Suspense>        {/* Google Analytics with Next.js Script component - afterInteractive for better performance */}
+        </Suspense>        {/* Google Analytics with Next.js Script component - lazyOnload to avoid blocking critical path */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-0TGKD1S1HB"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="ga-config" strategy="afterInteractive">
+        <Script id="ga-config" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -240,7 +240,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           defer
           data-domain="stratanoble.com"
           src="https://plausible.io/js/script.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
                 {/* Service Worker Registration */}
         {process.env.NODE_ENV === 'production' && (
