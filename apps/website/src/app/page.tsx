@@ -10,17 +10,12 @@ import { BuiltInPublicSection } from '@/components/revamp/BuiltInPublicSection';
 import nextDynamic from 'next/dynamic';
 
 // Lazy-load client components below the fold for better performance
-const SmartConsultingBar = nextDynamic(() => import('@/components/SmartConsultingBar').then(mod => ({ default: mod.SmartConsultingBar })), {
-  ssr: false,
-});
+// Note: These will still be lazy-loaded, just server-rendered on first load
+const SmartConsultingBar = nextDynamic(() => import('@/components/SmartConsultingBar').then(mod => ({ default: mod.SmartConsultingBar })));
 
-const WhatWeInstallSection = nextDynamic(() => import('@/components/revamp/WhatWeInstallSection').then(mod => ({ default: mod.WhatWeInstallSection })), {
-  ssr: false,
-});
+const WhatWeInstallSection = nextDynamic(() => import('@/components/revamp/WhatWeInstallSection').then(mod => ({ default: mod.WhatWeInstallSection })));
 
-const PrinciplesSection = nextDynamic(() => import('@/components/revamp/PrinciplesSection').then(mod => ({ default: mod.PrinciplesSection })), {
-  ssr: false,
-});
+const PrinciplesSection = nextDynamic(() => import('@/components/revamp/PrinciplesSection').then(mod => ({ default: mod.PrinciplesSection })));
 
 export const dynamic = 'force-dynamic';
 
