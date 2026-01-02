@@ -12,11 +12,38 @@ const ALLOW_PATHS = [
   path.join(ROOT, "docs", "archive"),
   path.join(ROOT, "brand", "strata-noble", "proofs"),
   path.join(ROOT, "marketing-restructure-export"),
+];
+
+const ALLOW_FILES = [
   path.join(ROOT, "docs", "BRAND_FREEZE_2026-01-02.md"),
 ];
 
 function isAllowed(filePath) {
-  return ALLOW_PATHS.some((p) => filePath.startsWith(p));
+  // Check exact file matches first
+  if (ALLOW_FILES.includes(filePath)) {
+    return true;
+  }
+
+  // Check directory paths with proper boundary checking
+  return ALLOW_PATHS.some((allowedPath) => {
+    // For directory paths, ensure the match is at a path boundary
+    // Either the path exactly matches, or the next character is a path separator
+    if (filePath === allowedPath) {
+      return true;
+    }
+    
+    // Check if filePath starts with allowedPath followed by a path separator
+    const normalizedAllowed = path.normalize(allowedPath);
+    const normalizedFile = path.normalize(filePath);
+    
+    if (normalizedFile.startsWith(normalizedAllowed)) {
+      const nextChar = normalizedFile[normalizedAllowed.length];
+      // Path separator can be / or \ depending on OS
+      return nextChar === path.sep || nextChar === '/' || nextChar === '\\';
+    }
+    
+    return false;
+  });
 }
 
 function walk(dir, files = []) {
