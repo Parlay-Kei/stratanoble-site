@@ -35,12 +35,14 @@ Copy both values.
 4. Add:
    - **Key**: `UPSTASH_REDIS_REST_URL`
    - **Value**: (paste the URL from Upstash - **no quotes**, just the URL like `https://your-db-name.upstash.io`)
-   - **Scopes**: Production, Branch deploys, Deploy previews (or just Production if preferred)
+   - **Scopes**: **Production & branch deploys only** (NOT Deploy previews - see security note below)
 5. Click **"Add variable"** again
 6. Add:
    - **Key**: `UPSTASH_REDIS_REST_TOKEN`
    - **Value**: (paste the token from Upstash - **no quotes**, just the token string)
-   - **Scopes**: Same as above
+   - **Scopes**: **Production & branch deploys only** (NOT Deploy previews)
+
+**Security Note**: Do NOT include Deploy previews in scope. The code already exempts previews from rate limiting, and exposing secrets in preview environments is a security risk. See `docs/SECURITY_ENV_VAR_SCOPE.md` for details.
 
 **Important**: Do NOT include quotes around the values. Enter the URL and token as plain text only.
 
