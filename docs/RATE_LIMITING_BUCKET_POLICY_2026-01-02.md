@@ -29,7 +29,7 @@ Implemented a bucketed rate limiting system with different policies for intake (
 - `/api/intake/resource-download`
 - `/api/contact`
 
-### Bucket 2: Auth (Signin, Signup, Password Reset, Magic Links)
+### Bucket 2: Auth (Signin, Signup, Password Reset, Magic Links) ✅ IMPLEMENTED
 
 **Goal**: Block brute force and account abuse.
 
@@ -40,21 +40,34 @@ Implemented a bucketed rate limiting system with different policies for intake (
 - Email verify / magic link request: 6 / 1 hour per IP
 
 **Failure Mode**: Fail-soft
-- If Upstash fails, do not hard block
-- Add friction: return 429 with "Try again shortly"
-- Optional: introduce a small delay server-side (300–800ms) to slow brute force
-- If you keep fail-open on auth, you are choosing "auth abuse is acceptable during Upstash downtime" - that is usually the wrong trade
+- If Upstash fails, return 429 with 300-800ms delay (fail-soft)
+- Add friction: return 429 with "Try again shortly" and delay to slow brute force
+- Prevents unlimited brute-force windows during Upstash outages
 
 **Response when blocked**:
 - HTTP 429
-- Generic message: "Try again shortly" (no hints like "wrong password" vs "rate limited")
+- Generic message: "Try again shortly." (no hints like "wrong password" vs "rate limited")
+- 300-800ms random delay to slow brute force attempts
+
+**Routes** (implemented in middleware):
+- ✅ POST `/api/auth/callback/credentials` → `auth_signin` bucket
+- ✅ POST `/api/auth/signin` → `auth_signin` bucket (credentials sign-in)
+- ✅ POST `/api/auth/callback/email` → `auth_verify` bucket
+- ✅ POST `/api/auth/signin/email` → `auth_verify` bucket
+
+**Not rate limited** (benign endpoints):
+- GET `/api/auth/session` (frequent polling)
+- GET `/api/auth/providers` (UI needs this)
+- GET `/api/auth/csrf` (form token)
+- GET `/api/auth/error` (error page)
+- GET `/api/auth/signin` (sign-in page)
 - Keep it boring
 
-**Routes**:
-- `/api/auth/signin` → `auth_signin` bucket
-- `/api/auth/signup` → `auth_signup` bucket
-- `/api/auth/reset` → `auth_reset` bucket
-- `/api/auth/verify` → `auth_verify` bucket
+**Implementation**: Middleware-based (Option A)
+- Centralized policy in middleware
+- No NextAuth internals touched
+- Precise targeting (only high-risk endpoints)
+- Deploy preview exemption maintained
 
 ## Implementation Details
 
@@ -127,12 +140,11 @@ try {
 - `apps/website/src/app/api/intake/resource-download/route.ts`
 - `apps/website/src/app/api/contact/route.ts`
 
-### Auth Routes (Fail-Soft)
-- TODO: Add rate limiting to NextAuth callbacks or middleware
-- NextAuth routes: `/api/auth/[...nextauth]`
-
-### Middleware
-- `apps/website/src/middleware.ts` - Updated to use bucket system (if needed)
+### Auth Routes (Fail-Soft) ✅ IMPLEMENTED
+- `apps/website/src/middleware.ts` - Auth rate limiting implemented in middleware (Option A)
+  - Targeted to high-risk endpoints only
+  - Fail-soft behavior with 300-800ms delay
+  - Benign endpoints excluded (session, providers, csrf, error, GET signin)
 
 ## Environment Variables
 
