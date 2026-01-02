@@ -4,22 +4,19 @@
 
 ---
 
-## Method 1: Function Logs (Recommended)
+## Method 1: Logs & Metrics (Recommended)
 
 1. **Open Netlify Dashboard**
    - Go to: https://app.netlify.com/sites/stratanoble
-   - Navigate to: **Site → Functions**
+   - Click: **"Logs & metrics"** in the left sidebar
 
-2. **Find the Server Handler**
-   - Look for: `___netlify-server-handler`
-   - Click on it
-
-3. **View Logs**
-   - Click **"Logs"** tab
+2. **View Function Logs**
+   - Look for **"Function logs"** or **"Serverless function logs"** section
    - Filter by: `/api/intake/lead-leak-check` (if filter available)
    - OR: Scroll to recent errors (should show HTTP 500)
+   - Look for timestamps matching when you submitted the form
 
-4. **Copy Error Lines**
+3. **Copy Error Lines**
    - Find the error stack trace (usually 10-20 lines)
    - Copy the full error message including:
      - Error type (e.g., `PrismaClientKnownRequestError`)
@@ -29,32 +26,38 @@
 
 ---
 
-## Method 2: Deploy Logs
+## Method 2: Observability Card (Quick Check)
 
 1. **Open Netlify Dashboard**
    - Go to: https://app.netlify.com/sites/stratanoble
-   - Navigate to: **Deploys**
+   - Look at the **"Observability"** card on the Project overview page
 
-2. **Find Latest Deploy**
-   - Click on the most recent production deploy
+2. **Check Error Rate**
+   - Should show "Errors" percentage (you mentioned seeing 18.27%)
+   - Click on the error count or "View logs" link
 
-3. **View Function Logs**
-   - Scroll to **"Functions"** section
-   - Look for errors related to `/api/intake/lead-leak-check`
-   - OR: Use browser search (Ctrl+F) for "lead-leak-check" or "500"
-
-4. **Copy Error**
-   - Copy the error message and stack trace
+3. **Filter to Intake Errors**
+   - Use browser search (Ctrl+F) for "lead-leak-check" or "500"
+   - OR: Filter by path `/api/intake/`
 
 ---
 
-## Method 3: Real-time Logs (If Available)
+## Method 3: Deploy Logs
 
-1. **Netlify Dashboard → Site → Functions**
-2. **Click on `___netlify-server-handler`**
-3. **Click "Real-time logs"** (if available)
-4. **Trigger the error** by submitting the intake form
-5. **Watch for the error** in real-time
+1. **Open Netlify Dashboard**
+   - Go to: https://app.netlify.com/sites/stratanoble
+   - Click: **"Deploys"** in the left sidebar
+
+2. **Find Latest Deploy**
+   - Click on the most recent production deploy (the one that's published)
+
+3. **View Build/Function Logs**
+   - Scroll through the deploy logs
+   - Look for runtime errors (not build errors)
+   - Use browser search (Ctrl+F) for "lead-leak-check", "500", or "error"
+
+4. **Copy Error**
+   - Copy the error message and stack trace
 
 ---
 
