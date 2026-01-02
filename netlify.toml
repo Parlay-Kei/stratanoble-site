@@ -1,7 +1,9 @@
 [build]
   base = "apps/website"
-  # Run Prisma migrations before build to ensure database schema is up to date
-  command = "npm ci --no-audit --no-fund --legacy-peer-deps && npx prisma migrate deploy && npm run build --verbose"
+  # Note: Prisma migrations are skipped during build because Supabase DB is behind firewall
+  # Run migrations manually via: npx prisma migrate deploy (with DATABASE_URL set)
+  # OR use Supabase dashboard: https://supabase.com/dashboard/project/bvneqoevtwodyfqglpzi
+  command = "npm ci --no-audit --no-fund --legacy-peer-deps && npm run build --verbose"
   publish = "build"
 
 [[plugins]]
