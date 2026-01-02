@@ -269,8 +269,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate that event was created successfully
+    if (!event || !event.id) {
+      console.error('Failed to create event: RPC returned null or invalid data');
+      return NextResponse.json(
+        { error: 'Failed to create event: invalid response from database' },
+        { status: 500 }
+      );
+    }
+
     // Check if this was a duplicate (event already existed)
-    const isDuplicate = event && event.processed_at !== null;
+    const isDuplicate = event.processed_at !== null;
 
     if (isDuplicate) {
       // Event already processed - return existing state
