@@ -5,11 +5,25 @@ import { ContactFormSchema, validateRequest, createValidationErrorResponse, crea
 import { withEnhancedCSRFProtection } from '@/lib/csrf';
 import { logger } from '@/lib/logger';
 import { Database } from '@/types/database';
+import { rateLimit, createRateLimitHeaders } from '@/lib/rate-limit-buckets';
 
 type ContactSubmission = Database['public']['Tables']['contact_submissions']['Row'];
 
 async function contactHandler(request: NextRequest) {
   try {
+    // Rate limit using intake bucket (fail-open: if rate limiting fails, allow request through)
+    const rateLimitResult = await rateLimit('intake', request);
+
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Too many submissions. Try again in a minute.' },
+        {
+          status: 429,
+          headers: createRateLimitHeaders(rateLimitResult),
+        }
+      );
+    }
+
     const body = await request.json();
     
     // Validate request body using Zod schema

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import crypto from 'crypto';
 import { prisma } from '@/lib/prisma';
-import { ipRateLimiter, emailRateLimiter } from '@/lib/rate-limit';
+import { rateLimit, createRateLimitHeaders } from '@/lib/rate-limit-buckets';
 import { notifyNewIntake } from '@/lib/ses-notify';
 import { sanitizeText, sanitizeEmail, sanitizeName } from '@/lib/sanitize';
 
@@ -41,38 +41,20 @@ function hashIP(request: NextRequest): string | null {
 
 export async function POST(request: NextRequest) {
   try {
-    // Rate limit by IP (fail-open: if rate limiting fails, allow request through)
-    try {
-      const ip =
-        request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-      const ipLimit = await ipRateLimiter.limit(ip);
+    // Rate limit by IP using intake bucket (fail-open: if rate limiting fails, allow request through)
+    const rateLimitResult = await rateLimit('intake', request);
 
-      if (!ipLimit.success) {
-        return NextResponse.json(
-          { error: 'Too many requests. Please try again later.' },
-          { status: 429 }
-        );
-      }
-    } catch (rateLimitError) {
-      // Fail-open: if rate limiting service is down, allow request through
-      console.error('[RATE LIMIT ERROR] IP rate limiting failed, allowing request:', rateLimitError);
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Too many submissions. Try again in a minute.' },
+        {
+          status: 429,
+          headers: createRateLimitHeaders(rateLimitResult),
+        }
+      );
     }
 
     const body = await request.json();
-
-    // Rate limit by email (fail-open: if rate limiting fails, allow request through)
-    try {
-      const emailLimit = await emailRateLimiter.limit(body.email || 'unknown');
-      if (!emailLimit.success) {
-        return NextResponse.json(
-          { error: 'Too many requests from this email. Please try again later.' },
-          { status: 429 }
-        );
-      }
-    } catch (rateLimitError) {
-      // Fail-open: if rate limiting service is down, allow request through
-      console.error('[RATE LIMIT ERROR] Email rate limiting failed, allowing request:', rateLimitError);
-    }
 
     // Validate input
     const validated = resourceDownloadSchema.parse(body);
