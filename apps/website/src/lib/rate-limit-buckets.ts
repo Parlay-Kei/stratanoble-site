@@ -1,7 +1,6 @@
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import { NextRequest } from 'next/server';
-import { createHash } from 'crypto';
 
 // Check if Upstash Redis is configured
 const isRedisConfigured =
@@ -144,25 +143,34 @@ export function getClientIP(request: NextRequest): string {
 }
 
 /**
+ * Hash a string using Web Crypto API (Edge-safe)
+ */
+async function hashString(input: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input);
+  const hashBuffer = await globalThis.crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
+/**
  * Generate a stable rate limit key
  * Format: ${bucket}:${clientIp}:${uaHash8}
  * 
  * Optional UA hash reduces "one IP, many legit users" pain
  */
-export function generateRateLimitKey(
+export async function generateRateLimitKey(
   bucket: RateLimitBucket,
   clientIP: string,
   userAgent?: string | null
-): string {
+): Promise<string> {
   let key = `${bucket}:${clientIP}`;
 
   // Optional: append coarse user agent hash
   if (userAgent) {
-    const uaHash = createHash('sha256')
-      .update(userAgent.toLowerCase())
-      .digest('hex')
-      .slice(0, 8);
-    key = `${key}:${uaHash}`;
+    const uaHash = await hashString(userAgent.toLowerCase());
+    key = `${key}:${uaHash.slice(0, 8)}`;
   }
 
   return key;
@@ -205,7 +213,7 @@ export async function rateLimit(
   const config = bucketConfigs[bucket];
   const clientIP = getClientIP(request);
   const userAgent = request.headers.get('user-agent');
-  const key = generateRateLimitKey(bucket, clientIP, userAgent);
+  const key = await generateRateLimitKey(bucket, clientIP, userAgent);
 
   try {
     // Check primary limiter
