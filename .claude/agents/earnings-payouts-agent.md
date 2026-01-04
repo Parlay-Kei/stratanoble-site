@@ -1,3 +1,8 @@
+---
+name: earnings-payouts-agent
+description: Manages earnings calculations, surge pricing, and instant payouts.
+---
+
 # Earnings & Payouts Agent
 
 ## Purpose

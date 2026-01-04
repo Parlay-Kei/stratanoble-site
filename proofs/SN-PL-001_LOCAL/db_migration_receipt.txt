@@ -1,0 +1,67 @@
+=== DATABASE MIGRATION RECEIPT ===
+Date: 2026-01-03
+Project: Strata Noble (SN-PL-001)
+
+Database: Supabase (PostgreSQL)
+Migration Tool: Supabase CLI / SQL Editor (manual apply)
+
+=== MIGRATION FILES IN REPOSITORY ===
+Total: 35 migration files
+
+Core Schema (0001-0014): Applied (Aug 2025)
+- 0001_init_core_tables.sql
+- 0002_core_indexes.sql
+- 0003_core_triggers.sql
+- 0004_core_rls.sql
+- 0005_saas_tables.sql
+- 0006_saas_indexes.sql
+- 0007_saas_triggers.sql
+- 0008_saas_rls.sql
+- 0009_saas_functions.sql
+- 0010_seed_data.sql
+- 0011_monitoring.sql
+- 0012_fix_metric_summary.sql
+- 0013_update_live_stripe_prices.sql
+- 0014_fix_tier_detection.sql
+
+Security & Feature Migrations (0015-0027): Applied (Sep-Dec 2025)
+- 0015_security_fixes.sql
+- 0016_phase_three_leads_table.sql
+- 0017_phase_three_email_sequences.sql
+- 0018_early_access_signups.sql
+- 0019_user_profiles_table.sql
+- 0020_fix_leads_rls_and_security.sql
+- 0021_security_definer_views_documentation.sql
+- 0022_migration_drift_catchup.sql
+- 0023_fix_credentials_due_for_rotation_view.sql
+- 0024_dslv_cold_calling_tables.sql
+- 0025_paralegal_contract_tables.sql
+- 0026_create_lead_intake_table.sql (LATEST - Jan 2, 2026)
+- 0026_e2e_seed_tracking.sql
+- 0027_add_version_pinning_to_deals.sql
+
+Finance/Automation Migrations (Jan 2026):
+- 20260101_automation_jobs.sql
+- 20260101_finance_schema.sql
+- 20260101_finance_seed.sql
+
+Manual Apply Files (via SQL Editor):
+- APPLY_VIA_SQL_EDITOR_auto_security_fixes.sql
+- APPLY_VIA_SQL_EDITOR_fix_leads_rls.sql
+- APPLY_VIA_SQL_EDITOR_performance_fixes.sql
+
+=== LATEST MIGRATION ===
+File: 0026_create_lead_intake_table.sql
+Date: Jan 2, 2026
+Content: LeadIntake table for intake form submissions
+Tables: LeadIntake
+Indexes: email, source, status, createdAt
+Enums: IntakeSource, IntakeStatus
+
+=== VERIFICATION STATUS ===
+Note: Cannot verify applied state without Supabase connection.
+Recommendation: Run `supabase db diff` or check schema via Supabase Dashboard.
+
+Recent commits suggest LeadIntake migration was applied:
+- 88f7a7d: "Force rebuild to regenerate Prisma client with LeadIntake model"
+- 79a3ae6: "Trigger fresh deploy after LeadIntake migration applied"

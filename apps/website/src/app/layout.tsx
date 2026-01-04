@@ -7,9 +7,12 @@ import Script from 'next/script';
 import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
+import { ToastProvider } from '@/components/ui/toast';
+import { isRevampEnabled } from '@/lib/feature-flags';
+
+// Legacy header/footer - only used when revamp is disabled
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { ToastProvider } from '@/components/ui/toast';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,13 +38,13 @@ export const metadata: Metadata = {
     template: '%s | Strata Noble',
   },
   description:
-    'Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures, including websites, portals, marketplaces, and the systems that run them.',
+    'Lead-to-customer pipelines for service businesses. Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.',
   keywords: [
-    'business strategy',
-    'startup consulting',
-    'passion to profit',
-    'business coaching',
-    'entrepreneurship',
+    'lead generation',
+    'pipeline automation',
+    'follow-up automation',
+    'deal tracking',
+    'service business',
   ],
   authors: [{ name: 'Strata Noble' }],
   creator: 'Strata Noble',
@@ -61,7 +64,7 @@ export const metadata: Metadata = {
     url: 'https://stratanoble.com',
     title: 'Strata Noble',
     description:
-      'Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures, including websites, portals, marketplaces, and the systems that run them.',
+      'Lead-to-customer pipelines for service businesses. Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.',
     siteName: 'Strata Noble',
     images: [
       {
@@ -76,7 +79,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Strata Noble',
     description:
-      'Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures, including websites, portals, marketplaces, and the systems that run them.',
+      'Lead-to-customer pipelines for service businesses. Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.',
     images: ['/img/og-image.svg'],
   },
   robots: {
@@ -130,6 +133,10 @@ export const metadata: Metadata = {
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // When revamp is enabled, marketing pages use their own SiteShell
+  // Legacy header/footer only shows when revamp is disabled
+  const revampEnabled = isRevampEnabled();
+
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -216,11 +223,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         )}
 
-        <Header />
+        {!revampEnabled && <Header />}
         <ToastProvider>
           {children}
         </ToastProvider>
-        <Footer />
+        {!revampEnabled && <Footer />}
         <Suspense fallback={null}>
           <Analytics />
         </Suspense>        {/* Google Analytics with Next.js Script component - lazyOnload to avoid blocking critical path */}

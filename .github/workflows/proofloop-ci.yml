@@ -1,0 +1,74 @@
+name: ProofLoop CI (SN-PL-001_LOCAL)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  proofloop:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/platform
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.18.0'
+          cache: 'npm'
+          cache-dependency-path: apps/platform/package-lock.json
+
+      - name: Capture environment
+        run: |
+          mkdir -p ../../proofloop-artifacts
+          echo "${{ github.sha }}" > ../../proofloop-artifacts/commit_sha.txt
+          node -v > ../../proofloop-artifacts/node_version.txt
+          npm -v > ../../proofloop-artifacts/npm_version.txt
+
+      - name: Install dependencies
+        run: npm ci 2>&1 | tee ../../proofloop-artifacts/install_log.txt
+
+      - name: Secrets scan
+        run: |
+          cd ../..
+          git grep -nE "(sk-|shpat_|AKIA|AIza|BEGIN PRIVATE KEY|xoxb-)" > proofloop-artifacts/secrets_scan.txt 2>&1 || true
+          # Fail if real secrets found (not .example patterns)
+          if grep -v '\.example' proofloop-artifacts/secrets_scan.txt | grep -v 'sk-ant-api03-xxxxx' | grep -v 'sk-proj-\*\*\*' | grep -v 'sk-your' | grep -qE "(sk-|shpat_|AKIA|AIza|BEGIN PRIVATE KEY|xoxb-)"; then
+            echo "::error::Real secrets detected in repository!"
+            exit 1
+          fi
+
+      - name: TypeScript check
+        run: npm run type-check 2>&1 | tee ../../proofloop-artifacts/typecheck_log.txt
+
+      - name: ESLint check
+        run: npm run lint 2>&1 | tee ../../proofloop-artifacts/lint_log.txt
+        continue-on-error: false
+
+      - name: Unit tests
+        run: npm run test:run 2>&1 | tee ../../proofloop-artifacts/test_log.txt
+
+      - name: Production build
+        run: npm run build 2>&1 | tee ../../proofloop-artifacts/build_log.txt
+
+      - name: Dependency audit (production)
+        run: |
+          npm audit --omit=dev 2>&1 | tee ../../proofloop-artifacts/deps_audit.txt
+          # Fail on production vulnerabilities
+          if npm audit --omit=dev 2>&1 | grep -q "found [1-9]"; then
+            echo "::error::Production vulnerabilities detected!"
+            exit 1
+          fi
+
+      - name: Upload ProofLoop artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: proofloop-receipts-${{ github.sha }}
+          path: proofloop-artifacts/
+          retention-days: 30

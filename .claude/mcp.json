@@ -9,6 +9,13 @@
         "GDRIVE_OAUTH_PATH": "C:\\Users\\MrSte\\.gdrive-oauth-stratanoble.json",
         "GDRIVE_CREDENTIALS_PATH": "C:\\Users\\MrSte\\.gdrive-credentials-stratanoble.json"
       }
+    },
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=${SUPABASE_PROJECT_REF}",
+      "headers": {
+        "Authorization": "Bearer ${SUPABASE_ACCESS_TOKEN}"
+      }
     }
   }
 }

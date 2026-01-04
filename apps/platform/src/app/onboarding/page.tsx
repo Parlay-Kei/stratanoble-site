@@ -132,7 +132,7 @@ export default function OnboardingPage() {
             Welcome to ACHIEVERY
           </h1>
           <p className="text-gray-600">
-            Let's set up your journey from activity to possibility
+            Let&apos;s set up your journey from activity to possibility
           </p>
           
           {/* Progress indicator */}
@@ -151,7 +151,7 @@ export default function OnboardingPage() {
                 What do you dream of doing?
               </h2>
               <p className="text-gray-600">
-                Don't worry about being perfect. Just tell us what you're curious about or what you'd like to build.
+                Don&apos;t worry about being perfect. Just tell us what you&apos;re curious about or what you&apos;d like to build.
               </p>
             </div>
 
@@ -165,7 +165,7 @@ export default function OnboardingPage() {
                   required
                 />
                 <p className="text-xs text-gray-500 mt-2">
-                  Examples: "Start a design agency", "Learn to play guitar", "Write a book about my experiences"
+                  Examples: &quot;Start a design agency&quot;, &quot;Learn to play guitar&quot;, &quot;Write a book about my experiences&quot;
                 </p>
               </div>
 

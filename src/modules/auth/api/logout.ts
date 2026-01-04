@@ -6,6 +6,18 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
+interface CookieToSet {
+  name: string;
+  value: string;
+  options?: {
+    path?: string;
+    maxAge?: number;
+    httpOnly?: boolean;
+    secure?: boolean;
+    sameSite?: 'lax' | 'strict' | 'none';
+  };
+}
+
 // Generate request ID for observability
 function generateRequestId(): string {
   return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -36,9 +48,9 @@ export async function POST() {
           getAll() {
             return cookieStore.getAll();
           },
-          setAll(cookiesToSet) {
+          setAll(cookiesToSet: CookieToSet[]) {
             try {
-              cookiesToSet.forEach(({ name, value, options }) =>
+              cookiesToSet.forEach(({ name, value, options }: CookieToSet) =>
                 cookieStore.set(name, value, options)
               );
             } catch {
@@ -69,7 +81,7 @@ export async function POST() {
     // Explicitly clear all Supabase auth cookies
     // Supabase uses sb-<project-ref>-auth-token pattern
     const allCookies = cookieStore.getAll();
-    const authCookies = allCookies.filter(c =>
+    const authCookies = allCookies.filter((c: { name: string; value: string }) =>
       c.name.includes('auth-token') ||
       c.name.includes('sb-') ||
       c.name === 'auth-session'
@@ -98,7 +110,7 @@ export async function POST() {
       time: Date.now(),
       requestId,
       duration: Date.now() - startTime,
-      clearedCookies: authCookies.map(c => c.name),
+      clearedCookies: authCookies.map((c: { name: string }) => c.name),
       msg: 'Logout successful - global signOut completed',
       service: 'strata-noble-platform',
       env: process.env.NODE_ENV || 'development'

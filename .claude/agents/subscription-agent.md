@@ -1,3 +1,8 @@
+---
+name: subscription-agent
+description: Manages customer membership plans, recurring bookings, and billing cycles.
+---
+
 # Customer Subscription Agent
 
 ## Purpose

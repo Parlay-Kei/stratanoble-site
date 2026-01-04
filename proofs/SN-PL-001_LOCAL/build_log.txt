@@ -1,0 +1,69 @@
+# Build Log - Strata Noble (SN-PL-001_LOCAL)
+# Date: 2026-01-03
+# Command: npm run build (with TS/ESLint ENFORCED)
+
+> @strata-noble/platform@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.9
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 7.3s
+   Linting and checking validity of types ...
+
+./src/app/layout.tsx
+33:9  Warning: Prefer `next/script` component when using the inline script for Google Analytics. See: https://nextjs.org/docs/messages/next-script-for-ga  @next/next/next-script-for-ga
+
+./src/components/achievery/AnalyticsDashboard.tsx
+53:6  Warning: React Hook useEffect has a missing dependency: 'fetchAnalyticsData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/achievery/CoachDashboard.tsx
+64:6  Warning: React Hook useEffect has a missing dependency: 'loadSharedUsers'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/providers/SessionProvider.tsx
+60:6  Warning: React Hook useEffect has a missing dependency: 'loadUserData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+   Collecting page data ...
+   Generating static pages (0/16) ...
+   Generating static pages (4/16)
+   Generating static pages (8/16)
+   Generating static pages (12/16)
+ ✓ Generating static pages (16/16)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                  Size  First Load JS
+┌ ○ /                                     1.05 kB         446 kB
+├ ○ /_not-found                             999 B         103 kB
+├ ƒ /api/auth/login                         149 B         102 kB
+├ ƒ /api/auth/logout                        149 B         102 kB
+├ ƒ /api/coach-dashboard/export/[userId]    149 B         102 kB
+├ ƒ /api/narratives/generate                149 B         102 kB
+├ ƒ /api/onboarding/complete                149 B         102 kB
+├ ƒ /api/onboarding/status                  149 B         102 kB
+├ ƒ /api/reframe                            149 B         102 kB
+├ ƒ /api/test-reframe                       149 B         102 kB
+├ ƒ /api/trust-ledger/export/[shareId]      149 B         102 kB
+├ ƒ /api/trust-ledger/notify                149 B         102 kB
+├ ○ /auth                                 2.87 kB         448 kB
+├ ○ /dashboard                             113 kB         558 kB
+├ ○ /narratives                           4.19 kB         446 kB
+└ ○ /onboarding                           3.94 kB         449 kB
++ First Load JS shared by all              102 kB
+  ├ chunks/255-dc5f45a243dc3a80.js        45.6 kB
+  ├ chunks/4bd1b696-409494caf8c83275.js   54.2 kB
+  └ other shared chunks (total)           2.03 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+# ==============================================
+# RESULT: BUILD PASSED
+# TypeScript: 0 errors (ENFORCED - ignoreBuildErrors: false)
+# ESLint: 0 errors, 4 warnings (ENFORCED - ignoreDuringBuilds: false)
+# Pages generated: 16
+# ==============================================

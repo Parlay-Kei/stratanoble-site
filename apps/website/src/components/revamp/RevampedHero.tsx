@@ -4,6 +4,19 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
+/**
+ * RevampedHero - Pipeline-focused hero section
+ *
+ * Copy:
+ * Headline: Lead-to-customer pipelines for service businesses.
+ * Subhead: Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.
+ * Primary CTA: Start the 48-Hour Lead Rescue
+ * Secondary CTA: Apply for the 21-Day Pipeline Buildout
+ * Trust line: Installed fast. Scope capped. You own it.
+ * Bullets: Pipeline installation - Follow-up automation - Deal tracking dashboard
+ * Micro-constraint: No branding. No website builds. Pipeline infrastructure only.
+ */
+
 export function RevampedHero() {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-navy via-navy/95 to-emerald-900/20">
@@ -44,14 +57,14 @@ export function RevampedHero() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
-              Revenue-producing{' '}
+              Lead-to-customer{' '}
               <motion.span
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="bg-gradient-to-r from-accent-gold to-accent-cream bg-clip-text text-transparent"
               >
-                digital infrastructure
+                pipelines
               </motion.span>
               {' '}for service businesses.
             </h1>
@@ -64,7 +77,7 @@ export function RevampedHero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl md:text-2xl text-gray-300 mt-6 max-w-3xl mx-auto leading-relaxed"
           >
-            Websites, portals, and pipelines that turn leads into customers with trackable operations.
+            Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.
           </motion.p>
 
           {/* CTAs */}
@@ -78,30 +91,51 @@ export function RevampedHero() {
               href="/lead-rescue"
               className="bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary/90 transition inline-flex items-center justify-center shadow-xl hover:shadow-2xl"
             >
-              Start with the 48-Hour Lead Rescue
+              Start the 48-Hour Lead Rescue
             </Link>
             <Link
               href="/phase-3"
               className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition inline-flex items-center justify-center"
             >
-              Apply for Phase 3 Buildout
+              Apply for the 21-Day Pipeline Buildout
             </Link>
           </motion.div>
 
-          {/* Trust Indicators */}
+          {/* Trust line */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="text-base text-accent-gold font-medium"
+          >
+            Installed fast. Scope capped. You own it.
+          </motion.p>
+
+          {/* Bullets */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="pt-8 text-center"
+            className="pt-4 text-center"
           >
-            <p className="text-sm text-gray-400 mb-4">Trusted by service businesses who refuse to lose leads</p>
-            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-gray-400">
-              <div className="text-sm">• Pipeline Installation</div>
-              <div className="text-sm">• Follow-up Automation</div>
-              <div className="text-sm">• Real Progress Tracking</div>
+            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-gray-300">
+              <div className="text-sm font-medium">Pipeline installation</div>
+              <div className="text-gray-500">•</div>
+              <div className="text-sm font-medium">Follow-up automation</div>
+              <div className="text-gray-500">•</div>
+              <div className="text-sm font-medium">Deal tracking dashboard</div>
             </div>
           </motion.div>
+
+          {/* Micro-constraint line */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="text-xs text-gray-500 mt-4"
+          >
+            No branding. No website builds. Pipeline infrastructure only.
+          </motion.p>
         </div>
       </div>
 

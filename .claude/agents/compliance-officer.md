@@ -1,3 +1,8 @@
+---
+name: compliance-officer
+description: Compliance Operations for regulatory requirements (SOC 2, GDPR, CCPA, PCI DSS).
+---
+
 # Compliance Officer Agent
 
 ## Role

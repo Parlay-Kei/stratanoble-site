@@ -2,8 +2,16 @@
 
 import React from 'react'
 import { useState } from 'react';
-import { XMarkIcon, LightBulbIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, BoltIcon } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+
+/**
+ * SmartConsultingBar - Lead Rescue focused banner
+ *
+ * Copy: Smart Opportunity: Most leads die in the follow-up gap. We close it in 48 hours.
+ * CTA: Start Lead Rescue
+ */
 
 export function SmartConsultingBar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -28,28 +36,29 @@ export function SmartConsultingBar() {
                 animate={{ rotate: isHovered ? 360 : 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <LightBulbIcon className="h-5 w-5 text-navy" />
+                <BoltIcon className="h-5 w-5 text-navy" />
               </motion.div>
               <div className="text-sm font-medium">
                 <span className="hidden sm:inline">
-                  <strong>Smart Opportunity:</strong> Market intelligence shows 73% of successful entrepreneurs started with passion projects.
+                  <strong>Smart Opportunity:</strong> Most leads die in the follow-up gap. We close it in 48 hours.
                 </span>
                 <span className="sm:hidden">
-                  <strong>Opportunity:</strong> Turn your ideas into income with proven strategies.
+                  <strong>Lead Loss?</strong> We fix it in 48 hours.
                 </span>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <motion.a
-                href="/contact?utm_source=smart-bar&utm_medium=banner&utm_campaign=opportunity-alert"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-navy text-white px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-navy/90 transition-all duration-200 shadow-md"
-              >
-                Start Your Journey
-              </motion.a>
-              
+              <Link href="/lead-rescue">
+                <motion.span
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-navy text-white px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-navy/90 transition-all duration-200 shadow-md inline-block"
+                >
+                  Start Lead Rescue
+                </motion.span>
+              </Link>
+
               <motion.button
                 onClick={() => setIsVisible(false)}
                 whileHover={{ scale: 1.1, rotate: 90 }}
