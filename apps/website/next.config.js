@@ -35,19 +35,36 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Kill contradicting pages - redirect to pipeline-focused destinations
+      {
+        source: '/solutions',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/achievery-preview',
+        destination: '/tools',
+        permanent: true,
+      },
+      {
+        source: '/platform',
+        destination: '/tools',
+        permanent: true,
+      },
+      // Legacy redirects
       {
         source: '/services',
-        destination: '/solutions',
+        destination: '/',
         permanent: true,
       },
       {
         source: '/services/:path*',
-        destination: '/solutions',
+        destination: '/',
         permanent: true,
       },
       {
         source: '/technology',
-        destination: '/platform',
+        destination: '/tools',
         permanent: true,
       },
     ];
