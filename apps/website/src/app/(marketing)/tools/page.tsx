@@ -9,43 +9,46 @@ export const metadata: Metadata = {
 
 const tools = [
   {
-    name: 'ACHIEVERY',
-    tagline: 'Progress tracking for service businesses',
-    description: 'Transform daily activities into meaningful progress with intelligent habit tracking, AI-powered reframing, and real-time analytics.',
-    status: 'In Development',
-    features: [
-      'Daily habit tracking',
-      'AI-powered progress reframing',
-      'Coach dashboard',
-      'Trust ledger sharing',
-    ],
-    gradient: 'from-emerald-500 to-teal-500',
-  },
-  {
     name: 'ProofLoop',
-    tagline: 'Auditable verification for deployments',
-    description: 'Structured verification methodology that produces receipts proving builds pass, flows work, and systems are production-ready.',
-    status: 'Active',
+    tagline: 'Trust engine for every delivery',
+    description: 'Every pipeline install includes ProofLoop receipts. These prove the build passes, flows work, and handoff is complete. No "trust me bro" delivery.',
+    status: 'Included',
     features: [
-      'Build integrity proofs',
+      'Build integrity receipts',
       'Auth flow verification',
-      'Deployment receipts',
-      'CI/CD automation',
+      'Deployment proof pack',
+      'Handoff documentation',
     ],
     gradient: 'from-blue-500 to-indigo-500',
+    included: 'Lead Rescue: Receipt pack. Pipeline Buildout: Full verification suite.',
   },
   {
     name: 'ANX Vault',
-    tagline: 'Secure document management',
-    description: 'Enterprise-grade document storage and sharing with granular access controls and audit trails.',
-    status: 'Internal',
+    tagline: 'Your delivery folder',
+    description: 'All assets, docs, credentials, Looms, and receipts stored in a private vault. You own it. We hand it off.',
+    status: 'Included',
     features: [
-      'Secure document storage',
-      'Access control policies',
-      'Audit logging',
-      'Encrypted sharing',
+      'Secure asset storage',
+      'Credential management',
+      'Video walkthroughs',
+      'Complete handoff docs',
     ],
     gradient: 'from-purple-500 to-pink-500',
+    included: 'Every install includes vault access with all deliverables.',
+  },
+  {
+    name: 'ACHIEVERY',
+    tagline: 'Operator scorecard (Coming Soon)',
+    description: 'Progress tracking for service business operators. See what moved, what stalled, and what needs attention.',
+    status: 'In Development',
+    features: [
+      'Daily progress tracking',
+      'Pipeline health scores',
+      'Team visibility',
+      'Milestone alerts',
+    ],
+    gradient: 'from-emerald-500 to-teal-500',
+    included: 'Early access included with Pipeline Buildout engagements.',
   },
 ];
 
@@ -57,10 +60,13 @@ export default function ToolsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-              Tools We Deploy
+              Tools Included With Every Install
             </h1>
-            <p className="text-xl text-gray-300">
-              Internal tools built for pipeline operations. These power the infrastructure we install for clients.
+            <p className="text-xl text-gray-300 mb-4">
+              These tools ship with your pipeline. You don&apos;t buy them separately.
+            </p>
+            <p className="text-base text-gray-400">
+              ProofLoop receipts prove the work. ANX Vault delivers the assets. ACHIEVERY tracks progress.
             </p>
           </div>
         </div>
@@ -90,8 +96,8 @@ export default function ToolsPage() {
                 <div className="p-6">
                   <p className="text-gray-600 mb-6">{tool.description}</p>
 
-                  <h4 className="text-sm font-semibold text-gray-900 mb-3">Features</h4>
-                  <ul className="space-y-2">
+                  <h4 className="text-sm font-semibold text-gray-900 mb-3">What You Get</h4>
+                  <ul className="space-y-2 mb-6">
                     {tool.features.map((feature) => (
                       <li key={feature} className="flex items-center text-sm text-gray-600">
                         <svg
@@ -111,6 +117,11 @@ export default function ToolsPage() {
                       </li>
                     ))}
                   </ul>
+
+                  {/* Included with */}
+                  <div className="pt-4 border-t border-gray-100">
+                    <p className="text-xs text-gray-500">{tool.included}</p>
+                  </div>
                 </div>
               </div>
             ))}

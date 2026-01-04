@@ -27,8 +27,8 @@ export function BuiltInPublicSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-lg md:text-xl text-muted-foreground mb-8"
           >
-            We're building the automation layer in the open. See what's shipped, what's next,
-            and what you get access to as an early client.
+            Every pipeline install includes ProofLoop receipts and ANX Vault delivery.
+            See the tools that ship with your engagement.
           </motion.p>
 
           <motion.div
@@ -38,10 +38,10 @@ export function BuiltInPublicSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Link
-              href="/platform"
+              href="/tools"
               className="inline-flex items-center gap-2 text-primary font-semibold text-lg hover:gap-4 transition-all group"
             >
-              View the Roadmap
+              See What You Get
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
