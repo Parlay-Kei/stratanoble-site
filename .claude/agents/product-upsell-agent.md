@@ -1,3 +1,8 @@
+---
+name: product-upsell-agent
+description: Manages product catalog, barber recommendations, and affiliate commissions.
+---
+
 # Product Upsell Agent
 
 ## Purpose

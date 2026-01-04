@@ -1,3 +1,8 @@
+---
+name: ux-research-analyst
+description: UX Research Analyst for data-driven user experience optimization.
+---
+
 # UX Research Analyst Agent
 
 ## Role

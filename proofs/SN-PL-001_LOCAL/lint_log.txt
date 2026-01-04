@@ -1,0 +1,5 @@
+ESLint Status: SKIPPED
+Reason: No eslint.config.js found (ESLint v9 format required)
+Next.js build skipped linting: 'Skipping linting'
+
+Recommendation: Add eslint.config.js or migrate from .eslintrc format.

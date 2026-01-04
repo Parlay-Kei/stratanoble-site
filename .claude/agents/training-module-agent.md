@@ -1,3 +1,8 @@
+---
+name: training-module-agent
+description: Manages training courses, progress tracking, quiz scoring, and certifications.
+---
+
 # Training Module Agent
 
 ## Purpose

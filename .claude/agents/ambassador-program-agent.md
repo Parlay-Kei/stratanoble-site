@@ -1,3 +1,8 @@
+---
+name: ambassador-program-agent
+description: Manages brand ambassadors who promote the platform in exchange for free cuts and commissions.
+---
+
 # Ambassador Program Agent
 
 ## Purpose

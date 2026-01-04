@@ -1,3 +1,8 @@
+---
+name: social-media-manager
+description: Manages social media content and engagement strategies.
+---
+
 # Social Media Manager Agent
 
 ## Role

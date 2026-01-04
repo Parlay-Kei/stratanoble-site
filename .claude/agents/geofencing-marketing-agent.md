@@ -1,3 +1,8 @@
+---
+name: geofencing-marketing-agent
+description: Manages location-based notifications and venue partnerships.
+---
+
 # Geofencing & Local Marketing Agent
 
 ## Purpose

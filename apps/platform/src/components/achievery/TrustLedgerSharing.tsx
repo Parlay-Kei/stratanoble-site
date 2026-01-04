@@ -280,7 +280,7 @@ export function TrustLedgerSharing({ user, shares, onSharesUpdate }: TrustLedger
                   className="w-full"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  They'll receive an email invitation to view your progress
+                  They&apos;ll receive an email invitation to view your progress
                 </p>
               </div>
 

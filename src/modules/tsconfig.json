@@ -1,0 +1,19 @@
+{
+  "extends": "../../apps/platform/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@supabase/ssr": ["../../apps/platform/node_modules/@supabase/ssr"],
+      "next/headers": ["../../apps/platform/node_modules/next/dist/api/headers"],
+      "bcrypt": ["../../apps/platform/node_modules/bcrypt"]
+    },
+    "types": ["vitest/globals"]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "**/*.test.ts"
+  ]
+}

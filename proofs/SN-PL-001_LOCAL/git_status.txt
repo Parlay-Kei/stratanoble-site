@@ -1,0 +1,8 @@
+ M .claude/agents/supabase-admin.md
+ M .claude/mcp.json
+ M docs/HOW_TO_GET_NETLIFY_ERROR_LOGS.md
+ M docs/RUN_MIGRATIONS_MANUAL.md
+?? .claude/settings.json
+?? docs/MIGRATION_APPLIED_VERIFICATION.md
+?? proofs/
+?? temp-dump.sql

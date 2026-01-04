@@ -1,0 +1,14 @@
+
+> @strata-noble/platform@0.1.0 type-check
+> tsc --noEmit
+
+../../src/modules/auth/api/logout.ts(6,36): error TS2307: Cannot find module '@supabase/ssr' or its corresponding type declarations.
+../../src/modules/auth/api/logout.ts(7,25): error TS2307: Cannot find module 'next/headers' or its corresponding type declarations.
+../../src/modules/auth/api/logout.ts(39,18): error TS7006: Parameter 'cookiesToSet' implicitly has an 'any' type.
+../../src/modules/auth/api/logout.ts(41,39): error TS7031: Binding element 'name' implicitly has an 'any' type.
+../../src/modules/auth/api/logout.ts(41,45): error TS7031: Binding element 'value' implicitly has an 'any' type.
+../../src/modules/auth/api/logout.ts(41,52): error TS7031: Binding element 'options' implicitly has an 'any' type.
+../../src/modules/auth/api/logout.ts(72,43): error TS7006: Parameter 'c' implicitly has an 'any' type.
+../../src/modules/auth/api/logout.ts(101,39): error TS7006: Parameter 'c' implicitly has an 'any' type.
+../../src/modules/auth/services/auth-services.ts(45,33): error TS2307: Cannot find module 'bcrypt' or its corresponding type declarations.
+../../src/modules/auth/services/auth-services.ts(51,33): error TS2307: Cannot find module 'bcrypt' or its corresponding type declarations.

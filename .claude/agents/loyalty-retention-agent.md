@@ -1,3 +1,8 @@
+---
+name: loyalty-retention-agent
+description: Manages loyalty points, rewards, milestones, and gamification.
+---
+
 # Loyalty & Retention Agent
 
 ## Purpose

@@ -6,11 +6,29 @@
 
 ## Quick Fix: Run Migrations Now
 
-### Option 1: Via Supabase Dashboard (Easiest)
+### Option 1: Via Supabase Dashboard (Easiest) ✅ RECOMMENDED
 
-1. Go to: https://supabase.com/dashboard/project/bvneqoevtwodyfqglpzi/editor
-2. Open SQL Editor
-3. Run the migration SQL from `supabase/migrations/` or create the `LeadIntake` table manually
+1. **Go to Supabase SQL Editor**:
+   - URL: https://supabase.com/dashboard/project/bvneqoevtwodyfqglpzi/sql/new
+   - Or: Dashboard → SQL Editor → New Query
+
+2. **Copy and paste the migration SQL**:
+   - Open: `supabase/migrations/0026_create_lead_intake_table.sql`
+   - Copy the entire contents
+   - Paste into SQL Editor
+
+3. **Execute the migration**:
+   - Click "Run" or press Ctrl+Enter
+   - Wait for success message
+
+4. **Verify table created**:
+   ```sql
+   SELECT table_name 
+   FROM information_schema.tables 
+   WHERE table_schema = 'public' 
+   AND table_name = 'LeadIntake';
+   ```
+   Should return one row.
 
 ### Option 2: Via Prisma CLI (Local Machine)
 

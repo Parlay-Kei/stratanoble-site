@@ -1,0 +1,30 @@
+=== RUNTIME HEALTH RECEIPT ===
+Date: 2026-01-03
+Server: http://localhost:3001
+Framework: Next.js 15.5.9
+
+=== ENDPOINT CHECKS ===
+
+| Endpoint               | HTTP Status | Result |
+|------------------------|-------------|--------|
+| / (Home)               | 200         | PASS   |
+| /auth                  | 200         | PASS   |
+| /dashboard             | 200         | PASS   |
+| /api/onboarding/status | 200         | PASS   |
+
+=== API RESPONSE SAMPLE ===
+
+/api/onboarding/status responded with:
+  requestId: req_1767486067081_s8uwtxk85
+  userId: test-user-id
+  status: not_started
+  duration: 1ms
+
+=== VERDICT ===
+Server: RUNNING
+Routes: RESPONDING
+Status: PASS
+
+=== NOTE ===
+Home (/) returns 200 because static page was pre-rendered.
+In production with middleware, unauthenticated users redirect to /auth.

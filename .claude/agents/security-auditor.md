@@ -1,3 +1,8 @@
+---
+name: security-auditor
+description: Security auditing for vulnerability assessment and compliance.
+---
+
 # Security Auditor Agent
 
 ## Role

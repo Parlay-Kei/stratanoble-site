@@ -17,12 +17,12 @@ const nextConfig = {
     return config
   },
   typescript: {
-    // Skip type checking during build for initial deployment
-    ignoreBuildErrors: true,
+    // Enforce type checking during build
+    ignoreBuildErrors: false,
   },
   eslint: {
-    // Skip ESLint during build for initial deployment
-    ignoreDuringBuilds: true,
+    // Enforce ESLint during build
+    ignoreDuringBuilds: false,
   },
 }
 

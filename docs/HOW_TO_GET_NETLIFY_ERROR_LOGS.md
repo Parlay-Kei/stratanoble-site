@@ -4,19 +4,46 @@
 
 ---
 
-## Method 1: Logs & Metrics (Recommended)
+## Method 1: Functions Logs (Recommended - YOU ARE HERE)
 
-1. **Open Netlify Dashboard**
-   - Go to: https://app.netlify.com/sites/stratanoble
-   - Click: **"Logs & metrics"** in the left sidebar
+1. **You're already in the right place!**
+   - You're in: **Logs & metrics → Functions**
 
-2. **View Function Logs**
-   - Look for **"Function logs"** or **"Serverless function logs"** section
-   - Filter by: `/api/intake/lead-leak-check` (if filter available)
-   - OR: Scroll to recent errors (should show HTTP 500)
+2. **Click on "Next.js Server Handler"**
+   - You should see it listed with a "System" tag
+   - Click on it (or the chevron arrow on the right)
+
+3. **Enable Real-time Logs (If Empty)**
+   - If logs area is empty, click the **"Real-time"** dropdown button
+   - Enable real-time logging to see live errors
+   - OR: Check time range filter (should include last 24 hours)
+
+4. **Trigger a Fresh Error**
+   - Go to: `https://stratanoble.com` and submit the Lead Leak Check form
+   - This will generate a new error that should appear in real-time logs
+   - Watch the logs area for the error to appear
+
+5. **View Function Logs**
+   - Look for entries with **red error indicators** or **"ERROR"** log level
+   - The metrics you see (Duration, Memory Usage) are NOT the errors - scroll past those
+   - Look for entries that show:
+     - Error messages (not just metrics)
+     - Stack traces
+     - Prisma errors
+   - OR: Use the search bar to filter by "lead-leak-check", "500", "error", "Prisma", or "Exception"
    - Look for timestamps matching when you submitted the form
 
-3. **Copy Error Lines**
+6. **What You're Looking For**
+   - ❌ **NOT these**: `Duration: 21.06 ms Memory Usage: 335 MB` (these are metrics)
+   - ✅ **YES these**: Error messages like `PrismaClientKnownRequestError`, `relation "LeadIntake" does not exist`, stack traces
+
+7. **If You Only See Metrics**
+   - The error might be in a different log entry
+   - Click on individual log entries to expand them
+   - OR: Trigger a fresh error (submit form) and watch for it in real-time
+   - OR: Try Method 3 (Deploy Logs) instead
+
+8. **Copy Error Lines**
    - Find the error stack trace (usually 10-20 lines)
    - Copy the full error message including:
      - Error type (e.g., `PrismaClientKnownRequestError`)
@@ -42,7 +69,7 @@
 
 ---
 
-## Method 3: Deploy Logs
+## Method 3: Deploy Logs (Alternative if Function Logs Empty)
 
 1. **Open Netlify Dashboard**
    - Go to: https://app.netlify.com/sites/stratanoble
@@ -50,14 +77,18 @@
 
 2. **Find Latest Deploy**
    - Click on the most recent production deploy (the one that's published)
+   - Look for deploy with commit `01f1492` or newer
 
-3. **View Build/Function Logs**
+3. **View Runtime Logs**
    - Scroll through the deploy logs
-   - Look for runtime errors (not build errors)
-   - Use browser search (Ctrl+F) for "lead-leak-check", "500", or "error"
+   - Look for **runtime errors** (not build errors)
+   - Function errors appear after the build completes
+   - Use browser search (Ctrl+F) for "lead-leak-check", "500", "error", or "Prisma"
 
 4. **Copy Error**
-   - Copy the error message and stack trace
+   - Copy the error message and stack trace (10-20 lines)
+
+**Note**: Deploy logs show errors that occurred during that specific deploy's runtime, not all production errors. For current production errors, use Method 1 (Function logs) with real-time enabled.
 
 ---
 

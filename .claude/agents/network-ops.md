@@ -1,3 +1,8 @@
+---
+name: network-ops
+description: Network Operations for cloud infrastructure, CDN optimization, and DNS management.
+---
+
 # Network Operations Agent
 
 ## Role

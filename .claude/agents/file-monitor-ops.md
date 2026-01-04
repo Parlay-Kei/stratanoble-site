@@ -1,3 +1,8 @@
+---
+name: file-monitor-ops
+description: File monitoring agent for real-time directory watching with event routing.
+---
+
 # File Monitor Operations Agent
 
 ## Purpose

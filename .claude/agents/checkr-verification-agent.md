@@ -1,3 +1,8 @@
+---
+name: checkr-verification-agent
+description: Handles automated background check processing via Checkr API integration.
+---
+
 # Checkr Verification Agent
 
 ## Purpose
