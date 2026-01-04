@@ -96,6 +96,27 @@ export function LeadLeakCalculator() {
         <p className="text-xs text-muted-foreground mt-2">
           Based on {monthlyMissed} missed leads/mo × 20-40% conversion rate
         </p>
+
+        {/* ROI anchor - operator language */}
+        {lowLeakage > 0 && (
+          <p className="text-sm text-emerald-700 font-medium mt-3 bg-emerald-50 rounded px-3 py-2">
+            Recover {Math.ceil(997 / avgJobValue)} job{Math.ceil(997 / avgJobValue) > 1 ? 's' : ''} and Lead Rescue pays for itself.
+          </p>
+        )}
+
+        <p className="text-[10px] text-muted-foreground mt-2 italic">
+          Estimate. ProofLoop finds the real leak.
+        </p>
+      </div>
+
+      {/* CTA */}
+      <div className="mt-4">
+        <a
+          href="#form"
+          className="block w-full text-center bg-red-600 text-white py-3 px-4 rounded-lg font-semibold text-sm hover:bg-red-700 transition-colors"
+        >
+          Run ProofLoop on my site
+        </a>
       </div>
     </div>
   );

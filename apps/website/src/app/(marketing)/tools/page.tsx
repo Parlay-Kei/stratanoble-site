@@ -5,6 +5,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Tools | Strata Noble',
   description: 'Internal tools we build and deploy for pipeline operations. ACHIEVERY, ProofLoop, and ANX Vault.',
+  alternates: {
+    canonical: '/tools',
+  },
+  openGraph: {
+    title: 'Tools | Strata Noble',
+    description: 'Internal tools we build and deploy for pipeline operations. ACHIEVERY, ProofLoop, and ANX Vault.',
+    url: '/tools',
+  },
 };
 
 const tools = [
