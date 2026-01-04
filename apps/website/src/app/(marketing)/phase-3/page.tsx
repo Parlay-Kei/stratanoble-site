@@ -3,13 +3,17 @@ import { Phase3ApplicationForm } from '@/components/forms/Phase3ApplicationForm'
 import { ReceiptsIncluded } from '@/components/ReceiptsIncluded';
 
 export const metadata: Metadata = {
-  title: 'Phase 3 Buildout | Strata Noble',
+  title: '21-Day Pipeline Buildout | Strata Noble',
   description:
     'Get a complete lead-to-customer pipeline built in 21 days. CRM, email sequences, automations, and milestone tracking.',
+  alternates: {
+    canonical: '/phase-3',
+  },
   openGraph: {
-    title: 'Phase 3 Buildout | Strata Noble',
+    title: '21-Day Pipeline Buildout | Strata Noble',
     description:
       'Get a complete lead-to-customer pipeline built in 21 days. CRM, email sequences, automations, and milestone tracking.',
+    url: '/phase-3',
   },
 };
 

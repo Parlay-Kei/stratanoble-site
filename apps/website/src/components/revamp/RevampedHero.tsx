@@ -116,21 +116,29 @@ export function RevampedHero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.75 }}
-            className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12 pt-4"
+            className="flex flex-col items-center gap-4 pt-4"
           >
-            <div className="text-center">
-              <p className="text-2xl md:text-3xl font-bold text-white">100×</p>
-              <p className="text-xs text-gray-400 max-w-[140px]">
-                better contact odds responding in 5 min vs 30 min
-              </p>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12">
+              <div className="text-center">
+                <p className="text-2xl md:text-3xl font-bold text-white">21×</p>
+                <p className="text-xs text-gray-400 max-w-[160px]">
+                  higher qualification rate responding in 5 min vs 30 min
+                </p>
+              </div>
+              <div className="hidden sm:block w-px h-12 bg-gray-600"></div>
+              <div className="text-center">
+                <p className="text-2xl md:text-3xl font-bold text-white">~38%</p>
+                <p className="text-xs text-gray-400 max-w-[160px]">
+                  of small business calls answered (30-day study)
+                </p>
+              </div>
             </div>
-            <div className="hidden sm:block w-px h-12 bg-gray-600"></div>
-            <div className="text-center">
-              <p className="text-2xl md:text-3xl font-bold text-white">62%</p>
-              <p className="text-xs text-gray-400 max-w-[140px]">
-                of business calls go unanswered on average
-              </p>
-            </div>
+            <a
+              href="/research"
+              className="text-[10px] text-gray-500 hover:text-gray-400 underline underline-offset-2"
+            >
+              See sources
+            </a>
           </motion.div>
 
           {/* Bullets */}

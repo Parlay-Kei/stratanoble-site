@@ -8,10 +8,14 @@ export const metadata: Metadata = {
   title: '48-Hour Lead Rescue | Strata Noble',
   description:
     'Stop losing leads. We find the leak, fix the flow, and ship receipts proving it works. 48 hours.',
+  alternates: {
+    canonical: '/lead-rescue',
+  },
   openGraph: {
     title: '48-Hour Lead Rescue | Strata Noble',
     description:
       'Stop losing leads. We find the leak, fix the flow, and ship receipts proving it works. 48 hours.',
+    url: '/lead-rescue',
   },
 };
 
@@ -58,7 +62,7 @@ export default function LeadRescuePage() {
                 Book a Lead Rescue Call
               </a>
               <Link
-                href="/tools"
+                href="/tools/sample-receipt"
                 className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-all"
               >
                 See a Sample ProofLoop Receipt
@@ -67,7 +71,7 @@ export default function LeadRescuePage() {
 
             {/* Trust strip */}
             <p className="text-sm text-gray-400">
-              ProofLoop verified delivery. Every action captured. Every claim backed by receipts stored in ANX Vault.
+              ProofLoop verified delivery. Receipts stored in ANX Vault. If we can&apos;t prove it, we don&apos;t ship it.
             </p>
           </div>
         </section>
@@ -99,6 +103,9 @@ export default function LeadRescuePage() {
 
               {/* Pricing */}
               <Pricing />
+
+              {/* Recent Rescues */}
+              <RecentRescues />
             </div>
 
             {/* Right: Form (sticky on desktop) */}
@@ -197,7 +204,7 @@ function HowWeProve() {
       </ul>
 
       <Link
-        href="/tools"
+        href="/tools/sample-receipt"
         className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700"
       >
         See a Sample ProofLoop Receipt (redacted) →
@@ -335,10 +342,11 @@ function Pricing() {
     <div className="border-2 border-primary rounded-xl p-6 bg-primary/5">
       <h2 className="text-xl font-bold mb-3">Investment</h2>
       <div className="flex items-baseline gap-2">
-        <span className="text-sm text-muted-foreground">Starting at</span>
         <p className="text-3xl font-bold text-primary">$997</p>
+        <span className="text-sm text-muted-foreground">fixed scope</span>
       </div>
       <p className="text-sm text-muted-foreground mt-2">One-time fee. No recurring costs. You own it.</p>
+      <p className="text-xs text-muted-foreground mt-1">Complex integrations require a pre-quote.</p>
       <div className="mt-4 pt-4 border-t border-primary/20">
         <p className="text-sm font-semibold mb-2">What&apos;s included:</p>
         <ul className="text-sm space-y-1 text-muted-foreground">
@@ -349,6 +357,33 @@ function Pricing() {
           <li>✓ Handoff call + documentation</li>
         </ul>
       </div>
+    </div>
+  );
+}
+
+function RecentRescues() {
+  const rescues = [
+    { outcome: 'Lead routing restored in 6 hours', type: 'Routing' },
+    { outcome: 'Email confirmations fixed after DNS misconfig', type: 'Email' },
+    { outcome: 'Form submission errors eliminated', type: 'Forms' },
+    { outcome: 'CRM sync restored after API credential rotation', type: 'Integration' },
+    { outcome: 'Duplicate lead entries stopped at source', type: 'Data' },
+  ];
+
+  return (
+    <div className="bg-gray-50 border rounded-xl p-6">
+      <h2 className="text-xl font-bold mb-4">Recent rescues</h2>
+      <ul className="space-y-3">
+        {rescues.map((rescue, i) => (
+          <li key={i} className="flex items-start gap-3 text-sm">
+            <span className="text-emerald-500 flex-shrink-0 mt-0.5">✓</span>
+            <span className="text-muted-foreground">{rescue.outcome}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="text-xs text-muted-foreground mt-4 pt-4 border-t">
+        No names. No logos. Just outcomes.
+      </p>
     </div>
   );
 }
@@ -408,8 +443,11 @@ function BottomCTA() {
   return (
     <section className="max-w-2xl mx-auto mt-20 text-center bg-navy text-white rounded-xl p-8">
       <h2 className="text-2xl font-bold mb-4">Stop losing leads this week.</h2>
-      <p className="text-gray-300 mb-6">
+      <p className="text-gray-300 mb-4">
         Book the 10-minute access check. If we can&apos;t run ProofLoop, we don&apos;t take the sprint.
+      </p>
+      <p className="text-gray-400 text-sm mb-6">
+        If the leak is outside scope, you get a refund path or a clear next step.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <a
@@ -419,7 +457,7 @@ function BottomCTA() {
           Book the 10-minute access check
         </a>
         <Link
-          href="/tools"
+          href="/tools/sample-receipt"
           className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-all"
         >
           See a redacted ProofLoop receipt
