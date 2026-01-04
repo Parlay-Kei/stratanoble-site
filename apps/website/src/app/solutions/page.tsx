@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   title: 'Solutions | Strata Noble - Choose Your Package',
   description: 'Flexible CaaS platform packages for entrepreneurs. From self-service tools to full coaching support, find the right fit for your journey.',
   keywords: 'consulting packages, CaaS tiers, business coaching packages, platform subscription',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function SolutionsPage() {
