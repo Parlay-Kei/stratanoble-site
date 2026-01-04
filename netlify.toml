@@ -49,6 +49,43 @@
   status = 301
   force = true
 
+# Redirect old pages to prevent Google from indexing stale content
+[[redirects]]
+  from = "/solutions"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/solutions/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/achievery-preview"
+  to = "/tools"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/achievery-preview/*"
+  to = "/tools"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
