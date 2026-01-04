@@ -8,11 +8,6 @@ import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
 import { ToastProvider } from '@/components/ui/toast';
-import { isRevampEnabled } from '@/lib/feature-flags';
-
-// Legacy header/footer - only used when revamp is disabled
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -133,9 +128,8 @@ export const metadata: Metadata = {
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // When revamp is enabled, marketing pages use their own SiteShell
-  // Legacy header/footer only shows when revamp is disabled
-  const revampEnabled = isRevampEnabled();
+  // Marketing pages use (marketing) route group with SiteShell
+  // Root layout only provides base HTML structure
 
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -223,11 +217,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         )}
 
-        {!revampEnabled && <Header />}
         <ToastProvider>
           {children}
         </ToastProvider>
-        {!revampEnabled && <Footer />}
         <Suspense fallback={null}>
           <Analytics />
         </Suspense>        {/* Google Analytics with Next.js Script component - lazyOnload to avoid blocking critical path */}
