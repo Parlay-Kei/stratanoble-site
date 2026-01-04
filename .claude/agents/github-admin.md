@@ -382,6 +382,16 @@ git merge --abort
 
 ## Skill Integration
 
+### MCP Server (Universal)
+
+The GitHub Operations MCP server is located at:
+`C:/Dev/.claude-anx/agents/github-ops/src/mcp/server.js`
+
+This provides enhanced tooling for workflow management, failure analysis, secrets auditing, and repository health checks.
+
+---
+
+
 Load `github-ops` skill for detailed procedures:
 - **Level 1**: Quick CLI commands, diagnostics
 - **Level 2**: Branch strategy, PR workflows, Actions basics

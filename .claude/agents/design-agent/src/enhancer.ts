@@ -6,12 +6,12 @@
 import Anthropic from '@anthropic-ai/sdk';
 import * as fs from 'fs';
 import * as path from 'path';
-import {
-  ScreenAnalysis,
-  EnhancedComponent,
-  ComponentFile,
-} from './types.js';
 import { directCutsDesignSystem } from './design-system.js';
+import {
+  ComponentFile,
+  EnhancedComponent,
+  ScreenAnalysis,
+} from './types.js';
 
 export class DesignEnhancer {
   private anthropic: Anthropic;
@@ -164,24 +164,34 @@ Generate the complete enhanced component code.`;
    * Parse enhancement response
    */
   private parseEnhancementResponse(text: string, component: ComponentFile): EnhancedComponent {
-    // Extract code block
-    const codeMatch = text.match(/```(?:tsx|typescript|jsx)?\n([\s\S]*?)```/);
-    const enhancedCode = codeMatch ? codeMatch[1].trim() : component.content;
+    // Extract code block - use flexible whitespace matching like parseAnalysisResponse
+    // Handles \n, \r\n, \r, and optional whitespace after backticks
+    const codeMatch = text.match(/```(?:tsx|typescript|jsx)?\s*\n?([\s\S]*?)\s*\n?```/);
+    let enhancedCode = codeMatch ? codeMatch[1].trim() : component.content;
+    
+    // Validate that extracted code is not empty (fallback to original if it is)
+    if (codeMatch && (!enhancedCode || enhancedCode.length === 0)) {
+      console.warn(
+        `⚠️  Code extraction returned empty result for ${component.name}. ` +
+        `Falling back to original code. Response preview: ${text.substring(0, 200)}...`
+      );
+      enhancedCode = component.content;
+    }
 
-    // Extract changes
-    const changesMatch = text.match(/\*\*Changes Made:\*\*\n([\s\S]*?)(?=\*\*New Dependencies:|$)/);
+    // Extract changes - handle different line endings and optional whitespace
+    const changesMatch = text.match(/\*\*Changes Made:\*\*\s*\n?([\s\S]*?)(?=\*\*New Dependencies:|$)/);
     const changesText = changesMatch ? changesMatch[1] : '';
     const changes = changesText
-      .split('\n')
+      .split(/\r?\n/) // Handle both \n and \r\n
       .filter(line => line.trim().startsWith('-'))
       .map(line => line.replace(/^-\s*/, '').trim())
       .filter(Boolean);
 
-    // Extract dependencies
-    const depsMatch = text.match(/\*\*New Dependencies:\*\*\n([\s\S]*?)$/);
+    // Extract dependencies - handle different line endings and optional whitespace
+    const depsMatch = text.match(/\*\*New Dependencies:\*\*\s*\n?([\s\S]*?)$/);
     const depsText = depsMatch ? depsMatch[1] : '';
     const newDependencies = depsText
-      .split('\n')
+      .split(/\r?\n/) // Handle both \n and \r\n
       .filter(line => line.trim().startsWith('-'))
       .map(line => line.replace(/^-\s*/, '').trim())
       .filter(Boolean);
@@ -247,8 +257,18 @@ Provide the complete component code.`,
       throw new Error('Unexpected response type');
     }
 
-    const codeMatch = content.text.match(/```(?:tsx|typescript)?\n([\s\S]*?)```/);
+    // Use flexible whitespace matching to handle different line endings
+    const codeMatch = content.text.match(/```(?:tsx|typescript)?\s*\n?([\s\S]*?)\s*\n?```/);
     const code = codeMatch ? codeMatch[1].trim() : '';
+
+    // Validate that code was successfully extracted
+    if (!code || code.length === 0) {
+      throw new Error(
+        `Failed to extract component code from Claude's response. ` +
+        `The response may not contain a valid code block or the format was unexpected. ` +
+        `Response preview: ${content.text.substring(0, 200)}...`
+      );
+    }
 
     return {
       name,
@@ -267,8 +287,28 @@ Provide the complete component code.`,
     
     // Create backup
     if (fs.existsSync(targetPath)) {
-      const backupPath = targetPath.replace(/\.(tsx|jsx)$/, '.backup.$1');
-      fs.copyFileSync(targetPath, backupPath);
+      // Handle all TypeScript/JavaScript file extensions: .ts, .tsx, .js, .jsx
+      const backupPath = targetPath.replace(/\.(tsx?|jsx?)$/, (match, ext) => `.backup.${ext}`);
+      
+      // Ensure backup path is different from target path
+      if (backupPath === targetPath) {
+        // Fallback: append .backup before extension if regex didn't match
+        const ext = path.extname(targetPath);
+        const baseName = path.basename(targetPath, ext);
+        const dir = path.dirname(targetPath);
+        const fallbackBackupPath = path.join(dir, `${baseName}.backup${ext}`);
+        fs.copyFileSync(targetPath, fallbackBackupPath);
+      } else {
+        fs.copyFileSync(targetPath, backupPath);
+      }
+    }
+
+    // Validate that we're not writing an empty file
+    if (!enhancement.enhancedCode || enhancement.enhancedCode.trim().length === 0) {
+      throw new Error(
+        `Cannot write empty file to ${targetPath}. ` +
+        `The enhancement appears to have failed - no code was generated or extracted.`
+      );
     }
 
     // Write enhanced code

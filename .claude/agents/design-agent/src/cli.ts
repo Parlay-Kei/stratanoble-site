@@ -402,7 +402,8 @@ program
       const enhancements: EnhancedComponent[] = [];
 
       for (const screen of prioritizedScreens.slice(0, 10)) {
-        const component = components.find(c => c.name === screen.name);
+        // Match by filePath to ensure we get the correct component even if names collide
+        const component = components.find(c => c.path === screen.filePath);
         if (!component) continue;
 
         const spinner = ora(`Enhancing ${screen.name}...`).start();
