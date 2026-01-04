@@ -53,16 +53,34 @@ export class DesignAnalyzer {
     for (const pattern of patterns) {
       const matches = await glob(pattern.replace(/\\/g, '/'));
       for (const filePath of matches) {
-        const content = fs.readFileSync(filePath, 'utf-8');
-        const name = path.basename(filePath, path.extname(filePath));
-        const type = filePath.includes('pages') ? 'page' : 'component';
-        
-        files.push({
-          path: filePath,
-          name,
-          content,
-          type: type as 'page' | 'component',
-        });
+        try {
+          // Check if file still exists and is accessible before reading
+          if (!fs.existsSync(filePath)) {
+            console.warn(`⚠️  File no longer exists: ${filePath}`);
+            continue;
+          }
+          
+          const content = fs.readFileSync(filePath, 'utf-8');
+          const basename = path.basename(filePath, path.extname(filePath));
+          const type = filePath.includes('pages') ? 'page' : 'component';
+          
+          // Create a unique name that includes directory structure to avoid collisions
+          // e.g., "pages/Button" or "components/Button" instead of just "Button"
+          const relativePath = path.relative(srcPath, filePath);
+          const dirName = path.dirname(relativePath);
+          const uniqueName = dirName !== '.' ? `${dirName}/${basename}` : basename;
+          
+          files.push({
+            path: filePath,
+            name: uniqueName, // Use unique name to avoid collisions
+            content,
+            type: type as 'page' | 'component',
+          });
+        } catch (error) {
+          // Gracefully skip files that can't be read (permissions, deleted, etc.)
+          console.warn(`⚠️  Skipping file due to error: ${filePath} - ${error instanceof Error ? error.message : String(error)}`);
+          continue;
+        }
       }
     }
 
@@ -159,9 +177,58 @@ Provide your analysis as JSON.`;
    * Parse the analysis response
    */
   private parseAnalysisResponse(text: string, component: ComponentFile): ScreenAnalysis {
-    // Extract JSON from response
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
+    // Extract JSON from response - handle markdown code blocks
+    // First try to extract from code blocks (```json or ```)
+    let jsonMatch = text.match(/```(?:json)?\s*\n?(\{[\s\S]*?\})\s*\n?```/);
+    let jsonText: string | undefined;
+    
+    if (jsonMatch) {
+      // Code block regex has a capture group, use index 1
+      jsonText = jsonMatch[1];
+    } else {
+      // If no code block found, try to extract JSON object directly
+      // Use non-greedy matching to capture only the first complete JSON object
+      // This prevents matching from first { to last } when multiple objects exist
+      jsonMatch = text.match(/\{[\s\S]*?\}/);
+      if (jsonMatch) {
+        // Fallback regex has no capture group, use index 0 (full match)
+        let candidate = jsonMatch[0];
+        
+        // Validate that we have a complete JSON object by attempting to parse
+        // If parsing fails, try to find a better match by looking for balanced braces
+        try {
+          JSON.parse(candidate);
+          jsonText = candidate;
+        } catch {
+          // If non-greedy match failed (likely due to nested objects),
+          // try to find the first complete JSON object by matching balanced braces
+          // This is a simple approach: find { and then find matching }
+          let braceCount = 0;
+          let startIdx = text.indexOf('{');
+          if (startIdx !== -1) {
+            for (let i = startIdx; i < text.length; i++) {
+              if (text[i] === '{') braceCount++;
+              if (text[i] === '}') braceCount--;
+              if (braceCount === 0 && i > startIdx) {
+                candidate = text.substring(startIdx, i + 1);
+                try {
+                  JSON.parse(candidate);
+                  jsonText = candidate;
+                  break;
+                } catch {
+                  // Continue searching
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    // Check jsonText directly - this is the definitive indicator of successful extraction
+    // jsonMatch may be truthy from either regex attempt, but jsonText is only set when
+    // we successfully extract and validate JSON content
+    if (!jsonText) {
       return {
         name: component.name,
         filePath: component.path,
@@ -173,7 +240,7 @@ Provide your analysis as JSON.`;
     }
 
     try {
-      const parsed = JSON.parse(jsonMatch[0]);
+      const parsed = JSON.parse(jsonText);
       return {
         name: component.name,
         filePath: component.path,
@@ -223,15 +290,36 @@ Provide your analysis as JSON.`;
     const uniqueSpacing = new Set(spacingClasses);
 
     // More unique values = less consistency
-    const colorConsistency = Math.max(0, 100 - (uniqueColors.size - 10) * 5);
-    const typographyConsistency = Math.max(0, 100 - (uniqueTypography.size - 8) * 5);
-    const spacingConsistency = Math.max(0, 100 - (uniqueSpacing.size - 10) * 5);
+    // Cap at 100 to prevent scores above 100 when baseline assumptions are exceeded
+    const colorConsistency = Math.min(100, Math.max(0, 100 - (uniqueColors.size - 10) * 5));
+    const typographyConsistency = Math.min(100, Math.max(0, 100 - (uniqueTypography.size - 8) * 5));
+    const spacingConsistency = Math.min(100, Math.max(0, 100 - (uniqueSpacing.size - 10) * 5));
 
     // Component reuse (check for repeated patterns)
-    const componentImports = components.flatMap(c => 
-      [...c.content.matchAll(/import.*from ['"].*components/g)]
-    );
-    const componentReuse = Math.min(100, componentImports.length * 10);
+    // Count unique component imports across all files
+    const allComponentImports = new Set<string>();
+    components.forEach(c => {
+      const imports = [...c.content.matchAll(/import\s+.*?\s+from\s+['"](.*?components[^'"]*)['"]/g)];
+      imports.forEach(match => {
+        if (match[1]) {
+          allComponentImports.add(match[1]);
+        }
+      });
+    });
+    
+    // Good reuse = fewer unique import paths being reused across many components
+    // More components reusing the same imports = higher score
+    // Fewer unique imports with more total imports = better reuse
+    const totalImports = components.reduce((sum, c) => {
+      return sum + (c.content.match(/import.*from ['"].*components/g) || []).length;
+    }, 0);
+    
+    // Calculate reuse score: higher when same imports are used across many components
+    // If we have many total imports but few unique paths, that's good reuse
+    const uniqueImportCount = allComponentImports.size;
+    const reuseRatio = uniqueImportCount > 0 ? totalImports / uniqueImportCount : 0;
+    // Score: 100 if reuse ratio is high (many uses per unique import), 0 if low
+    const componentReuse = Math.min(100, Math.max(0, Math.round(reuseRatio * 10)));
 
     const issues: string[] = [];
     
@@ -298,7 +386,8 @@ Provide your analysis as JSON.`;
       }
     }
 
-    if (improvementCounts.get('animation') || 0 > 2) {
+    // Check if animation improvements exceed 2 (with proper operator precedence)
+    if ((improvementCounts.get('animation') || 0) > 2) {
       recommendations.push({
         priority: priority++,
         title: 'Add micro-interactions and animations',

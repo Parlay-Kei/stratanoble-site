@@ -102,7 +102,8 @@ export class DesignAgent {
     const enhancements = [];
 
     for (const screen of prioritized) {
-      const component = components.find(c => c.name === screen.name);
+      // Match by filePath to ensure we get the correct component even if names collide
+      const component = components.find(c => c.path === screen.filePath);
       if (!component) continue;
 
       try {
