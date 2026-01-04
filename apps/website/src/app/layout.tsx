@@ -137,7 +137,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "name": "Strata Noble",
     "url": "https://stratanoble.com",
     "logo": "https://stratanoble.com/stratanoble_logoICON.svg",
-    "description": "Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures, including websites, portals, marketplaces, and the systems that run them.",
+    "description": "Lead-to-customer pipelines for service businesses. Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Las Vegas",
@@ -156,23 +156,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "services": [
       {
         "@type": "Service",
-        "name": "Idea to Execution Strategy",
-        "description": "Complete business strategy from concept to profitable execution"
-      },
-      {
-        "@type": "Service", 
-        "name": "AI/No-Code Stack Setup",
-        "description": "Implementation of AI tools and no-code solutions for business automation"
+        "name": "48-Hour Lead Rescue",
+        "description": "Lead capture and follow-up system installation in 48 hours. Intake form, automated follow-up sequence, and tracking dashboard."
       },
       {
         "@type": "Service",
-        "name": "Operations & Delegation Blueprint", 
-        "description": "Systematic approach to scaling operations and team delegation"
-      },
-      {
-        "@type": "Service",
-        "name": "Data Analysis & Optimization",
-        "description": "Performance analytics and operational efficiency improvements"
+        "name": "21-Day Pipeline Buildout",
+        "description": "Complete lead-to-customer pipeline infrastructure with multi-stage deal tracking, automated nurture sequences, and ProofLoop verification."
       }
     ]
   }

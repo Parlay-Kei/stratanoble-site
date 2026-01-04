@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { Phase3ApplicationForm } from '@/components/forms/Phase3ApplicationForm';
+import { ReceiptsIncluded } from '@/components/ReceiptsIncluded';
 
 export const metadata: Metadata = {
   title: 'Phase 3 Buildout | Strata Noble',
@@ -44,6 +45,7 @@ export default function Phase3Page() {
           <div className="space-y-8">
             <OutcomePromise />
             <DeliverablesSection />
+            <ReceiptsIncluded variant="pipeline" />
             <TimelineSection />
             <ManualNowAutomationLater />
             <WhoItsFor />
