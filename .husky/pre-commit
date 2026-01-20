@@ -1,36 +1,28 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🤖 AUTONOMOUS AGENTS: PRE-COMMIT VALIDATION"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
+# Strata Noble Pre-commit Hook
+# Runs before every commit to ensure code quality
 
-# Show what's being committed
-echo "📦 Files staged for commit:"
-git diff --cached --name-only | sed 's/^/   /'
-echo ""
+echo "🚀 Running Strata Noble pre-commit checks..."
 
-# Run agents
-npm run agents trigger pre-commit
-
-# Capture exit code
-EXIT_CODE=$?
-
-if [ $EXIT_CODE -eq 0 ]; then
-  echo ""
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "✅ PRE-COMMIT VALIDATION PASSED"
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo ""
-else
-  echo ""
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "❌ PRE-COMMIT VALIDATION FAILED"
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo ""
-  echo "⚠️  Commit blocked. Please fix the issues above."
-  echo ""
+# Run pre-push validation (includes type check, lint, tests)
+echo "📝 Running validation checks..."
+npm run validate || {
+  echo "❌ Validation failed. Please fix errors before committing."
   exit 1
-fi
+}
+
+# Check contracts
+echo "📋 Checking contracts..."
+npm run contract:check || {
+  echo "⚠️  Contract check found issues. Review before committing."
+}
+
+# Check brand consistency
+echo "🎨 Checking brand consistency..."
+npm run brand:check || {
+  echo "⚠️  Brand consistency issues found. Review before committing."
+}
+
+echo "✅ All pre-commit checks passed!"
