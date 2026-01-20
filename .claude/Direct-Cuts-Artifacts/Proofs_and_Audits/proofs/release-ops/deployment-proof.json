@@ -1,0 +1,69 @@
+{
+  "deployment": {
+    "timestamp": "2026-01-18",
+    "commit_sha": "c92da14",
+    "production_url": "https://app.direct-cuts.com",
+    "deployment_id": "dpl_AZrdd43PGtjvMFgLhALRjQxeJwax",
+    "vercel_url": "https://direct-cuts-5grt9s7tg-strata-nobles-projects.vercel.app",
+    "environment_variables": {
+      "VITE_LAUNCH_MODE_BARBER": "1",
+      "verified": true
+    }
+  },
+  "supabase_edge_functions": {
+    "project_ref": "dskpfnjbgocieoqyiznf",
+    "deployed_functions": [
+      {
+        "name": "get-connect-status",
+        "version": 13,
+        "url": "https://dskpfnjbgocieoqyiznf.functions.supabase.co/get-connect-status",
+        "cors_verified": true
+      },
+      {
+        "name": "subscription-service",
+        "version": 1,
+        "url": "https://dskpfnjbgocieoqyiznf.functions.supabase.co/subscription-service",
+        "cors_verified": true
+      },
+      {
+        "name": "create-connect-account",
+        "version": 13,
+        "url": "https://dskpfnjbgocieoqyiznf.functions.supabase.co/create-connect-account"
+      },
+      {
+        "name": "stripe-webhook",
+        "version": 18,
+        "url": "https://dskpfnjbgocieoqyiznf.functions.supabase.co/stripe-webhook"
+      },
+      {
+        "name": "send-barber-welcome-email",
+        "version": 5,
+        "url": "https://dskpfnjbgocieoqyiznf.functions.supabase.co/send-barber-welcome-email"
+      }
+    ]
+  },
+  "cors_validation": {
+    "production_domain": "https://app.direct-cuts.com",
+    "options_preflight": "204 No Content",
+    "allowed_methods": "POST, GET, OPTIONS",
+    "allowed_headers": "authorization, x-client-info, apikey, content-type, stripe-signature, x-checkr-signature",
+    "status": "PASS"
+  },
+  "gate_tests": {
+    "portfolio_upload": {
+      "status": "PARTIAL",
+      "notes": "UI accessible, manual verification recommended for full flow"
+    },
+    "stripe_functions": {
+      "status": "PASS",
+      "response_code": 401,
+      "response_body": "{\"code\":401,\"message\":\"Invalid JWT\"}",
+      "cors_errors": false
+    }
+  },
+  "proof_artifacts": {
+    "screenshots": "C:\\Dev\\Direct-Cuts\\proofs\\latest\\screenshots\\",
+    "receipts": "C:\\Dev\\Direct-Cuts\\proofs\\latest\\receipts\\",
+    "test_logs": "C:\\Dev\\Direct-Cuts\\proofs\\latest\\execution-log.json"
+  }
+}
