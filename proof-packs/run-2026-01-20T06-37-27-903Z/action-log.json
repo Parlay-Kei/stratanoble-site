@@ -1,0 +1,209 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T06:37:27.905Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T06:37:28.116Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:37:36.933Z",
+    "data": {
+      "filename": "2026-01-20T06-37-36-744Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T06:37:36.935Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T06:37:36.947Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:37:48.295Z",
+    "data": {
+      "filename": "2026-01-20T06-37-48-141Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T06:37:48.297Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "update_services_start",
+    "timestamp": "2026-01-20T06:37:48.327Z",
+    "data": {
+      "config": {
+        "toRemove": [
+          "Android Development",
+          "Application Development",
+          "Custom Software Development",
+          "SaaS Development"
+        ],
+        "toKeep": [
+          "Business Consulting",
+          "Project Management",
+          "Business Analytics"
+        ],
+        "toAdd": [
+          "CRM",
+          "Marketing Automation",
+          "Lead Generation",
+          "Operations",
+          "Process Improvement"
+        ]
+      },
+      "dryRun": true
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:37:48.478Z",
+    "data": {
+      "filename": "2026-01-20T06-37-48-329Z_before-services-edit.png"
+    }
+  },
+  {
+    "action": "dry_run_services",
+    "timestamp": "2026-01-20T06:37:48.480Z",
+    "data": {
+      "wouldRemove": [
+        "Android Development",
+        "Application Development",
+        "Custom Software Development",
+        "SaaS Development"
+      ],
+      "wouldKeep": [
+        "Business Consulting",
+        "Project Management",
+        "Business Analytics"
+      ],
+      "wouldAdd": [
+        "CRM",
+        "Marketing Automation",
+        "Lead Generation",
+        "Operations",
+        "Process Improvement"
+      ]
+    }
+  },
+  {
+    "action": "update_overview_start",
+    "timestamp": "2026-01-20T06:37:48.495Z",
+    "data": {
+      "dryRun": true
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:37:48.654Z",
+    "data": {
+      "filename": "2026-01-20T06-37-48-507Z_before-overview-edit.png"
+    }
+  },
+  {
+    "action": "dry_run_overview",
+    "timestamp": "2026-01-20T06:37:48.655Z",
+    "data": {
+      "wouldUpdate": "Lead-to-customer pipeline setup for service businesses.\n\nI install simple, trackable systems that tu..."
+    }
+  },
+  {
+    "action": "update_pricing_start",
+    "timestamp": "2026-01-20T06:37:48.669Z",
+    "data": {
+      "dryRun": true
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:37:48.831Z",
+    "data": {
+      "filename": "2026-01-20T06-37-48-681Z_before-pricing-edit.png"
+    }
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T06:37:48.832Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:37:59.370Z",
+    "data": {
+      "filename": "2026-01-20T06-37-59-227Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T06:37:59.371Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:37:59.521Z",
+    "data": {
+      "filename": "2026-01-20T06-37-59-384Z_final-state.png"
+    }
+  },
+  {
+    "action": "full_update_complete",
+    "timestamp": "2026-01-20T06:37:59.522Z",
+    "data": {
+      "mode": "dry_run",
+      "results": [
+        {
+          "step": "navigate",
+          "status": "NAVIGATED"
+        },
+        {
+          "step": "tags",
+          "status": "DRY_RUN_COMPLETE"
+        },
+        {
+          "step": "overview",
+          "status": "DRY_RUN_COMPLETE"
+        },
+        {
+          "step": "pricing",
+          "status": "DRY_RUN_COMPLETE"
+        },
+        {
+          "step": "upload",
+          "status": "SKIPPED"
+        }
+      ]
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-20T06:37:59.769Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-20T06:38:00.125Z"
+  }
+]

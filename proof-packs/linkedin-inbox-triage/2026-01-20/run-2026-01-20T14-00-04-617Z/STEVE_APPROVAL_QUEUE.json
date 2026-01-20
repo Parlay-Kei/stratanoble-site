@@ -1,0 +1,28 @@
+[
+  {
+    "leadId": "inbox-5-1768917631145",
+    "leadName": "JR Buena☑️",
+    "priority": "P0",
+    "fitScore": 10,
+    "leadType": "PIPELINE_CLIENT",
+    "whatTheyWant": "get more leads converting to booked appointments",
+    "recommendedAction": "BOOK_CALL",
+    "reasoning": "High fit + urgency signals. Ready to close.",
+    "riskLevel": "LOW",
+    "expectedReceipt": "Call booked, move to pipeline",
+    "draftPreview": "Hey JR — appreciate you reaching out.\nIf I understand it right, you're trying to get more leads converting to booked appointments.\n\nQuick check so I s..."
+  },
+  {
+    "leadId": "inbox-0-1768917630992",
+    "leadName": "Travis Cody",
+    "priority": "P1",
+    "fitScore": 7,
+    "leadType": "REFERRAL_PARTNER",
+    "whatTheyWant": "get more leads converting to booked appointments",
+    "recommendedAction": "SEND_DRAFT",
+    "reasoning": "Standard qualification reply.",
+    "riskLevel": "LOW",
+    "expectedReceipt": "Reply sent, awaiting response",
+    "draftPreview": "Hey Travis — I'm aligned.\nI plug in as the fulfillment arm after you close, so you keep the relationship and I deliver the system build.\n\nWhat do your..."
+  }
+]

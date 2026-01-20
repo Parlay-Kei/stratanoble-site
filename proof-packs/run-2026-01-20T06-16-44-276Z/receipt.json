@@ -1,0 +1,14 @@
+{
+  "runId": "run-2026-01-20T06-16-44-276Z",
+  "startTime": "2026-01-20T06:16:44.278Z",
+  "endTime": "2026-01-20T06:17:15.438Z",
+  "totalActions": 3,
+  "actionCount": 1,
+  "actions": [
+    "session_establish_start",
+    "using_stored_session",
+    "session_error"
+  ],
+  "status": "COMPLETED",
+  "proofDir": "C:\\Dev\\StrataNoble\\proof-packs\\run-2026-01-20T06-16-44-276Z"
+}

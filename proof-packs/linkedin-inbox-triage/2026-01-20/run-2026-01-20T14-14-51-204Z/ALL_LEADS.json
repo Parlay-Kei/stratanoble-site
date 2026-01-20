@@ -1,0 +1,132 @@
+[
+  {
+    "id": "inbox-0-1768918512023",
+    "source": "inbox",
+    "threadId": "thread-0",
+    "name": "Travis Cody",
+    "lastMessage": "You: Yes, that’s a fair way to frame it but I’m less “PM” and more delivery operator + systems builder.\nI take a sold scope and turn it into something implemented, tracked, and repeatable so the client gets results without you needing extra labor internally.\n\nFor your book clients, the obvious synergy is post-publish monetization plus client acquisition.\nThings like lead capture, email/SMS follow-up, calendar booking, onboarding, and a sales pipeline tied to whatever offer they’re selling off the book.\n\nBut question for you, once the book is live, are your clients usually trying to generate consulting leads, course sales, or speaking opportunities?",
+    "lastMessageDate": "Jan 19",
+    "lastMessageSender": "steve",
+    "lastOutboundTimestamp": "Jan 19",
+    "hasInboundSinceLastOutbound": false,
+    "isNew": false,
+    "isUnreplied": false,
+    "alreadyReplied": false,
+    "rawData": {
+      "index": 0,
+      "daysSinceLastMessage": null,
+      "lastMessageSender": "steve"
+    }
+  },
+  {
+    "id": "inbox-1-1768918514819",
+    "source": "inbox",
+    "threadId": "thread-1",
+    "name": "Shacara Shaw",
+    "lastMessage": "You: Hey Shacara, appreciate that. I’m open to a quick call.\nWhat are you building, and what kind of leader are you looking to add?\nIf you share a couple details, I’ll send over times that work.",
+    "lastMessageDate": "Jan 19",
+    "lastMessageSender": "steve",
+    "lastOutboundTimestamp": "Jan 19",
+    "hasInboundSinceLastOutbound": false,
+    "isNew": false,
+    "isUnreplied": false,
+    "alreadyReplied": false,
+    "rawData": {
+      "index": 1,
+      "daysSinceLastMessage": null,
+      "lastMessageSender": "steve"
+    }
+  },
+  {
+    "id": "inbox-2-1768918517366",
+    "source": "inbox",
+    "threadId": "thread-2",
+    "name": "Malti Singh",
+    "lastMessage": "You: No, thank you",
+    "lastMessageDate": "Jan 17",
+    "lastMessageSender": "steve",
+    "lastOutboundTimestamp": "Jan 17",
+    "hasInboundSinceLastOutbound": false,
+    "isNew": false,
+    "isUnreplied": false,
+    "alreadyReplied": false,
+    "rawData": {
+      "index": 2,
+      "daysSinceLastMessage": null,
+      "lastMessageSender": "steve"
+    }
+  },
+  {
+    "id": "inbox-3-1768918519900",
+    "source": "inbox",
+    "threadId": "thread-3",
+    "name": "Jimi Bingham",
+    "lastMessage": "You: Reach out whenever you're ready.",
+    "lastMessageDate": "Jan 13",
+    "lastMessageSender": "steve",
+    "lastOutboundTimestamp": "Jan 13",
+    "hasInboundSinceLastOutbound": false,
+    "isNew": false,
+    "isUnreplied": false,
+    "alreadyReplied": false,
+    "rawData": {
+      "index": 3,
+      "daysSinceLastMessage": null,
+      "lastMessageSender": "steve"
+    }
+  },
+  {
+    "id": "inbox-4-1768918519932",
+    "source": "inbox",
+    "threadId": "thread-4",
+    "name": "James Irene",
+    "lastMessage": "James: 👍",
+    "lastMessageDate": "Jan 10",
+    "lastMessageSender": "them",
+    "hasInboundSinceLastOutbound": true,
+    "isNew": false,
+    "isUnreplied": false,
+    "alreadyReplied": false,
+    "rawData": {
+      "index": 4,
+      "daysSinceLastMessage": null,
+      "lastMessageSender": "them"
+    }
+  },
+  {
+    "id": "inbox-5-1768918519959",
+    "source": "inbox",
+    "threadId": "thread-5",
+    "name": "JR Buena☑️",
+    "lastMessage": "JR: Hi Steve,\n\nGreat to connect — how are you today?\n\nI know this is a bit out of the blue, but we help professionals lighten their workload with AI‑powered Virtual Assistants. Our VAs handle admin, customer support, marketing, web/data management, and project coordination — plus AI‑driven prospecting to keep pipelines full.\n\nWould you be open to a quick call to see if this could be a fit?\n\nJust reply “yes” with your number, and we’ll take it from there.\n\n\nJR Buena ☑️",
+    "lastMessageDate": "Jan 9",
+    "lastMessageSender": "them",
+    "hasInboundSinceLastOutbound": true,
+    "isNew": false,
+    "isUnreplied": false,
+    "alreadyReplied": false,
+    "rawData": {
+      "index": 5,
+      "daysSinceLastMessage": null,
+      "lastMessageSender": "them"
+    }
+  },
+  {
+    "id": "inbox-6-1768918519986",
+    "source": "inbox",
+    "threadId": "thread-6",
+    "name": "The LinkedIn Team",
+    "lastMessage": "via LinkedIn\n                    \n                    Welcome to LinkedIn! 3 important tips to get you started.",
+    "lastMessageDate": "Jan 4",
+    "lastMessageSender": "unknown",
+    "hasInboundSinceLastOutbound": false,
+    "isNew": false,
+    "isUnreplied": false,
+    "alreadyReplied": false,
+    "rawData": {
+      "index": 6,
+      "daysSinceLastMessage": null,
+      "lastMessageSender": "unknown"
+    }
+  }
+]

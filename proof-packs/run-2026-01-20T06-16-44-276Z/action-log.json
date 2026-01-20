@@ -1,0 +1,23 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T06:16:44.278Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T06:16:44.460Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_error",
+    "timestamp": "2026-01-20T06:17:15.423Z",
+    "data": {
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.linkedin.com/feed/\", waiting until \"networkidle\"\u001b[22m\n"
+    }
+  }
+]

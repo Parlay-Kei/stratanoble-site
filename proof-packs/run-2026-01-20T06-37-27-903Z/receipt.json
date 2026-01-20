@@ -1,0 +1,31 @@
+{
+  "runId": "run-2026-01-20T06-37-27-903Z",
+  "startTime": "2026-01-20T06:37:27.905Z",
+  "endTime": "2026-01-20T06:37:59.557Z",
+  "totalActions": 20,
+  "actionCount": 6,
+  "actions": [
+    "session_establish_start",
+    "using_stored_session",
+    "screenshot_captured",
+    "session_established",
+    "navigation_start",
+    "screenshot_captured",
+    "navigation_complete",
+    "update_services_start",
+    "screenshot_captured",
+    "dry_run_services",
+    "update_overview_start",
+    "screenshot_captured",
+    "dry_run_overview",
+    "update_pricing_start",
+    "screenshot_captured",
+    "navigation_start",
+    "screenshot_captured",
+    "navigation_complete",
+    "screenshot_captured",
+    "full_update_complete"
+  ],
+  "status": "COMPLETED",
+  "proofDir": "C:\\Dev\\StrataNoble\\proof-packs\\run-2026-01-20T06-37-27-903Z"
+}

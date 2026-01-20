@@ -1,0 +1,23 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T06:04:51.992Z",
+    "data": {
+      "headless": true
+    }
+  },
+  {
+    "action": "no_stored_session",
+    "timestamp": "2026-01-20T06:04:52.712Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:04:57.553Z",
+    "data": {
+      "filename": "2026-01-20T06-04-57-454Z_session-not-logged-in.png"
+    }
+  }
+]
