@@ -2,7 +2,7 @@
 -- Audit trail for seed script runs
 
 CREATE TABLE IF NOT EXISTS e2e_seed_runs (
-    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     seed_version TEXT NOT NULL,
     git_commit TEXT,
     run_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -26,26 +26,46 @@ CREATE POLICY "Service role can access seed runs" ON e2e_seed_runs
 -- This prevents duplicate settings rows and makes upsert deterministic
 DO $$
 BEGIN
-    -- Check if constraint already exists
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_constraint
-        WHERE conname = 'user_platform_settings_user_id_key'
+    -- Check if table exists
+    IF EXISTS (
+        SELECT 1 FROM pg_tables
+        WHERE schemaname = 'public' AND tablename = 'user_platform_settings'
     ) THEN
-        -- Add unique constraint
-        ALTER TABLE user_platform_settings
-        ADD CONSTRAINT user_platform_settings_user_id_key UNIQUE (user_id);
-        
-        RAISE NOTICE 'Added unique constraint on user_platform_settings.user_id';
+        -- Check if constraint already exists
+        IF NOT EXISTS (
+            SELECT 1 FROM pg_constraint
+            WHERE conname = 'user_platform_settings_user_id_key'
+        ) THEN
+            -- Add unique constraint
+            ALTER TABLE user_platform_settings
+            ADD CONSTRAINT user_platform_settings_user_id_key UNIQUE (user_id);
+
+            RAISE NOTICE 'Added unique constraint on user_platform_settings.user_id';
+        ELSE
+            RAISE NOTICE 'Unique constraint on user_platform_settings.user_id already exists';
+        END IF;
     ELSE
-        RAISE NOTICE 'Unique constraint on user_platform_settings.user_id already exists';
+        RAISE NOTICE 'Table user_platform_settings does not exist, skipping constraint';
     END IF;
 END $$;
 
 -- Optional: Add partial unique index for one active dream per user
 -- This prevents dream accumulation and makes inserts deterministic
-CREATE UNIQUE INDEX IF NOT EXISTS idx_user_dreams_one_active_per_user
-    ON user_dreams(user_id)
-    WHERE is_active = true;
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM pg_tables
+        WHERE schemaname = 'public' AND tablename = 'user_dreams'
+    ) THEN
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_user_dreams_one_active_per_user
+            ON user_dreams(user_id)
+            WHERE is_active = true;
 
-COMMENT ON INDEX idx_user_dreams_one_active_per_user IS 
-'Ensures each user can have only one active dream, preventing accumulation in seed runs';
+        COMMENT ON INDEX idx_user_dreams_one_active_per_user IS
+        'Ensures each user can have only one active dream, preventing accumulation in seed runs';
+
+        RAISE NOTICE 'Created unique index on user_dreams.user_id where is_active = true';
+    ELSE
+        RAISE NOTICE 'Table user_dreams does not exist, skipping index';
+    END IF;
+END $$;
