@@ -1,0 +1,46 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T08:32:26.385Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T08:32:26.598Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:32:35.871Z",
+    "data": {
+      "filename": "2026-01-20T08-32-35-602Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T08:32:35.872Z"
+  },
+  {
+    "action": "navigate_inbox_start",
+    "timestamp": "2026-01-20T08:32:35.885Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:32:49.314Z",
+    "data": {
+      "filename": "2026-01-20T08-32-49-211Z_inbox-overview.png"
+    }
+  },
+  {
+    "action": "navigate_inbox_complete",
+    "timestamp": "2026-01-20T08:32:49.316Z"
+  },
+  {
+    "action": "extract_inbox_threads_start",
+    "timestamp": "2026-01-20T08:32:49.331Z"
+  }
+]

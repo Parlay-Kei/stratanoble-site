@@ -1,0 +1,307 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T07:37:56.221Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T07:37:56.437Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:06.630Z",
+    "data": {
+      "filename": "2026-01-20T07-38-06-280Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T07:38:06.631Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T07:38:06.644Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:18.589Z",
+    "data": {
+      "filename": "2026-01-20T07-38-18-440Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T07:38:18.591Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "update_services_start",
+    "timestamp": "2026-01-20T07:38:18.603Z",
+    "data": {
+      "config": {
+        "toRemove": [],
+        "toKeep": [],
+        "toAdd": [
+          "CRM",
+          "Lead Generation"
+        ]
+      },
+      "dryRun": false
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:18.747Z",
+    "data": {
+      "filename": "2026-01-20T07-38-18-617Z_before-services-edit.png"
+    }
+  },
+  {
+    "action": "click_failed",
+    "timestamp": "2026-01-20T07:38:19.770Z",
+    "data": {
+      "selector": "button:has-text(\"Edit page\")",
+      "description": "Edit page button"
+    }
+  },
+  {
+    "action": "click_success",
+    "timestamp": "2026-01-20T07:38:20.763Z",
+    "data": {
+      "selector": "a:has-text(\"Edit page\")",
+      "method": "normal"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:22.912Z",
+    "data": {
+      "filename": "2026-01-20T07-38-22-767Z_edit-modal-opened.png"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T07:38:36.836Z",
+    "data": {
+      "text": "Services provided",
+      "method": "evaluate"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:39.002Z",
+    "data": {
+      "filename": "2026-01-20T07-38-38-846Z_services-edit-mode.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:39.170Z",
+    "data": {
+      "filename": "2026-01-20T07-38-39-004Z_after-tags-removed.png"
+    }
+  },
+  {
+    "action": "modal_overlay_neutralized",
+    "timestamp": "2026-01-20T07:38:39.175Z"
+  },
+  {
+    "action": "tag_input_not_found_v22",
+    "timestamp": "2026-01-20T07:38:39.205Z",
+    "data": {
+      "tag": "CRM",
+      "retry": 0
+    }
+  },
+  {
+    "action": "modal_overlay_neutralized",
+    "timestamp": "2026-01-20T07:38:40.024Z"
+  },
+  {
+    "action": "tag_input_not_found_v22",
+    "timestamp": "2026-01-20T07:38:40.044Z",
+    "data": {
+      "tag": "Lead Generation",
+      "retry": 0
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:41.021Z",
+    "data": {
+      "filename": "2026-01-20T07-38-40-861Z_after-tags-added.png"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T07:38:42.024Z",
+    "data": {
+      "text": "Save",
+      "selector": "button:has-text(\"Save\")"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:45.191Z",
+    "data": {
+      "filename": "2026-01-20T07-38-45-027Z_services-saved.png"
+    }
+  },
+  {
+    "action": "update_services_complete",
+    "timestamp": "2026-01-20T07:38:45.193Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T07:38:45.209Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:52.628Z",
+    "data": {
+      "filename": "2026-01-20T07-38-52-498Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T07:38:52.630Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "update_pricing_start_v21",
+    "timestamp": "2026-01-20T07:38:52.649Z",
+    "data": {
+      "dryRun": false
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:52.791Z",
+    "data": {
+      "filename": "2026-01-20T07-38-52-668Z_before-pricing-edit.png"
+    }
+  },
+  {
+    "action": "sticky_header_neutralized",
+    "timestamp": "2026-01-20T07:38:52.796Z"
+  },
+  {
+    "action": "section_edit_clicked",
+    "timestamp": "2026-01-20T07:38:53.832Z",
+    "data": {
+      "section": "Pricing"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:38:56.001Z",
+    "data": {
+      "filename": "2026-01-20T07-38-55-846Z_pricing-edit-mode.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:39:03.274Z",
+    "data": {
+      "filename": "2026-01-20T07-39-03-103Z_after-pricing-typed.png"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T07:39:04.277Z",
+    "data": {
+      "text": "Save",
+      "selector": "button:has-text(\"Save\")"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:39:07.437Z",
+    "data": {
+      "filename": "2026-01-20T07-39-07-285Z_pricing-saved.png"
+    }
+  },
+  {
+    "action": "pricing_verified",
+    "timestamp": "2026-01-20T07:39:07.443Z"
+  },
+  {
+    "action": "update_pricing_complete_v21",
+    "timestamp": "2026-01-20T07:39:07.456Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T07:39:07.468Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:39:15.099Z",
+    "data": {
+      "filename": "2026-01-20T07-39-14-963Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T07:39:15.100Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "upload_samples_start_v21",
+    "timestamp": "2026-01-20T07:39:15.118Z",
+    "data": {
+      "files": [
+        "./proof-packs/work-samples/pipeline-blueprint.png",
+        "./proof-packs/work-samples/crm-stage-map.png",
+        "./proof-packs/work-samples/automation-flow.png"
+      ],
+      "dryRun": false
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:39:15.273Z",
+    "data": {
+      "filename": "2026-01-20T07-39-15-133Z_before-upload.png"
+    }
+  },
+  {
+    "action": "sticky_header_neutralized",
+    "timestamp": "2026-01-20T07:39:15.277Z"
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T07:39:17.311Z",
+    "data": {
+      "text": "Upload samples",
+      "selector": "a:has-text(\"Upload samples\")"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:39:28.492Z",
+    "data": {
+      "filename": "2026-01-20T07-39-28-330Z_upload-wizard-opened.png"
+    }
+  }
+]

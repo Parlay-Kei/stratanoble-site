@@ -1,0 +1,421 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T07:26:09.006Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T07:26:09.215Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:26:21.143Z",
+    "data": {
+      "filename": "2026-01-20T07-26-21-039Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T07:26:21.145Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T07:26:21.158Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:26:32.519Z",
+    "data": {
+      "filename": "2026-01-20T07-26-32-360Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T07:26:32.520Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "update_services_start",
+    "timestamp": "2026-01-20T07:26:32.542Z",
+    "data": {
+      "config": {
+        "toRemove": [],
+        "toKeep": [],
+        "toAdd": [
+          "CRM",
+          "Lead Generation"
+        ]
+      },
+      "dryRun": false
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:26:32.703Z",
+    "data": {
+      "filename": "2026-01-20T07-26-32-558Z_before-services-edit.png"
+    }
+  },
+  {
+    "action": "click_failed",
+    "timestamp": "2026-01-20T07:26:33.730Z",
+    "data": {
+      "selector": "button:has-text(\"Edit page\")",
+      "description": "Edit page button"
+    }
+  },
+  {
+    "action": "click_success",
+    "timestamp": "2026-01-20T07:26:34.735Z",
+    "data": {
+      "selector": "a:has-text(\"Edit page\")",
+      "method": "normal"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:26:36.886Z",
+    "data": {
+      "filename": "2026-01-20T07-26-36-746Z_edit-modal-opened.png"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T07:26:50.806Z",
+    "data": {
+      "text": "Services provided",
+      "method": "evaluate"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:26:52.975Z",
+    "data": {
+      "filename": "2026-01-20T07-26-52-808Z_services-edit-mode.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:26:53.128Z",
+    "data": {
+      "filename": "2026-01-20T07-26-52-976Z_after-tags-removed.png"
+    }
+  },
+  {
+    "action": "tag_selection_error",
+    "timestamp": "2026-01-20T07:27:23.372Z",
+    "data": {
+      "tag": "CRM",
+      "error": "TimeoutError: elementHandle.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div id=\"ember94\" aria-hidden=\"false\" data-test-modal-container=\"\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div id=\"ember94\" aria-hidden=\"false\" data-test-modal-container=\"\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    57 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div id=\"ember94\" aria-hidden=\"false\" data-test-modal-container=\"\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    }
+  },
+  {
+    "action": "tag_selection_error",
+    "timestamp": "2026-01-20T07:27:54.422Z",
+    "data": {
+      "tag": "Lead Generation",
+      "error": "TimeoutError: elementHandle.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div id=\"ember94\" aria-hidden=\"false\" data-test-modal-container=\"\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div id=\"ember94\" aria-hidden=\"false\" data-test-modal-container=\"\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    56 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div id=\"ember94\" aria-hidden=\"false\" data-test-modal-container=\"\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:27:55.401Z",
+    "data": {
+      "filename": "2026-01-20T07-27-55-227Z_after-tags-added.png"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T07:27:56.395Z",
+    "data": {
+      "text": "Save",
+      "selector": "button:has-text(\"Save\")"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:27:59.549Z",
+    "data": {
+      "filename": "2026-01-20T07-27-59-407Z_services-saved.png"
+    }
+  },
+  {
+    "action": "update_services_complete",
+    "timestamp": "2026-01-20T07:27:59.550Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T07:27:59.562Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:28:06.704Z",
+    "data": {
+      "filename": "2026-01-20T07-28-06-558Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T07:28:06.705Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "update_pricing_start_v21",
+    "timestamp": "2026-01-20T07:28:06.719Z",
+    "data": {
+      "dryRun": false
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:28:06.871Z",
+    "data": {
+      "filename": "2026-01-20T07-28-06-732Z_before-pricing-edit.png"
+    }
+  },
+  {
+    "action": "sticky_header_neutralized",
+    "timestamp": "2026-01-20T07:28:06.879Z"
+  },
+  {
+    "action": "section_edit_clicked",
+    "timestamp": "2026-01-20T07:28:07.912Z",
+    "data": {
+      "section": "Pricing"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:28:10.086Z",
+    "data": {
+      "filename": "2026-01-20T07-28-09-922Z_pricing-edit-mode.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:28:17.357Z",
+    "data": {
+      "filename": "2026-01-20T07-28-17-198Z_after-pricing-typed.png"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T07:28:18.351Z",
+    "data": {
+      "text": "Save",
+      "selector": "button:has-text(\"Save\")"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:28:21.496Z",
+    "data": {
+      "filename": "2026-01-20T07-28-21-359Z_pricing-saved.png"
+    }
+  },
+  {
+    "action": "pricing_verified",
+    "timestamp": "2026-01-20T07:28:21.500Z"
+  },
+  {
+    "action": "update_pricing_complete_v21",
+    "timestamp": "2026-01-20T07:28:21.514Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T07:28:21.528Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:28:28.529Z",
+    "data": {
+      "filename": "2026-01-20T07-28-28-373Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T07:28:28.531Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "upload_samples_start_v21",
+    "timestamp": "2026-01-20T07:28:28.547Z",
+    "data": {
+      "files": [
+        "./proof-packs/work-samples/pipeline-blueprint.png",
+        "./proof-packs/work-samples/crm-stage-map.png",
+        "./proof-packs/work-samples/automation-flow.png"
+      ],
+      "dryRun": false
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:28:28.706Z",
+    "data": {
+      "filename": "2026-01-20T07-28-28-561Z_before-upload.png"
+    }
+  },
+  {
+    "action": "sticky_header_neutralized",
+    "timestamp": "2026-01-20T07:28:28.710Z"
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T07:28:30.763Z",
+    "data": {
+      "text": "Upload samples",
+      "selector": "a:has-text(\"Upload samples\")"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:28:32.936Z",
+    "data": {
+      "filename": "2026-01-20T07-28-32-774Z_upload-wizard-step1.png"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T07:28:56.830Z",
+    "data": {
+      "text": "Upload",
+      "method": "evaluate"
+    }
+  },
+  {
+    "action": "click_by_text_failed",
+    "timestamp": "2026-01-20T07:28:58.403Z",
+    "data": {
+      "text": "Choose file"
+    }
+  },
+  {
+    "action": "click_by_text_failed",
+    "timestamp": "2026-01-20T07:28:59.939Z",
+    "data": {
+      "text": "Browse"
+    }
+  },
+  {
+    "action": "click_by_text_failed",
+    "timestamp": "2026-01-20T07:29:01.478Z",
+    "data": {
+      "text": "Select files"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:29:03.157Z",
+    "data": {
+      "filename": "2026-01-20T07-29-02-998Z_upload-wizard-no-input.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:29:03.339Z",
+    "data": {
+      "filename": "2026-01-20T07-29-03-160Z_upload-complete-v21.png"
+    }
+  },
+  {
+    "action": "upload_samples_complete_v21",
+    "timestamp": "2026-01-20T07:29:03.341Z",
+    "data": {
+      "uploaded": 0,
+      "errors": [
+        "File input not found after wizard navigation"
+      ]
+    }
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T07:29:03.358Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:29:10.134Z",
+    "data": {
+      "filename": "2026-01-20T07-29-09-986Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T07:29:10.136Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T07:29:10.285Z",
+    "data": {
+      "filename": "2026-01-20T07-29-10-150Z_finish-update-final-state-v21.png"
+    }
+  },
+  {
+    "action": "finish_update_complete_v21",
+    "timestamp": "2026-01-20T07:29:10.287Z",
+    "data": {
+      "version": "2.1",
+      "mode": "live",
+      "results": [
+        {
+          "step": "navigate",
+          "status": "NAVIGATED",
+          "success": true
+        },
+        {
+          "step": "add_tags",
+          "status": "UPDATED",
+          "success": true
+        },
+        {
+          "step": "pricing",
+          "status": "UPDATED",
+          "success": true
+        },
+        {
+          "step": "upload",
+          "status": "NO_FILES_UPLOADED",
+          "success": false
+        }
+      ]
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-20T07:29:10.595Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-20T07:29:10.967Z"
+  }
+]

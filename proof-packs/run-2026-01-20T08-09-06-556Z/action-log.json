@@ -1,0 +1,376 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T08:09:06.557Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T08:09:06.775Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:09:16.474Z",
+    "data": {
+      "filename": "2026-01-20T08-09-16-340Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T08:09:16.476Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T08:09:16.491Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:09:27.761Z",
+    "data": {
+      "filename": "2026-01-20T08-09-27-587Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T08:09:27.763Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "click_failed",
+    "timestamp": "2026-01-20T08:09:28.812Z",
+    "data": {
+      "selector": "button:has-text(\"Edit page\")",
+      "description": "Edit page button"
+    }
+  },
+  {
+    "action": "click_success",
+    "timestamp": "2026-01-20T08:09:29.836Z",
+    "data": {
+      "selector": "a:has-text(\"Edit page\")",
+      "method": "normal"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:09:32.116Z",
+    "data": {
+      "filename": "2026-01-20T08-09-31-849Z_edit-modal-opened.png"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T08:09:44.119Z",
+    "data": {
+      "text": "Services provided",
+      "method": "evaluate"
+    }
+  },
+  {
+    "action": "tags_readonly_confirmed_v23",
+    "timestamp": "2026-01-20T08:09:45.634Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:09:45.857Z",
+    "data": {
+      "filename": "2026-01-20T08-09-45-636Z_tags-readonly-proof-v23.png"
+    }
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T08:09:47.170Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:09:55.536Z",
+    "data": {
+      "filename": "2026-01-20T08-09-55-364Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T08:09:55.537Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "update_pricing_start_v21",
+    "timestamp": "2026-01-20T08:09:55.558Z",
+    "data": {
+      "dryRun": false
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:09:55.737Z",
+    "data": {
+      "filename": "2026-01-20T08-09-55-572Z_before-pricing-edit.png"
+    }
+  },
+  {
+    "action": "sticky_header_neutralized",
+    "timestamp": "2026-01-20T08:09:55.743Z"
+  },
+  {
+    "action": "section_edit_clicked",
+    "timestamp": "2026-01-20T08:09:56.785Z",
+    "data": {
+      "section": "Pricing"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:09:59.003Z",
+    "data": {
+      "filename": "2026-01-20T08-09-58-802Z_pricing-edit-mode.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:10:06.731Z",
+    "data": {
+      "filename": "2026-01-20T08-10-06-534Z_after-pricing-typed.png"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T08:10:07.743Z",
+    "data": {
+      "text": "Save",
+      "selector": "button:has-text(\"Save\")"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:10:10.917Z",
+    "data": {
+      "filename": "2026-01-20T08-10-10-758Z_pricing-saved.png"
+    }
+  },
+  {
+    "action": "pricing_verified",
+    "timestamp": "2026-01-20T08:10:10.922Z"
+  },
+  {
+    "action": "update_pricing_complete_v21",
+    "timestamp": "2026-01-20T08:10:10.937Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T08:10:10.953Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:10:19.147Z",
+    "data": {
+      "filename": "2026-01-20T08-10-18-982Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T08:10:19.148Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "upload_samples_start_v21",
+    "timestamp": "2026-01-20T08:10:19.164Z",
+    "data": {
+      "files": [
+        "./proof-packs/work-samples/pipeline-blueprint.png",
+        "./proof-packs/work-samples/crm-stage-map.png",
+        "./proof-packs/work-samples/automation-flow.png"
+      ],
+      "dryRun": false
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:10:19.332Z",
+    "data": {
+      "filename": "2026-01-20T08-10-19-178Z_before-upload.png"
+    }
+  },
+  {
+    "action": "sticky_header_neutralized",
+    "timestamp": "2026-01-20T08:10:19.336Z"
+  },
+  {
+    "action": "editability_state_v23",
+    "timestamp": "2026-01-20T08:10:20.366Z",
+    "data": {
+      "isEditable": true,
+      "editButtons": [
+        "edit page"
+      ],
+      "saveButtons": [],
+      "disabledElements": 1,
+      "uploadSection": {
+        "found": true,
+        "hasUploadButton": true,
+        "hasDropzone": true,
+        "hasFileInput": false
+      },
+      "tagsSection": {
+        "found": true,
+        "inputEnabled": true
+      }
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:10:20.532Z",
+    "data": {
+      "filename": "2026-01-20T08-10-20-368Z_editor-mode-proof.png"
+    }
+  },
+  {
+    "action": "method1_start_v23",
+    "timestamp": "2026-01-20T08:10:21.540Z"
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T08:10:25.091Z",
+    "data": {
+      "text": "Upload samples",
+      "selector": "a:has-text(\"Upload samples\")"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T08:10:26.081Z",
+    "data": {
+      "text": "Add media",
+      "selector": "button:has-text(\"Add media\")"
+    }
+  },
+  {
+    "action": "click_by_text_success",
+    "timestamp": "2026-01-20T08:10:49.922Z",
+    "data": {
+      "text": "Upload",
+      "method": "evaluate"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:10:50.081Z",
+    "data": {
+      "filename": "2026-01-20T08-10-49-924Z_after-method1-v23.png"
+    }
+  },
+  {
+    "action": "method2_start_v23",
+    "timestamp": "2026-01-20T08:10:50.082Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:10:50.501Z",
+    "data": {
+      "filename": "2026-01-20T08-10-50-335Z_upload-error.png"
+    }
+  },
+  {
+    "action": "upload_error_v21",
+    "timestamp": "2026-01-20T08:10:50.503Z",
+    "data": {
+      "error": "elementHandle.setInputFiles: Error: Non-multiple file input can only accept single file"
+    }
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T08:10:50.516Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:10:57.081Z",
+    "data": {
+      "filename": "2026-01-20T08-10-56-938Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T08:10:57.082Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T08:10:57.234Z",
+    "data": {
+      "filename": "2026-01-20T08-10-57-103Z_finish-update-final-state-v22.png"
+    }
+  },
+  {
+    "action": "gallery_verified_v22",
+    "timestamp": "2026-01-20T08:10:57.240Z",
+    "data": {
+      "count": 0
+    }
+  },
+  {
+    "action": "finish_update_complete_v23",
+    "timestamp": "2026-01-20T08:10:57.249Z",
+    "data": {
+      "version": "2.3",
+      "mode": "live",
+      "galleryItems": 0,
+      "results": [
+        {
+          "step": "navigate",
+          "status": "NAVIGATED",
+          "success": true
+        },
+        {
+          "step": "add_tags",
+          "status": "TAGS_READONLY_SKIPPED",
+          "success": true
+        },
+        {
+          "step": "pricing",
+          "status": "UPDATED",
+          "success": true
+        },
+        {
+          "step": "upload",
+          "status": "ERROR",
+          "success": false
+        }
+      ]
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-20T08:10:57.566Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-20T08:10:57.948Z"
+  }
+]

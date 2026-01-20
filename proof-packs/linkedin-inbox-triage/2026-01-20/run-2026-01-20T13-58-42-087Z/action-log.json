@@ -1,0 +1,98 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T13:58:42.088Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T13:58:42.558Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T13:58:51.738Z",
+    "data": {
+      "filename": "2026-01-20T13-58-51-521Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T13:58:51.740Z"
+  },
+  {
+    "action": "navigate_inbox_start",
+    "timestamp": "2026-01-20T13:58:51.755Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T13:59:03.518Z",
+    "data": {
+      "filename": "2026-01-20T13-59-03-404Z_inbox-overview.png"
+    }
+  },
+  {
+    "action": "navigate_inbox_complete",
+    "timestamp": "2026-01-20T13:59:03.520Z"
+  },
+  {
+    "action": "extract_inbox_threads_start",
+    "timestamp": "2026-01-20T13:59:03.538Z"
+  },
+  {
+    "action": "extract_inbox_threads_complete",
+    "timestamp": "2026-01-20T13:59:03.772Z",
+    "data": {
+      "count": 7
+    }
+  },
+  {
+    "action": "navigate_service_requests_start",
+    "timestamp": "2026-01-20T13:59:03.774Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T13:59:11.167Z",
+    "data": {
+      "filename": "2026-01-20T13-59-11-076Z_service-requests-overview.png"
+    }
+  },
+  {
+    "action": "navigate_service_requests_complete",
+    "timestamp": "2026-01-20T13:59:11.170Z"
+  },
+  {
+    "action": "extract_service_requests_start",
+    "timestamp": "2026-01-20T13:59:11.185Z"
+  },
+  {
+    "action": "extract_service_requests_error",
+    "timestamp": "2026-01-20T13:59:21.212Z",
+    "data": {
+      "error": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.service-request-card, .lead-card, [data-view-name=\"service-request-list-item\"]') to be visible\u001b[22m\n"
+    }
+  },
+  {
+    "action": "lead_intake_saved",
+    "timestamp": "2026-01-20T13:59:21.215Z",
+    "data": {
+      "total": 7,
+      "actionable": 0
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-20T13:59:21.570Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-20T13:59:22.008Z"
+  }
+]

@@ -1,0 +1,146 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T14:14:51.205Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T14:14:51.447Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:15:00.561Z",
+    "data": {
+      "filename": "2026-01-20T14-15-00-332Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T14:15:00.564Z"
+  },
+  {
+    "action": "navigate_inbox_start",
+    "timestamp": "2026-01-20T14:15:00.581Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:15:11.925Z",
+    "data": {
+      "filename": "2026-01-20T14-15-11-802Z_inbox-overview.png"
+    }
+  },
+  {
+    "action": "navigate_inbox_complete",
+    "timestamp": "2026-01-20T14:15:11.927Z"
+  },
+  {
+    "action": "extract_inbox_threads_start",
+    "timestamp": "2026-01-20T14:15:11.939Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:15:14.579Z",
+    "data": {
+      "filename": "2026-01-20T14-15-14-464Z_inbox-thread-0-Travis_Cody.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:15:17.280Z",
+    "data": {
+      "filename": "2026-01-20T14-15-17-166Z_inbox-thread-1-Shacara_Shaw.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:15:19.802Z",
+    "data": {
+      "filename": "2026-01-20T14-15-19-690Z_inbox-thread-2-Malti_Singh.png"
+    }
+  },
+  {
+    "action": "extract_inbox_threads_complete",
+    "timestamp": "2026-01-20T14:15:19.986Z",
+    "data": {
+      "count": 7
+    }
+  },
+  {
+    "action": "navigate_service_requests_start",
+    "timestamp": "2026-01-20T14:15:19.989Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:15:27.521Z",
+    "data": {
+      "filename": "2026-01-20T14-15-27-409Z_service-requests-overview.png"
+    }
+  },
+  {
+    "action": "navigate_service_requests_complete",
+    "timestamp": "2026-01-20T14:15:27.522Z"
+  },
+  {
+    "action": "extract_service_requests_start",
+    "timestamp": "2026-01-20T14:15:27.537Z"
+  },
+  {
+    "action": "extract_service_requests_error",
+    "timestamp": "2026-01-20T14:15:37.572Z",
+    "data": {
+      "error": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.service-request-card, .lead-card, [data-view-name=\"service-request-list-item\"]') to be visible\u001b[22m\n"
+    }
+  },
+  {
+    "action": "lead_intake_saved",
+    "timestamp": "2026-01-20T14:15:37.578Z",
+    "data": {
+      "total": 7,
+      "actionable": 7,
+      "includeAll": true
+    }
+  },
+  {
+    "action": "triage_report_saved",
+    "timestamp": "2026-01-20T14:15:37.598Z",
+    "data": {
+      "count": 7
+    }
+  },
+  {
+    "action": "drafts_saved",
+    "timestamp": "2026-01-20T14:15:37.613Z",
+    "data": {
+      "count": 7
+    }
+  },
+  {
+    "action": "escalation_queue_saved",
+    "timestamp": "2026-01-20T14:15:37.627Z",
+    "data": {
+      "escalated": 2,
+      "suppressed": 0
+    }
+  },
+  {
+    "action": "receipt_generated",
+    "timestamp": "2026-01-20T14:15:37.640Z"
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-20T14:15:37.952Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-20T14:15:38.309Z"
+  }
+]

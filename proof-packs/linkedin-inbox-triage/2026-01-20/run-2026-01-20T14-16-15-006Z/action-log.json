@@ -1,0 +1,265 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T14:16:15.007Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T14:16:15.218Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:16:24.307Z",
+    "data": {
+      "filename": "2026-01-20T14-16-24-204Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T14:16:24.309Z"
+  },
+  {
+    "action": "navigate_inbox_start",
+    "timestamp": "2026-01-20T14:16:24.327Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:16:35.740Z",
+    "data": {
+      "filename": "2026-01-20T14-16-35-614Z_inbox-overview.png"
+    }
+  },
+  {
+    "action": "navigate_inbox_complete",
+    "timestamp": "2026-01-20T14:16:35.741Z"
+  },
+  {
+    "action": "extract_inbox_threads_start",
+    "timestamp": "2026-01-20T14:16:35.756Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:16:38.413Z",
+    "data": {
+      "filename": "2026-01-20T14-16-38-296Z_inbox-thread-0-Travis_Cody.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:16:41.044Z",
+    "data": {
+      "filename": "2026-01-20T14-16-40-929Z_inbox-thread-1-Shacara_Shaw.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:16:43.563Z",
+    "data": {
+      "filename": "2026-01-20T14-16-43-451Z_inbox-thread-2-Malti_Singh.png"
+    }
+  },
+  {
+    "action": "extract_inbox_threads_complete",
+    "timestamp": "2026-01-20T14:16:43.728Z",
+    "data": {
+      "count": 7
+    }
+  },
+  {
+    "action": "navigate_service_requests_start",
+    "timestamp": "2026-01-20T14:16:43.730Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:16:51.946Z",
+    "data": {
+      "filename": "2026-01-20T14-16-51-851Z_service-requests-overview.png"
+    }
+  },
+  {
+    "action": "navigate_service_requests_complete",
+    "timestamp": "2026-01-20T14:16:51.948Z"
+  },
+  {
+    "action": "extract_service_requests_start",
+    "timestamp": "2026-01-20T14:16:51.960Z"
+  },
+  {
+    "action": "extract_service_requests_error",
+    "timestamp": "2026-01-20T14:17:01.985Z",
+    "data": {
+      "error": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.service-request-card, .lead-card, [data-view-name=\"service-request-list-item\"]') to be visible\u001b[22m\n"
+    }
+  },
+  {
+    "action": "lead_intake_saved",
+    "timestamp": "2026-01-20T14:17:01.990Z",
+    "data": {
+      "total": 7,
+      "actionable": 7,
+      "includeAll": true
+    }
+  },
+  {
+    "action": "triage_report_saved",
+    "timestamp": "2026-01-20T14:17:02.007Z",
+    "data": {
+      "count": 7
+    }
+  },
+  {
+    "action": "drafts_saved",
+    "timestamp": "2026-01-20T14:17:02.020Z",
+    "data": {
+      "count": 7
+    }
+  },
+  {
+    "action": "escalation_queue_saved",
+    "timestamp": "2026-01-20T14:17:02.033Z",
+    "data": {
+      "escalated": 1,
+      "suppressed": 4
+    }
+  },
+  {
+    "action": "receipt_generated",
+    "timestamp": "2026-01-20T14:17:02.046Z"
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-20T14:17:02.357Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-20T14:17:02.696Z"
+  },
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T14:44:29.653Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T14:44:29.911Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:44:38.645Z",
+    "data": {
+      "filename": "2026-01-20T14-44-38-522Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T14:44:38.647Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:44:48.408Z",
+    "data": {
+      "filename": "2026-01-20T14-44-48-264Z_send-error.png"
+    }
+  },
+  {
+    "action": "send_error",
+    "timestamp": "2026-01-20T14:44:48.410Z",
+    "data": {
+      "leadId": "inbox-5-1768918603703",
+      "error": "Cannot read properties of null (reading 'detected')"
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-20T14:44:48.677Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-20T14:44:49.071Z"
+  },
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T14:45:11.438Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T14:45:11.657Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:45:23.495Z",
+    "data": {
+      "filename": "2026-01-20T14-45-23-270Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T14:45:23.497Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:46:02.139Z",
+    "data": {
+      "filename": "2026-01-20T14-46-02-039Z_send-before-JR_Buena__.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T14:46:04.697Z",
+    "data": {
+      "filename": "2026-01-20T14-46-04-591Z_send-after-JR_Buena__.png"
+    }
+  },
+  {
+    "action": "message_sent",
+    "timestamp": "2026-01-20T14:46:04.700Z",
+    "data": {
+      "leadId": "inbox-5-1768918603703",
+      "leadName": "JR Buena☑️",
+      "threadId": "thread-5",
+      "messageLength": 432,
+      "timestamp": "2026-01-20T14:46:04.700Z"
+    }
+  },
+  {
+    "action": "send_receipt_generated",
+    "timestamp": "2026-01-20T14:46:04.717Z",
+    "data": {
+      "leadId": "inbox-5-1768918603703"
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-20T14:46:05.021Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-20T14:46:05.400Z"
+  }
+]

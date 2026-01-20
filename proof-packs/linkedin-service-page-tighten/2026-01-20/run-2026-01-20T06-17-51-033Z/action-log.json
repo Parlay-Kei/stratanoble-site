@@ -1,0 +1,59 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-20T06:17:51.034Z",
+    "data": {
+      "headless": false
+    }
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-20T06:17:51.215Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:17:57.474Z",
+    "data": {
+      "filename": "2026-01-20T06-17-57-396Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-20T06:17:57.475Z"
+  },
+  {
+    "action": "navigation_start",
+    "timestamp": "2026-01-20T06:17:57.490Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-20T06:18:10.942Z",
+    "data": {
+      "filename": "2026-01-20T06-18-10-765Z_service-page-loaded.png"
+    }
+  },
+  {
+    "action": "navigation_complete",
+    "timestamp": "2026-01-20T06:18:10.943Z",
+    "data": {
+      "url": "https://www.linkedin.com/services/page/6283b234143a289798/"
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-20T06:18:11.177Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-20T06:18:11.499Z"
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "escalated": [
+    {
+      "leadId": "inbox-5-1768918603703",
+      "leadName": "JR Buena☑️",
+      "priority": "P0",
+      "fitScore": 10,
+      "leadType": "REACTIVATION",
+      "whatTheyWant": "get more leads converting to booked appointments",
+      "recommendedAction": "BOOK_CALL",
+      "reasoning": "High fit + urgency signals. Ready to close.",
+      "riskLevel": "LOW",
+      "expectedReceipt": "Call booked, move to pipeline",
+      "draftPreview": "Hey JR — circling back on this.\nStill working on that pipeline/follow-up system, or has this moved to the back burner?\nIf timing's better now, let me ..."
+    }
+  ],
+  "suppressed": [
+    {
+      "leadId": "inbox-0-1768918595836",
+      "leadName": "Travis Cody",
+      "reason": "Steve sent last message Jan 19, no reply from contact",
+      "lastOutboundTimestamp": "Jan 19",
+      "daysSinceOutbound": 1,
+      "hasNewInbound": false
+    },
+    {
+      "leadId": "inbox-1-1768918598599",
+      "leadName": "Shacara Shaw",
+      "reason": "Steve sent last message Jan 19, no reply from contact",
+      "lastOutboundTimestamp": "Jan 19",
+      "daysSinceOutbound": 1,
+      "hasNewInbound": false
+    },
+    {
+      "leadId": "inbox-2-1768918601130",
+      "leadName": "Malti Singh",
+      "reason": "Steve sent last message Jan 17, no reply from contact",
+      "lastOutboundTimestamp": "Jan 17",
+      "daysSinceOutbound": 3,
+      "hasNewInbound": false
+    },
+    {
+      "leadId": "inbox-3-1768918603649",
+      "leadName": "Jimi Bingham",
+      "reason": "Steve sent last message Jan 13, no reply from contact",
+      "lastOutboundTimestamp": "Jan 13",
+      "daysSinceOutbound": 7,
+      "hasNewInbound": false
+    }
+  ]
+}

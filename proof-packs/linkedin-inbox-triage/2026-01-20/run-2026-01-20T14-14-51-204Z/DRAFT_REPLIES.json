@@ -1,0 +1,79 @@
+[
+  {
+    "id": "draft-inbox-5-1768918519959",
+    "leadId": "inbox-5-1768918519959",
+    "leadName": "JR Buena☑️",
+    "leadType": "REACTIVATION",
+    "priority": "P0",
+    "template": "REACTIVATION",
+    "draftText": "Hey JR — circling back on this.\nStill working on that pipeline/follow-up system, or has this moved to the back burner?\nIf timing's better now, let me know what you're trying to fix and I'll point you in the right direction.",
+    "status": "DRAFT",
+    "threadId": "thread-5"
+  },
+  {
+    "id": "draft-inbox-0-1768918512023",
+    "leadId": "inbox-0-1768918512023",
+    "leadName": "Travis Cody",
+    "leadType": "REFERRAL_PARTNER",
+    "priority": "P1",
+    "template": "REFERRAL_PARTNER",
+    "draftText": "Hey Travis — I'm aligned.\nI plug in as the fulfillment arm after you close, so you keep the relationship and I deliver the system build.\n\nWhat do your clients usually need right after they buy?\n(lead capture + follow-up, CRM setup, booking flow, onboarding, reporting)\n\nIf you want, we can start with one client project and see how we work together.",
+    "status": "DRAFT",
+    "threadId": "thread-0"
+  },
+  {
+    "id": "draft-inbox-1-1768918514819",
+    "leadId": "inbox-1-1768918514819",
+    "leadName": "Shacara Shaw",
+    "leadType": "PIPELINE_CLIENT",
+    "priority": "P2",
+    "template": "PIPELINE_CLIENT",
+    "draftText": "Hey Shacara — appreciate you reaching out.\nIf I understand it right, you're trying to fix your lead-to-customer pipeline.\n\nQuick check so I scope it correctly:\n1) Where do leads come from right now? (ads, IG, referrals, website, calls)\n2) What's the main leak? (slow follow-up, no-shows, no tracking, weak close)\n3) What tool stack are you using today? (CRM, calendar, SMS/email)\n\nIf you want, I can do a quick audit + build plan ($250), then implement the full pipeline if it makes sense.",
+    "status": "DRAFT",
+    "threadId": "thread-1"
+  },
+  {
+    "id": "draft-inbox-2-1768918517366",
+    "leadId": "inbox-2-1768918517366",
+    "leadName": "Malti Singh",
+    "leadType": "LOW_SIGNAL",
+    "priority": "P2",
+    "template": "LOW_SIGNAL",
+    "draftText": "Hey Malti — I'm open.\nWhat are you trying to improve right now: more booked calls, fewer no-shows, cleaner follow-up, or better lead tracking?\nIf you give me 2-3 sentences on the current process, I'll tell you the fastest fix.",
+    "status": "DRAFT",
+    "threadId": "thread-2"
+  },
+  {
+    "id": "draft-inbox-3-1768918519900",
+    "leadId": "inbox-3-1768918519900",
+    "leadName": "Jimi Bingham",
+    "leadType": "LOW_SIGNAL",
+    "priority": "P2",
+    "template": "LOW_SIGNAL",
+    "draftText": "Hey Jimi — I'm open.\nWhat are you trying to improve right now: more booked calls, fewer no-shows, cleaner follow-up, or better lead tracking?\nIf you give me 2-3 sentences on the current process, I'll tell you the fastest fix.",
+    "status": "DRAFT",
+    "threadId": "thread-3"
+  },
+  {
+    "id": "draft-inbox-4-1768918519932",
+    "leadId": "inbox-4-1768918519932",
+    "leadName": "James Irene",
+    "leadType": "LOW_SIGNAL",
+    "priority": "P2",
+    "template": "LOW_SIGNAL",
+    "draftText": "Hey James — I'm open.\nWhat are you trying to improve right now: more booked calls, fewer no-shows, cleaner follow-up, or better lead tracking?\nIf you give me 2-3 sentences on the current process, I'll tell you the fastest fix.",
+    "status": "DRAFT",
+    "threadId": "thread-4"
+  },
+  {
+    "id": "draft-inbox-6-1768918519986",
+    "leadId": "inbox-6-1768918519986",
+    "leadName": "The LinkedIn Team",
+    "leadType": "PIPELINE_CLIENT",
+    "priority": "P2",
+    "template": "PIPELINE_CLIENT",
+    "draftText": "Hey The — appreciate you reaching out.\nIf I understand it right, you're trying to fix your lead-to-customer pipeline.\n\nQuick check so I scope it correctly:\n1) Where do leads come from right now? (ads, IG, referrals, website, calls)\n2) What's the main leak? (slow follow-up, no-shows, no tracking, weak close)\n3) What tool stack are you using today? (CRM, calendar, SMS/email)\n\nIf you want, I can do a quick audit + build plan ($250), then implement the full pipeline if it makes sense.",
+    "status": "DRAFT",
+    "threadId": "thread-6"
+  }
+]
