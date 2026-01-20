@@ -1,0 +1,338 @@
+{
+  "$schema": "./profile-schema.json",
+  "profile": {
+    "name": "anx-vault-ui",
+    "version": "1.0.0",
+    "description": "ANX Vault UI - Electron desktop app for file vault management",
+    "inherits": "baseline"
+  },
+
+  "projectRoot": "${ANX_VAULT_UI_PATH}",
+
+  "watchDirs": [
+    "src",
+    "main",
+    "preload",
+    "renderer",
+    "db/migrations",
+    "scripts"
+  ],
+
+  "riskZones": [
+    {
+      "id": "ipc-boundary",
+      "patterns": ["preload/**", "**/preload.ts", "**/preload.js"],
+      "gate": "B",
+      "reason": "IPC boundary changes affect Electron security model - context isolation"
+    },
+    {
+      "id": "main-process",
+      "patterns": ["main/**", "**/main.ts", "**/main.js", "**/electron-main.*"],
+      "gate": "B",
+      "reason": "Main process has full Node.js access - security critical"
+    },
+    {
+      "id": "filesystem-operations",
+      "patterns": [
+        "**/fs/**",
+        "**/file*/**",
+        "**/scan*/**",
+        "**/indexer/**",
+        "**/watcher/**"
+      ],
+      "gate": "B",
+      "reason": "Filesystem operations require path traversal review"
+    },
+    {
+      "id": "database-layer",
+      "patterns": ["**/db/**", "**/database/**", "**/sqlite/**", "db/migrations/**"],
+      "gate": "C",
+      "reason": "Database changes require migration review"
+    },
+    {
+      "id": "hash-verification",
+      "patterns": ["**/hash/**", "**/crypto/**", "**/integrity/**"],
+      "gate": "B",
+      "reason": "Hash/integrity changes affect file verification"
+    },
+    {
+      "id": "external-open",
+      "patterns": ["**/*shell*/**", "**/*open*/**", "**/*launch*/**"],
+      "gate": "A",
+      "reason": "External open operations can execute arbitrary programs"
+    },
+    {
+      "id": "node-integration",
+      "patterns": ["**/nodeIntegration*", "**/contextIsolation*", "**/sandbox*"],
+      "gate": "A",
+      "reason": "Electron security settings require full review"
+    }
+  ],
+
+  "rules": [
+    {
+      "id": "anx-preload-security",
+      "name": "Preload Script Security",
+      "pattern": "preload/**/*.{ts,js}",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "critical",
+      "debounceMs": 2000,
+      "gate": "B",
+      "outcomeRequired": "security_finding_created",
+      "description": "Audit preload scripts for exposed APIs and context isolation"
+    },
+    {
+      "id": "anx-main-process",
+      "name": "Main Process Security",
+      "pattern": "main/**/*.{ts,js}",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "critical",
+      "debounceMs": 2000,
+      "gate": "B",
+      "outcomeRequired": "security_finding_created",
+      "description": "Audit main process for dangerous Node.js APIs"
+    },
+    {
+      "id": "anx-renderer",
+      "name": "Renderer Process Analysis",
+      "pattern": "renderer/**/*.{ts,tsx,js,jsx}",
+      "events": ["add", "change"],
+      "trigger": "codebase",
+      "priority": "normal",
+      "debounceMs": 5000,
+      "outcomeRequired": "lint_report_generated",
+      "description": "Analyze renderer components and state management"
+    },
+    {
+      "id": "anx-filesystem",
+      "name": "Filesystem Operations Audit",
+      "pattern": "src/**/*.{ts,js}",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "high",
+      "debounceMs": 3000,
+      "conditions": {
+        "contentMatch": "readdir|readFile|writeFile|unlink|rmdir|copyFile|rename|stat|access|createReadStream|createWriteStream",
+        "caseSensitive": false
+      },
+      "gate": "B",
+      "outcomeRequired": "security_finding_created",
+      "description": "Audit filesystem operations for path traversal and unsafe access"
+    },
+    {
+      "id": "anx-sqlite-queries",
+      "name": "SQLite Query Analysis",
+      "pattern": "src/**/*.{ts,js}",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "high",
+      "debounceMs": 3000,
+      "conditions": {
+        "contentMatch": "db\\.run|db\\.get|db\\.all|db\\.exec|prepare\\(|execute\\(",
+        "caseSensitive": false
+      },
+      "outcomeRequired": "security_finding_created",
+      "description": "Audit SQLite queries for injection vulnerabilities"
+    },
+    {
+      "id": "anx-migrations",
+      "name": "Database Migration Validation",
+      "pattern": "db/migrations/**/*.sql",
+      "events": ["add", "change"],
+      "trigger": "admin",
+      "priority": "high",
+      "debounceMs": 2000,
+      "gate": "C",
+      "outcomeRequired": "migration_created",
+      "description": "Validate migration naming and test on clean DB"
+    },
+    {
+      "id": "anx-indexer",
+      "name": "File Indexer Analysis",
+      "pattern": "src/**/scan*/**/*.{ts,js}",
+      "events": ["add", "change"],
+      "trigger": "codebase",
+      "priority": "high",
+      "debounceMs": 3000,
+      "outcomeRequired": "lint_report_generated",
+      "description": "Analyze file traversal, hashing, and ignore patterns"
+    },
+    {
+      "id": "anx-ipc-handlers",
+      "name": "IPC Handler Security",
+      "pattern": "main/**/*.{ts,js}",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "critical",
+      "debounceMs": 2000,
+      "conditions": {
+        "contentMatch": "ipcMain\\.handle|ipcMain\\.on|ipcRenderer\\.invoke|ipcRenderer\\.send",
+        "caseSensitive": false
+      },
+      "gate": "B",
+      "outcomeRequired": "security_finding_created",
+      "description": "Audit IPC handlers for input validation and privilege escalation"
+    },
+    {
+      "id": "anx-electron-config",
+      "name": "Electron Configuration",
+      "pattern": "**/{electron,forge,builder}.config.{js,ts,json}",
+      "events": ["add", "change"],
+      "trigger": "admin",
+      "priority": "high",
+      "debounceMs": 2000,
+      "gate": "B",
+      "outcomeRequired": "lint_report_generated",
+      "description": "Validate Electron build and security configuration"
+    },
+    {
+      "id": "anx-package-deps",
+      "name": "Dependency Changes",
+      "pattern": "package.json",
+      "events": ["change"],
+      "trigger": "security",
+      "priority": "high",
+      "debounceMs": 5000,
+      "gate": "C",
+      "outcomeRequired": "security_finding_created",
+      "description": "Audit dependency changes for supply chain risks"
+    }
+  ],
+
+  "agents": {
+    "security": {
+      "command": "node",
+      "args": ["agents/security.js"],
+      "timeout": 60000,
+      "retries": 2,
+      "outcomeTypes": ["security_finding_created", "no_issues_found"],
+      "config": {
+        "electronPatterns": true,
+        "nodeSecurityChecks": true,
+        "pathTraversalDetection": true
+      }
+    },
+    "docs": {
+      "command": "node",
+      "args": ["agents/docs.js"],
+      "timeout": 30000,
+      "retries": 1,
+      "outcomeTypes": ["lint_report_generated", "spec_updated"]
+    },
+    "admin": {
+      "command": "node",
+      "args": ["agents/admin.js"],
+      "timeout": 30000,
+      "retries": 1,
+      "outcomeTypes": ["lint_report_generated", "migration_created"],
+      "config": {
+        "sqliteMigrations": true,
+        "electronConfig": true
+      }
+    },
+    "codebase": {
+      "command": "node",
+      "args": ["agents/codebase.js"],
+      "timeout": 45000,
+      "retries": 1,
+      "outcomeTypes": ["lint_report_generated", "test_report_generated", "build_artifact_produced"],
+      "config": {
+        "typescript": true,
+        "electron": true,
+        "react": true
+      }
+    },
+    "build": {
+      "command": "npm",
+      "args": ["run", "build"],
+      "timeout": 120000,
+      "retries": 1,
+      "outcomeTypes": ["build_artifact_produced"],
+      "config": {
+        "outputDir": "dist"
+      }
+    },
+    "test": {
+      "command": "npm",
+      "args": ["test"],
+      "timeout": 180000,
+      "retries": 1,
+      "outcomeTypes": ["test_report_generated"],
+      "config": {
+        "coverage": true
+      }
+    }
+  },
+
+  "settings": {
+    "debounce": {
+      "windowMs": 2000,
+      "maxWaitMs": 10000,
+      "coalesceByDirectory": true,
+      "coalesceByExtension": true
+    },
+    "queue": {
+      "maxConcurrent": 2,
+      "retryAttempts": 2,
+      "retryDelayMs": 5000,
+      "staleJobTimeoutMs": 300000
+    },
+    "outcomes": {
+      "requireArtifact": true,
+      "artifactDir": ".anx/artifacts",
+      "logsDir": ".anx/logs",
+      "rejectOnMissingOutcome": true
+    },
+    "gates": {
+      "enabled": true,
+      "autoApprove": ["D"],
+      "requireApproval": ["A", "B", "C"]
+    }
+  },
+
+  "pipelines": {
+    "default": {
+      "steps": [
+        { "agent": "security", "required": true },
+        { "agent": "codebase", "required": true },
+        { "agent": "test", "required": false },
+        { "agent": "build", "required": false }
+      ],
+      "artifacts": {
+        "saveToVault": true,
+        "vaultPath": "00_admin/logs/agent_runs"
+      }
+    },
+    "preload-change": {
+      "steps": [
+        { "agent": "security", "required": true, "gate": "B" },
+        { "agent": "test", "required": true },
+        { "agent": "build", "required": true }
+      ]
+    },
+    "migration": {
+      "steps": [
+        { "agent": "admin", "required": true, "gate": "C" },
+        { "agent": "test", "required": true, "args": ["--db-tests"] }
+      ]
+    }
+  },
+
+  "scanning": {
+    "enabled": true,
+    "intervalMinutes": 60,
+    "onStartup": true,
+    "batchSize": 50
+  },
+
+  "notifications": {
+    "enabled": true,
+    "console": true,
+    "logFile": "monitor.log",
+    "webhook": null,
+    "onGateRequired": true,
+    "onCriticalFinding": true
+  }
+}

@@ -1,0 +1,9 @@
+chore: update scripts and MagicPatterns handler
+
+- Enhanced copy-package-json script
+- Updated MagicPatterns.ts with improvements
+- Added bun.lock
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>

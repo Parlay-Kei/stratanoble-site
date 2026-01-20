@@ -1,0 +1,271 @@
+{
+  "$schema": "./profile-schema.json",
+  "profile": {
+    "name": "direct-cuts",
+    "version": "1.0.0",
+    "description": "Direct Cuts - Mobile barbershop booking platform",
+    "inherits": "baseline"
+  },
+
+  "projectRoot": "c:/Dev/Direct-Cuts",
+
+  "watchDirs": [
+    "src",
+    "docs",
+    "scripts",
+    ".claude/agents",
+    ".claude/skills",
+    "supabase/migrations",
+    "supabase/functions"
+  ],
+
+  "riskZones": [
+    {
+      "id": "auth-flows",
+      "patterns": ["src/**/auth/**", "src/**/login/**", "src/**/session/**"],
+      "gate": "A",
+      "reason": "Authentication flow changes require full security review"
+    },
+    {
+      "id": "payment-processing",
+      "patterns": ["src/**/payment/**", "src/**/stripe/**", "src/**/checkout/**"],
+      "gate": "A",
+      "reason": "Payment processing changes require audit"
+    },
+    {
+      "id": "database-access",
+      "patterns": ["src/**/supabase/**", "src/**/db/**", "src/lib/database/**"],
+      "gate": "B",
+      "reason": "Database access patterns require review"
+    },
+    {
+      "id": "api-routes",
+      "patterns": ["src/app/api/**"],
+      "gate": "B",
+      "reason": "API endpoint changes affect security surface"
+    },
+    {
+      "id": "migrations",
+      "patterns": ["supabase/migrations/**"],
+      "gate": "C",
+      "reason": "Database migrations require backup verification"
+    },
+    {
+      "id": "edge-functions",
+      "patterns": ["supabase/functions/**"],
+      "gate": "B",
+      "reason": "Edge function changes affect serverless security"
+    },
+    {
+      "id": "env-secrets",
+      "patterns": ["**/.env*", "**/secrets/**"],
+      "gate": "A",
+      "reason": "Environment secrets require immediate review"
+    }
+  ],
+
+  "rules": [
+    {
+      "id": "dc-api-security",
+      "name": "API Route Security Scan",
+      "pattern": "src/app/api/**/*.ts",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "high",
+      "debounceMs": 3000,
+      "gate": "B",
+      "outcomeRequired": "security_finding_created",
+      "description": "Scan API routes for auth bypass, injection, and data exposure"
+    },
+    {
+      "id": "dc-payment-audit",
+      "name": "Payment Flow Audit",
+      "pattern": "src/**/*{payment,stripe,checkout}*.{ts,tsx}",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "critical",
+      "debounceMs": 2000,
+      "gate": "A",
+      "outcomeRequired": "security_finding_created",
+      "description": "Audit payment processing for PCI compliance issues"
+    },
+    {
+      "id": "dc-supabase-client",
+      "name": "Supabase Client Usage",
+      "pattern": "src/**/*.{ts,tsx}",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "normal",
+      "debounceMs": 5000,
+      "conditions": {
+        "contentMatch": "supabase\\.from\\(|createClient|getServiceRole",
+        "caseSensitive": false
+      },
+      "outcomeRequired": "security_finding_created",
+      "description": "Verify Supabase client usage follows RLS patterns"
+    },
+    {
+      "id": "dc-migrations",
+      "name": "Database Migration Analysis",
+      "pattern": "supabase/migrations/**/*.sql",
+      "events": ["add", "change"],
+      "trigger": "admin",
+      "priority": "high",
+      "debounceMs": 2000,
+      "gate": "C",
+      "outcomeRequired": "migration_created",
+      "description": "Analyze migrations for destructive operations and RLS changes"
+    },
+    {
+      "id": "dc-edge-functions",
+      "name": "Edge Function Security",
+      "pattern": "supabase/functions/**/*.ts",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "high",
+      "debounceMs": 3000,
+      "gate": "B",
+      "outcomeRequired": "security_finding_created",
+      "description": "Scan edge functions for secrets and vulnerabilities"
+    },
+    {
+      "id": "dc-components",
+      "name": "React Component Analysis",
+      "pattern": "src/components/**/*.tsx",
+      "events": ["add", "change"],
+      "trigger": "codebase",
+      "priority": "normal",
+      "debounceMs": 5000,
+      "outcomeRequired": "lint_report_generated",
+      "description": "Analyze component complexity and patterns"
+    },
+    {
+      "id": "dc-hooks",
+      "name": "Custom Hooks Analysis",
+      "pattern": "src/hooks/**/*.ts",
+      "events": ["add", "change"],
+      "trigger": "codebase",
+      "priority": "normal",
+      "debounceMs": 3000,
+      "outcomeRequired": "lint_report_generated",
+      "description": "Analyze custom hooks for memory leaks and cleanup"
+    },
+    {
+      "id": "dc-docs",
+      "name": "Documentation Updates",
+      "pattern": "docs/**/*.md",
+      "events": ["add", "change", "unlink"],
+      "trigger": "docs",
+      "priority": "normal",
+      "debounceMs": 3000,
+      "outcomeRequired": "lint_report_generated",
+      "description": "Validate documentation structure and links"
+    },
+    {
+      "id": "dc-agent-configs",
+      "name": "Agent Configuration Changes",
+      "pattern": ".claude/agents/**/*.md",
+      "events": ["add", "change", "unlink"],
+      "trigger": "admin",
+      "priority": "high",
+      "debounceMs": 2000,
+      "outcomeRequired": "lint_report_generated",
+      "description": "Track and validate agent configuration changes"
+    },
+    {
+      "id": "dc-skill-configs",
+      "name": "Skill Configuration Changes",
+      "pattern": ".claude/skills/**/*.md",
+      "events": ["add", "change", "unlink"],
+      "trigger": "admin",
+      "priority": "high",
+      "debounceMs": 2000,
+      "outcomeRequired": "lint_report_generated",
+      "description": "Track and validate skill configuration changes"
+    },
+    {
+      "id": "dc-scripts",
+      "name": "Script Changes",
+      "pattern": "scripts/**/*.{js,cjs,mjs,sh,ps1}",
+      "events": ["add", "change"],
+      "trigger": "codebase",
+      "priority": "normal",
+      "debounceMs": 3000,
+      "outcomeRequired": "lint_report_generated",
+      "description": "Analyze automation scripts"
+    }
+  ],
+
+  "agents": {
+    "security": {
+      "command": "node",
+      "args": ["agents/security.js"],
+      "timeout": 60000,
+      "retries": 2,
+      "outcomeTypes": ["security_finding_created", "no_issues_found"]
+    },
+    "docs": {
+      "command": "node",
+      "args": ["agents/docs.js"],
+      "timeout": 30000,
+      "retries": 1,
+      "outcomeTypes": ["lint_report_generated", "spec_updated"]
+    },
+    "admin": {
+      "command": "node",
+      "args": ["agents/admin.js"],
+      "timeout": 30000,
+      "retries": 1,
+      "outcomeTypes": ["lint_report_generated", "migration_created"]
+    },
+    "codebase": {
+      "command": "node",
+      "args": ["agents/codebase.js"],
+      "timeout": 45000,
+      "retries": 1,
+      "outcomeTypes": ["lint_report_generated", "test_report_generated"]
+    }
+  },
+
+  "settings": {
+    "debounce": {
+      "windowMs": 3000,
+      "maxWaitMs": 15000,
+      "coalesceByDirectory": true,
+      "coalesceByExtension": true
+    },
+    "queue": {
+      "maxConcurrent": 2,
+      "retryAttempts": 2,
+      "retryDelayMs": 5000,
+      "staleJobTimeoutMs": 300000
+    },
+    "outcomes": {
+      "requireArtifact": true,
+      "artifactDir": ".anx/artifacts",
+      "logsDir": ".anx/logs",
+      "rejectOnMissingOutcome": false
+    },
+    "gates": {
+      "enabled": true,
+      "autoApprove": ["D"],
+      "requireApproval": ["A", "B", "C"]
+    }
+  },
+
+  "scanning": {
+    "enabled": true,
+    "intervalMinutes": 60,
+    "onStartup": true,
+    "batchSize": 50
+  },
+
+  "notifications": {
+    "enabled": true,
+    "console": true,
+    "logFile": "monitor.log",
+    "webhook": null,
+    "onGateRequired": true,
+    "onCriticalFinding": true
+  }
+}

@@ -1,0 +1,15 @@
+
+{
+    "drive_root_id": "1KFd2O3k-hq8QS6QBPtUB6vTU8zJYzuFK",
+    "credentials_path": "c:\\Dev\\Direct-Cuts\\credentials.json",
+    "token_path": "c:\\Dev\\Direct-Cuts\\token.json",
+    "audit_log_path": "c:\\Dev\\Direct-Cuts\\artifacts\\audit\\drive_access.log",
+    "permissions": {
+        "Legal Ops": { "write": ["/7. Legal & Compliance"], "read": ["*"] },
+        "CFO": { "write": ["/2. Financial"], "read": ["*"] },
+        "QA Gatekeeper": { "write": ["/9. Evidence"], "read": ["*"] },
+        "OCS": { "write": [], "read": ["*"] },
+        "Platform Ops": { "write": ["/10. Infrastructure"], "read": ["*"] },
+        "Direct Cuts GM": { "write": ["/1. Corporate & Legal"], "read": ["/1. Corporate & Legal"] }
+    }
+}
