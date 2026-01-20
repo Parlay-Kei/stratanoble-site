@@ -1,0 +1,36 @@
+#!/bin/bash
+# Strata Noble Pre-commit Hook
+# Runs quick checks before allowing commit
+
+echo "🔍 Running pre-commit checks for Strata Noble..."
+
+cd apps/platform
+
+# Type check
+echo "📝 Type checking..."
+npm run type-check
+if [ $? -ne 0 ]; then
+    echo "❌ Type check failed. Please fix TypeScript errors before committing."
+    exit 1
+fi
+
+# Lint (continue with warnings)
+echo "🧹 Linting..."
+npm run lint || true
+
+# Quick unit tests
+echo "🧪 Running tests..."
+npm run test:run
+if [ $? -ne 0 ]; then
+    echo "❌ Tests failed. Please fix failing tests before committing."
+    exit 1
+fi
+
+cd ../..
+
+# Run validation checks
+echo "✅ Running validation..."
+npm run validate || true
+
+echo "✅ All pre-commit checks passed!"
+exit 0

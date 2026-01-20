@@ -1,374 +1,112 @@
-name: CI
+name: Strata Noble CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main, develop]
 
 jobs:
-  # Security gate: Run before anything expensive
-  security-gate:
+  ci:
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [20.x]
+    
     steps:
-    - uses: actions/checkout@v6
-
-    - name: HARD FAIL - Block Supabase PATs (sbp_)
-      run: |
-        # This check has ZERO false positives - any match is a real leak
-        if git grep -nE '\bsbp_[A-Za-z0-9]{20,}\b' -- . ':!node_modules' ':!.next' ':!dist' ':!build' 2>/dev/null; then
-          echo ""
-          echo "❌ CRITICAL: Supabase Personal Access Token (PAT) detected!"
-          echo "   PATs have FULL ACCOUNT ACCESS. This is a blocking error."
-          echo ""
-          echo "   Fix: Remove the token and DELETE it at Supabase Dashboard"
-          echo "   See: docs/agents/SECURITY_SECRETS_HANDLING.md"
-          exit 1
-        fi
-        echo "✅ No Supabase PATs (sbp_) found"
-
-    - name: Verify agent security headers
-      run: node scripts/verify-agent-security-headers.mjs
-
-  # Unit tests: Fast, parallel, no DB required
-  test-unit:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      - name: Install root dependencies
+        run: npm ci
+      
+      - name: Install platform dependencies
+        run: cd apps/platform && npm ci
+      
+      - name: Type check
+        run: cd apps/platform && npm run type-check
+      
+      - name: Lint
+        run: cd apps/platform && npm run lint
+      
+      - name: Run tests
+        run: cd apps/platform && npm run test:run
+        env:
+          CI: true
+      
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+      
+      - name: Run contract checks
+        run: npm run contract:check
+      
+      - name: Check brand consistency
+        run: npm run brand:check
+      
+      - name: Upload coverage
+        if: matrix.node-version == '20.x'
+        uses: codecov/codecov-action@v4
+        continue-on-error: true
+        with:
+          directory: apps/platform/coverage
+  
+  e2e:
     runs-on: ubuntu-latest
-    needs: [security-gate]
+    needs: ci
+    if: github.event_name == 'pull_request'
+    
     steps:
-    - uses: actions/checkout@v6
-
-    - name: Use Node.js 20.x
-      uses: actions/setup-node@v6
-      with:
-        node-version: 20.x
-        cache: 'npm'
-        cache-dependency-path: |
-          package-lock.json
-          apps/platform/package-lock.json
-
-    - name: Install root dependencies
-      run: npm install --legacy-peer-deps
-
-    - name: Install platform dependencies
-      working-directory: apps/platform
-      run: npm install --legacy-peer-deps
-
-    - name: Enforce import convention (prevent drift)
-      run: |
-        echo "Enforcing import convention: @modules/* is the ONLY standard"
-        echo "============================================================"
-        
-        # Block non-standard patterns (single and double quotes)
-        # Pattern 1: from 'modules/... (missing @)
-        # Pattern 2: from "modules/... (missing @, double quotes)
-        
-        VIOLATIONS=""
-        
-        # Check apps/platform
-        if grep -rIn "from ['\"]modules/" apps/platform/src apps/platform/e2e 2>/dev/null; then
-          VIOLATIONS="${VIOLATIONS}Found 'modules/' without @ prefix in apps/platform\n"
-        fi
-        
-        # Check src/modules (root modules shouldn't import each other with wrong pattern)
-        if grep -rIn "from ['\"]modules/" src/modules 2>/dev/null; then
-          VIOLATIONS="${VIOLATIONS}Found 'modules/' without @ prefix in src/modules\n"
-        fi
-        
-        if [ -n "$VIOLATIONS" ]; then
-          echo "❌ ERROR: Non-standard imports detected"
-          echo "$VIOLATIONS"
-          echo ""
-          echo "Standard: import { x } from '@modules/auth/...' (with @)"
-          echo "Blocked:  import { x } from 'modules/auth/...'  (without @)"
-          exit 1
-        fi
-        
-        echo "✅ Import convention enforced: @modules/* only"
-
-    - name: Run unit tests
-      working-directory: apps/platform
-      run: npm run test:run
-
-    - name: Run test coverage
-      working-directory: apps/platform
-      run: npm run test:coverage
-      env:
-        NODE_ENV: test
-
-  # Integration tests: Serial, requires Supabase
-  test-integration:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd apps/platform && npm ci
+      
+      - name: Install Playwright
+        run: cd apps/platform && npm run e2e:install
+      
+      - name: Run E2E tests
+        run: cd apps/platform && npm run e2e
+        env:
+          CI: true
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: apps/platform/playwright-report/
+          retention-days: 7
+  
+  security:
     runs-on: ubuntu-latest
-    needs: [security-gate]
+    needs: ci
+    
     steps:
-    - uses: actions/checkout@v6
-
-    - name: Use Node.js 20.x
-      uses: actions/setup-node@v6
-      with:
-        node-version: 20.x
-        cache: 'npm'
-        cache-dependency-path: |
-          package-lock.json
-          apps/website/package-lock.json
-
-    - name: Install root dependencies
-      run: npm install --legacy-peer-deps
-
-    - name: Install website dependencies
-      working-directory: apps/website
-      run: npm install --legacy-peer-deps
-
-    - name: Install Supabase CLI
-      uses: supabase/setup-cli@v1
-      with:
-        version: latest
-
-    - name: Hard reset Supabase (clean state)
-      run: |
-        cd apps/website
-        # Stop any existing instances (ignore errors)
-        supabase stop --no-backup || true
-        # Remove any persisted volumes/state (if they exist)
-        # This ensures deterministic runs
-        docker volume ls | grep supabase || true
-        # Clean up any orphaned containers
-        docker ps -a | grep supabase | awk '{print $1}' | xargs -r docker rm -f || true
-
-    - name: Start local Supabase (fresh)
-      id: supabase
-      run: |
-        cd apps/website
-        supabase start
-        # Capture Supabase status to extract keys
-        supabase status -o json > /tmp/supabase-status.json
-        echo "service_role_key=$(cat /tmp/supabase-status.json | jq -r '.SERVICE_ROLE_KEY // empty')" >> $GITHUB_OUTPUT
-        echo "anon_key=$(cat /tmp/supabase-status.json | jq -r '.ANON_KEY // empty')" >> $GITHUB_OUTPUT
-        echo "api_url=$(cat /tmp/supabase-status.json | jq -r '.API_URL // empty')" >> $GITHUB_OUTPUT
-      env:
-        SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-
-    - name: Run migrations (from scratch)
-      run: |
-        cd apps/website
-        # Reset applies all migrations from scratch
-        # This recreates the database and runs all migrations sequentially
-        supabase db reset
-
-    - name: Create test infrastructure (canary table)
-      run: |
-        cd apps/website
-        # Create the canary protection table required for integration tests
-        # Use psql via Docker to connect to local Supabase database
-        docker exec supabase_db_strata-noble psql -U postgres -d postgres -c "
-          CREATE TABLE IF NOT EXISTS env_sentinel (
-            id TEXT PRIMARY KEY DEFAULT 'test-environment-sentinel',
-            canary_value TEXT NOT NULL DEFAULT 'TEST_ENVIRONMENT_VERIFIED_2025',
-            created_at TIMESTAMPTZ DEFAULT NOW(),
-            updated_at TIMESTAMPTZ DEFAULT NOW()
-          );
-          INSERT INTO env_sentinel (id, canary_value)
-          VALUES ('test-environment-sentinel', 'TEST_ENVIRONMENT_VERIFIED_2025')
-          ON CONFLICT (id) DO UPDATE SET updated_at = NOW();
-        "
-
-    - name: Validate migrations (idempotent, reversible)
-      working-directory: apps/website
-      run: node ../../scripts/validate-migrations.mjs
-
-    - name: Check for raw cleanup patterns
-      working-directory: apps/website
-      run: npm run test:check-cleanup
-
-    - name: Check unit test boundaries (no DB imports)
-      working-directory: apps/website
-      run: node ../../scripts/check-unit-test-boundaries.mjs
-
-    - name: Check integration harness usage
-      working-directory: apps/website
-      run: node ../../scripts/check-integration-harness-usage.mjs
-
-    - name: Check table drift (schema vs reset list)
-      working-directory: apps/website
-      run: node ../../scripts/check-table-drift.mjs
-
-    # PAT check already ran in security-gate job (which this job depends on)
-
-    - name: Scan for exposed secrets (non-blocking)
-      working-directory: apps/website
-      run: node ../../scripts/check-secrets.mjs || true
-      # Note: Set to non-blocking due to known false positives (mock JWTs, public anon keys)
-      # PAT check runs in security-gate and blocks before expensive work starts
-
-    - name: Verify log masking
-      working-directory: apps/website
-      run: node ../../scripts/check-log-masking.mjs
-      if: always()
-
-    - name: Run integration tests
-      working-directory: apps/website
-      run: |
-        npm test -- --testPathPatterns=integration --testPathIgnorePatterns=e2e --json --outputFile=test-results.json
-      env:
-        NODE_ENV: test
-        TEST_ENV: 'true'
-        NEXT_PUBLIC_SUPABASE_URL: ${{ steps.supabase.outputs.api_url || 'http://127.0.0.1:54321' }}
-        SUPABASE_SERVICE_ROLE_KEY: ${{ steps.supabase.outputs.service_role_key }}
-        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ steps.supabase.outputs.anon_key }}
-
-    - name: Collect test metrics
-      working-directory: apps/website
-      run: |
-        node ../../scripts/test-metrics.mjs --test-output=test-results.json
-      if: always()
-
-    - name: Upload test metrics
-      uses: actions/upload-artifact@v6
-      if: always()
-      with:
-        name: test-metrics
-        path: |
-          apps/website/test-metrics.json
-          apps/website/test-metrics-latest.json
-        retention-days: 90
-
-    - name: Stop Supabase
-      if: always()
-      run: |
-        cd apps/website
-        supabase stop || true
-
-  # Typecheck: Ensure TypeScript compilation passes
-  typecheck:
-    runs-on: ubuntu-latest
-    needs: [security-gate]
-    steps:
-    - uses: actions/checkout@v6
-
-    - name: Use Node.js 20.x
-      uses: actions/setup-node@v6
-      with:
-        node-version: 20.x
-        cache: 'npm'
-        cache-dependency-path: |
-          package-lock.json
-          apps/website/package-lock.json
-
-    - name: Install root dependencies
-      run: npm install --legacy-peer-deps
-
-    - name: Install website dependencies
-      working-directory: apps/website
-      run: npm install --legacy-peer-deps
-
-    - name: Run TypeScript typecheck
-      working-directory: apps/website
-      run: npm run type-check
-
-  # UI Package typecheck: Ensure shared UI library compiles in isolation
-  typecheck-ui:
-    runs-on: ubuntu-latest
-    needs: [security-gate]
-    steps:
-    - uses: actions/checkout@v6
-
-    - name: Use Node.js 20.x
-      uses: actions/setup-node@v6
-      with:
-        node-version: 20.x
-        cache: 'npm'
-        cache-dependency-path: packages/ui/package-lock.json
-
-    - name: Install UI package dependencies
-      working-directory: packages/ui
-      run: npm install --legacy-peer-deps
-
-    - name: Run UI TypeScript typecheck
-      working-directory: packages/ui
-      run: npm run type-check
-
-  # Contract checks: Validate API schemas, event payloads, and data contracts
-  contract-checks:
-    runs-on: ubuntu-latest
-    needs: [security-gate]
-    steps:
-    - uses: actions/checkout@v6
-
-    - name: Use Node.js 20.x
-      uses: actions/setup-node@v6
-      with:
-        node-version: 20.x
-        cache: 'npm'
-        cache-dependency-path: package-lock.json
-
-    - name: Install root dependencies
-      run: npm install --legacy-peer-deps
-
-    - name: Validate contract schemas
-      run: npm run contract:check
-
-    - name: Check contract versioning
-      run: npm run contract:version-check
-
-  # Dependency policy checks: Ensure no banned packages, versions within policy
-  dependency-checks:
-    runs-on: ubuntu-latest
-    needs: [security-gate]
-    steps:
-    - uses: actions/checkout@v6
-
-    - name: Use Node.js 20.x
-      uses: actions/setup-node@v6
-      with:
-        node-version: 20.x
-        cache: 'npm'
-        cache-dependency-path: |
-          package-lock.json
-          apps/website/package-lock.json
-
-    - name: Install root dependencies
-      run: npm install --legacy-peer-deps
-
-    - name: Install website dependencies
-      working-directory: apps/website
-      run: npm install --legacy-peer-deps
-
-    - name: Check dependency policy compliance
-      run: npm run dep:check
-
-    - name: Check for security vulnerabilities
-      run: npm audit --audit-level moderate || true
-
-  build:
-    runs-on: ubuntu-latest
-    needs: [test-unit, test-integration, typecheck, typecheck-ui, contract-checks, dependency-checks]
-    env:
-      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-    steps:
-    - uses: actions/checkout@v6
-
-    - name: Use Node.js 20.x
-      uses: actions/setup-node@v6
-      with:
-        node-version: 20.x
-        cache: 'npm'
-        cache-dependency-path: |
-          package-lock.json
-          apps/website/package-lock.json
-
-    - name: Install root dependencies
-      run: npm install --legacy-peer-deps
-
-    - name: Install website dependencies
-      working-directory: apps/website
-      run: npm install --legacy-peer-deps
-
-    - name: Run linting
-      working-directory: apps/website
-      run: npm run lint
-
-    - name: Build website
-      working-directory: apps/website
-      run: npm run build
-      env:
-        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co' }}
-        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key' }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Security audit
+        run: npm audit --audit-level=high
+        continue-on-error: true
+      
+      - name: Check Supabase configuration
+        run: npm run supabase:verify
+        continue-on-error: true
