@@ -2,16 +2,16 @@
 export const services = [
   {
     icon: 'lightbulb',
-    title: 'Solution Services',
-    subtitle: 'Strategy & Execution for Solo / Small Biz',
-    description: 'Transform your vision into actionable strategy with proven frameworks and hands-on execution support.',
+    title: 'Done-For-You Strategy',
+    subtitle: '90-Day Revenue Roadmap',
+    description: 'Get unstuck with a custom action plan that drives revenue in 90 days or less.',
     link: '/solutions',
-    price: 'From $1,200', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
+    price: 'From $1,200',
     whatYouGet: [
-      'Strategic business roadmap',
-      'Market analysis & positioning',
-      'Revenue model design',
-      '90-day action plan',
+      '2-week delivery guarantee',
+      'Revenue-focused roadmap',
+      'Competitor analysis included',
+      'Weekly check-ins for 90 days',
     ],
     packages: [
       {
@@ -37,17 +37,16 @@ export const services = [
   },
   {
     icon: 'academic-cap',
-    title: 'Side-Hustle Workshops',
-    subtitle: 'Hands-on learning for aspiring entrepreneurs',
-    description: 'Join interactive workshops designed to help you launch and scale your side hustle with proven strategies.',
+    title: 'Launch Bootcamp',
+    subtitle: 'First $10K in 30 Days',
+    description: 'Intensive workshop series with templates that generated $2.3M for past students.',
     link: '/solutions',
-    price: 'From $97', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
+    price: 'From $97',
     whatYouGet: [
-      'Live interactive sessions',
-      'Take-home templates',
-      'Q&A with experts',
-      'Resource vault access',
-      'Join Slack community for ongoing support',
+      'Next cohort starts Monday',
+      '$10K revenue templates',
+      '30-day money-back guarantee',
+      'Only 12 spots per cohort',
     ],
     packages: [
       {
@@ -68,16 +67,16 @@ export const services = [
   },
   {
     icon: 'chart-bar',
-    title: 'Data & Operations Analysis',
-    subtitle: 'Optimize your business with data-driven insights',
-    description: 'Unlock hidden opportunities in your operations with comprehensive data analysis and actionable recommendations.',
+    title: 'Profit Maximizer Audit',
+    subtitle: 'Find $50K+ Hidden Revenue',
+    description: 'Data audit that finds an average of $50K in missed revenue opportunities.',
     link: '/data-analysis',
-    price: 'From $800', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
+    price: 'From $800',
     whatYouGet: [
-      'KPI dashboard setup',
-      'Data collection strategy',
-      'Performance reports',
-      'Optimization recommendations',
+      '48-hour turnaround',
+      'Average ROI: 12.3x',
+      'No revenue found = full refund',
+      'Implementation support included',
     ],
     packages: [
       {
@@ -98,16 +97,16 @@ export const services = [
   },
   {
     icon: 'paint-brush',
-    title: 'Brand & Digital Presence',
-    subtitle: 'Complete brand identity and digital strategy',
-    description: 'Build a compelling brand identity and establish a strong digital presence that resonates with your audience.',
+    title: 'Authority Brand Sprint',
+    subtitle: '0 to 10K Followers in 60 Days',
+    description: 'Complete brand system that positions you as the go-to expert in your niche.',
     link: '/solutions',
-    price: 'From $1,500', // Only displayed when NEXT_PUBLIC_SHOW_PRICING=true
+    price: 'From $1,500',
     whatYouGet: [
-      'Brand identity design',
-      'Website development',
-      'Social media strategy',
-      'Content creation',
+      'Launch in 7 days',
+      'Viral content templates',
+      'Verified social accounts',
+      'PR placement guarantee',
     ],
     packages: [
       {

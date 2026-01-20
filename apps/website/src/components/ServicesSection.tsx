@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { CTA_LABELS } from '@/lib/cta-labels'
-import { 
-  ArrowRightIcon, 
-  CheckIcon, 
+import {
+  ArrowRightIcon,
   LightBulbIcon,
   AcademicCapIcon,
   ChartBarIcon,
   PaintBrushIcon
 } from '@heroicons/react/24/outline'
+import { CheckIcon } from '@heroicons/react/24/solid'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useServiceTracking, useContactFormTracking } from '@/lib/useAnalytics'
@@ -91,16 +91,21 @@ export function ServicesSection() {
     <section className="py-24 sm:py-32 bg-gradient-to-br from-silver-50 to-white relative">
       {/* Progress Bar */}
       <div className="fixed top-16 left-0 w-full h-1 bg-silver-200 z-40">
-        <div 
+        <div
           className="h-full bg-gradient-to-r from-emerald-500 to-navy-600 transition-all duration-300 ease-out"
           style={{ width: `${progress}%` }}
         />
       </div>
 
+      {/* Urgency Banner */}
+      <div className="absolute top-0 left-0 w-full bg-emerald-600 text-white py-2 text-center text-sm font-medium">
+        🔥 Limited spots available for Q1 2026. Book your strategy call today.
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           {/* Section Header */}
-          <motion.div 
+          <motion.div
             className="mx-auto max-w-2xl text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -108,10 +113,10 @@ export function ServicesSection() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold tracking-tight heading-primary sm:text-4xl">
-              Our Services
+              Pick Your Fast Track
             </h2>
             <p className="mt-4 text-lg leading-8 text-navy-600">
-              Comprehensive solutions to transform your passion into a profitable business
+              4 proven systems. 237 success stories. Which one fits you?
             </p>
           </motion.div>
 
@@ -152,84 +157,50 @@ export function ServicesSection() {
                   </div>
 
                   {/* Service Content */}
-                  <div className="space-y-4 relative z-10">
+                  <div className="space-y-3 relative z-10">
                     <h3 className="text-xl font-bold text-navy-900 group-hover:text-emerald-600 transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-navy-600 leading-relaxed">
+                    <p className="text-emerald-600 font-semibold">
                       {service.subtitle}
                     </p>
-                    <p className="text-navy-500 text-sm leading-relaxed">
+                    <p className="text-navy-600 text-sm leading-relaxed">
                       {service.description}
                     </p>
+                    {service.price && (
+                      <p className="text-2xl font-bold text-navy-900 pt-2">
+                        {service.price}
+                      </p>
+                    )}
                   </div>
 
-                  {/* Enhanced Hover State - What You Get */}
-                  <motion.div 
-                    className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-white rounded-2xl p-8 border-2 border-emerald-200 shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300"
-                    initial={{ scale: 0.95 }}
-                    whileHover={{ scale: 1 }}
-                    onAnimationStart={() => handleServiceDetails(service.title)}
-                  >
-                    <div className="h-full flex flex-col justify-center">
-                      <motion.h4 
-                        className="text-lg font-bold text-navy-900 mb-4 flex items-center gap-2"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileHover={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 }}
-                      >
-                        <CheckIcon className="h-5 w-5 text-emerald-500" />
-                        What You Get:
-                      </motion.h4>
-                      <ul className="space-y-3">
-                        {service.whatYouGet.map((item, idx) => (
-                          <motion.li 
-                            key={idx} 
-                            className="flex items-start gap-3 text-sm text-navy-700"
-                            initial={{ opacity: 0, x: -20 }}
-                            whileHover={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.2 + idx * 0.1 }}
-                          >
-                            <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0" />
-                            <span className="leading-relaxed">{item}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                      
-                      {/* Quick CTA on Hover */}
-                      <motion.div 
-                        className="mt-6 pt-4 border-t border-emerald-200"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileHover={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                      >
-                        <Link
-                          href={service.link}
-                          className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold text-sm group/link"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleServiceClick(service.title, service.link)
-                          }}
+                  {/* Quick Benefits List - Always Visible */}
+                  <div className="mt-4 pt-4 border-t border-silver-200">
+                    <ul className="space-y-2">
+                      {service.whatYouGet.slice(0, 3).map((item, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-start gap-2 text-sm text-navy-600"
                         >
-                          Learn more about this service
-                          <ArrowRightIcon className="ml-2 h-4 w-4 transition-transform group-hover/link:translate-x-1" />
-                        </Link>
-                      </motion.div>
-                    </div>
-                  </motion.div>
+                          <CheckIcon className="h-4 w-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                  {/* Learn More Link (visible when not hovered) */}
+                  {/* CTA Button (always visible) */}
                   <div className="mt-6 relative z-10">
                     <Link
                       href={service.link}
-                      className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-medium group/link"
+                      className="inline-flex items-center justify-center w-full px-4 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition-colors"
                       onClick={(e) => {
                         e.stopPropagation()
                         handleServiceClick(service.title, service.link)
                       }}
                     >
-                      Learn more
-                      <ArrowRightIcon className="ml-2 h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                      Get Started
+                      <ArrowRightIcon className="ml-2 h-4 w-4" />
                     </Link>
                   </div>
                 </motion.div>
@@ -255,13 +226,10 @@ export function ServicesSection() {
               
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold mb-4">
-                  Ready to Transform Your Business?
+                  237 Entrepreneurs Started Here
                 </h3>
                 <p className="text-lg mb-6 opacity-90">
-                  {lastViewedService 
-                    ? `Let's discuss your ${lastViewedService.toLowerCase()} needs`
-                    : "Let's discuss how we can help you achieve your goals"
-                  }
+                  Book your free strategy call. No pitch, just clarity.
                 </p>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
