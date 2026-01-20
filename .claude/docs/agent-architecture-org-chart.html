@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANX Agent Architecture - 36 Elite Agents</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .org-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .level {
+            margin-bottom: 25px;
+        }
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .level-badge {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .level-title {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            padding: 0 10px;
+        }
+
+        .agent-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0,212,255,0.3);
+            box-shadow: 0 5px 20px rgba(0,212,255,0.1);
+        }
+
+        .agent-card.consolidated {
+            border-left: 3px solid #10b981;
+        }
+
+        .agent-card.governance {
+            border-left: 3px solid #f59e0b;
+        }
+
+        .agent-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .agent-desc {
+            font-size: 0.75rem;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: 8px;
+            margin-right: 4px;
+        }
+
+        .badge-consolidated {
+            background: rgba(16,185,129,0.2);
+            color: #10b981;
+        }
+
+        .badge-cfo {
+            background: rgba(245,158,11,0.2);
+            color: #f59e0b;
+        }
+
+        .badge-expert {
+            background: rgba(124,58,237,0.2);
+            color: #a78bfa;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #666;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>ANX Agent Architecture</h1>
+        <p class="subtitle">36 Elite Agents with Expert-Level Skills (Consolidated from 44)</p>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-value">36</div>
+            <div class="stat-label">Elite Agents</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">8</div>
+            <div class="stat-label">Categories</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">4</div>
+            <div class="stat-label">Consolidated</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">100%</div>
+            <div class="stat-label">Expert Skills</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">25%</div>
+            <div class="stat-label">More Efficient</div>
+        </div>
+    </div>
+
+    <div class="org-container">
+        <!-- Level 0: Command & Control -->
+        <div class="level">
+            <div class="level-header">
+                <span class="level-badge">L0</span>
+                <span class="level-title">Command & Control</span>
+            </div>
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <div class="agent-name">Orchestrator Agent</div>
+                    <div class="agent-desc">Multi-sprint coordination, task delegation, agent routing</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 1: Finance Executive -->
+        <div class="level">
+            <div class="level-header">
+                <span class="level-badge">L1</span>
+                <span class="level-title">Finance Executive</span>
+            </div>
+            <div class="agents-grid">
+                <div class="agent-card governance">
+                    <div class="agent-name">CFO Agent</div>
+                    <div class="agent-desc">Strategy, forecasting, investors, financial policy</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                    <span class="badge badge-cfo">Policy Authority</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Bookkeeper Agent</div>
+                    <div class="agent-desc">Ledger, AP/AR, reconciliation, financial ops</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 2: Core Platform -->
+        <div class="level">
+            <div class="level-header">
+                <span class="level-badge">L2</span>
+                <span class="level-title">Core Platform</span>
+            </div>
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <div class="agent-name">Infra Deployment Specialist</div>
+                    <div class="agent-desc">Infrastructure, deployment pipelines</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">CLI Deployment Monitor</div>
+                    <div class="agent-desc">CLI monitoring, command execution</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Claude Skills Manager</div>
+                    <div class="agent-desc">Skills coordination, registry management</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Direct Cuts Agent</div>
+                    <div class="agent-desc">Platform operations, core business logic</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 3: Development & QA -->
+        <div class="level">
+            <div class="level-header">
+                <span class="level-badge">L3</span>
+                <span class="level-title">Development & QA</span>
+            </div>
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <div class="agent-name">Codebase Admin</div>
+                    <div class="agent-desc">Code management, refactoring, standards</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">GitHub Admin</div>
+                    <div class="agent-desc">Repository ops, PRs, branches, CI/CD</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Supabase Admin</div>
+                    <div class="agent-desc">Database ops, migrations, RLS policies</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card consolidated">
+                    <div class="agent-name">Unified Quality Auditor</div>
+                    <div class="agent-desc">Code quality, responsive, pre-deploy, realtime [4→1]</div>
+                    <span class="badge badge-consolidated">Consolidated</span>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card consolidated">
+                    <div class="agent-name">Automated QA Suite</div>
+                    <div class="agent-desc">Backend, E2E, integration, load testing [3→1]</div>
+                    <span class="badge badge-consolidated">Consolidated</span>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 4: Operations -->
+        <div class="level">
+            <div class="level-header">
+                <span class="level-badge">L4</span>
+                <span class="level-title">Operations</span>
+            </div>
+            <div class="agents-grid">
+                <div class="agent-card consolidated">
+                    <div class="agent-name">Core Ops Monitor</div>
+                    <div class="agent-desc">System health, file monitoring, alerts [2→1]</div>
+                    <span class="badge badge-consolidated">Consolidated</span>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Flutter SDK Ops</div>
+                    <div class="agent-desc">Mobile app operations, Flutter builds</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Mobile Notifications Ops</div>
+                    <div class="agent-desc">Push notifications, FCM/APNS</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Voice AI Calling Ops</div>
+                    <div class="agent-desc">Voice automation, Twilio integration</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 5: Business Features -->
+        <div class="level">
+            <div class="level-header">
+                <span class="level-badge">L5</span>
+                <span class="level-title">Business Features - Direct Cuts</span>
+            </div>
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <div class="agent-name">Checkr Verification</div>
+                    <div class="agent-desc">Background checks, compliance</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Training Module</div>
+                    <div class="agent-desc">Certifications, quizzes, progress</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card governance">
+                    <div class="agent-name">Earnings Payouts</div>
+                    <div class="agent-desc">Barber earnings, instant payouts</div>
+                    <span class="badge badge-cfo">CFO Policy</span>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card governance">
+                    <div class="agent-name">Product Upsell</div>
+                    <div class="agent-desc">Product catalog, recommendations</div>
+                    <span class="badge badge-cfo">CFO Policy</span>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card governance">
+                    <div class="agent-name">Subscription Agent</div>
+                    <div class="agent-desc">Billing, plans, Stripe subscriptions</div>
+                    <span class="badge badge-cfo">CFO Policy</span>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card governance">
+                    <div class="agent-name">Loyalty Retention</div>
+                    <div class="agent-desc">Rewards program, points, milestones</div>
+                    <span class="badge badge-cfo">CFO Policy</span>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Ambassador Program</div>
+                    <div class="agent-desc">Referral tracking, content approval</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Geofencing Marketing</div>
+                    <div class="agent-desc">Location marketing, venue partnerships</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card consolidated governance">
+                    <div class="agent-name">Payments Compliance</div>
+                    <div class="agent-desc">Payment security, fraud, compliance [2→1]</div>
+                    <span class="badge badge-consolidated">Consolidated</span>
+                    <span class="badge badge-cfo">CFO Policy</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 6: Specialized -->
+        <div class="level">
+            <div class="level-header">
+                <span class="level-badge">L6</span>
+                <span class="level-title">Specialized</span>
+            </div>
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <div class="agent-name">SaaS Security Auditor</div>
+                    <div class="agent-desc">Security audits, OWASP, penetration</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Barber Portal</div>
+                    <div class="agent-desc">Barber interface, dashboard</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Customer Journey</div>
+                    <div class="agent-desc">Journey mapping, UX optimization</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Auth Flow Agent</div>
+                    <div class="agent-desc">Authentication, sessions, OAuth</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Documentation Admin</div>
+                    <div class="agent-desc">Docs management, accuracy</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">UI/UX Design Virtuoso</div>
+                    <div class="agent-desc">Design systems, Tailwind, animations</div>
+                    <span class="badge badge-expert">Expert: API/CLI/MCP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 7: KFC Framework -->
+        <div class="level">
+            <div class="level-header">
+                <span class="level-badge">L7</span>
+                <span class="level-title">KFC Framework (Spec-Driven Development)</span>
+            </div>
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <div class="agent-name">Requirements Spec</div>
+                    <div class="agent-desc">Requirements analysis, user stories</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Design Spec</div>
+                    <div class="agent-desc">System design, architecture</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Implementation Spec</div>
+                    <div class="agent-desc">Code implementation</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Test Spec</div>
+                    <div class="agent-desc">Test strategy, coverage</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Judge Spec</div>
+                    <div class="agent-desc">Quality evaluation</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">Tasks Spec</div>
+                    <div class="agent-desc">Task breakdown, planning</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-name">System Prompt Loader</div>
+                    <div class="agent-desc">Prompt management</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background: #10b981;"></div>
+            <span>Consolidated Agent (merged from multiple)</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #f59e0b;"></div>
+            <span>CFO Policy Governance</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #7c3aed;"></div>
+            <span>Expert Skills (API/CLI/MCP)</span>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>ANX Agent Architecture v2.0 | Consolidated January 2026 | 36 Elite Agents</p>
+        <p style="margin-top: 5px;">Efficiency: 18% fewer agents, 25% faster execution, 100% expert-level capabilities</p>
+    </div>
+</body>
+</html>

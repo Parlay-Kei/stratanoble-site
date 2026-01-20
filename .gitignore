@@ -287,3 +287,6 @@ GOOGLE_OAUTH_PUBLISH_GUIDE.md
 OAUTH_ENHANCEMENT_COMPLETE_2025-10-25.md
 .claude/docs/dslv-implementation.md
 NETLIFY_ENV_FIX_COMPLETE_2025-10-25.md
+
+# Recursive directory issue - temporary ignore
+.claude/Direct-Cuts-Artifacts/Agent_Framework/.agent/
