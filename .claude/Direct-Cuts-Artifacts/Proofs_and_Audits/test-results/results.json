@@ -1,0 +1,159 @@
+{
+  "config": {
+    "configFile": "C:\\Dev\\Direct-Cuts\\playwright.config.ts",
+    "rootDir": "C:/Dev/Direct-Cuts/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "test-results/html"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Dev/Direct-Cuts/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Dev/Direct-Cuts/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "production-debug-guard.spec.ts",
+      "file": "production-debug-guard.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "production homepage should not show debug/build info widget",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 10999,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('button[title=\"Show build info\"]')\nExpected: not visible\nReceived: visible\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"not toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('button[title=\"Show build info\"]')\u001b[22m\n\u001b[2m    9 × locator resolved to <button title=\"Show build info\" class=\"flex items-center gap-2 px-3 py-2 text-xs hover:bg-gray-800 rounded-lg transition-colors\">…</button>\u001b[22m\n\u001b[2m      - unexpected value \"visible\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('button[title=\"Show build info\"]')\nExpected: not visible\nReceived: visible\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"not toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('button[title=\"Show build info\"]')\u001b[22m\n\u001b[2m    9 × locator resolved to <button title=\"Show build info\" class=\"flex items-center gap-2 px-3 py-2 text-xs hover:bg-gray-800 rounded-lg transition-colors\">…</button>\u001b[22m\n\u001b[2m      - unexpected value \"visible\"\u001b[22m\n\n    at C:\\Dev\\Direct-Cuts\\tests\\e2e\\production-debug-guard.spec.ts:13:33",
+                    "location": {
+                      "file": "C:\\Dev\\Direct-Cuts\\tests\\e2e\\production-debug-guard.spec.ts",
+                      "column": 33,
+                      "line": 13
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 11 |\u001b[39m   \u001b[90m// 1. Assert absence of the 'Show build info' button (collapsed state)\u001b[39m\n \u001b[90m 12 |\u001b[39m   \u001b[36mconst\u001b[39m debugButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'button[title=\"Show build info\"]'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 13 |\u001b[39m   \u001b[36mawait\u001b[39m expect(debugButton)\u001b[33m.\u001b[39mnot\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 14 |\u001b[39m\n \u001b[90m 15 |\u001b[39m   \u001b[90m// 2. Assert absence of the expanded 'Build Info' header text\u001b[39m\n \u001b[90m 16 |\u001b[39m   \u001b[36mconst\u001b[39m expandedHeader \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Build Info'\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Dev\\Direct-Cuts\\tests\\e2e\\production-debug-guard.spec.ts",
+                        "column": 33,
+                        "line": 13
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('button[title=\"Show build info\"]')\nExpected: not visible\nReceived: visible\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"not toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('button[title=\"Show build info\"]')\u001b[22m\n\u001b[2m    9 × locator resolved to <button title=\"Show build info\" class=\"flex items-center gap-2 px-3 py-2 text-xs hover:bg-gray-800 rounded-lg transition-colors\">…</button>\u001b[22m\n\u001b[2m      - unexpected value \"visible\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 11 |\u001b[39m   \u001b[90m// 1. Assert absence of the 'Show build info' button (collapsed state)\u001b[39m\n \u001b[90m 12 |\u001b[39m   \u001b[36mconst\u001b[39m debugButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'button[title=\"Show build info\"]'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 13 |\u001b[39m   \u001b[36mawait\u001b[39m expect(debugButton)\u001b[33m.\u001b[39mnot\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 14 |\u001b[39m\n \u001b[90m 15 |\u001b[39m   \u001b[90m// 2. Assert absence of the expanded 'Build Info' header text\u001b[39m\n \u001b[90m 16 |\u001b[39m   \u001b[36mconst\u001b[39m expandedHeader \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Build Info'\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Dev\\Direct-Cuts\\tests\\e2e\\production-debug-guard.spec.ts:13:33\u001b[22m"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-01-19T15:00:43.826Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Dev\\Direct-Cuts\\test-results\\production-debug-guard-pro-7d28b-how-debug-build-info-widget-chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Dev\\Direct-Cuts\\test-results\\production-debug-guard-pro-7d28b-how-debug-build-info-widget-chromium\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Dev\\Direct-Cuts\\test-results\\production-debug-guard-pro-7d28b-how-debug-build-info-widget-chromium\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Dev\\Direct-Cuts\\tests\\e2e\\production-debug-guard.spec.ts",
+                    "column": 33,
+                    "line": 13
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c8702c6b59eddc5ac3d1-2e0fd14cbc273fdde9c3",
+          "file": "production-debug-guard.spec.ts",
+          "line": 7,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-01-19T15:00:42.746Z",
+    "duration": 13062.957,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
