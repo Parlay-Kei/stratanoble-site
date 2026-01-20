@@ -1,0 +1,39 @@
+{
+  "name": "@dslv/support-ticket-system",
+  "version": "1.0.0",
+  "description": "Client support ticket system with Slack intake and Notion tracking",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test:ticket": "tsx scripts/test-ticket.ts",
+    "verify:setup": "tsx scripts/verify-setup.ts",
+    "setup:complete": "tsx scripts/complete-setup.ts",
+    "digest:send": "tsx src/automations/daily-digest.ts",
+    "setup:notion": "tsx scripts/notion-setup.ts",
+    "setup:finalize": "tsx scripts/finalize-setup.ts",
+    "setup:check-schema": "tsx scripts/check-and-fix-schema.ts",
+    "check:slack-scopes": "tsx scripts/check-slack-scopes.ts"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.14",
+    "@slack/bolt": "^3.17.0",
+    "@slack/web-api": "^7.0.0",
+    "dotenv": "^16.3.1",
+    "node-cron": "^3.0.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^20.10.0",
+    "@types/node-cron": "^3.0.11",
+    "playwright": "^1.57.0",
+    "tsx": "^4.6.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
