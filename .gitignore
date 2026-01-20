@@ -293,3 +293,7 @@ NETLIFY_ENV_FIX_COMPLETE_2025-10-25.md
 
 # LinkedIn session data (sensitive)
 linkedin-session.json
+
+# OAuth tokens and credentials (sensitive)
+**/token.json
+**/Credentials.json
