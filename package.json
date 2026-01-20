@@ -34,7 +34,14 @@
         "contract:check": "node scripts/contract-check.cjs",
         "contract:version-check": "node scripts/contract-version-check.cjs",
         "dep:check": "node scripts/dep-check.cjs",
-        "brand:check": "node scripts/brand-consistency-check.mjs"
+        "brand:check": "node scripts/brand-consistency-check.mjs",
+        "linkedin:login": "tsx scripts/linkedin-login.ts",
+        "linkedin:dry-run": "tsx scripts/linkedin-operator.ts dry-run",
+        "linkedin:status": "tsx scripts/linkedin-operator.ts status",
+        "linkedin:help": "tsx scripts/linkedin-operator.ts help",
+        "linkedin:triage": "tsx scripts/linkedin-inbox-triage.ts full",
+        "linkedin:triage:intake": "tsx scripts/linkedin-inbox-triage.ts intake",
+        "linkedin:triage:send": "tsx scripts/linkedin-inbox-triage.ts send"
     },
     "engines": {
         "node": ">=20.0.0",
@@ -46,6 +53,7 @@
     },
     "devDependencies": {
         "@supabase/ssr": "^0.8.0",
+        "@supabase/supabase-js": "^2.90.1",
         "@types/bcrypt": "^6.0.0",
         "@types/node-notifier": "^8.0.5",
         "bcrypt": "^6.0.0",
@@ -56,6 +64,7 @@
         "next": "^16.1.1",
         "node-cron": "^4.2.1",
         "node-notifier": "^10.0.1",
+        "playwright": "^1.57.0",
         "tsx": "^4.21.0"
     }
 }
