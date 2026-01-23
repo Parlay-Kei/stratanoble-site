@@ -6,9 +6,27 @@
 const express = require('express');
 const router = express.Router();
 const dbService = require('../services/database');
-const MissionCompiler = require('../../mission-compiler/src/compiler');
 
-const compiler = new MissionCompiler();
+// Boot diagnostics for mission compiler
+let MissionCompiler;
+let compiler;
+let compilerVersion;
+let compilerLoadError;
+
+try {
+  console.log('[API] Loading Mission Compiler from: ../../../mission-compiler/src/compiler.js');
+  MissionCompiler = require('../../../mission-compiler/src/compiler.js');
+  compiler = new MissionCompiler();
+  compilerVersion = compiler.version || 'unknown';
+  console.log(`[API] Mission Compiler loaded successfully - version: ${compilerVersion}`);
+} catch (error) {
+  compilerLoadError = error.message;
+  console.error('[API] CRITICAL: Mission Compiler failed to load:', error);
+  console.error('[API] Import attempted from API routes/directives.js');
+  console.error('[API] Current working directory:', process.cwd());
+  console.error('[API] Attempted path: ../../../mission-compiler/src/compiler.js');
+  console.error('[API] This will cause directive creation to fail');
+}
 
 // GET /api/directives - List all directives
 router.get('/', async (req, res) => {
@@ -55,6 +73,15 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Title and body are required' });
     }
 
+    // Check if mission compiler is available
+    if (compilerLoadError) {
+      return res.status(503).json({
+        error: 'Mission Compiler unavailable',
+        details: compilerLoadError,
+        directive_creation: 'blocked'
+      });
+    }
+
     // Create directive
     const directiveId = await dbService.createDirective(
       title,
@@ -89,6 +116,10 @@ router.post('/', async (req, res) => {
       plan: {
         id: planId,
         job_graph: signedPlan
+      },
+      compiler_info: {
+        version: compilerVersion,
+        status: 'operational'
       }
     });
   } catch (error) {
