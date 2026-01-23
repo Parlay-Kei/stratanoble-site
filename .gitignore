@@ -297,3 +297,6 @@ linkedin-session.json
 # OAuth tokens and credentials (sensitive)
 **/token.json
 **/Credentials.json
+
+# Autonomy runner receipts (auto-generated, high volume)
+.claude/receipts/SYSTEM_RESTARTED_*.md
