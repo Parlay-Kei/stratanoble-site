@@ -1,0 +1,17 @@
+{
+  "name": "logo_conversion",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bitmap2vector": "^0.0.4",
+    "imagetracerjs": "^1.2.6",
+    "pngjs": "^7.0.0"
+  }
+}

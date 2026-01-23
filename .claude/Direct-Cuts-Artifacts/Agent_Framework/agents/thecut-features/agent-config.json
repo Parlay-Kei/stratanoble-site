@@ -1,0 +1,82 @@
+{
+  "name": "TheCut Features Agent",
+  "version": "1.0.0",
+  "description": "Implements all 5 theCut-inspired features with Direct Cuts improvements",
+  "trigger": "thecut",
+  "capabilities": [
+    "database_migrations",
+    "typescript_react_components",
+    "service_layer_implementation",
+    "unit_economics_tracking",
+    "flutter_mobile_sync"
+  ],
+  "config": {
+    "unit_economics": {
+      "commission_rate": 0.15,
+      "booking_fee": 3.00,
+      "in_app_discount": 0.05,
+      "avg_service_price": 35.00,
+      "cac_estimate": 25.00,
+      "repeat_rate": 0.30
+    },
+    "features": [
+      {
+        "id": "enhanced_dashboard",
+        "priority": "P0",
+        "days_estimate": 4,
+        "components": [
+          "QuickActionBar",
+          "NextAppointmentCard",
+          "AppointmentActions",
+          "StatsDashboard",
+          "StatsCard",
+          "DailyBarChart"
+        ]
+      },
+      {
+        "id": "schedule_week_view",
+        "priority": "P0",
+        "days_estimate": 3,
+        "components": [
+          "WeekStrip",
+          "DayCell",
+          "TimeBlockView",
+          "AppointmentBlock"
+        ]
+      },
+      {
+        "id": "enhanced_services",
+        "priority": "P1",
+        "days_estimate": 2,
+        "components": [
+          "ServiceCard",
+          "ServiceList",
+          "ServiceSelector",
+          "SelectedServicesBar"
+        ]
+      },
+      {
+        "id": "client_management",
+        "priority": "P1",
+        "days_estimate": 3,
+        "components": [
+          "ClientListHeader",
+          "ClientList",
+          "ClientRow",
+          "AlphabetIndex"
+        ]
+      },
+      {
+        "id": "profile_hub",
+        "priority": "P2",
+        "days_estimate": 2,
+        "components": [
+          "ProfileHeader",
+          "SubscriptionCard",
+          "SettingsSection",
+          "SettingsRow"
+        ]
+      }
+    ]
+  }
+}
