@@ -1,0 +1,284 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Browser Operations Proof Pack Standard v1.0",
+  "description": "Standard for capturing and validating browser automation proof packs",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "captureRequirements": {
+      "$ref": "#/definitions/captureRequirements"
+    },
+    "proofPackStructure": {
+      "$ref": "#/definitions/proofPackStructure"
+    },
+    "validationRules": {
+      "$ref": "#/definitions/validationRules"
+    }
+  },
+  "definitions": {
+    "captureRequirements": {
+      "type": "object",
+      "description": "What must be captured during browser operations",
+      "properties": {
+        "screenshots": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "session_start",
+                  "before_navigation",
+                  "after_navigation",
+                  "before_action",
+                  "after_action",
+                  "before_change",
+                  "after_change",
+                  "verification",
+                  "session_end"
+                ]
+              }
+            },
+            "format": {
+              "type": "string",
+              "enum": ["png", "jpg", "webp"],
+              "default": "png"
+            },
+            "options": {
+              "type": "object",
+              "properties": {
+                "fullPage": { "type": "boolean", "default": false },
+                "quality": { "type": "integer", "minimum": 1, "maximum": 100 },
+                "omitBackground": { "type": "boolean", "default": false }
+              }
+            }
+          }
+        },
+        "video": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": true },
+            "format": { "type": "string", "enum": ["webm", "mp4"], "default": "webm" },
+            "size": {
+              "type": "object",
+              "properties": {
+                "width": { "type": "integer", "default": 1920 },
+                "height": { "type": "integer", "default": 1080 }
+              }
+            }
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "timestamp",
+                  "url",
+                  "title",
+                  "sessionId",
+                  "eventName",
+                  "platform",
+                  "action",
+                  "selector",
+                  "value"
+                ]
+              }
+            }
+          }
+        },
+        "network": {
+          "type": "object",
+          "properties": {
+            "captureRequests": { "type": "boolean", "default": false },
+            "captureResponses": { "type": "boolean", "default": false },
+            "captureErrors": { "type": "boolean", "default": true }
+          }
+        }
+      },
+      "required": ["screenshots", "metadata"]
+    },
+    "proofPackStructure": {
+      "type": "object",
+      "description": "Structure of the proof pack artifact",
+      "properties": {
+        "mission": {
+          "type": "string",
+          "description": "The mission or task being performed"
+        },
+        "ticketId": {
+          "type": "string",
+          "pattern": "^OCS-[A-Z]+-\\d+$"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Unique session identifier"
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["shopify", "notion", "google", "linkedin", "github", "custom"]
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Duration in human-readable format"
+        },
+        "captures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/captureEvent"
+          },
+          "minItems": 2
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "totalEvents": { "type": "integer", "minimum": 2 },
+            "screenshots": { "type": "integer", "minimum": 2 },
+            "urls": {
+              "type": "array",
+              "items": { "type": "string", "format": "uri" }
+            },
+            "success": { "type": "boolean" },
+            "errors": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["totalEvents", "screenshots", "urls", "success"]
+        },
+        "verification": {
+          "type": "object",
+          "properties": {
+            "before": {
+              "type": "object",
+              "properties": {
+                "screenshot": { "type": "string" },
+                "state": { "type": "object" }
+              }
+            },
+            "after": {
+              "type": "object",
+              "properties": {
+                "screenshot": { "type": "string" },
+                "state": { "type": "object" }
+              }
+            },
+            "changes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "element": { "type": "string" },
+                  "before": { "type": "string" },
+                  "after": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "mission",
+        "ticketId",
+        "sessionId",
+        "startTime",
+        "endTime",
+        "captures",
+        "summary"
+      ]
+    },
+    "captureEvent": {
+      "type": "object",
+      "properties": {
+        "eventName": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "screenshotPath": {
+          "type": "string"
+        },
+        "screenshotName": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string",
+          "description": "SHA256 hash of screenshot for integrity"
+        },
+        "pageInfo": {
+          "type": "object",
+          "properties": {
+            "url": { "type": "string", "format": "uri" },
+            "title": { "type": "string" },
+            "viewport": {
+              "type": "object",
+              "properties": {
+                "width": { "type": "integer" },
+                "height": { "type": "integer" }
+              }
+            }
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": ["eventName", "timestamp"]
+    },
+    "validationRules": {
+      "type": "object",
+      "description": "Rules for validating proof packs",
+      "properties": {
+        "minimumScreenshots": {
+          "type": "integer",
+          "minimum": 2,
+          "default": 3,
+          "description": "Minimum number of screenshots required"
+        },
+        "requiredEvents": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["session_start", "after_action", "session_end"]
+        },
+        "maxDuration": {
+          "type": "integer",
+          "description": "Maximum session duration in seconds",
+          "default": 3600
+        },
+        "requireVideo": {
+          "type": "boolean",
+          "default": false
+        },
+        "requireBeforeAfter": {
+          "type": "boolean",
+          "default": true,
+          "description": "Require before/after screenshots for changes"
+        },
+        "integrityCheck": {
+          "type": "boolean",
+          "default": true,
+          "description": "Verify screenshot hashes"
+        }
+      }
+    }
+  },
+  "required": ["version", "captureRequirements", "proofPackStructure", "validationRules"]
+}
