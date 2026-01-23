@@ -1,0 +1,168 @@
+{
+  "projectRoot": "c:/Dev/Direct-Cuts",
+  "watchDirs": [
+    "docs",
+    "src",
+    "scripts",
+    ".claude/agents",
+    ".claude/skills",
+    "supabase/migrations"
+  ],
+  "ignoredPatterns": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/*.log",
+    "**/state.db",
+    "**/state.db-journal"
+  ],
+  "rules": [
+    {
+      "id": "docs-changes",
+      "name": "Documentation Changes",
+      "pattern": "docs/**/*.md",
+      "events": ["add", "change", "unlink"],
+      "trigger": "docs",
+      "priority": "normal",
+      "debounceMs": 2000,
+      "description": "Triggers documentation agent on any markdown file changes in docs/"
+    },
+    {
+      "id": "security-scan",
+      "name": "Security File Monitoring",
+      "pattern": "**/*.{env,key,pem,secret,credentials}",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "critical",
+      "debounceMs": 500,
+      "description": "Immediate security scan on sensitive file changes"
+    },
+    {
+      "id": "src-security",
+      "name": "Source Code Security",
+      "pattern": "src/**/*.{ts,tsx,js,jsx}",
+      "events": ["add", "change"],
+      "trigger": "security",
+      "priority": "high",
+      "debounceMs": 5000,
+      "conditions": {
+        "contentMatch": "(password|secret|api[_-]?key|token|credential|auth)",
+        "caseSensitive": false
+      },
+      "description": "Scan source files for hardcoded secrets"
+    },
+    {
+      "id": "agent-updates",
+      "name": "Agent Configuration Updates",
+      "pattern": ".claude/agents/**/*.md",
+      "events": ["add", "change", "unlink"],
+      "trigger": "admin",
+      "priority": "high",
+      "debounceMs": 1000,
+      "description": "Track agent configuration changes"
+    },
+    {
+      "id": "skill-updates",
+      "name": "Skill Updates",
+      "pattern": ".claude/skills/**/*.md",
+      "events": ["add", "change", "unlink"],
+      "trigger": "admin",
+      "priority": "high",
+      "debounceMs": 1000,
+      "description": "Track skill configuration changes"
+    },
+    {
+      "id": "migration-tracking",
+      "name": "Database Migration Tracking",
+      "pattern": "supabase/migrations/**/*.sql",
+      "events": ["add", "change"],
+      "trigger": "admin",
+      "priority": "high",
+      "debounceMs": 2000,
+      "description": "Track database schema changes"
+    },
+    {
+      "id": "script-changes",
+      "name": "Script Monitoring",
+      "pattern": "scripts/**/*.{js,cjs,mjs,sh,ps1}",
+      "events": ["add", "change"],
+      "trigger": "codebase",
+      "priority": "normal",
+      "debounceMs": 3000,
+      "description": "Monitor automation scripts for changes"
+    },
+    {
+      "id": "stale-docs",
+      "name": "Stale Documentation Detection",
+      "pattern": "docs/**/*.md",
+      "events": ["scan"],
+      "trigger": "docs",
+      "priority": "low",
+      "conditions": {
+        "staleDays": 30
+      },
+      "description": "Flag documentation files not updated in 30+ days"
+    },
+    {
+      "id": "large-files",
+      "name": "Large File Detection",
+      "pattern": "**/*",
+      "events": ["add", "change"],
+      "trigger": "admin",
+      "priority": "normal",
+      "debounceMs": 5000,
+      "conditions": {
+        "maxSizeKb": 1024
+      },
+      "description": "Alert on files larger than 1MB"
+    },
+    {
+      "id": "config-changes",
+      "name": "Configuration File Changes",
+      "pattern": "*.{json,yaml,yml,toml}",
+      "events": ["change"],
+      "trigger": "admin",
+      "priority": "high",
+      "debounceMs": 2000,
+      "description": "Track root config file changes"
+    }
+  ],
+  "agents": {
+    "security": {
+      "command": "node",
+      "args": ["agents/security.js"],
+      "timeout": 60000,
+      "retries": 2
+    },
+    "docs": {
+      "command": "node",
+      "args": ["agents/docs.js"],
+      "timeout": 30000,
+      "retries": 1
+    },
+    "admin": {
+      "command": "node",
+      "args": ["agents/admin.js"],
+      "timeout": 30000,
+      "retries": 1
+    },
+    "codebase": {
+      "command": "node",
+      "args": ["agents/codebase.js"],
+      "timeout": 45000,
+      "retries": 1
+    }
+  },
+  "notifications": {
+    "enabled": true,
+    "console": true,
+    "logFile": "monitor.log",
+    "webhook": null
+  },
+  "scanning": {
+    "enabled": true,
+    "intervalMinutes": 60,
+    "onStartup": true
+  }
+}
