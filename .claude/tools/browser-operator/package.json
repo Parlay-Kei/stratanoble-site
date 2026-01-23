@@ -1,0 +1,29 @@
+{
+  "name": "@anx/browser-operator",
+  "version": "1.0.0",
+  "description": "Browser automation operator for authenticated admin operations with proof capture",
+  "type": "module",
+  "main": "browser-operator.js",
+  "scripts": {
+    "demo:shopify": "node browser-operator.js demos/shopify-page-edit.json",
+    "test": "node test-browser-operator.js",
+    "install:playwright": "npx playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "keywords": [
+    "browser",
+    "automation",
+    "playwright",
+    "shopify",
+    "admin",
+    "proof",
+    "screenshot"
+  ],
+  "author": "ANX Ops",
+  "license": "MIT"
+}

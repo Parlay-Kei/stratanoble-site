@@ -1,0 +1,6 @@
+{
+  "service_name": "Ms Audrey's House",
+  "adapter": "MAH",
+  "release_pipeline": ["validate", "test", "deploy", "smoke"],
+  "rollback_hook": "rollback"
+}

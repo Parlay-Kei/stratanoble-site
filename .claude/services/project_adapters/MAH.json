@@ -1,0 +1,11 @@
+{
+  "repo_path": "C:\\Dev\\msaudreys-house",
+  "commands": {
+    "validate": "pwsh -File scripts/verify-shopify-config.ps1",
+    "test": "pwsh -File scripts/verify-simple.ps1",
+    "build": "echo 'Shopify Theme - No Build Step'",
+    "deploy": "pwsh -File scripts/deploy_home_page.ps1",
+    "rollback": "echo 'Manual Rollback required via Admin'",
+    "smoke": "pwsh -File scripts/verify-simple.ps1"
+  }
+}

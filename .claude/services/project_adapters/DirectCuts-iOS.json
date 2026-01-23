@@ -1,0 +1,32 @@
+{
+  "adapter_schema_version": 2,
+  "repo_id": "DirectCuts-iOS",
+  "root": "C:\\Dev\\DirectCuts-iOS",
+  "requires_os": "macos",
+  "ops": {
+    "validate": {
+      "shell": "cmd",
+      "cmd": "swift package resolve"
+    },
+    "test": {
+      "shell": "cmd",
+      "cmd": "swift test"
+    },
+    "build": {
+      "shell": "cmd",
+      "cmd": "swift build -c release"
+    },
+    "deploy": {
+      "shell": "cmd",
+      "cmd": "echo 'No automated deploy definition for iOS in Phase 2'"
+    },
+    "rollback": {
+      "shell": "cmd",
+      "cmd": "echo 'Rollback not supported for iOS'"
+    },
+    "smoke": {
+      "shell": "cmd",
+      "cmd": "swift test"
+    }
+  }
+}
