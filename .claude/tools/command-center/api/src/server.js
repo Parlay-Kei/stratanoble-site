@@ -30,13 +30,23 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(morgan('dev'));
 
-// Health check
+// Health check endpoints
 app.get('/health', (req, res) => {
   res.json({
     status: 'healthy',
     service: 'ANX Command Center API',
     version: '1.0.0',
     timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    service: 'ANX Command Center API',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
   });
 });
 
