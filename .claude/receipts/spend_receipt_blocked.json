@@ -1,0 +1,6 @@
+{
+  "status": "BLOCKED",
+  "reason": "Transaction amount 60.0 exceeds cap 50.0",
+  "amount": 60.0,
+  "currency": "USD"
+}

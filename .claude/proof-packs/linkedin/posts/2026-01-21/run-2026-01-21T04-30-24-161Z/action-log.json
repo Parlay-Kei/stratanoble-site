@@ -1,0 +1,104 @@
+[
+  {
+    "action": "initialization_start",
+    "timestamp": "2026-01-21T04:30:24.170Z",
+    "dryRun": false,
+    "runId": "run-2026-01-21T04-30-24-161Z"
+  },
+  {
+    "action": "browser_initialized",
+    "timestamp": "2026-01-21T04:30:24.576Z",
+    "sessionDir": "C:\\Dev\\.claude-anx\\browser-sessions\\linkedin",
+    "headless": false
+  },
+  {
+    "action": "post_start",
+    "timestamp": "2026-01-21T04:30:24.579Z",
+    "contentLength": 708,
+    "dryRun": false,
+    "hasHashtags": false
+  },
+  {
+    "action": "session_verification_start",
+    "timestamp": "2026-01-21T04:30:24.597Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-21T04:30:30.388Z",
+    "name": "session-verified",
+    "filename": "2026-01-21T04-30-30-036Z_session-verified.png"
+  },
+  {
+    "action": "session_verified",
+    "timestamp": "2026-01-21T04:30:30.389Z",
+    "url": "https://www.linkedin.com/feed/"
+  },
+  {
+    "action": "opening_composer",
+    "timestamp": "2026-01-21T04:30:30.390Z"
+  },
+  {
+    "action": "post_button_clicked",
+    "timestamp": "2026-01-21T04:30:30.773Z",
+    "selector": "text=\"Start a post\""
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-21T04:30:34.024Z",
+    "name": "composer-opened",
+    "filename": "2026-01-21T04-30-33-868Z_composer-opened.png"
+  },
+  {
+    "action": "waiting_for_composer",
+    "timestamp": "2026-01-21T04:30:34.025Z"
+  },
+  {
+    "action": "editor_found",
+    "timestamp": "2026-01-21T04:30:34.035Z",
+    "selector": ".ql-editor[data-placeholder]"
+  },
+  {
+    "action": "entering_content",
+    "timestamp": "2026-01-21T04:30:34.041Z",
+    "contentLength": 708
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-21T04:30:36.723Z",
+    "name": "content-entered",
+    "filename": "2026-01-21T04-30-36-602Z_content-entered.png"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-21T04:30:36.839Z",
+    "name": "pre-publish-composer",
+    "filename": "2026-01-21T04-30-36-724Z_pre-publish-composer.png"
+  },
+  {
+    "action": "pre_publish_proof_captured",
+    "timestamp": "2026-01-21T04:30:36.840Z",
+    "contentPreview": "AI agents are showing up inside real business software now.\nThat's the easy part.\n\nThe hard part is ..."
+  },
+  {
+    "action": "publishing_post",
+    "timestamp": "2026-01-21T04:30:36.841Z",
+    "mode": "LIVE"
+  },
+  {
+    "action": "post_button_clicked",
+    "timestamp": "2026-01-21T04:31:37.443Z",
+    "selector": "button.share-actions__primary-action"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-21T04:32:11.338Z",
+    "name": "error-occurred",
+    "filename": "2026-01-21T04-32-11-162Z_error-occurred.png"
+  },
+  {
+    "action": "error",
+    "timestamp": "2026-01-21T04:32:11.339Z",
+    "message": "page.waitForLoadState: Timeout 30000ms exceeded.",
+    "stack": "page.waitForLoadState: Timeout 30000ms exceeded.\n    at LinkedInPostPublisher.publishPost (C:\\Dev\\.claude-anx\\tools\\browser-operator\\linkedin-post-publisher.js:684:23)\n    at async main (C:\\Dev\\.claude-anx\\tools\\browser-operator\\linkedin-post-publisher.js:1103:22)"
+  }
+]

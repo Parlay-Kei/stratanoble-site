@@ -1,0 +1,90 @@
+{
+  "hold_start_date": null,
+  "consecutive_days": 0,
+  "daily_scores": {
+    "2026-01-22": {
+      "date": "2026-01-22",
+      "shipping_reliability": 82.35,
+      "ops_reliability": 76.81,
+      "shipping_success": 42,
+      "shipping_total": 51,
+      "ops_correct": 53,
+      "ops_total": 69,
+      "target_achieved": false,
+      "by_repo": {
+        "DirectCuts": {
+          "rate": 80.0,
+          "success": 4,
+          "total": 5
+        },
+        "DirectCuts-iOS": {
+          "rate": 81.8,
+          "success": 9,
+          "total": 11
+        },
+        "DSLV": {
+          "rate": 78.6,
+          "success": 11,
+          "total": 14
+        },
+        "msaudreys-house": {
+          "rate": 100.0,
+          "success": 7,
+          "total": 7
+        },
+        "StrataNoble": {
+          "rate": 78.6,
+          "success": 11,
+          "total": 14
+        }
+      }
+    },
+    "2026-01-23": {
+      "date": "2026-01-23",
+      "shipping_reliability": 84.21,
+      "ops_reliability": 78.95,
+      "shipping_success": 48,
+      "shipping_total": 57,
+      "ops_correct": 60,
+      "ops_total": 76,
+      "target_achieved": false,
+      "by_repo": {
+        "DirectCuts": {
+          "rate": 80.0,
+          "success": 4,
+          "total": 5
+        },
+        "DirectCuts-iOS": {
+          "rate": 81.8,
+          "success": 9,
+          "total": 11
+        },
+        "DSLV": {
+          "rate": 82.4,
+          "success": 14,
+          "total": 17
+        },
+        "msaudreys-house": {
+          "rate": 100.0,
+          "success": 8,
+          "total": 8
+        },
+        "StrataNoble": {
+          "rate": 81.2,
+          "success": 13,
+          "total": 16
+        }
+      }
+    }
+  },
+  "unclassified_rules": {
+    "2026-01-22_01": {
+      "created": "2026-01-22T18:04:56.179000",
+      "file": "C:\\Dev\\.claude-anx\\receipts\\unclassified\\UNCLASSIFIED_RULE_2026-01-22_01.md",
+      "signature": "'validate' is not recognized as an internal or external command,\noperable program or batch file.\n",
+      "service": "validation",
+      "repo": "unknown"
+    }
+  },
+  "last_sweep_date": "2026-01-23"
+}

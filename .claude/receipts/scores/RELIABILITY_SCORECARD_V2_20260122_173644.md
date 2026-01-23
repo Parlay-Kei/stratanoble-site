@@ -1,0 +1,194 @@
+# RELIABILITY SCORECARD V2
+
+**Generated:** 2026-01-22T17:36:44.893203
+**Clarity Patch:** Dual metrics system implemented
+**Window:** Last 24 hours
+
+## Dual Metrics Summary
+
+
+==========================================================================
+RELIABILITY METRICS (24h window: 2026-01-21T17:36 - 2026-01-22T17:36)
+==========================================================================
+
+Ops Reliability:      61.8% [DOWN] [GREEN]  [PASS+EXPECTED_FAIL+BLOCKED+STOPPED / ALL]
+                                Denominator: 34 total jobs
+                                Correct: 21 | Incorrect: 13
+                                Target: 1%
+
+Shipping Reliability: 68.4% [UP] [GREEN]  [PASS only / PRODUCTION JOBS]
+                                Denominator: 19 production jobs
+                                Successful: 13 | Failed: 6
+                                Target: 1%
+==========================================================================
+
+OPS BREAKDOWN:
+  PASS:           19 jobs
+  EXPECTED_FAIL:   0 jobs
+  BLOCKED:         2 jobs
+  STOPPED:         0 jobs
+  ---
+  FAIL:           13 jobs (incorrect)
+  TIMEOUT:         0 jobs (incorrect)
+  CRASH:           0 jobs (incorrect)
+
+SHIPPING BREAKDOWN BY PHASE:
+  Validate:  68.4% (13/19)
+  Test:       0.0% (0/0)
+  Build:      0.0% (0/0)
+
+SHIPPING BY REPOSITORY:
+  DirectCuts          : 100.0% (2/2)
+  msaudreys-house     : 100.0% (2/2)
+  DirectCuts-iOS      :  60.0% (3/5)
+  DSLV                :  60.0% (3/5)
+  StrataNoble         :  60.0% (3/5)
+
+
+## Metric Definitions
+
+### Ops Reliability (Operational Correctness)
+- **Measures:** Whether system behaved correctly according to intent and policy
+- **Formula:** (Correct Behaviors / Total Jobs) x 100
+- **Correct:** PASS, EXPECTED_FAIL, BLOCKED, STOPPED
+- **Incorrect:** FAIL, TIMEOUT, CRASH
+- **Target:** 1%
+- **Current:** 61.8%
+
+### Shipping Reliability (Production Success)
+- **Measures:** Pure success rate for production workloads
+- **Formula:** (Successful Jobs / Production Jobs) x 100
+- **Success:** PASS status only
+- **Phases:** validate, test, build
+- **Target:** 1%
+- **Current:** 68.4%
+
+## Denominator Clarity
+
+### Ops Reliability Denominator
+```sql
+SELECT COUNT(*) FROM queue WHERE status != 'PENDING'
+-- Total: 34 jobs
+```
+
+### Shipping Reliability Denominator
+```sql
+SELECT COUNT(*) FROM queue WHERE intent != 'TEST' AND phase IN ('validate','test','build')
+-- Total: 19 jobs
+```
+
+## Success Criteria
+
+### Ops Reliability Target
+[PASS] **ACHIEVED:** 61.8% >= 1%
+
+### Shipping Reliability Target
+[PASS] **ACHIEVED:** 68.4% >= 1%
+
+
+## Clarity Improvements
+
+### Previous Contradictions (Single Metric)
+- Mixed operational correctness with shipping success
+- EXPECTED_FAIL counted as failure despite being correct
+- BLOCKED/STOPPED unclear if good or bad
+
+### Current Clarity (Dual Metrics)
+- **Ops:** Measures if autonomy is working correctly
+- **Shipping:** Measures if code ships successfully
+- No contradictions - each metric has clear purpose
+
+## Raw Metrics Data
+
+```json
+{
+  "window": {
+    "start_time": "2026-01-21T17:36:44.890833",
+    "end_time": "2026-01-22T17:36:44.890833",
+    "hours": 24
+  },
+  "ops": {
+    "reliability_percent": 61.76470588235294,
+    "total_jobs": 34,
+    "correct_behaviors": 21,
+    "incorrect_behaviors": 13,
+    "denominator_sql": "SELECT COUNT(*) FROM queue WHERE status != 'PENDING'",
+    "included_outcomes": [
+      "PASS",
+      "EXPECTED_FAIL",
+      "BLOCKED",
+      "STOPPED"
+    ],
+    "details": {
+      "PASS": 19,
+      "EXPECTED_FAIL": 0,
+      "BLOCKED": 2,
+      "STOPPED": 0,
+      "FAIL": 13,
+      "TIMEOUT": 0,
+      "CRASH": 0
+    },
+    "target": 0.9
+  },
+  "shipping": {
+    "reliability_percent": 68.42105263157895,
+    "total_jobs": 19,
+    "successful_jobs": 13,
+    "failed_jobs": 6,
+    "denominator_sql": "SELECT COUNT(*) FROM queue WHERE intent != 'TEST' AND phase IN ('validate','test','build')",
+    "included_outcomes": [
+      "PASS only"
+    ],
+    "by_phase": {
+      "validate": {
+        "total": 19,
+        "success": 13,
+        "rate": 68.42105263157895
+      },
+      "test": {
+        "total": 0,
+        "success": 0,
+        "rate": 0
+      },
+      "build": {
+        "total": 0,
+        "success": 0,
+        "rate": 0
+      }
+    },
+    "by_repo": {
+      "DirectCuts": {
+        "total": 2,
+        "success": 2,
+        "rate": 100.0
+      },
+      "DirectCuts-iOS": {
+        "total": 5,
+        "success": 3,
+        "rate": 60.0
+      },
+      "DSLV": {
+        "total": 5,
+        "success": 3,
+        "rate": 60.0
+      },
+      "msaudreys-house": {
+        "total": 2,
+        "success": 2,
+        "rate": 100.0
+      },
+      "StrataNoble": {
+        "total": 5,
+        "success": 3,
+        "rate": 60.0
+      }
+    },
+    "target": 0.85
+  }
+}
+```
+
+---
+Generated by: Reliability Scorer V2
+Type: Dual Metric Scorecard
+Version: Clarity Patch V1

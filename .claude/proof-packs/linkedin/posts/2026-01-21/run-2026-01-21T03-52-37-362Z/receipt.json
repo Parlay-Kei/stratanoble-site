@@ -1,0 +1,23 @@
+{
+  "ticketId": "LINKEDIN_POST_2026-01-21",
+  "runId": "run-2026-01-21T03-52-37-362Z",
+  "status": "DRY_RUN_COMPLETE",
+  "mode": "DRY_RUN",
+  "startTime": "2026-01-21T03:52:37.362Z",
+  "endTime": "2026-01-21T03:52:51.976Z",
+  "duration": "14.61s",
+  "content": {
+    "preview": "Test post from automation",
+    "length": 25
+  },
+  "postUrl": null,
+  "published": false,
+  "screenshots": [
+    "2026-01-21T03-52-43-570Z_session-verified.png",
+    "2026-01-21T03-52-46-446Z_composer-opened.png",
+    "2026-01-21T03-52-49-534Z_content-entered.png",
+    "2026-01-21T03-52-49-691Z_pre-publish-composer.png",
+    "2026-01-21T03-52-51-825Z_dry-run-cancelled.png"
+  ],
+  "proofPackPath": "c:\\Dev\\msaudreys-house\\proof-packs\\linkedin-posts\\2026-01-21\\run-2026-01-21T03-52-37-362Z"
+}

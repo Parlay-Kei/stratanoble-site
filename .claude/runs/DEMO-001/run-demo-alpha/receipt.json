@@ -1,0 +1,11 @@
+{
+  "ticket_id": "DEMO-001",
+  "run_id": "run-demo-alpha",
+  "tool": "system_check",
+  "status": "SUCCESS",
+  "timestamp": "2026-01-22T12:50:34.901900",
+  "details": {
+    "message": "Hello World",
+    "cpu_load": 12
+  }
+}

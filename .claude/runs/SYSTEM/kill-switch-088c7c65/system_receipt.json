@@ -1,0 +1,12 @@
+{
+  "ticket_id": "SYSTEM",
+  "run_id": "kill-switch-088c7c65",
+  "event_type": "KILL_SWITCH",
+  "status": "STOPPED",
+  "timestamp": "2026-01-22T13:58:11.737359",
+  "details": {
+    "reason": "Kill switch engaged",
+    "runner_id": "088c7c65-20a7-49fa-9491-21674f164736"
+  },
+  "receipt_type": "SYSTEM"
+}

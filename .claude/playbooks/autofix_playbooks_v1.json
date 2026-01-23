@@ -1,0 +1,122 @@
+{
+  "version": "1.0",
+  "playbooks": [
+    {
+      "id": "BUDGET_001",
+      "pattern": "BUDGET_EXCEEDED",
+      "class": "POLICY",
+      "description": "Budget exceeded during job execution",
+      "detection": [
+        "budget",
+        "exceeded",
+        "limit",
+        "cap"
+      ],
+      "fixes": [
+        {
+          "name": "increase_budget_allocation",
+          "steps": [
+            {
+              "action": "calculate_optimal_budget",
+              "params": {
+                "multiplier": 1.5
+              }
+            },
+            {
+              "action": "update_job_budget",
+              "params": {
+                "safety_factor": 1.2
+              }
+            },
+            {
+              "action": "retry_with_new_budget",
+              "params": {
+                "delay": 5
+              }
+            }
+          ],
+          "success_rate": 0.75
+        }
+      ]
+    },
+    {
+      "id": "UNKNOWN_001",
+      "pattern": "OTHER",
+      "class": "CODE_TEST",
+      "description": "Unclassified error requiring diagnosis",
+      "detection": [
+        "other",
+        "unknown",
+        "unhandled"
+      ],
+      "fixes": [
+        {
+          "name": "standard_recovery",
+          "steps": [
+            {
+              "action": "clear_cache",
+              "params": {
+                "target": "node_modules"
+              }
+            },
+            {
+              "action": "reset_environment",
+              "params": {
+                "level": "soft"
+              }
+            },
+            {
+              "action": "retry_with_logging",
+              "params": {
+                "verbose": true
+              }
+            }
+          ],
+          "success_rate": 0.6
+        }
+      ]
+    },
+    {
+      "id": "TYPE_001",
+      "pattern": "TYPE_ERROR",
+      "class": "CODE_TEST",
+      "description": "TypeScript or type-related errors",
+      "detection": [
+        "type",
+        "undefined",
+        "null",
+        "cannot read",
+        "property"
+      ],
+      "fixes": [
+        {
+          "name": "typescript_recovery",
+          "steps": [
+            {
+              "action": "clear_typescript_cache",
+              "params": {}
+            },
+            {
+              "action": "rebuild_types",
+              "params": {
+                "clean": true
+              }
+            },
+            {
+              "action": "retry_with_type_check",
+              "params": {
+                "strict": false
+              }
+            }
+          ],
+          "success_rate": 0.65
+        }
+      ]
+    }
+  ],
+  "escalation": {
+    "after_attempts": 1,
+    "create_exception": true,
+    "priority": "P2"
+  }
+}
