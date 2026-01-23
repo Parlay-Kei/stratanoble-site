@@ -17,6 +17,8 @@ function App() {
   const [currentRun, setCurrentRun] = useState(null);
   const [opsStatus, setOpsStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [backendStatus, setBackendStatus] = useState('STARTING');
+  const [lastCrashReason, setLastCrashReason] = useState(null);
 
   // Fetch directives
   const fetchDirectives = async () => {
@@ -38,9 +40,32 @@ function App() {
     }
   };
 
+  // Check backend status
+  const checkBackendStatus = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/health`, { timeout: 3000 });
+      if (response.status === 200) {
+        setBackendStatus('ONLINE');
+        setLastCrashReason(null);
+      }
+    } catch (error) {
+      console.error('Backend health check failed:', error);
+      setBackendStatus('OFFLINE');
+
+      if (error.code === 'ECONNREFUSED' || error.code === 'ERR_NETWORK') {
+        setLastCrashReason('Connection refused - API server may have crashed');
+      } else if (error.code === 'ECONNRESET') {
+        setLastCrashReason('Connection reset - API server restarting');
+      } else {
+        setLastCrashReason(`Health check failed: ${error.message}`);
+      }
+    }
+  };
+
   useEffect(() => {
     fetchDirectives();
     fetchOpsStatus();
+    checkBackendStatus();
 
     // Refresh every 5 seconds
     const interval = setInterval(() => {
@@ -48,6 +73,7 @@ function App() {
         fetchCurrentRun();
       }
       fetchOpsStatus();
+      checkBackendStatus();
     }, 5000);
 
     return () => clearInterval(interval);
@@ -124,6 +150,9 @@ function App() {
       <header className="App-header">
         <h1>ANX Command Center</h1>
         <div className="status-bar">
+          <span className={`status-indicator backend-${backendStatus.toLowerCase()}`}>
+            Backend: {backendStatus}
+          </span>
           <span className={`status-indicator ${opsStatus?.system_status === 'RUNNING' ? 'running' : 'stopped'}`}>
             System: {opsStatus?.system_status || 'UNKNOWN'}
           </span>
@@ -169,6 +198,19 @@ function App() {
 
       <main className="content">
         {loading && <div className="loading">Loading...</div>}
+
+        {backendStatus === 'OFFLINE' && (
+          <div className="offline-banner">
+            <h3>Backend Offline</h3>
+            <p>The API server is not responding. {lastCrashReason}</p>
+            <p>
+              The supervisor should restart the service automatically.
+              <a href="#" onClick={() => window.open(`/receipts/SYSTEM_*.md`, '_blank')}>
+                View SYSTEM receipts
+              </a>
+            </p>
+          </div>
+        )}
 
         {activeTab === 'directives' && (
           <DirectiveList
