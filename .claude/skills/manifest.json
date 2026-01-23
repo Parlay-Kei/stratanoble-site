@@ -1,0 +1,135 @@
+{
+  "version": "3.0.0",
+  "description": "ANX Skills Registry - Centralized skill definitions for Claude agents",
+  "lastUpdated": "2026-01-20T00:00:00Z",
+  "canonicalRoot": "C:/Dev/.claude-anx",
+
+  "skills": {
+    "gdrive-ops": {
+      "name": "Google Drive Operations",
+      "description": "Google Drive file and folder operations - upload, download, share, move, and folder management. CFO tool available to subordinates.",
+      "filePath": "C:/Dev/.claude-anx/skills/gdrive-ops.md",
+      "capabilities": ["file-upload", "file-download", "folder-management", "file-sharing", "file-search", "file-move"],
+      "triggers": ["google drive", "gdrive", "upload to drive", "download from drive", "share file", "drive folder", "move file"],
+      "owner": "CFO",
+      "status": "active"
+    },
+    "bookkeeper-ops": {
+      "name": "Bookkeeper Operations",
+      "description": "Enterprise-grade bookkeeping operations for autonomous financial data sync, categorization, reconciliation, and reporting",
+      "filePath": "C:/Dev/.claude-anx/skills/bookkeeper-ops.md",
+      "capabilities": ["transaction-sync", "categorization", "reconciliation", "reporting", "stripe", "plaid"],
+      "triggers": ["sync transactions", "sync stripe", "sync banks", "categorize", "reconcile", "financial report"],
+      "owner": "A3",
+      "status": "active"
+    },
+    "docs-admin-ops": {
+      "name": "Documentation Admin Operations",
+      "description": "Documentation management, auditing, TOC generation, and maintenance operations",
+      "filePath": "C:/Dev/.claude-anx/skills/docs-admin-ops.md",
+      "capabilities": ["documentation", "audit", "toc-generation", "link-validation"],
+      "triggers": ["audit docs", "organize documentation", "scan docs", "generate TOC"],
+      "owner": "A1",
+      "status": "active"
+    },
+    "file-monitor-ops": {
+      "name": "File Monitor Operations",
+      "description": "File system monitoring and operations",
+      "filePath": "C:/Dev/.claude-anx/skills/file-monitor-ops.md",
+      "capabilities": ["file-monitoring", "filesystem"],
+      "triggers": ["monitor files", "file watch"],
+      "owner": "A7",
+      "status": "active"
+    },
+    "linkedin-operator-ops": {
+      "name": "LinkedIn Operator Operations",
+      "description": "LinkedIn automation and operator capabilities",
+      "filePath": "C:/Dev/.claude-anx/skills/linkedin-operator-ops.md",
+      "capabilities": ["linkedin", "social-media", "automation"],
+      "triggers": ["linkedin", "social media"],
+      "owner": "A6",
+      "status": "active"
+    },
+    "security-ops": {
+      "name": "Security Operations",
+      "description": "Security auditing, threat modeling, vulnerability scanning, and compliance",
+      "filePath": "C:/Dev/.claude-anx/skills/security-ops.md",
+      "capabilities": ["security", "audit", "compliance", "threat-modeling", "rls-audit"],
+      "triggers": ["security audit", "security scan", "threat model", "rls audit"],
+      "owner": "A7",
+      "status": "active"
+    },
+    "web-operator-ops": {
+      "name": "Web Operator Operations",
+      "description": "Web operations for fetching URLs, making API calls, and content extraction",
+      "filePath": "C:/Dev/.claude-anx/skills/web-operator-ops.md",
+      "capabilities": ["web-fetch", "api-calls", "web-scraping", "http-operations"],
+      "triggers": ["fetch url", "web request", "api call", "scrape page"],
+      "owner": "A7",
+      "status": "active"
+    },
+    "platform-ops": {
+      "name": "Platform Operations",
+      "description": "Deployment, infrastructure management, monitoring, and GitHub administration",
+      "filePath": "C:/Dev/.claude-anx/skills/platform-ops.md",
+      "capabilities": ["deployment", "infrastructure", "monitoring", "github-admin"],
+      "triggers": ["deploy", "infrastructure", "monitor", "github admin"],
+      "owner": "A7",
+      "status": "active"
+    },
+    "qa-gatekeeper-ops": {
+      "name": "QA Gatekeeper Operations",
+      "description": "Testing, quality gates, proof validation, and acceptance checking",
+      "filePath": "C:/Dev/.claude-anx/skills/qa-gatekeeper-ops.md",
+      "capabilities": ["testing", "quality-gates", "proof-validation", "acceptance"],
+      "triggers": ["run tests", "quality gate", "validate proof", "acceptance check"],
+      "owner": "A2",
+      "status": "active"
+    },
+    "release-ops": {
+      "name": "Release Operations",
+      "description": "Version management, changelog generation, and release coordination",
+      "filePath": "C:/Dev/.claude-anx/skills/release-ops.md",
+      "capabilities": ["release-management", "versioning", "changelog", "deployment"],
+      "triggers": ["release", "version", "changelog", "deploy release"],
+      "owner": "A7",
+      "status": "active"
+    }
+  },
+
+  "problemTypeMapping": {
+    "google drive": ["gdrive-ops"],
+    "gdrive": ["gdrive-ops"],
+    "upload": ["gdrive-ops"],
+    "download": ["gdrive-ops"],
+    "share": ["gdrive-ops"],
+    "drive": ["gdrive-ops"],
+    "transactions": ["bookkeeper-ops"],
+    "stripe": ["bookkeeper-ops"],
+    "bank": ["bookkeeper-ops"],
+    "reconcile": ["bookkeeper-ops"],
+    "financial": ["bookkeeper-ops"],
+    "docs": ["docs-admin-ops"],
+    "documentation": ["docs-admin-ops"],
+    "files": ["file-monitor-ops"],
+    "monitor": ["file-monitor-ops"],
+    "linkedin": ["linkedin-operator-ops"],
+    "social": ["linkedin-operator-ops"],
+    "security": ["security-ops"],
+    "audit": ["security-ops", "docs-admin-ops"],
+    "web": ["web-operator-ops"],
+    "fetch": ["web-operator-ops"],
+    "api": ["web-operator-ops"],
+    "deploy": ["platform-ops"],
+    "infrastructure": ["platform-ops"],
+    "github": ["platform-ops"],
+    "test": ["qa-gatekeeper-ops"],
+    "quality": ["qa-gatekeeper-ops"],
+    "proof": ["qa-gatekeeper-ops"],
+    "release": ["release-ops"],
+    "version": ["release-ops"],
+    "changelog": ["release-ops"]
+  },
+
+  "core5": ["web-operator-ops", "platform-ops", "docs-admin-ops", "qa-gatekeeper-ops", "release-ops"]
+}

@@ -104,13 +104,26 @@ async function loadSkillContent(skillId) {
     return null;
   }
 
-  // Use the path from manifest if available, otherwise fall back to default
+  // Use filePath from manifest if available, otherwise fall back to default patterns
   let skillPath;
-  if (skill.path) {
+  if (skill.filePath) {
+    // Direct file path specified in manifest
+    skillPath = skill.filePath;
+  } else if (skill.path) {
+    // Directory path with SKILL.md inside
     skillPath = path.join(skill.path, 'SKILL.md');
   } else {
-    const skillDir = path.join(CONFIG.skillsRoot, skillId);
-    skillPath = path.join(skillDir, 'SKILL.md');
+    // Default: try flat file first, then subdirectory
+    const flatPath = path.join(CONFIG.skillsRoot, `${skillId}.md`);
+    const dirPath = path.join(CONFIG.skillsRoot, skillId, 'SKILL.md');
+
+    // Check if flat file exists
+    try {
+      await fs.access(flatPath);
+      skillPath = flatPath;
+    } catch {
+      skillPath = dirPath;
+    }
   }
 
   try {

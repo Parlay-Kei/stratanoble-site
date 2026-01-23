@@ -26,6 +26,7 @@ Internal ANX agent for managing LinkedIn Service Page updates and handling inbou
 | `update-services` | Edit Services Provided tags |
 | `update-pricing` | Edit Pricing information |
 | `upload-samples` | Upload work samples (images/PDFs) |
+| `post` | Publish a text post to LinkedIn profile |
 | `screenshot` | Capture proof screenshot |
 | `dry-run` | Navigate + screenshot without edits |
 | `status` | Check current session status |
@@ -188,6 +189,89 @@ async function navigateToServicePage(
     currentUrl: page.url()
   };
 }
+```
+
+---
+
+## Level 2: Post Publishing Operations
+
+### publishPost()
+```typescript
+/**
+ * Publish a text post to LinkedIn profile
+ * Uses linkedin-post-publisher.js module
+ *
+ * SAFETY: Dry-run mode by default. Must use --live flag to publish.
+ */
+
+// Import and use the publisher
+import { LinkedInPostPublisher } from './linkedin-post-publisher.js';
+
+async function publishPost(
+  content: string,
+  options: PostOptions = { dryRun: true }
+): Promise<PostResult> {
+  const publisher = new LinkedInPostPublisher({
+    dryRun: options.dryRun ?? true,  // SAFE by default
+    headless: options.headless ?? false
+  });
+
+  try {
+    await publisher.initialize();
+
+    const result = await publisher.publishPost(content, {
+      hashtags: options.hashtags || ''
+    });
+
+    return result;
+  } finally {
+    await publisher.close();
+  }
+}
+
+interface PostOptions {
+  dryRun?: boolean;      // Default: true (safe mode)
+  headless?: boolean;    // Default: false (visible browser)
+  hashtags?: string;     // Optional hashtags to append
+}
+
+interface PostResult {
+  success: boolean;
+  status: 'PUBLISHED' | 'DRY_RUN_COMPLETE' | 'ERROR' | 'SECURITY_PROMPT' | 'NOT_LOGGED_IN';
+  message: string;
+  postUrl?: string;          // URL of published post (live mode only)
+  receipt?: string;          // Path to receipt file
+  proofDir?: string;         // Path to proof pack directory
+  error?: string;            // Error message if failed
+  action?: 'RETURN_TO_OCS';  // Action to take on failure
+}
+```
+
+### Post Flow Steps
+1. Initialize browser with persistent LinkedIn session
+2. Navigate to LinkedIn feed
+3. Verify session is active (check for security prompts)
+4. Click "Start a post" button
+5. Enter content in composer
+6. Capture pre-publish screenshot (proof)
+7. **DRY-RUN**: Close modal without publishing, generate receipt
+8. **LIVE**: Click Post button, verify on profile, capture proof
+
+### Proof Pack Structure for Posts
+```
+proof-packs/
+└── linkedin-posts/
+    └── YYYY-MM-DD/
+        └── run-YYYY-MM-DDTHH-MM-SS-SSSZ/
+            ├── screenshots/
+            │   ├── session-verified.png
+            │   ├── composer-opened.png
+            │   ├── content-entered.png
+            │   ├── pre-publish-composer.png
+            │   └── post-published-on-profile.png (live only)
+            ├── action-log.json
+            ├── receipt.json
+            └── LINKEDIN_POST_RECEIPT_YYYY-MM-DD.md
 ```
 
 ---
@@ -550,6 +634,15 @@ linkedin-operator upload --files "sample1.pdf,sample2.jpg" --dry-run
 
 # Full proof pack review
 linkedin-operator proof-pack --run-id "2026-01-19T10-30-00"
+
+# Post to LinkedIn (dry run - default, safe mode)
+node .claude/tools/browser-operator/linkedin-post-publisher.js post --content "Your post content here"
+
+# Post to LinkedIn (live - actually publishes)
+node .claude/tools/browser-operator/linkedin-post-publisher.js post --content "Your post content" --live
+
+# Post from file with hashtags
+node .claude/tools/browser-operator/linkedin-post-publisher.js post --file content.txt --hashtags "#sales #crm" --live
 ```
 
 ---
