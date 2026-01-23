@@ -1,0 +1,32 @@
+{
+  "name": "@anx/autonomy-certification",
+  "version": "1.0.0",
+  "description": "Autonomy Certification Gate - Proves the system can't lie",
+  "type": "module",
+  "main": "autonomy-certification-gate.js",
+  "scripts": {
+    "certify": "node autonomy-certification-gate.js",
+    "certify-quick": "node autonomy-certification-gate.js --no-forced-failure",
+    "security": "node security-ops-verifier.js",
+    "acid-test": "node qa-acid-test.js",
+    "rollback": "node release-ops-rollback-verifier.js",
+    "scheduler": "node platform-ops-scheduler-verifier.js"
+  },
+  "exports": {
+    ".": "./autonomy-certification-gate.js",
+    "./security": "./security-ops-verifier.js",
+    "./qa": "./qa-acid-test.js",
+    "./rollback": "./release-ops-rollback-verifier.js",
+    "./scheduler": "./platform-ops-scheduler-verifier.js"
+  },
+  "keywords": [
+    "autonomy",
+    "certification",
+    "tamper-evident",
+    "receipts",
+    "proof",
+    "validation"
+  ],
+  "author": "ANX Ops",
+  "license": "MIT"
+}
