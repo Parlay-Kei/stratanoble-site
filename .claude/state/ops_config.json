@@ -1,0 +1,10 @@
+{
+  "kill_switch": false,
+  "budget_caps": {
+    "daily_operations": 1000,
+    "max_job_retries": 3,
+    "max_concurrent_jobs": 10
+  },
+  "exceptions_enabled": true,
+  "auto_recovery": true
+}
