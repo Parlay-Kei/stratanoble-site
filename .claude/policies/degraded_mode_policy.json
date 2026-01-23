@@ -1,0 +1,15 @@
+{
+  "degraded_mode": true,
+  "timestamp": "2026-01-22T14:12:47.033271",
+  "triggers": [
+    "OPEN_EXCEPTIONS_HIGH",
+    "REPEATED_EXCEPTION"
+  ],
+  "restrictions": {
+    "prod_jobs_blocked": true,
+    "only_safe_services": true,
+    "outbound_rate_cap": 10,
+    "max_concurrent_jobs": 2
+  },
+  "reason": "Simulated for testing"
+}

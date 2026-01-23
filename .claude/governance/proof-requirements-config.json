@@ -1,0 +1,223 @@
+{
+  "version": "1.0.0",
+  "defaultRequirements": {
+    "files": [
+      {
+        "pattern": "**/PROOF*.md",
+        "type": "proof",
+        "required": true,
+        "minSize": 500
+      },
+      {
+        "pattern": "**/RECEIPT*.md",
+        "type": "receipt",
+        "required": false,
+        "minSize": 200
+      }
+    ],
+    "sections": [
+      "Summary",
+      "Evidence",
+      "Verification"
+    ],
+    "evidence": {
+      "screenshots": {
+        "required": false,
+        "minCount": 0,
+        "formats": ["png", "jpg", "jpeg"]
+      },
+      "logs": {
+        "required": false,
+        "minLines": 10
+      }
+    },
+    "validation": {
+      "ticketId": {
+        "required": true,
+        "pattern": "OCS-[A-Z]+-\\d{4}"
+      },
+      "timestamp": {
+        "required": true,
+        "format": "iso8601"
+      }
+    }
+  },
+  "skills": {
+    "qa-gatekeeper-ops": {
+      "name": "QA Gatekeeper Operations",
+      "requirements": {
+        "files": [
+          {
+            "pattern": "**/PROOF_PACK*.md",
+            "type": "proof",
+            "required": true,
+            "minSize": 1000,
+            "contentValidation": {
+              "mustContain": [
+                "## Test Results",
+                "## Quality Gate",
+                "## Evidence"
+              ]
+            }
+          },
+          {
+            "pattern": "**/test-results.json",
+            "type": "test",
+            "required": true,
+            "minSize": 100
+          }
+        ],
+        "sections": [
+          "Summary",
+          "Test Results",
+          "Quality Gate",
+          "Evidence",
+          "Verification"
+        ],
+        "evidence": {
+          "testResults": {
+            "required": true,
+            "formats": ["json", "junit", "tap"]
+          },
+          "logs": {
+            "required": true,
+            "minLines": 50
+          }
+        }
+      }
+    },
+    "release-ops": {
+      "name": "Release Operations",
+      "requirements": {
+        "files": [
+          {
+            "pattern": "**/RELEASE_PROOF*.md",
+            "type": "proof",
+            "required": true,
+            "minSize": 2000
+          },
+          {
+            "pattern": "**/deployment.log",
+            "type": "log",
+            "required": true,
+            "minSize": 500
+          },
+          {
+            "pattern": "**/rollback-plan.md",
+            "type": "config",
+            "required": true,
+            "minSize": 300
+          }
+        ],
+        "sections": [
+          "Summary",
+          "Deployment Details",
+          "Verification Steps",
+          "Rollback Plan",
+          "Evidence"
+        ],
+        "evidence": {
+          "screenshots": {
+            "required": true,
+            "minCount": 2,
+            "formats": ["png", "jpg"]
+          },
+          "metrics": {
+            "required": true,
+            "types": ["performance", "availability", "errors"]
+          }
+        },
+        "validation": {
+          "signatures": {
+            "required": true,
+            "minCount": 2
+          }
+        }
+      }
+    },
+    "security-ops": {
+      "name": "Security Operations",
+      "requirements": {
+        "files": [
+          {
+            "pattern": "**/SECURITY_GATE_PROOF*.md",
+            "type": "proof",
+            "required": true,
+            "minSize": 1500
+          },
+          {
+            "pattern": "**/audit.log",
+            "type": "log",
+            "required": true,
+            "minSize": 1000
+          },
+          {
+            "pattern": "**/vulnerability-scan.json",
+            "type": "report",
+            "required": false,
+            "minSize": 200
+          }
+        ],
+        "sections": [
+          "Summary",
+          "Security Assessment",
+          "Vulnerabilities",
+          "Mitigations",
+          "Evidence",
+          "Sign-off"
+        ],
+        "evidence": {
+          "logs": {
+            "required": true,
+            "minLines": 100
+          }
+        },
+        "validation": {
+          "signatures": {
+            "required": true,
+            "minCount": 1
+          }
+        }
+      }
+    },
+    "payments-compliance-ops": {
+      "name": "Payments Compliance Operations",
+      "requirements": {
+        "files": [
+          {
+            "pattern": "**/COMPLIANCE_PROOF*.md",
+            "type": "proof",
+            "required": true,
+            "minSize": 2500
+          },
+          {
+            "pattern": "**/pci-audit.json",
+            "type": "report",
+            "required": true,
+            "minSize": 1000
+          },
+          {
+            "pattern": "**/transaction.log",
+            "type": "log",
+            "required": true,
+            "minSize": 500
+          }
+        ],
+        "sections": [
+          "Summary",
+          "Compliance Standards",
+          "Audit Results",
+          "Risk Assessment",
+          "Evidence",
+          "Certification"
+        ],
+        "validation": {
+          "signatures": {
+            "required": true,
+            "minCount": 3
+          }
+        }
+      }
+    }
+  }
+}

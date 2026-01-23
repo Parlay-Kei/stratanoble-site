@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Proof Requirements Schema v1.0",
+  "description": "Defines required proof artifacts for different skill operations",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "skills": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-z-]+$": {
+          "$ref": "#/definitions/skillProofRequirement"
+        }
+      }
+    },
+    "defaultRequirements": {
+      "$ref": "#/definitions/proofRequirement"
+    }
+  },
+  "definitions": {
+    "skillProofRequirement": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Skill name"
+        },
+        "requirements": {
+          "$ref": "#/definitions/proofRequirement"
+        },
+        "overrides": {
+          "type": "object",
+          "description": "Action-specific overrides",
+          "patternProperties": {
+            ".*": {
+              "$ref": "#/definitions/proofRequirement"
+            }
+          }
+        }
+      },
+      "required": ["name", "requirements"]
+    },
+    "proofRequirement": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/fileRequirement"
+          }
+        },
+        "sections": {
+          "type": "array",
+          "description": "Required markdown sections",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "screenshots": {
+              "type": "object",
+              "properties": {
+                "required": { "type": "boolean" },
+                "minCount": { "type": "integer", "minimum": 0 },
+                "formats": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["png", "jpg", "jpeg", "gif", "webp"]
+                  }
+                }
+              }
+            },
+            "logs": {
+              "type": "object",
+              "properties": {
+                "required": { "type": "boolean" },
+                "minLines": { "type": "integer", "minimum": 0 }
+              }
+            },
+            "testResults": {
+              "type": "object",
+              "properties": {
+                "required": { "type": "boolean" },
+                "formats": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["junit", "tap", "json", "xml"]
+                  }
+                }
+              }
+            },
+            "metrics": {
+              "type": "object",
+              "properties": {
+                "required": { "type": "boolean" },
+                "types": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "properties": {
+            "ticketId": {
+              "type": "object",
+              "properties": {
+                "required": { "type": "boolean" },
+                "pattern": { "type": "string" }
+              }
+            },
+            "timestamp": {
+              "type": "object",
+              "properties": {
+                "required": { "type": "boolean" },
+                "format": {
+                  "type": "string",
+                  "enum": ["iso8601", "unix", "date"]
+                }
+              }
+            },
+            "signatures": {
+              "type": "object",
+              "properties": {
+                "required": { "type": "boolean" },
+                "minCount": { "type": "integer", "minimum": 0 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "fileRequirement": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "File path pattern (glob)"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["proof", "receipt", "report", "log", "screenshot", "test", "config"]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "minSize": {
+          "type": "integer",
+          "description": "Minimum file size in bytes"
+        },
+        "maxSize": {
+          "type": "integer",
+          "description": "Maximum file size in bytes"
+        },
+        "contentValidation": {
+          "type": "object",
+          "properties": {
+            "mustContain": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "mustNotContain": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["pattern", "type", "required"]
+    }
+  },
+  "required": ["version", "skills", "defaultRequirements"]
+}
