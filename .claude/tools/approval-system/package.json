@@ -1,0 +1,27 @@
+{
+  "name": "@anx/approval-system",
+  "version": "1.0.0",
+  "description": "Approval tokens system for blocking and resuming pipelines based on explicit approval",
+  "type": "module",
+  "main": "approval-manager.js",
+  "scripts": {
+    "demo": "node demo-high-risk-pipeline.js",
+    "test": "node test-approval-system.js"
+  },
+  "exports": {
+    ".": "./approval-manager.js",
+    "./checkpoint": "./approval-checkpoint.js",
+    "./tokens": "./token-manager.js",
+    "./resumer": "./pipeline-resumer.js"
+  },
+  "keywords": [
+    "approval",
+    "tokens",
+    "checkpoint",
+    "pipeline",
+    "resume",
+    "authorization"
+  ],
+  "author": "ANX Ops",
+  "license": "MIT"
+}

@@ -1,0 +1,31 @@
+{
+  "adapter_schema_version": 2,
+  "repo_id": "DSLV",
+  "root": "C:\\Dev\\DSLV",
+  "ops": {
+    "validate": {
+      "shell": "cmd",
+      "cmd": "npm run typecheck"
+    },
+    "test": {
+      "shell": "cmd",
+      "cmd": "npm run test:unit && npm run lint"
+    },
+    "build": {
+      "shell": "cmd",
+      "cmd": "npm run build:safe"
+    },
+    "deploy": {
+      "shell": "cmd",
+      "cmd": "npm run prod-ready:production"
+    },
+    "rollback": {
+      "shell": "cmd",
+      "cmd": "vercel rollback"
+    },
+    "smoke": {
+      "shell": "cmd",
+      "cmd": "npm run test:e2e:smoke"
+    }
+  }
+}

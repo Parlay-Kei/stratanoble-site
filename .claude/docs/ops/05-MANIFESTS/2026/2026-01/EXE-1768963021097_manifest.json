@@ -1,0 +1,44 @@
+{
+  "execution_id": "EXE-1768963021097",
+  "skill_id": "browser-operator-ops",
+  "action": "test",
+  "started_at": "2026-01-21T02:37:01.097Z",
+  "completed_at": "2026-01-21T02:37:01.098Z",
+  "duration_ms": 1,
+  "inputs": {
+    "directive": null,
+    "params": {}
+  },
+  "outputs": {
+    "files": [],
+    "links": [],
+    "data": {
+      "execution_id": "EXE-1768963021097",
+      "status": "success",
+      "skill_id": "browser-operator-ops",
+      "action": "test"
+    }
+  },
+  "exit_status": "success",
+  "exit_code": 0,
+  "error_message": null,
+  "proof_validation": {
+    "required_level": "strict",
+    "checks_performed": 4,
+    "checks_passed": 2,
+    "checks_failed": 2,
+    "failures": [
+      {
+        "check_type": "metadata",
+        "requirement": "screenshot_path",
+        "error": "Missing required metadata: screenshot_path"
+      },
+      {
+        "check_type": "file",
+        "requirement": "screenshots/{{execution_id}}_dashboard.png",
+        "error": "File not found: C:\\Dev\\.claude-anx\\docs\\ops\\04-PROOFS\\screenshots\\EXE-1768963021097_dashboard.png"
+      }
+    ],
+    "overall_status": "FAILED"
+  }
+}

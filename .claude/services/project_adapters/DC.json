@@ -1,0 +1,11 @@
+{
+  "repo_path": "C:\\Dev\\Direct-Cuts",
+  "commands": {
+    "validate": "npm run typecheck",
+    "test": "npm run test",
+    "build": "npm run build",
+    "deploy": "vercel --prod",
+    "rollback": "vercel rollback",
+    "smoke": "npm run gate:smoke"
+  }
+}

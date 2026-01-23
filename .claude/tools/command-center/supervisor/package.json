@@ -1,0 +1,15 @@
+{
+  "name": "anx-supervisor",
+  "version": "1.0.0",
+  "description": "ANX Command Center Supervisor - Local daemon service",
+  "main": "anx_supervisor.js",
+  "dependencies": {
+    "sqlite3": "^5.1.0"
+  },
+  "scripts": {
+    "start": "node anx_supervisor.js",
+    "install-service": "powershell -ExecutionPolicy Bypass -File ../../../scripts/install_command_center_service.ps1",
+    "uninstall-service": "powershell -ExecutionPolicy Bypass -File ../../../scripts/uninstall_command_center_service.ps1",
+    "status": "powershell -ExecutionPolicy Bypass -File ../../../scripts/install_command_center_service.ps1 -Action status"
+  }
+}

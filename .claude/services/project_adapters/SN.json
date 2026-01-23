@@ -1,0 +1,11 @@
+{
+  "repo_path": "C:\\Dev\\StrataNoble",
+  "commands": {
+    "validate": "npm run validate",
+    "test": "cd apps/platform && npm run test:run",
+    "build": "cd apps/platform && npm run build",
+    "deploy": "cd apps/platform && vercel --prod",
+    "rollback": "cd apps/platform && vercel rollback",
+    "smoke": "cd apps/platform && npm run e2e"
+  }
+}
