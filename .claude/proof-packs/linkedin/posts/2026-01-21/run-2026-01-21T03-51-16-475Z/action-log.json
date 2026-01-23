@@ -1,0 +1,46 @@
+[
+  {
+    "action": "initialization_start",
+    "timestamp": "2026-01-21T03:51:16.479Z",
+    "dryRun": true,
+    "runId": "run-2026-01-21T03-51-16-475Z"
+  },
+  {
+    "action": "browser_initialized",
+    "timestamp": "2026-01-21T03:51:16.893Z",
+    "sessionDir": "C:\\Dev\\.claude-anx\\browser-sessions\\linkedin",
+    "headless": false
+  },
+  {
+    "action": "post_start",
+    "timestamp": "2026-01-21T03:51:16.895Z",
+    "contentLength": 728,
+    "dryRun": true,
+    "hasHashtags": false
+  },
+  {
+    "action": "session_verification_start",
+    "timestamp": "2026-01-21T03:51:16.911Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-21T03:51:23.317Z",
+    "name": "session-verified",
+    "filename": "2026-01-21T03-51-23-058Z_session-verified.png"
+  },
+  {
+    "action": "session_verified",
+    "timestamp": "2026-01-21T03:51:23.319Z",
+    "url": "https://www.linkedin.com/feed/"
+  },
+  {
+    "action": "opening_composer",
+    "timestamp": "2026-01-21T03:51:23.320Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-21T03:51:23.587Z",
+    "name": "post-button-not-found",
+    "filename": "2026-01-21T03-51-23-365Z_post-button-not-found.png"
+  }
+]

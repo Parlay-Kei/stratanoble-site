@@ -1,0 +1,86 @@
+{
+  "playbook_version": 1,
+  "description": "Preflight checks for validate operations",
+  "playbooks": {
+    "swift_ios": {
+      "description": "iOS Swift project preflight checks",
+      "applies_to": [
+        "DirectCuts-iOS"
+      ],
+      "checks": [
+        {
+          "name": "verify_xcode_toolchain",
+          "command": "swift --version",
+          "shell": "cmd",
+          "error_classification": "ENV_TOOLING",
+          "required": true
+        },
+        {
+          "name": "verify_working_directory",
+          "command": "dir Package.swift",
+          "shell": "cmd",
+          "error_classification": "ENV_TOOLING",
+          "required": true
+        }
+      ]
+    },
+    "npm_node": {
+      "description": "Node.js/npm project preflight checks",
+      "applies_to": [
+        "DirectCuts",
+        "DSLV",
+        "StrataNoble"
+      ],
+      "checks": [
+        {
+          "name": "verify_node_available",
+          "command": "node --version",
+          "shell": "cmd",
+          "error_classification": "ENV_TOOLING",
+          "required": true
+        },
+        {
+          "name": "verify_npm_available",
+          "command": "npm --version",
+          "shell": "cmd",
+          "error_classification": "ENV_TOOLING",
+          "required": true
+        },
+        {
+          "name": "verify_package_json",
+          "command": "dir package.json",
+          "shell": "cmd",
+          "error_classification": "ENV_TOOLING",
+          "required": true
+        },
+        {
+          "name": "verify_node_modules",
+          "command": "dir node_modules",
+          "shell": "cmd",
+          "error_classification": "ENV_TOOLING",
+          "required": false,
+          "auto_fix": {
+            "command": "npm ci",
+            "shell": "cmd",
+            "description": "Install dependencies if node_modules missing"
+          }
+        }
+      ]
+    },
+    "powershell_script": {
+      "description": "PowerShell script preflight checks",
+      "applies_to": [
+        "msaudreys-house"
+      ],
+      "checks": [
+        {
+          "name": "verify_powershell_available",
+          "command": "powershell -Command \"$PSVersionTable.PSVersion\"",
+          "shell": "cmd",
+          "error_classification": "ENV_TOOLING",
+          "required": true
+        }
+      ]
+    }
+  }
+}
