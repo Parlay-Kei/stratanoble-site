@@ -16,18 +16,40 @@ const nextConfig = {
   },
   outputFileTracingRoot: path.join(__dirname, '../../'),
   async headers() {
+    // CSP allowlist for third-party services
+    // Noupe/Jotform: chat widget
+    // Google: analytics, fonts
+    // Plausible: privacy-friendly analytics
+    // Calendly: scheduling widget
+    const cspDirectives = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://plausible.io https://cdn.jotfor.ms https://assets.calendly.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jotfor.ms https://assets.calendly.com",
+      "font-src 'self' https://fonts.gstatic.com data:",
+      "img-src 'self' data: blob: https://*.jotform.com https://*.googletagmanager.com https://assets.calendly.com",
+      "frame-src 'self' https://*.jotform.com https://calendly.com",
+      "connect-src 'self' https://*.jotform.com https://www.google-analytics.com https://plausible.io https://api.calendly.com",
+      "media-src 'self' https://*.jotform.com",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self' https://*.jotform.com",
+      "frame-ancestors 'none'",
+      "upgrade-insecure-requests",
+    ].join('; ');
+
     return [
       {
         source: '/(.*)',
         headers: [
-          // Temporarily disabled CSP for debugging CSS issues
-          // { key: 'Content-Security-Policy', value: "default-src 'self'" },
+          // CSP with Noupe/Jotform allowlist - no wildcards except for verified subdomains
+          { key: 'Content-Security-Policy', value: cspDirectives },
           { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
-          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          // Allow microphone for Noupe voice features, deny camera and geolocation
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(self "https://*.jotform.com"), geolocation=()' },
           ...(dev ? [{ key: 'Cache-Control', value: 'no-store, no-cache, must-revalidate, max-age=0' }] : []),
         ],
       },
