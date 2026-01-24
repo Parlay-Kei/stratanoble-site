@@ -1,0 +1,100 @@
+{
+  "version": "1.1.0",
+  "description": "Claude Code Router - Multi-model routing for Claude Code CLI",
+  "defaultModel": "claude",
+  "models": {
+    "claude": {
+      "type": "api",
+      "endpoint": "https://api.anthropic.com",
+      "model": "claude-opus-4-5-20251101",
+      "displayName": "Claude Opus 4.5",
+      "priority": 1,
+      "useCases": ["complex-reasoning", "code-generation", "architecture", "multi-step-tasks"],
+      "costTier": "high",
+      "selectable": true
+    },
+    "glm4": {
+      "type": "ollama",
+      "endpoint": "http://localhost:11434",
+      "model": "glm4",
+      "displayName": "GLM-4 (7B)",
+      "priority": 2,
+      "useCases": ["simple-tasks", "offline", "cost-sensitive", "local-inference", "quick-queries"],
+      "costTier": "free",
+      "selectable": true,
+      "parameters": {
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "num_ctx": 8192
+      }
+    }
+  },
+  "modelSelection": {
+    "enabled": true,
+    "allowUserOverride": true,
+    "persistSelection": false,
+    "selectionMethods": ["explicit", "task-based", "cost-based"],
+    "shortcuts": {
+      "local": "glm4",
+      "cloud": "claude",
+      "fast": "glm4",
+      "smart": "claude"
+    }
+  },
+  "routing": {
+    "strategy": "capability-based",
+    "fallbackToLocal": true,
+    "localThreshold": {
+      "taskComplexity": "simple",
+      "tokenLimit": 1000
+    },
+    "taskRouting": {
+      "code-review": "claude",
+      "code-generation": "claude",
+      "simple-query": "glm4",
+      "documentation": "glm4",
+      "debugging": "claude",
+      "refactoring": "claude",
+      "explanation": "glm4"
+    },
+    "costOptimization": {
+      "enabled": false,
+      "preferLocal": false,
+      "dailyApiLimit": null
+    },
+    "offlineMode": {
+      "enabled": true,
+      "fallbackModel": "glm4",
+      "detectAutomatically": true
+    }
+  },
+  "healthCheck": {
+    "intervalMs": 30000,
+    "endpoints": {
+      "ollama": "http://localhost:11434/api/tags",
+      "claude": "https://api.anthropic.com/v1/messages"
+    },
+    "retryAttempts": 3,
+    "timeoutMs": 5000
+  },
+  "logging": {
+    "enabled": true,
+    "level": "info",
+    "path": "C:/Dev/.claude-anx/logs/router.log",
+    "logModelSelection": true,
+    "logRouteDecisions": true
+  },
+  "cli": {
+    "commands": {
+      "status": "Show router status and available models",
+      "select <model>": "Select a specific model (glm4, claude)",
+      "route <task>": "Show which model would handle a task type",
+      "test": "Test local model inference"
+    },
+    "flags": {
+      "--model": "Override model selection for single request",
+      "--local": "Force local model (GLM-4)",
+      "--cloud": "Force cloud model (Claude)"
+    }
+  }
+}

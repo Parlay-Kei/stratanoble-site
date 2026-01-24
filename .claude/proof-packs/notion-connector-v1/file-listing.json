@@ -1,0 +1,83 @@
+{
+  "manifest": {
+    "generated": "2026-01-23T20:18:00Z",
+    "package": "notion-connector-v1",
+    "base_path": "mcp-servers/notion-ops/",
+    "file_count": 5,
+    "total_size": "~50KB"
+  },
+  "implementation_files": [
+    {
+      "name": "index.js",
+      "path": "mcp-servers/notion-ops/index.js",
+      "type": "main_implementation",
+      "description": "Core MCP server with all Notion API operations",
+      "size": "~35KB",
+      "lines": "~1200",
+      "key_functions": [
+        "createDatabase",
+        "addProperty",
+        "createPage",
+        "updatePage",
+        "bulkCreatePages",
+        "safeNotionCall"
+      ]
+    },
+    {
+      "name": "smoke-test.js",
+      "path": "mcp-servers/notion-ops/smoke-test.js",
+      "type": "test_implementation",
+      "description": "Comprehensive smoke test suite",
+      "size": "~12KB",
+      "lines": "~300",
+      "key_functions": [
+        "runSmokeTest",
+        "validateConfiguration",
+        "testAPIConnectivity",
+        "createTestDatabase"
+      ]
+    },
+    {
+      "name": "package.json",
+      "path": "mcp-servers/notion-ops/package.json",
+      "type": "configuration",
+      "description": "Package configuration with dependencies",
+      "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.0.4",
+        "@notionhq/client": "^2.2.15",
+        "node-fetch": "^3.3.2",
+        "dotenv": "^16.4.7"
+      }
+    },
+    {
+      "name": ".env.example",
+      "path": "mcp-servers/notion-ops/.env.example",
+      "type": "configuration_template",
+      "description": "Environment variable template",
+      "required_vars": [
+        "NOTION_API_KEY",
+        "NOTION_SOCIAL_MEDIA_HQ_PAGE_ID",
+        "DRY_RUN_MODE",
+        "RATE_LIMIT_REQUESTS_PER_SECOND"
+      ]
+    },
+    {
+      "name": "package-lock.json",
+      "path": "mcp-servers/notion-ops/package-lock.json",
+      "type": "dependency_lock",
+      "description": "Locked dependency versions",
+      "packages": 113,
+      "vulnerabilities": 0
+    }
+  ],
+  "dependency_summary": {
+    "total_packages": 113,
+    "vulnerabilities": 0,
+    "key_dependencies": {
+      "@modelcontextprotocol/sdk": "MCP protocol implementation",
+      "@notionhq/client": "Official Notion API client",
+      "dotenv": "Environment variable loading",
+      "node-fetch": "HTTP request handling"
+    }
+  }
+}

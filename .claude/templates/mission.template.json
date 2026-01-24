@@ -1,0 +1,24 @@
+{
+  "mission_version": "1.0",
+  "run_id": "RUN_YYYYMMDD_HHMMSS_XXXX",
+  "mission_id": "MIS_001",
+  "owner": "product_ops | engineering_delivery | platform_ops | qa_gatekeeper | release_ops | legal_ops | finance_ops",
+  "title": "Short imperative title",
+  "objective": "What success means in one paragraph",
+  "inputs": {
+    "brief_path": "C:\\Dev\\.claude-anx\\runs\\{run_id}\\brief.md",
+    "work_packet_path": "C:\\Dev\\.claude-anx\\runs\\{run_id}\\work_packet.md"
+  },
+  "scope": {
+    "included": ["..."],
+    "excluded": ["..."],
+    "constraints": ["..."]
+  },
+  "definition_of_done": ["..."],
+  "requires_decision": false,
+  "decision_refs": [],
+  "outputs": {
+    "receipts_dir": "C:\\Dev\\.claude-anx\\runs\\{run_id}\\receipts",
+    "proof_pack_dir": "C:\\Dev\\.claude-anx\\proof-packs\\runs\\{run_id}"
+  }
+}

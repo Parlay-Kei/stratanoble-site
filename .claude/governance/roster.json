@@ -91,7 +91,7 @@
       "kpis": ["Uptime %", "Incident MTTR"],
       "status": "active",
       "skills": ["S23"],
-      "services": ["V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8"],
+      "services": ["V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V15"],
       "links": {}
     },
     {
@@ -206,7 +206,8 @@
     { "id": "V11", "name": "Checkr Verification", "tier": "V", "operator": "A8", "purpose": "Background check integration" },
     { "id": "V12", "name": "Mobile Notifications", "tier": "V", "operator": "A8", "purpose": "Push/SMS/email notifications" },
     { "id": "V13", "name": "Flutter SDK", "tier": "V", "operator": "A8", "purpose": "Mobile SDK, versioning, release" },
-    { "id": "V14", "name": "Voice AI Calling", "tier": "V", "operator": "DSLV GM", "purpose": "Calling stack integration" }
+    { "id": "V14", "name": "Voice AI Calling", "tier": "V", "operator": "DSLV GM", "purpose": "Calling stack integration" },
+    { "id": "V15", "name": "Local LLM Setup", "tier": "V", "operator": "A7", "purpose": "Ollama, GLM-4, Claude Code Router installation and management" }
   ],
   "governanceFiles": {
     "roster": ".claude/governance/ROSTER.md",

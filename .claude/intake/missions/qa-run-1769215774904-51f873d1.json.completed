@@ -1,0 +1,18 @@
+{
+  "id": "qa-run-1769215774904-51f873d1",
+  "run_id": "run-1769215774904-51f873d1",
+  "agent": "qa",
+  "type": "validate",
+  "params": {
+    "brief_title": "Add retry logic to payment processor",
+    "target": "apps/platform/payments",
+    "done_criteria": [
+      "Retry 3x with exponential backoff",
+      "Error rate <0.1%",
+      "No duplicate charges"
+    ],
+    "risk": "medium"
+  },
+  "work_packet_ref": "runs/run-1769215774904-51f873d1/work_packet.md",
+  "created_at": "2026-01-24T00:49:34.908Z"
+}

@@ -94,6 +94,15 @@
       "triggers": ["release", "version", "changelog", "deploy release"],
       "owner": "A7",
       "status": "active"
+    },
+    "local-llm-ops": {
+      "name": "Local LLM Operations",
+      "description": "Install, configure, and manage local LLM infrastructure including Ollama, model deployment, and Claude Code routing",
+      "filePath": "C:/Dev/.claude-anx/skills/local-llm-ops.md",
+      "capabilities": ["ollama-install", "model-management", "local-inference", "claude-code-router"],
+      "triggers": ["ollama", "local llm", "glm", "local model", "claude code router", "install ollama"],
+      "owner": "A7",
+      "status": "active"
     }
   },
 
@@ -128,7 +137,12 @@
     "proof": ["qa-gatekeeper-ops"],
     "release": ["release-ops"],
     "version": ["release-ops"],
-    "changelog": ["release-ops"]
+    "changelog": ["release-ops"],
+    "ollama": ["local-llm-ops"],
+    "llm": ["local-llm-ops"],
+    "glm": ["local-llm-ops"],
+    "local model": ["local-llm-ops"],
+    "router": ["local-llm-ops"]
   },
 
   "core5": ["web-operator-ops", "platform-ops", "docs-admin-ops", "qa-gatekeeper-ops", "release-ops"]
