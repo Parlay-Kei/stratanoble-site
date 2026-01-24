@@ -1,0 +1,31 @@
+{
+  "anx_canonical_root": "C:\\Dev\\.claude-anx",
+  "project_name": "StrataNoble",
+  "shim_version": "1.0.0",
+  "created_at": "2026-01-23T12:00:00Z",
+  "description": "Project shim pointing to canonical ANX root",
+  "tools_redirect": {
+    "command-center": "global",
+    "skills-server": "global",
+    "browser-operator": "global",
+    "agent-framework": "global",
+    "anx-ops": "global"
+  },
+  "local_overrides": {
+    "settings": "./settings.local.json",
+    "config": "./config.json",
+    "commands": "./commands/",
+    "scripts": "./scripts/"
+  },
+  "receipt_policy": {
+    "local_receipts": false,
+    "global_only": true,
+    "note": "All receipts written to canonical receipts directory"
+  },
+  "migration_status": {
+    "tools_migrated": true,
+    "skills_migrated": true,
+    "duplicates_removed": true,
+    "shim_active": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "run_id": "RUN_YYYYMMDD_HHMMSS_XXXX",
+  "decision_id": "DEC_001",
+  "status": "PENDING",
+  "title": "Decision needed: pick one",
+  "why_now": "What is blocked and why this cannot proceed safely without Steve",
+  "options": [
+    {
+      "key": "A",
+      "summary": "Option A",
+      "impact": "What changes",
+      "risk": "low|medium|high",
+      "cost": "time/money impact",
+      "receipt_after": "What proof/receipt will be produced"
+    },
+    {
+      "key": "B",
+      "summary": "Option B",
+      "impact": "...",
+      "risk": "low|medium|high",
+      "cost": "...",
+      "receipt_after": "..."
+    }
+  ],
+  "recommendation": "A",
+  "response_path": "C:\\Dev\\.claude-anx\\runtime\\decisions\\{run_id}\\decision_001.response.json",
+  "created_at": "ISO_TIMESTAMP"
+}

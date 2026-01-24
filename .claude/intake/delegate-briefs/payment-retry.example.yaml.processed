@@ -1,0 +1,8 @@
+title: Add retry logic to payment processor
+type: feature
+target: apps/platform/payments
+why: Stripe webhooks failing 5% of the time causing revenue loss
+done:
+  - Retry 3x with exponential backoff
+  - Error rate <0.1%
+  - No duplicate charges

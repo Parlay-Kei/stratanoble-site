@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './DirectiveForm.css';
 
-const DirectiveForm = ({ onSubmit }) => {
+const DirectiveForm = ({ onSubmit, systemContext }) => {
   const [directive, setDirective] = useState({
     title: '',
     body: '',
@@ -17,6 +17,13 @@ const DirectiveForm = ({ onSubmit }) => {
       alert('Title and body are required');
       return;
     }
+
+    // Validate project context if scope is project
+    if (directive.scope === 'project' && !systemContext?.active_project_root) {
+      alert('Project scope selected but no project root is set. Please select a project first using the context switcher.');
+      return;
+    }
+
     onSubmit(directive);
     setDirective({
       title: '',
@@ -27,6 +34,9 @@ const DirectiveForm = ({ onSubmit }) => {
       priority: 'normal'
     });
   };
+
+  // Check if form should be disabled
+  const isProjectScopeInvalid = directive.scope === 'project' && !systemContext?.active_project_root;
 
   return (
     <div className="directive-form">
@@ -101,8 +111,21 @@ const DirectiveForm = ({ onSubmit }) => {
           </div>
         </div>
 
+        {/* Warning message for project scope without project root */}
+        {isProjectScopeInvalid && (
+          <div className="validation-warning">
+            ⚠️ Project scope selected but no project root is set.
+            Click the PROJECT button in the header to select a project first.
+          </div>
+        )}
+
         <div className="form-actions">
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isProjectScopeInvalid}
+            title={isProjectScopeInvalid ? 'Select a project root first' : ''}
+          >
             Create Directive
           </button>
         </div>

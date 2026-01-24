@@ -1,0 +1,38 @@
+{
+  "id": "P01",
+  "title": "Automation Fails Quietly",
+  "output_path": "C:\\Dev\\.claude-anx\\tools\\faceless-video-engine\\output\\week1\\P01_tiktok.mp4",
+  "format": "mp4",
+  "codec": "h264",
+  "resolution": "1080x1920",
+  "fps": 30,
+  "duration": 35,
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your automation is lying to you.",
+      "start": 0,
+      "duration": 7
+    },
+    {
+      "type": "story",
+      "text": "That dashboard says 'all systems operational' while errors pile up in hidden logs.",
+      "start": 7,
+      "duration": 10
+    },
+    {
+      "type": "insight",
+      "text": "Silent failures compound until they become crises.",
+      "start": 17,
+      "duration": 8
+    },
+    {
+      "type": "cta",
+      "text": "What's failing quietly in your business right now?",
+      "start": 25,
+      "duration": 10
+    }
+  ],
+  "generated_at": "2026-01-23T21:18:00.167012",
+  "status": "ready_to_render"
+}

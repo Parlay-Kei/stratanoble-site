@@ -1,0 +1,15 @@
+Modified Files (API Authority Implementation):
+
+MODIFIED:
+.claude/tools/command-center/api/src/server.js
+.claude/tools/command-center/ui/package.json
+.claude/tools/command-center/ui/src/App.js
+
+NEW FILES:
+.claude/tools/command-center/api/src/routes/system.js
+.claude/tools/command-center/ui/src/lib/apiBase.js
+.claude/tools/command-center/ui/src/setupProxy.js
+.claude/tools/command-center/ui/src/components/Cockpit.js
+
+DEPENDENCIES:
+.claude/tools/command-center/ui/package-lock.json (added http-proxy-middleware)

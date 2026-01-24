@@ -1,0 +1,243 @@
+{
+  "mcp_server_info": {
+    "name": "notion-ops",
+    "version": "1.0.0",
+    "description": "Notion Operations MCP Server for agentic database and page management"
+  },
+  "tools": [
+    {
+      "name": "create_database",
+      "description": "Create a new Notion database with specified properties",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "parent_page_id": {
+            "type": "string",
+            "description": "ID of the parent page where database will be created"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the new database"
+          },
+          "properties": {
+            "type": "object",
+            "description": "Database properties schema (optional, defaults provided)"
+          }
+        },
+        "required": ["parent_page_id", "title"]
+      },
+      "example_usage": {
+        "parent_page_id": "abc123...",
+        "title": "Strata Noble 30-Day Tracker",
+        "properties": {
+          "Name": { "title": {} },
+          "Status": {
+            "select": {
+              "options": [
+                { "name": "Not Started", "color": "gray" },
+                { "name": "In Progress", "color": "yellow" },
+                { "name": "Complete", "color": "green" }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "add_property",
+      "description": "Add a new property to an existing database",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "database_id": {
+            "type": "string",
+            "description": "ID of the target database"
+          },
+          "property_name": {
+            "type": "string",
+            "description": "Name of the new property"
+          },
+          "property_spec": {
+            "type": "object",
+            "description": "Property configuration (type, options, etc.)"
+          }
+        },
+        "required": ["database_id", "property_name", "property_spec"]
+      },
+      "example_usage": {
+        "database_id": "def456...",
+        "property_name": "Assigned Team",
+        "property_spec": {
+          "select": {
+            "options": [
+              { "name": "Content", "color": "green" },
+              { "name": "Social", "color": "blue" },
+              { "name": "Analytics", "color": "orange" }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "create_page",
+      "description": "Create a single page/row in a database",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "database_id": {
+            "type": "string",
+            "description": "ID of the target database"
+          },
+          "row_payload": {
+            "type": "object",
+            "description": "Page properties data"
+          }
+        },
+        "required": ["database_id", "row_payload"]
+      },
+      "example_usage": {
+        "database_id": "ghi789...",
+        "row_payload": {
+          "Name": {
+            "title": [
+              { "type": "text", "text": { "content": "Week 1: Content Strategy" } }
+            ]
+          },
+          "Status": { "select": { "name": "In Progress" } },
+          "Priority": { "select": { "name": "High" } },
+          "Due Date": { "date": { "start": "2026-01-30" } }
+        }
+      }
+    },
+    {
+      "name": "update_page",
+      "description": "Update properties of an existing page",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "ID of the page to update"
+          },
+          "fields": {
+            "type": "object",
+            "description": "Updated properties"
+          }
+        },
+        "required": ["page_id", "fields"]
+      },
+      "example_usage": {
+        "page_id": "jkl012...",
+        "fields": {
+          "Status": { "select": { "name": "Complete" } },
+          "Tags": {
+            "multi_select": [
+              { "name": "Content" },
+              { "name": "Strategy" }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "bulk_create_pages",
+      "description": "Create multiple pages/rows in batch with rate limiting",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "database_id": {
+            "type": "string",
+            "description": "ID of the target database"
+          },
+          "rows": {
+            "type": "array",
+            "description": "Array of page property objects"
+          }
+        },
+        "required": ["database_id", "rows"]
+      },
+      "example_usage": {
+        "database_id": "mno345...",
+        "rows": [
+          {
+            "Name": { "title": [{ "type": "text", "text": { "content": "Task 1" } }] },
+            "Status": { "select": { "name": "Not Started" } }
+          },
+          {
+            "Name": { "title": [{ "type": "text", "text": { "content": "Task 2" } }] },
+            "Status": { "select": { "name": "Not Started" } }
+          }
+        ]
+      }
+    },
+    {
+      "name": "get_database_schema",
+      "description": "Retrieve database properties schema for validation",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "database_id": {
+            "type": "string",
+            "description": "ID of the database to inspect"
+          }
+        },
+        "required": ["database_id"]
+      },
+      "example_usage": {
+        "database_id": "pqr678..."
+      }
+    }
+  ],
+  "supported_property_types": [
+    "title",
+    "rich_text",
+    "number",
+    "select",
+    "multi_select",
+    "date",
+    "person",
+    "file",
+    "checkbox",
+    "url",
+    "email",
+    "phone_number",
+    "formula",
+    "relation",
+    "rollup",
+    "status"
+  ],
+  "default_strata_noble_schema": {
+    "Name": { "title": {} },
+    "Status": {
+      "select": {
+        "options": [
+          { "name": "Not Started", "color": "gray" },
+          { "name": "In Progress", "color": "yellow" },
+          { "name": "Complete", "color": "green" },
+          { "name": "On Hold", "color": "red" }
+        ]
+      }
+    },
+    "Priority": {
+      "select": {
+        "options": [
+          { "name": "Critical", "color": "red" },
+          { "name": "High", "color": "orange" },
+          { "name": "Medium", "color": "yellow" },
+          { "name": "Low", "color": "gray" }
+        ]
+      }
+    },
+    "Due Date": { "date": {} },
+    "Tags": {
+      "multi_select": {
+        "options": [
+          { "name": "Social Media", "color": "blue" },
+          { "name": "Content", "color": "green" },
+          { "name": "Strategy", "color": "purple" },
+          { "name": "Analytics", "color": "orange" }
+        ]
+      }
+    }
+  }
+}

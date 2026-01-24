@@ -1,0 +1,7 @@
+{
+  "always_include": ["product_ops", "engineering_delivery", "qa_gatekeeper"],
+  "include_platform_ops_if_contains": ["deploy", "hosting", "env", "secrets", "auth", "proxy", "dns", "ports", "pipeline", "ci", "build"],
+  "include_legal_ops_if_contains": ["contract", "nda", "terms", "privacy", "policy", "compliance", "liability"],
+  "include_finance_ops_if_contains": ["price", "stripe", "billing", "subscription", "revenue", "cost", "budget"],
+  "include_release_ops_if_contains": ["release", "deploy", "production", "ship"]
+}

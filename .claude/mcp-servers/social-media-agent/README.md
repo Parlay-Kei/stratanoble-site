@@ -167,6 +167,40 @@ User: "Auto-crosspost my Instagram reels to TikTok"
 Claude: Uses create_automation_rule with on_publish trigger
 ```
 
+## Video Content Creation with Remotion
+
+The Social Media Agent integrates with **Remotion MCP** for programmatic video creation. This enables AI-powered video generation for TikTok, Instagram Reels, YouTube Shorts, and other video content.
+
+### Remotion MCP Setup
+
+The Remotion MCP server provides documentation access to create videos programmatically:
+
+```json
+{
+  "mcpServers": {
+    "remotion-documentation": {
+      "command": "npx",
+      "args": ["@remotion/mcp@latest"]
+    }
+  }
+}
+```
+
+### Video Workflow
+
+1. **Generate script** using `generate_content` tool with `content_type: "video"` or `"reel"`
+2. **Query Remotion docs** via MCP for video composition code
+3. **Render video** using Remotion's programmatic rendering
+4. **Schedule post** using `create_content` with the rendered video URL
+
+### Supported Video Types
+
+| Platform | Content Type | Remotion Template |
+|----------|-------------|-------------------|
+| TikTok | video, short | VerticalVideo |
+| Instagram | reel, story | InstagramReel |
+| YouTube | video, short | YouTubeShort |
+
 ## Architecture
 
 ```

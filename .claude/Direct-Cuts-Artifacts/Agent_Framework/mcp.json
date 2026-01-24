@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "remotion-documentation": {
+      "command": "npx",
+      "args": ["@remotion/mcp@latest"]
+    },
     "claude-skills": {
       "command": "node",
       "args": [

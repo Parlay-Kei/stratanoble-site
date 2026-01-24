@@ -1,0 +1,10 @@
+{
+  "id": "eng-build-002",
+  "type": "build",
+  "agent": "engineering",
+  "params": {
+    "task": "build",
+    "modules": ["core", "api", "ui"],
+    "optimize": true
+  }
+}

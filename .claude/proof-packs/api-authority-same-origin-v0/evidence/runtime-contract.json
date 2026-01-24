@@ -1,0 +1,59 @@
+{
+    "health": {
+        "overall": "operational",
+        "api": "online",
+        "supervisor": "stopped",
+        "ui": "running",
+        "timestamp": "2026-01-23T23:32:52.337Z"
+    },
+    "api": {
+        "status": "online",
+        "last_seen": "2026-01-23T23:32:52.337Z",
+        "port": 5000,
+        "host": "127.0.0.1",
+        "uptime": 2417.6470781,
+        "pid": 28824
+    },
+    "supervisor": {
+        "status": "stopped",
+        "pid": 23608,
+        "started_at": "2026-01-23T17:23:54.002Z",
+        "last_update": "2026-01-23T20:53:00.565Z"
+    },
+    "ui": {
+        "status": "running",
+        "url": "http://127.0.0.1:3000/",
+        "port": 3000
+    },
+    "ports": {
+        "api": {
+            "expected": 5000,
+            "actual": 5000,
+            "conflict": false
+        },
+        "ui": {
+            "expected": 3000,
+            "actual": 3000,
+            "build_present": false
+        }
+    },
+    "context": {
+        "project_root": null,
+        "project_name": "Global",
+        "source": "implicit",
+        "working_directory": "C:\\Dev\\.claude-anx\\tools\\command-center\\api"
+    },
+    "runtime": {
+        "file_present": true,
+        "last_updated": "2026-01-23T20:53:00.565Z"
+    },
+    "urls": {
+        "api_url": "http://127.0.0.1:5000",
+        "control_url": "http://127.0.0.1:5001",
+        "ui_url": "http://127.0.0.1:3000/",
+        "health_endpoint": "http://127.0.0.1:5000/api/health"
+    },
+    "server_time": "2026-01-23T23:32:52.337Z",
+    "started_at": "2026-01-23T17:23:54.002Z",
+    "last_healthy_at": "2026-01-23T23:32:52.337Z"
+}
