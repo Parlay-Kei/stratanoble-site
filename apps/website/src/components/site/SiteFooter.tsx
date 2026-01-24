@@ -126,8 +126,28 @@ export function SiteFooter() {
           </div>
         </div>
 
+        {/* Chat Support Disclosure */}
+        <div className="mt-12 border-t border-white/10 pt-6">
+          <p className="text-xs leading-5 text-navy-500">
+            <strong className="text-navy-400">Chat Support:</strong> Our chat feature is powered by{' '}
+            <a
+              href="https://www.jotform.com/ai/agents/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-navy-400 hover:text-navy-300 underline"
+            >
+              Noupe
+            </a>
+            , a Jotform service. Chat conversations are processed by Jotform and delivered to
+            Strata Noble via email. Please avoid sharing sensitive personal information in chat.{' '}
+            <Link href="/privacy" className="text-navy-400 hover:text-navy-300 underline">
+              Privacy Policy
+            </Link>
+          </p>
+        </div>
+
         {/* Bottom section */}
-        <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
+        <div className="mt-8 border-t border-white/10 pt-8 sm:mt-12 lg:mt-16">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <p className="text-xs leading-5 text-navy-400">
               &copy; {new Date().getFullYear()} Strata Noble. All rights reserved.
