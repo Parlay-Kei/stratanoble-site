@@ -1,0 +1,31 @@
+{
+  "id": "CLIENT-DEL-2026-FAIL-001",
+  "title": "E-Commerce Checkout Enhancement - FAILING Example",
+  "solution_type": "CLIENT_DELIVERY",
+  "description": "Client delivery project missing required proof artifacts",
+  "owner": "Product Delivery Team",
+  "client": "Acme Corp",
+  "gates": [
+    "requirements-review",
+    "design-approval",
+    "security-review",
+    "qa-testing",
+    "client-acceptance",
+    "production-readiness"
+  ],
+  "approvers": [
+    "john.smith@company.com",
+    "client.rep@acmecorp.com"
+  ],
+  "timeline": {
+    "start": "2026-02-01",
+    "end": "2026-03-15"
+  },
+  "requiredReceipts": [
+    "REQUIREMENTS_APPROVAL.md",
+    "QA_TEST_REPORT.md",
+    "CLIENT_ACCEPTANCE.md",
+    "DEPLOYMENT_RECEIPT.md"
+  ],
+  "notes": "This mission should FAIL validation due to missing required proof artifacts"
+}

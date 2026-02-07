@@ -1,0 +1,230 @@
+{
+  "timestamp": "2026-01-30T21:48:07.640Z",
+  "mode": "apply",
+  "targeted": [
+    "anx-audit-control",
+    "CREA",
+    "anx-audit-test2",
+    "anx-audit-test3",
+    "anx-audit-test4",
+    "anx-audit-test5",
+    "anx-test-install"
+  ],
+  "processed": [
+    "anx-audit-control",
+    "CREA",
+    "anx-audit-test2",
+    "anx-audit-test3",
+    "anx-audit-test4",
+    "anx-audit-test5",
+    "anx-test-install"
+  ],
+  "succeeded": [
+    "anx-audit-control",
+    "CREA",
+    "anx-audit-test2",
+    "anx-audit-test3",
+    "anx-audit-test4",
+    "anx-audit-test5",
+    "anx-test-install"
+  ],
+  "failed": [],
+  "skipped": [],
+  "receipts": [
+    {
+      "repository": "anx-audit-control",
+      "path": "C:\\Dev\\anx-audit-control",
+      "timestamp": "2026-01-30T21:48:07.644Z",
+      "mode": "apply",
+      "actions": [
+        {
+          "action": "create-pointer",
+          "path": "C:\\Dev\\anx-audit-control\\ANX_ROOT.pointer",
+          "content": "../.claude-anx",
+          "success": true
+        },
+        {
+          "action": "verification",
+          "result": "Pointer correctly created and verified"
+        }
+      ],
+      "status": "SUCCESS",
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "warnings": []
+      },
+      "error": null
+    },
+    {
+      "repository": "CREA",
+      "path": "C:\\Dev\\CREA",
+      "timestamp": "2026-01-30T21:48:07.647Z",
+      "mode": "apply",
+      "actions": [
+        {
+          "action": "create-pointer",
+          "path": "C:\\Dev\\CREA\\ANX_ROOT.pointer",
+          "content": "../.claude-anx",
+          "success": true
+        },
+        {
+          "action": "verification",
+          "result": "Pointer correctly created and verified"
+        }
+      ],
+      "status": "SUCCESS",
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "warnings": [
+          "Not a git repository - version control unavailable"
+        ]
+      },
+      "error": null
+    },
+    {
+      "repository": "anx-audit-test2",
+      "path": "C:\\Dev\\anx-audit-test2",
+      "timestamp": "2026-01-30T21:48:07.649Z",
+      "mode": "apply",
+      "actions": [
+        {
+          "action": "create-pointer",
+          "path": "C:\\Dev\\anx-audit-test2\\ANX_ROOT.pointer",
+          "content": "../.claude-anx",
+          "success": true
+        },
+        {
+          "action": "verification",
+          "result": "Pointer correctly created and verified"
+        }
+      ],
+      "status": "SUCCESS",
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "warnings": [
+          "Not a git repository - version control unavailable"
+        ]
+      },
+      "error": null
+    },
+    {
+      "repository": "anx-audit-test3",
+      "path": "C:\\Dev\\anx-audit-test3",
+      "timestamp": "2026-01-30T21:48:07.650Z",
+      "mode": "apply",
+      "actions": [
+        {
+          "action": "create-pointer",
+          "path": "C:\\Dev\\anx-audit-test3\\ANX_ROOT.pointer",
+          "content": "../.claude-anx",
+          "success": true
+        },
+        {
+          "action": "verification",
+          "result": "Pointer correctly created and verified"
+        }
+      ],
+      "status": "SUCCESS",
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "warnings": [
+          "Not a git repository - version control unavailable"
+        ]
+      },
+      "error": null
+    },
+    {
+      "repository": "anx-audit-test4",
+      "path": "C:\\Dev\\anx-audit-test4",
+      "timestamp": "2026-01-30T21:48:07.652Z",
+      "mode": "apply",
+      "actions": [
+        {
+          "action": "create-pointer",
+          "path": "C:\\Dev\\anx-audit-test4\\ANX_ROOT.pointer",
+          "content": "../.claude-anx",
+          "success": true
+        },
+        {
+          "action": "verification",
+          "result": "Pointer correctly created and verified"
+        }
+      ],
+      "status": "SUCCESS",
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "warnings": [
+          "Not a git repository - version control unavailable"
+        ]
+      },
+      "error": null
+    },
+    {
+      "repository": "anx-audit-test5",
+      "path": "C:\\Dev\\anx-audit-test5",
+      "timestamp": "2026-01-30T21:48:07.654Z",
+      "mode": "apply",
+      "actions": [
+        {
+          "action": "create-pointer",
+          "path": "C:\\Dev\\anx-audit-test5\\ANX_ROOT.pointer",
+          "content": "../.claude-anx",
+          "success": true
+        },
+        {
+          "action": "verification",
+          "result": "Pointer correctly created and verified"
+        }
+      ],
+      "status": "SUCCESS",
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "warnings": [
+          "Not a git repository - version control unavailable"
+        ]
+      },
+      "error": null
+    },
+    {
+      "repository": "anx-test-install",
+      "path": "C:\\Dev\\anx-test-install",
+      "timestamp": "2026-01-30T21:48:07.655Z",
+      "mode": "apply",
+      "actions": [
+        {
+          "action": "create-pointer",
+          "path": "C:\\Dev\\anx-test-install\\ANX_ROOT.pointer",
+          "content": "../.claude-anx",
+          "success": true
+        },
+        {
+          "action": "verification",
+          "result": "Pointer correctly created and verified"
+        }
+      ],
+      "status": "SUCCESS",
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "warnings": [
+          "Not a git repository - version control unavailable"
+        ]
+      },
+      "error": null
+    }
+  ],
+  "rollbackPlans": [],
+  "summary": {
+    "total": 7,
+    "processed": 7,
+    "succeeded": 7,
+    "failed": 0,
+    "skipped": 0
+  }
+}

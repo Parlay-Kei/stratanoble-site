@@ -1,0 +1,24 @@
+{
+  "name": "@stratanoble/social-ops-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for LinkedIn and TikTok posting with Notion integration",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node smoke-test.js",
+    "dry-run": "DRY_RUN_MODE=true node index.js"
+  },
+  "keywords": ["mcp", "social-media", "linkedin", "tiktok", "notion", "automation"],
+  "author": "StrataNoble",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@notionhq/client": "^2.2.15",
+    "puppeteer": "^23.0.0",
+    "crypto": "^1.0.1",
+    "node-fetch": "^3.3.2",
+    "dotenv": "^16.4.7",
+    "fs-extra": "^11.2.0"
+  }
+}

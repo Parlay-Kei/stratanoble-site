@@ -1,0 +1,17 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-30T14:22:32.811Z"
+  },
+  {
+    "action": "no_stored_session",
+    "timestamp": "2026-01-30T14:22:33.074Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-30T14:22:43.278Z",
+    "data": {
+      "filename": "2026-01-30T14-22-43-189Z_session-not-logged-in.png"
+    }
+  }
+]

@@ -1,0 +1,210 @@
+name: Drift Detection
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - '**/.claude/**'
+      - '.claude/**'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - '**/.claude/**'
+      - '.claude/**'
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      full_scan:
+        description: 'Run full repository scan'
+        required: false
+        default: 'true'
+
+jobs:
+  drift-check:
+    name: .claude-anx Governance Check
+    runs-on: ubuntu-latest
+
+    # Skip if policy override is set
+    if: ${{ vars.DRIFT_CHECK_DISABLED != 'true' }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full history for diff analysis
+
+    - name: Check for drift override in commit
+      id: override_check
+      run: |
+        # Check if this is an emergency override
+        if git log -1 --pretty=%B | grep -q "DRIFT-EMERGENCY-OVERRIDE:"; then
+          echo "⚠️  Emergency override detected in commit message"
+          echo "override=true" >> $GITHUB_OUTPUT
+
+          # Verify required fields
+          if ! git log -1 --pretty=%B | grep -q "Approved-By:"; then
+            echo "❌ Emergency override missing Approved-By field"
+            exit 1
+          fi
+          if ! git log -1 --pretty=%B | grep -q "Ticket:"; then
+            echo "❌ Emergency override missing Ticket field"
+            exit 1
+          fi
+
+          echo "✅ Emergency override has required fields"
+        else
+          echo "override=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Check for --no-verify bypass
+      if: steps.override_check.outputs.override != 'true'
+      run: |
+        # Check if commit message contains DRIFT-OVERRIDE
+        if git log -1 --pretty=%B | grep -q "DRIFT-OVERRIDE:"; then
+          echo "⚠️  Pre-commit bypass detected (DRIFT-OVERRIDE in message)"
+          echo "   This will be logged for review."
+
+          # Log the bypass
+          echo "DRIFT_BYPASS_DETECTED=true" >> $GITHUB_ENV
+          echo "DRIFT_BYPASS_REASON=$(git log -1 --pretty=%B | grep 'DRIFT-OVERRIDE:' | head -1)" >> $GITHUB_ENV
+        fi
+
+    - name: Run drift detector on changed files
+      if: steps.override_check.outputs.override != 'true'
+      run: |
+        echo "=============================================="
+        echo "  Checking staged .claude/ files for violations"
+        echo "=============================================="
+
+        # Get changed files in .claude/ directories
+        CHANGED_CLAUDE_FILES=$(git diff --name-only ${{ github.event.before || 'HEAD~1' }} HEAD | grep -E '\.claude/' || true)
+
+        if [ -z "$CHANGED_CLAUDE_FILES" ]; then
+          echo "✅ No .claude/ files changed in this commit"
+          exit 0
+        fi
+
+        echo "Changed .claude/ files:"
+        echo "$CHANGED_CLAUDE_FILES"
+        echo ""
+
+        # Check for forbidden patterns
+        VIOLATIONS=""
+
+        while IFS= read -r file; do
+          # Check for agents/ directory files
+          if echo "$file" | grep -qE '\.claude/agents/.*\.md$'; then
+            # Check if it's a valid overlay stub
+            filename=$(basename "$file")
+            if [ "$filename" != "OVERLAY_STUB.md" ]; then
+              VIOLATIONS="$VIOLATIONS$file (DRIFT-014: Forbidden agent definition)\n"
+            elif [ -f "$file" ]; then
+              if ! grep -q "# Overlay Stub - DO NOT DEFINE AGENTS HERE" "$file"; then
+                VIOLATIONS="$VIOLATIONS$file (DRIFT-014: Invalid overlay stub - missing header)\n"
+              fi
+            fi
+          fi
+
+          # Check for forbidden root files
+          if echo "$file" | grep -qE '\.claude/ROSTER\.md$'; then
+            VIOLATIONS="$VIOLATIONS$file (DRIFT-010: Local ROSTER.md forbidden)\n"
+          fi
+
+          if echo "$file" | grep -qE '\.claude/INTAKE\.md$'; then
+            VIOLATIONS="$VIOLATIONS$file (DRIFT-011: Local INTAKE.md forbidden)\n"
+          fi
+
+          # Check for forbidden directories
+          if echo "$file" | grep -qE '\.claude/policies/.*\.md$'; then
+            VIOLATIONS="$VIOLATIONS$file (DRIFT-002: Local policies/ forbidden)\n"
+          fi
+
+          if echo "$file" | grep -qE '\.claude/gates/.*\.md$'; then
+            VIOLATIONS="$VIOLATIONS$file (DRIFT-003: Local gates/ forbidden)\n"
+          fi
+
+        done <<< "$CHANGED_CLAUDE_FILES"
+
+        if [ -n "$VIOLATIONS" ]; then
+          echo ""
+          echo "=============================================="
+          echo "  ❌ DRIFT DETECTION FAILED"
+          echo "=============================================="
+          echo -e "$VIOLATIONS"
+          echo ""
+          echo "Agent definitions must live in .claude-anx/agents/"
+          echo "See: docs/anx/GLOBAL_AUTHORITY_RULES.md"
+          echo ""
+          exit 1
+        fi
+
+        echo "✅ All .claude/ changes are compliant"
+
+    - name: Run full repository scan
+      if: github.event.inputs.full_scan == 'true' || github.event_name == 'workflow_dispatch'
+      run: |
+        echo "=============================================="
+        echo "  Full Repository Drift Scan"
+        echo "=============================================="
+
+        # Make drift detector executable
+        chmod +x ./scripts/drift/drift-detector.sh || true
+
+        # Run full scan if script exists
+        if [ -f "./scripts/drift/drift-detector.sh" ]; then
+          mkdir -p proofs/drift
+          bash ./scripts/drift/drift-detector.sh . ci proofs/drift
+        else
+          echo "Drift detector script not found, running inline check..."
+
+          # Check for any .claude/agents/ directories with .md files
+          AGENT_FILES=$(find . -path '*/.claude/agents/*.md' -not -path './node_modules/*' 2>/dev/null || true)
+
+          if [ -n "$AGENT_FILES" ]; then
+            echo "❌ Found forbidden agent files:"
+            echo "$AGENT_FILES"
+            exit 1
+          fi
+
+          echo "✅ No forbidden .claude/ files found"
+        fi
+
+    - name: Upload proof pack
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: drift-proof-pack-${{ github.sha }}
+        path: proofs/drift/
+        retention-days: 30
+
+    - name: Log bypass for review
+      if: env.DRIFT_BYPASS_DETECTED == 'true'
+      run: |
+        echo "=============================================="
+        echo "  ⚠️  PRE-COMMIT BYPASS LOGGED"
+        echo "=============================================="
+        echo "Commit: ${{ github.sha }}"
+        echo "Author: ${{ github.actor }}"
+        echo "Reason: ${{ env.DRIFT_BYPASS_REASON }}"
+        echo ""
+        echo "This bypass has been logged for review."
+        # In a production environment, this could post to Slack or create an issue
+
+  # Summary job for branch protection
+  drift-gate:
+    name: Drift Gate Status
+    runs-on: ubuntu-latest
+    needs: drift-check
+    if: always()
+    steps:
+    - name: Check drift detection result
+      run: |
+        if [ "${{ needs.drift-check.result }}" = "failure" ]; then
+          echo "❌ Drift detection failed - see drift-check job for details"
+          exit 1
+        elif [ "${{ needs.drift-check.result }}" = "skipped" ]; then
+          echo "⚠️  Drift check was skipped (policy override active)"
+          # Don't fail - this is an intentional skip
+        else
+          echo "✅ Drift detection passed"
+        fi

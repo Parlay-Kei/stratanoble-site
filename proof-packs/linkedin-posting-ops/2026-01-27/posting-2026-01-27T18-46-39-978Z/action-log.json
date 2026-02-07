@@ -1,0 +1,32 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T18:46:39.979Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T18:46:40.481Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T18:47:04.687Z",
+    "data": {
+      "filename": "2026-01-27T18-46-59-719Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T18:47:04.688Z"
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-27T18:47:05.231Z"
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-27T18:47:05.642Z"
+  }
+]

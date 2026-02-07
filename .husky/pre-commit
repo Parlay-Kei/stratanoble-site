@@ -6,6 +6,24 @@
 
 echo "🚀 Running Strata Noble pre-commit checks..."
 
+# =============================================================================
+# DRIFT GUARD: .claude-anx Governance Enforcement
+# =============================================================================
+# This check runs FIRST to catch forbidden .claude/ files before any other checks.
+# Override with: git commit --no-verify -m "DRIFT-OVERRIDE: [justification]"
+# =============================================================================
+
+echo "🛡️  Running drift guard..."
+if [ -f "./scripts/drift/drift-guard.sh" ]; then
+    sh ./scripts/drift/drift-guard.sh || {
+        echo "❌ Drift guard blocked commit. See above for details."
+        echo "   Override: git commit --no-verify -m \"DRIFT-OVERRIDE: [reason]\""
+        exit 1
+    }
+else
+    echo "⚠️  Drift guard script not found, skipping..."
+fi
+
 # Run pre-push validation (includes type check, lint, tests)
 echo "📝 Running validation checks..."
 npm run validate || {

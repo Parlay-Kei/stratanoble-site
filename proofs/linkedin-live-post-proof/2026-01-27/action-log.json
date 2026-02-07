@@ -1,0 +1,122 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T19:44:29.392Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T19:44:29.643Z"
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T19:44:45.079Z"
+  },
+  {
+    "action": "identity_verified",
+    "timestamp": "2026-01-27T19:44:57.825Z",
+    "data": {
+      "expected": "steve-hubbard-3869133a3",
+      "actual": "mr-steve-hubbard",
+      "name": "",
+      "matched": false
+    }
+  },
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T19:45:43.611Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T19:45:43.851Z"
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T19:45:58.703Z"
+  },
+  {
+    "action": "identity_verified",
+    "timestamp": "2026-01-27T19:46:05.976Z",
+    "data": {
+      "expected": "mr-steve-hubbard",
+      "actual": "mr-steve-hubbard",
+      "name": "",
+      "matched": true
+    }
+  },
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T19:47:56.511Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T19:47:56.771Z"
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T19:48:12.528Z"
+  },
+  {
+    "action": "identity_verified",
+    "timestamp": "2026-01-27T19:48:20.828Z",
+    "data": {
+      "expected": "mr-steve-hubbard",
+      "actual": "mr-steve-hubbard",
+      "name": "",
+      "matched": true
+    }
+  },
+  {
+    "action": "post_verified",
+    "timestamp": "2026-01-27T19:48:52.668Z",
+    "data": {
+      "postUrl": "",
+      "authorSlug": "mr-steve-hubbard",
+      "foundOnFeed": true,
+      "permalinkLoads": true
+    }
+  },
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T20:39:30.447Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T20:39:30.644Z"
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T20:39:49.152Z"
+  },
+  {
+    "action": "identity_verified",
+    "timestamp": "2026-01-27T20:39:56.836Z",
+    "data": {
+      "expected": "mr-steve-hubbard",
+      "actual": "mr-steve-hubbard",
+      "name": "",
+      "matched": true
+    }
+  },
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T20:41:18.317Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T20:41:18.517Z"
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T20:41:38.925Z"
+  },
+  {
+    "action": "identity_verified",
+    "timestamp": "2026-01-27T20:41:46.335Z",
+    "data": {
+      "expected": "mr-steve-hubbard",
+      "actual": "mr-steve-hubbard",
+      "name": "",
+      "matched": true
+    }
+  }
+]

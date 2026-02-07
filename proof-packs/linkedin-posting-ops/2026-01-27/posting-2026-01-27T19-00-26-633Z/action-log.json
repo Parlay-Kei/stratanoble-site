@@ -1,0 +1,62 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T19:00:26.634Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T19:00:26.893Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T19:00:41.990Z",
+    "data": {
+      "filename": "2026-01-27T19-00-39-647Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T19:00:41.992Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T19:01:22.732Z",
+    "data": {
+      "filename": "2026-01-27T19-01-22-137Z_publish-before-post-2f213b42.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T19:01:32.508Z",
+    "data": {
+      "filename": "2026-01-27T19-01-32-211Z_publish-after-post-2f213b42.png"
+    }
+  },
+  {
+    "action": "publish_receipt_generated",
+    "timestamp": "2026-01-27T19:01:37.025Z",
+    "data": {
+      "postId": "post-2f213b42"
+    }
+  },
+  {
+    "action": "post_published",
+    "timestamp": "2026-01-27T19:01:37.026Z",
+    "data": {
+      "postId": "post-2f213b42",
+      "title": "P01 - Why Automation Fails in Serious Businesses",
+      "url": ""
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-27T19:01:37.323Z"
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-27T19:01:37.679Z"
+  }
+]

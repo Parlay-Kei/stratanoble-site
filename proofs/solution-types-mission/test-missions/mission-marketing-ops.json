@@ -1,0 +1,41 @@
+{
+  "id": "MKT-OPS-2026-003",
+  "title": "Q1 2026 Social Media Campaign Automation",
+  "solution_type": "MARKETING_OPS",
+  "description": "Automate posting of Q1 marketing campaign across LinkedIn, Twitter, and Instagram",
+  "owner": "Marketing Operations",
+  "gates": [
+    "brand-review",
+    "content-approval",
+    "compliance-check",
+    "schedule-coordination"
+  ],
+  "shortcuts": [
+    "pre-approved-templates",
+    "automated-posting"
+  ],
+  "approvers": [
+    "brand.manager@stratanoble.com"
+  ],
+  "campaign": {
+    "name": "Innovation Leaders 2026",
+    "channels": ["LinkedIn", "Twitter", "Instagram"],
+    "frequency": "3 posts per week",
+    "duration": "12 weeks"
+  },
+  "contentTemplates": [
+    "thought-leadership",
+    "product-showcase",
+    "client-success-story"
+  ],
+  "requiredReceipts": [
+    "BRAND_APPROVAL.md",
+    "CONTENT_REVIEW.md",
+    "CAMPAIGN_METRICS.md"
+  ],
+  "successMetrics": {
+    "engagement": "15% increase",
+    "reach": "50,000 impressions",
+    "leads": "200 qualified leads"
+  }
+}

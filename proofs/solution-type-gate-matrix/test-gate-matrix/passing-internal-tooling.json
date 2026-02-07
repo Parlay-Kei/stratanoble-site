@@ -1,0 +1,25 @@
+{
+  "id": "INTERNAL-TOOL-2026-PASS-001",
+  "title": "Automated Code Review Bot - PASSING Example",
+  "solution_type": "INTERNAL_TOOLING",
+  "description": "Internal tool for automated code review - example with all required proofs",
+  "owner": "Platform Engineering",
+  "gates": [
+    "technical-review",
+    "integration-testing",
+    "documentation"
+  ],
+  "approvers": [
+    "tech.lead@company.com"
+  ],
+  "timeline": {
+    "start": "2026-02-01",
+    "end": "2026-02-20"
+  },
+  "requiredReceipts": [
+    "TECHNICAL_DESIGN.md",
+    "INTEGRATION_TEST.md",
+    "USER_GUIDE.md"
+  ],
+  "notes": "This mission should PASS validation as all required proofs are provided"
+}

@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANX Governance Architecture v4 - Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .header .governance {
+            color: #10b981;
+            font-size: 0.9rem;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .bootstrap-banner {
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .bootstrap-banner h3 {
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+
+        .bootstrap-banner p {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .bootstrap-banner code {
+            background: rgba(16, 185, 129, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #10b981;
+        }
+
+        .governance-files {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .gov-file {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid #10b981;
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gov-file:hover {
+            background: rgba(16, 185, 129, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .gov-file-name {
+            font-weight: bold;
+            color: #10b981;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .gov-file-desc {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .stat-value.agents { color: #7c3aed; }
+        .stat-value.skills { color: #00d4ff; }
+        .stat-value.services { color: #f59e0b; }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .org-container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .tier {
+            margin-bottom: 40px;
+        }
+
+        .tier-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tier-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .tier-desc {
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection-header {
+            font-size: 1.2rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .agent-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+            border-color: #7c3aed;
+        }
+
+        .agent-card.active {
+            border-color: #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .agent-card.active::before {
+            content: '✓ ACTIVE';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #10b981;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .agent-card.pm-card {
+            border-color: rgba(168, 85, 247, 0.5);
+            background: rgba(168, 85, 247, 0.05);
+        }
+
+        .agent-card.pm-card:hover {
+            border-color: #a855f7;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+        }
+
+        .agent-card.agent {
+            border-color: rgba(124, 58, 237, 0.5);
+        }
+
+        .agent-card.skill {
+            border-color: rgba(0, 212, 255, 0.3);
+            background: rgba(0, 212, 255, 0.03);
+        }
+
+        .agent-card.skill:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .agent-card.service {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.03);
+        }
+
+        .agent-card.service:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .agent-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .agent-label {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .agent-label.A {
+            background: #7c3aed;
+            color: #fff;
+        }
+
+        .agent-label.PM {
+            background: #a855f7;
+            color: #fff;
+        }
+
+        .agent-label.S {
+            background: #00d4ff;
+            color: #000;
+        }
+
+        .agent-label.V {
+            background: #f59e0b;
+            color: #000;
+        }
+
+        .agent-owner {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .agent-desc {
+            font-size: 0.85rem;
+            color: #ccc;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .agent-kpi {
+            font-size: 0.75rem;
+            color: #10b981;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .ba-badge {
+            display: inline-block;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid #a855f7;
+            color: #a855f7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 8px;
+        }
+
+        .click-hint {
+            font-size: 0.7rem;
+            color: #00d4ff;
+            text-align: center;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #7c3aed;
+            border-radius: 16px;
+            max-width: 900px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 35px;
+            position: relative;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .modal-content.pm-modal {
+            border-color: #a855f7;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2.5rem;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .modal-header {
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(124, 58, 237, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 2.2rem;
+            color: #7c3aed;
+            margin-bottom: 10px;
+        }
+
+        .modal-title.pm-title {
+            color: #a855f7;
+        }
+
+        .modal-subtitle {
+            font-size: 0.95rem;
+            color: #888;
+        }
+
+        .modal-section {
+            margin-bottom: 30px;
+        }
+
+        .modal-section-title {
+            font-size: 1.4rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: #00d4ff;
+            border-radius: 2px;
+        }
+
+        .modal-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .modal-list li {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid #10b981;
+            border-radius: 6px;
+            line-height: 1.6;
+        }
+
+        .modal-list li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .modal-list li.boundary {
+            border-left-color: #f59e0b;
+        }
+
+        .modal-list li.boundary::before {
+            content: '✗';
+            color: #f59e0b;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .modal-badge {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid #00d4ff;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-badge:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .modal-kpi-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid #10b981;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-kpi-title {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .modal-authority-box {
+            background: rgba(124, 58, 237, 0.1);
+            border: 2px solid #7c3aed;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-authority-box.pm-authority {
+            border-color: #a855f7;
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        .modal-authority-title {
+            color: #7c3aed;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .modal-authority-title.pm-authority-title {
+            color: #a855f7;
+        }
+
+        .boundary-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .boundary-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .boundary-box h4 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+        }
+
+        .boundary-box.pm h4 {
+            color: #a855f7;
+            border-color: #a855f7;
+        }
+
+        .boundary-box.other h4 {
+            color: #00d4ff;
+            border-color: #00d4ff;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .legend-badge {
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .promotion-rule {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 40px auto;
+            max-width: 900px;
+        }
+
+        .promotion-rule h3 {
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+
+        .promotion-rule ol {
+            margin: 15px 0 15px 25px;
+            line-height: 1.8;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            color: #666;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer p {
+            margin: 8px 0;
+        }
+
+        /* Scrollbar styling for modal */
+        .modal-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #7c3aed;
+            border-radius: 5px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #9d5dff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>ANX Governance Architecture v4</h1>
+        <div class="subtitle">Interactive System with Detailed Role Information</div>
+        <div class="governance">🔒 Click any card for full details</div>
+    </div>
+
+    <div class="bootstrap-banner">
+        <h3>🔐 Global Bootstrap Contract Active</h3>
+        <p>All missions governed by <code>ANX_ROOT</code> canonical sources. No local overrides permitted.</p>
+        <p style="margin-top: 10px;">Resolution: <code>$env:ANX_ROOT</code> → <code>.anx-root</code> → <code>C:\Dev\.claude-anx</code></p>
+    </div>
+
+    <div class="governance-files">
+        <div class="gov-file">
+            <div class="gov-file-name">ROSTER.md</div>
+            <div class="gov-file-desc">Agent/Skill/Service Matrix</div>
+        </div>
+        <div class="gov-file">
+            <div class="gov-file-name">INTAKE.md</div>
+            <div class="gov-file-desc">Work Routing Rules</div>
+        </div>
+        <div class="gov-file">
+            <div class="gov-file-name">ANX_BOOTSTRAP_CONTRACT.md</div>
+            <div class="gov-file-desc">Root Invariant</div>
+        </div>
+        <div class="gov-file">
+            <div class="gov-file-name">ROOT_INVARIANT_GATE.md</div>
+            <div class="gov-file-desc">Override Prevention</div>
+        </div>
+        <div class="gov-file">
+            <div class="gov-file-name">CADENCE.md</div>
+            <div class="gov-file-desc">Meeting Rhythms</div>
+        </div>
+        <div class="gov-file">
+            <div class="gov-file-name">RECEIPTS.md</div>
+            <div class="gov-file-desc">Proof Requirements</div>
+        </div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-value agents">10</div>
+            <div class="stat-label">Agents (A)</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value agents" style="color: #10b981;">7</div>
+            <div class="stat-label">Active Agentic</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value skills">31</div>
+            <div class="stat-label">Skills (S)</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value services">14</div>
+            <div class="stat-label">Services (V)</div>
+        </div>
+    </div>
+
+    <div class="org-container">
+        <!-- TIER 1: AGENTS -->
+        <div class="tier">
+            <div class="tier-header">
+                <div class="tier-title">TIER 1: Agents (A)</div>
+                <div class="tier-desc">Autonomous decision-makers with KPIs, escalation paths, and authority</div>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-header">Core System Agents</div>
+                <div class="agents-grid">
+                    <div class="agent-card agent" onclick="showDetails('ocs')">
+                        <div class="agent-header">
+                            <div class="agent-name">OCS (Orchestrator)</div>
+                            <div class="agent-label A">A1</div>
+                        </div>
+                        <div class="agent-owner">Owner: Steve</div>
+                        <div class="agent-desc">Turn direction into plans, delegate, enforce cadence. Single front door. Routes requirements to PM.</div>
+                        <div class="agent-kpi">KPIs: Ticket velocity, SLA compliance</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+
+                    <div class="agent-card agent" onclick="showDetails('qa')">
+                        <div class="agent-header">
+                            <div class="agent-name">QA Gatekeeper</div>
+                            <div class="agent-label A">A2</div>
+                        </div>
+                        <div class="agent-owner">Owner: Steve</div>
+                        <div class="agent-desc">Acceptance authority, quality gates, proof standards.</div>
+                        <div class="agent-kpi">KPIs: Deploy success rate, bug escape rate</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+
+                    <div class="agent-card agent" onclick="showDetails('cfo')">
+                        <div class="agent-header">
+                            <div class="agent-name">CFO Agent</div>
+                            <div class="agent-label A">A3</div>
+                        </div>
+                        <div class="agent-owner">Owner: Steve</div>
+                        <div class="agent-desc">Pricing, runway, money policy, unit economics.</div>
+                        <div class="agent-kpi">KPIs: Burn rate, runway months, margin %</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+
+                    <div class="agent-card agent" onclick="showDetails('legal')">
+                        <div class="agent-header">
+                            <div class="agent-name">Legal Ops Lead</div>
+                            <div class="agent-label A">A4</div>
+                        </div>
+                        <div class="agent-owner">Owner: Steve</div>
+                        <div class="agent-desc">Contract ops, risk flags, compliance decisions.</div>
+                        <div class="agent-kpi">KPIs: Contract TAT, compliance score</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-header">Executive Agents</div>
+                <div class="agents-grid">
+                    <div class="agent-card pm-card" onclick="showDetails('pm')">
+                        <div class="agent-header">
+                            <div class="agent-name">Project Manager<span class="ba-badge">+BA</span></div>
+                            <div class="agent-label PM">A9</div>
+                        </div>
+                        <div class="agent-owner">Owner: Steve • Requirements Owner</div>
+                        <div class="agent-desc">Project management with embedded BA capability. Default owner for requirements clarification and operator documentation.</div>
+                        <div class="agent-kpi">KPIs: Requirements clarity, doc completeness, stakeholder satisfaction</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+
+                    <div class="agent-card agent" onclick="showDetails('product')">
+                        <div class="agent-header">
+                            <div class="agent-name">Product Lead</div>
+                            <div class="agent-label A">A5</div>
+                        </div>
+                        <div class="agent-owner">Owner: Steve</div>
+                        <div class="agent-desc">Roadmap, priorities, what gets built and why. PM executes within this vision.</div>
+                        <div class="agent-kpi">KPIs: Feature delivery, adoption rate</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+
+                    <div class="agent-card agent" onclick="showDetails('growth')">
+                        <div class="agent-header">
+                            <div class="agent-name">Growth Lead</div>
+                            <div class="agent-label A">A6</div>
+                        </div>
+                        <div class="agent-owner">Owner: Steve</div>
+                        <div class="agent-desc">Acquisition, activation, retention strategy.</div>
+                        <div class="agent-kpi">KPIs: CAC, LTV, conversion rates</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+
+                    <div class="agent-card agent active" onclick="showDetails('cto')">
+                        <div class="agent-header">
+                            <div class="agent-name">Platform Ops CTO</div>
+                            <div class="agent-label A">A7</div>
+                        </div>
+                        <div class="agent-owner">Owner: Steve • Tier 1 Executive</div>
+                        <div class="agent-desc">✓ FULLY AGENTIC - Auto-routes ENGINEERING missions, manages V1-V8, delegates to A7B.</div>
+                        <div class="agent-kpi">KPIs: Deploy velocity, uptime 99.9%, automation >90%</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+
+                    <div class="agent-card agent" onclick="showDetails('dcgm')">
+                        <div class="agent-header">
+                            <div class="agent-name">Direct Cuts GM</div>
+                            <div class="agent-label A">A8</div>
+                        </div>
+                        <div class="agent-owner">Owner: Steve</div>
+                        <div class="agent-desc">Venture P&L, growth, operational execution.</div>
+                        <div class="agent-kpi">KPIs: Revenue, retention, unit economics</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+
+                    <div class="agent-card agent active" onclick="showDetails('engineer')">
+                        <div class="agent-header">
+                            <div class="agent-name">Staff Software Engineer</div>
+                            <div class="agent-label A">A7B</div>
+                        </div>
+                        <div class="agent-owner">Reports to: CTO (A7)</div>
+                        <div class="agent-desc">Semi-agentic execution arm. Implements technical decisions with automation.</div>
+                        <div class="agent-kpi">KPIs: Story points, code quality, delivery</div>
+                        <div class="click-hint">Click for full details →</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="detailsModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-badge" style="background: #7c3aed; color: #fff;">A</div>
+            <span>Agent - Owns outcome, runs on cadence</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-badge" style="background: #a855f7; color: #fff;">PM</div>
+            <span>Project Manager with BA Capability</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-badge" style="background: #00d4ff; color: #000;">S</div>
+            <span>Skill - Playbook owned by Agent</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-badge" style="background: #f59e0b; color: #000;">V</div>
+            <span>Service - Integration/system with runbook</span>
+        </div>
+    </div>
+
+    <div class="promotion-rule">
+        <h3>🔒 Root Invariant Guarantee</h3>
+        <p>Running the <strong>same mission</strong> from <strong>any repo root</strong>:</p>
+        <ol>
+            <li>Resolves to the <strong>SAME ANX_ROOT</strong></li>
+            <li>Loads the <strong>SAME agent roster</strong> (including PM with BA)</li>
+            <li>Applies the <strong>SAME gates</strong></li>
+            <li>Uses the <strong>SAME routing rules</strong> (PM owns requirements)</li>
+        </ol>
+        <p style="margin-top: 15px; font-style: italic;">No local project can override ROSTER.md or INTAKE.md. Violations cause HARD FAIL.</p>
+    </div>
+
+    <div class="footer">
+        <p><strong>ANX Agent Governance Architecture v4.0</strong></p>
+        <p>Governed by: ROSTER.md • INTAKE.md • ANX_BOOTSTRAP_CONTRACT.md • ROOT_INVARIANT_GATE.md</p>
+        <p style="margin-top: 10px;">10 Agents (7 Fully Agentic) + 31 Skills + 14 Services = Clear Accountability</p>
+        <p style="margin-top: 10px; color: #a855f7;">★ PM (A9) with BA Capability - Requirements & Operator Docs Owner</p>
+        <p style="margin-top: 5px; color: #10b981;">✓ A7 (CTO) & A7B (Engineer) - Fully Activated with Auto-Routing</p>
+        <p style="margin-top: 5px; color: #10b981;">Single Front Door → OCS → Route to PM (reqs) or ENGDEL (impl) → Proof → Done</p>
+    </div>
+
+    <script>
+        const agentDetails = {
+            ocs: {
+                title: 'OCS (Orchestrator Chief of Staff)',
+                subtitle: 'A1 • System Agent • Owner: Steve',
+                isPM: false,
+                responsibilities: [
+                    'Turn strategic direction into actionable plans',
+                    'Route all incoming work through single front door (INTAKE.md)',
+                    'Route requirements clarification to PM (A9) by default',
+                    'Route technical implementation to ENGDEL by default',
+                    'Delegate work to appropriate department owners',
+                    'Enforce cadence and meeting rhythms per CADENCE.md',
+                    'Enforce ROOT_INVARIANT_GATE at session start',
+                    'Track SLAs and escalate overdue items to Steve',
+                    'Generate weekly Ship Report for Friday reviews'
+                ],
+                tasks: [
+                    'Review daily intake queue and classify all requests',
+                    'Route tickets to agents based on INTAKE.md routing rules',
+                    'Route requirements/docs work to PM (A9)',
+                    'Monitor SLA compliance across all departments',
+                    'Prepare weekly Ship Report summarizing progress',
+                    'Escalate P0/P1 issues to Steve immediately',
+                    'Verify ROOT_INVARIANT_GATE passes before mission execution'
+                ],
+                skills: [
+                    'S1: Work Intake & Triage',
+                    'S2: Tasks Breakdown',
+                    'S3: Policy & Approval Matrix',
+                    'S5: Proof Pack Librarian',
+                    'Browser Operator (automation)'
+                ],
+                authority: [
+                    'Route work to any agent without approval',
+                    'Route requirements to PM by default (INTAKE.md)',
+                    'Escalate overdue items directly to Steve',
+                    'Request clarification from work requestors',
+                    'Reject incomplete work requests',
+                    'Enforce ROOT_INVARIANT_GATE (hard fail on violations)'
+                ],
+                escalation: [
+                    'P0 incidents → Immediately to Steve',
+                    'SLA breach >2 days → Daily reminder to Steve',
+                    'Cross-agent conflicts → Escalate to Steve for decision',
+                    'ROOT_INVARIANT_GATE violation → Hard fail, notify Steve'
+                ],
+                kpis: 'Ticket velocity (avg 5 days), SLA compliance (>95%), escalation rate (<5%), proof pack completeness (100%)'
+            },
+            pm: {
+                title: 'Project Manager (with Business Analyst Capability)',
+                subtitle: 'A9 • Requirements Owner • Owner: Steve',
+                isPM: true,
+                responsibilities: [
+                    'OWN requirements gathering and clarification (BA function)',
+                    'OWN user story creation and acceptance criteria',
+                    'OWN operator documentation (how-to guides, FAQs, runbooks)',
+                    'Process mapping and business workflow documentation',
+                    'Stakeholder communication and status reports',
+                    'Gap analysis to identify missing requirements',
+                    'Translate technical concepts for business stakeholders',
+                    'Project timeline tracking and reporting'
+                ],
+                tasks: [
+                    'Clarify requirements when routed from OCS',
+                    'Create user stories with acceptance criteria',
+                    'Write operator documentation and how-to guides',
+                    'Prepare stakeholder status reports',
+                    'Document business processes and workflows',
+                    'Hand off complete requirements to ENGDEL',
+                    'Validate acceptance criteria with QAG'
+                ],
+                skills: [
+                    'Requirements Elicitation',
+                    'User Story Creation',
+                    'Acceptance Criteria Definition',
+                    'Operator Documentation',
+                    'Process Mapping',
+                    'Stakeholder Communication'
+                ],
+                boundaries: {
+                    pm: [
+                        'Requirements gathering - OWNS',
+                        'User story creation - OWNS',
+                        'Acceptance criteria - OWNS',
+                        'Operator documentation - OWNS',
+                        'Stakeholder reports - OWNS'
+                    ],
+                    productLead: [
+                        'Product vision - Product Lead OWNS',
+                        'Roadmap prioritization - Product Lead OWNS',
+                        'Feature definition - Product Lead OWNS',
+                        'Strategic direction - Product Lead OWNS'
+                    ],
+                    ocs: [
+                        'Governance decisions - OCS OWNS',
+                        'Agent routing - OCS OWNS',
+                        'Mission coordination - OCS OWNS'
+                    ]
+                },
+                authority: [
+                    'Define acceptance criteria (within product scope)',
+                    'Create and maintain operator documentation',
+                    'Clarify requirements with stakeholders',
+                    'Report project status to stakeholders',
+                    'Identify and document gaps in requirements'
+                ],
+                cannotDo: [
+                    'Define product vision (Product Lead)',
+                    'Make governance decisions (OCS)',
+                    'Approve architecture (Tech Lead)',
+                    'Set roadmap priorities (Product Lead)'
+                ],
+                escalation: [
+                    'Unclear product direction → Escalate to Product Lead',
+                    'Governance questions → Escalate to OCS',
+                    'Technical feasibility questions → Escalate to ENGDEL/CTO',
+                    'Stakeholder conflicts → Escalate to Steve'
+                ],
+                kpis: 'Requirements clarity (>95% first pass), Doc completeness (100%), Stakeholder satisfaction (>4.5/5), Handoff success rate (>90%)'
+            },
+            qa: {
+                title: 'QA Gatekeeper',
+                subtitle: 'A2 • System Agent • Owner: Steve',
+                isPM: false,
+                responsibilities: [
+                    'Final acceptance authority for all production deployments',
+                    'Define and enforce quality gates for features',
+                    'Review test plans and acceptance criteria (from PM)',
+                    'Maintain QA standards and testing processes',
+                    'Track bug escape rate and deploy success metrics',
+                    'Approve or reject production releases',
+                    'Generate monthly quality audit reports',
+                    'Coordinate with CTO on quality standards'
+                ],
+                tasks: [
+                    'Review all deploy requests before production release',
+                    'Validate against PM-defined acceptance criteria',
+                    'Verify test coverage meets minimum standards (>80%)',
+                    'Execute smoke tests on staging environments',
+                    'Sign off on major feature releases with checklist',
+                    'Track and categorize post-deploy bugs by severity'
+                ],
+                skills: [
+                    'S6: Test Spec (test planning)',
+                    'S7: Judge Spec (pass/fail criteria)'
+                ],
+                services: [
+                    'V9: Quality Auditor (audit system)',
+                    'V10: QA Automation (test harness)'
+                ],
+                authority: [
+                    'Approve or reject ANY production deployment',
+                    'Define quality gates for new features',
+                    'Validate against PM acceptance criteria',
+                    'Escalate quality issues to CTO',
+                    'Require additional testing if standards not met',
+                    'Rollback production deployments if critical bugs found'
+                ],
+                escalation: [
+                    'Critical bugs in production → Immediately to CTO',
+                    'Acceptance criteria unclear → Back to PM for clarification',
+                    'Test coverage <80% → Block deploy and escalate to CTO',
+                    'Quality gate disputes → Escalate to Steve'
+                ],
+                kpis: 'Deploy success rate (>98%), bug escape rate (<2%), test coverage (>80%), rollback rate (<1%)'
+            },
+            cfo: {
+                title: 'CFO Agent',
+                subtitle: 'A3 • System Agent • Owner: Steve',
+                isPM: false,
+                responsibilities: [
+                    'Manage pricing strategy and unit economics across ventures',
+                    'Track burn rate and runway projections',
+                    'Approve vendor contracts and operational expenses',
+                    'Maintain financial policies per CFO-POLICY.md',
+                    'Generate monthly P&L and financial reports',
+                    'Monitor CAC/LTV ratios for all ventures'
+                ],
+                tasks: [
+                    'Review and categorize all transactions weekly',
+                    'Auto-approve expenses <$500 within budget',
+                    'Escalate expenses >$5K to Steve for approval',
+                    'Reconcile books and close month-end',
+                    'Generate P&L, burn rate, and runway reports'
+                ],
+                skills: [
+                    'S8: Bookkeeper (transaction categorization)',
+                    'S9: Vendor & Procurement (contract negotiation)',
+                    'S10: Payments Compliance (tax, payroll)'
+                ],
+                authority: [
+                    'Approve expenses <$5K (within budget)',
+                    'Cancel subscriptions <$500/month',
+                    'Negotiate vendor pricing and terms',
+                    'Set payment terms for contractors',
+                    'Escalate financial risks to Steve'
+                ],
+                escalation: [
+                    'Runway <6 months → Immediately to Steve',
+                    'Expenses exceeding budget by >20% → Weekly to Steve',
+                    'Vendor contract >$50K → Requires Steve approval'
+                ],
+                kpis: 'Burn rate ($X/mo), runway (X months), margin % (>40%), vendor cost reduction (>10%/year)'
+            },
+            legal: {
+                title: 'Legal Ops Lead',
+                subtitle: 'A4 • System Agent • Owner: Steve',
+                isPM: false,
+                responsibilities: [
+                    'Review and approve all contracts and agreements',
+                    'Flag legal and compliance risks proactively',
+                    'Maintain privacy policies (GDPR, CCPA compliance)',
+                    'Track entity structure and cap table',
+                    'Handle DSRs (data subject requests) within SLA'
+                ],
+                tasks: [
+                    'Review all contracts >$50K before signature',
+                    'Auto-approve standard NDAs using template',
+                    'Flag IP ownership or liability concerns',
+                    'Process DSRs within 30-day SLA',
+                    'Maintain consent logs and privacy documentation'
+                ],
+                skills: [
+                    'S11: Privacy & Consent (GDPR/CCPA) [planned]',
+                    'S12: Entity & Cap Table [planned]'
+                ],
+                authority: [
+                    'Approve contracts <$50K (standard terms)',
+                    'Reject contracts with unacceptable liability',
+                    'Escalate litigation threats to Steve',
+                    'Update privacy policies for minor changes',
+                    'Process and respond to all DSRs'
+                ],
+                escalation: [
+                    'Litigation threat → Immediately to Steve',
+                    'Contract >$50K → Requires Steve approval',
+                    'Non-standard liability terms → Escalate to Steve'
+                ],
+                kpis: 'Contract TAT (<5 days), compliance score (100%), DSR completion (<30 days)'
+            },
+            product: {
+                title: 'Product Lead',
+                subtitle: 'A5 • Executive Agent • Owner: Steve',
+                isPM: false,
+                responsibilities: [
+                    'Own product roadmap and strategic prioritization',
+                    'Define what gets built and why (PM executes within this)',
+                    'Gather and synthesize user feedback from support',
+                    'Create requirements and design specifications',
+                    'Make trade-off decisions on feature scope',
+                    'Track feature adoption and usage metrics'
+                ],
+                tasks: [
+                    'Maintain prioritized product backlog (quarterly planning)',
+                    'Approve PM-created requirements and user stories',
+                    'Write detailed requirements specs for new features',
+                    'Review design mocks and prototypes with CTO',
+                    'Analyze feature usage metrics weekly',
+                    'Present roadmap updates bi-weekly to Steve'
+                ],
+                skills: [
+                    'S13: Requirements Spec',
+                    'S14: Design Spec',
+                    'S15: UI/UX Design',
+                    'S16: Customer Journey Mapping'
+                ],
+                authority: [
+                    'Prioritize product backlog without approval',
+                    'Approve feature specifications',
+                    'Approve PM-created user stories and acceptance criteria',
+                    'Cut features from scope to hit deadlines',
+                    'Approve minor UI/UX changes',
+                    'Set product vision (PM executes within this)'
+                ],
+                escalation: [
+                    'Major feature pivot → Requires Steve approval',
+                    'Features exceeding budget by >50% → Escalate to Steve',
+                    'Strategic product direction changes → Escalate to Steve'
+                ],
+                kpis: 'Feature delivery (on time >80%), adoption rate (>60% within 30 days), user satisfaction (>4.2/5)'
+            },
+            growth: {
+                title: 'Growth Lead',
+                subtitle: 'A6 • Executive Agent • Owner: Steve',
+                isPM: false,
+                responsibilities: [
+                    'Own acquisition, activation, and retention strategies',
+                    'Execute marketing campaigns across all channels',
+                    'Manage sales operations and outbound sequences',
+                    'Create content and manage brand consistency',
+                    'Track and optimize conversion funnels'
+                ],
+                tasks: [
+                    'Launch weekly marketing campaigns (email, social, ads)',
+                    'Execute outbound sales sequences to target accounts',
+                    'Repurpose content across multiple channels',
+                    'Monitor campaign performance daily (CAC, conversions)',
+                    'Optimize landing pages for conversion using A/B tests'
+                ],
+                skills: [
+                    'S17: Sales Operations',
+                    'S18: Marketing Operations',
+                    'S19: Content Engine',
+                    'S20: Brand Guardian',
+                    'S21: Ambassador Program',
+                    'S22: Geofencing Marketing'
+                ],
+                authority: [
+                    'Approve marketing spend <$2K per campaign',
+                    'Launch campaigns on any channel',
+                    'Edit brand assets for campaigns',
+                    'Manage all social media accounts',
+                    'Negotiate ambassador partnerships <$5K'
+                ],
+                escalation: [
+                    'CAC >50% over target → Immediately to Steve',
+                    'Marketing spend >$10K/month → Requires Steve approval',
+                    'Brand crisis or negative PR → Immediately to Steve'
+                ],
+                kpis: 'CAC (<$100), LTV (>$500), conversion rate (>3%), retention (>85%)'
+            },
+            cto: {
+                title: 'Platform Ops CTO',
+                subtitle: 'A7 • Tier 1 Executive Agent • Owner: Steve • ✓ FULLY AGENTIC',
+                isPM: false,
+                responsibilities: [
+                    'Own technical strategy and architecture decisions autonomously',
+                    'Auto-receive and route all ENGINEERING-tagged missions',
+                    'Receive requirements from PM after clarification complete',
+                    'Document ADRs (Architecture Decision Records) automatically',
+                    'Define and enforce code review standards via automation',
+                    'Manage infrastructure, deployments, and monitoring',
+                    'Ensure security, reliability, and uptime'
+                ],
+                tasks: [
+                    'Auto-approve architecture changes for pre-approved patterns',
+                    'Route missions to Staff Engineer (A7B) via fast-path automation',
+                    'Implement features after PM requirements complete',
+                    'Conduct automated code reviews for major features',
+                    'Weekly automated platform health reports',
+                    'Auto-document ADRs for all major technical decisions'
+                ],
+                skills: [
+                    'S24: Architecture Decisions (ADR)',
+                    'S25: Code Review Standards',
+                    'S26: Backend Dev Ops',
+                    'S27: Frontend Dev Ops',
+                    'S28: GitHub Ops',
+                    'S29: Supabase Ops',
+                    'S30: Codebase Admin'
+                ],
+                services: [
+                    'V1: Feature Flags',
+                    'V2: Infra Deployment',
+                    'V3: GitHub Admin',
+                    'V4: Supabase Admin',
+                    'V5: Ops Monitoring',
+                    'V6: Security Audit',
+                    'V7: Auth Flows',
+                    'V8: Prompt Loader'
+                ],
+                authority: [
+                    'Approve architecture changes autonomously (pre-approved patterns)',
+                    'Define tech stack and code standards without approval',
+                    'Auto-approve infrastructure changes following runbooks',
+                    'Merge code to production after automated QA checks',
+                    'Block deployments for technical/security reasons'
+                ],
+                escalation: [
+                    'Security incidents (P0) → Auto-notify Steve immediately',
+                    'Requirements unclear → Back to PM for clarification',
+                    'Major platform rewrites (>$20K) → Requires Steve approval',
+                    'Uptime <99% for >24 hours → Auto-escalate to Steve'
+                ],
+                kpis: 'Deploy velocity (10/week), uptime (99.9%), tech debt ratio (<15%), code quality (>85%), MTTR (<30min)'
+            },
+            dcgm: {
+                title: 'Direct Cuts GM',
+                subtitle: 'A8 • Venture Agent • Owner: Steve',
+                isPM: false,
+                responsibilities: [
+                    'Own Direct Cuts P&L and revenue growth',
+                    'Execute operational strategy for barber marketplace',
+                    'Manage barber training and onboarding processes',
+                    'Handle earnings payouts within CFO policy limits',
+                    'Execute upsell and subscription strategies'
+                ],
+                tasks: [
+                    'Review barber applications and complete onboarding',
+                    'Process weekly earnings payouts to barbers',
+                    'Monitor subscription churn and retention metrics',
+                    'Execute upsell campaigns to barbers',
+                    'Gather barber feedback via surveys and support'
+                ],
+                skills: [
+                    'S24: Training Module',
+                    'S25: Earnings Payouts',
+                    'S26: Product Upsell',
+                    'S27: Subscription Operations',
+                    'S28: Barber Portal'
+                ],
+                services: [
+                    'V11: Checkr Verification (background checks)',
+                    'V12: Mobile Notifications (push/SMS)',
+                    'V13: Flutter SDK (mobile app)'
+                ],
+                authority: [
+                    'Approve barber applications (post-background check)',
+                    'Process payouts within CFO policy limits',
+                    'Launch subscription offers and upsells',
+                    'Approve barber support resolutions',
+                    'Make pricing adjustments <20%'
+                ],
+                escalation: [
+                    'Revenue miss >20% → Immediately to Steve',
+                    'Churn rate >15% → Weekly to Steve',
+                    'Legal issues with barbers → Immediately to Legal + Steve'
+                ],
+                kpis: 'Revenue (MRR growth >10%/mo), retention (>90%), unit economics (>40% margin), barber NPS (>50)'
+            },
+            engineer: {
+                title: 'Staff Software Engineer',
+                subtitle: 'A7B • Semi-Agentic Agent • Reports to: CTO (A7) • ✓ ACTIVE',
+                isPM: false,
+                responsibilities: [
+                    'Implement technical specifications from CTO autonomously',
+                    'Execute backend and frontend development with automation',
+                    'Implement features after PM requirements complete',
+                    'Auto-process pre-approved patterns (bug fixes, tests)',
+                    'Perform database migrations following S29 patterns',
+                    'Maintain GitHub repositories and CI/CD workflows'
+                ],
+                tasks: [
+                    'Auto-execute missions tagged with pre-approved patterns',
+                    'Implement features from CTO-approved specifications',
+                    'Work from PM-created acceptance criteria',
+                    'Write comprehensive unit and integration tests',
+                    'Fix P0/P1 bugs automatically via fast-path routing',
+                    'Execute database migrations following documented patterns'
+                ],
+                skills: [
+                    'Uses CTO skills: S24-S30',
+                    'S26: Backend Dev Ops',
+                    'S27: Frontend Dev Ops',
+                    'S28: GitHub Ops',
+                    'S29: Supabase Ops',
+                    'S30: Codebase Admin'
+                ],
+                authority: [
+                    'Auto-execute pre-approved implementation patterns (no approval)',
+                    'Fix bugs P0-P2 without prior approval (post-review)',
+                    'Deploy to staging environment autonomously',
+                    'Merge own PRs after automated quality checks',
+                    'Create feature branches and PRs automatically'
+                ],
+                escalation: [
+                    'Blocked on technical decisions → Auto-escalate to CTO (A7)',
+                    'Requirements unclear → Back to PM via CTO',
+                    'Bug requiring architecture change → Auto-escalate to CTO',
+                    'Production incidents → Auto-notify CTO + QA immediately'
+                ],
+                kpis: 'Story points (40/week), code quality (>90%), PR turnaround (<24h), bug fix rate (95%), test coverage (>85%)'
+            }
+        };
+
+        function showDetails(agentId) {
+            const agent = agentDetails[agentId];
+            if (!agent) return;
+
+            const modal = document.getElementById('detailsModal');
+            const modalBody = document.getElementById('modalBody');
+            const modalContent = modal.querySelector('.modal-content');
+
+            // Add PM-specific styling
+            if (agent.isPM) {
+                modalContent.classList.add('pm-modal');
+            } else {
+                modalContent.classList.remove('pm-modal');
+            }
+
+            let html = `
+                <div class="modal-header">
+                    <div class="modal-title ${agent.isPM ? 'pm-title' : ''}">${agent.title}</div>
+                    <div class="modal-subtitle">${agent.subtitle}</div>
+                </div>
+
+                <div class="modal-section">
+                    <div class="modal-section-title">📋 Core Responsibilities</div>
+                    <ul class="modal-list">
+                        ${agent.responsibilities.map(r => `<li>${r}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <div class="modal-section-title">⚡ Day-to-Day Tasks</div>
+                    <ul class="modal-list">
+                        ${agent.tasks.map(t => `<li>${t}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <div class="modal-section-title">🛠️ Skills & Tools</div>
+                    <div class="modal-grid">
+                        ${agent.skills.map(s => `<div class="modal-badge">${s}</div>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            if (agent.services) {
+                html += `
+                    <div class="modal-section">
+                        <div class="modal-section-title">⚙️ Services Operated</div>
+                        <div class="modal-grid">
+                            ${agent.services.map(s => `<div class="modal-badge">${s}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // PM-specific boundary comparison
+            if (agent.boundaries) {
+                html += `
+                    <div class="modal-section">
+                        <div class="modal-section-title">🔒 Role Boundaries</div>
+                        <div class="boundary-comparison">
+                            <div class="boundary-box pm">
+                                <h4>PM (with BA) OWNS</h4>
+                                <ul class="modal-list">
+                                    ${agent.boundaries.pm.map(b => `<li>${b}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="boundary-box other">
+                                <h4>Product Lead OWNS</h4>
+                                <ul class="modal-list">
+                                    ${agent.boundaries.productLead.map(b => `<li class="boundary">${b}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="boundary-box other" style="margin-top: 15px;">
+                            <h4>OCS OWNS</h4>
+                            <ul class="modal-list">
+                                ${agent.boundaries.ocs.map(b => `<li class="boundary">${b}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="modal-authority-box ${agent.isPM ? 'pm-authority' : ''}">
+                    <div class="modal-authority-title ${agent.isPM ? 'pm-authority-title' : ''}">✅ Decision Authority</div>
+                    <ul class="modal-list">
+                        ${agent.authority.map(a => `<li>${a}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            if (agent.cannotDo) {
+                html += `
+                    <div class="modal-section">
+                        <div class="modal-section-title">❌ Cannot Do (Boundary)</div>
+                        <ul class="modal-list">
+                            ${agent.cannotDo.map(c => `<li class="boundary">${c}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="modal-section">
+                    <div class="modal-section-title">⬆️ Escalation Rules</div>
+                    <ul class="modal-list">
+                        ${agent.escalation.map(e => `<li>${e}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="modal-kpi-box">
+                    <div class="modal-kpi-title">📊 Key Performance Indicators (KPIs)</div>
+                    <div>${agent.kpis}</div>
+                </div>
+            `;
+
+            modalBody.innerHTML = html;
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target.id === 'detailsModal' || event.target.className === 'modal-close') {
+                const modal = document.getElementById('detailsModal');
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

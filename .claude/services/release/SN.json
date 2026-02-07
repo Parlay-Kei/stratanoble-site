@@ -1,6 +1,0 @@
-{
-  "service_name": "Strata Noble Platform",
-  "adapter": "SN",
-  "release_pipeline": ["validate", "test", "build", "deploy", "smoke"],
-  "rollback_hook": "rollback"
-}

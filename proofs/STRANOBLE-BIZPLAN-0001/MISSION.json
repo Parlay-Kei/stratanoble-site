@@ -1,0 +1,22 @@
+{
+  "mission_id": "STRANOBLE-BIZPLAN-0001",
+  "owner": "ENGDEL / Strata Noble Consulting",
+  "objective": "Generate investment-grade business plan for Series A investors and grant organizations",
+  "deliverables": [
+    "Professional business plan document (Series A / Grant format)",
+    "Executive summary (one-pager)",
+    "Financial model summary",
+    "Competitive analysis matrix",
+    "Risk register with mitigations"
+  ],
+  "acceptance_gates": [
+    "All sections address Series A investor expectations",
+    "Grant funding requirements clearly articulated",
+    "Financial projections are evidence-based",
+    "TAM/SAM/SOM analysis included",
+    "Unit economics defined"
+  ],
+  "proof_path": "proofs/STRANOBLE-BIZPLAN-0001/",
+  "status": "active",
+  "created": "2026-01-30"
+}

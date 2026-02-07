@@ -1,0 +1,236 @@
+{
+  "timestamp": "2026-01-30T21:48:28.048Z",
+  "version": "1.0.0",
+  "canonicalRoot": "C:\\Dev\\.claude-anx",
+  "repositories": [
+    {
+      "repository": "anx-audit-control",
+      "path": "C:\\Dev\\anx-audit-control",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "anx-audit-test",
+      "path": "C:\\Dev\\anx-audit-test",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "anx-audit-test2",
+      "path": "C:\\Dev\\anx-audit-test2",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "anx-audit-test3",
+      "path": "C:\\Dev\\anx-audit-test3",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "anx-audit-test4",
+      "path": "C:\\Dev\\anx-audit-test4",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "anx-audit-test5",
+      "path": "C:\\Dev\\anx-audit-test5",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "anx-test-install",
+      "path": "C:\\Dev\\anx-test-install",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "CREA",
+      "path": "C:\\Dev\\CREA",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "DC-2",
+      "path": "C:\\Dev\\DC-2",
+      "status": "FAIL",
+      "method": "local-governance",
+      "resolvedPath": "C:\\Dev\\DC-2\\.claude\\governance",
+      "issues": [
+        "Repository has local governance files instead of using canonical"
+      ],
+      "remediation": [
+        {
+          "action": "remove-local-governance",
+          "command": "rmdir /s /q \"C:\\Dev\\DC-2\\.claude\\governance\" && echo \"../.claude-anx\" > \"C:\\Dev\\DC-2\\ANX_ROOT.pointer\"",
+          "description": "Remove local governance and add pointer to canonical"
+        }
+      ],
+      "remediationReceipt": {
+        "repository": "DC-2",
+        "timestamp": "2026-01-30T21:48:28.059Z",
+        "actions": [
+          {
+            "action": "remove-local-governance",
+            "success": true,
+            "result": "Local governance removed"
+          }
+        ],
+        "beforeStatus": "FAIL",
+        "afterStatus": "FAIL",
+        "success": false
+      }
+    },
+    {
+      "repository": "Direct-Cuts",
+      "path": "C:\\Dev\\Direct-Cuts",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "DSLV",
+      "path": "C:\\Dev\\DSLV",
+      "status": "PASS",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [],
+      "remediation": []
+    },
+    {
+      "repository": "flutter",
+      "path": "C:\\Dev\\flutter",
+      "status": "FAIL",
+      "method": "local-governance",
+      "resolvedPath": "C:\\Dev\\flutter\\.claude\\governance",
+      "issues": [
+        "Repository has local governance files instead of using canonical"
+      ],
+      "remediation": [
+        {
+          "action": "remove-local-governance",
+          "command": "rmdir /s /q \"C:\\Dev\\flutter\\.claude\\governance\" && echo \"../.claude-anx\" > \"C:\\Dev\\flutter\\ANX_ROOT.pointer\"",
+          "description": "Remove local governance and add pointer to canonical"
+        }
+      ]
+    },
+    {
+      "repository": "Household_Ticket",
+      "path": "C:\\Dev\\Household_Ticket",
+      "status": "FAIL",
+      "method": "local-governance",
+      "resolvedPath": "C:\\Dev\\Household_Ticket\\.claude\\governance",
+      "issues": [
+        "Repository has local governance files instead of using canonical"
+      ],
+      "remediation": [
+        {
+          "action": "remove-local-governance",
+          "command": "rmdir /s /q \"C:\\Dev\\Household_Ticket\\.claude\\governance\" && echo \"../.claude-anx\" > \"C:\\Dev\\Household_Ticket\\ANX_ROOT.pointer\"",
+          "description": "Remove local governance and add pointer to canonical"
+        }
+      ]
+    },
+    {
+      "repository": "Konjode",
+      "path": "C:\\Dev\\Konjode",
+      "status": "FAIL",
+      "method": "local-governance",
+      "resolvedPath": "C:\\Dev\\Konjode\\.claude\\governance",
+      "issues": [
+        "Repository has local governance files instead of using canonical"
+      ],
+      "remediation": [
+        {
+          "action": "remove-local-governance",
+          "command": "rmdir /s /q \"C:\\Dev\\Konjode\\.claude\\governance\" && echo \"../.claude-anx\" > \"C:\\Dev\\Konjode\\ANX_ROOT.pointer\"",
+          "description": "Remove local governance and add pointer to canonical"
+        }
+      ]
+    },
+    {
+      "repository": "MPL",
+      "path": "C:\\Dev\\MPL",
+      "status": "FAIL",
+      "method": "pointer-incorrect",
+      "resolvedPath": "C:\\Dev\\MPL\\# ANX_ROOT.pointer — Canonical Root and Resolver Behavior\r\n\r\n**Version:** 1\r\n\r\n---\r\n\r\n## canonical_root\r\n\r\nThe canonical repository root for ANX resolution in this repo is:\r\n\r\n```\r\nc:\\Dev\\MPL\r\n```\r\n\r\n(Or the path returned by resolving the workspace root at session start. Prefer workspace root when in doubt.)\r\n\r\n---\r\n\r\n## resolver_behavior\r\n\r\n- **If ANX_ROOT.pointer exists:** Use the `canonical_root` value above (or resolve relative to this file's directory as repo root).\r\n- **If missing:** Use the current workspace root as canonical root.\r\n- **Paths:** All ANX artifacts (ANX.md, MISSION_RULES.md, proofs, governance, research) are relative to canonical root.\r\n- **No overrides:** Do not override canonical root with env vars unless explicitly documented in this file.\r\n\r\n---\r\n\r\n*Referenced by ANX.md boot sequence.*",
+      "issues": [
+        "Pointer resolves to C:\\Dev\\MPL\\# ANX_ROOT.pointer — Canonical Root and Resolver Behavior\r\n\r\n**Version:** 1\r\n\r\n---\r\n\r\n## canonical_root\r\n\r\nThe canonical repository root for ANX resolution in this repo is:\r\n\r\n```\r\nc:\\Dev\\MPL\r\n```\r\n\r\n(Or the path returned by resolving the workspace root at session start. Prefer workspace root when in doubt.)\r\n\r\n---\r\n\r\n## resolver_behavior\r\n\r\n- **If ANX_ROOT.pointer exists:** Use the `canonical_root` value above (or resolve relative to this file's directory as repo root).\r\n- **If missing:** Use the current workspace root as canonical root.\r\n- **Paths:** All ANX artifacts (ANX.md, MISSION_RULES.md, proofs, governance, research) are relative to canonical root.\r\n- **No overrides:** Do not override canonical root with env vars unless explicitly documented in this file.\r\n\r\n---\r\n\r\n*Referenced by ANX.md boot sequence.* instead of canonical C:\\Dev\\.claude-anx"
+      ],
+      "remediation": [
+        {
+          "action": "fix-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\MPL\\ANX_ROOT.pointer\"",
+          "description": "Update pointer to canonical root"
+        }
+      ]
+    },
+    {
+      "repository": "msaudreys-house",
+      "path": "C:\\Dev\\msaudreys-house",
+      "status": "FAIL",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [
+        "Has correct pointer but also has local governance overrides"
+      ],
+      "remediation": [
+        {
+          "action": "remove-overrides",
+          "command": "rmdir /s /q \"C:\\Dev\\msaudreys-house\\.claude\\governance\"",
+          "description": "Remove local governance overrides"
+        }
+      ]
+    },
+    {
+      "repository": "StrataNoble",
+      "path": "C:\\Dev\\StrataNoble",
+      "status": "FAIL",
+      "method": "pointer",
+      "resolvedPath": "C:\\Dev\\.claude-anx",
+      "issues": [
+        "Has correct pointer but also has local governance overrides"
+      ],
+      "remediation": [
+        {
+          "action": "remove-overrides",
+          "command": "rmdir /s /q \"C:\\Dev\\StrataNoble\\.claude\\governance\"",
+          "description": "Remove local governance overrides"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 17,
+    "passed": 10,
+    "failed": 7,
+    "remediated": 0
+  }
+}

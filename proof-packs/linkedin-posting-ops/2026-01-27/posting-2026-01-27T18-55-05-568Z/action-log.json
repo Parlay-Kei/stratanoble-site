@@ -1,0 +1,54 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T18:55:05.569Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T18:55:05.850Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T18:55:33.502Z",
+    "data": {
+      "filename": "2026-01-27T18-55-29-445Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T18:55:33.503Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T18:56:12.776Z",
+    "data": {
+      "filename": "2026-01-27T18-56-12-388Z_publish-before-post-2f213b42.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T18:56:46.049Z",
+    "data": {
+      "filename": "2026-01-27T18-56-45-713Z_publish-error.png"
+    }
+  },
+  {
+    "action": "publish_error",
+    "timestamp": "2026-01-27T18:56:46.051Z",
+    "data": {
+      "postId": "post-2f213b42",
+      "error": "elementHandle.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"share-box-modal-content__container\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <div class=\"share-box-modal-content__container\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m  2 × retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m      - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div id=\"ember224\" aria-hidden=\"false\" data-test-modal-container=\"\" data-test-modal-id=\"sharebox\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m  13 × retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div class=\"share-box-modal-content__container\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div class=\"share-box-modal-content__container\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div id=\"ember224\" aria-hidden=\"false\" data-test-modal-container=\"\" data-test-modal-id=\"sharebox\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div id=\"ember224\" aria-hidden=\"false\" data-test-modal-container=\"\" data-test-modal-id=\"sharebox\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m  2 × retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m      - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"share-box-modal-content__container\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <div id=\"ember224\" aria-hidden=\"false\" data-test-modal-container=\"\" data-test-modal-id=\"sharebox\" class=\"artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view\">…</div> from <div id=\"artdeco-modal-outlet\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 500ms\u001b[22m\n"
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-27T18:56:46.347Z"
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-27T18:56:46.759Z"
+  }
+]
