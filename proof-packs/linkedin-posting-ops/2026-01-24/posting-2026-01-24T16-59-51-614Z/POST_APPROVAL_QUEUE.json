@@ -1,0 +1,32 @@
+[
+  {
+    "id": "post-P01-LI",
+    "notionPageId": "mock-p01-linkedin",
+    "title": "P01 - Why Automation Fails in Serious Businesses",
+    "body": "Most automation fails because it automates the wrong things.\n\nYou automate the visible workflows.\nYou dashboard the obvious metrics.\nYou alert on the expected failures.\n\nBut the real failures happen silently:\n- Permission drift that nobody notices\n- Integration delays that compound\n- Data quality that degrades slowly\n- Edge cases that multiply quietly\n\nThe solution isn't more automation.\nIt's automating the right things:\n- Ownership verification\n- Drift detection\n- Assumption testing\n- Silent failure monitoring\n\nStop automating what's easy.\nStart automating what matters.\n\nWhat's failing silently in your business right now?",
+    "publishDate": "2026-01-27",
+    "hashtags": [
+      "ownership",
+      "automation",
+      "operations"
+    ],
+    "notionUrl": "https://notion.so/mock-p01",
+    "status": "BLOCKED",
+    "blockReason": "FUTURE_DATE: Scheduled for 2026-01-27, not within publish window"
+  },
+  {
+    "id": "post-P02-LI",
+    "notionPageId": "mock-p02-linkedin",
+    "title": "P02 - Manual Steps Are Hidden Risk",
+    "body": "\"It's just a quick manual step.\"\n\nFamous last words.\n\nThat manual step that takes 5 minutes today?\n- In 3 months, it takes 20 minutes\n- In 6 months, it requires 3 people\n- In a year, it's a full-time job\n\nManual processes don't just drift.\nThey multiply.\nThey create dependencies.\nThey hide institutional knowledge.\nThey become \"the way we've always done it.\"\n\nEvery manual step is technical debt with compound interest.\n\nDocument it, automate it, or eliminate it.\nThere is no fourth option.",
+    "publishDate": "2026-01-29",
+    "hashtags": [
+      "cost",
+      "automation",
+      "operations"
+    ],
+    "notionUrl": "https://notion.so/mock-p02",
+    "status": "BLOCKED",
+    "blockReason": "FUTURE_DATE: Scheduled for 2026-01-29, not within publish window"
+  }
+]

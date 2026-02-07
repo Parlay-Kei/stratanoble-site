@@ -1,0 +1,20 @@
+[
+  {
+    "action": "notion_fetch_start",
+    "timestamp": "2026-01-27T20:19:10.098Z"
+  },
+  {
+    "action": "notion_fetch_complete",
+    "timestamp": "2026-01-27T20:19:12.648Z",
+    "data": {
+      "count": 5
+    }
+  },
+  {
+    "action": "queue_saved",
+    "timestamp": "2026-01-27T20:19:12.654Z",
+    "data": {
+      "total": 5
+    }
+  }
+]

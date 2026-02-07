@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-01-30T21:02:38.985Z",
+  "version": "1.0.0",
+  "runtime": {},
+  "governance": {
+    "roster": {
+      "exists": true,
+      "path": "C:\\Dev\\.claude-anx\\governance\\ROSTER.md",
+      "version": "unknown",
+      "size": 8777,
+      "lastModified": "2026-01-27T23:59:25.117Z"
+    },
+    "cadence": {
+      "exists": true,
+      "path": "C:\\Dev\\.claude-anx\\governance\\CADENCE.md",
+      "version": "unknown",
+      "size": 651,
+      "lastModified": "2026-01-27T23:40:50.864Z"
+    },
+    "intake": {
+      "exists": true,
+      "path": "C:\\Dev\\.claude-anx\\governance\\INTAKE.md",
+      "version": "unknown",
+      "size": 12077,
+      "lastModified": "2026-01-28T00:01:27.156Z"
+    },
+    "work_model": {
+      "exists": true,
+      "path": "C:\\Dev\\.claude-anx\\governance\\WORK_MODEL.md",
+      "version": "unknown",
+      "size": 1363,
+      "lastModified": "2026-01-27T23:40:42.670Z"
+    },
+    "approvals": {
+      "exists": true,
+      "path": "C:\\Dev\\.claude-anx\\governance\\APPROVALS.md",
+      "version": "unknown",
+      "size": 7909,
+      "lastModified": "2026-01-28T00:00:14.426Z"
+    }
+  },
+  "repository": {
+    "cwd": "C:\\Dev\\DSLV",
+    "name": "DSLV",
+    "isGitRepo": true,
+    "branch": "fix/auth-permission-hardening",
+    "remote": "https://github.com/Parlay-Kei/datasolutions.git",
+    "lastCommit": "8d168766"
+  },
+  "canonical": {
+    "root": "C:\\Dev\\.claude-anx",
+    "method": "pointer",
+    "path": "C:\\Dev\\.claude-anx",
+    "pointerLocation": "C:\\Dev\\DSLV\\ANX_ROOT.pointer"
+  },
+  "gates": {
+    "required": [
+      "canonical-root-resolved",
+      "governance-files-present",
+      "repository-identified",
+      "output-schema-valid"
+    ],
+    "optional": [
+      "agent-roster-available",
+      "git-repository-valid",
+      "all-governance-versioned"
+    ],
+    "context": "runtime-truth-verification"
+  },
+  "drift": {
+    "detected": false,
+    "issues": [],
+    "remediation": []
+  },
+  "validation": {
+    "passed": true,
+    "errors": [],
+    "warnings": [
+      "Governance file roster has no version",
+      "Governance file cadence has no version",
+      "Governance file intake has no version",
+      "Governance file work_model has no version",
+      "Governance file approvals has no version"
+    ]
+  },
+  "agents": {
+    "available": true,
+    "path": "C:\\Dev\\.claude-anx\\registry\\anx_registry.compiled.json",
+    "totalAgents": 0,
+    "categories": {},
+    "version": "1.0.0",
+    "compiled": "2026-01-30T14:38:08.824Z"
+  }
+}

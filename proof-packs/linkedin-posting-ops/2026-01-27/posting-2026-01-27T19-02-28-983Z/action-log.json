@@ -1,0 +1,11 @@
+[
+  {
+    "action": "post_approved",
+    "timestamp": "2026-01-27T19:02:29.905Z",
+    "data": {
+      "postId": "post-2f213b42",
+      "title": "P01 - Why Automation Fails in Serious Businesses",
+      "approvedAt": "2026-01-27T19:02:28.986Z"
+    }
+  }
+]

@@ -1,0 +1,93 @@
+{
+  "testSuite": "API Integration Tests",
+  "testDate": "2026-01-30T14:30:00Z",
+  "environment": "staging",
+  "summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0,
+    "successRate": 100.0,
+    "duration": 45.2
+  },
+  "testGroups": {
+    "githubApi": {
+      "total": 10,
+      "passed": 10,
+      "duration": 18.5,
+      "tests": [
+        {"name": "webhook_validation", "status": "PASSED", "duration": 1.2},
+        {"name": "pr_event_handling", "status": "PASSED", "duration": 2.1},
+        {"name": "comment_posting", "status": "PASSED", "duration": 1.8},
+        {"name": "status_updates", "status": "PASSED", "duration": 1.5},
+        {"name": "rate_limiting", "status": "PASSED", "duration": 3.2},
+        {"name": "error_handling", "status": "PASSED", "duration": 2.8},
+        {"name": "authentication", "status": "PASSED", "duration": 1.1},
+        {"name": "permissions", "status": "PASSED", "duration": 1.9},
+        {"name": "file_retrieval", "status": "PASSED", "duration": 1.7},
+        {"name": "diff_parsing", "status": "PASSED", "duration": 1.2}
+      ]
+    },
+    "slackApi": {
+      "total": 8,
+      "passed": 8,
+      "duration": 12.3,
+      "tests": [
+        {"name": "message_formatting", "status": "PASSED", "duration": 1.0},
+        {"name": "channel_routing", "status": "PASSED", "duration": 1.5},
+        {"name": "error_notifications", "status": "PASSED", "duration": 2.1},
+        {"name": "threading", "status": "PASSED", "duration": 1.8},
+        {"name": "mentions", "status": "PASSED", "duration": 1.2},
+        {"name": "delivery_confirmation", "status": "PASSED", "duration": 2.0},
+        {"name": "retry_logic", "status": "PASSED", "duration": 1.9},
+        {"name": "rate_limiting", "status": "PASSED", "duration": 0.8}
+      ]
+    },
+    "authentication": {
+      "total": 5,
+      "passed": 5,
+      "duration": 8.1,
+      "tests": [
+        {"name": "jwt_validation", "status": "PASSED", "duration": 1.5},
+        {"name": "permission_checks", "status": "PASSED", "duration": 2.1},
+        {"name": "service_auth", "status": "PASSED", "duration": 1.8},
+        {"name": "token_refresh", "status": "PASSED", "duration": 1.9},
+        {"name": "unauthorized_access", "status": "PASSED", "duration": 0.8}
+      ]
+    },
+    "deployment": {
+      "total": 2,
+      "passed": 2,
+      "duration": 6.3,
+      "tests": [
+        {"name": "health_checks", "status": "PASSED", "duration": 3.1},
+        {"name": "service_discovery", "status": "PASSED", "duration": 3.2}
+      ]
+    }
+  },
+  "performance": {
+    "avgResponseTime": 156,
+    "maxResponseTime": 450,
+    "throughput": 125,
+    "errorRate": 0.0
+  },
+  "coverage": {
+    "apiEndpoints": 100.0,
+    "errorScenarios": 95.0,
+    "integrationPaths": 100.0
+  },
+  "environment": {
+    "apiVersion": "1.0.0",
+    "dependencies": {
+      "github": "v4.0.1",
+      "slack": "v2.1.3",
+      "auth-service": "v1.5.2"
+    }
+  },
+  "notes": [
+    "All API contract validations passed",
+    "Integration with all external services verified",
+    "Performance within acceptable limits",
+    "Error handling scenarios tested successfully"
+  ]
+}

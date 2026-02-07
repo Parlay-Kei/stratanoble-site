@@ -1,6 +1,0 @@
-{
-  "service_name": "Data Solutions LV",
-  "adapter": "DSLV",
-  "release_pipeline": ["validate", "test", "build", "deploy", "smoke"],
-  "rollback_hook": "rollback"
-}

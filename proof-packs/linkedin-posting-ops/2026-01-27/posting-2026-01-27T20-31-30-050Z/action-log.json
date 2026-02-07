@@ -1,0 +1,100 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T20:31:30.051Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T20:31:30.296Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:31:47.706Z",
+    "data": {
+      "filename": "2026-01-27T20-31-44-008Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T20:31:47.708Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:31:54.697Z",
+    "data": {
+      "filename": "2026-01-27T20-31-54-261Z_identity-check.png"
+    }
+  },
+  {
+    "action": "identity_verified",
+    "timestamp": "2026-01-27T20:31:55.957Z",
+    "data": {
+      "expectedSlug": "mr-steve-hubbard",
+      "actualSlug": "mr-steve-hubbard",
+      "expectedName": "Steve Hubbard",
+      "actualName": "",
+      "match": true
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:32:34.408Z",
+    "data": {
+      "filename": "2026-01-27T20-32-34-006Z_publish-before-post-2f213b42.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:32:38.945Z",
+    "data": {
+      "filename": "2026-01-27T20-32-38-533Z_modal-detected.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:32:45.688Z",
+    "data": {
+      "filename": "2026-01-27T20-32-45-322Z_modal-after-selections.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:32:47.102Z",
+    "data": {
+      "filename": "2026-01-27T20-32-46-728Z_before-done-click.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:32:51.860Z",
+    "data": {
+      "filename": "2026-01-27T20-32-51-484Z_modal-still-open.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:33:04.671Z",
+    "data": {
+      "filename": "2026-01-27T20-33-04-138Z_post-verification.png"
+    }
+  },
+  {
+    "action": "publish_failed_verification",
+    "timestamp": "2026-01-27T20:33:04.674Z",
+    "data": {
+      "postId": "post-2f213b42",
+      "error": "POST_NOT_FOUND: Post does not appear on profile feed"
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-27T20:33:05.087Z"
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-27T20:33:05.506Z"
+  }
+]

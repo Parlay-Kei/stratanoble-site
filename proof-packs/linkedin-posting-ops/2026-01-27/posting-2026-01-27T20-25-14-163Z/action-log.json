@@ -1,0 +1,86 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T20:25:14.164Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T20:25:14.378Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:25:42.302Z",
+    "data": {
+      "filename": "2026-01-27T20-25-35-735Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T20:25:42.305Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:25:50.272Z",
+    "data": {
+      "filename": "2026-01-27T20-25-49-481Z_identity-check.png"
+    }
+  },
+  {
+    "action": "identity_verified",
+    "timestamp": "2026-01-27T20:25:51.261Z",
+    "data": {
+      "expectedSlug": "mr-steve-hubbard",
+      "actualSlug": "mr-steve-hubbard",
+      "expectedName": "Steve Hubbard",
+      "actualName": "",
+      "match": true
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:26:30.533Z",
+    "data": {
+      "filename": "2026-01-27T20-26-30-163Z_publish-before-post-2f213b42.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:26:35.288Z",
+    "data": {
+      "filename": "2026-01-27T20-26-34-943Z_modal-detected.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:26:39.129Z",
+    "data": {
+      "filename": "2026-01-27T20-26-38-772Z_modal-after-selections.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:27:01.847Z",
+    "data": {
+      "filename": "2026-01-27T20-27-01-578Z_post-verification.png"
+    }
+  },
+  {
+    "action": "publish_failed_verification",
+    "timestamp": "2026-01-27T20:27:01.849Z",
+    "data": {
+      "postId": "post-2f213b42",
+      "error": "POST_NOT_FOUND: Post does not appear on profile feed"
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-27T20:27:02.158Z"
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-27T20:27:02.522Z"
+  }
+]

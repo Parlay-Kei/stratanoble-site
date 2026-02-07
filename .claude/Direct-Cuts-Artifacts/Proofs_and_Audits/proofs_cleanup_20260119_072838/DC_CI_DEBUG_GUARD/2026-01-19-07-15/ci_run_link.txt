@@ -1,4 +1,0 @@
-PR Link: https://github.com/Parlay-Kei/Direct-Cuts/pull/new/ci/enforce-debug-guard
-Branch: ci/enforce-debug-guard
-
-Note: This PR adds both a static analysis check (npm run gate:debug) and a dynamic E2E test (playwright) to the pipeline.

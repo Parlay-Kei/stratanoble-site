@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-02-06T12:07:49-08:00",
+  "project_root": "/c/Dev/10_products/StrataNoble",
+  "summary": {
+    "critical": 1,
+    "high": 1,
+    "medium": 0,
+    "total": 2
+  },
+  "violations": [
+    {"rule": "DRIFT-014", "severity": "CRITICAL", "file": "/c/Dev/10_products/StrataNoble/.claude/agents/test-sandbox/forbidden-test-agent.md", "description": "Forbidden agent definition in local .claude/agents/"},
+    {"rule": "DRIFT-015", "severity": "HIGH", "file": "/c/Dev/10_products/StrataNoble/.claude/agents/test-sandbox/forbidden-test-agent.md", "description": "Agent file pattern forbidden"}
+  ],
+  "verdict": "FAIL"
+}

@@ -1,6 +1,0 @@
-{
-  "service_name": "Direct Cuts Web",
-  "adapter": "DC",
-  "release_pipeline": ["validate", "test", "build", "deploy", "smoke"],
-  "rollback_hook": "rollback"
-}

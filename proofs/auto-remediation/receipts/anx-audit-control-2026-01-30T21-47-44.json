@@ -1,0 +1,21 @@
+{
+  "repository": "anx-audit-control",
+  "path": "C:\\Dev\\anx-audit-control",
+  "timestamp": "2026-01-30T21:47:44.572Z",
+  "mode": "dry-run",
+  "actions": [
+    {
+      "action": "would-create-pointer",
+      "path": "C:\\Dev\\anx-audit-control\\ANX_ROOT.pointer",
+      "content": "../.claude-anx",
+      "command": "echo \"../.claude-anx\" > \"C:\\Dev\\anx-audit-control\\ANX_ROOT.pointer\""
+    }
+  ],
+  "status": "DRY_RUN",
+  "validation": {
+    "valid": true,
+    "issues": [],
+    "warnings": []
+  },
+  "error": null
+}

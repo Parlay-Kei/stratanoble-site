@@ -1,0 +1,468 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "title": "Solution Type Gate Matrix",
+  "description": "Gate requirements and validation rules by solution type",
+  "lastUpdated": "2026-01-30",
+  "authority": "QA Gatekeeper",
+  "mission": "QAG-SOLUTION-TYPE-GATE-MATRIX-0006",
+  "gateMatrix": {
+    "CLIENT_DELIVERY": {
+      "riskLevel": "HIGH",
+      "requireAllGates": true,
+      "requiredProofs": [
+        {
+          "gate": "requirements-review",
+          "proofArtifacts": [
+            "REQUIREMENTS_APPROVAL.md"
+          ],
+          "validators": ["stakeholder_signoff", "completeness_check"],
+          "description": "Documented and approved client requirements"
+        },
+        {
+          "gate": "design-approval",
+          "proofArtifacts": [
+            "DESIGN_REVIEW.md",
+            "ARCHITECTURE_DIAGRAM.png"
+          ],
+          "validators": ["architect_review", "design_completeness"],
+          "description": "Technical design reviewed and approved"
+        },
+        {
+          "gate": "security-review",
+          "proofArtifacts": [
+            "SECURITY_ASSESSMENT.md",
+            "THREAT_MODEL.md"
+          ],
+          "validators": ["security_scan_results", "penetration_test"],
+          "description": "Security implications assessed and mitigated"
+        },
+        {
+          "gate": "qa-testing",
+          "proofArtifacts": [
+            "QA_TEST_REPORT.md",
+            "TEST_RESULTS.json",
+            "COVERAGE_REPORT.html"
+          ],
+          "validators": ["test_coverage_80", "all_tests_pass", "integration_tests"],
+          "description": "Complete QA testing cycle with evidence"
+        },
+        {
+          "gate": "client-acceptance",
+          "proofArtifacts": [
+            "CLIENT_ACCEPTANCE.md",
+            "UAT_RESULTS.md"
+          ],
+          "validators": ["client_signoff", "uat_completion"],
+          "description": "Client user acceptance testing completed"
+        },
+        {
+          "gate": "production-readiness",
+          "proofArtifacts": [
+            "DEPLOYMENT_CHECKLIST.md",
+            "RUNBOOK.md",
+            "MONITORING_SETUP.md"
+          ],
+          "validators": ["deployment_tested", "rollback_verified", "monitoring_active"],
+          "description": "Production deployment verified and monitored"
+        }
+      ],
+      "waiverPolicy": {
+        "allowedWaivers": 1,
+        "requiresApproval": ["CTO", "Client Stakeholder"],
+        "maxDuration": "30 days",
+        "riskThreshold": "HIGH"
+      }
+    },
+    "INTERNAL_TOOLING": {
+      "riskLevel": "MEDIUM",
+      "requireAllGates": false,
+      "requiredProofs": [
+        {
+          "gate": "technical-review",
+          "proofArtifacts": [
+            "TECHNICAL_DESIGN.md",
+            "CODE_REVIEW.md"
+          ],
+          "validators": ["peer_review", "design_soundness"],
+          "description": "Technical approach validated by peers"
+        },
+        {
+          "gate": "integration-testing",
+          "proofArtifacts": [
+            "INTEGRATION_TEST.md",
+            "API_TEST_RESULTS.json"
+          ],
+          "validators": ["integration_verified", "api_contract_valid"],
+          "description": "Integration with existing systems verified"
+        },
+        {
+          "gate": "documentation",
+          "proofArtifacts": [
+            "USER_GUIDE.md",
+            "API_DOCS.md"
+          ],
+          "validators": ["documentation_complete", "examples_provided"],
+          "description": "User and developer documentation complete"
+        }
+      ],
+      "optionalProofs": [
+        {
+          "gate": "rollback-plan",
+          "proofArtifacts": [
+            "ROLLBACK_PROCEDURE.md"
+          ],
+          "validators": ["rollback_tested"],
+          "description": "Rollback strategy documented and tested"
+        }
+      ],
+      "waiverPolicy": {
+        "allowedWaivers": 2,
+        "requiresApproval": ["Engineering Lead"],
+        "maxDuration": "60 days",
+        "riskThreshold": "MEDIUM"
+      }
+    },
+    "MARKETING_OPS": {
+      "riskLevel": "MEDIUM",
+      "requireAllGates": false,
+      "requiredProofs": [
+        {
+          "gate": "brand-review",
+          "proofArtifacts": [
+            "BRAND_APPROVAL.md",
+            "BRAND_CHECKLIST.json"
+          ],
+          "validators": ["brand_compliance", "visual_consistency"],
+          "description": "Brand guidelines compliance verified"
+        },
+        {
+          "gate": "content-approval",
+          "proofArtifacts": [
+            "CONTENT_REVIEW.md",
+            "MESSAGING_APPROVAL.md"
+          ],
+          "validators": ["legal_cleared", "message_approved"],
+          "description": "Content reviewed and approved by stakeholders"
+        },
+        {
+          "gate": "schedule-coordination",
+          "proofArtifacts": [
+            "CAMPAIGN_SCHEDULE.md",
+            "STAKEHOLDER_APPROVAL.md"
+          ],
+          "validators": ["timeline_approved", "resource_allocated"],
+          "description": "Campaign timing coordinated with business"
+        }
+      ],
+      "optionalProofs": [
+        {
+          "gate": "compliance-check",
+          "proofArtifacts": [
+            "LEGAL_REVIEW.md"
+          ],
+          "validators": ["legal_approved"],
+          "description": "Legal compliance review if required"
+        }
+      ],
+      "waiverPolicy": {
+        "allowedWaivers": 2,
+        "requiresApproval": ["Brand Manager"],
+        "maxDuration": "45 days",
+        "riskThreshold": "LOW"
+      }
+    },
+    "INFRASTRUCTURE": {
+      "riskLevel": "CRITICAL",
+      "requireAllGates": true,
+      "requiredProofs": [
+        {
+          "gate": "architecture-review",
+          "proofArtifacts": [
+            "ARCHITECTURE_REVIEW.md",
+            "INFRASTRUCTURE_DIAGRAM.png",
+            "CAPACITY_ANALYSIS.md"
+          ],
+          "validators": ["architect_approval", "scalability_verified", "cost_approved"],
+          "description": "Infrastructure architecture thoroughly reviewed"
+        },
+        {
+          "gate": "security-hardening",
+          "proofArtifacts": [
+            "SECURITY_HARDENING.md",
+            "VULNERABILITY_SCAN.json",
+            "PENETRATION_TEST.md"
+          ],
+          "validators": ["security_scan_clean", "hardening_applied", "pen_test_passed"],
+          "description": "Security measures implemented and verified"
+        },
+        {
+          "gate": "disaster-recovery",
+          "proofArtifacts": [
+            "DR_PLAN.md",
+            "DR_TEST_RESULTS.md",
+            "BACKUP_VERIFICATION.md"
+          ],
+          "validators": ["dr_tested", "rto_verified", "backup_validated"],
+          "description": "Disaster recovery tested and validated"
+        },
+        {
+          "gate": "monitoring-setup",
+          "proofArtifacts": [
+            "MONITORING_CONFIG.md",
+            "ALERTING_RULES.json",
+            "DASHBOARD_SCREENSHOTS.png"
+          ],
+          "validators": ["monitoring_active", "alerts_functional", "dashboards_complete"],
+          "description": "Comprehensive monitoring and alerting configured"
+        },
+        {
+          "gate": "load-testing",
+          "proofArtifacts": [
+            "LOAD_TEST_RESULTS.md",
+            "PERFORMANCE_METRICS.json",
+            "CAPACITY_REPORT.md"
+          ],
+          "validators": ["load_targets_met", "performance_acceptable", "capacity_sufficient"],
+          "description": "Performance validated under expected load"
+        }
+      ],
+      "waiverPolicy": {
+        "allowedWaivers": 0,
+        "requiresApproval": ["CTO", "Infrastructure Lead", "Security Lead"],
+        "maxDuration": "7 days",
+        "riskThreshold": "CRITICAL"
+      }
+    },
+    "RESEARCH_PROTOTYPE": {
+      "riskLevel": "LOW",
+      "requireAllGates": false,
+      "requiredProofs": [
+        {
+          "gate": "concept-approval",
+          "proofArtifacts": [
+            "CONCEPT_BRIEF.md",
+            "RESEARCH_PLAN.md"
+          ],
+          "validators": ["concept_viable", "resources_allocated"],
+          "description": "Research concept approved for exploration"
+        },
+        {
+          "gate": "findings-documentation",
+          "proofArtifacts": [
+            "RESEARCH_FINDINGS.md",
+            "PROTOTYPE_DEMO.mp4"
+          ],
+          "validators": ["findings_documented", "demo_available"],
+          "description": "Research outcomes properly documented"
+        }
+      ],
+      "optionalProofs": [
+        {
+          "gate": "resource-allocation",
+          "proofArtifacts": [
+            "RESOURCE_PLAN.md"
+          ],
+          "validators": ["budget_approved"],
+          "description": "Resource allocation approved"
+        }
+      ],
+      "waiverPolicy": {
+        "allowedWaivers": 3,
+        "requiresApproval": ["Innovation Lead"],
+        "maxDuration": "90 days",
+        "riskThreshold": "LOW"
+      }
+    },
+    "COMPLIANCE_AUDIT": {
+      "riskLevel": "HIGH",
+      "requireAllGates": true,
+      "requiredProofs": [
+        {
+          "gate": "audit-scope",
+          "proofArtifacts": [
+            "AUDIT_SCOPE.md",
+            "AUDIT_CRITERIA.md"
+          ],
+          "validators": ["scope_defined", "criteria_approved"],
+          "description": "Audit scope and criteria clearly defined"
+        },
+        {
+          "gate": "evidence-collection",
+          "proofArtifacts": [
+            "EVIDENCE_INVENTORY.md",
+            "EVIDENCE_ARCHIVE.zip"
+          ],
+          "validators": ["evidence_complete", "chain_of_custody"],
+          "description": "All required evidence collected and preserved"
+        },
+        {
+          "gate": "findings-review",
+          "proofArtifacts": [
+            "AUDIT_FINDINGS.md",
+            "STAKEHOLDER_REVIEW.md"
+          ],
+          "validators": ["findings_verified", "stakeholder_notified"],
+          "description": "Findings reviewed with relevant stakeholders"
+        },
+        {
+          "gate": "audit-signoff",
+          "proofArtifacts": [
+            "AUDIT_COMPLETION.md",
+            "AUDITOR_SIGNATURE.pdf"
+          ],
+          "validators": ["auditor_approved", "completion_certified"],
+          "description": "Audit completion certified by authorized auditor"
+        }
+      ],
+      "waiverPolicy": {
+        "allowedWaivers": 0,
+        "requiresApproval": ["Compliance Officer", "Legal"],
+        "maxDuration": "0 days",
+        "riskThreshold": "CRITICAL"
+      }
+    }
+  },
+  "waiverMechanism": {
+    "schema": {
+      "waiverRequest": {
+        "type": "object",
+        "required": ["requestId", "solutionType", "gate", "reason", "requestedBy", "expiryDate", "riskRating", "compensatingControls"],
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "pattern": "^WAIVER-[0-9]{4}-[0-9]{6}$",
+            "description": "Unique waiver identifier"
+          },
+          "solutionType": {
+            "type": "string",
+            "enum": ["CLIENT_DELIVERY", "INTERNAL_TOOLING", "MARKETING_OPS", "INFRASTRUCTURE", "RESEARCH_PROTOTYPE", "COMPLIANCE_AUDIT"]
+          },
+          "gate": {
+            "type": "string",
+            "description": "Name of gate being waived"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 50,
+            "description": "Detailed business justification for waiver"
+          },
+          "requestedBy": {
+            "type": "string",
+            "description": "Person requesting the waiver"
+          },
+          "expiryDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when waiver expires"
+          },
+          "riskRating": {
+            "type": "string",
+            "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+            "description": "Risk level of granting this waiver"
+          },
+          "compensatingControls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["control", "description", "verificationMethod"],
+              "properties": {
+                "control": {
+                  "type": "string",
+                  "description": "Alternative control being implemented"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "How this control mitigates the risk"
+                },
+                "verificationMethod": {
+                  "type": "string",
+                  "description": "How compliance with this control will be verified"
+                }
+              }
+            },
+            "minItems": 1,
+            "description": "Alternative controls to mitigate waived gate risk"
+          },
+          "approvals": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "approver": {
+                  "type": "string"
+                },
+                "approved": {
+                  "type": "boolean"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "comments": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "validators": {
+    "stakeholder_signoff": {
+      "description": "Validates presence of stakeholder signature",
+      "implementation": "check_signature_block"
+    },
+    "completeness_check": {
+      "description": "Ensures all required sections are present",
+      "implementation": "validate_document_sections"
+    },
+    "architect_review": {
+      "description": "Validates architect approval signature",
+      "implementation": "check_architect_approval"
+    },
+    "test_coverage_80": {
+      "description": "Ensures minimum 80% test coverage",
+      "implementation": "parse_coverage_report"
+    },
+    "all_tests_pass": {
+      "description": "Validates all tests are passing",
+      "implementation": "parse_test_results"
+    },
+    "security_scan_clean": {
+      "description": "No critical vulnerabilities found",
+      "implementation": "parse_vulnerability_scan"
+    },
+    "client_signoff": {
+      "description": "Client stakeholder has signed off",
+      "implementation": "check_client_signature"
+    }
+  },
+  "validationRules": {
+    "fileNamePatterns": {
+      "REQUIREMENTS_APPROVAL.md": "^REQUIREMENTS_APPROVAL(_[A-Z0-9]+)?\\.md$",
+      "QA_TEST_REPORT.md": "^QA_TEST_REPORT(_[A-Z0-9]+)?\\.md$",
+      "CLIENT_ACCEPTANCE.md": "^CLIENT_ACCEPTANCE(_[A-Z0-9]+)?\\.md$"
+    },
+    "mandatoryFields": {
+      "REQUIREMENTS_APPROVAL.md": ["stakeholder", "approval_date", "requirements_hash"],
+      "QA_TEST_REPORT.md": ["test_summary", "coverage_percentage", "pass_rate"],
+      "CLIENT_ACCEPTANCE.md": ["client_name", "acceptance_date", "uat_completion"]
+    }
+  },
+  "enforcementLevels": {
+    "STRICT": {
+      "description": "All gates required, no waivers allowed",
+      "applicableTo": ["COMPLIANCE_AUDIT", "INFRASTRUCTURE"]
+    },
+    "STANDARD": {
+      "description": "All gates required, limited waivers with approval",
+      "applicableTo": ["CLIENT_DELIVERY"]
+    },
+    "FLEXIBLE": {
+      "description": "Required gates enforced, generous waiver policy",
+      "applicableTo": ["INTERNAL_TOOLING", "MARKETING_OPS", "RESEARCH_PROTOTYPE"]
+    }
+  }
+}

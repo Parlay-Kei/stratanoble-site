@@ -1,0 +1,15 @@
+{
+  "id": "INVALID-001",
+  "title": "Mission Without Solution Type",
+  "description": "This mission is missing the required solution_type field",
+  "owner": "Test Team",
+  "gates": [
+    "some-gate",
+    "another-gate"
+  ],
+  "timeline": {
+    "start": "2026-02-01",
+    "end": "2026-02-28"
+  },
+  "notes": "This mission should FAIL validation due to missing solution_type"
+}

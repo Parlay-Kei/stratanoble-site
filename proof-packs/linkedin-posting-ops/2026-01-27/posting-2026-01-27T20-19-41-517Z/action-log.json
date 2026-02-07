@@ -1,0 +1,79 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T20:19:41.518Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T20:19:41.780Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:20:06.410Z",
+    "data": {
+      "filename": "2026-01-27T20-19-57-612Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T20:20:06.412Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:20:14.356Z",
+    "data": {
+      "filename": "2026-01-27T20-20-13-677Z_identity-check.png"
+    }
+  },
+  {
+    "action": "identity_verified",
+    "timestamp": "2026-01-27T20:20:15.323Z",
+    "data": {
+      "expectedSlug": "mr-steve-hubbard",
+      "actualSlug": "mr-steve-hubbard",
+      "expectedName": "Steve Hubbard",
+      "actualName": "",
+      "match": true
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:20:54.214Z",
+    "data": {
+      "filename": "2026-01-27T20-20-53-804Z_publish-before-post-2f213b42.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:20:58.901Z",
+    "data": {
+      "filename": "2026-01-27T20-20-58-584Z_modal-detected.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T20:21:13.841Z",
+    "data": {
+      "filename": "2026-01-27T20-21-13-530Z_post-verification.png"
+    }
+  },
+  {
+    "action": "publish_failed_verification",
+    "timestamp": "2026-01-27T20:21:13.843Z",
+    "data": {
+      "postId": "post-2f213b42",
+      "error": "POST_NOT_FOUND: Post does not appear on profile feed"
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-27T20:21:14.179Z"
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-27T20:21:14.508Z"
+  }
+]

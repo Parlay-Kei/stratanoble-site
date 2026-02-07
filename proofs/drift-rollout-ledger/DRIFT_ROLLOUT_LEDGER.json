@@ -1,0 +1,471 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-01-30T21:25:43.889Z",
+  "mission": "GOV-DRIFT-ROLLOUT-LEDGER-0004",
+  "owner": "OCS with QA Gatekeeper",
+  "repositories": [
+    {
+      "repository": "Direct-Cuts",
+      "path": "C:\\Dev\\Direct-Cuts",
+      "status": "PASS",
+      "driftClass": "COMPLIANT",
+      "owner": "Client Delivery",
+      "wave": 0,
+      "waveName": "Already Compliant",
+      "issues": [],
+      "remediation": [],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 15,
+      "estimatedEffort": "0 minutes"
+    },
+    {
+      "repository": "DSLV",
+      "path": "C:\\Dev\\DSLV",
+      "status": "PASS",
+      "driftClass": "COMPLIANT",
+      "owner": "Platform Ops",
+      "wave": 0,
+      "waveName": "Already Compliant",
+      "issues": [],
+      "remediation": [],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 15,
+      "estimatedEffort": "0 minutes"
+    },
+    {
+      "repository": "anx-audit-control",
+      "path": "C:\\Dev\\anx-audit-control",
+      "status": "FAIL",
+      "driftClass": "EASY_MISCONFIG",
+      "owner": "QA Team",
+      "wave": 1,
+      "waveName": "Quick Wins",
+      "issues": [
+        "Repository has no governance resolution (missing ANX_ROOT.pointer)"
+      ],
+      "remediation": [
+        {
+          "action": "create-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\anx-audit-control\\ANX_ROOT.pointer\"",
+          "description": "Create ANX_ROOT.pointer to canonical root"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 10,
+      "estimatedEffort": "5 minutes"
+    },
+    {
+      "repository": "CREA",
+      "path": "C:\\Dev\\CREA",
+      "status": "FAIL",
+      "driftClass": "EASY_MISCONFIG",
+      "owner": "Innovation Team",
+      "wave": 1,
+      "waveName": "Quick Wins",
+      "issues": [
+        "Repository has no governance resolution (missing ANX_ROOT.pointer)"
+      ],
+      "remediation": [
+        {
+          "action": "create-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\CREA\\ANX_ROOT.pointer\"",
+          "description": "Create ANX_ROOT.pointer to canonical root"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 10,
+      "estimatedEffort": "5 minutes"
+    },
+    {
+      "repository": "anx-audit-test",
+      "path": "C:\\Dev\\anx-audit-test",
+      "status": "FAIL",
+      "driftClass": "EASY_MISCONFIG",
+      "owner": "QA Team",
+      "wave": 1,
+      "waveName": "Quick Wins",
+      "issues": [
+        "Repository has no governance resolution (missing ANX_ROOT.pointer)"
+      ],
+      "remediation": [
+        {
+          "action": "create-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\anx-audit-test\\ANX_ROOT.pointer\"",
+          "description": "Create ANX_ROOT.pointer to canonical root"
+        }
+      ],
+      "remediationStatus": "COMPLETED",
+      "lastUpdated": "2026-01-30T21:15:41.639Z",
+      "priority": 5,
+      "estimatedEffort": "5 minutes"
+    },
+    {
+      "repository": "anx-audit-test2",
+      "path": "C:\\Dev\\anx-audit-test2",
+      "status": "FAIL",
+      "driftClass": "EASY_MISCONFIG",
+      "owner": "QA Team",
+      "wave": 1,
+      "waveName": "Quick Wins",
+      "issues": [
+        "Repository has no governance resolution (missing ANX_ROOT.pointer)"
+      ],
+      "remediation": [
+        {
+          "action": "create-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\anx-audit-test2\\ANX_ROOT.pointer\"",
+          "description": "Create ANX_ROOT.pointer to canonical root"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 5,
+      "estimatedEffort": "5 minutes"
+    },
+    {
+      "repository": "anx-audit-test3",
+      "path": "C:\\Dev\\anx-audit-test3",
+      "status": "FAIL",
+      "driftClass": "EASY_MISCONFIG",
+      "owner": "QA Team",
+      "wave": 1,
+      "waveName": "Quick Wins",
+      "issues": [
+        "Repository has no governance resolution (missing ANX_ROOT.pointer)"
+      ],
+      "remediation": [
+        {
+          "action": "create-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\anx-audit-test3\\ANX_ROOT.pointer\"",
+          "description": "Create ANX_ROOT.pointer to canonical root"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 5,
+      "estimatedEffort": "5 minutes"
+    },
+    {
+      "repository": "anx-audit-test4",
+      "path": "C:\\Dev\\anx-audit-test4",
+      "status": "FAIL",
+      "driftClass": "EASY_MISCONFIG",
+      "owner": "QA Team",
+      "wave": 1,
+      "waveName": "Quick Wins",
+      "issues": [
+        "Repository has no governance resolution (missing ANX_ROOT.pointer)"
+      ],
+      "remediation": [
+        {
+          "action": "create-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\anx-audit-test4\\ANX_ROOT.pointer\"",
+          "description": "Create ANX_ROOT.pointer to canonical root"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 5,
+      "estimatedEffort": "5 minutes"
+    },
+    {
+      "repository": "anx-audit-test5",
+      "path": "C:\\Dev\\anx-audit-test5",
+      "status": "FAIL",
+      "driftClass": "EASY_MISCONFIG",
+      "owner": "QA Team",
+      "wave": 1,
+      "waveName": "Quick Wins",
+      "issues": [
+        "Repository has no governance resolution (missing ANX_ROOT.pointer)"
+      ],
+      "remediation": [
+        {
+          "action": "create-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\anx-audit-test5\\ANX_ROOT.pointer\"",
+          "description": "Create ANX_ROOT.pointer to canonical root"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 5,
+      "estimatedEffort": "5 minutes"
+    },
+    {
+      "repository": "anx-test-install",
+      "path": "C:\\Dev\\anx-test-install",
+      "status": "FAIL",
+      "driftClass": "EASY_MISCONFIG",
+      "owner": "QA Team",
+      "wave": 1,
+      "waveName": "Quick Wins",
+      "issues": [
+        "Repository has no governance resolution (missing ANX_ROOT.pointer)"
+      ],
+      "remediation": [
+        {
+          "action": "create-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\anx-test-install\\ANX_ROOT.pointer\"",
+          "description": "Create ANX_ROOT.pointer to canonical root"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 5,
+      "estimatedEffort": "5 minutes"
+    },
+    {
+      "repository": "StrataNoble",
+      "path": "C:\\Dev\\StrataNoble",
+      "status": "FAIL",
+      "driftClass": "STRUCTURAL_MISMATCH",
+      "owner": "Platform Ops",
+      "wave": 2,
+      "waveName": "Active Development",
+      "issues": [
+        "Has correct pointer but also has local governance overrides"
+      ],
+      "remediation": [
+        {
+          "action": "remove-overrides",
+          "command": "rmdir /s /q \"C:\\Dev\\StrataNoble\\.claude\\governance\"",
+          "description": "Remove local governance overrides"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 35,
+      "estimatedEffort": "30 minutes"
+    },
+    {
+      "repository": "Household_Ticket",
+      "path": "C:\\Dev\\Household_Ticket",
+      "status": "FAIL",
+      "driftClass": "STRUCTURAL_MISMATCH",
+      "owner": "Client Delivery",
+      "wave": 3,
+      "waveName": "Client Coordination",
+      "issues": [
+        "Repository has local governance files instead of using canonical"
+      ],
+      "remediation": [
+        {
+          "action": "remove-local-governance",
+          "command": "rmdir /s /q \"C:\\Dev\\Household_Ticket\\.claude\\governance\" && echo \"../.claude-anx\" > \"C:\\Dev\\Household_Ticket\\ANX_ROOT.pointer\"",
+          "description": "Remove local governance and add pointer to canonical"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 30,
+      "estimatedEffort": "30 minutes"
+    },
+    {
+      "repository": "msaudreys-house",
+      "path": "C:\\Dev\\msaudreys-house",
+      "status": "FAIL",
+      "driftClass": "STRUCTURAL_MISMATCH",
+      "owner": "Client Delivery",
+      "wave": 3,
+      "waveName": "Client Coordination",
+      "issues": [
+        "Has correct pointer but also has local governance overrides"
+      ],
+      "remediation": [
+        {
+          "action": "remove-overrides",
+          "command": "rmdir /s /q \"C:\\Dev\\msaudreys-house\\.claude\\governance\"",
+          "description": "Remove local governance overrides"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 30,
+      "estimatedEffort": "30 minutes"
+    },
+    {
+      "repository": "DC-2",
+      "path": "C:\\Dev\\DC-2",
+      "status": "FAIL",
+      "driftClass": "STRUCTURAL_MISMATCH",
+      "owner": "Client Delivery",
+      "wave": 3,
+      "waveName": "Client Coordination",
+      "issues": [
+        "Repository has local governance files instead of using canonical"
+      ],
+      "remediation": [
+        {
+          "action": "remove-local-governance",
+          "command": "rmdir /s /q \"C:\\Dev\\DC-2\\.claude\\governance\" && echo \"../.claude-anx\" > \"C:\\Dev\\DC-2\\ANX_ROOT.pointer\"",
+          "description": "Remove local governance and add pointer to canonical"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 20,
+      "estimatedEffort": "30 minutes"
+    },
+    {
+      "repository": "flutter",
+      "path": "C:\\Dev\\flutter",
+      "status": "FAIL",
+      "driftClass": "STRUCTURAL_MISMATCH",
+      "owner": "Mobile Team",
+      "wave": 4,
+      "waveName": "Final Enforcement",
+      "issues": [
+        "Repository has local governance files instead of using canonical"
+      ],
+      "remediation": [
+        {
+          "action": "remove-local-governance",
+          "command": "rmdir /s /q \"C:\\Dev\\flutter\\.claude\\governance\" && echo \"../.claude-anx\" > \"C:\\Dev\\flutter\\ANX_ROOT.pointer\"",
+          "description": "Remove local governance and add pointer to canonical"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 20,
+      "estimatedEffort": "30 minutes"
+    },
+    {
+      "repository": "Konjode",
+      "path": "C:\\Dev\\Konjode",
+      "status": "FAIL",
+      "driftClass": "STRUCTURAL_MISMATCH",
+      "owner": "Development Team",
+      "wave": 4,
+      "waveName": "Final Enforcement",
+      "issues": [
+        "Repository has local governance files instead of using canonical"
+      ],
+      "remediation": [
+        {
+          "action": "remove-local-governance",
+          "command": "rmdir /s /q \"C:\\Dev\\Konjode\\.claude\\governance\" && echo \"../.claude-anx\" > \"C:\\Dev\\Konjode\\ANX_ROOT.pointer\"",
+          "description": "Remove local governance and add pointer to canonical"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 20,
+      "estimatedEffort": "30 minutes"
+    },
+    {
+      "repository": "MPL",
+      "path": "C:\\Dev\\MPL",
+      "status": "FAIL",
+      "driftClass": "STRUCTURAL_MISMATCH",
+      "owner": "Platform Ops",
+      "wave": 4,
+      "waveName": "Final Enforcement",
+      "issues": [
+        "Pointer resolves to C:\\Dev\\MPL\\# ANX_ROOT.pointer — Canonical Root and Resolver Behavior\r\n\r\n**Version:** 1\r\n\r\n---\r\n\r\n## canonical_root\r\n\r\nThe canonical repository root for ANX resolution in this repo is:\r\n\r\n```\r\nc:\\Dev\\MPL\r\n```\r\n\r\n(Or the path returned by resolving the workspace root at session start. Prefer workspace root when in doubt.)\r\n\r\n---\r\n\r\n## resolver_behavior\r\n\r\n- **If ANX_ROOT.pointer exists:** Use the `canonical_root` value above (or resolve relative to this file's directory as repo root).\r\n- **If missing:** Use the current workspace root as canonical root.\r\n- **Paths:** All ANX artifacts (ANX.md, MISSION_RULES.md, proofs, governance, research) are relative to canonical root.\r\n- **No overrides:** Do not override canonical root with env vars unless explicitly documented in this file.\r\n\r\n---\r\n\r\n*Referenced by ANX.md boot sequence.* instead of canonical C:\\Dev\\.claude-anx"
+      ],
+      "remediation": [
+        {
+          "action": "fix-pointer",
+          "command": "echo \"../.claude-anx\" > \"C:\\Dev\\MPL\\ANX_ROOT.pointer\"",
+          "description": "Update pointer to canonical root"
+        }
+      ],
+      "remediationStatus": "PENDING",
+      "lastUpdated": "2026-01-30T21:25:43.889Z",
+      "priority": 20,
+      "estimatedEffort": "30 minutes"
+    }
+  ],
+  "waves": [
+    {
+      "wave": 0,
+      "name": "Already Compliant",
+      "startDate": null,
+      "endDate": null,
+      "enforcement": "NONE",
+      "description": "Repositories already properly configured",
+      "actions": []
+    },
+    {
+      "wave": 1,
+      "name": "Quick Wins",
+      "startDate": "2026-02-01",
+      "endDate": "2026-02-07",
+      "enforcement": "WARN",
+      "description": "Test repos and simple misconfigurations",
+      "actions": [
+        "Send notification to owners",
+        "Provide automated fix script",
+        "Log warnings in CI"
+      ]
+    },
+    {
+      "wave": 2,
+      "name": "Active Development",
+      "startDate": "2026-02-08",
+      "endDate": "2026-02-14",
+      "enforcement": "BLOCK_BRANCHES",
+      "description": "Core platform repos with structural issues",
+      "actions": [
+        "Block new branch creation until remediated",
+        "Require architect review",
+        "Provide migration assistance"
+      ]
+    },
+    {
+      "wave": 3,
+      "name": "Client Coordination",
+      "startDate": "2026-02-15",
+      "endDate": "2026-02-21",
+      "enforcement": "BLOCK_MERGES",
+      "description": "Client projects requiring stakeholder approval",
+      "actions": [
+        "Client notification required",
+        "Block merges to main/master",
+        "Schedule remediation window"
+      ]
+    },
+    {
+      "wave": 4,
+      "name": "Final Enforcement",
+      "startDate": "2026-02-22",
+      "endDate": "2026-02-28",
+      "enforcement": "FULL_ENFORCEMENT",
+      "description": "Remaining repos and intentional divergences",
+      "actions": [
+        "Full CI/CD blocking",
+        "Escalation to leadership",
+        "Consider exemption process"
+      ]
+    }
+  ],
+  "statistics": {
+    "total": 17,
+    "byStatus": {
+      "FAIL": 15,
+      "PASS": 2
+    },
+    "byDriftClass": {
+      "EASY_MISCONFIG": 8,
+      "STRUCTURAL_MISMATCH": 7,
+      "COMPLIANT": 2
+    },
+    "byWave": {
+      "wave_1": 8,
+      "wave_3": 3,
+      "wave_0": 2,
+      "wave_4": 3,
+      "wave_2": 1
+    }
+  },
+  "enforcementLevels": {
+    "WARN": "Log warnings but allow operations",
+    "BLOCK_BRANCHES": "Block creation of new branches",
+    "BLOCK_MERGES": "Block all merge operations",
+    "FULL_ENFORCEMENT": "Block all operations except remediation"
+  }
+}

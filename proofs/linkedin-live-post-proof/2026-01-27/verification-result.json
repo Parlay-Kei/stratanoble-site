@@ -1,0 +1,29 @@
+{
+  "status": "FAIL",
+  "timestamp": "2026-01-27T20:41:18.314Z",
+  "runId": "live-verify-2026-01-27T20-41-18-313Z",
+  "identityVerification": {
+    "expected": "mr-steve-hubbard",
+    "actual": "mr-steve-hubbard",
+    "matched": true,
+    "screenshot": "proofs\\linkedin-live-post-proof\\2026-01-27\\screenshots\\2026-01-27T20-41-44-958Z_identity_menu.png"
+  },
+  "postVerification": {
+    "postUrl": "",
+    "authorSlug": "",
+    "authorMatched": false,
+    "visibleOnFeed": false,
+    "permalinkLoads": false,
+    "screenshot": "proofs\\linkedin-live-post-proof\\2026-01-27\\screenshots\\2026-01-27T20-42-44-645Z_posted_on_feed.png"
+  },
+  "notionUpdate": {
+    "attempted": false,
+    "success": false
+  },
+  "screenshots": [
+    "proofs\\linkedin-live-post-proof\\2026-01-27\\screenshots\\2026-01-27T20-41-44-958Z_identity_menu.png",
+    "proofs\\linkedin-live-post-proof\\2026-01-27\\screenshots\\2026-01-27T20-41-54-804Z_composer_open.png",
+    "proofs\\linkedin-live-post-proof\\2026-01-27\\screenshots\\2026-01-27T20-42-44-645Z_posted_on_feed.png"
+  ],
+  "error": "POST_VERIFICATION_FAILED: Post not found"
+}

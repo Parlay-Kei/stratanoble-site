@@ -1,0 +1,95 @@
+# Solution Type Validation Test Output
+# Generated: 2026-01-30
+
+## Test 1: CLIENT_DELIVERY Mission
+=====================================
+Command: node validate-solution-type.js mission-client-delivery.json
+Result: PASSED ✅
+
+Solution Type Validation Report
+================================
+
+Mission: CLI-DEL-2026-001
+Title: E-Commerce Platform Enhancement for Acme Corp
+Solution Type: CLIENT_DELIVERY
+
+Status: ✅ PASSED
+
+Solution Type Details:
+  Risk Level: HIGH
+  Required Gates: 6
+  Required Receipts: 4
+  Allowed Shortcuts: 0
+
+
+## Test 2: INTERNAL_TOOLING Mission
+=====================================
+Command: node validate-solution-type.js mission-internal-tooling.json
+Result: PASSED ✅
+
+Solution Type Validation Report
+================================
+
+Mission: INT-TOOL-2026-002
+Title: Automated Code Review Bot for Development Team
+Solution Type: INTERNAL_TOOLING
+
+Status: ✅ PASSED
+
+Solution Type Details:
+  Risk Level: MEDIUM
+  Required Gates: 4
+  Required Receipts: 3
+  Allowed Shortcuts: 3
+
+
+## Test 3: MARKETING_OPS Mission
+=====================================
+Command: node validate-solution-type.js mission-marketing-ops.json
+Result: PASSED ✅
+
+Solution Type Validation Report
+================================
+
+Mission: MKT-OPS-2026-003
+Title: Q1 2026 Social Media Campaign Automation
+Solution Type: MARKETING_OPS
+
+Status: ✅ PASSED
+
+Solution Type Details:
+  Risk Level: MEDIUM
+  Required Gates: 4
+  Required Receipts: 3
+  Allowed Shortcuts: 3
+
+
+## Test 4: Invalid Mission (No Solution Type)
+=====================================
+Command: node validate-solution-type.js mission-invalid-no-type.json
+Result: FAILED ❌ (Exit Code 1)
+
+Solution Type Validation Report
+================================
+
+Mission: INVALID-001
+Title: Mission Without Solution Type
+Solution Type: NONE
+
+Status: ❌ FAILED
+
+Errors:
+  ❌ FATAL: Mission does not declare a solution_type
+
+
+## Summary
+=====================================
+Total Tests: 4
+Passed: 3
+Failed: 1 (as expected)
+
+The validation system correctly:
+- Passes valid missions with proper solution types
+- Fails missions without solution types
+- Provides clear error messages
+- Returns appropriate exit codes for CI/CD integration

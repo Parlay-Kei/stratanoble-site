@@ -4,6 +4,21 @@
 
 echo "🔍 Running pre-commit checks for Strata Noble..."
 
+# =============================================================================
+# DRIFT GUARD: .claude-anx Governance Enforcement
+# =============================================================================
+echo "🛡️  Running drift guard..."
+if [ -f "./scripts/drift/drift-guard.sh" ]; then
+    bash ./scripts/drift/drift-guard.sh
+    if [ $? -ne 0 ]; then
+        echo "❌ Drift guard blocked commit. See above for details."
+        echo "   Override: git commit --no-verify -m \"DRIFT-OVERRIDE: [reason]\""
+        exit 1
+    fi
+else
+    echo "⚠️  Drift guard script not found, skipping..."
+fi
+
 cd apps/platform
 
 # Type check

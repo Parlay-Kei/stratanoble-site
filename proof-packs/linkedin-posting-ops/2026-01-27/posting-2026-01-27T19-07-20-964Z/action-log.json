@@ -1,0 +1,76 @@
+[
+  {
+    "action": "session_establish_start",
+    "timestamp": "2026-01-27T19:07:20.966Z"
+  },
+  {
+    "action": "using_stored_session",
+    "timestamp": "2026-01-27T19:07:21.178Z",
+    "data": {
+      "path": "./linkedin-session.json"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T19:07:48.407Z",
+    "data": {
+      "filename": "2026-01-27T19-07-39-778Z_session-established.png"
+    }
+  },
+  {
+    "action": "session_established",
+    "timestamp": "2026-01-27T19:07:48.409Z"
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T19:08:27.476Z",
+    "data": {
+      "filename": "2026-01-27T19-08-27-131Z_publish-before-post-2f213b42.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T19:08:31.884Z",
+    "data": {
+      "filename": "2026-01-27T19-08-31-561Z_modal-detected.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T19:08:43.291Z",
+    "data": {
+      "filename": "2026-01-27T19-08-42-958Z_modal-still-open.png"
+    }
+  },
+  {
+    "action": "screenshot_captured",
+    "timestamp": "2026-01-27T19:08:43.613Z",
+    "data": {
+      "filename": "2026-01-27T19-08-43-293Z_publish-after-post-2f213b42.png"
+    }
+  },
+  {
+    "action": "publish_receipt_generated",
+    "timestamp": "2026-01-27T19:08:48.306Z",
+    "data": {
+      "postId": "post-2f213b42"
+    }
+  },
+  {
+    "action": "post_published",
+    "timestamp": "2026-01-27T19:08:48.307Z",
+    "data": {
+      "postId": "post-2f213b42",
+      "title": "P01 - Why Automation Fails in Serious Businesses",
+      "url": ""
+    }
+  },
+  {
+    "action": "session_saved",
+    "timestamp": "2026-01-27T19:08:48.611Z"
+  },
+  {
+    "action": "session_closed",
+    "timestamp": "2026-01-27T19:08:49.013Z"
+  }
+]

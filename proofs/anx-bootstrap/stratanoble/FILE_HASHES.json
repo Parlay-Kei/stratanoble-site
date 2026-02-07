@@ -1,0 +1,30 @@
+{
+  "repository": "StrataNoble",
+  "timestamp": "2026-01-30T00:00:00Z",
+  "files": {
+    "ANX.md": {
+      "sha256": "7d9b845b61646b79ca5c40dfd399c30309b9e4c723fed8856cafce0eac4ec84b",
+      "status": "created"
+    },
+    "MISSION_RULES.md": {
+      "sha256": "7e01fd9d3f3cfd1e5e85bba9a438bdb3ff5a381c51cef525f943891269d585be",
+      "status": "created"
+    },
+    "ANX_ROOT.pointer": {
+      "sha256": "328b6f0fce8ce96b9028a1e832aacf141c7abb8059f870f05cd1b91387f2dac0",
+      "status": "created"
+    },
+    "CLAUDE.md.anx.merge_proposal.md": {
+      "sha256": "2851eb63f233542b49462187043b7144b7e7ee74eacc142d68e23afc6e5e8e3d",
+      "status": "merge_proposal"
+    },
+    "CODEX_INSTRUCTIONS.md": {
+      "sha256": "57a9ce4500d3cd7a7d6f8d1ba6e79af374197e496b436445f51074c0f0a6352a",
+      "status": "created"
+    },
+    "CURSOR_RULES.md": {
+      "sha256": "1b8de2fb38e280ffbdb8b58d46664693e24366037d5551cc429360234c5e221c",
+      "status": "created"
+    }
+  }
+}

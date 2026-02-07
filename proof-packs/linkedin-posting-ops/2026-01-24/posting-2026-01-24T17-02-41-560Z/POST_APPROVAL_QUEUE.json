@@ -1,0 +1,54 @@
+[
+  {
+    "id": "post-2f213b42",
+    "notionPageId": "2f213b42-8aa7-81b9-8a87-f032b85ef1b7",
+    "title": "P01 - Why Automation Fails in Serious Businesses",
+    "body": "Most automation fails because it automates the wrong things.\n\nYou automate the visible workflows.\nYou dashboard the obvious metrics.\nYou alert on the expected failures.\n\nBut the real failures happen silently:\n- Permission drift that nobody notices\n- Integration delays that compound\n- Data quality that degrades slowly\n- Edge cases that multiply quietly\n\nThe solution isn't more automation.\nIt's automating the right things:\n- Ownership verification\n- Drift detection\n- Assumption testing\n- Silent failure monitoring\n\nStop automating what's easy.\nStart automating what matters.\n\nWhat's failing silently in your business right now?",
+    "publishDate": "2026-01-27",
+    "hashtags": [
+      "ownership"
+    ],
+    "notionUrl": "https://www.notion.so/P01-Why-Automation-Fails-in-Serious-Businesses-2f213b428aa781b98a87f032b85ef1b7",
+    "status": "BLOCKED",
+    "blockReason": "FUTURE_DATE: Scheduled for 2026-01-27, not within publish window"
+  },
+  {
+    "id": "post-2f213b42",
+    "notionPageId": "2f213b42-8aa7-812e-b993-dd00ee9fe888",
+    "title": "P02 - Manual Steps Are Hidden Risk",
+    "body": "\"It's just a quick manual step.\"\n\nFamous last words.\n\nThat manual step that takes 5 minutes today?\n- In 3 months, it takes 20 minutes\n- In 6 months, it requires 3 people\n- In a year, it's a full-time job\n\nManual processes don't just drift.\nThey multiply.\nThey create dependencies.\nThey hide institutional knowledge.\nThey become \"the way we've always done it.\"\n\nEvery manual step is technical debt with compound interest.\n\nDocument it, automate it, or eliminate it.\nThere is no fourth option.",
+    "publishDate": "2026-01-29",
+    "hashtags": [
+      "cost"
+    ],
+    "notionUrl": "https://www.notion.so/P02-Manual-Steps-Are-Hidden-Risk-2f213b428aa7812eb993dd00ee9fe888",
+    "status": "BLOCKED",
+    "blockReason": "FUTURE_DATE: Scheduled for 2026-01-29, not within publish window"
+  },
+  {
+    "id": "post-2f213b42",
+    "notionPageId": "2f213b42-8aa7-8155-bc05-fe4963abde69",
+    "title": "P03 - Dashboards Don't Mean Control",
+    "body": "Your dashboard is lying to you.\n\nNot because the data is wrong.\nBecause dashboards only show what you decided to measure.\n\nThe real problems live in the gaps:\n- Between your metrics\n- Between your systems\n- Between your teams\n- Between intention and execution\n\nA dashboard that shows all green while your business struggles isn't broken.\nIt's doing exactly what you built it to do.\n\nThe question isn't \"What are we measuring?\"\nIt's \"What aren't we measuring that's killing us?\"\n\nReal control requires monitoring the gaps, not just the metrics.",
+    "publishDate": "2026-02-03",
+    "hashtags": [
+      "proof"
+    ],
+    "notionUrl": "https://www.notion.so/P03-Dashboards-Don-t-Mean-Control-2f213b428aa78155bc05fe4963abde69",
+    "status": "BLOCKED",
+    "blockReason": "FUTURE_DATE: Scheduled for 2026-02-03, not within publish window"
+  },
+  {
+    "id": "post-2f213b42",
+    "notionPageId": "2f213b42-8aa7-8174-a426-c5644c494689",
+    "title": "P04 - Clarity Feels Slow Until It Wins",
+    "body": "Busy is the enemy of progress.\n\nEvery task completed without strategic alignment is waste.\nEvery meeting without clear ownership is theft.\nEvery initiative without success metrics is gambling.\n\nYour team isn't lazy. They're lost.\nThey're optimizing locally while the business fails globally.\n\nClarity feels slow because it requires saying no.\nBut unclear teams move fast in wrong directions.\n\nThe cost of clarity is discomfort.\nThe cost of confusion is everything.\n\nChoose your hard.",
+    "publishDate": "2026-02-05",
+    "hashtags": [
+      "decisions"
+    ],
+    "notionUrl": "https://www.notion.so/P04-Clarity-Feels-Slow-Until-It-Wins-2f213b428aa78174a426c5644c494689",
+    "status": "BLOCKED",
+    "blockReason": "FUTURE_DATE: Scheduled for 2026-02-05, not within publish window"
+  }
+]

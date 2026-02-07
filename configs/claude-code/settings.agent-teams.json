@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "_comment": "Claude Code Agent Teams Configuration - ANX Governed",
+  "_version": "1.0.0",
+  "_authority": "Platform Ops",
+  "_effective_date": "2026-02-06",
+  "_status": "EXPERIMENTAL",
+
+  "agent_teams": {
+    "_warning": "Agent teams are EXPERIMENTAL. Enable only in controlled environments.",
+
+    "enabled": false,
+
+    "enable_instructions": [
+      "To enable agent teams, set environment variable:",
+      "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1",
+      "",
+      "Do NOT modify this file to enable. Use environment variable only.",
+      "This ensures explicit operator intent and easy rollback."
+    ],
+
+    "teammate_mode": {
+      "default": "in-process",
+      "options": {
+        "in-process": {
+          "description": "Teammates run in same process as lead",
+          "use_when": [
+            "Fast coordination needed",
+            "Tasks are small (<5 min each)",
+            "Low isolation requirements"
+          ],
+          "overhead": "minimal"
+        },
+        "tmux": {
+          "description": "Teammates run in separate tmux panes",
+          "use_when": [
+            "Visual monitoring required",
+            "Tasks are long-running (>5 min)",
+            "Debugging teammate behavior",
+            "Higher isolation needed"
+          ],
+          "overhead": "moderate",
+          "requirements": ["tmux installed", "terminal environment"]
+        }
+      }
+    },
+
+    "limits": {
+      "max_teammates": 4,
+      "teammate_timeout_minutes": 30,
+      "total_swarm_timeout_minutes": 120
+    },
+
+    "cleanup": {
+      "_rule": "LEAD AGENT PERFORMS ALL CLEANUP. TEAMMATES NEVER CLEAN UP.",
+      "lead_cleanup_only": true,
+      "cleanup_on_failure": true,
+      "preserve_logs": true,
+      "log_retention_days": 30
+    },
+
+    "receipts": {
+      "require_per_subtask": true,
+      "require_consolidated": true,
+      "output_directory": "proofs/swarm-runs/",
+      "format": "yaml"
+    }
+  },
+
+  "governance": {
+    "anx_controlled": true,
+    "require_mission_authorization": true,
+    "require_plan_approval_for_risky": true,
+    "prohibited_for_critical_risk": true
+  }
+}

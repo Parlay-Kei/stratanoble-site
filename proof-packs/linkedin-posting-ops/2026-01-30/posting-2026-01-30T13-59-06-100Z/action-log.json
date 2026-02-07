@@ -1,0 +1,11 @@
+[
+  {
+    "action": "post_approved",
+    "timestamp": "2026-01-30T13:59:06.106Z",
+    "data": {
+      "postId": "post-dd00ee9fe888",
+      "title": "P02 - Manual Steps Are Hidden Risk",
+      "approvedAt": "2026-01-30T13:59:06.104Z"
+    }
+  }
+]

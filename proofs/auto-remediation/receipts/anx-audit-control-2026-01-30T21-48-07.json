@@ -1,0 +1,25 @@
+{
+  "repository": "anx-audit-control",
+  "path": "C:\\Dev\\anx-audit-control",
+  "timestamp": "2026-01-30T21:48:07.644Z",
+  "mode": "apply",
+  "actions": [
+    {
+      "action": "create-pointer",
+      "path": "C:\\Dev\\anx-audit-control\\ANX_ROOT.pointer",
+      "content": "../.claude-anx",
+      "success": true
+    },
+    {
+      "action": "verification",
+      "result": "Pointer correctly created and verified"
+    }
+  ],
+  "status": "SUCCESS",
+  "validation": {
+    "valid": true,
+    "issues": [],
+    "warnings": []
+  },
+  "error": null
+}

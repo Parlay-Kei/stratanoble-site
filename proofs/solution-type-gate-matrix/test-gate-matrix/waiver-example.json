@@ -1,0 +1,44 @@
+{
+  "id": "INTERNAL-TOOL-2026-WAIVER-001",
+  "title": "Quick Bug Fix Tool - With Waiver",
+  "solution_type": "INTERNAL_TOOLING",
+  "description": "Simple internal tool with waiver for rollback plan",
+  "owner": "Platform Engineering",
+  "gates": [
+    "technical-review",
+    "integration-testing",
+    "documentation"
+  ],
+  "waivers": [
+    {
+      "requestId": "WAIVER-2026-123456",
+      "solutionType": "INTERNAL_TOOLING",
+      "gate": "rollback-plan",
+      "reason": "Tool deployment is reversible through feature flag disable with zero data impact. The tool only reads existing data and provides reports, no write operations.",
+      "requestedBy": "john.doe@company.com",
+      "expiryDate": "2026-03-01",
+      "riskRating": "LOW",
+      "compensatingControls": [
+        {
+          "control": "Feature Flag Rollback",
+          "description": "Tool can be instantly disabled via feature flag in under 30 seconds",
+          "verificationMethod": "Automated rollback test performed in staging environment"
+        },
+        {
+          "control": "Read-Only Operations",
+          "description": "Tool only performs read operations, no data modification possible",
+          "verificationMethod": "Code review confirms no write operations in codebase"
+        }
+      ],
+      "approvals": [
+        {
+          "approver": "tech.lead@company.com",
+          "approved": true,
+          "timestamp": "2026-01-30T16:00:00Z",
+          "comments": "Approved - low risk tool with adequate compensating controls"
+        }
+      ]
+    }
+  ],
+  "notes": "This mission demonstrates the waiver mechanism for non-critical gate requirements"
+}
