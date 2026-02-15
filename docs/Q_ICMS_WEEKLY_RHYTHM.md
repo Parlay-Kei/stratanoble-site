@@ -43,14 +43,17 @@ This weekly rhythm ensures Q-ICMS remains current, actionable, and trusted.
 **Objective**: Keep payment pipeline moving and identify blockers
 
 **Actions**:
-1. Review all outstanding invoices in Q-ICMS
-2. Check payment status for invoices >7 days old
-3. Send follow-up for invoices >14 days old (overdue trigger)
-4. Update invoice status (Sent / Acknowledged / Paid / Overdue)
-5. Flag any payment blockers or disputes
-6. Record payment receipts and close paid invoices
+1. Confirm invoices sent in last 24 hours (recipient contact, delivery method, comm log entry)
+2. Review all outstanding invoices in Q-ICMS
+3. Check payment status for invoices >7 days old
+4. Send follow-up for invoices >14 days old (overdue trigger)
+5. Update invoice status (Sent / Acknowledged / Paid / Overdue)
+6. Flag any payment blockers or disputes
+7. Record payment receipts and close paid invoices
 
 **Output**: Clean invoice pipeline with clear follow-up actions
+
+**Default Control**: The 24 hour invoice sent confirmation prevents lost invoices and incorrect recipient errors, reducing payment delays.
 
 **Overdue Triggers**:
 - **7 days**: Soft follow-up (status check)
@@ -100,7 +103,7 @@ Track these monthly to ensure cadence effectiveness:
 ## Getting Started
 
 **Week 1 Setup**:
-1. Block calendar: Mon 9:00, Wed 10:00, Fri 16:00
+1. Cadence reminders are automated for Mon 9:00, Wed 10:00, Fri 16:00 America/Los_Angeles
 2. Create initial project list in Q-ICMS
 3. Import current invoices and status
 4. Set up comms log template
@@ -114,16 +117,16 @@ Track these monthly to ensure cadence effectiveness:
 ## Troubleshooting
 
 **"I don't have time for three sessions"**
-→ Combine Monday + Friday (45 min), keep Wednesday separate for finance
+Response: Combine Monday + Friday (45 min), keep Wednesday separate for finance
 
 **"Q-ICMS is getting stale again"**
-→ Check who missed their day; send template checklist; offer 1:1 pairing
+Response: Check who missed their day; send template checklist; offer 1:1 pairing
 
 **"Too many projects to review"**
-→ Focus on active projects only; archive completed; defer future projects
+Response: Focus on active projects only; archive completed; defer future projects
 
 **"Decisions aren't being logged"**
-→ Add "Log in Q-ICMS" as last item on meeting agendas
+Response: Add "Log in Q-ICMS" as last item on meeting agendas
 
 ---
 
