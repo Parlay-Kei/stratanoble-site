@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     }
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE;
     const vaultKey = process.env.VAULT_ENCRYPTION_KEY;
 
     if (!supabaseUrl || !serviceKey || !vaultKey) {
@@ -77,7 +77,15 @@ export async function POST(request: NextRequest) {
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    return NextResponse.json({ success: true, credential: data });
+    // Audit log - never store secret values
+    await supabase.from('vault_access_log').insert({
+      actor_email: user.email,
+      action: 'create',
+      credential_id: data.id,
+      timestamp: new Date().toISOString(),
+    });
+
+    return NextResponse.json({ success: true, credential: { id: data.id, service_name: data.service_name, credential_name: data.credential_name } });
   } catch (e: any) {
     return NextResponse.json({ error: 'Failed to create credential' }, { status: 500 });
   }

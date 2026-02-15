@@ -1,18 +1,17 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
 
-
-function encrypt(value: string, hexKey: string) {
+function decrypt(encrypted: string, hexKey: string): string {
+  const [ivHex, tagHex, ciphertext] = encrypted.split(':');
   const key = Buffer.from(hexKey, 'hex');
-  const iv = crypto.randomBytes(16);
-  const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
-  let enc = cipher.update(value, 'utf8', 'hex');
-  enc += cipher.final('hex');
-  const tag = cipher.getAuthTag();
-  const ivHex = iv.toString('hex');
-  const tagHex = tag.toString('hex');
-  return `${ivHex}:${tagHex}:${enc}`;
+  const iv = Buffer.from(ivHex, 'hex');
+  const tag = Buffer.from(tagHex, 'hex');
+  const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
+  decipher.setAuthTag(tag);
+  let dec = decipher.update(ciphertext, 'hex', 'utf8');
+  dec += decipher.final('utf8');
+  return dec;
 }
 
 export async function POST(request: Request, { params }: any) {
@@ -20,11 +19,10 @@ export async function POST(request: Request, { params }: any) {
     const id = params?.id;
     if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 });
 
-    const { credential_value, is_active } = await request.json() || {};
-
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE;
     const vaultKey = process.env.VAULT_ENCRYPTION_KEY;
+
     if (!supabaseUrl || !serviceKey || !vaultKey) {
       return NextResponse.json({ error: 'Server env not configured' }, { status: 500 });
     }
@@ -41,51 +39,43 @@ export async function POST(request: Request, { params }: any) {
     const isAdmin = (adminEmail && user.email?.toLowerCase() === adminEmail.toLowerCase()) || /@stratanoble\.com$/i.test(user.email || '');
     if (!isAdmin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
-    // Get rotation frequency
-    const { data: existing, error: getErr } = await supabase
+    // Fetch credential
+    const { data: credential, error: getErr } = await supabase
       .from('vault_credentials')
-      .select('id, rotation_frequency_days')
+      .select('id, service_name, credential_name, encrypted_value')
       .eq('id', id)
       .single();
 
-    if (getErr || !existing) {
+    if (getErr || !credential) {
       return NextResponse.json({ error: 'Credential not found' }, { status: 404 });
     }
 
-    const updates: any = {};
-    if (credential_value) {
-      updates.encrypted_value = encrypt(String(credential_value), vaultKey);
-      updates.last_rotated = new Date().toISOString();
-      const days = (existing as any).rotation_frequency_days || 90;
-      updates.next_rotation_due = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString();
+    // Decrypt
+    let decryptedValue: string;
+    try {
+      decryptedValue = decrypt(credential.encrypted_value, vaultKey);
+    } catch (decryptErr) {
+      return NextResponse.json({ error: 'Decryption failed' }, { status: 500 });
     }
-    if (typeof is_active === 'boolean') {
-      updates.is_active = is_active;
-    }
-
-    if (Object.keys(updates).length === 0) {
-      return NextResponse.json({ error: 'No updates supplied' }, { status: 400 });
-    }
-
-    const { data, error } = await supabase
-      .from('vault_credentials')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
-
-    if (error) return NextResponse.json({ error: (error as any).message }, { status: 500 });
 
     // Audit log - never store secret values
     await supabase.from('vault_access_log').insert({
       actor_email: user.email,
-      action: 'update',
-      credential_id: data.id,
+      action: 'reveal',
+      credential_id: credential.id,
       timestamp: new Date().toISOString(),
     });
 
-    return NextResponse.json({ success: true, credential: { id: data.id, service_name: data.service_name, credential_name: data.credential_name } });
+    return NextResponse.json({
+      success: true,
+      credential: {
+        id: credential.id,
+        service_name: credential.service_name,
+        credential_name: credential.credential_name,
+        value: decryptedValue,
+      },
+    });
   } catch (e: any) {
-    return NextResponse.json({ error: 'Failed to rotate credential' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to reveal credential' }, { status: 500 });
   }
 }
