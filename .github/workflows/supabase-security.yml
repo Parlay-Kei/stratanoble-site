@@ -40,6 +40,7 @@ jobs:
   security-audit:
     name: Supabase Security Audit & Auto-Fix
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
       issues: write
@@ -81,6 +82,7 @@ jobs:
 
       - name: Run Autonomous Security Admin
         id: security_audit
+        timeout-minutes: 15
         run: |
           echo "🤖 Running autonomous security admin..."
           node scripts/supabase-admin-autonomous.mjs
