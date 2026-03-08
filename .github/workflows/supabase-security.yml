@@ -40,6 +40,7 @@ jobs:
   security-audit:
     name: Supabase Security Audit & Auto-Fix
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
       issues: write
@@ -81,6 +82,7 @@ jobs:
 
       - name: Run Autonomous Security Admin
         id: security_audit
+        timeout-minutes: 15
         run: |
           echo "🤖 Running autonomous security admin..."
           node scripts/supabase-admin-autonomous.mjs
@@ -251,6 +253,7 @@ jobs:
   drift-check:
     name: Database Drift Check
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: github.event_name == 'schedule'
     needs: security-audit
 
@@ -265,6 +268,7 @@ jobs:
 
       - name: Check for Schema Drift
         if: env.SUPABASE_ACCESS_TOKEN != ''
+        timeout-minutes: 10
         run: |
           echo "🔍 Checking for database schema drift..."
           supabase db diff --project-ref $SUPABASE_PROJECT_REF > drift-report.txt 2>&1 || true

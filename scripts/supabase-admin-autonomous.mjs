@@ -111,6 +111,7 @@ class SupabaseAutonomousAdmin {
       const result = execSync(command, {
         encoding: 'utf-8',
         stdio: 'pipe',
+        timeout: 300000,  // 5 minute timeout per command
         cwd: projectRoot,
         ...options
       });
