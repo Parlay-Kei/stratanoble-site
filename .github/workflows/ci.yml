@@ -30,6 +30,12 @@ jobs:
       - name: Install platform dependencies
         run: cd apps/platform && npm ci
       
+      - name: Install packages/ui dependencies
+        run: cd packages/ui && npm ci
+      
+      - name: Install packages/utils dependencies
+        run: cd packages/utils && npm ci
+      
       - name: Type check
         run: cd apps/platform && npm run type-check
       
@@ -78,6 +84,8 @@ jobs:
         run: |
           npm ci
           cd apps/platform && npm ci
+          cd packages/ui && npm ci
+          cd packages/utils && npm ci
       
       - name: Install Playwright
         run: cd apps/platform && npm run e2e:install
