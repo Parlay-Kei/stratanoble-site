@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
     );
 
     // Transaction to check idempotency and create intake
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: Parameters<Parameters<typeof prisma.$transaction>[0]>[0]) => {
       // Check for existing submission
       const existing = await tx.leadIntake.findUnique({
         where: { idempotencyKey },
@@ -160,3 +160,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
