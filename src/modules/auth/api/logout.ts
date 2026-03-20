@@ -48,9 +48,9 @@ export async function POST() {
           getAll() {
             return cookieStore.getAll();
           },
-          setAll(cookiesToSet: CookieToSet[]) {
+          setAll(cookiesToSet) {
             try {
-              cookiesToSet.forEach(({ name, value, options }: CookieToSet) =>
+              cookiesToSet.forEach(({ name, value, options }) =>
                 cookieStore.set(name, value, options)
               );
             } catch {
