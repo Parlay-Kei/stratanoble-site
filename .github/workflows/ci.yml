@@ -34,7 +34,7 @@ jobs:
         run: cd packages/ui && npm ci
       
       - name: Install packages/utils dependencies
-        run: cd packages/utils && npm ci
+        run: cd packages/utils && npm ci --legacy-peer-deps
       
       - name: Type check
         run: cd apps/platform && npm run type-check
@@ -85,7 +85,7 @@ jobs:
           npm ci
           cd apps/platform && npm ci
           cd packages/ui && npm ci
-          cd packages/utils && npm ci
+          cd packages/utils && npm ci --legacy-peer-deps
       
       - name: Install Playwright
         run: cd apps/platform && npm run e2e:install
