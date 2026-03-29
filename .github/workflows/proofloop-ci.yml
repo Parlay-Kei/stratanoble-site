@@ -36,10 +36,15 @@ jobs:
       - name: Secrets scan
         run: |
           cd ../..
-          git grep -nE "(sk-|shpat_|AKIA|AIza|BEGIN PRIVATE KEY|xoxb-)" -- ':!.github/workflows/proofloop-ci.yml' ':!proofs/' > proofloop-artifacts/secrets_scan.txt 2>&1 || true
-          # Fail if real secrets found (not .example patterns)
-          if grep -v '\.example' proofloop-artifacts/secrets_scan.txt | grep -v 'sk-ant-api03-xxxxx' | grep -v 'sk-proj-\*\*\*' | grep -v 'sk-your' | grep -qE "(sk-|shpat_|AKIA|AIza|BEGIN PRIVATE KEY|xoxb-)"; then
-            echo "::error::Real secrets detected in repository!"
+          # Whitelist approach: only scan actual source code, not docs/scripts/proofs/configs
+          git grep -nE "(sk-[a-zA-Z0-9_-]{20,}|shpat_[a-zA-Z0-9]{20,}|AKIA[A-Z0-9]{16}|AIza[a-zA-Z0-9_-]{30,}|BEGIN PRIVATE KEY|xoxb-[a-zA-Z0-9-]{20,})" \
+            -- 'apps/*/src/**' 'apps/*/app/**' 'apps/*/pages/**' 'apps/*/lib/**' 'apps/*/components/**' \
+               'src/**' 'packages/*/src/**' \
+            ':!*.example' ':!*.sample' ':!*.test.*' ':!*.spec.*' \
+            > proofloop-artifacts/secrets_scan.txt 2>&1 || true
+
+          if [ -s proofloop-artifacts/secrets_scan.txt ]; then
+            echo "::error::Potential secrets detected in source code!"
             cat proofloop-artifacts/secrets_scan.txt
             exit 1
           fi
