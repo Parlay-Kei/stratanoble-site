@@ -24,7 +24,7 @@
 - ✅ **NEXTAUTH_URL** - `https://stratanoble.com` ✓
 
 #### AWS SES Email (Using STRATANOBLE_AWS_* variants)
-- ✅ **STRATANOBLE_AWS_ACCESS_KEY_ID** - `AKIAQ4NXQBS2WY24AXPD` ✓
+- ✅ **STRATANOBLE_AWS_ACCESS_KEY_ID** - `[REDACTED]` ✓
 - ✅ **STRATANOBLE_AWS_SECRET_ACCESS_KEY** - Present (masked)
 - ✅ **STRATANOBLE_AWS_REGION** - `us-east-1` ✓
 - ✅ **SES_FROM_EMAIL** - `no-reply@stratanoble.com` ✓

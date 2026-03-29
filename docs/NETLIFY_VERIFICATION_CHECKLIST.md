@@ -31,7 +31,7 @@ Check that each of these variables exists in the list:
 - [ ] `NEXTAUTH_URL` - Should show: `https://stratanoble.com`
 
 ### AWS SES Email Variables (CRITICAL)
-- [ ] `AWS_ACCESS_KEY_ID` - Should show: `AKIAQ4...` (masked)
+- [ ] `AWS_ACCESS_KEY_ID` - Should show: `[REDACTED]` (masked)
 - [ ] `AWS_SECRET_ACCESS_KEY` - Should show: `***...` (fully masked)
 - [ ] `AWS_REGION` - Should show: `us-east-1`
 - [ ] `SES_FROM_EMAIL` - Should show: `no-reply@stratanoble.com`
