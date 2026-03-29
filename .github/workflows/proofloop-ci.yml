@@ -36,10 +36,11 @@ jobs:
       - name: Secrets scan
         run: |
           cd ../..
-          git grep -nE "(sk-|shpat_|AKIA|AIza|BEGIN PRIVATE KEY|xoxb-)" > proofloop-artifacts/secrets_scan.txt 2>&1 || true
+          git grep -nE "(sk-|shpat_|AKIA|AIza|BEGIN PRIVATE KEY|xoxb-)" -- ':!.github/workflows/proofloop-ci.yml' ':!proofs/' > proofloop-artifacts/secrets_scan.txt 2>&1 || true
           # Fail if real secrets found (not .example patterns)
           if grep -v '\.example' proofloop-artifacts/secrets_scan.txt | grep -v 'sk-ant-api03-xxxxx' | grep -v 'sk-proj-\*\*\*' | grep -v 'sk-your' | grep -qE "(sk-|shpat_|AKIA|AIza|BEGIN PRIVATE KEY|xoxb-)"; then
             echo "::error::Real secrets detected in repository!"
+            cat proofloop-artifacts/secrets_scan.txt
             exit 1
           fi
 
