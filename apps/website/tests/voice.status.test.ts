@@ -1,4 +1,6 @@
-﻿import { POST } from '@/app/api/voice/status/route';
+/** @jest-environment node */
+
+import { POST } from '@/app/api/voice/status/route';
 
 describe('status route', () => {
   it('accepts form data and returns received: true', async () => {
