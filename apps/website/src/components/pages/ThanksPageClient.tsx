@@ -74,7 +74,7 @@ function ThanksContent() {
           actions: [
             {
               text: 'Explore Our Services',
-              href: '/solutions',
+              href: '/services',
               primary: true
             }
           ]
@@ -108,7 +108,7 @@ function ThanksContent() {
             },
             {
               text: 'Learn How We Help',
-              href: '/solutions'
+              href: '/services'
             }
           ]
         });
@@ -141,7 +141,7 @@ function ThanksContent() {
             },
             {
               text: 'Explore Other Services',
-              href: '/solutions'
+              href: '/services'
             }
           ]
         });
@@ -168,7 +168,7 @@ function ThanksContent() {
             },
             {
               text: 'Learn Our Approach',
-              href: '/solutions'
+              href: '/services'
             }
           ]
         });

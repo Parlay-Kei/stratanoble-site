@@ -19,7 +19,7 @@ test.describe('Navigation', () => {
     // These should be visible in the revamp
     const expectedItems = [
       { name: 'Services', pattern: /services/i, required: false },
-      { name: 'Platform', pattern: /platform/i, required: false },
+      { name: 'Q SUITE', pattern: /q suite/i, required: false },
       { name: 'Resources', pattern: /resources/i, required: false },
       { name: 'Studio', pattern: /studio/i, required: false },
       { name: 'About', pattern: /about/i, required: false },
@@ -117,7 +117,7 @@ test.describe('Navigation', () => {
 
     // Test each navigation link
     const links = [
-      { name: 'Platform', path: '/platform' },
+      { name: 'Q SUITE', path: '/q-suite' },
       { name: 'About', path: '/about' },
     ];
 

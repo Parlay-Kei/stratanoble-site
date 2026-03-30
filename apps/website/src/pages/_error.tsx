@@ -1,4 +1,4 @@
-﻿import type { NextPageContext } from 'next';
+import type { NextPageContext } from 'next';
 import * as Sentry from '@sentry/nextjs'
 import { ArrowLeftIcon, HomeIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
@@ -64,7 +64,7 @@ function ErrorPage({ statusCode, hasGetInitialPropsRun, err }: Props) {
           <p className="text-sm text-navy-500 mb-4">Popular pages you might be looking for:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
             <Link
-              href="/solutions"
+              href="/services"
               className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
             >
               ? All Services
