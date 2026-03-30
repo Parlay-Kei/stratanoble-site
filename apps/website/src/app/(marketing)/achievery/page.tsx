@@ -1,18 +1,26 @@
 import { Metadata } from 'next';
+import { AchieveryHero, AchieveryPricing, AchieveryIAP } from '@/components/achievery-marketing';
 
 export const metadata: Metadata = {
   title: 'ACHIEVERY | Strata Noble',
-  description: 'Track progress, build momentum, and stay accountable — standalone product from Strata Noble.',
+  description: 'Goal tracking, daily execution, and accountability — Free and Pro tiers with optional in-app packs.',
 };
 
 export default function AchieveryMarketingPage() {
   return (
-    <main className="container mx-auto px-4 py-24 text-center max-w-2xl">
-      <h1 className="text-3xl font-bold tracking-tight text-navy-900 md:text-4xl">ACHIEVERY</h1>
-      <p className="mt-4 text-lg text-navy-600">Coming soon</p>
-      <p className="mt-6 text-sm text-navy-500">
-        Product overview, Free vs Pro, and in-app upgrades — this marketing surface is being finished now.
-      </p>
-    </main>
+    <>
+      <AchieveryHero />
+      <section className="bg-white px-4 py-12 md:py-16">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-xl font-bold text-navy-900 md:text-2xl">What you get</h2>
+          <p className="mt-4 text-slate-600">
+            Goal tracking, daily activity logging, progress insights, and Pro-tier custom workflows — built for
+            operators who want clarity without another bloated &quot;productivity&quot; toy.
+          </p>
+        </div>
+      </section>
+      <AchieveryPricing />
+      <AchieveryIAP />
+    </>
   );
 }
