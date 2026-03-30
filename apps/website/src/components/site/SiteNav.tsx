@@ -71,7 +71,7 @@ export function SiteNav() {
           transition={{ duration: 0.2 }}
         >
           <motion.div
-            className="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-black/40"
             aria-hidden="true"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -80,16 +80,16 @@ export function SiteNav() {
           />
 
           <motion.div
-            className="fixed inset-y-0 right-0 z-[110] w-full overflow-y-auto bg-white shadow-2xl sm:max-w-sm"
+            className="fixed inset-y-0 right-0 z-[110] w-full overflow-y-auto bg-white border-l border-slate-grey/25 sm:max-w-sm"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            transition={{ duration: 0.2 }}
           >
-            <div className="flex items-center justify-between p-6 border-b border-silver-200">
+            <div className="flex items-center justify-between p-6 border-b border-slate-grey/25">
               <Link
                 href="/"
-                className="-m-1.5 p-1.5 transition-colors hover:bg-silver-50 rounded-lg"
+                className="-m-1.5 p-1.5 transition-colors hover:bg-void/40 rounded-lg"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Strata Noble</span>
@@ -97,7 +97,7 @@ export function SiteNav() {
               </Link>
               <button
                 type="button"
-                className="rounded-xl p-3 text-navy-700 hover:bg-navy-50 transition-all"
+                className="rounded-xl p-3 text-slate-grey hover:bg-off-white transition-all"
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Close menu"
               >
@@ -109,31 +109,31 @@ export function SiteNav() {
               <div className="mb-6">
                 <Link
                   href="/contact?service=lead-rescue"
-                  className="block rounded-xl px-4 py-4 text-center text-white font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 shadow-lg"
+                  className="block rounded-sm px-4 py-4 text-center text-white font-semibold bg-forest-green hover:opacity-90 transition-opacity duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Free Pipeline Diagnostic — 48-Hour Turnaround
                 </Link>
               </div>
 
-              <div className="space-y-1 border-t border-silver-200 pt-4">
+              <div className="space-y-1 border-t border-slate-grey/25 pt-4">
                 {navigation.map((item, index) => (
                   <motion.div
                     key={item.name}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.3 }}
+                    transition={{ delay: index * 0.03, duration: 0.2 }}
                   >
                     <Link
                       href={item.href}
-                      className="group flex items-center justify-between rounded-xl px-4 py-4 text-base font-semibold text-navy-900 hover:bg-emerald-50 hover:text-emerald-700 transition-all"
+                      className="group flex items-center justify-between rounded-xl px-4 py-4 text-base font-semibold text-command-navy hover:bg-field-sage/10 hover:text-forest-green transition-all"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <div>
                         <div className="font-semibold">{item.name}</div>
-                        <div className="text-sm text-navy-500 font-normal">{item.description}</div>
+                        <div className="text-sm text-slate-grey font-normal">{item.description}</div>
                       </div>
-                      <ChevronRightIcon className="h-5 w-5 text-navy-400 group-hover:text-emerald-600 transition-colors" />
+                      <ChevronRightIcon className="h-5 w-5 text-slate-grey group-hover:text-forest-green transition-colors" />
                     </Link>
                   </motion.div>
                 ))}
@@ -150,15 +150,15 @@ export function SiteNav() {
   const desktopLinks = navigation.filter((item) => item.href !== '/')
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-300 ${
-      scrolled
-        ? 'bg-white/95 backdrop-blur-lg border-b border-silver-200 shadow-md'
-        : 'bg-white/90 backdrop-blur-sm'
-    }`}>
+    <header
+      className={`sticky top-0 z-50 transition-colors duration-200 border-b ${
+        scrolled ? 'bg-white border-slate-grey/25' : 'bg-white/95 border-transparent'
+      }`}
+    >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex h-16 items-center justify-between gap-4">
           <div className="flex lg:flex-1 min-w-0">
-            <Link href="/" className="-m-1.5 p-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg transition-colors hover:bg-silver-50 shrink-0">
+            <Link href="/" className="-m-1.5 p-1.5 focus:outline-none focus:ring-2 focus:ring-forest-green rounded-lg transition-colors hover:bg-void/40 shrink-0">
               <span className="sr-only">Strata Noble - Home</span>
               <Logo className="h-12 w-auto" />
             </Link>
@@ -167,7 +167,7 @@ export function SiteNav() {
           <div className="flex lg:hidden">
             <button
               type="button"
-              className="rounded-xl p-3 text-navy-700 hover:bg-navy-50 transition-all"
+              className="rounded-xl p-3 text-slate-grey hover:bg-off-white transition-all"
               onClick={() => setMobileMenuOpen(true)}
               aria-expanded={mobileMenuOpen}
               aria-label="Open main menu"
@@ -181,15 +181,15 @@ export function SiteNav() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="group relative text-xs xl:text-sm font-semibold leading-6 text-navy-900 hover:text-emerald-600 transition-colors px-2 py-2 whitespace-nowrap"
+                className="group relative text-xs xl:text-sm font-semibold leading-6 text-command-navy hover:text-forest-green transition-colors px-2 py-2 whitespace-nowrap"
               >
                 {item.name}
-                <span className="absolute -bottom-0.5 left-2 right-2 h-0.5 bg-emerald-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                <span className="absolute -bottom-0.5 left-2 right-2 h-0.5 bg-forest-green scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </Link>
             ))}
             <Link
               href="/contact?service=lead-rescue"
-              className="ml-2 inline-flex items-center rounded-lg px-3 py-2 text-xs xl:text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+              className="ml-2 inline-flex items-center rounded-sm px-3 py-2 text-xs xl:text-sm font-semibold text-white bg-forest-green hover:opacity-90 transition-opacity duration-200 whitespace-nowrap"
             >
               Free diagnostic
             </Link>

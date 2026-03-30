@@ -48,14 +48,14 @@ const navigation = {
 
 export function SiteFooter() {
   return (
-    <footer className="bg-navy-900" aria-labelledby="footer-heading">
+    <footer className="bg-command-navy" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">Footer</h2>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Logo and description */}
           <div className="space-y-8 xl:col-span-1">
             <Logo className="h-16 w-auto" theme="white" />
-            <p className="text-sm leading-6 text-navy-300">
+            <p className="text-sm leading-6 text-slate-grey">
               Operational infrastructure for service businesses.
               Scoped engagements. Delivered systems. You own it.
             </p>
@@ -64,7 +64,7 @@ export function SiteFooter() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-navy-400 hover:text-navy-300 transition-colors"
+                  className="text-slate-grey hover:text-field-sage transition-colors"
                   aria-label={`Follow us on ${item.name}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -82,7 +82,7 @@ export function SiteFooter() {
               <ul role="list" className="mt-6 space-y-4">
                 {navigation.services.map((item) => (
                   <li key={item.name}>
-                    <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
+                    <Link href={item.href} className="text-sm leading-6 text-slate-grey hover:text-white transition-colors">
                       {item.name}
                     </Link>
                   </li>
@@ -94,7 +94,7 @@ export function SiteFooter() {
               <ul role="list" className="mt-6 space-y-4">
                 {navigation.platform.map((item) => (
                   <li key={item.name}>
-                    <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
+                    <Link href={item.href} className="text-sm leading-6 text-slate-grey hover:text-white transition-colors">
                       {item.name}
                     </Link>
                   </li>
@@ -106,7 +106,7 @@ export function SiteFooter() {
               <ul role="list" className="mt-6 space-y-4">
                 {navigation.company.map((item) => (
                   <li key={item.name}>
-                    <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
+                    <Link href={item.href} className="text-sm leading-6 text-slate-grey hover:text-white transition-colors">
                       {item.name}
                     </Link>
                   </li>
@@ -118,7 +118,7 @@ export function SiteFooter() {
               <ul role="list" className="mt-6 space-y-4">
                 {navigation.legal.map((item) => (
                   <li key={item.name}>
-                    <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
+                    <Link href={item.href} className="text-sm leading-6 text-slate-grey hover:text-white transition-colors">
                       {item.name}
                     </Link>
                   </li>
@@ -130,19 +130,19 @@ export function SiteFooter() {
 
         {/* Chat Support Disclosure */}
         <div className="mt-12 border-t border-white/10 pt-6">
-          <p className="text-xs leading-5 text-navy-500">
-            <strong className="text-navy-400">Chat Support:</strong> Our chat feature is powered by{' '}
+          <p className="text-xs leading-5 text-slate-grey">
+            <strong className="text-slate-grey">Chat Support:</strong> Our chat feature is powered by{' '}
             <a
               href="https://www.jotform.com/ai/agents/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-navy-400 hover:text-navy-300 underline"
+              className="text-slate-grey hover:text-field-sage underline"
             >
               Noupe
             </a>
             , a Jotform service. Chat conversations are processed by Jotform and delivered to
             Strata Noble via email. Please avoid sharing sensitive personal information in chat.{' '}
-            <Link href="/privacy" className="text-navy-400 hover:text-navy-300 underline">
+            <Link href="/privacy" className="text-slate-grey hover:text-field-sage underline">
               Privacy Policy
             </Link>
           </p>
@@ -151,10 +151,10 @@ export function SiteFooter() {
         {/* Bottom section */}
         <div className="mt-8 border-t border-white/10 pt-8 sm:mt-12 lg:mt-16">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <p className="text-xs leading-5 text-navy-400">
+            <p className="text-xs leading-5 text-slate-grey">
               &copy; {new Date().getFullYear()} Strata Noble. All rights reserved.
             </p>
-            <p className="text-xs text-navy-500">
+            <p className="text-xs text-slate-grey">
               Operational control systems for service businesses.
             </p>
           </div>

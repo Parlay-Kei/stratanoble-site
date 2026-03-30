@@ -16,23 +16,23 @@ function ErrorPage({ statusCode, hasGetInitialPropsRun, err }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-navy-50 to-silver-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-off-white to-off-white flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
         {/* Error Number */}
         <div className="mb-8">
-          <h1 className="text-9xl font-bold text-navy-900/20">{statusCode || 'Error'}</h1>
+          <h1 className="text-9xl font-bold text-command-navy/20">{statusCode || 'Error'}</h1>
         </div>
 
         {/* Error Message */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-navy-900 mb-4">
+          <h2 className="text-2xl font-bold text-command-navy mb-4">
             {statusCode === 404
               ? 'Page Not Found'
               : statusCode === 500
               ? 'Server Error'
               : 'Something went wrong'}
           </h2>
-          <p className="text-navy-600 leading-relaxed">
+          <p className="text-slate-grey leading-relaxed">
             {statusCode === 404
               ? "The page you're looking for doesn't exist or has been moved."
               : statusCode === 500
@@ -60,30 +60,30 @@ function ErrorPage({ statusCode, hasGetInitialPropsRun, err }: Props) {
         </div>
 
         {/* Helpful Links */}
-        <div className="mt-12 pt-8 border-t border-silver-200">
-          <p className="text-sm text-navy-500 mb-4">Popular pages you might be looking for:</p>
+        <div className="mt-12 pt-8 border-t border-slate-grey/25">
+          <p className="text-sm text-slate-grey mb-4">Popular pages you might be looking for:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
             <Link
               href="/services"
-              className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
+              className="text-forest-green hover:text-forest-green transition-colors p-2 rounded hover:bg-field-sage/10"
             >
               ? All Services
             </Link>
             <Link
               href="/data-analysis"
-              className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
+              className="text-forest-green hover:text-forest-green transition-colors p-2 rounded hover:bg-field-sage/10"
             >
               ? Data Analysis
             </Link>
             <Link
               href="/contact"
-              className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
+              className="text-forest-green hover:text-forest-green transition-colors p-2 rounded hover:bg-field-sage/10"
             >
               ? Discovery Call
             </Link>
             <Link
               href="/about"
-              className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
+              className="text-forest-green hover:text-forest-green transition-colors p-2 rounded hover:bg-field-sage/10"
             >
               ? About Us
             </Link>

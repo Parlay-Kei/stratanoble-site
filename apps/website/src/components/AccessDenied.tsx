@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Card } from './ui/card'
-import { Button } from './ui/button'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { Logo } from './Logo'
 
 interface AccessDeniedProps {
@@ -62,7 +62,7 @@ export default function AccessDenied({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-void/30 flex items-center justify-center px-4">
       <Card className="max-w-md w-full p-8 text-center">
         <div className="mb-6">
           <div className="flex justify-center mb-6">

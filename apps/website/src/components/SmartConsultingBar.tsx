@@ -22,7 +22,7 @@ export function SmartConsultingBar() {
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -50, opacity: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-accent-gold to-emerald-500 text-navy shadow-lg"
+        className="fixed top-0 left-0 right-0 z-50 bg-field-sage text-command-navy border-b border-slate-grey/30"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -33,7 +33,7 @@ export function SmartConsultingBar() {
                 animate={{ rotate: isHovered ? 360 : 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <BoltIcon className="h-5 w-5 text-navy" />
+                <BoltIcon className="h-5 w-5 text-command-navy" />
               </motion.div>
               <div className="text-sm font-medium">
                 <span className="hidden sm:inline">
@@ -48,9 +48,7 @@ export function SmartConsultingBar() {
             <div className="flex items-center space-x-4">
               <Link href="/contact?service=lead-rescue">
                 <motion.span
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-navy text-white px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-navy/90 transition-all duration-200 shadow-md inline-block"
+                  className="bg-command-navy text-white px-4 py-1.5 rounded-sm text-sm font-semibold hover:opacity-90 transition-opacity duration-200 inline-block"
                 >
                   Get Free Diagnostic
                 </motion.span>
@@ -58,9 +56,7 @@ export function SmartConsultingBar() {
 
               <motion.button
                 onClick={() => setIsVisible(false)}
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                className="text-navy/70 hover:text-navy transition-colors p-1"
+                className="text-slate-grey hover:text-command-navy transition-colors duration-200 p-1"
                 aria-label="Dismiss notification"
               >
                 <XMarkIcon className="h-4 w-4" />
@@ -74,7 +70,7 @@ export function SmartConsultingBar() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 2, delay: 0.5 }}
-          className="h-0.5 bg-navy/20 origin-left"
+          className="h-0.5 bg-command-navy/30 origin-left"
         />
       </motion.div>
     </AnimatePresence>

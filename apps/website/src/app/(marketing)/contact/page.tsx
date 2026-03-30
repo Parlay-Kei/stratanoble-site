@@ -57,7 +57,7 @@ const engagementPaths = [
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-white">
-      <section className="bg-navy text-white py-20">
+      <section className="bg-command-navy text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Get in touch</h1>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -66,16 +66,16 @@ export default function ContactPage() {
           </p>
           <Link
             href="/lead-rescue"
-            className="inline-flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all"
+            className="inline-flex items-center bg-forest-green text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all"
           >
             Start with the Free Diagnostic
           </Link>
         </div>
       </section>
 
-      <section className="py-16 border-b border-gray-100">
+      <section className="py-16 border-b border-slate-grey/20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-navy text-center mb-4">How can we help?</h2>
+          <h2 className="text-2xl font-bold text-command-navy text-center mb-4">How can we help?</h2>
           <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
             Pick the path that matches where you are — you can always reach us by phone or email below.
           </p>
@@ -84,9 +84,9 @@ export default function ContactPage() {
               <Link
                 key={path.href}
                 href={path.href}
-                className="block rounded-xl border border-gray-200 p-6 hover:border-emerald-500/40 hover:shadow-md transition-all bg-white"
+                className="block rounded-xl border border-slate-grey/25 p-6 hover:border-forest-green/40 hover:shadow-md transition-all bg-white"
               >
-                <h3 className="text-lg font-semibold text-navy mb-2">{path.title}</h3>
+                <h3 className="text-lg font-semibold text-command-navy mb-2">{path.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{path.description}</p>
                 <span className="inline-block mt-4 text-sm font-semibold text-primary">Continue →</span>
               </Link>
@@ -97,20 +97,20 @@ export default function ContactPage() {
 
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-navy text-center mb-12">Or reach us directly</h2>
+          <h2 className="text-2xl font-bold text-command-navy text-center mb-12">Or reach us directly</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {contactMethods.map((method) => (
               <div key={method.label} className="text-center">
-                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">{method.label}</h3>
+                <h3 className="text-sm font-semibold text-slate-grey uppercase tracking-wide mb-2">{method.label}</h3>
                 {method.href ? (
                   <a
                     href={method.href}
-                    className="text-lg font-medium text-navy hover:text-emerald-600 transition-colors"
+                    className="text-lg font-medium text-command-navy hover:text-forest-green transition-colors"
                   >
                     {method.value}
                   </a>
                 ) : (
-                  <p className="text-lg font-medium text-navy">{method.value}</p>
+                  <p className="text-lg font-medium text-command-navy">{method.value}</p>
                 )}
               </div>
             ))}
@@ -118,15 +118,15 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-void/30">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl font-bold text-navy mb-4">Compare every engagement</h2>
+          <h2 className="text-2xl font-bold text-command-navy mb-4">Compare every engagement</h2>
           <p className="text-gray-600 mb-8 max-w-xl mx-auto">
             Lead Rescue, Pipeline Buildout, Operations Command, and how Q SUITE fits — all in one place.
           </p>
           <Link
             href="/services"
-            className="inline-flex items-center border-2 border-navy text-navy px-8 py-4 rounded-lg font-semibold hover:bg-navy hover:text-white transition-all"
+            className="inline-flex items-center border-2 border-command-navy text-command-navy px-8 py-4 rounded-lg font-semibold hover:bg-command-navy hover:text-white transition-all"
           >
             See all engagement options
           </Link>

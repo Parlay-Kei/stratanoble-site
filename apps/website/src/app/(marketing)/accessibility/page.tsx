@@ -7,7 +7,7 @@ export default function AccessibilityStatement() {
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-16 max-w-4xl">
-        <h1 className="text-4xl font-bold text-navy-900 mb-8">Accessibility Statement</h1>
+        <h1 className="text-4xl font-bold text-command-navy mb-8">Accessibility Statement</h1>
 
         <div className="prose prose-lg max-w-none">
           <p className="text-gray-600 mb-6">
@@ -15,7 +15,7 @@ export default function AccessibilityStatement() {
           </p>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Our Commitment</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Our Commitment</h2>
             <p className="text-gray-700 leading-relaxed">
               Strata Noble is committed to ensuring digital accessibility for people with disabilities. We are
               continually improving the user experience for everyone and applying the relevant accessibility standards.
@@ -23,7 +23,7 @@ export default function AccessibilityStatement() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Conformance Status</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Conformance Status</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
               We strive to conform to the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong>.
               These guidelines explain how to make web content more accessible for people with disabilities and
@@ -37,7 +37,7 @@ export default function AccessibilityStatement() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Accessibility Features</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Accessibility Features</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
               Our website includes the following accessibility features:
             </p>
@@ -54,7 +54,7 @@ export default function AccessibilityStatement() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Compatible Browsers and Assistive Technologies</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Compatible Browsers and Assistive Technologies</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
               Our website is designed to be compatible with the following assistive technologies:
             </p>
@@ -70,7 +70,7 @@ export default function AccessibilityStatement() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Known Limitations</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Known Limitations</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
               Despite our efforts, some limitations may exist:
             </p>
@@ -85,14 +85,14 @@ export default function AccessibilityStatement() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Feedback and Contact</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Feedback and Contact</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
               We welcome your feedback on the accessibility of Strata Noble. If you encounter accessibility
               barriers, please let us know:
             </p>
             <ul className="list-disc pl-6 text-gray-700 space-y-2">
               <li><strong>Email:</strong>{' '}
-                <a href="mailto:accessibility@stratanoble.com" className="text-emerald-600 hover:text-emerald-700">
+                <a href="mailto:accessibility@stratanoble.com" className="text-forest-green hover:text-forest-green">
                   accessibility@stratanoble.com
                 </a>
               </li>
@@ -102,7 +102,7 @@ export default function AccessibilityStatement() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Technical Specifications</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Technical Specifications</h2>
             <p className="text-gray-700 leading-relaxed">
               Accessibility of Strata Noble relies on the following technologies to work with the particular
               combination of web browser and assistive technologies or plugins installed on your computer:
@@ -116,7 +116,7 @@ export default function AccessibilityStatement() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Assessment and Testing</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Assessment and Testing</h2>
             <p className="text-gray-700 leading-relaxed">
               Strata Noble assesses the accessibility of our website through:
             </p>
@@ -130,25 +130,25 @@ export default function AccessibilityStatement() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Formal Complaints</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Formal Complaints</h2>
             <p className="text-gray-700 leading-relaxed">
               If you are not satisfied with our response to your accessibility concern, you may file a
               formal complaint with:
             </p>
             <ul className="list-disc pl-6 text-gray-700 space-y-2 mt-4">
               <li>Our internal accessibility team at{' '}
-                <a href="mailto:accessibility@stratanoble.com" className="text-emerald-600 hover:text-emerald-700">
+                <a href="mailto:accessibility@stratanoble.com" className="text-forest-green hover:text-forest-green">
                   accessibility@stratanoble.com
                 </a>
               </li>
-              <li>The <a href="https://www.ada.gov/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-700">
+              <li>The <a href="https://www.ada.gov/" target="_blank" rel="noopener noreferrer" className="text-forest-green hover:text-forest-green">
                 U.S. Department of Justice ADA Information Line
               </a></li>
             </ul>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-navy-900 mb-4">Ongoing Efforts</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">Ongoing Efforts</h2>
             <p className="text-gray-700 leading-relaxed">
               We are continuously working to improve the accessibility and usability of our website. Our
               ongoing efforts include:

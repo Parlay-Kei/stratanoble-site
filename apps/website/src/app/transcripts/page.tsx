@@ -43,7 +43,7 @@ export default function TranscriptsPage() {
           <div key={name} className="border rounded-lg p-4 bg-white shadow">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-xl font-semibold">{name}</h2>
-              <span className="text-sm text-gray-500">{data[name].length} turns</span>
+              <span className="text-sm text-slate-grey">{data[name].length} turns</span>
             </div>
             <div className="space-y-2">
               {data[name].map((r, idx) => (

@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Loaded via Fontshare in layout.tsx (avoids missing self-hosted woff2 on CI/Vercel) */
+    --font-display: 'Clash Display', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'General Sans', ui-sans-serif, system-ui, sans-serif;
+  }
+
   body {
-    @apply bg-white text-navy-900;
+    @apply bg-command-navy text-white;
   }
 }
 
@@ -15,35 +21,35 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center rounded-sm text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-green focus-visible:ring-offset-2 focus-visible:ring-offset-command-navy disabled:opacity-50 disabled:pointer-events-none;
   }
 
   .btn-primary {
-    @apply btn bg-brand-navy text-white hover:bg-brand-emerald active:bg-brand-emerald;
+    @apply btn bg-forest-green text-white hover:bg-forest-green/90 active:bg-forest-green/80;
   }
 
   .btn-secondary {
-    @apply btn bg-silver-200 text-navy-900 hover:bg-brand-emerald hover:text-white active:bg-brand-emerald;
+    @apply btn bg-transparent text-white border border-slate-grey hover:border-forest-green hover:text-field-sage;
   }
 
   .btn-accent {
-    @apply btn bg-brand-emerald text-white hover:bg-brand-navy active:bg-brand-navy;
+    @apply btn bg-forest-green text-white hover:bg-command-navy active:bg-void;
   }
 
   .btn-outline {
-    @apply btn border border-brand-light text-brand-light hover:bg-brand-emerald hover:text-white hover:border-brand-emerald active:bg-brand-emerald;
+    @apply btn border border-slate-grey text-white hover:border-forest-green hover:text-field-sage;
   }
 
   .btn-ghost {
-    @apply btn hover:bg-brand-emerald hover:text-white active:bg-brand-emerald;
+    @apply btn text-slate-grey hover:text-white hover:bg-void;
   }
 
   .btn-link {
-    @apply btn underline-offset-4 hover:underline text-navy;
+    @apply btn underline-offset-4 hover:underline text-field-sage;
   }
 
   .btn-sm {
-    @apply h-9 px-3 rounded-md;
+    @apply h-9 px-3 rounded-sm;
   }
 
   .btn-md {
@@ -51,37 +57,29 @@
   }
 
   .btn-lg {
-    @apply h-11 px-8 rounded-md;
+    @apply h-11 px-8 rounded-sm;
   }
 
   .input {
-    @apply w-full rounded-xl border border-neutral-300 bg-white/70 p-3 text-base shadow-sm focus:border-primary focus:ring-primary/30 focus:outline-none transition-all duration-200;
+    @apply w-full rounded-sm border border-slate-grey/50 bg-void/80 p-3 text-base text-white placeholder:text-slate-grey focus:border-forest-green focus:outline-none focus:ring-1 focus:ring-forest-green transition-colors duration-200;
+  }
+
+  .text-data {
+    @apply font-mono text-field-sage text-sm;
+  }
+
+  .surface-panel {
+    @apply bg-command-navy border border-slate-grey/20;
+  }
+
+  .surface-deep {
+    @apply bg-void;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-
-  .gradient-text {
-    @apply bg-gradient-to-r from-navy to-emerald bg-clip-text text-transparent;
-  }
-
-  .heading-primary {
-    @apply text-brand-dark;
-  }
-
-  .bg-accent-gold {
-    background-color: #f1c095;
-  }
-
-  .bg-accent-cream {
-    background-color: #fae9d7;
-  }
-
-  .glass-effect {
-    @apply backdrop-blur-sm bg-white/10 border border-white/20;
   }
 
   /* Client logo scroll animation */
@@ -98,32 +96,30 @@
     }
   }
 
-  /* Pause animation on hover */
   .animate-scroll:hover {
     animation-play-state: paused;
   }
 
-  /* Performance-optimized fade-in animations */
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.2s ease-out forwards;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(8px);
   }
 
   .animation-delay-100 {
-    animation-delay: 0.1s;
+    animation-delay: 0.05s;
   }
 
   .animation-delay-200 {
-    animation-delay: 0.2s;
+    animation-delay: 0.1s;
   }
 
   .animation-delay-300 {
-    animation-delay: 0.3s;
+    animation-delay: 0.15s;
   }
 
   .animation-delay-400 {
-    animation-delay: 0.4s;
+    animation-delay: 0.2s;
   }
 
   @keyframes fadeInUp {
@@ -133,7 +129,6 @@
     }
   }
 
-  /* Reduce motion for users who prefer it */
   @media (prefers-reduced-motion: reduce) {
     .animate-fade-in-up {
       animation: none;

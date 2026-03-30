@@ -36,7 +36,7 @@ export function VoiceTestPageClient() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-void/30 p-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-2xl font-bold mb-6 text-center">
           StrataNoble Voice AI Test
@@ -52,7 +52,7 @@ export function VoiceTestPageClient() {
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="+17025551234"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
@@ -65,7 +65,7 @@ export function VoiceTestPageClient() {
           </button>
 
           {status && (
-            <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+            <div className="mt-4 p-4 bg-void/40 rounded-lg">
               <p className="text-sm">{status}</p>
             </div>
           )}

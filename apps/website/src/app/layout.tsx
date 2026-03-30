@@ -2,25 +2,18 @@ import './globals.css';
 
 import React from 'react'
 import type { Metadata } from 'next';
-import { Bitter, Inter } from 'next/font/google';
+import { IBM_Plex_Mono } from 'next/font/google';
 import Script from 'next/script';
 import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
 import { ToastProvider } from '@/components/ui/toast';
 
-const inter = Inter({
+const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
+  weight: ['400', '600'],
   display: 'swap',
-  variable: '--font-inter',
-  preload: true,
-});
-
-const bitter = Bitter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-bitter',
-  preload: true,
+  variable: '--font-mono',
 });
 
 // Force dynamic rendering to avoid prerender issues with client components in layout
@@ -105,8 +98,8 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.svg',
   },
   other: {
-    'theme-color': '#30232d',
-    'msapplication-TileColor': '#30232d',
+    'theme-color': '#0E1A2B',
+    'msapplication-TileColor': '#0E1A2B',
     'color-scheme': 'light dark',
     // iOS Smart App Banner - only add if app is published
     ...(process.env.NEXT_PUBLIC_ACHIEVERY_APP_ID ? {
@@ -169,8 +162,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <html lang="en" className={`${inter.variable} ${bitter.variable}`}>
+    <html lang="en" className={plexMono.variable}>
       <head>
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,700&f[]=general-sans@400,500&display=swap"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

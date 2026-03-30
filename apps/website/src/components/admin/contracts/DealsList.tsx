@@ -67,11 +67,11 @@ export function DealsList() {
   return (
     <div className="space-y-6">
       {/* Navigation */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-slate-grey/25">
         <nav className="-mb-px flex space-x-8">
           <Link
             href="/admin/contracts"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             All Contracts
           </Link>
@@ -83,19 +83,19 @@ export function DealsList() {
           </Link>
           <Link
             href="/admin/contracts/templates"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Templates
           </Link>
           <Link
             href="/admin/contracts/clauses"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Clause Library
           </Link>
           <Link
             href="/admin/contracts/playbook"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Playbook
           </Link>
@@ -114,16 +114,16 @@ export function DealsList() {
 
       {/* Deals List */}
       {loading ? (
-        <div className="p-8 text-center text-gray-500">Loading deals...</div>
+        <div className="p-8 text-center text-slate-grey">Loading deals...</div>
       ) : deals.length === 0 ? (
         <div className="bg-white rounded-lg shadow p-8 text-center">
           <div className="mb-4">
-            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="mx-auto h-12 w-12 text-slate-grey" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
           </div>
           <h3 className="text-lg font-medium text-gray-900 mb-2">No deals yet</h3>
-          <p className="text-gray-500 mb-4">
+          <p className="text-slate-grey mb-4">
             Create a deal to start generating contracts for a client engagement.
           </p>
           <button
@@ -136,36 +136,36 @@ export function DealsList() {
       ) : (
         <div className="bg-white shadow overflow-hidden rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-void/30">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Client
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Pricing Model
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   IP Model
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Contracts
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Timeline
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {deals.map((deal) => (
-                <tr key={deal.id} className="hover:bg-gray-50">
+                <tr key={deal.id} className="hover:bg-void/30">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
                       <div className="text-sm font-medium text-gray-900">{deal.client_name}</div>
                       {deal.client_legal_name && (
-                        <div className="text-sm text-gray-500">{deal.client_legal_name}</div>
+                        <div className="text-sm text-slate-grey">{deal.client_legal_name}</div>
                       )}
                     </div>
                   </td>
@@ -186,23 +186,23 @@ export function DealsList() {
                           <Link
                             key={contract.id}
                             href={`/admin/contracts/${contract.id}`}
-                            className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200"
+                            className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-void/40 text-gray-600 hover:bg-gray-200"
                           >
                             {contract.document_type}
                           </Link>
                         ))}
                       </div>
                     ) : (
-                      <span className="text-sm text-gray-400">No contracts</span>
+                      <span className="text-sm text-slate-grey">No contracts</span>
                     )}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-grey">
                     {deal.start_date && deal.end_date ? (
                       <span>
                         {new Date(deal.start_date).toLocaleDateString()} - {new Date(deal.end_date).toLocaleDateString()}
                       </span>
                     ) : (
-                      <span className="text-gray-400">Not set</span>
+                      <span className="text-slate-grey">Not set</span>
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -314,12 +314,12 @@ function NewDealModal({ onClose, onCreated }: { onClose: () => void; onCreated: 
   }
 
   return (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-void/300 bg-opacity-75 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-        <div className="px-6 py-4 border-b border-gray-200">
+        <div className="px-6 py-4 border-b border-slate-grey/25">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-medium text-gray-900">New Deal</h3>
-            <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+            <button onClick={onClose} className="text-slate-grey hover:text-gray-600">
               <span className="sr-only">Close</span>
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -337,7 +337,7 @@ function NewDealModal({ onClose, onCreated }: { onClose: () => void; onCreated: 
                 required
                 value={formData.client_name}
                 onChange={(e) => setFormData({ ...formData, client_name: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
@@ -346,7 +346,7 @@ function NewDealModal({ onClose, onCreated }: { onClose: () => void; onCreated: 
                 type="text"
                 value={formData.client_legal_name}
                 onChange={(e) => setFormData({ ...formData, client_legal_name: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
           </div>
@@ -357,7 +357,7 @@ function NewDealModal({ onClose, onCreated }: { onClose: () => void; onCreated: 
               <select
                 value={formData.governing_law}
                 onChange={(e) => setFormData({ ...formData, governing_law: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="US-NV">Nevada (US-NV)</option>
                 <option value="US-CA">California (US-CA)</option>
@@ -370,7 +370,7 @@ function NewDealModal({ onClose, onCreated }: { onClose: () => void; onCreated: 
               <select
                 value={formData.pricing_model}
                 onChange={(e) => setFormData({ ...formData, pricing_model: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="fixed_fee">Fixed Fee</option>
                 <option value="time_materials">Time & Materials</option>
@@ -384,7 +384,7 @@ function NewDealModal({ onClose, onCreated }: { onClose: () => void; onCreated: 
               <select
                 value={formData.ip_model}
                 onChange={(e) => setFormData({ ...formData, ip_model: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="provider_retains">Provider Retains</option>
                 <option value="client_owns">Client Owns All</option>
@@ -399,7 +399,7 @@ function NewDealModal({ onClose, onCreated }: { onClose: () => void; onCreated: 
               rows={3}
               value={formData.services_description}
               onChange={(e) => setFormData({ ...formData, services_description: e.target.value })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="Describe the services to be provided..."
             />
           </div>
@@ -411,7 +411,7 @@ function NewDealModal({ onClose, onCreated }: { onClose: () => void; onCreated: 
                 type="date"
                 value={formData.start_date}
                 onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
@@ -420,16 +420,16 @@ function NewDealModal({ onClose, onCreated }: { onClose: () => void; onCreated: 
                 type="date"
                 value={formData.end_date}
                 onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
           </div>
 
-          <div className="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+          <div className="pt-4 border-t border-slate-grey/25 flex justify-end space-x-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="px-4 py-2 border border-slate-grey/30 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-void/30"
             >
               Cancel
             </button>

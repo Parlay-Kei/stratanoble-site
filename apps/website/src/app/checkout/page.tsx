@@ -19,7 +19,7 @@ function CheckoutRedirectContent() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
-      <p className="text-navy-700 text-center">Redirecting to services…</p>
+      <p className="text-slate-grey text-center">Redirecting to services…</p>
     </div>
   );
 }
@@ -29,7 +29,7 @@ function CheckoutPage() {
     <Suspense
       fallback={
         <div className="min-h-screen flex items-center justify-center bg-slate-50">
-          <p className="text-navy-700">Loading…</p>
+          <p className="text-slate-grey">Loading…</p>
         </div>
       }
     >

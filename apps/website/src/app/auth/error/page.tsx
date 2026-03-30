@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 export const dynamic = 'force-dynamic';
 
@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 import { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-import { Button } from '../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 
 const errorMessages: Record<string, string> = {
   Configuration: 'There is a problem with the authentication configuration.',
@@ -69,7 +69,7 @@ function AuthErrorContent() {
           </Button>
         </div>
 
-        <div className="mt-6 text-sm text-gray-500">
+        <div className="mt-6 text-sm text-slate-grey">
           <p>
             If this problem persists, please{' '}
             <a href="/contact" className="text-blue-600 hover:underline">

@@ -28,7 +28,7 @@ export function HowItWorks() {
         <ol className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => (
             <li key={step.title} className="relative rounded-xl border border-slate-800 bg-slate-900/50 p-6">
-              <span className="text-xs font-bold text-emerald-500">0{i + 1}</span>
+              <span className="text-xs font-bold text-forest-green">0{i + 1}</span>
               <h3 className="mt-2 text-lg font-semibold">{step.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.body}</p>
             </li>

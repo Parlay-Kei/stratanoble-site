@@ -18,7 +18,7 @@ interface Template {
 }
 
 const riskProfileColors: Record<string, string> = {
-  standard: 'bg-gray-100 text-gray-800',
+  standard: 'bg-void/40 text-gray-800',
   customer_friendly: 'bg-blue-100 text-blue-800',
   vendor_friendly: 'bg-green-100 text-green-800',
 };
@@ -64,17 +64,17 @@ export function TemplateLibrary() {
   return (
     <div className="space-y-6">
       {/* Navigation */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-slate-grey/25">
         <nav className="-mb-px flex space-x-8">
           <Link
             href="/admin/contracts"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             All Contracts
           </Link>
           <Link
             href="/admin/contracts/deals"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Deals
           </Link>
@@ -86,13 +86,13 @@ export function TemplateLibrary() {
           </Link>
           <Link
             href="/admin/contracts/clauses"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Clause Library
           </Link>
           <Link
             href="/admin/contracts/playbook"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Playbook
           </Link>
@@ -104,7 +104,7 @@ export function TemplateLibrary() {
         <select
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
-          className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
           <option value="all">All Types</option>
           {documentTypes.map(type => (
@@ -121,11 +121,11 @@ export function TemplateLibrary() {
 
       {/* Templates Grid */}
       {loading ? (
-        <div className="p-8 text-center text-gray-500">Loading templates...</div>
+        <div className="p-8 text-center text-slate-grey">Loading templates...</div>
       ) : templates.length === 0 ? (
         <div className="bg-white rounded-lg shadow p-8 text-center">
-          <p className="text-gray-500 mb-4">No templates found</p>
-          <p className="text-sm text-gray-400">
+          <p className="text-slate-grey mb-4">No templates found</p>
+          <p className="text-sm text-slate-grey">
             Run the database seed script to populate templates
           </p>
         </div>
@@ -135,7 +135,7 @@ export function TemplateLibrary() {
             <div key={template.id} className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-void/40 text-gray-800">
                     {template.document_type}
                   </span>
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${riskProfileColors[template.risk_profile]}`}>
@@ -147,17 +147,17 @@ export function TemplateLibrary() {
                   {template.template_name}
                 </h3>
 
-                <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+                <p className="text-sm text-slate-grey mb-4 line-clamp-2">
                   {template.description}
                 </p>
 
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-400">v{template.version}</span>
-                  <span className="text-gray-400">{template.jurisdiction}</span>
+                  <span className="text-slate-grey">v{template.version}</span>
+                  <span className="text-slate-grey">{template.jurisdiction}</span>
                 </div>
               </div>
 
-              <div className="bg-gray-50 px-6 py-3">
+              <div className="bg-void/30 px-6 py-3">
                 <div className="flex justify-between">
                   <button className="text-sm text-gray-600 hover:text-gray-900">
                     Preview

@@ -61,26 +61,26 @@ export default function CampaignsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-semibold">{c.name}</h2>
-                  <p className="text-xs text-gray-500">{new Date(c.createdAt).toLocaleString()}</p>
+                  <p className="text-xs text-slate-grey">{new Date(c.createdAt).toLocaleString()}</p>
                 </div>
                 <div className="text-xs text-gray-600">CPS: {c.cps} • From: {c.fromNumber}</div>
               </div>
 
               <div className="mt-3 grid grid-cols-4 gap-2 text-center">
-                <div className="p-2 bg-gray-50 rounded">
-                  <div className="text-xs text-gray-500">Queued</div>
+                <div className="p-2 bg-void/30 rounded">
+                  <div className="text-xs text-slate-grey">Queued</div>
                   <div className="text-base font-semibold">{agg.queued}</div>
                 </div>
-                <div className="p-2 bg-gray-50 rounded">
-                  <div className="text-xs text-gray-500">In Progress</div>
+                <div className="p-2 bg-void/30 rounded">
+                  <div className="text-xs text-slate-grey">In Progress</div>
                   <div className="text-base font-semibold">{agg.in_progress}</div>
                 </div>
-                <div className="p-2 bg-gray-50 rounded">
-                  <div className="text-xs text-gray-500">Completed</div>
+                <div className="p-2 bg-void/30 rounded">
+                  <div className="text-xs text-slate-grey">Completed</div>
                   <div className="text-base font-semibold">{agg.completed}</div>
                 </div>
-                <div className="p-2 bg-gray-50 rounded">
-                  <div className="text-xs text-gray-500">Failed</div>
+                <div className="p-2 bg-void/30 rounded">
+                  <div className="text-xs text-slate-grey">Failed</div>
                   <div className="text-base font-semibold">{agg.failed}</div>
                 </div>
               </div>
@@ -101,11 +101,11 @@ export default function CampaignsPage() {
               <div key={s.id} className="p-3 border rounded bg-white shadow-sm">
                 <div className="flex items-center justify-between text-sm">
                   <div className="font-medium">Session: {s.session}</div>
-                  <div className="text-gray-500">{new Date(s.createdAt).toLocaleString()}</div>
+                  <div className="text-slate-grey">{new Date(s.createdAt).toLocaleString()}</div>
                 </div>
                 <div className="mt-2 text-sm">
                   <span className="font-medium">Outcome:</span> {s.outcome || 'unknown'}
-                  {typeof s.confidence === 'number' && <span className="text-gray-500"> ({Math.round((s.confidence || 0)*100)}%)</span>}
+                  {typeof s.confidence === 'number' && <span className="text-slate-grey"> ({Math.round((s.confidence || 0)*100)}%)</span>}
                 </div>
                 {s.summary && (
                   <p className="mt-2 text-sm text-gray-800 whitespace-pre-wrap">{s.summary}</p>

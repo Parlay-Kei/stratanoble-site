@@ -37,7 +37,7 @@ export default function VerifyRequest() {
           </p>
         </div>
 
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-slate-grey">
           <p>The link will expire in 24 hours for security reasons.</p>
         </div>
 
