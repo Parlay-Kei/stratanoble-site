@@ -3,7 +3,6 @@ import './globals.css';
 import React from 'react'
 import type { Metadata } from 'next';
 import { IBM_Plex_Mono } from 'next/font/google';
-import localFont from 'next/font/local';
 import Script from 'next/script';
 import { Suspense } from 'react';
 
@@ -15,25 +14,6 @@ const plexMono = IBM_Plex_Mono({
   weight: ['400', '600'],
   display: 'swap',
   variable: '--font-mono',
-});
-
-const clashDisplay = localFont({
-  src: [
-    { path: '../../public/fonts/ClashDisplay-Light.woff2', weight: '300' },
-    { path: '../../public/fonts/ClashDisplay-Regular.woff2', weight: '400' },
-    { path: '../../public/fonts/ClashDisplay-Bold.woff2', weight: '700' },
-  ],
-  variable: '--font-display',
-  display: 'swap',
-});
-
-const generalSans = localFont({
-  src: [
-    { path: '../../public/fonts/GeneralSans-Regular.woff2', weight: '400' },
-    { path: '../../public/fonts/GeneralSans-Medium.woff2', weight: '500' },
-  ],
-  variable: '--font-body',
-  display: 'swap',
 });
 
 // Force dynamic rendering to avoid prerender issues with client components in layout
@@ -182,11 +162,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <html
-      lang="en"
-      className={`${clashDisplay.variable} ${generalSans.variable} ${plexMono.variable}`}
-    >
+    <html lang="en" className={plexMono.variable}>
       <head>
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,700&f[]=general-sans@400,500&display=swap"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

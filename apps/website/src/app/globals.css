@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Loaded via Fontshare in layout.tsx (avoids missing self-hosted woff2 on CI/Vercel) */
+    --font-display: 'Clash Display', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'General Sans', ui-sans-serif, system-ui, sans-serif;
+  }
+
   body {
     @apply bg-command-navy text-white;
   }
