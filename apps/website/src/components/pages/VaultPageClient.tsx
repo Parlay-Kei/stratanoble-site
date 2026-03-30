@@ -4,7 +4,7 @@ export const dynamicParams = true;
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Container } from '@/components/ui/container';
+import { Container } from '@strata-noble/ui';
 
 interface Resource {
   id: string;
