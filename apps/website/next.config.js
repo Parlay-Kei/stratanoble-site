@@ -24,8 +24,8 @@ const nextConfig = {
     const cspDirectives = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://plausible.io https://cdn.jotfor.ms https://assets.calendly.com",
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jotfor.ms https://assets.calendly.com",
-      "font-src 'self' https://fonts.gstatic.com data:",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com https://cdn.fontshare.com https://cdn.jotfor.ms https://assets.calendly.com",
+      "font-src 'self' https://fonts.gstatic.com https://cdn.fontshare.com https://fonts.fontshare.com data:",
       "img-src 'self' data: blob: https://*.jotform.com https://*.googletagmanager.com https://assets.calendly.com",
       "frame-src 'self' https://*.jotform.com https://calendly.com",
       "connect-src 'self' https://*.jotform.com https://www.google-analytics.com https://plausible.io https://api.calendly.com",
