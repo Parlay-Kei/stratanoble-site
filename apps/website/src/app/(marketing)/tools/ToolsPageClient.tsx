@@ -118,7 +118,7 @@ export function ToolsPageClient() {
             All Strata Noble tools are powered by the Q Suite modular framework — the same operating architecture we
             deploy for clients.
           </p>
-          <Link href="/solutions" className="inline-block mt-4 text-primary font-semibold text-sm hover:underline">
+          <Link href="/services" className="inline-block mt-4 text-primary font-semibold text-sm hover:underline">
             See our solutions →
           </Link>
         </div>

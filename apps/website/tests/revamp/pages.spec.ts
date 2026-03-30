@@ -9,7 +9,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Support Pages', () => {
   const pages = [
-    { path: '/platform', heading: /platform|roadmap/i, requiresSprint: '2' },
+    { path: '/q-suite', heading: /q suite|operational|platform/i, requiresSprint: '2' },
     { path: '/resources', heading: /resources/i, requiresSprint: '2' },
     { path: '/studio', heading: /studio/i, requiresSprint: '2' },
     { path: '/about', heading: /about|who we are/i, requiresSprint: '2' },
@@ -44,24 +44,23 @@ test.describe('Support Pages', () => {
     });
   }
 
-  test('platform page content', async ({ page }) => {
-    const response = await page.goto('/platform');
+  test('q-suite page content', async ({ page }) => {
+    const response = await page.goto('/q-suite');
     const is404 = response?.status() === 404;
 
-    test.skip(is404, 'Platform page not implemented yet - requires Sprint 2');
+    test.skip(is404, 'Q Suite page not implemented yet - requires Sprint 2');
 
-    // Should have content about the platform/roadmap
     const main = page.locator('main');
     const text = await main.textContent();
 
     const hasRelevantContent =
-      text?.toLowerCase().includes('automation') ||
-      text?.toLowerCase().includes('roadmap') ||
+      text?.toLowerCase().includes('q suite') ||
+      text?.toLowerCase().includes('operational') ||
       text?.toLowerCase().includes('platform');
 
     test.info().annotations.push({
       type: 'info',
-      description: `Platform content: ${hasRelevantContent ? 'Found relevant keywords' : 'Check content'}`
+      description: `Q Suite content: ${hasRelevantContent ? 'Found relevant keywords' : 'Check content'}`
     });
   });
 
@@ -121,7 +120,7 @@ test.describe('Support Pages', () => {
   });
 
   test('all pages have offer CTAs', async ({ page }) => {
-    const pagesToCheck = ['/platform', '/resources', '/studio', '/about'];
+    const pagesToCheck = ['/q-suite', '/resources', '/studio', '/about'];
 
     for (const path of pagesToCheck) {
       const response = await page.goto(path);
@@ -153,7 +152,7 @@ test.describe('Support Pages', () => {
   test('pages are mobile responsive', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
 
-    const pagesToCheck = ['/platform', '/resources', '/studio', '/about'];
+    const pagesToCheck = ['/q-suite', '/resources', '/studio', '/about'];
 
     for (const path of pagesToCheck) {
       const response = await page.goto(path);
@@ -178,7 +177,7 @@ test.describe('Support Pages', () => {
 
   test('pages have proper meta tags', async ({ page }) => {
     const pagesToCheck = [
-      { path: '/platform', title: /platform/i },
+      { path: '/q-suite', title: /q suite/i },
       { path: '/resources', title: /resources/i },
       { path: '/studio', title: /studio/i },
       { path: '/about', title: /about/i },
