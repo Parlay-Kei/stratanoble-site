@@ -25,8 +25,12 @@ async function earlyAccessHandler(request: NextRequest) {
     } else {
       // Handle form data
       const formData = await request.formData();
+      const singleName = formData.get('name');
+      const fromParts = `${formData.get('firstName') || ''} ${formData.get('lastName') || ''}`.trim();
+      const resolvedName =
+        (typeof singleName === 'string' && singleName.trim()) || fromParts || '';
       body = {
-        name: `${formData.get('firstName') || ''} ${formData.get('lastName') || ''}`.trim(),
+        name: resolvedName,
         email: formData.get('email'),
         role: formData.get('role'),
         goals: formData.get('goals'),

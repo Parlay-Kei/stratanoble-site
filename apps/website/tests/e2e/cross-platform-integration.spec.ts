@@ -135,25 +135,19 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
     const startTime = Date.now();
 
     try {
-      // Navigate to homepage
-      await page.goto(TEST_CONFIG.WEB_BASE_URL);
-      await expect(page).toHaveTitle(/StrataNoble/);
+      await page.goto(`${TEST_CONFIG.WEB_BASE_URL}/achievery-early-access`);
+      await expect(page).toHaveTitle(/ACHIEVERY Early Access/i);
 
-      // Test early access signup flow
-      await page.click('text=Get Early Access');
-      await page.waitForSelector('form[data-testid="early-access-form"]', { timeout: 10000 });
-
-      // Fill registration form
+      await page.fill('input[name="name"]', 'Test User');
       await page.fill('input[name="email"]', TEST_CONFIG.TEST_USER_EMAIL);
-      await page.fill('input[name="firstName"]', 'Test');
-      await page.fill('input[name="lastName"]', 'User');
-      await page.selectOption('select[name="tier"]', 'lite');
 
-      // Submit form
       await page.click('button[type="submit"]');
 
-      // Wait for success message
-      await expect(page.locator('text=Thank you')).toBeVisible({ timeout: 15000 });
+      await page.waitForLoadState('networkidle');
+      await expect(page.locator('body')).toContainText(
+        /success|Successfully|already on our early access/i,
+        { timeout: 15000 }
+      );
 
       const endTime = Date.now();
       testResults.performance_metrics.web_load_time = endTime - startTime;
@@ -173,8 +167,8 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
         severity: 'critical',
         category: 'functionality',
         description: `User registration failed: ${error instanceof Error ? error.message : String(error)}`,
-        location: '/early-access',
-        reproduction_steps: '1. Navigate to homepage\n2. Click "Get Early Access"\n3. Fill form\n4. Submit',
+        location: '/achievery-early-access',
+        reproduction_steps: '1. Navigate to /achievery-early-access\n2. Fill name and email\n3. Submit',
       });
     }
   });
@@ -290,7 +284,7 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
       '/',
       '/contact',
       '/tools',
-      '/early-access',
+      '/achievery-early-access',
     ];
 
     let totalLoadTime = 0;
@@ -339,23 +333,16 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
 
   test('Security - Form Validation and CSRF Protection', async () => {
     try {
-      await page.goto(`${TEST_CONFIG.WEB_BASE_URL}/early-access`);
+      await page.goto(`${TEST_CONFIG.WEB_BASE_URL}/achievery-early-access`);
 
-      // Test form validation
       await page.click('button[type="submit"]');
-      await expect(page.locator('text=required')).toBeVisible();
+      await expect(page.locator('input[name="name"]')).toHaveJSProperty('validity.valueMissing', true);
 
-      // Test XSS protection
       const maliciousScript = '<script>alert("xss")</script>';
-      await page.fill('input[name="firstName"]', maliciousScript);
+      await page.fill('input[name="name"]', maliciousScript);
       await page.fill('input[name="email"]', 'test@test.com');
-      await page.fill('input[name="lastName"]', 'Test');
-      await page.selectOption('select[name="tier"]', 'lite');
 
-      // Submit and verify script isn't executed
       await page.click('button[type="submit"]');
-
-      // Check that alert didn't fire (would throw if it did)
       await page.waitForTimeout(1000);
 
       testResults.web_platform_tests.coach_sharing = true;
@@ -367,7 +354,7 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
         severity: 'critical',
         category: 'security',
         description: `Security validation failed: ${error instanceof Error ? error.message : String(error)}`,
-        location: '/early-access',
+        location: '/achievery-early-access',
         reproduction_steps: '1. Navigate to form\n2. Submit empty form\n3. Test XSS inputs',
       });
     }
