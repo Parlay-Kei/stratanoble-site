@@ -1,9 +1,2 @@
-export { LeadLeakCheckSection } from './LeadLeakCheckSection';
-export { ProblemAreasSection } from './ProblemAreasSection';
+/** Case study strip used on /solutions; homepage uses components/homepage. */
 export { CaseStudySection } from './CaseStudySection';
-export { OfferLadderSection } from './OfferLadderSection';
-export { HowItWorksSection } from './HowItWorksSection';
-export { QSuiteSection } from './QSuiteSection';
-export { ProofSection } from './ProofSection';
-export { OffersSection } from './OffersSection';
-export { OperationalHero } from './OperationalHero';
