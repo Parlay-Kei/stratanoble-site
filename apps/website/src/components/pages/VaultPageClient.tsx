@@ -142,7 +142,7 @@ function VaultPageContent() {
       case 'video': return 'bg-blue-100 text-blue-800';
       case 'slide': return 'bg-green-100 text-green-800';
       case 'worksheet': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-void/40 text-gray-800';
     }
   };
 
@@ -157,8 +157,8 @@ function VaultPageContent() {
       <main className="min-h-screen bg-white pt-20">
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
-            <p className="text-navy-600">Verifying access...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-forest-green mx-auto mb-4"></div>
+            <p className="text-slate-grey">Verifying access...</p>
           </div>
         </div>
       </main>
@@ -171,13 +171,13 @@ function VaultPageContent() {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center max-w-md mx-auto px-4">
             <div className="text-6xl mb-6">🔒</div>
-            <h1 className="text-2xl font-bold text-navy-900 mb-4">Access Denied</h1>
-            <p className="text-navy-600 mb-6">
+            <h1 className="text-2xl font-bold text-command-navy mb-4">Access Denied</h1>
+            <p className="text-slate-grey mb-6">
               You need to purchase a workshop ticket to access the resource vault.
             </p>
             <a
               href="/proof"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+              className="bg-forest-green hover:bg-forest-green text-white font-semibold py-3 px-6 rounded-lg transition-colors"
             >
               Get Workshop Access
             </a>
@@ -190,16 +190,16 @@ function VaultPageContent() {
   return (
     <main className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-navy-900 via-navy-800 to-emerald-900 text-white py-16">
+      <section className="bg-command-navy text-white py-16">
         <Container>
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
               Workshop Resource Vault
             </h1>
-            <p className="text-xl text-navy-100 mb-4">
+            <p className="text-xl text-white/90 mb-4">
               Welcome back, {userEmail}! Access all your workshop materials and resources.
             </p>
-            <div className="text-sm text-navy-200">
+            <div className="text-sm text-slate-grey">
               Last updated: {new Date().toLocaleDateString()}
             </div>
           </div>
@@ -207,7 +207,7 @@ function VaultPageContent() {
       </section>
 
       {/* Resources Section */}
-      <section className="py-12 bg-navy-50">
+      <section className="py-12 bg-off-white">
         <Container>
           <div className="mx-auto max-w-6xl">
             {/* Category Filter */}
@@ -219,8 +219,8 @@ function VaultPageContent() {
                     onClick={() => setSelectedCategory(category)}
                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                       selectedCategory === category
-                        ? 'bg-emerald-600 text-white'
-                        : 'bg-white text-navy-700 hover:bg-navy-100'
+                        ? 'bg-forest-green text-white'
+                        : 'bg-white text-slate-grey hover:bg-void'
                     }`}
                   >
                     {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -241,15 +241,15 @@ function VaultPageContent() {
                       </span>
                     </div>
                     
-                    <h3 className="text-lg font-semibold text-navy-900 mb-2">
+                    <h3 className="text-lg font-semibold text-command-navy mb-2">
                       {resource.title}
                     </h3>
                     
-                    <p className="text-navy-600 text-sm mb-4">
+                    <p className="text-slate-grey text-sm mb-4">
                       {resource.description}
                     </p>
 
-                    <div className="flex items-center justify-between text-xs text-navy-500 mb-4">
+                    <div className="flex items-center justify-between text-xs text-slate-grey mb-4">
                       <span>{resource.size}</span>
                       <span>{resource.uploadedAt}</span>
                     </div>
@@ -259,7 +259,7 @@ function VaultPageContent() {
                         // In production, this would trigger a download from Supabase storage
                         alert(`Downloading ${resource.filename}...`);
                       }}
-                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm"
+                      className="w-full bg-forest-green hover:bg-forest-green text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm"
                     >
                       Download
                     </button>
@@ -271,7 +271,7 @@ function VaultPageContent() {
             {filteredResources.length === 0 && (
               <div className="text-center py-12">
                 <div className="text-4xl mb-4">📁</div>
-                <p className="text-navy-600">No resources found in this category.</p>
+                <p className="text-slate-grey">No resources found in this category.</p>
               </div>
             )}
           </div>
@@ -282,22 +282,22 @@ function VaultPageContent() {
       <section className="py-16 bg-white">
         <Container>
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-navy-900 mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-command-navy mb-4">
               Need Help with These Resources?
             </h2>
-            <p className="text-navy-600 mb-8">
+            <p className="text-slate-grey mb-8">
               Our team is here to help you make the most of these materials and accelerate your side hustle journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/contact"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+                className="bg-forest-green hover:bg-forest-green text-white font-semibold py-3 px-8 rounded-lg transition-colors"
               >
                 Get Support
               </a>
               <a
                 href="/proof"
-                className="bg-transparent border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+                className="bg-transparent border-2 border-forest-green text-forest-green hover:bg-forest-green hover:text-white font-semibold py-3 px-8 rounded-lg transition-colors"
               >
                 Join Next Workshop
               </a>
@@ -315,8 +315,8 @@ export function VaultPageClient() {
       <main className="min-h-screen bg-white pt-20">
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
-            <p className="text-navy-600">Loading...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-forest-green mx-auto mb-4"></div>
+            <p className="text-slate-grey">Loading...</p>
           </div>
         </div>
       </main>

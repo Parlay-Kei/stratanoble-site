@@ -220,7 +220,7 @@ export function PipelineBuildoutApplicationForm() {
                 type="checkbox"
                 checked={formData.toolStack.includes(tool.value)}
                 onChange={() => handleToolToggle(tool.value)}
-                className="w-4 h-4 text-primary focus:ring-primary border-gray-300 rounded"
+                className="w-4 h-4 text-primary focus:ring-primary border-slate-grey/30 rounded"
                 disabled={status === 'loading'}
               />
               <span className="text-sm">{tool.label}</span>

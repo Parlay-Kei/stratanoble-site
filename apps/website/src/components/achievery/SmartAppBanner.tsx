@@ -125,7 +125,7 @@ export function SmartAppBanner({ className = '', autoShow = true }: SmartAppBann
               {isMobile && (
                 <button
                   onClick={handleOpenApp}
-                  className="flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+                  className="flex items-center space-x-2 bg-forest-green hover:bg-forest-green text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
                   <span>OPEN</span>
                   <ArrowRight className="w-4 h-4" />
@@ -189,10 +189,10 @@ export function IOSSmartBanner() {
   if (!isVisible) return null
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gray-100 border-b border-gray-300 text-black">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-void/40 border-b border-slate-grey/30 text-black">
       <div className="flex items-center justify-between px-4 py-2 text-sm">
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-br from-forest-green to-command-navy rounded-lg flex items-center justify-center">
             <Smartphone className="w-6 h-6 text-white" />
           </div>
           
@@ -211,7 +211,7 @@ export function IOSSmartBanner() {
           </a>
           <button
             onClick={handleClose}
-            className="p-2 text-gray-500 hover:text-gray-700"
+            className="p-2 text-slate-grey hover:text-gray-700"
           >
             <X className="w-4 h-4" />
           </button>
@@ -249,10 +249,10 @@ export function AndroidInstallBanner() {
   if (!isVisible) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-lg border-t border-gray-200">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-lg border-t border-slate-grey/25">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-br from-forest-green to-command-navy rounded-lg flex items-center justify-center">
             <Smartphone className="w-6 h-6 text-white" />
           </div>
           
@@ -271,7 +271,7 @@ export function AndroidInstallBanner() {
           </button>
           <button
             onClick={handleClose}
-            className="p-2 text-gray-400 hover:text-gray-600"
+            className="p-2 text-slate-grey hover:text-gray-600"
           >
             <X className="w-5 h-5" />
           </button>

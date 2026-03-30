@@ -90,7 +90,7 @@ export function LeadLeakCheckForm() {
             onChange={handleChange}
             required
             disabled={status === 'loading'}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-3 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-void/40 disabled:cursor-not-allowed"
             placeholder="John Smith"
           />
         </div>
@@ -107,7 +107,7 @@ export function LeadLeakCheckForm() {
             onChange={handleChange}
             required
             disabled={status === 'loading'}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-3 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-void/40 disabled:cursor-not-allowed"
             placeholder="john@example.com"
           />
         </div>
@@ -125,7 +125,7 @@ export function LeadLeakCheckForm() {
           onChange={handleChange}
           required
           disabled={status === 'loading'}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+          className="w-full px-4 py-3 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-void/40 disabled:cursor-not-allowed"
           placeholder="Your Business LLC"
         />
       </div>
@@ -141,7 +141,7 @@ export function LeadLeakCheckForm() {
           onChange={handleChange}
           required
           disabled={status === 'loading'}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+          className="w-full px-4 py-3 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-void/40 disabled:cursor-not-allowed"
         >
           <option value="">Select a source...</option>
           {LEAD_SOURCE_OPTIONS.map((option) => (
@@ -164,7 +164,7 @@ export function LeadLeakCheckForm() {
           required
           disabled={status === 'loading'}
           rows={4}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed resize-none"
+          className="w-full px-4 py-3 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-void/40 disabled:cursor-not-allowed resize-none"
           placeholder="Tell us what's not working... (e.g., leads go cold, no time for follow-up, lost in spreadsheets)"
         />
       </div>
@@ -183,7 +183,7 @@ export function LeadLeakCheckForm() {
         {status === 'loading' ? 'Submitting...' : 'Get Your Free Lead Leak Assessment'}
       </button>
 
-      <p className="text-sm text-gray-500 text-center">
+      <p className="text-sm text-slate-grey text-center">
         Free analysis. No spam. We'll show you exactly where leads are falling through the cracks.
       </p>
     </form>

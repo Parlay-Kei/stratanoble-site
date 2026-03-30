@@ -74,24 +74,24 @@ export function ReceiptsIncluded({ variant }: ReceiptsIncludedProps) {
   const receipts = variant === 'lead-rescue' ? leadRescueReceipts : pipelineReceipts;
 
   return (
-    <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl p-6">
+    <div className="bg-gradient-to-br from-field-sage/10 to-teal-50 border border-forest-green/25 rounded-xl p-6">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full bg-forest-green flex items-center justify-center">
           <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
-        <h3 className="text-lg font-semibold text-emerald-900">Receipts Included</h3>
+        <h3 className="text-lg font-semibold text-command-navy">Receipts Included</h3>
       </div>
 
-      <p className="text-sm text-emerald-800 mb-4">
+      <p className="text-sm text-forest-green mb-4">
         Every install includes ProofLoop verification receipts. You see exactly what was built, tested, and delivered.
       </p>
 
       <ul className="space-y-2">
         {receipts.map((receipt, i) => (
-          <li key={i} className="flex items-center gap-3 text-sm text-emerald-900">
-            <span className="text-emerald-600 flex-shrink-0">
+          <li key={i} className="flex items-center gap-3 text-sm text-command-navy">
+            <span className="text-forest-green flex-shrink-0">
               {iconMap[receipt.icon]}
             </span>
             <span>{receipt.label}</span>
@@ -99,7 +99,7 @@ export function ReceiptsIncluded({ variant }: ReceiptsIncludedProps) {
         ))}
       </ul>
 
-      <p className="text-xs text-emerald-700 mt-4 pt-4 border-t border-emerald-200">
+      <p className="text-xs text-forest-green mt-4 pt-4 border-t border-forest-green/25">
         No "trust me bro" delivery. Your receipts prove the work.
       </p>
     </div>

@@ -79,7 +79,7 @@ export default function NoupeChat({
       {/* Disclosure overlay for first-time users */}
       {showDisclosure && !hasConsented && (
         <div
-          className="fixed bottom-20 right-4 z-50 max-w-sm bg-white rounded-lg shadow-xl border border-gray-200 p-4"
+          className="fixed bottom-20 right-4 z-50 max-w-sm bg-white rounded-lg shadow-xl border border-slate-grey/25 p-4"
           role="dialog"
           aria-labelledby="chat-disclosure-title"
         >
@@ -94,14 +94,14 @@ export default function NoupeChat({
           <div className="flex gap-2">
             <button
               onClick={handleConsent}
-              className="flex-1 bg-emerald-600 text-white text-sm py-2 px-4 rounded-md hover:bg-emerald-700 transition-colors"
+              className="flex-1 bg-forest-green text-white text-sm py-2 px-4 rounded-md hover:bg-forest-green transition-colors"
             >
               I understand, start chat
             </button>
           </div>
           <a
             href="/privacy"
-            className="block text-xs text-gray-500 mt-2 hover:text-emerald-600"
+            className="block text-xs text-slate-grey mt-2 hover:text-forest-green"
           >
             View our Privacy Policy
           </a>
@@ -112,7 +112,7 @@ export default function NoupeChat({
       {hasConsented && (
         <button
           onClick={toggleChat}
-          className="fixed bottom-4 right-4 z-50 w-14 h-14 bg-emerald-600 rounded-full shadow-lg hover:bg-emerald-700 transition-colors flex items-center justify-center"
+          className="fixed bottom-4 right-4 z-50 w-14 h-14 bg-forest-green rounded-full shadow-lg hover:bg-forest-green transition-colors flex items-center justify-center"
           aria-label={isVisible ? 'Close chat' : 'Open chat'}
         >
           {isVisible ? (

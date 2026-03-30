@@ -80,7 +80,7 @@ export function AgentActivity() {
         <h3 className="text-lg font-bold mb-4">Recent Agent Executions</h3>
         <div className="space-y-2">
           {recentExecutions.length === 0 ? (
-            <div className="text-gray-500 text-center py-8">
+            <div className="text-slate-grey text-center py-8">
               No recent agent executions
             </div>
           ) : (
@@ -103,7 +103,7 @@ export function AgentActivity() {
                          execution.status === 'failed' ? '❌' : '⚙️'}
                       </span>
                       <span className="font-medium">{execution.agentName}</span>
-                      <span className="text-sm text-gray-500">•</span>
+                      <span className="text-sm text-slate-grey">•</span>
                       <span className="text-sm text-gray-600">{execution.trigger}</span>
                     </div>
                     <div className="mt-1 text-sm text-gray-600">

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -36,18 +36,18 @@ export default function AchieveryPage() {
     <>
       {/* Preload critical images for better performance */}
 
-      <div className="min-h-screen bg-gradient-to-br from-navy-50 via-white to-emerald-50">
+      <div className="min-h-screen bg-gradient-to-br from-off-white via-white to-field-sage/10">
       {/* Hero Section */}
       <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-900/10 to-emerald-600/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-command-navy/10 to-forest-green/10" />
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center">
-            <div className="inline-flex items-center gap-3 bg-emerald-100 text-emerald-800 px-6 py-3 rounded-full text-sm font-semibold mb-8">
+            <div className="inline-flex items-center gap-3 bg-field-sage/15 text-forest-green px-6 py-3 rounded-full text-sm font-semibold mb-8">
               <BoltIcon className="h-5 w-5" />
               Early Access Available
             </div>
             
-            <h1 className="text-6xl md:text-7xl font-bold text-navy-900 mb-6">
+            <h1 className="text-6xl md:text-7xl font-bold text-command-navy mb-6">
               ACHIEVERY
             </h1>
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-700 mb-8">
@@ -60,9 +60,9 @@ export default function AchieveryPage() {
             </p>
 
             {/* Enhanced CTAs with Visual Context */}
-            <div className="bg-gradient-to-r from-navy-50/80 to-emerald-50/80 rounded-3xl p-8 backdrop-blur-sm border border-white/20 mb-16">
+            <div className="bg-gradient-to-r from-off-white/80 to-field-sage/10/80 rounded-3xl p-8 backdrop-blur-sm border border-white/20 mb-16">
               <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold text-navy-900 mb-2">Experience ACHIEVERY Now</h3>
+                <h3 className="text-lg font-semibold text-command-navy mb-2">Experience ACHIEVERY Now</h3>
                 <p className="text-gray-600">Choose your path to professional growth</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -70,7 +70,7 @@ export default function AchieveryPage() {
                   href={`${publicConfig.achieveryUrl}?utm_source=achievery-preview&utm_medium=cta&utm_campaign=preview-platform`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold py-4 px-8 rounded-xl hover:from-emerald-700 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center transform hover:scale-105"
+                  className="group bg-gradient-to-r from-forest-green to-forest-green text-white font-bold py-4 px-8 rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center transform hover:scale-105"
                 >
                   <EyeIcon className="h-5 w-5 mr-2 group-hover:animate-pulse" />
                   Preview Platform
@@ -78,7 +78,7 @@ export default function AchieveryPage() {
                 </Link>
                 <Link
                   href="/achievery-early-access?utm_source=achievery-preview&utm_medium=cta&utm_campaign=early-access"
-                  className="group border-2 border-navy-300 text-navy-700 font-bold py-4 px-8 rounded-xl hover:bg-navy-50 transition-all duration-300 inline-flex items-center justify-center hover:border-navy-400"
+                  className="group border-2 border-slate-grey text-slate-grey font-bold py-4 px-8 rounded-xl hover:bg-off-white transition-all duration-300 inline-flex items-center justify-center hover:border-slate-grey"
                 >
                   <SparklesIcon className="h-5 w-5 mr-2 group-hover:animate-spin" />
                   Early Access Signup
@@ -86,16 +86,16 @@ export default function AchieveryPage() {
                 </Link>
               </div>
               <div className="mt-4 text-center">
-                <p className="text-sm text-gray-500">? No credit card required for preview • ? Full features available</p>
+                <p className="text-sm text-slate-grey">? No credit card required for preview • ? Full features available</p>
               </div>
             </div>
 
             {/* Dashboard Preview Hero Image */}
             <div className="relative max-w-4xl mx-auto">
-              <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-4 shadow-2xl border border-gray-200">
+              <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-4 shadow-2xl border border-slate-grey/25">
                 <Suspense fallback={
                   <div className="w-full h-96 bg-gray-200 animate-pulse rounded-xl flex items-center justify-center">
-                    <div className="text-gray-500">Loading dashboard preview...</div>
+                    <div className="text-slate-grey">Loading dashboard preview...</div>
                   </div>
                 }>
                   <Image
@@ -110,7 +110,7 @@ export default function AchieveryPage() {
                   />
                 </Suspense>
               </div>
-              <div className="absolute -bottom-4 -right-4 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+              <div className="absolute -bottom-4 -right-4 bg-field-sage/15 text-forest-green px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                 ? Live Preview Available
               </div>
             </div>
@@ -123,55 +123,55 @@ export default function AchieveryPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl font-bold text-navy-900 mb-6">
+              <h2 className="text-4xl font-bold text-command-navy mb-6">
                 What Is ACHIEVERY?
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="bg-emerald-100 rounded-lg p-3 mr-4 mt-1">
-                    <CheckCircleIcon className="h-6 w-6 text-emerald-600" />
+                  <div className="bg-field-sage/15 rounded-lg p-3 mr-4 mt-1">
+                    <CheckCircleIcon className="h-6 w-6 text-forest-green" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-navy-900 mb-2">Clear Value Proposition</h3>
+                    <h3 className="text-lg font-semibold text-command-navy mb-2">Clear Value Proposition</h3>
                     <p className="text-gray-600">"Turn ordinary activities into recognized professional achievements"</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-navy-100 rounded-lg p-3 mr-4 mt-1">
-                    <CheckCircleIcon className="h-6 w-6 text-navy-600" />
+                  <div className="bg-void rounded-lg p-3 mr-4 mt-1">
+                    <CheckCircleIcon className="h-6 w-6 text-slate-grey" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-navy-900 mb-2">Target Audience</h3>
+                    <h3 className="text-lg font-semibold text-command-navy mb-2">Target Audience</h3>
                     <p className="text-gray-600">"For working professionals aged 25-45 who feel stuck but want a clear path forward"</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-silver-100 rounded-lg p-3 mr-4 mt-1">
-                    <CheckCircleIcon className="h-6 w-6 text-silver-600" />
+                  <div className="bg-void/30 rounded-lg p-3 mr-4 mt-1">
+                    <CheckCircleIcon className="h-6 w-6 text-slate-grey" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-navy-900 mb-2">Key Differentiator</h3>
+                    <h3 className="text-lg font-semibold text-command-navy mb-2">Key Differentiator</h3>
                     <p className="text-gray-600">"No badges, streaks, or points - just meaningful progress tracking"</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="bg-gradient-to-br from-emerald-50 to-navy-50 rounded-3xl p-8 border border-emerald-200">
-              <h3 className="text-2xl font-bold text-navy-900 mb-6">Transform Your Activities</h3>
+            <div className="bg-gradient-to-br from-field-sage/10 to-navy-50 rounded-3xl p-8 border border-forest-green/25">
+              <h3 className="text-2xl font-bold text-command-navy mb-6">Transform Your Activities</h3>
               <div className="space-y-4">
-                <div className="bg-white rounded-lg p-4 border border-gray-200">
-                  <div className="text-gray-500 text-sm mb-2">Before:</div>
+                <div className="bg-white rounded-lg p-4 border border-slate-grey/25">
+                  <div className="text-slate-grey text-sm mb-2">Before:</div>
                   <div className="text-gray-600">"Helped friend with email setup"</div>
                 </div>
                 <div className="flex justify-center">
-                  <ArrowPathIcon className="h-6 w-6 text-emerald-600" />
+                  <ArrowPathIcon className="h-6 w-6 text-forest-green" />
                 </div>
-                <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
-                  <div className="text-emerald-600 text-sm mb-2">After:</div>
-                  <div className="text-emerald-800 font-medium">"Practiced marketable tech skills"</div>
+                <div className="bg-field-sage/10 rounded-lg p-4 border border-forest-green/25">
+                  <div className="text-forest-green text-sm mb-2">After:</div>
+                  <div className="text-forest-green font-medium">"Practiced marketable tech skills"</div>
                 </div>
               </div>
             </div>
@@ -180,10 +180,10 @@ export default function AchieveryPage() {
       </section>
 
       {/* User Flow Demonstration */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-navy-50 to-emerald-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-off-white to-field-sage/10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-navy-900 mb-4">
+            <h2 className="text-4xl font-bold text-command-navy mb-4">
               See Your Journey from Start to Growth
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -193,13 +193,13 @@ export default function AchieveryPage() {
 
           {/* Sign-in Process Preview */}
           <div className="mb-20">
-            <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-200 max-w-4xl mx-auto">
+            <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-grey/25 max-w-4xl mx-auto">
               <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 bg-navy-100 text-navy-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                <div className="inline-flex items-center gap-2 bg-void text-command-navy px-4 py-2 rounded-full text-sm font-semibold mb-4">
                   <UserCircleIcon className="h-4 w-4" />
                   Step 1: Secure Access
                 </div>
-                <h3 className="text-2xl font-bold text-navy-900 mb-2">Professional Authentication Experience</h3>
+                <h3 className="text-2xl font-bold text-command-navy mb-2">Professional Authentication Experience</h3>
                 <p className="text-gray-600">Streamlined sign-in integrated with your Strata Noble account</p>
               </div>
 
@@ -215,7 +215,7 @@ export default function AchieveryPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl" />
                 <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-forest-green rounded-full animate-pulse"></div>
                     <span className="text-sm font-medium text-gray-700">Live Interface</span>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ export default function AchieveryPage() {
                 <div className={`bg-${workflow.color}-50 rounded-lg p-3 mb-4 mx-auto w-fit`}>
                   <workflow.icon className={`h-8 w-8 text-${workflow.color}-600`} />
                 </div>
-                <h3 className="text-lg font-bold text-navy-900 mb-2">{workflow.title}</h3>
+                <h3 className="text-lg font-bold text-command-navy mb-2">{workflow.title}</h3>
                 <p className="text-gray-600 text-sm">{workflow.description}</p>
               </div>
             ))}
@@ -264,10 +264,10 @@ export default function AchieveryPage() {
       </section>
 
       {/* Core Features Showcase */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-void/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-navy-900 mb-4">
+            <h2 className="text-4xl font-bold text-command-navy mb-4">
               Core Features
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -301,12 +301,12 @@ export default function AchieveryPage() {
                   preview: 'Visual progression system that shows exactly where you are and what comes next'
                 }
               ].map((feature, index) => (
-                <div key={index} className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
+                <div key={index} className="bg-white rounded-2xl p-6 shadow-lg border border-slate-grey/25 hover:shadow-xl transition-all duration-300">
                   <div className="flex items-center mb-4">
                     <div className={`bg-${feature.color}-100 rounded-lg p-3 mr-4`}>
                       <feature.icon className={`h-6 w-6 text-${feature.color}-600`} />
                     </div>
-                    <h3 className="text-xl font-bold text-navy-900">{feature.title}</h3>
+                    <h3 className="text-xl font-bold text-command-navy">{feature.title}</h3>
                   </div>
                   <p className="text-gray-600 mb-4 leading-relaxed">{feature.description}</p>
                   <div className={`bg-${feature.color}-50 rounded-lg p-3 border border-${feature.color}-200`}>
@@ -318,12 +318,12 @@ export default function AchieveryPage() {
 
             {/* Visual Feature Demonstration */}
             <div className="space-y-8">
-              <div className="bg-gradient-to-br from-navy-50 to-emerald-50 rounded-2xl p-6 border border-navy-200">
-                <h3 className="text-xl font-bold text-navy-900 mb-4">Interactive Dashboard</h3>
+              <div className="bg-gradient-to-br from-off-white to-field-sage/10 rounded-2xl p-6 border border-slate-grey/30">
+                <h3 className="text-xl font-bold text-command-navy mb-4">Interactive Dashboard</h3>
                 <div className="relative group">
                   <Suspense fallback={
                     <div className="w-full h-80 bg-gray-200 animate-pulse rounded-lg flex items-center justify-center">
-                      <div className="text-gray-500">Loading interface...</div>
+                      <div className="text-slate-grey">Loading interface...</div>
                     </div>
                   }>
                     <Image
@@ -335,7 +335,7 @@ export default function AchieveryPage() {
                       loading="lazy"
                     />
                   </Suspense>
-                  <div className="absolute top-3 right-3 bg-emerald-100/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-emerald-700">
+                  <div className="absolute top-3 right-3 bg-field-sage/15 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-forest-green">
                     ? Growth Tier
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -357,13 +357,13 @@ export default function AchieveryPage() {
                     description: 'Private achievement record with optional mentor sharing'
                   }
                 ].map((feature, index) => (
-                  <div key={index} className="bg-white rounded-xl p-4 shadow border border-gray-200">
+                  <div key={index} className="bg-white rounded-xl p-4 shadow border border-slate-grey/25">
                     <div className="flex items-center">
                       <div className={`bg-${feature.color}-100 rounded-lg p-2 mr-3`}>
                         <feature.icon className={`h-5 w-5 text-${feature.color}-600`} />
                       </div>
                       <div>
-                        <h4 className="font-bold text-navy-900">{feature.title}</h4>
+                        <h4 className="font-bold text-command-navy">{feature.title}</h4>
                         <p className="text-gray-600 text-sm">{feature.description}</p>
                       </div>
                     </div>
@@ -379,7 +379,7 @@ export default function AchieveryPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-navy-900 mb-4">
+            <h2 className="text-4xl font-bold text-command-navy mb-4">
               ACHIEVERY Platform Access
             </h2>
             <p className="text-lg text-gray-600">
@@ -389,9 +389,9 @@ export default function AchieveryPage() {
 
           {/* Cross-Platform Visual Demo */}
           <div className="mb-16">
-            <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-xl border border-gray-200">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-xl border border-slate-grey/25">
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-navy-900 mb-2">Works Seamlessly Everywhere</h3>
+                <h3 className="text-2xl font-bold text-command-navy mb-2">Works Seamlessly Everywhere</h3>
                 <p className="text-gray-600">Desktop, tablet, and mobile - optimized for every screen</p>
               </div>
 
@@ -404,7 +404,7 @@ export default function AchieveryPage() {
                   className="w-full h-auto rounded-xl"
                   loading="lazy"
                 />
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-field-sage/15 text-forest-green px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                   ?? Progressive Web App Ready
                 </div>
               </div>
@@ -439,7 +439,7 @@ export default function AchieveryPage() {
                 <div className={`bg-${access.color}-100 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center`}>
                   <access.icon className={`h-10 w-10 text-${access.color}-600`} />
                 </div>
-                <h3 className="text-xl font-bold text-navy-900 mb-2">{access.title}</h3>
+                <h3 className="text-xl font-bold text-command-navy mb-2">{access.title}</h3>
                 <p className="text-gray-600 mb-3">{access.subtitle}</p>
                 <span className={`bg-${access.color}-100 text-${access.color}-800 px-3 py-1 rounded-full text-sm font-semibold`}>
                   {access.status}
@@ -448,11 +448,11 @@ export default function AchieveryPage() {
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-navy-50 to-emerald-50 rounded-3xl p-8 border border-navy-200">
+          <div className="bg-gradient-to-r from-off-white to-field-sage/10 rounded-3xl p-8 border border-slate-grey/30">
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-navy-900 mb-4">Current Status: Early Access</h3>
+              <h3 className="text-2xl font-bold text-command-navy mb-4">Current Status: Early Access</h3>
               <p className="text-gray-600 mb-6">Integrated with your Strata Noble account</p>
-              <p className="text-sm text-navy-600 bg-navy-100 rounded-lg px-4 py-2 inline-block">
+              <p className="text-sm text-slate-grey bg-void rounded-lg px-4 py-2 inline-block">
                 ?? Native Apps Coming Soon
               </p>
             </div>
@@ -461,10 +461,10 @@ export default function AchieveryPage() {
       </section>
 
       {/* Pricing Integration */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-void/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-navy-900 mb-4">
+            <h2 className="text-4xl font-bold text-command-navy mb-4">
               Included with Strata Noble Tiers
             </h2>
             <p className="text-lg text-gray-600">
@@ -474,9 +474,9 @@ export default function AchieveryPage() {
 
           {/* Visual Tier Comparison */}
           <div className="mb-12">
-            <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-xl border border-gray-200">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-xl border border-slate-grey/25">
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-navy-900 mb-2">See What Each Tier Unlocks</h3>
+                <h3 className="text-2xl font-bold text-command-navy mb-2">See What Each Tier Unlocks</h3>
                 <p className="text-gray-600">Visual comparison of dashboard features across subscription levels</p>
               </div>
 
@@ -540,10 +540,10 @@ export default function AchieveryPage() {
                 dashboardImage: '/images/achievery/dashboard-partner-tier.webp'
               }
             ].map((plan, index) => (
-              <div key={index} className={`bg-white rounded-3xl p-8 shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${plan.popular ? 'border-emerald-300 ring-4 ring-emerald-100' : 'border-gray-200'}`}>
+              <div key={index} className={`bg-white rounded-3xl p-8 shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${plan.popular ? 'border-forest-green/30 ring-4 ring-field-sage/20' : 'border-slate-grey/25'}`}>
                 {plan.popular && (
                   <div className="text-center mb-4">
-                    <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-semibold">
+                    <span className="bg-field-sage/15 text-forest-green px-3 py-1 rounded-full text-sm font-semibold">
                       Most Popular
                     </span>
                   </div>
@@ -557,7 +557,7 @@ export default function AchieveryPage() {
                       alt={`${plan.tier} tier dashboard preview`}
                       width={400}
                       height={250}
-                      className="w-full h-auto rounded-lg border border-gray-200"
+                      className="w-full h-auto rounded-lg border border-slate-grey/25"
                       loading="lazy"
                     />
                     <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-semibold text-gray-700">
@@ -567,8 +567,8 @@ export default function AchieveryPage() {
                 </div>
 
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-navy-900 mb-2">{plan.tier}</h3>
-                  <div className="text-3xl font-bold text-navy-900 mb-2">{plan.price}</div>
+                  <h3 className="text-2xl font-bold text-command-navy mb-2">{plan.tier}</h3>
+                  <div className="text-3xl font-bold text-command-navy mb-2">{plan.price}</div>
                   <div className={`text-${plan.color}-600 font-medium text-sm`}>{plan.limit}</div>
                 </div>
 
@@ -585,7 +585,7 @@ export default function AchieveryPage() {
                   href={`/contact?utm_source=achievery&utm_medium=pricing&utm_campaign=${plan.tier.toLowerCase()}-tier`}
                   className={`block text-center py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${
                     plan.popular
-                      ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-white hover:from-emerald-700 hover:to-emerald-600'
+                      ? 'bg-gradient-to-r from-forest-green to-forest-green text-white hover:opacity-90'
                       : `bg-${plan.color}-100 text-${plan.color}-800 hover:bg-${plan.color}-200`
                   }`}
                 >
@@ -612,7 +612,7 @@ export default function AchieveryPage() {
               href={`${publicConfig.achieveryUrl}?utm_source=achievery-preview&utm_medium=final-cta&utm_campaign=preview-platform`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-white text-navy-600 font-bold py-4 px-8 rounded-2xl hover:bg-navy-50 transition-all duration-300 inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="group bg-white text-slate-grey font-bold py-4 px-8 rounded-2xl hover:bg-off-white transition-all duration-300 inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               <EyeIcon className="h-5 w-5 mr-2 group-hover:animate-pulse" />
               Preview Platform
@@ -620,7 +620,7 @@ export default function AchieveryPage() {
             </Link>
             <Link
               href="/achievery-early-access?utm_source=achievery-preview&utm_medium=final-cta&utm_campaign=early-access"
-              className="group border-2 border-white text-white font-bold py-4 px-8 rounded-2xl hover:bg-white hover:text-navy-600 transition-all duration-300 inline-flex items-center justify-center transform hover:scale-105"
+              className="group border-2 border-white text-white font-bold py-4 px-8 rounded-2xl hover:bg-white hover:text-slate-grey transition-all duration-300 inline-flex items-center justify-center transform hover:scale-105"
             >
               <SparklesIcon className="h-5 w-5 mr-2 group-hover:animate-spin" />
               Early Access Signup

@@ -39,11 +39,11 @@ interface ContractVersion {
 }
 
 const statusColors: Record<string, string> = {
-  draft: 'bg-gray-100 text-gray-800',
+  draft: 'bg-void/40 text-gray-800',
   review: 'bg-yellow-100 text-yellow-800',
   approved: 'bg-blue-100 text-blue-800',
   signed: 'bg-green-100 text-green-800',
-  active: 'bg-emerald-100 text-emerald-800',
+  active: 'bg-field-sage/15 text-forest-green',
   terminated: 'bg-red-100 text-red-800',
   expired: 'bg-orange-100 text-orange-800',
 };
@@ -114,13 +114,13 @@ export function ContractDetail({ contractId }: { contractId: string }) {
   }
 
   if (loading) {
-    return <div className="p-8 text-center text-gray-500">Loading contract...</div>;
+    return <div className="p-8 text-center text-slate-grey">Loading contract...</div>;
   }
 
   if (!contract) {
     return (
       <div className="p-8 text-center">
-        <p className="text-gray-500 mb-4">Contract not found</p>
+        <p className="text-slate-grey mb-4">Contract not found</p>
         <Link href="/admin/contracts" className="text-blue-600 hover:text-blue-800">
           Back to Contracts
         </Link>
@@ -134,7 +134,7 @@ export function ContractDetail({ contractId }: { contractId: string }) {
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center space-x-4">
-            <Link href="/admin/contracts" className="text-gray-400 hover:text-gray-600">
+            <Link href="/admin/contracts" className="text-slate-grey hover:text-gray-600">
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
@@ -144,7 +144,7 @@ export function ContractDetail({ contractId }: { contractId: string }) {
             </h1>
           </div>
           {contract.deal && (
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-slate-grey">
               Client: {contract.deal.client_name}
               {contract.deal.client_legal_name && ` (${contract.deal.client_legal_name})`}
             </p>
@@ -155,26 +155,26 @@ export function ContractDetail({ contractId }: { contractId: string }) {
           <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${statusColors[contract.status]}`}>
             {contract.status}
           </span>
-          <span className="text-sm text-gray-500">v{contract.version}</span>
+          <span className="text-sm text-slate-grey">v{contract.version}</span>
         </div>
       </div>
 
       {/* Quick Info */}
       <div className="grid grid-cols-4 gap-4">
         <div className="bg-white p-4 rounded-lg shadow">
-          <dt className="text-sm font-medium text-gray-500">Document Type</dt>
+          <dt className="text-sm font-medium text-slate-grey">Document Type</dt>
           <dd className="mt-1 text-lg font-semibold text-gray-900">{contract.document_type}</dd>
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
-          <dt className="text-sm font-medium text-gray-500">Risk Profile</dt>
+          <dt className="text-sm font-medium text-slate-grey">Risk Profile</dt>
           <dd className="mt-1 text-lg font-semibold text-gray-900 capitalize">{contract.risk_profile.replace('_', ' ')}</dd>
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
-          <dt className="text-sm font-medium text-gray-500">Jurisdiction</dt>
+          <dt className="text-sm font-medium text-slate-grey">Jurisdiction</dt>
           <dd className="mt-1 text-lg font-semibold text-gray-900">{contract.jurisdiction}</dd>
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
-          <dt className="text-sm font-medium text-gray-500">Created</dt>
+          <dt className="text-sm font-medium text-slate-grey">Created</dt>
           <dd className="mt-1 text-lg font-semibold text-gray-900">
             {new Date(contract.created_at).toLocaleDateString()}
           </dd>
@@ -203,7 +203,7 @@ export function ContractDetail({ contractId }: { contractId: string }) {
               </button>
               <button
                 onClick={() => updateStatus('draft')}
-                className="px-4 py-2 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200"
+                className="px-4 py-2 bg-void/40 text-gray-800 rounded-md hover:bg-gray-200"
               >
                 Return to Draft
               </button>
@@ -220,7 +220,7 @@ export function ContractDetail({ contractId }: { contractId: string }) {
           {contract.status === 'signed' && (
             <button
               onClick={() => updateStatus('active')}
-              className="px-4 py-2 bg-emerald-100 text-emerald-800 rounded-md hover:bg-emerald-200"
+              className="px-4 py-2 bg-field-sage/15 text-forest-green rounded-md hover:bg-emerald-200"
             >
               Activate Contract
             </button>
@@ -230,14 +230,14 @@ export function ContractDetail({ contractId }: { contractId: string }) {
 
       {/* Tabs */}
       <div className="bg-white rounded-lg shadow">
-        <div className="border-b border-gray-200">
+        <div className="border-b border-slate-grey/25">
           <nav className="flex -mb-px">
             <button
               onClick={() => setActiveTab('preview')}
               className={`px-6 py-4 text-sm font-medium ${
                 activeTab === 'preview'
                   ? 'border-b-2 border-blue-500 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
+                  : 'text-slate-grey hover:text-gray-700'
               }`}
             >
               Preview
@@ -247,7 +247,7 @@ export function ContractDetail({ contractId }: { contractId: string }) {
               className={`px-6 py-4 text-sm font-medium ${
                 activeTab === 'sections'
                   ? 'border-b-2 border-blue-500 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
+                  : 'text-slate-grey hover:text-gray-700'
               }`}
             >
               Sections
@@ -257,7 +257,7 @@ export function ContractDetail({ contractId }: { contractId: string }) {
               className={`px-6 py-4 text-sm font-medium ${
                 activeTab === 'versions'
                   ? 'border-b-2 border-blue-500 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
+                  : 'text-slate-grey hover:text-gray-700'
               }`}
             >
               Version History ({versions.length})
@@ -273,7 +273,7 @@ export function ContractDetail({ contractId }: { contractId: string }) {
                   {contract.rendered_text}
                 </pre>
               ) : (
-                <p className="text-gray-500">No rendered text available</p>
+                <p className="text-slate-grey">No rendered text available</p>
               )}
             </div>
           )}
@@ -281,37 +281,37 @@ export function ContractDetail({ contractId }: { contractId: string }) {
           {activeTab === 'sections' && (
             <div className="space-y-4">
               {contract.content?.sections?.map((section) => (
-                <div key={section.id} className="border border-gray-200 rounded-lg p-4">
+                <div key={section.id} className="border border-slate-grey/25 rounded-lg p-4">
                   <h4 className="font-medium text-gray-900 mb-2">{section.title}</h4>
                   <div className="text-sm text-gray-600 whitespace-pre-wrap">
                     {section.content}
                   </div>
                 </div>
-              )) || <p className="text-gray-500">No sections available</p>}
+              )) || <p className="text-slate-grey">No sections available</p>}
             </div>
           )}
 
           {activeTab === 'versions' && (
             <div className="space-y-4">
               {versions.length === 0 ? (
-                <p className="text-gray-500">No version history available</p>
+                <p className="text-slate-grey">No version history available</p>
               ) : (
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead>
                     <tr>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Version</th>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Summary</th>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-slate-grey uppercase">Version</th>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-slate-grey uppercase">Type</th>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-slate-grey uppercase">Summary</th>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-slate-grey uppercase">Date</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {versions.map((version) => (
                       <tr key={version.id}>
                         <td className="px-4 py-3 text-sm font-medium text-gray-900">v{version.version}</td>
-                        <td className="px-4 py-3 text-sm text-gray-500 capitalize">{version.change_type}</td>
-                        <td className="px-4 py-3 text-sm text-gray-500">{version.changes_summary || '-'}</td>
-                        <td className="px-4 py-3 text-sm text-gray-500">
+                        <td className="px-4 py-3 text-sm text-slate-grey capitalize">{version.change_type}</td>
+                        <td className="px-4 py-3 text-sm text-slate-grey">{version.changes_summary || '-'}</td>
+                        <td className="px-4 py-3 text-sm text-slate-grey">
                           {new Date(version.created_at).toLocaleString()}
                         </td>
                       </tr>

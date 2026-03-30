@@ -200,7 +200,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
 
             {eventId && (
-              <p className="text-xs text-gray-400 mt-4">
+              <p className="text-xs text-slate-grey mt-4">
                 Error ID: {eventId}
               </p>
             )}
