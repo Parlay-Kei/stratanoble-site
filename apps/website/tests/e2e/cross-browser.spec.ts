@@ -10,8 +10,8 @@ const testPages = [
   { path: '/', name: 'Homepage' },
   { path: '/about', name: 'About Page' },
   { path: '/services', name: 'Services Page' },
-  { path: '/pricing', name: 'Pricing Page' },
-  { path: '/contact', name: 'Contact Page' }
+  { path: '/q-suite', name: 'Q Suite Page' },
+  { path: '/contact', name: 'Contact Page' },
 ];
 
 test.describe('Cross-Browser Compatibility Tests', () => {
@@ -69,8 +69,8 @@ test.describe('Cross-Browser Compatibility Tests', () => {
     // Test main navigation links
     const navLinks = [
       { text: 'Services', expectedPath: '/services' },
-      { text: 'Pricing', expectedPath: '/pricing' },
-      { text: 'About', expectedPath: '/about' }
+      { text: 'Q SUITE', expectedPath: '/q-suite' },
+      { text: 'About', expectedPath: '/about' },
     ];
     
     for (const link of navLinks) {

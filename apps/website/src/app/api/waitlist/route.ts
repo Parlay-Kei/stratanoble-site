@@ -127,7 +127,6 @@ export async function POST(request: NextRequest) {
     }
 
     // Note: Analytics tracking should be done on the client side, not in API routes
-    // The client-side code in WaitlistModal.tsx handles this appropriately
 
     return NextResponse.json({
       success: true,

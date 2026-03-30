@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       line_items: [{ price: priceId, quantity: 1 }],
       customer_email: customerEmail,
       success_url: `${requestOrigin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${requestOrigin}/pricing?canceled=1`,
+      cancel_url: `${requestOrigin}/services?canceled=1`,
       metadata: {
         offering_id: offeringId || packageType,
         customer_name: customerName,
