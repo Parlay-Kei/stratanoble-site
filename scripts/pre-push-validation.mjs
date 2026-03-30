@@ -21,7 +21,7 @@ class PrePushValidator {
     await this.checkLinting();
     await this.checkTypeScript();
     await this.checkTests();
-    await this.checkSecurityAudit();
+    this.logSecurityAuditDeferred();
     await this.checkEnvironment();
     await this.checkBuildValidity();
     await this.checkGitStatus();
@@ -136,80 +136,17 @@ class PrePushValidator {
     }
   }
 
-  async checkSecurityAudit() {
-    console.log(chalk.blue('🔒 Checking Security Vulnerabilities...'));
-    
-    try {
-      const { stdout } = await execAsync('cd apps/website && npm audit --audit-level moderate', {
-        maxBuffer: 10 * 1024 * 1024
-      });
-      
-      console.log(chalk.green('   ✅ No vulnerabilities found'));
-    } catch (error) {
-      // npm audit returns non-zero exit code if vulnerabilities found
-      const output = error.stdout || '';
-      
-      // Parse vulnerability counts from the summary line
-      const vulnerabilitiesMatch = output.match(/(\d+)\s+vulnerabilities?\s*\(([^)]+)\)/i);
-      
-      let critical = 0, high = 0, moderate = 0, low = 0;
-      
-      if (vulnerabilitiesMatch) {
-        const summary = vulnerabilitiesMatch[2]; // e.g., "2 low, 2 moderate"
-        const criticalMatch = summary.match(/(\d+)\s+critical/i);
-        const highMatch = summary.match(/(\d+)\s+high/i);
-        const moderateMatch = summary.match(/(\d+)\s+moderate/i);
-        const lowMatch = summary.match(/(\d+)\s+low/i);
-        
-        critical = criticalMatch ? parseInt(criticalMatch[1]) : 0;
-        high = highMatch ? parseInt(highMatch[1]) : 0;
-        moderate = moderateMatch ? parseInt(moderateMatch[1]) : 0;
-        low = lowMatch ? parseInt(lowMatch[1]) : 0;
-      }
-      
-      const total = critical + high + moderate + low;
-      
-      if (critical > 0 || high > 0 || moderate > 0) {
-        const severityParts = [];
-        if (critical > 0) severityParts.push(`${critical} critical`);
-        if (high > 0) severityParts.push(`${high} high`);
-        if (moderate > 0) severityParts.push(`${moderate} moderate`);
-        
-        this.failures.push({
-          check: 'Security Audit',
-          message: `${total} vulnerability(ies): ${severityParts.join(', ')}`,
-          details: this.extractSecurityIssues(output)
-        });
-        console.log(chalk.red(`   ❌ ${total} vulnerability(ies) found`));
-      } else if (low > 0) {
-        this.warnings.push(`${low} low severity vulnerability(ies)`);
-        console.log(chalk.yellow(`   ⚠️  ${low} low severity vulnerability(ies)`));
-      } else {
-        // If no vulnerabilities parsed but error occurred, show generic message
-        console.log(chalk.yellow('   ⚠️  Could not parse audit results'));
-      }
-    }
-  }
-
-  extractSecurityIssues(output) {
-    const lines = output.split('\n');
-    const issues = [];
-    
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      // Extract package names and severity
-      if (line.match(/^[a-z0-9@/-]+\s+[<>=*]/i) || line.includes('Severity:')) {
-        issues.push(line.trim());
-        if (issues.length >= 8) break; // Limit to first 8 lines
-      }
-    }
-    
-    if (issues.length === 0) {
-      issues.push('Run: npm audit for details');
-      issues.push('Fix: npm audit fix');
-    }
-    
-    return issues;
+  /**
+   * npm audit is intentionally not a gate here: it blocks commits on transitive noise and
+   * major-version fixes. Run on a schedule / in CI (e.g. .github/workflows/security-audit.yml, ci.yml).
+   */
+  logSecurityAuditDeferred() {
+    console.log(chalk.blue('🔒 Security audit (dependency vulnerabilities)...'));
+    console.log(
+      chalk.gray(
+        '   ⏭️  Skipped as a local gate — run `cd apps/website && npm audit` or rely on CI workflows.'
+      )
+    );
   }
 
   async checkEnvironment() {
@@ -232,14 +169,21 @@ class PrePushValidator {
   }
 
   async checkBuildValidity() {
-    console.log(chalk.blue('🏗️  Checking Build Validity...'));
-    
+    console.log(chalk.blue('🏗️  Building apps/website (production)...'));
+
     try {
-      // Check if build would likely succeed
-      await execAsync('cd apps/website && npm run build -- --dry-run 2>/dev/null || echo "dry-run not supported"');
-      console.log(chalk.green('   ✅ Likely to succeed'));
+      await execAsync('cd apps/website && npm run build', {
+        maxBuffer: 50 * 1024 * 1024,
+      });
+      console.log(chalk.green('   ✅ Build succeeded'));
     } catch (error) {
-      console.log(chalk.yellow('   ⚠️  Cannot predict (skipped)'));
+      const detailText = error.stderr || error.stdout || error.message || '';
+      this.failures.push({
+        check: 'Build',
+        message: 'Next.js production build failed',
+        details: String(detailText).split('\n').filter(Boolean).slice(-40),
+      });
+      console.log(chalk.red('   ❌ Build failed'));
     }
   }
 
