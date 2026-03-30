@@ -1,18 +1,31 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
+import { ServicesHero, OfferLadder, DeliveryProcess } from '@/components/services';
 
 export const metadata: Metadata = {
   title: 'Consulting Services | Strata Noble',
-  description: 'Lead Rescue, Pipeline Buildout, and Operations Command — scoped engagements with proof of work.',
+  description:
+    'Lead Rescue, 21-Day Pipeline Buildout, and Operations Command — scoped consulting with proof of work.',
 };
 
 export default function ServicesPage() {
   return (
-    <main className="container mx-auto px-4 py-24 text-center max-w-2xl">
-      <h1 className="text-3xl font-bold tracking-tight text-navy-900 md:text-4xl">Consulting Services</h1>
-      <p className="mt-4 text-lg text-navy-600">Coming soon</p>
-      <p className="mt-6 text-sm text-navy-500">
-        Lead Rescue, 21-Day Pipeline Buildout, and Operations Command — full detail is on the way.
-      </p>
-    </main>
+    <>
+      <ServicesHero />
+      <OfferLadder />
+      <DeliveryProcess />
+      <section className="border-t border-slate-200 bg-slate-50 px-4 py-12">
+        <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-4 text-center text-sm text-slate-600 sm:flex-row">
+          <span>Explore the platform:</span>
+          <Link href="/q-suite" className="font-semibold text-emerald-700 hover:underline">
+            Q SUITE
+          </Link>
+          <span className="hidden sm:inline">·</span>
+          <Link href="/achievery" className="font-semibold text-emerald-700 hover:underline">
+            ACHIEVERY
+          </Link>
+        </div>
+      </section>
+    </>
   );
 }
