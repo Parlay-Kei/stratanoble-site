@@ -5,36 +5,29 @@ import { SVGProps } from 'react'
 import { Logo } from '../Logo'
 
 /**
- * SiteFooter - Pipeline-focused footer
- *
- * Footer links:
- * - Lead Rescue
- * - Pipeline Buildout
- * - Tools
- * - Contact
- * - Legal (Privacy, Terms)
- *
- * REMOVED (trust contamination):
- * - Platform
- * - Dashboard
- * - Solutions/Services subscription pages
+ * Footer IA (OCS-SN-0011): Services | Platform | Company | Legal
  */
 
 const navigation = {
   services: [
     { name: 'Lead Rescue', href: '/lead-rescue' },
-    { name: 'Pipeline Buildout', href: '/phase-3' },
-    { name: 'Tools', href: '/tools' },
+    { name: 'Pipeline Buildout', href: '/pipeline-buildout' },
+    { name: 'Operations Command', href: '/contact?service=operations-command' },
+  ],
+  platform: [
+    { name: 'Q SUITE', href: '/q-suite' },
+    { name: 'ACHIEVERY', href: '/achievery' },
   ],
   company: [
     { name: 'About', href: '/about' },
+    { name: 'Proof', href: '/proof' },
     { name: 'Contact', href: '/contact' },
+    { name: 'Privacy', href: '/privacy' },
+    { name: 'Terms', href: '/terms' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
     { name: 'Accessibility', href: '/accessibility' },
+    { name: 'Cookies', href: '/cookies' },
   ],
   social: [
     {
@@ -63,8 +56,8 @@ export function SiteFooter() {
           <div className="space-y-8 xl:col-span-1">
             <Logo className="h-16 w-auto" theme="white" />
             <p className="text-sm leading-6 text-navy-300">
-              Lead-to-customer pipelines for service businesses.
-              Installed fast. Scope capped. You own it.
+              Operational infrastructure for service businesses.
+              Scoped engagements. Delivered systems. You own it.
             </p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
@@ -83,33 +76,42 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {/* Navigation */}
-          <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">Services</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.services.map((item) => (
-                    <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-white">Company</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.company.map((item) => (
-                    <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4 xl:col-span-2 xl:mt-0">
+            <div>
+              <h3 className="text-sm font-semibold leading-6 text-white">Services</h3>
+              <ul role="list" className="mt-6 space-y-4">
+                {navigation.services.map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold leading-6 text-white">Platform</h3>
+              <ul role="list" className="mt-6 space-y-4">
+                {navigation.platform.map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold leading-6 text-white">Company</h3>
+              <ul role="list" className="mt-6 space-y-4">
+                {navigation.company.map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href} className="text-sm leading-6 text-navy-300 hover:text-white transition-colors">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
             <div>
               <h3 className="text-sm font-semibold leading-6 text-white">Legal</h3>
@@ -153,7 +155,7 @@ export function SiteFooter() {
               &copy; {new Date().getFullYear()} Strata Noble. All rights reserved.
             </p>
             <p className="text-xs text-navy-500">
-              No branding. No website builds. Pipeline infrastructure only.
+              Operational control systems for service businesses.
             </p>
           </div>
         </div>

@@ -11,7 +11,7 @@
  * Controls:
  * - New navigation structure with offer-first CTAs
  * - Updated hero section messaging
- * - /lead-rescue and /phase-3 offer pages
+ * - /lead-rescue and /pipeline-buildout offer pages
  * - Lead intake infrastructure
  *
  * @returns {boolean} True if revamp features should be shown

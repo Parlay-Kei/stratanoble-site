@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Phase3ApplicationForm } from '@/components/forms/Phase3ApplicationForm';
+import { PipelineBuildoutApplicationForm } from '@/components/forms/PipelineBuildoutApplicationForm';
 import { ReceiptsIncluded } from '@/components/ReceiptsIncluded';
 
 export const metadata: Metadata = {
@@ -7,21 +7,21 @@ export const metadata: Metadata = {
   description:
     'Get a complete lead-to-customer pipeline built in 21 days. CRM, email sequences, automations, and milestone tracking.',
   alternates: {
-    canonical: '/phase-3',
+    canonical: '/pipeline-buildout',
   },
   openGraph: {
     title: '21-Day Pipeline Buildout | Strata Noble',
     description:
       'Get a complete lead-to-customer pipeline built in 21 days. CRM, email sequences, automations, and milestone tracking.',
-    url: '/phase-3',
+    url: '/pipeline-buildout',
   },
 };
 
-export default function Phase3Page() {
+export default function PipelineBuildoutPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Phase 3: 21-Day Pipeline Buildout',
+    name: '21-Day Pipeline Buildout',
     description:
       'Complete lead-to-customer pipeline with CRM, email sequences, automations, and milestone tracking',
     provider: {
@@ -36,9 +36,9 @@ export default function Phase3Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="container mx-auto py-12 px-4">
+      <main id="top" className="container mx-auto py-12 px-4">
         <section className="text-center max-w-3xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold">Phase 3: 21-Day Pipeline Buildout</h1>
+          <h1 className="text-4xl md:text-5xl font-bold">21-Day Pipeline Buildout</h1>
           <p className="text-xl text-muted-foreground mt-4">
             We build your complete lead-to-customer system: CRM, email sequences, automations, and
             milestone dashboard. Manual-first, automated later.
@@ -58,16 +58,14 @@ export default function Phase3Page() {
 
           <div className="lg:sticky lg:top-24 lg:self-start">
             <div className="bg-card border rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold mb-4">Apply for Phase 3</h2>
-              <Phase3ApplicationForm />
+              <h2 className="text-xl font-semibold mb-4">Apply for the 21-Day Pipeline Buildout</h2>
+              <PipelineBuildoutApplicationForm />
             </div>
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <Phase3FAQ />
+        <PipelineBuildoutFAQ />
 
-        {/* Bottom CTA */}
         <BottomCTA />
       </main>
     </>
@@ -286,7 +284,7 @@ function Investment() {
   );
 }
 
-function Phase3FAQ() {
+function PipelineBuildoutFAQ() {
   const faqs = [
     {
       q: 'What if I need more than 2 automations?',
@@ -310,11 +308,11 @@ function Phase3FAQ() {
     },
     {
       q: 'What happens after the 21 days?',
-      a: "You own the system. We provide full documentation and training. If you need ongoing support, we can discuss a support package, but it's not required.",
+      a: "You own the system. We provide full documentation and training. For businesses that want continued operational partnership, we offer Ongoing Operating Support — weekly reviews, system tuning, and maintained visibility. It's optional, not required.",
     },
     {
       q: 'How is this different from Lead Rescue?',
-      a: "Lead Rescue is a 48-hour sprint focused on lead capture. Phase 3 is a 21-day buildout that includes CRM, automations, and a complete pipeline. If you're just starting, go with Lead Rescue. If you're ready to scale, Phase 3 is the move.",
+      a: "Lead Rescue is a 48-hour sprint focused on lead capture. The Pipeline Buildout is a 21-day install that includes CRM, automations, and a complete pipeline. If you're just starting, go with Lead Rescue. If you're ready to scale, the buildout is the move.",
     },
   ];
 
@@ -353,7 +351,7 @@ function BottomCTA() {
         href="#top"
         className="inline-block bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:bg-primary/90 transition-colors"
       >
-        Apply for Phase 3
+        Apply for the Pipeline Buildout
       </a>
     </section>
   );

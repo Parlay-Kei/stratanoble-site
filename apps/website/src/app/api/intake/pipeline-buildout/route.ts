@@ -6,8 +6,7 @@ import { rateLimit, createRateLimitHeaders } from '@/lib/rate-limit-buckets';
 import { notifyNewIntake } from '@/lib/ses-notify';
 import { sanitizeText, sanitizeEmail, sanitizeName } from '@/lib/sanitize';
 
-// Validation schema for Phase 3 intake
-const phase3Schema = z.object({
+const pipelineBuildoutSchema = z.object({
   name: z.string().min(1).max(100),
   email: z.string().email(),
   businessName: z.string().min(1).max(200),
@@ -19,21 +18,14 @@ const phase3Schema = z.object({
   whatSuccessLooksLike: z.string().max(2000),
 });
 
-/**
- * Generate idempotency key based on email, source, and time bucket
- * Uses 10-minute buckets to prevent duplicate submissions
- */
 function generateIdempotencyKey(email: string, source: string): string {
-  const dateBucket = new Date().toISOString().slice(0, 16); // YYYY-MM-DDTHH:MM
+  const dateBucket = new Date().toISOString().slice(0, 16);
   return crypto
     .createHash('sha256')
     .update(`${email}:${source}:${dateBucket}`)
     .digest('hex');
 }
 
-/**
- * Hash IP address for privacy-preserving storage
- */
 function hashIP(request: NextRequest): string | null {
   const ip =
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
@@ -47,7 +39,6 @@ function hashIP(request: NextRequest): string | null {
 
 export async function POST(request: NextRequest) {
   try {
-    // Rate limit by IP using intake bucket (fail-open: if rate limiting fails, allow request through)
     const rateLimitResult = await rateLimit('intake', request);
 
     if (!rateLimitResult.success) {
@@ -61,11 +52,8 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
+    const validated = pipelineBuildoutSchema.parse(body);
 
-    // Validate input
-    const validated = phase3Schema.parse(body);
-
-    // Sanitize text fields
     const sanitized = {
       name: sanitizeName(validated.name),
       email: sanitizeEmail(validated.email),
@@ -78,12 +66,9 @@ export async function POST(request: NextRequest) {
       whatSuccessLooksLike: sanitizeText(validated.whatSuccessLooksLike, 2000),
     };
 
-    // Generate idempotency key
     const idempotencyKey = generateIdempotencyKey(sanitized.email, 'PHASE_3');
 
-    // Transaction to check idempotency and create intake
     const result = await prisma.$transaction(async (tx: Parameters<Parameters<typeof prisma.$transaction>[0]>[0]) => {
-      // Check for existing submission
       const existing = await tx.leadIntake.findUnique({
         where: { idempotencyKey },
       });
@@ -92,7 +77,6 @@ export async function POST(request: NextRequest) {
         return { duplicate: true, id: existing.id };
       }
 
-      // Create new intake
       const intake = await tx.leadIntake.create({
         data: {
           source: 'PHASE_3',
@@ -110,7 +94,6 @@ export async function POST(request: NextRequest) {
       return { duplicate: false, id: intake.id };
     });
 
-    // Send SES notification (don't block on failure)
     if (!result.duplicate) {
       try {
         await notifyNewIntake({
@@ -121,8 +104,7 @@ export async function POST(request: NextRequest) {
           payload: sanitized,
         });
       } catch (error) {
-        console.error('[Phase 3] SES notification failed:', error);
-        // Continue - notification failure shouldn't block the request
+        console.error('[Pipeline buildout intake] SES notification failed:', error);
       }
     }
 
@@ -142,11 +124,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.error('[Phase 3] Intake error:', error);
+    console.error('[Pipeline buildout intake] Intake error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
     );
   }
 }
-

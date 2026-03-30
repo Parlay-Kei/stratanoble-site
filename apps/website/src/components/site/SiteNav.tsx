@@ -9,47 +9,17 @@ import Link from 'next/link'
 import { Logo } from '../Logo'
 
 /**
- * SiteNav - Pipeline-focused navigation
- *
- * Nav links:
- * - About
- * - Contact
- * - 48-Hour Lead Rescue (primary CTA button)
- * - 21-Day Pipeline Buildout (secondary CTA button)
- * - Tools (simple link)
+ * Primary IA: Home | Services | Q SUITE | ACHIEVERY | About | Proof | Contact
  */
 
 const navigation = [
-  {
-    name: 'About',
-    href: '/about',
-    description: 'Who we are',
-  },
-  {
-    name: 'Contact',
-    href: '/contact',
-    description: 'Get in touch',
-  },
-  {
-    name: 'Tools',
-    href: '/tools',
-    description: 'Our products',
-  },
-]
-
-const offerCTAs = [
-  {
-    name: '48-Hour Lead Rescue',
-    href: '/lead-rescue',
-    description: 'Fix your lead leaks fast',
-    primary: true,
-  },
-  {
-    name: '21-Day Pipeline Buildout',
-    href: '/phase-3',
-    description: 'Complete pipeline installation',
-    primary: false,
-  },
+  { name: 'Home', href: '/', description: 'Strata Noble' },
+  { name: 'Services', href: '/services', description: 'Consulting engagements' },
+  { name: 'Q SUITE', href: '/q-suite', description: 'Operational control system' },
+  { name: 'ACHIEVERY', href: '/achievery', description: 'Goals and accountability' },
+  { name: 'About', href: '/about', description: 'Who we are' },
+  { name: 'Proof', href: '/proof', description: 'Case studies & ecosystem' },
+  { name: 'Contact', href: '/contact', description: 'Get in touch' },
 ]
 
 export function SiteNav() {
@@ -100,7 +70,6 @@ export function SiteNav() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-          {/* Backdrop */}
           <motion.div
             className="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm"
             aria-hidden="true"
@@ -110,7 +79,6 @@ export function SiteNav() {
             onClick={() => setMobileMenuOpen(false)}
           />
 
-          {/* Menu panel */}
           <motion.div
             className="fixed inset-y-0 right-0 z-[110] w-full overflow-y-auto bg-white shadow-2xl sm:max-w-sm"
             initial={{ x: '100%' }}
@@ -138,39 +106,23 @@ export function SiteNav() {
             </div>
 
             <div className="px-6 py-8">
-              {/* Offer CTAs */}
-              <div className="space-y-3 mb-6">
-                {offerCTAs.map((offer, index) => (
-                  <motion.div
-                    key={offer.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.3 }}
-                  >
-                    <Link
-                      href={offer.href}
-                      className={`group block rounded-xl px-4 py-4 text-white shadow-lg hover:shadow-xl transition-all ${
-                        offer.primary
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500'
-                          : 'bg-navy-800 hover:bg-navy-700'
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div className="font-bold text-base">{offer.name}</div>
-                      <div className="text-sm text-white/80 font-normal">{offer.description}</div>
-                    </Link>
-                  </motion.div>
-                ))}
+              <div className="mb-6">
+                <Link
+                  href="/contact?service=lead-rescue"
+                  className="block rounded-xl px-4 py-4 text-center text-white font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 shadow-lg"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Free Pipeline Diagnostic — 48-Hour Turnaround
+                </Link>
               </div>
 
-              {/* Standard navigation links */}
               <div className="space-y-1 border-t border-silver-200 pt-4">
                 {navigation.map((item, index) => (
                   <motion.div
                     key={item.name}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: (index + offerCTAs.length) * 0.1, duration: 0.3 }}
+                    transition={{ delay: index * 0.05, duration: 0.3 }}
                   >
                     <Link
                       href={item.href}
@@ -195,6 +147,8 @@ export function SiteNav() {
 
   const mobileMenuPortal = mounted ? createPortal(mobileMenuContent, document.body) : null
 
+  const desktopLinks = navigation.filter((item) => item.href !== '/')
+
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
       scrolled
@@ -202,16 +156,14 @@ export function SiteNav() {
         : 'bg-white/90 backdrop-blur-sm'
     }`}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <div className="flex lg:flex-1">
-            <Link href="/" className="-m-1.5 p-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg transition-colors hover:bg-silver-50">
+        <div className="flex h-16 items-center justify-between gap-4">
+          <div className="flex lg:flex-1 min-w-0">
+            <Link href="/" className="-m-1.5 p-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg transition-colors hover:bg-silver-50 shrink-0">
               <span className="sr-only">Strata Noble - Home</span>
               <Logo className="h-12 w-auto" />
             </Link>
           </div>
 
-          {/* Mobile menu button */}
           <div className="flex lg:hidden">
             <button
               type="button"
@@ -224,34 +176,23 @@ export function SiteNav() {
             </button>
           </div>
 
-          {/* Desktop navigation */}
-          <div className="hidden lg:flex lg:items-center lg:gap-x-6">
-            {navigation.map((item) => (
+          <div className="hidden lg:flex lg:items-center lg:gap-x-1 xl:gap-x-3 lg:flex-wrap lg:justify-end">
+            {desktopLinks.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="group relative text-sm font-semibold leading-6 text-navy-900 hover:text-emerald-600 transition-colors px-3 py-2"
+                className="group relative text-xs xl:text-sm font-semibold leading-6 text-navy-900 hover:text-emerald-600 transition-colors px-2 py-2 whitespace-nowrap"
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-600 transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-0.5 left-2 right-2 h-0.5 bg-emerald-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </Link>
             ))}
-
-            {/* Offer CTAs */}
-            <div className="flex items-center gap-x-3 ml-4">
-              <Link
-                href="/lead-rescue"
-                className="inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 shadow-md hover:shadow-lg hover:scale-105 transition-all"
-              >
-                48-Hour Lead Rescue
-              </Link>
-              <Link
-                href="/phase-3"
-                className="inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold text-navy-900 border-2 border-navy-900 hover:bg-navy-900 hover:text-white transition-all"
-              >
-                21-Day Pipeline
-              </Link>
-            </div>
+            <Link
+              href="/contact?service=lead-rescue"
+              className="ml-2 inline-flex items-center rounded-lg px-3 py-2 text-xs xl:text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+            >
+              Free diagnostic
+            </Link>
           </div>
         </div>
 

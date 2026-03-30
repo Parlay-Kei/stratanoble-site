@@ -99,7 +99,7 @@ export default function StudioPage() {
             </div>
             <div className="bg-gradient-to-br from-navy/10 via-navy/5 to-transparent border border-navy/20 rounded-xl p-6">
               <div className="text-4xl font-bold text-navy">21d</div>
-              <p className="text-sm text-gray-600 mt-2">Phase 3 Buildout Timeline</p>
+              <p className="text-sm text-gray-600 mt-2">21-Day Pipeline Buildout timeline</p>
             </div>
           </motion.div>
         </section>
@@ -191,10 +191,10 @@ export default function StudioPage() {
                 Start with Lead Rescue
               </Link>
               <Link
-                href="/phase-3"
+                href="/pipeline-buildout"
                 className="inline-flex items-center justify-center px-8 py-4 border-2 border-accent-gold text-accent-gold font-semibold rounded-lg hover:bg-accent-gold/10 transition-all duration-300"
               >
-                Apply for Phase 3
+                Apply for the Pipeline Buildout
               </Link>
             </div>
           </motion.div>
