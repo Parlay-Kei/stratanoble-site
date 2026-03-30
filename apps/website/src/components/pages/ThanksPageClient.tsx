@@ -103,7 +103,7 @@ function ThanksContent() {
           actions: [
             {
               text: 'Take Our Discovery Assessment',
-              href: '/discovery',
+              href: '/contact',
               primary: true
             },
             {
@@ -163,7 +163,7 @@ function ThanksContent() {
           actions: [
             {
               text: 'Start Your Discovery',
-              href: '/discovery',
+              href: '/contact',
               primary: true
             },
             {

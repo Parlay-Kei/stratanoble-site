@@ -106,7 +106,7 @@ export default function RouteGuard({ children }: RouteGuardProps) {
           <h2 className="text-xl font-bold text-white mb-2">Access Restricted</h2>
           <p className="text-[#C0C0C0] mb-6">{accessDenied}</p>
           <button
-            onClick={() => router.push('/pricing')}
+            onClick={() => router.push('/services')}
             className="bg-[#50C878] hover:bg-[#3DB067] text-white px-6 py-2 rounded-lg font-semibold transition-colors"
           >
             View Plans

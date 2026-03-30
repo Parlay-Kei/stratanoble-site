@@ -288,9 +288,9 @@ test.describe('Cross-Platform ACHIEVERY Integration Tests', () => {
   test('Performance - Web Application Load Times', async () => {
     const pages = [
       '/',
-      '/discovery',
-      '/achievery-preview',
-      '/early-access'
+      '/contact',
+      '/tools',
+      '/early-access',
     ];
 
     let totalLoadTime = 0;

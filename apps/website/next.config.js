@@ -87,6 +87,9 @@ const nextConfig = {
       { source: '/discovery', destination: '/contact', permanent: true },
       { source: '/get-started', destination: '/contact', permanent: true },
       { source: '/schedule', destination: '/contact', permanent: true },
+      // Phase 4 — archive pages removed from disk; send old URLs to current IA
+      { source: '/archive/technology', destination: '/q-suite', permanent: true },
+      { source: '/archive/technical-excellence', destination: '/services', permanent: true },
     ];
   },
   experimental: {

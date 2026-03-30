@@ -103,7 +103,7 @@ export function checkRouteAccess(
   userTier: UserTier | null
 ): RouteGuardResult {
   // Public routes that don't require authentication
-  const publicRoutes = ['/', '/pricing', '/contact', '/about']
+  const publicRoutes = ['/', '/pricing', '/services', '/contact', '/about']
   if (publicRoutes.includes(currentPath)) {
     return { hasAccess: true }
   }
@@ -122,7 +122,7 @@ export function checkRouteAccess(
     if (userTier.status !== 'active') {
       return {
         hasAccess: false,
-        redirectTo: '/pricing',
+        redirectTo: '/services',
         message: 'Your subscription is not active. Please update your billing.'
       }
     }
@@ -144,7 +144,7 @@ export function checkRouteAccess(
     if (!userTier) {
       return {
         hasAccess: false,
-        redirectTo: '/pricing',
+        redirectTo: '/services',
         message: 'Please subscribe to access this feature'
       }
     }
@@ -152,7 +152,7 @@ export function checkRouteAccess(
     if (userTier.status !== 'active') {
       return {
         hasAccess: false,
-        redirectTo: '/pricing', 
+        redirectTo: '/services',
         message: 'Your subscription is not active'
       }
     }
