@@ -7,14 +7,10 @@ import { SiteShell } from '@/components/site'
  * Route group layout for all public marketing pages.
  * Uses SiteShell for consistent nav/footer.
  *
- * Pages in this group:
- * - / (home)
- * - /about
- * - /contact
- * - /lead-rescue
- * - /pipeline-buildout (21-Day Pipeline Buildout)
- * - /tools
- * - /how-it-works
+ * Pages in this group include:
+ * - /, /about, /contact, /lead-rescue, /pipeline-buildout
+ * - /services, /q-suite, /achievery, /proof
+ * - /tools, /how-it-works
  */
 
 export default function MarketingLayout({

@@ -1,4 +1,4 @@
-﻿const path = require('path');
+const path = require('path');
 
 /** @type {import('next').NextConfig} */
 const dev = process.env.NODE_ENV !== 'production';
@@ -57,7 +57,6 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // Kill contradicting pages - redirect to pipeline-focused destinations
       {
         source: '/solutions',
         destination: '/',
@@ -73,22 +72,21 @@ const nextConfig = {
         destination: '/tools',
         permanent: true,
       },
-      // Legacy redirects
-      {
-        source: '/services',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/services/:path*',
-        destination: '/',
-        permanent: true,
-      },
       {
         source: '/technology',
         destination: '/tools',
         permanent: true,
       },
+      // OCS-SN-0011 stale routes
+      { source: '/phase-3', destination: '/pipeline-buildout', permanent: true },
+      { source: '/pricing', destination: '/services', permanent: true },
+      { source: '/research', destination: '/proof', permanent: true },
+      { source: '/workshops', destination: '/proof', permanent: true },
+      { source: '/workshops/:path*', destination: '/proof', permanent: true },
+      { source: '/cold-calling', destination: '/proof', permanent: true },
+      { source: '/discovery', destination: '/contact', permanent: true },
+      { source: '/get-started', destination: '/contact', permanent: true },
+      { source: '/schedule', destination: '/contact', permanent: true },
     ];
   },
   experimental: {

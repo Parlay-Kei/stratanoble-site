@@ -7,10 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
 /**
- * SmartConsultingBar - Lead Rescue focused banner
- *
- * Copy: Smart Opportunity: Most leads die in the follow-up gap. We close it in 48 hours.
- * CTA: Start Lead Rescue
+ * Entry-offer CTA — free pipeline diagnostic (OCS-SN-0011)
  */
 
 export function SmartConsultingBar() {
@@ -40,22 +37,22 @@ export function SmartConsultingBar() {
               </motion.div>
               <div className="text-sm font-medium">
                 <span className="hidden sm:inline">
-                  <strong>Smart Opportunity:</strong> Most leads die in the follow-up gap. We close it in 48 hours.
+                  <strong>Free Pipeline Diagnostic</strong> — 48-hour turnaround. We show you where revenue leaks before you buy anything.
                 </span>
                 <span className="sm:hidden">
-                  <strong>Lead Loss?</strong> We fix it in 48 hours.
+                  <strong>Free diagnostic</strong> — 48-hour turnaround.
                 </span>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <Link href="/lead-rescue">
+              <Link href="/contact?service=lead-rescue">
                 <motion.span
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-navy text-white px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-navy/90 transition-all duration-200 shadow-md inline-block"
                 >
-                  Start Lead Rescue
+                  Get Free Diagnostic
                 </motion.span>
               </Link>
 

@@ -55,54 +55,21 @@ const navigation = [
   },
 ]
 
-// Revamped navigation with offer-first CTAs
-const revampedNavigation = [
-  {
-    name: 'About',
-    href: '/about',
-    description: 'Meet Steve',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-      </svg>
-    )
-  },
-  {
-    name: 'Contact',
-    href: '/contact',
-    description: 'Start your journey',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    )
-  },
-]
+const navIcon = (
+  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+  </svg>
+)
 
-// Offer-first CTAs for revamped navigation
-const offerCTAs = [
-  {
-    name: '48-Hr Lead Rescue',
-    href: '/lead-rescue',
-    description: 'Fix your lead leaks in 48 hours',
-    badge: '$997',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    )
-  },
-  {
-    name: '21-Day Pipeline Buildout',
-    href: '/pipeline-buildout',
-    description: 'Complete pipeline in 21 days',
-    badge: '21 Days',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    )
-  },
+// Revamp IA: Home | Services | Q SUITE | ACHIEVERY | About | Proof | Contact
+const revampedNavigation = [
+  { name: 'Home', href: '/', description: 'Strata Noble', icon: navIcon },
+  { name: 'Services', href: '/services', description: 'Consulting engagements', icon: navIcon },
+  { name: 'Q SUITE', href: '/q-suite', description: 'Operational control system', icon: navIcon },
+  { name: 'ACHIEVERY', href: '/achievery', description: 'Goals and accountability', icon: navIcon },
+  { name: 'About', href: '/about', description: 'Who we are', icon: navIcon },
+  { name: 'Proof', href: '/proof', description: 'Case studies & ecosystem', icon: navIcon },
+  { name: 'Contact', href: '/contact', description: 'Get in touch', icon: navIcon },
 ]
 
 export function Header() {
@@ -237,38 +204,15 @@ export function Header() {
               </div>
 
               <div className="px-6 py-8">
-                {/* Offer CTAs for revamped navigation */}
                 {revampEnabled && (
-                  <div className="space-y-3 mb-6">
-                    {offerCTAs.map((offer, index) => (
-                      <motion.div
-                        key={offer.name}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1, duration: 0.3 }}
-                      >
-                        <Link
-                          href={offer.href}
-                          className="group block rounded-xl px-4 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all duration-200 active:scale-95"
-                          onClick={() => handleMobileMenuToggle(false)}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
-                              <div className="bg-white/20 rounded-lg p-2">
-                                {offer.icon}
-                              </div>
-                              <div>
-                                <div className="font-bold text-base">{offer.name}</div>
-                                <div className="text-sm text-white/90 font-normal">{offer.description}</div>
-                              </div>
-                            </div>
-                            <div className="bg-white/20 rounded-lg px-3 py-1 text-xs font-semibold">
-                              {offer.badge}
-                            </div>
-                          </div>
-                        </Link>
-                      </motion.div>
-                    ))}
+                  <div className="mb-6">
+                    <Link
+                      href="/contact?service=lead-rescue"
+                      className="block rounded-xl px-4 py-4 text-center font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 shadow-lg hover:shadow-xl transition-all"
+                      onClick={() => handleMobileMenuToggle(false)}
+                    >
+                      Free Pipeline Diagnostic — 48-Hour Turnaround
+                    </Link>
                   </div>
                 )}
 
@@ -279,7 +223,7 @@ export function Header() {
                       key={item.name}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: revampEnabled ? (index + offerCTAs.length) * 0.1 : index * 0.1, duration: 0.3 }}
+                      transition={{ delay: revampEnabled ? (index + 1) * 0.05 : index * 0.1, duration: 0.3 }}
                     >
                       <Link
                         href={item.href}
@@ -368,36 +312,26 @@ export function Header() {
           </div>
 
           {/* Desktop navigation */}
-          <div className="hidden lg:flex lg:items-center lg:gap-x-6">
-            {/* Standard nav links */}
-            {activeNavigation.map((item) => (
+          <div className="hidden lg:flex lg:items-center lg:gap-x-1 xl:gap-x-3 lg:flex-wrap lg:justify-end">
+            {(revampEnabled ? activeNavigation.filter((item) => item.href !== '/') : activeNavigation).map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="group relative text-sm font-semibold leading-6 text-navy-900 hover:text-emerald-600 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg px-3 py-2"
+                className="group relative text-xs xl:text-sm font-semibold leading-6 text-navy-900 hover:text-emerald-600 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg px-2 py-2 whitespace-nowrap"
                 title={item.description}
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-600 transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute -bottom-0.5 left-2 right-2 h-0.5 bg-emerald-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </Link>
             ))}
 
-            {/* Offer CTAs (revamped navigation only) */}
             {revampEnabled && (
-              <div className="flex items-center gap-x-3 ml-2">
-                {offerCTAs.map((offer) => (
-                  <Link
-                    key={offer.name}
-                    href={offer.href}
-                    className="group relative inline-flex items-center gap-x-2 rounded-lg px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 shadow-md hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all duration-200"
-                    title={offer.description}
-                  >
-                    <span className="hidden xl:inline">{offer.name}</span>
-                    <span className="xl:hidden">{offer.name.split(' ')[0]}</span>
-                    <span className="text-xs bg-white/20 rounded px-2 py-0.5">{offer.badge}</span>
-                  </Link>
-                ))}
-              </div>
+              <Link
+                href="/contact?service=lead-rescue"
+                className="ml-2 inline-flex items-center rounded-lg px-3 py-2 text-xs xl:text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+              >
+                Free diagnostic
+              </Link>
             )}
           </div>
 
