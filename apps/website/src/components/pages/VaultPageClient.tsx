@@ -176,7 +176,7 @@ function VaultPageContent() {
               You need to purchase a workshop ticket to access the resource vault.
             </p>
             <a
-              href="/workshops"
+              href="/proof"
               className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
             >
               Get Workshop Access
@@ -296,7 +296,7 @@ function VaultPageContent() {
                 Get Support
               </a>
               <a
-                href="/workshops"
+                href="/proof"
                 className="bg-transparent border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white font-semibold py-3 px-8 rounded-lg transition-colors"
               >
                 Join Next Workshop

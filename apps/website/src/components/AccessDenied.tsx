@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import { Card } from './ui/card'
@@ -112,7 +112,7 @@ export default function AccessDenied({
           
           <Button 
             variant="outline" 
-            onClick={() => window.location.href = '/pricing'}
+            onClick={() => window.location.href = '/services'}
             className="w-full text-sm"
           >
             View All Plans

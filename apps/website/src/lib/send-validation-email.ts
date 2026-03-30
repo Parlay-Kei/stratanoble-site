@@ -1,4 +1,4 @@
-﻿import { sendEmail } from './mailer';
+import { sendEmail } from './mailer';
 
 interface EmailData {
   email: string;
@@ -7,7 +7,7 @@ interface EmailData {
 }
 
 export async function sendValidationEmail({ email, idea, analysis }: EmailData) {
-  const resultsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/get-started`;
+  const resultsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/contact`;
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stratanoble.com';
 
   const htmlContent = `

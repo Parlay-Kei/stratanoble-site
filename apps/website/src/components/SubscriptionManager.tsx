@@ -151,7 +151,7 @@ export default function SubscriptionManager({
                 No active subscription found
               </p>
               <Button
-                onClick={() => window.location.href = '/pricing'}
+                onClick={() => window.location.href = '/services'}
                 className="w-full bg-[#50C878] hover:bg-[#3DB067] text-white"
               >
                 View Plans

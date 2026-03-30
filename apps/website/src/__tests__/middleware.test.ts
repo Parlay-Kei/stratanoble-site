@@ -133,6 +133,7 @@ describe('Middleware Security Test Suite', () => {
     const publicRoutes = [
       'http://localhost:3000/',
       'http://localhost:3000/pricing',
+      'http://localhost:3000/services',
       'http://localhost:3000/about',
       'http://localhost:3000/achievery/auth',
       'http://localhost:3000/achievery-preview',

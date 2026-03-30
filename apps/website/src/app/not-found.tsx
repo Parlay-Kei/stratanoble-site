@@ -55,7 +55,7 @@ export default function NotFound() {
               → Data Analysis
             </Link>
             <Link
-              href="/discovery"
+              href="/contact"
               className="text-emerald-600 hover:text-emerald-700 transition-colors p-2 rounded hover:bg-emerald-50"
             >
               → Discovery Call
