@@ -90,6 +90,10 @@ const nextConfig = {
       // Phase 4 — archive pages removed from disk; send old URLs to current IA
       { source: '/archive/technology', destination: '/q-suite', permanent: true },
       { source: '/archive/technical-excellence', destination: '/services', permanent: true },
+      // Phase 5E — deferred marketing routes (canonical destinations)
+      { source: '/resources', destination: '/tools', permanent: true },
+      { source: '/studio', destination: '/proof', permanent: true },
+      { source: '/early-access', destination: '/achievery-early-access', permanent: true },
     ];
   },
   experimental: {
