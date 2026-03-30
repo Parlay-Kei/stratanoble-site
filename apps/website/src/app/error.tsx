@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-navy-50 to-silver-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-off-white to-off-white flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
         {/* Error Icon */}
         <div className="mb-8">
@@ -28,8 +28,8 @@ export default function Error({
 
         {/* Error Message */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-navy-900 mb-4">Something went wrong</h2>
-          <p className="text-navy-600 leading-relaxed">
+          <h2 className="text-2xl font-bold text-command-navy mb-4">Something went wrong</h2>
+          <p className="text-slate-grey leading-relaxed">
             We&apos;re experiencing technical difficulties. Our team has been notified and is
             working to resolve the issue. Please try again or contact us for assistance.
           </p>
@@ -54,20 +54,20 @@ export default function Error({
         </div>
 
         {/* Contact Support */}
-        <div className="mt-12 pt-8 border-t border-silver-200">
-          <p className="text-sm text-navy-500 mb-4">
+        <div className="mt-12 pt-8 border-t border-slate-grey/25">
+          <p className="text-sm text-slate-grey mb-4">
             Still having issues? Contact our support team:
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center text-sm">
             <Link
               href="/contact"
-              className="text-emerald-600 hover:text-emerald-700 transition-colors"
+              className="text-forest-green hover:text-forest-green transition-colors"
             >
               Contact Support
             </Link>
             <a
               href="tel:+1-702-721-3566"
-              className="text-emerald-600 hover:text-emerald-700 transition-colors"
+              className="text-forest-green hover:text-forest-green transition-colors"
             >
               Call: (702) 721-3566
             </a>
@@ -76,8 +76,8 @@ export default function Error({
 
         {/* Error ID for debugging */}
         {error.digest && (
-          <div className="mt-8 pt-4 border-t border-silver-200">
-            <p className="text-xs text-navy-400">Error ID: {error.digest}</p>
+          <div className="mt-8 pt-4 border-t border-slate-grey/25">
+            <p className="text-xs text-slate-grey">Error ID: {error.digest}</p>
           </div>
         )}
       </div>

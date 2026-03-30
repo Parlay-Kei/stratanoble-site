@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 
 export default function SampleReceiptPage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-void/30">
       {/* Header */}
-      <section className="bg-navy text-white py-12">
+      <section className="bg-command-navy text-white py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <Link href="/tools" className="text-sm text-gray-400 hover:text-white mb-4 inline-block">
+          <Link href="/tools" className="text-sm text-slate-grey hover:text-white mb-4 inline-block">
             ← Back to Tools
           </Link>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Sample ProofLoop Receipt Pack</h1>
@@ -136,14 +136,14 @@ All DNS configurations verified.`}
         </ReceiptCard>
 
         {/* CTA */}
-        <div className="bg-navy text-white rounded-xl p-8 text-center">
+        <div className="bg-command-navy text-white rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Ready to get your own receipt pack?</h2>
           <p className="text-gray-300 mb-6">
             Every Lead Rescue includes a ProofLoop verification pack stored in your ANX Vault.
           </p>
           <Link
             href="/lead-rescue"
-            className="inline-block bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all"
+            className="inline-block bg-forest-green text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all"
           >
             Start the 48-Hour Lead Rescue
           </Link>
@@ -156,7 +156,7 @@ All DNS configurations verified.`}
 function ReceiptCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="bg-white border rounded-xl overflow-hidden shadow-sm">
-      <div className="bg-gray-100 border-b px-4 py-3 flex items-center gap-2">
+      <div className="bg-void/40 border-b px-4 py-3 flex items-center gap-2">
         <div className="flex gap-1.5">
           <div className="w-3 h-3 rounded-full bg-red-400"></div>
           <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
@@ -164,7 +164,7 @@ function ReceiptCard({ title, children }: { title: string; children: React.React
         </div>
         <span className="text-sm font-mono text-gray-600 ml-2">{title}</span>
       </div>
-      <div className="p-4 bg-gray-50">{children}</div>
+      <div className="p-4 bg-void/30">{children}</div>
     </div>
   );
 }

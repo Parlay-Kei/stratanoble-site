@@ -180,7 +180,7 @@ export function SubscriptionGate({ children, feature, fallback }: SubscriptionGa
   if (loading) {
     return (
       <div className="flex items-center justify-center p-4">
-        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-600"></div>
+        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-forest-green"></div>
       </div>
     )
   }
@@ -199,29 +199,29 @@ export function SubscriptionGate({ children, feature, fallback }: SubscriptionGa
   const tierInfo = TIERS[nextTier as keyof typeof TIERS]
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-      <div className="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-        <Icon className="w-8 h-8 text-emerald-600" />
+    <div className="bg-white rounded-xl shadow-sm border border-slate-grey/25 p-8 text-center">
+      <div className="bg-field-sage/15 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+        <Icon className="w-8 h-8 text-forest-green" />
       </div>
       
       <h3 className="text-xl font-bold text-gray-900 mb-2">{paywallConfig.title}</h3>
       <p className="text-gray-600 mb-6">{paywallConfig.message}</p>
       
       {feature === 'actions_per_week' && userTier && (
-        <div className="bg-gray-50 rounded-lg p-4 mb-6">
+        <div className="bg-void/30 rounded-lg p-4 mb-6">
           <div className="text-sm text-gray-600 mb-2">
             {userTier.weeklyActions}/{userTier.weeklyLimit} actions this week
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div 
-              className="h-2 bg-emerald-500 rounded-full"
+              className="h-2 bg-forest-green rounded-full"
               style={{ width: `${Math.min(100, (userTier.weeklyActions! / userTier.weeklyLimit!) * 100)}%` }}
             />
           </div>
         </div>
       )}
       
-      <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-lg p-4 mb-6">
+      <div className="bg-gradient-to-r from-field-sage/10 to-field-sage/15 rounded-lg p-4 mb-6">
         <div className="flex items-center justify-between">
           <div className="text-left">
             <h4 className="font-semibold text-gray-900">{tierInfo.name}</h4>
@@ -230,7 +230,7 @@ export function SubscriptionGate({ children, feature, fallback }: SubscriptionGa
           <div className="text-right">
             <div className="text-lg font-bold text-gray-900">{tierInfo.price}</div>
             {tierInfo.popular && (
-              <span className="text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded-full">
+              <span className="text-xs bg-field-sage/15 text-forest-green px-2 py-1 rounded-full">
                 Popular
               </span>
             )}
@@ -241,19 +241,19 @@ export function SubscriptionGate({ children, feature, fallback }: SubscriptionGa
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <Link
           href={`/contact?utm_source=paywall&utm_medium=cta&utm_campaign=upgrade&feature=${feature}`}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+          className="bg-forest-green hover:bg-forest-green text-white font-semibold py-3 px-6 rounded-lg transition-colors"
         >
           Upgrade Now
         </Link>
         <button
           onClick={() => setShowUpgrade(true)}
-          className="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors"
+          className="border border-slate-grey/30 hover:border-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors"
         >
           View All Plans
         </button>
       </div>
       
-      <p className="text-xs text-gray-500 mt-4">
+      <p className="text-xs text-slate-grey mt-4">
         Part of the Strata Noble ecosystem
       </p>
     </div>

@@ -26,11 +26,11 @@ interface Stats {
 }
 
 const statusColors: Record<string, string> = {
-  draft: 'bg-gray-100 text-gray-800',
+  draft: 'bg-void/40 text-gray-800',
   review: 'bg-yellow-100 text-yellow-800',
   approved: 'bg-blue-100 text-blue-800',
   signed: 'bg-green-100 text-green-800',
-  active: 'bg-emerald-100 text-emerald-800',
+  active: 'bg-field-sage/15 text-forest-green',
   terminated: 'bg-red-100 text-red-800',
   expired: 'bg-orange-100 text-orange-800',
 };
@@ -107,7 +107,7 @@ export function ContractsDashboard() {
   return (
     <div className="space-y-6">
       {/* Navigation Tabs */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-slate-grey/25">
         <nav className="-mb-px flex space-x-8">
           <Link
             href="/admin/contracts"
@@ -117,25 +117,25 @@ export function ContractsDashboard() {
           </Link>
           <Link
             href="/admin/contracts/deals"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Deals
           </Link>
           <Link
             href="/admin/contracts/templates"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Templates
           </Link>
           <Link
             href="/admin/contracts/clauses"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Clause Library
           </Link>
           <Link
             href="/admin/contracts/playbook"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Playbook
           </Link>
@@ -144,7 +144,7 @@ export function ContractsDashboard() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        <StatCard label="Total Contracts" value={stats.total} color="bg-gray-500" />
+        <StatCard label="Total Contracts" value={stats.total} color="bg-void/300" />
         <StatCard label="Draft" value={stats.draft} color="bg-gray-400" />
         <StatCard label="In Review" value={stats.review} color="bg-yellow-500" />
         <StatCard label="Approved" value={stats.approved} color="bg-blue-500" />
@@ -157,7 +157,7 @@ export function ContractsDashboard() {
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           >
             <option value="all">All Status</option>
             <option value="draft">Draft</option>
@@ -179,10 +179,10 @@ export function ContractsDashboard() {
       {/* Contracts Table */}
       <div className="bg-white shadow overflow-hidden rounded-lg">
         {loading ? (
-          <div className="p-8 text-center text-gray-500">Loading contracts...</div>
+          <div className="p-8 text-center text-slate-grey">Loading contracts...</div>
         ) : contracts.length === 0 ? (
           <div className="p-8 text-center">
-            <p className="text-gray-500 mb-4">No contracts found</p>
+            <p className="text-slate-grey mb-4">No contracts found</p>
             <Link
               href="/admin/contracts/deals"
               className="text-blue-600 hover:text-blue-800"
@@ -192,56 +192,56 @@ export function ContractsDashboard() {
           </div>
         ) : (
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-void/30">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Contract
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Client
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Type
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Version
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Created
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-medium text-slate-grey uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {contracts.map((contract) => (
-                <tr key={contract.id} className="hover:bg-gray-50">
+                <tr key={contract.id} className="hover:bg-void/30">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Link href={`/admin/contracts/${contract.id}`} className="text-blue-600 hover:text-blue-800">
                       {contract.title || `${contract.document_type} Contract`}
                     </Link>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-grey">
                     {contract.deal?.client_name || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-void/40 text-gray-800">
                       {contract.document_type}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[contract.status] || 'bg-gray-100 text-gray-800'}`}>
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[contract.status] || 'bg-void/40 text-gray-800'}`}>
                       {contract.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-grey">
                     v{contract.version}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-grey">
                     {new Date(contract.created_at).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -269,7 +269,7 @@ function StatCard({ label, value, color }: { label: string; value: number; color
           </div>
           <div className="ml-5 w-0 flex-1">
             <dl>
-              <dt className="text-sm font-medium text-gray-500 truncate">{label}</dt>
+              <dt className="text-sm font-medium text-slate-grey truncate">{label}</dt>
             </dl>
           </div>
         </div>

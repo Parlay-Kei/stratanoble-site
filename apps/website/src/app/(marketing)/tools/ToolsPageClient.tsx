@@ -55,8 +55,8 @@ const inDevTool = {
 
 export function ToolsPageClient() {
   return (
-    <main className="min-h-screen bg-gray-50">
-      <section className="bg-navy text-white py-20">
+    <main className="min-h-screen bg-void/30">
+      <section className="bg-command-navy text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 12 }}
@@ -74,7 +74,7 @@ export function ToolsPageClient() {
 
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-10">Included With Every Install</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-command-navy text-center mb-10">Included With Every Install</h2>
           <div className="space-y-8">
             {liveTools.map((tool, idx) => (
               <motion.article
@@ -83,28 +83,28 @@ export function ToolsPageClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.05 }}
-                className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden ring-1 ring-emerald-500/15"
+                className="bg-white border border-slate-grey/25 rounded-xl shadow-sm overflow-hidden ring-1 ring-forest-green/15"
               >
-                <div className="h-1 bg-gradient-to-r from-emerald-500 to-teal-500" />
+                <div className="h-1 bg-forest-green" />
                 <div className="p-8">
                   <div className="flex flex-wrap items-center gap-3 mb-2">
-                    <h3 className="text-2xl font-bold text-navy">{tool.name}</h3>
-                    <span className="text-xs font-semibold uppercase tracking-wide bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full">
+                    <h3 className="text-2xl font-bold text-command-navy">{tool.name}</h3>
+                    <span className="text-xs font-semibold uppercase tracking-wide bg-field-sage/15 text-forest-green px-2.5 py-1 rounded-full">
                       Live
                     </span>
                   </div>
                   <p className="text-primary font-medium">{tool.tagline}</p>
                   <p className="text-muted-foreground mt-4 leading-relaxed">{tool.description}</p>
-                  <h4 className="text-sm font-semibold text-navy mt-8 mb-3">{tool.featuresLabel}</h4>
+                  <h4 className="text-sm font-semibold text-command-navy mt-8 mb-3">{tool.featuresLabel}</h4>
                   <ul className="space-y-2">
                     {tool.features.map((f) => (
                       <li key={f} className="flex gap-2 text-sm text-muted-foreground">
-                        <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" aria-hidden />
+                        <Check className="h-4 w-4 text-forest-green shrink-0 mt-0.5" aria-hidden />
                         {f}
                       </li>
                     ))}
                   </ul>
-                  <p className="text-xs text-muted-foreground mt-6 pt-6 border-t border-gray-100">{tool.included}</p>
+                  <p className="text-xs text-muted-foreground mt-6 pt-6 border-t border-slate-grey/20">{tool.included}</p>
                 </div>
               </motion.article>
             ))}
@@ -114,7 +114,7 @@ export function ToolsPageClient() {
 
       <section className="px-4 sm:px-6 lg:px-8 pb-8">
         <div className="max-w-4xl mx-auto rounded-xl border border-primary/20 bg-primary/5 p-8 text-center">
-          <p className="text-navy font-medium leading-relaxed">
+          <p className="text-command-navy font-medium leading-relaxed">
             All Strata Noble tools are powered by the Q Suite modular framework — the same operating architecture we
             deploy for clients.
           </p>
@@ -126,7 +126,7 @@ export function ToolsPageClient() {
 
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-4">In Development</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-command-navy text-center mb-4">In Development</h2>
           <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
             We build tools as we need them. These are next on the roadmap.
           </p>
@@ -135,31 +135,31 @@ export function ToolsPageClient() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gray-50 border border-dashed border-gray-300 rounded-xl p-8"
+            className="bg-void/30 border border-dashed border-slate-grey/30 rounded-xl p-8"
           >
             <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h3 className="text-2xl font-bold text-navy">{inDevTool.name}</h3>
+              <h3 className="text-2xl font-bold text-command-navy">{inDevTool.name}</h3>
               <span className="text-xs font-semibold uppercase tracking-wide bg-gray-200 text-gray-700 px-2.5 py-1 rounded-full">
                 {inDevTool.badge}
               </span>
             </div>
             <p className="text-gray-800 font-medium">{inDevTool.tagline}</p>
             <p className="text-muted-foreground mt-4 leading-relaxed">{inDevTool.description}</p>
-            <h4 className="text-sm font-semibold text-navy mt-8 mb-3">What it will include</h4>
+            <h4 className="text-sm font-semibold text-command-navy mt-8 mb-3">What it will include</h4>
             <ul className="space-y-2">
               {inDevTool.features.map((f) => (
                 <li key={f} className="flex gap-2 text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-gray-400 shrink-0 mt-0.5" aria-hidden />
+                  <Check className="h-4 w-4 text-slate-grey shrink-0 mt-0.5" aria-hidden />
                   {f}
                 </li>
               ))}
             </ul>
-            <p className="text-xs text-muted-foreground mt-6 pt-6 border-t border-gray-200">{inDevTool.included}</p>
+            <p className="text-xs text-muted-foreground mt-6 pt-6 border-t border-slate-grey/25">{inDevTool.included}</p>
           </motion.article>
         </div>
       </section>
 
-      <section className="bg-navy py-16 px-4 sm:px-6 lg:px-8">
+      <section className="bg-command-navy py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Need operational infrastructure?</h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
@@ -168,7 +168,7 @@ export function ToolsPageClient() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/lead-rescue"
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-shadow inline-block"
+              className="bg-forest-green text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-shadow inline-block"
             >
               Start the 48-Hour Lead Rescue
             </Link>

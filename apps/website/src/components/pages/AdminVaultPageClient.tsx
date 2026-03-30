@@ -45,7 +45,7 @@ export function AdminVaultPageClient() {
     return { status: 'current', color: 'green', text: `${daysUntil} days` };
   }
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-void/30 p-8">
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2"><Shield className="w-8 h-8 text-blue-600" /><h1 className="text-3xl font-bold text-gray-900">Credentials Vault</h1></div>
         <p className="text-gray-600">Secure encrypted storage for all API keys and service credentials</p>
@@ -58,8 +58,8 @@ export function AdminVaultPageClient() {
       </div>
       <div className="bg-white rounded-lg shadow p-6 mb-6">
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="relative flex-1 max-w-md"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" /><input type="text" placeholder="Search services or credentials..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" /></div>
-          <select value={selectedEnvironment} onChange={(e) => setSelectedEnvironment(e.target.value)} className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          <div className="relative flex-1 max-w-md"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-grey w-5 h-5" /><input type="text" placeholder="Search services or credentials..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-2 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" /></div>
+          <select value={selectedEnvironment} onChange={(e) => setSelectedEnvironment(e.target.value)} className="px-4 py-2 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-blue-500">
             <option value="all">All Environments</option>
             <option value="production">Production</option>
             <option value="staging">Staging</option>
@@ -72,33 +72,33 @@ export function AdminVaultPageClient() {
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-void/30 border-b border-slate-grey/25">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Credential</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Environment</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rotation Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Rotated</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">Service</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">Credential</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">Environment</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">Type</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">Rotation Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-grey uppercase tracking-wider">Last Rotated</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-slate-grey uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {loading ? (
-                <tr><td colSpan={7} className="px-6 py-12 text-center text-gray-500">Loading credentials...</td></tr>
+                <tr><td colSpan={7} className="px-6 py-12 text-center text-slate-grey">Loading credentials...</td></tr>
               ) : filteredCredentials.length === 0 ? (
-                <tr><td colSpan={7} className="px-6 py-12 text-center text-gray-500">No credentials found</td></tr>
+                <tr><td colSpan={7} className="px-6 py-12 text-center text-slate-grey">No credentials found</td></tr>
               ) : (
                 filteredCredentials.map((cred) => {
                   const rotationStatus = getRotationStatus(cred.next_rotation_due);
                   return (
-                    <tr key={cred.id} className="hover:bg-gray-50">
+                    <tr key={cred.id} className="hover:bg-void/30">
                       <td className="px-6 py-4 whitespace-nowrap"><div className="text-sm font-medium text-gray-900">{cred.service_name}</div></td>
-                      <td className="px-6 py-4"><div className="text-sm text-gray-900">{cred.credential_name}</div>{cred.description && (<div className="text-xs text-gray-500 mt-1">{cred.description}</div>)}</td>
+                      <td className="px-6 py-4"><div className="text-sm text-gray-900">{cred.credential_name}</div>{cred.description && (<div className="text-xs text-slate-grey mt-1">{cred.description}</div>)}</td>
                       <td className="px-6 py-4 whitespace-nowrap"><span className={`px-2 py-1 text-xs font-medium rounded-full ${cred.environment === 'production' ? 'bg-red-100 text-red-800' : cred.environment === 'staging' ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800'}`}>{cred.environment}</span></td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cred.credential_type.replace('_', ' ')}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-grey">{cred.credential_type.replace('_', ' ')}</td>
                       <td className="px-6 py-4 whitespace-nowrap"><span className={`px-2 py-1 text-xs font-medium rounded-full ${rotationStatus.color === 'red' ? 'bg-red-100 text-red-800' : rotationStatus.color === 'orange' ? 'bg-orange-100 text-orange-800' : rotationStatus.color === 'yellow' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>{rotationStatus.text}</span></td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(cred.last_rotated).toLocaleDateString()}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-grey">{new Date(cred.last_rotated).toLocaleDateString()}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button onClick={() => router.push(`/admin/vault/${cred.id}`)} className="text-blue-600 hover:text-blue-900 mr-3"><Eye className="w-5 h-5" /></button>
                         <button onClick={() => router.push(`/admin/vault/${cred.id}/rotate`)} className="text-green-600 hover:text-green-900"><RefreshCw className="w-5 h-5" /></button>

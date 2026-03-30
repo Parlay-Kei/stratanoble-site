@@ -44,10 +44,10 @@ export default function LeadRescuePage() {
       />
       <main className="bg-white">
         {/* Hero Section */}
-        <section className="bg-navy text-white py-16 md:py-20">
+        <section className="bg-command-navy text-white py-16 md:py-20">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Lead Rescue <span className="text-accent-gold">(48 hours)</span>
+              Lead Rescue <span className="text-field-sage">(48 hours)</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
               We stop the lead leak, prove what&apos;s broken, and ship the fix with receipts.
@@ -57,7 +57,7 @@ export default function LeadRescuePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <a
                 href="#form"
-                className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all"
+                className="bg-forest-green text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all"
               >
                 Book a Lead Rescue Call
               </a>
@@ -70,7 +70,7 @@ export default function LeadRescuePage() {
             </div>
 
             {/* Trust strip */}
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-slate-grey">
               ProofLoop verified delivery. Receipts stored in ANX Vault. If we can&apos;t prove it, we don&apos;t ship it.
             </p>
           </div>
@@ -161,7 +161,7 @@ function WhatYouGet() {
       <ul className="space-y-4">
         {outcomes.map((item, i) => (
           <li key={i} className="flex items-start gap-3">
-            <span className="text-emerald-500 text-xl flex-shrink-0 mt-0.5">✓</span>
+            <span className="text-forest-green text-xl flex-shrink-0 mt-0.5">✓</span>
             <div>
               <span className="font-semibold">{item.title}:</span>{' '}
               <span className="text-muted-foreground">{item.description}</span>
@@ -371,12 +371,12 @@ function RecentRescues() {
   ];
 
   return (
-    <div className="bg-gray-50 border rounded-xl p-6">
+    <div className="bg-void/30 border rounded-xl p-6">
       <h2 className="text-xl font-bold mb-4">Recent rescues</h2>
       <ul className="space-y-3">
         {rescues.map((rescue, i) => (
           <li key={i} className="flex items-start gap-3 text-sm">
-            <span className="text-emerald-500 flex-shrink-0 mt-0.5">✓</span>
+            <span className="text-forest-green flex-shrink-0 mt-0.5">✓</span>
             <span className="text-muted-foreground">{rescue.outcome}</span>
           </li>
         ))}
@@ -441,18 +441,18 @@ function FAQSection() {
 
 function BottomCTA() {
   return (
-    <section className="max-w-2xl mx-auto mt-20 text-center bg-navy text-white rounded-xl p-8">
+    <section className="max-w-2xl mx-auto mt-20 text-center bg-command-navy text-white rounded-xl p-8">
       <h2 className="text-2xl font-bold mb-4">Stop losing leads this week.</h2>
       <p className="text-gray-300 mb-4">
         Book the 10-minute access check. If we can&apos;t run ProofLoop, we don&apos;t take the sprint.
       </p>
-      <p className="text-gray-400 text-sm mb-6">
+      <p className="text-slate-grey text-sm mb-6">
         If the leak is outside scope, you get a refund path or a clear next step.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="#form"
-          className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all"
+          className="bg-forest-green text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all"
         >
           Book the 10-minute access check
         </a>

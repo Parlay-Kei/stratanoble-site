@@ -52,7 +52,7 @@ const steps = [
 export function HowItWorksPageClient() {
   return (
     <main className="min-h-screen bg-white">
-      <section className="bg-gradient-to-br from-navy via-navy/95 to-emerald-900/20 text-white py-16 md:py-24 px-4">
+      <section className="bg-command-navy text-white py-16 md:py-24 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -77,8 +77,8 @@ export function HowItWorksPageClient() {
             transition={{ delay: 0.05 }}
             className={`rounded-xl p-6 md:p-8 ${
               step.tentative
-                ? 'border border-dashed border-gray-300 bg-gray-50'
-                : 'border border-gray-200 bg-white shadow-sm'
+                ? 'border border-dashed border-slate-grey/30 bg-void/30'
+                : 'border border-slate-grey/25 bg-white shadow-sm'
             }`}
           >
             <div className="flex flex-col sm:flex-row gap-6">
@@ -90,7 +90,7 @@ export function HowItWorksPageClient() {
                 {step.n}
               </div>
               <div className="flex-1 space-y-4">
-                <h2 className="text-2xl font-bold text-navy">{step.title}</h2>
+                <h2 className="text-2xl font-bold text-command-navy">{step.title}</h2>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-primary mb-1">What happens</p>
                   <p className="text-muted-foreground leading-relaxed">{step.whatHappens}</p>
@@ -124,57 +124,57 @@ export function HowItWorksPageClient() {
 
       <section className="px-4 pb-12">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-center text-navy mb-8">Engagement types</h2>
-          <div className="overflow-x-auto rounded-xl border border-gray-200">
+          <h2 className="text-2xl font-bold text-center text-command-navy mb-8">Engagement types</h2>
+          <div className="overflow-x-auto rounded-xl border border-slate-grey/25">
             <table className="w-full text-sm text-left">
               <thead>
-                <tr className="bg-muted/50 border-b border-gray-200">
-                  <th className="p-4 font-semibold text-navy" />
-                  <th className="p-4 font-semibold text-navy">Lead Rescue</th>
-                  <th className="p-4 font-semibold text-navy">Pipeline Buildout</th>
-                  <th className="p-4 font-semibold text-navy border-l border-dashed border-gray-300 bg-gray-50/80">
+                <tr className="bg-muted/50 border-b border-slate-grey/25">
+                  <th className="p-4 font-semibold text-command-navy" />
+                  <th className="p-4 font-semibold text-command-navy">Lead Rescue</th>
+                  <th className="p-4 font-semibold text-command-navy">Pipeline Buildout</th>
+                  <th className="p-4 font-semibold text-command-navy border-l border-dashed border-slate-grey/30 bg-void/50">
                     Operations Command
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 <tr>
-                  <td className="p-4 font-medium text-navy">Duration</td>
+                  <td className="p-4 font-medium text-command-navy">Duration</td>
                   <td className="p-4 text-muted-foreground">48 hours</td>
                   <td className="p-4 text-muted-foreground">21 days</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-gray-300 bg-gray-50/50">
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
                     Ongoing
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-medium text-navy">Price</td>
+                  <td className="p-4 font-medium text-command-navy">Price</td>
                   <td className="p-4 text-muted-foreground">$997</td>
                   <td className="p-4 text-muted-foreground">Starting at $4,997</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-gray-300 bg-gray-50/50">
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
                     $1,497/month
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-medium text-navy">Commitment</td>
+                  <td className="p-4 font-medium text-command-navy">Commitment</td>
                   <td className="p-4 text-muted-foreground">—</td>
                   <td className="p-4 text-muted-foreground">Per engagement scope</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-gray-300 bg-gray-50/50">
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
                     3-month minimum, month-to-month after
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-medium text-navy">Scope</td>
+                  <td className="p-4 font-medium text-command-navy">Scope</td>
                   <td className="p-4 text-muted-foreground">Lead flow audit + fix</td>
                   <td className="p-4 text-muted-foreground">Full system install</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-gray-300 bg-gray-50/50">
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
                     Maintenance + rhythm
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-medium text-navy">Handoff</td>
+                  <td className="p-4 font-medium text-command-navy">Handoff</td>
                   <td className="p-4 text-muted-foreground">Receipt pack</td>
                   <td className="p-4 text-muted-foreground">Full proof suite</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-gray-300 bg-gray-50/50">
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
                     Weekly reviews
                   </td>
                 </tr>
@@ -186,17 +186,17 @@ export function HowItWorksPageClient() {
 
       <section className="bg-muted/30 py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-navy mb-6">Ready to Get Started?</h2>
+          <h2 className="text-2xl font-bold text-command-navy mb-6">Ready to Get Started?</h2>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
             <Link
               href="/lead-rescue"
-              className="inline-flex justify-center items-center rounded-lg px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 shadow-md hover:shadow-lg"
+              className="inline-flex justify-center items-center rounded-lg px-6 py-3 text-sm font-semibold text-white bg-forest-green shadow-md hover:shadow-lg"
             >
               Start the 48-Hour Lead Rescue
             </Link>
             <Link
               href="/pipeline-buildout"
-              className="inline-flex justify-center items-center rounded-lg px-6 py-3 text-sm font-semibold border-2 border-navy text-navy hover:bg-navy hover:text-white transition-colors"
+              className="inline-flex justify-center items-center rounded-lg px-6 py-3 text-sm font-semibold border-2 border-command-navy text-command-navy hover:bg-command-navy hover:text-white transition-colors"
             >
               Apply for the 21-Day Pipeline Buildout
             </Link>

@@ -1,8 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { CheckoutErrorBoundary } from '@/components/ErrorBoundary'
 import {
   getOfferingById,
@@ -91,12 +96,12 @@ export default function CheckoutModal({
           </DialogHeader>
 
           <div className="space-y-4">
-            <div className="bg-gray-50 rounded-lg p-4">
+            <div className="bg-void/30 rounded-lg p-4">
               <h3 className="font-semibold text-gray-900 mb-2">{offering.name}</h3>
               <p className="text-gray-600 text-sm mb-3">{subtitleFor(offering)}</p>
               <div className="text-2xl font-bold text-blue-600">{displayPrice}</div>
               {isAchieveryTier(offering) && offering.price === 0 && (
-                <p className="text-xs text-gray-500 mt-2">No credit card required to start</p>
+                <p className="text-xs text-slate-grey mt-2">No credit card required to start</p>
               )}
             </div>
 
@@ -113,7 +118,7 @@ export default function CheckoutModal({
                     </li>
                   ))}
                   {featuresToShow.length > 4 && (
-                    <li className="text-gray-500 text-xs">+ {featuresToShow.length - 4} more</li>
+                    <li className="text-slate-grey text-xs">+ {featuresToShow.length - 4} more</li>
                   )}
                 </ul>
               </div>

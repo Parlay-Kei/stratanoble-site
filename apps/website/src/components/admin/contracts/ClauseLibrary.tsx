@@ -24,7 +24,7 @@ const topicColors: Record<string, string> = {
   INDEMNITY: 'bg-orange-100 text-orange-800',
   PAYMENT_TERMS: 'bg-green-100 text-green-800',
   TERMINATION: 'bg-yellow-100 text-yellow-800',
-  DISPUTE_RESOLUTION: 'bg-gray-100 text-gray-800',
+  DISPUTE_RESOLUTION: 'bg-void/40 text-gray-800',
   WARRANTY: 'bg-teal-100 text-teal-800',
   FORCE_MAJEURE: 'bg-pink-100 text-pink-800',
 };
@@ -81,23 +81,23 @@ export function ClauseLibrary() {
   return (
     <div className="space-y-6">
       {/* Navigation */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-slate-grey/25">
         <nav className="-mb-px flex space-x-8">
           <Link
             href="/admin/contracts"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             All Contracts
           </Link>
           <Link
             href="/admin/contracts/deals"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Deals
           </Link>
           <Link
             href="/admin/contracts/templates"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Templates
           </Link>
@@ -109,7 +109,7 @@ export function ClauseLibrary() {
           </Link>
           <Link
             href="/admin/contracts/playbook"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Playbook
           </Link>
@@ -121,7 +121,7 @@ export function ClauseLibrary() {
         <select
           value={selectedTopic}
           onChange={(e) => setSelectedTopic(e.target.value)}
-          className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="rounded-md border-slate-grey/30 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
           <option value="all">All Topics</option>
           {topics.map(topic => (
@@ -138,11 +138,11 @@ export function ClauseLibrary() {
 
       {/* Clauses */}
       {loading ? (
-        <div className="p-8 text-center text-gray-500">Loading clauses...</div>
+        <div className="p-8 text-center text-slate-grey">Loading clauses...</div>
       ) : clauses.length === 0 ? (
         <div className="bg-white rounded-lg shadow p-8 text-center">
-          <p className="text-gray-500 mb-4">No clauses found</p>
-          <p className="text-sm text-gray-400">
+          <p className="text-slate-grey mb-4">No clauses found</p>
+          <p className="text-sm text-slate-grey">
             Run the database seed script to populate the clause library
           </p>
         </div>
@@ -150,12 +150,12 @@ export function ClauseLibrary() {
         <div className="space-y-6">
           {Object.entries(groupedClauses).map(([topic, topicClauses]) => (
             <div key={topic} className="bg-white shadow rounded-lg overflow-hidden">
-              <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
+              <div className="px-6 py-4 bg-void/30 border-b border-slate-grey/25">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">
                     {topic.replace(/_/g, ' ')}
                   </h3>
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${topicColors[topic] || 'bg-gray-100 text-gray-800'}`}>
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${topicColors[topic] || 'bg-void/40 text-gray-800'}`}>
                     {topicClauses.length} clause{topicClauses.length !== 1 ? 's' : ''}
                   </span>
                 </div>
@@ -170,16 +170,16 @@ export function ClauseLibrary() {
                           <h4 className="text-md font-medium text-gray-900">
                             {clause.clause_name}
                           </h4>
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-void/40 text-gray-600">
                             {clause.risk_profile.replace('_', ' ')}
                           </span>
                         </div>
 
-                        <p className="text-sm text-gray-500 mb-2">
+                        <p className="text-sm text-slate-grey mb-2">
                           {clause.when_to_use}
                         </p>
 
-                        <div className="flex items-center space-x-4 text-xs text-gray-400">
+                        <div className="flex items-center space-x-4 text-xs text-slate-grey">
                           <span>{clause.clause_key}</span>
                           <span>{clause.jurisdiction}</span>
                         </div>
@@ -194,7 +194,7 @@ export function ClauseLibrary() {
                     </div>
 
                     {expandedClause === clause.id && (
-                      <div className="mt-4 p-4 bg-gray-50 rounded-md">
+                      <div className="mt-4 p-4 bg-void/30 rounded-md">
                         <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono">
                           {clause.text}
                         </pre>
