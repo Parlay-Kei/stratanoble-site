@@ -1,13 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Button, Dialog, DialogContent, DialogHeader, DialogTitle } from '@strata-noble/ui';
 import { CheckoutErrorBoundary } from '@/components/ErrorBoundary'
 import {
   getOfferingById,

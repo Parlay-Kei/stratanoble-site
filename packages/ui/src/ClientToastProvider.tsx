@@ -3,12 +3,11 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-// Dynamically import ToastProvider with SSR disabled to prevent useState errors during static generation
 const ToastProviderInner = dynamic(
-  () => import('./toast').then(mod => ({ default: mod.ToastProvider })),
+  () => import('./toast').then((mod) => ({ default: mod.ToastProvider })),
   {
     ssr: false,
-    loading: () => null
+    loading: () => null,
   }
 );
 
