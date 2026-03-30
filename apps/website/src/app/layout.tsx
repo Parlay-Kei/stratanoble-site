@@ -8,7 +8,7 @@ import Script from 'next/script';
 import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
-import { ToastProvider } from '@/components/ui/toast';
+import { ClientToastProvider } from '@strata-noble/ui';
 
 const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -224,9 +224,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         )}
 
-        <ToastProvider>
+        <ClientToastProvider>
           {children}
-        </ToastProvider>
+        </ClientToastProvider>
         <Suspense fallback={null}>
           <Analytics />
         </Suspense>        {/* Google Analytics with Next.js Script component - lazyOnload to avoid blocking critical path */}

@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 import { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
+import { Button } from '@strata-noble/ui';
 
 const errorMessages: Record<string, string> = {
   Configuration: 'There is a problem with the authentication configuration.',

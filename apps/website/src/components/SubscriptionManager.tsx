@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/toast';
+import { Button, useToast } from '@strata-noble/ui';
 
 interface SubscriptionManagerProps {
   customerId?: string;
