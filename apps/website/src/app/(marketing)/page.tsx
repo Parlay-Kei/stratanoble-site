@@ -4,9 +4,9 @@ import {
   ThreeSurfaces,
   HowItWorks,
   EcosystemProof,
+  LeadLeakCheckSection,
   HomepageCTA,
 } from '@/components/homepage';
-import { LeadLeakCheckSection } from '@/components/revamp/LeadLeakCheckSection';
 
 export default function HomePage() {
   return (
