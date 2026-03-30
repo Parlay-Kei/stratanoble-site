@@ -138,16 +138,14 @@ test.describe('Support Pages', () => {
       const leadRescueCTA = page.getByRole('link', { name: /lead rescue|48-hour/i });
       const hasLeadRescue = await leadRescueCTA.first().isVisible({ timeout: 3000 }).catch(() => false);
 
-      // Check for Phase 3 CTA
-      const phase3CTA = page.getByRole('link', { name: /phase 3/i });
-      const hasPhase3 = await phase3CTA.first().isVisible({ timeout: 3000 }).catch(() => false);
+      const buildoutCTA = page.getByRole('link', { name: /pipeline buildout|21-day/i });
+      const hasBuildout = await buildoutCTA.first().isVisible({ timeout: 3000 }).catch(() => false);
 
-      // Should have at least one CTA
-      const hasCTA = hasLeadRescue || hasPhase3;
+      const hasCTA = hasLeadRescue || hasBuildout;
 
       test.info().annotations.push({
         type: hasCTA ? 'info' : 'warning',
-        description: `${path} CTAs: Lead Rescue=${hasLeadRescue}, Phase 3=${hasPhase3}`
+        description: `${path} CTAs: Lead Rescue=${hasLeadRescue}, Pipeline buildout=${hasBuildout}`
       });
     }
   });

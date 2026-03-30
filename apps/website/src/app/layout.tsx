@@ -33,13 +33,14 @@ export const metadata: Metadata = {
     template: '%s | Strata Noble',
   },
   description:
-    'Lead-to-customer pipelines for service businesses. Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.',
+    'Operational infrastructure for service businesses. Intake, revenue visibility, and execution control — built on the same Q Suite system we run internally.',
   keywords: [
-    'lead generation',
-    'pipeline automation',
-    'follow-up automation',
-    'deal tracking',
-    'service business',
+    'operational infrastructure',
+    'business operating system',
+    'service business automation',
+    'revenue visibility',
+    'intake automation',
+    'Q Suite',
   ],
   authors: [{ name: 'Strata Noble' }],
   creator: 'Strata Noble',
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
     url: 'https://stratanoble.com',
     title: 'Strata Noble',
     description:
-      'Lead-to-customer pipelines for service businesses. Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.',
+      'Operational infrastructure for service businesses. Intake, revenue visibility, and execution control — built on the same Q Suite system we run internally.',
     siteName: 'Strata Noble',
     images: [
       {
@@ -74,7 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Strata Noble',
     description:
-      'Lead-to-customer pipelines for service businesses. Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.',
+      'Operational infrastructure for service businesses. Intake, revenue visibility, and execution control — built on the same Q Suite system we run internally.',
     images: ['/img/og-image.svg'],
   },
   robots: {
@@ -137,7 +138,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "name": "Strata Noble",
     "url": "https://stratanoble.com",
     "logo": "https://stratanoble.com/stratanoble_logoICON.svg",
-    "description": "Lead-to-customer pipelines for service businesses. Intake, follow-up automation, and deal tracking that prevents lead loss and keeps operations measurable.",
+    "description": "Operational infrastructure for service businesses. Intake, revenue visibility, and execution control — built on the same Q Suite system we run internally.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Las Vegas",

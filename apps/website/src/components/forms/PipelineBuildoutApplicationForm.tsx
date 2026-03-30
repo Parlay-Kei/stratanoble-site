@@ -28,7 +28,7 @@ const decisionTimelineOptions = [
   { value: 'exploring', label: 'Just Exploring' },
 ];
 
-export function Phase3ApplicationForm() {
+export function PipelineBuildoutApplicationForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -49,7 +49,7 @@ export function Phase3ApplicationForm() {
     setErrorMessage('');
 
     try {
-      const res = await fetch('/api/intake/phase-3', {
+      const res = await fetch('/api/intake/pipeline-buildout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -62,12 +62,10 @@ export function Phase3ApplicationForm() {
 
       setStatus('success');
 
-      // Analytics event
       if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'form_submit_success_phase3');
+        (window as any).gtag('event', 'form_submit_success_pipeline_buildout');
       }
 
-      // Reset form
       setFormData({
         name: '',
         email: '',
@@ -84,7 +82,7 @@ export function Phase3ApplicationForm() {
       setErrorMessage(error instanceof Error ? error.message : 'Something went wrong');
 
       if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'form_submit_error_phase3');
+        (window as any).gtag('event', 'form_submit_error_pipeline_buildout');
       }
     }
   };
@@ -112,7 +110,6 @@ export function Phase3ApplicationForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Name */}
       <div>
         <label htmlFor="name" className="block text-sm font-medium mb-1">
           Your Name <span className="text-red-500">*</span>
@@ -128,7 +125,6 @@ export function Phase3ApplicationForm() {
         />
       </div>
 
-      {/* Email */}
       <div>
         <label htmlFor="email" className="block text-sm font-medium mb-1">
           Email <span className="text-red-500">*</span>
@@ -144,7 +140,6 @@ export function Phase3ApplicationForm() {
         />
       </div>
 
-      {/* Business Name */}
       <div>
         <label htmlFor="businessName" className="block text-sm font-medium mb-1">
           Business Name <span className="text-red-500">*</span>
@@ -160,7 +155,6 @@ export function Phase3ApplicationForm() {
         />
       </div>
 
-      {/* Monthly Leads Estimate */}
       <div>
         <label htmlFor="monthlyLeadsEstimate" className="block text-sm font-medium mb-1">
           How many leads do you get per month? <span className="text-red-500">*</span>
@@ -182,7 +176,6 @@ export function Phase3ApplicationForm() {
         </select>
       </div>
 
-      {/* Offer Type */}
       <div>
         <label htmlFor="offerType" className="block text-sm font-medium mb-1">
           What's your main offer/service? <span className="text-red-500">*</span>
@@ -199,7 +192,6 @@ export function Phase3ApplicationForm() {
         />
       </div>
 
-      {/* Current Close Process */}
       <div>
         <label htmlFor="currentCloseProcess" className="block text-sm font-medium mb-1">
           Describe your current process from lead to customer{' '}
@@ -217,7 +209,6 @@ export function Phase3ApplicationForm() {
         />
       </div>
 
-      {/* Tool Stack */}
       <div>
         <label className="block text-sm font-medium mb-2">
           What tools are you currently using? <span className="text-red-500">*</span>
@@ -241,7 +232,6 @@ export function Phase3ApplicationForm() {
         )}
       </div>
 
-      {/* Decision Timeline */}
       <div>
         <label htmlFor="decisionTimeline" className="block text-sm font-medium mb-1">
           When are you looking to get started? <span className="text-red-500">*</span>
@@ -263,7 +253,6 @@ export function Phase3ApplicationForm() {
         </select>
       </div>
 
-      {/* What Success Looks Like */}
       <div>
         <label htmlFor="whatSuccessLooksLike" className="block text-sm font-medium mb-1">
           What does success look like for you? <span className="text-red-500">*</span>
@@ -280,14 +269,12 @@ export function Phase3ApplicationForm() {
         />
       </div>
 
-      {/* Error Message */}
       {status === 'error' && (
         <div className="bg-red-50 border border-red-200 rounded-md p-3 text-sm text-red-700">
           {errorMessage || 'Something went wrong. Please try again.'}
         </div>
       )}
 
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={status === 'loading' || formData.toolStack.length === 0}

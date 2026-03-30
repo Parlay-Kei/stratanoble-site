@@ -408,7 +408,7 @@ function FAQSection() {
     },
     {
       q: 'What happens after the 48 hours?',
-      a: 'You own the system. We provide documentation and a Loom walkthrough. If you need ongoing support or want to expand, we can discuss Phase 3 (21-day buildout).',
+      a: 'You own the system. We provide documentation and a Loom walkthrough. If you need ongoing support or want to expand, we can discuss the 21-Day Pipeline Buildout.',
     },
     {
       q: 'What does it cost?',
