@@ -126,7 +126,7 @@ export function MobileAppPromotion({
           {isMobile && (
             <button
               onClick={handleOpenApp}
-              className="inline-flex items-center space-x-1 bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+              className="inline-flex items-center space-x-1 bg-forest-green hover:bg-forest-green text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md"
             >
               <Smartphone className="w-4 h-4" />
               <span className="hidden sm:inline">Open App</span>
@@ -170,13 +170,13 @@ export function MobileAppPromotion({
           </button>
           
           <div className="flex items-start space-x-4">
-            <div className="p-3 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-forest-green to-command-navy rounded-xl shadow-lg">
               <Smartphone className="w-8 h-8 text-white" />
             </div>
             <div className="flex-1">
               <div className="flex items-center space-x-2 mb-2">
                 <h3 className="text-lg font-bold">ACHIEVERY Mobile App</h3>
-                <Sparkles className="w-5 h-5 text-emerald-400 animate-pulse" />
+                <Sparkles className="w-5 h-5 text-field-sage animate-pulse" />
               </div>
               
               <p className="text-white/90 text-sm mb-4 leading-relaxed">
@@ -197,7 +197,7 @@ export function MobileAppPromotion({
                 {isMobile && (
                   <button
                     onClick={handleOpenApp}
-                    className="inline-flex items-center justify-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200 text-sm shadow-lg hover:shadow-xl"
+                    className="inline-flex items-center justify-center space-x-2 bg-forest-green hover:bg-forest-green text-white px-4 py-3 rounded-lg font-medium transition-all duration-200 text-sm shadow-lg hover:shadow-xl"
                   >
                     <Smartphone className="w-4 h-4" />
                     <span>Open App Now</span>
@@ -207,7 +207,7 @@ export function MobileAppPromotion({
                 
                 <button
                   onClick={handleDownload}
-                  className="inline-flex items-center justify-center space-x-2 bg-white text-gray-900 hover:bg-gray-100 px-4 py-3 rounded-lg font-medium transition-all duration-200 text-sm shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center justify-center space-x-2 bg-white text-gray-900 hover:bg-void/40 px-4 py-3 rounded-lg font-medium transition-all duration-200 text-sm shadow-lg hover:shadow-xl"
                 >
                   {getStoreIcon()}
                   <span>{getStoreText()}</span>
@@ -227,7 +227,7 @@ export function MobileAppPromotion({
 
   // Banner variant - prominent promotion
   return (
-    <div className={`bg-gradient-to-r from-emerald-500 to-blue-600 text-white py-3 px-4 relative transform transition-all duration-300 ${isAnimating ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'} ${className}`}>
+    <div className={`bg-gradient-to-r from-forest-green to-command-navy text-white py-3 px-4 relative transform transition-all duration-300 ${isAnimating ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'} ${className}`}>
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="p-1 bg-white/20 rounded-lg">

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ForbiddenPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-void/30 px-4">
       <div className="max-w-md w-full text-center">
         <div className="mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-4">
@@ -42,13 +42,13 @@ export default function ForbiddenPage() {
           </Link>
           <Link
             href="/auth/signin"
-            className="block w-full bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+            className="block w-full bg-void/40 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium"
           >
             Sign In with Different Account
           </Link>
         </div>
 
-        <div className="mt-8 text-sm text-gray-500">
+        <div className="mt-8 text-sm text-slate-grey">
           <p>If you believe you should have access to this area, please contact your system administrator.</p>
         </div>
       </div>

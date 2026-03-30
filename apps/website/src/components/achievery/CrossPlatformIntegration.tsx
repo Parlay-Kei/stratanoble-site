@@ -109,7 +109,7 @@ export const CrossPlatformIntegration: React.FC<CrossPlatformIntegrationProps> =
   const getPlatformFeatures = () => {
     return [
       {
-        icon: <Bell className="w-5 h-5 text-emerald-500" />,
+        icon: <Bell className="w-5 h-5 text-forest-green" />,
         title: 'Push Notifications',
         description: 'Daily reminders and streak maintenance',
         available: isMobile
@@ -149,7 +149,7 @@ export const CrossPlatformIntegration: React.FC<CrossPlatformIntegrationProps> =
       
       {/* Cross-Platform Integration Card */}
       {showIntegration && (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <div className="bg-white rounded-xl border border-slate-grey/25 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
               <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg">
@@ -168,7 +168,7 @@ export const CrossPlatformIntegration: React.FC<CrossPlatformIntegrationProps> =
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   syncStatus === 'syncing' 
                     ? 'bg-blue-100 text-blue-600 cursor-not-allowed' 
-                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                    : 'bg-void/40 hover:bg-gray-200 text-gray-700'
                 }`}
               >
                 {statusInfo.icon}
@@ -185,7 +185,7 @@ export const CrossPlatformIntegration: React.FC<CrossPlatformIntegrationProps> =
                 className={`flex items-start space-x-3 p-3 rounded-lg transition-colors ${
                   feature.available 
                     ? 'bg-green-50 border border-green-200' 
-                    : 'bg-gray-50 border border-gray-200'
+                    : 'bg-void/30 border border-slate-grey/25'
                 }`}
               >
                 <div className={`flex-shrink-0 ${feature.available ? 'opacity-100' : 'opacity-50'}`}>
@@ -193,12 +193,12 @@ export const CrossPlatformIntegration: React.FC<CrossPlatformIntegrationProps> =
                 </div>
                 <div className="flex-1">
                   <h4 className={`font-medium text-sm ${
-                    feature.available ? 'text-gray-900' : 'text-gray-500'
+                    feature.available ? 'text-gray-900' : 'text-slate-grey'
                   }`}>
                     {feature.title}
                   </h4>
                   <p className={`text-xs ${
-                    feature.available ? 'text-gray-600' : 'text-gray-400'
+                    feature.available ? 'text-gray-600' : 'text-slate-grey'
                   }`}>
                     {feature.description}
                   </p>
@@ -217,7 +217,7 @@ export const CrossPlatformIntegration: React.FC<CrossPlatformIntegrationProps> =
             {isMobile && (
               <button
                 onClick={handleContinueOnMobile}
-                className="flex-1 inline-flex items-center justify-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-3 rounded-lg font-medium transition-colors"
+                className="flex-1 inline-flex items-center justify-center space-x-2 bg-forest-green hover:bg-forest-green text-white px-4 py-3 rounded-lg font-medium transition-colors"
               >
                 <Smartphone className="w-4 h-4" />
                 <span>Continue in Mobile App</span>

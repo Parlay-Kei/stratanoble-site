@@ -1,25 +1,27 @@
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./app/**/*.{js,ts,jsx,tsx}"
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
       colors: {
-        midnight: '#1B263B',
-        navy: '#003366',
-        emerald: '#50C878',
-        mist: '#DDE2E9',
-        bone: '#F5F1EB'
+        'command-navy': '#0E1A2B',
+        'forest-green': '#2D6A4F',
+        'field-sage': '#A8C5B0',
+        'slate-grey': '#8A9BAE',
+        void: '#070F1A',
+        'fault-amber': '#C8852A',
+        'off-white': '#F5F2EE',
       },
       fontFamily: {
-        heading: ['"Playfair Display"', 'serif'],
-        body: ['"Inter"', 'sans-serif']
-      }
-    }
+        display: ['Clash Display', 'sans-serif'],
+        sans: ['General Sans', 'Satoshi', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'monospace'],
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 }

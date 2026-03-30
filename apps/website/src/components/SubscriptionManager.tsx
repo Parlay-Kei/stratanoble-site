@@ -73,7 +73,7 @@ export default function SubscriptionManager({
       case 'canceled':
         return 'text-red-400';
       default:
-        return 'text-gray-400';
+        return 'text-slate-grey';
     }
   };
 

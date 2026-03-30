@@ -1,11 +1,11 @@
 'use client';
 
-import React, { 
-  createContext, 
-  useCallback, 
-  useContext, 
-  useEffect, 
-  useState 
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from 'react';
 import {
   CheckCircleIcon,
@@ -38,14 +38,14 @@ const toastIcons = {
 };
 
 const toastStyles = {
-  success: 'bg-emerald-50 border-emerald-200 text-emerald-800',
+  success: 'bg-field-sage/10 border-forest-green/25 text-forest-green',
   error: 'bg-red-50 border-red-200 text-red-800',
   warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
   info: 'bg-blue-50 border-blue-200 text-blue-800',
 };
 
 const iconStyles = {
-  success: 'text-emerald-500',
+  success: 'text-forest-green',
   error: 'text-red-500',
   warning: 'text-yellow-500',
   info: 'text-blue-500',
@@ -89,8 +89,6 @@ function ToastComponent({ toast, onDismiss }: ToastProps) {
   );
 }
 
-// Toast context and provider
-
 interface ToastContextType {
   showToast: (toast: Omit<Toast, 'id'>) => void;
   dismissToast: (id: string) => void;
@@ -114,7 +112,6 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     <ToastContext.Provider value={{ showToast, dismissToast }}>
       {children}
 
-      {/* Toast Container */}
       <div className="fixed top-20 right-4 z-50 space-y-2">
         <AnimatePresence>
           {toasts.map((toast) => (
@@ -134,9 +131,7 @@ export function useToast() {
   return context;
 }
 
-// Convenience functions
 export const showSuccessToast = (title: string, message?: string) => {
-  // This would be called from within a component that has access to useToast
   return { type: 'success' as const, title, message };
 };
 

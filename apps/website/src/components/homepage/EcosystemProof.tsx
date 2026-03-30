@@ -20,7 +20,7 @@ export function EcosystemProof() {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-emerald-400 transition-colors"
+                    className="hover:text-field-sage transition-colors"
                   >
                     {item.name}
                   </a>

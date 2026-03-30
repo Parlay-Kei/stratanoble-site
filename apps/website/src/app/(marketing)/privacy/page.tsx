@@ -101,7 +101,7 @@ export default function PrivacyPage() {
               If you have any questions about this Privacy Policy, please contact us at{' '}
               <a 
                 href="mailto:contact@stratanoble.com" 
-                className="text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
+                className="text-forest-green hover:text-forest-green dark:text-field-sage dark:hover:text-field-sage"
               >
                 contact@stratanoble.com
               </a>

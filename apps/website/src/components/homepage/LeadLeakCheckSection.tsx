@@ -29,7 +29,7 @@ export function LeadLeakCheckSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-gray-50 border border-gray-200 rounded-2xl p-8 md:p-12 shadow-sm"
+            className="bg-void/30 border border-slate-grey/25 rounded-2xl p-8 md:p-12 shadow-sm"
           >
             <LeadLeakCheckForm />
           </motion.div>

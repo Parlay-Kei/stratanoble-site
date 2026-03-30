@@ -64,29 +64,29 @@ export function PlaybookRules() {
   return (
     <div className="space-y-6">
       {/* Navigation */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-slate-grey/25">
         <nav className="-mb-px flex space-x-8">
           <Link
             href="/admin/contracts"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             All Contracts
           </Link>
           <Link
             href="/admin/contracts/deals"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Deals
           </Link>
           <Link
             href="/admin/contracts/templates"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Templates
           </Link>
           <Link
             href="/admin/contracts/clauses"
-            className="border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            className="border-transparent py-2 px-1 text-sm font-medium text-slate-grey hover:border-slate-grey/30 hover:text-gray-700"
           >
             Clause Library
           </Link>
@@ -120,11 +120,11 @@ export function PlaybookRules() {
 
       {/* Rules List */}
       {loading ? (
-        <div className="p-8 text-center text-gray-500">Loading playbook rules...</div>
+        <div className="p-8 text-center text-slate-grey">Loading playbook rules...</div>
       ) : rules.length === 0 ? (
         <div className="bg-white rounded-lg shadow p-8 text-center">
-          <p className="text-gray-500 mb-4">No playbook rules found</p>
-          <p className="text-sm text-gray-400">
+          <p className="text-slate-grey mb-4">No playbook rules found</p>
+          <p className="text-sm text-slate-grey">
             Run the database seed script to populate playbook rules
           </p>
         </div>
@@ -133,7 +133,7 @@ export function PlaybookRules() {
           {rules.map((rule) => (
             <div key={rule.id} className="bg-white shadow rounded-lg overflow-hidden">
               <div
-                className="px-6 py-4 cursor-pointer hover:bg-gray-50"
+                className="px-6 py-4 cursor-pointer hover:bg-void/30"
                 onClick={() => setExpandedRule(expandedRule === rule.id ? null : rule.id)}
               >
                 <div className="flex items-center justify-between">
@@ -151,7 +151,7 @@ export function PlaybookRules() {
                     )}
                   </div>
                   <svg
-                    className={`h-5 w-5 text-gray-400 transition-transform ${expandedRule === rule.id ? 'transform rotate-180' : ''}`}
+                    className={`h-5 w-5 text-slate-grey transition-transform ${expandedRule === rule.id ? 'transform rotate-180' : ''}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -166,7 +166,7 @@ export function PlaybookRules() {
               </div>
 
               {expandedRule === rule.id && (
-                <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 space-y-4">
+                <div className="px-6 py-4 bg-void/30 border-t border-slate-grey/25 space-y-4">
                   {/* Acceptable Alternatives */}
                   {rule.acceptable_alternatives && rule.acceptable_alternatives.length > 0 && (
                     <div>
@@ -229,7 +229,7 @@ export function PlaybookRules() {
                     </div>
                   )}
 
-                  <div className="pt-4 border-t border-gray-200 flex justify-end">
+                  <div className="pt-4 border-t border-slate-grey/25 flex justify-end">
                     <button className="text-sm text-blue-600 hover:text-blue-800">
                       Edit Rule
                     </button>

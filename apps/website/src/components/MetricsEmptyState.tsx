@@ -50,11 +50,11 @@ export default function MetricsEmptyState({
       </p>
 
       {showNextUpdate && (
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 max-w-sm">
+        <div className="bg-void/30 border border-slate-grey/25 rounded-lg p-4 max-w-sm">
           <p className="text-sm text-gray-700">
             <span className="font-medium">Next update:</span> {getNextUpdateTime()}
           </p>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-slate-grey mt-1">
             Metrics are collected every 6 hours automatically
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function MetricsEmptyState({
           <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
           <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
         </div>
-        <span className="text-sm text-gray-500 ml-2">Collecting data...</span>
+        <span className="text-sm text-slate-grey ml-2">Collecting data...</span>
       </div>
     </div>
   )
