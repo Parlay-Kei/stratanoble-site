@@ -4,8 +4,7 @@ export const dynamic = 'force-dynamic';
 
 
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Container } from '@/components/ui/container';
+import { Button, Container } from '@strata-noble/ui';
 import SubscriptionManager from '@/components/SubscriptionManager';
 import MetricsEmptyState from '@/components/MetricsEmptyState';
 import { DashboardErrorBoundary } from '@/components/ErrorBoundary';

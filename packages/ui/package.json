@@ -17,6 +17,7 @@
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-select": "^2.2.5",
+    "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-tabs": "^1.1.12",
     "@strata-noble/utils": "file:../utils",
     "class-variance-authority": "^0.7.1",
@@ -24,8 +25,6 @@
     "framer-motion": "^12.23.26",
     "isomorphic-dompurify": "^2.26.0",
     "lucide-react": "^0.536.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
     "recharts": "^3.1.1",
     "tailwind-merge": "^3.3.1"
   },
@@ -53,9 +52,11 @@
     "@types/react-dom": "^19.0.0",
     "@types/tedious": "^4.0.14",
     "@types/trusted-types": "^2.0.7",
+    "next": "^15.5.14",
     "typescript": "5.8.3"
   },
   "peerDependencies": {
+    "next": ">=14.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }
