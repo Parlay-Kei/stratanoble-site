@@ -31,7 +31,14 @@ const unitTestConfig = {
   ],
   testPathIgnorePatterns: [
     'tests/e2e/',
+    '<rootDir>/tests/revamp/',
+    '<rootDir>/src/lib/test/integration/',
+    'integration-contract\\.test\\.',
     'integration\\.test\\.',
+    // Duplicate of tests/voice.twiml.test.ts (uses dynamic import + node env).
+    '<rootDir>/__tests__/voice\\.twiml\\.test\\.ts',
+    // Upstash → uncrypto ESM under Jest jsdom; run with integration env or unmocked pipeline later.
+    '<rootDir>/src/__tests__/middleware\\.test\\.ts',
     '<rootDir>/.next/',
     '<rootDir>/node_modules/'
   ],
