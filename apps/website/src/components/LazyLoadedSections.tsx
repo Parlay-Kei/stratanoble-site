@@ -8,12 +8,4 @@ const SmartConsultingBar = dynamic(() => import('@/components/SmartConsultingBar
   ssr: false,
 });
 
-const WhatWeInstallSection = dynamic(() => import('@/components/revamp/WhatWeInstallSection').then(mod => ({ default: mod.WhatWeInstallSection })), {
-  ssr: false,
-});
-
-const PrinciplesSection = dynamic(() => import('@/components/revamp/PrinciplesSection').then(mod => ({ default: mod.PrinciplesSection })), {
-  ssr: false,
-});
-
-export { SmartConsultingBar, WhatWeInstallSection, PrinciplesSection };
+export { SmartConsultingBar };

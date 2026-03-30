@@ -103,13 +103,12 @@ test.describe('Navigation', () => {
     const leadRescueCTA = page.getByRole('link', { name: /lead rescue/i });
     const hasLeadRescue = await leadRescueCTA.isVisible({ timeout: 2000 }).catch(() => false);
 
-    // Check for Phase 3 CTA in mobile menu
-    const phase3CTA = page.getByRole('link', { name: /phase 3/i });
-    const hasPhase3 = await phase3CTA.isVisible({ timeout: 2000 }).catch(() => false);
+    const buildoutCTA = page.getByRole('link', { name: /pipeline buildout|21-day/i });
+    const hasBuildout = await buildoutCTA.isVisible({ timeout: 2000 }).catch(() => false);
 
     test.info().annotations.push({
       type: 'info',
-      description: `Mobile CTAs: Lead Rescue=${hasLeadRescue}, Phase 3=${hasPhase3}`
+      description: `Mobile CTAs: Lead Rescue=${hasLeadRescue}, Pipeline buildout=${hasBuildout}`
     });
   });
 

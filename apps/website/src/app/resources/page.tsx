@@ -89,7 +89,7 @@ export default function ResourcesPage() {
           >
             <h2 className="text-2xl font-bold text-white">Want More Than Templates?</h2>
             <p className="text-gray-300 mt-2 max-w-xl mx-auto">
-              Get a complete lead-to-customer pipeline installed in 48 hours, or apply for our full Phase 3 buildout.
+              Get a complete lead-to-customer pipeline installed in 48 hours, or apply for the full 21-Day Pipeline Buildout.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
               <Link
@@ -99,10 +99,10 @@ export default function ResourcesPage() {
                 Get the 48-Hour Lead Rescue
               </Link>
               <Link
-                href="/phase-3"
+                href="/pipeline-buildout"
                 className="inline-flex items-center justify-center px-8 py-4 border-2 border-accent-gold text-accent-gold font-semibold rounded-lg hover:bg-accent-gold/10 transition-all duration-300"
               >
-                Apply for Phase 3
+                Apply for the Pipeline Buildout
               </Link>
             </div>
           </motion.div>

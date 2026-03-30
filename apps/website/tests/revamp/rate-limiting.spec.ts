@@ -73,10 +73,10 @@ test.describe('Rate Limiting', () => {
   });
 
   test('phase 3 form rate limiting', async ({ page }) => {
-    const response = await page.goto('/phase-3');
+    const response = await page.goto('/pipeline-buildout');
     const is404 = response?.status() === 404;
 
-    test.skip(is404, 'Phase 3 page not implemented yet - requires Sprint 3');
+    test.skip(is404, 'Pipeline buildout page not implemented');
 
     // Attempt multiple rapid submissions
     let rateLimitTriggered = false;
@@ -136,7 +136,7 @@ test.describe('Rate Limiting', () => {
 
       // Reload page for next attempt if needed
       if (i < 5) {
-        await page.goto('/phase-3');
+        await page.goto('/pipeline-buildout');
       }
     }
 

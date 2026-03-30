@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 /**
  * Homepage Revamp E2E Tests
  *
- * Tests the revenue-first homepage revamp with Lead Rescue and Phase 3 CTAs.
+ * Tests the revenue-first homepage revamp with Lead Rescue and Q SUITE CTAs.
  * These tests check for the new messaging and offers when feature flag is enabled.
  */
 
@@ -34,14 +34,13 @@ test.describe('Homepage Revamp', () => {
       });
     }
 
-    // Check for secondary CTA (Phase 3)
-    const phase3CTA = page.getByRole('link', { name: /phase 3/i });
-    if (await phase3CTA.count() > 0) {
-      await expect(phase3CTA.first()).toBeVisible();
+    const qSuiteCTA = page.getByRole('link', { name: /see what we run on|q suite/i });
+    if (await qSuiteCTA.count() > 0) {
+      await expect(qSuiteCTA.first()).toBeVisible();
     } else {
       test.info().annotations.push({
         type: 'warning',
-        description: 'Phase 3 CTA not found - may need Sprint 1-2 completion'
+        description: 'Q SUITE / secondary hero CTA not found'
       });
     }
   });
@@ -71,15 +70,14 @@ test.describe('Homepage Revamp', () => {
     expect(page.url()).toContain('/lead-rescue');
   });
 
-  test('secondary CTA routes to /phase-3', async ({ page }) => {
-    const phase3Link = page.getByRole('link', { name: /phase 3/i }).first();
-    const isVisible = await phase3Link.isVisible({ timeout: 2000 }).catch(() => false);
+  test('secondary hero CTA links to Q SUITE section', async ({ page }) => {
+    const secondary = page.getByRole('link', { name: /see what we run on/i }).first();
+    const isVisible = await secondary.isVisible({ timeout: 2000 }).catch(() => false);
 
-    test.skip(!isVisible, 'Phase 3 CTA not implemented yet - requires Sprint 1-2');
+    test.skip(!isVisible, 'Secondary hero CTA not present on this homepage variant');
 
-    await phase3Link.click();
-    await page.waitForURL('**/phase-3', { timeout: 5000 });
-    expect(page.url()).toContain('/phase-3');
+    const href = await secondary.getAttribute('href');
+    expect(href).toMatch(/#q-suite/i);
   });
 
   test('mobile viewport renders correctly', async ({ page }) => {

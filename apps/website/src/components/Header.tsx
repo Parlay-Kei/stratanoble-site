@@ -93,8 +93,8 @@ const offerCTAs = [
     )
   },
   {
-    name: 'Phase 3 Pipeline',
-    href: '/phase-3',
+    name: '21-Day Pipeline Buildout',
+    href: '/pipeline-buildout',
     description: 'Complete pipeline in 21 days',
     badge: '21 Days',
     icon: (
