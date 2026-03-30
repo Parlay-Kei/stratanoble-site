@@ -1,5 +1,6 @@
 {
   "framework": "nextjs",
+  "installCommand": "npm install --prefix ../../packages/utils && npm install --prefix ../../packages/ui && npm install",
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
