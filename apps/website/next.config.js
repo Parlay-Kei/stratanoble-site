@@ -59,7 +59,7 @@ const nextConfig = {
     return [
       {
         source: '/solutions',
-        destination: '/',
+        destination: '/services',
         permanent: true,
       },
       {
@@ -69,7 +69,7 @@ const nextConfig = {
       },
       {
         source: '/platform',
-        destination: '/tools',
+        destination: '/q-suite',
         permanent: true,
       },
       {

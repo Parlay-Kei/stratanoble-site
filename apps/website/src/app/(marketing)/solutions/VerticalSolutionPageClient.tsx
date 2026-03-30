@@ -107,8 +107,11 @@ export function VerticalSolutionPageClient({ slug }: Props) {
 
       <section className="py-16 px-4 bg-navy text-white">
         <div className="max-w-3xl mx-auto text-center space-y-6">
-          <Link href="/solutions" className="text-sm text-emerald-200 hover:text-white underline-offset-4 hover:underline inline-block">
-            ← All solutions
+          <Link
+            href="/services"
+            className="text-sm text-emerald-200 hover:text-white underline-offset-4 hover:underline inline-block"
+          >
+            ← All services
           </Link>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
