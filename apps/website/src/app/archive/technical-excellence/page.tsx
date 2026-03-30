@@ -617,7 +617,7 @@ export default function TechnicalExcellencePage() {
               Schedule Technical Consultation
             </a>
             <a 
-              href="/solutions"
+              href="/services"
               className="border-2 border-white text-white font-bold py-4 px-8 rounded-2xl hover:bg-white hover:text-blue-600 transition-colors"
             >
               Explore Our Services

@@ -1,4 +1,4 @@
-﻿import Stripe from 'stripe';
+import Stripe from 'stripe';
 import { logger } from '@/lib/logger';
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
 
@@ -48,7 +48,7 @@ export async function createCheckoutSession(
       ],
       mode: 'payment',
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/solutions`,
+      cancel_url: `${baseUrl}/services`,
       customer_email: customerEmail,
       metadata: {
         package_type: packageType,

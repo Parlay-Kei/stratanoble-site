@@ -14,7 +14,7 @@ export default function Sitemap() {
       { name: 'Contact', href: '/contact' },
     ],
     'Platform': [
-      { name: 'Platform Overview', href: '/platform' },
+      { name: 'Q Suite', href: '/q-suite' },
       { name: 'ACHIEVERY Preview', href: '/achievery-preview' },
       { name: 'Dashboard', href: '/dashboard' },
     ],

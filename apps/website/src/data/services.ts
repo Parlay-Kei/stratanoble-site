@@ -1,11 +1,11 @@
-﻿// ServiceCardGrid data for landing page - Updated for four core offerings
+// ServiceCardGrid data for landing page - Updated for four core offerings
 export const services = [
   {
     icon: 'lightbulb',
     title: 'Done-For-You Strategy',
     subtitle: '90-Day Revenue Roadmap',
     description: 'Get unstuck with a custom action plan that drives revenue in 90 days or less.',
-    link: '/solutions',
+    link: '/services',
     price: 'From $1,200',
     whatYouGet: [
       '2-week delivery guarantee',
@@ -40,7 +40,7 @@ export const services = [
     title: 'Launch Bootcamp',
     subtitle: 'First $10K in 30 Days',
     description: 'Intensive workshop series with templates that generated $2.3M for past students.',
-    link: '/solutions',
+    link: '/services',
     price: 'From $97',
     whatYouGet: [
       'Next cohort starts Monday',
@@ -100,7 +100,7 @@ export const services = [
     title: 'Authority Brand Sprint',
     subtitle: '0 to 10K Followers in 60 Days',
     description: 'Complete brand system that positions you as the go-to expert in your niche.',
-    link: '/solutions',
+    link: '/services',
     price: 'From $1,500',
     whatYouGet: [
       'Launch in 7 days',
