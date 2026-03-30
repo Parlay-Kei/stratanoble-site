@@ -9,9 +9,11 @@ import Link from 'next/link'
 import { Logo } from '../Logo'
 
 /**
- * SiteNav - Pipeline-focused navigation
+ * SiteNav - Marketing navigation
  *
  * Nav links:
+ * - Solutions
+ * - How It Works
  * - About
  * - Contact
  * - 48-Hour Lead Rescue (primary CTA button)
@@ -20,6 +22,16 @@ import { Logo } from '../Logo'
  */
 
 const navigation = [
+  {
+    name: 'Solutions',
+    href: '/solutions',
+    description: 'What we install',
+  },
+  {
+    name: 'How It Works',
+    href: '/how-it-works',
+    description: 'Our delivery model',
+  },
   {
     name: 'About',
     href: '/about',
@@ -46,7 +58,7 @@ const offerCTAs = [
   },
   {
     name: '21-Day Pipeline Buildout',
-    href: '/phase-3',
+    href: '/pipeline-buildout',
     description: 'Complete pipeline installation',
     primary: false,
   },
@@ -246,10 +258,10 @@ export function SiteNav() {
                 48-Hour Lead Rescue
               </Link>
               <Link
-                href="/phase-3"
+                href="/pipeline-buildout"
                 className="inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold text-navy-900 border-2 border-navy-900 hover:bg-navy-900 hover:text-white transition-all"
               >
-                21-Day Pipeline
+                21-Day Pipeline Buildout
               </Link>
             </div>
           </div>

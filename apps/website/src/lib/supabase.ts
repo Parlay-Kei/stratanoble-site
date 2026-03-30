@@ -352,7 +352,7 @@ export const db = {
     return onboarding;
   },
 
-  // Lead management functions for Phase 3 CRM
+  // Lead management functions for pipeline / CRM flows
   async createLead(data: {
     name: string;
     email: string;

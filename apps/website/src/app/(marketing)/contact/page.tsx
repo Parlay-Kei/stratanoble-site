@@ -91,7 +91,7 @@ export default function ContactPage() {
             The 21-Day Pipeline Buildout installs complete intake, follow-up automation, and deal tracking infrastructure.
           </p>
           <Link
-            href="/phase-3"
+            href="/pipeline-buildout"
             className="inline-flex items-center border-2 border-navy text-navy px-8 py-4 rounded-lg font-semibold hover:bg-navy hover:text-white transition-all"
           >
             Apply for Pipeline Buildout

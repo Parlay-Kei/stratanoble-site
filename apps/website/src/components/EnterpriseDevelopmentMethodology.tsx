@@ -35,7 +35,7 @@ const implementationRoadmap = [
     icon: CodeBracketIcon
   },
   {
-    phase: 'Phase 3',
+    phase: 'Stage 3',
     title: 'Integration',
     duration: '6 weeks',
     tasks: ['Business systems', 'Operations team', 'Admin automation'],

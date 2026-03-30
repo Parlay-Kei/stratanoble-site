@@ -5,11 +5,11 @@ import { SVGProps } from 'react'
 import { Logo } from '../Logo'
 
 /**
- * SiteFooter - Pipeline-focused footer
+ * SiteFooter - Operational infrastructure footer
  *
  * Footer links:
  * - Lead Rescue
- * - Pipeline Buildout
+ * - 21-Day Pipeline Buildout
  * - Tools
  * - Contact
  * - Legal (Privacy, Terms)
@@ -23,7 +23,8 @@ import { Logo } from '../Logo'
 const navigation = {
   services: [
     { name: 'Lead Rescue', href: '/lead-rescue' },
-    { name: 'Pipeline Buildout', href: '/phase-3' },
+    { name: '21-Day Pipeline Buildout', href: '/pipeline-buildout' },
+    { name: 'Solutions', href: '/solutions' },
     { name: 'Tools', href: '/tools' },
   ],
   company: [
@@ -63,8 +64,8 @@ export function SiteFooter() {
           <div className="space-y-8 xl:col-span-1">
             <Logo className="h-16 w-auto" theme="white" />
             <p className="text-sm leading-6 text-navy-300">
-              Lead-to-customer pipelines for service businesses.
-              Installed fast. Scope capped. You own it.
+              Operational infrastructure for service businesses.
+              Scoped engagements. Delivered systems. You own it.
             </p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
@@ -153,7 +154,7 @@ export function SiteFooter() {
               &copy; {new Date().getFullYear()} Strata Noble. All rights reserved.
             </p>
             <p className="text-xs text-navy-500">
-              No branding. No website builds. Pipeline infrastructure only.
+              Operational control systems for service businesses.
             </p>
           </div>
         </div>

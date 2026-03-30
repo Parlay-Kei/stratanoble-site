@@ -12,8 +12,9 @@ import { SiteShell } from '@/components/site'
  * - /about
  * - /contact
  * - /lead-rescue
- * - /phase-3
+ * - /pipeline-buildout (21-Day Pipeline Buildout)
  * - /tools
+ * - /how-it-works
  */
 
 export default function MarketingLayout({
