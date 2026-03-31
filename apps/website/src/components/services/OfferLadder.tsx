@@ -5,9 +5,9 @@ export function OfferLadder() {
   return (
     <section className="bg-slate-50 px-4 py-16 md:py-20">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-center text-2xl font-bold text-command-navy md:text-3xl">Offer ladder</h2>
+        <h2 className="text-center text-2xl font-bold text-command-navy md:text-3xl">Where do you want to start?</h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
-          Three entry points — from fastest stop-the-bleed to full pipeline install and optional ongoing command.
+          Three ways in — from a quick fix to a full build with ongoing support.
         </p>
         <div className="mt-12 grid gap-8 lg:grid-cols-3">
           {CONSULTING_SERVICES.map((svc) => (
@@ -29,9 +29,9 @@ export function OfferLadder() {
               )}
               <h3 className="text-xl font-bold text-command-navy">{svc.name}</h3>
               <p className="mt-1 text-sm text-slate-500">
-                {svc.id === 'lead-rescue' && 'Your quickest path to stopping revenue leaks'}
-                {svc.id === 'pipeline-buildout' && 'A complete operational pipeline in 21 days'}
-                {svc.id === 'operations-command' && 'Keep the builder on retainer'}
+                {svc.id === 'lead-rescue' && 'The fastest way to stop losing leads you already paid for'}
+                {svc.id === 'pipeline-buildout' && 'A complete business system, built and handed to you in 21 days'}
+                {svc.id === 'operations-command' && 'We stay on and keep it running with you'}
               </p>
               <p className="mt-4 flex-grow text-sm leading-relaxed text-slate-600">{svc.description}</p>
               <p className="mt-6 text-2xl font-bold text-command-navy">

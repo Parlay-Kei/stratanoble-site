@@ -5,41 +5,41 @@ import { motion } from 'framer-motion';
 
 const comparison = {
   agencies: [
-    'Sell campaigns and creative',
-    'Monthly retainers, scope creep',
-    'You get deliverables',
-    'No operational visibility',
+    'Sell you campaigns and creative work',
+    'Monthly retainers that keep growing',
+    'You get deliverables, not systems',
+    'No visibility into what is actually working',
   ],
   crm: [
-    'Configure a single tool',
-    'Per-project, single-tool focus',
+    'Set up one tool for you',
+    'Billed per project, single-tool focus',
     'You get a configured tool',
-    'Partial pipeline view',
+    'Partial view of your business',
   ],
   sn: [
-    'Install a complete operating system',
-    'Scoped engagement, modular delivery',
-    'You get infrastructure you own',
-    'Full intake → revenue → execution visibility',
+    'Build the full system your business runs on',
+    'Fixed scope, clear price, you own the result',
+    'You get infrastructure that is yours to keep',
+    'Full visibility from first contact to paid invoice',
   ],
 };
 
 const methodSteps = [
   {
     title: 'Discovery',
-    body: 'Map workflows, identify friction points, and define scope so delivery stays bounded and measurable.',
+    body: 'We talk through what you need, look at what you have, and agree on exactly what we are going to build before any work starts.',
   },
   {
     title: 'Implementation',
-    body: 'Deploy modules, configure pipelines, and wire integrations — the same Q Suite patterns we run internally.',
+    body: 'We build and configure everything inside your actual business environment — the same tools and systems we use ourselves.',
   },
   {
     title: 'Handoff',
-    body: 'Documentation, training, and proof pack delivery so your team can run the system without guessing.',
+    body: 'Documentation, a walkthrough, and a complete record of everything we built — so your team can run it without us.',
   },
   {
-    title: 'Operations Command (optional)',
-    body: 'For businesses that want it, we offer ongoing operational support to maintain the rhythm — weekly reviews and continuous tuning when you are ready.',
+    title: 'Ongoing support (optional)',
+    body: 'For businesses that want us to stay involved, we check in weekly, keep the system running well, and handle updates as your business changes.',
   },
 ];
 
@@ -58,8 +58,8 @@ export function AboutPageClient() {
               About Strata Noble
             </h1>
             <p className="text-xl text-gray-300 mt-6 leading-relaxed">
-              We install operational control systems for service businesses. Scoped engagements. Delivered
-              infrastructure. You own the result.
+              We build and operate digital infrastructure for service businesses and early-stage ventures.
+              You own everything we deliver.
             </p>
           </motion.div>
         </div>
@@ -220,7 +220,7 @@ export function AboutPageClient() {
           className="max-w-3xl mx-auto rounded-sm border-l-4 border-field-sage bg-command-navy p-8"
         >
           <p className="text-lg text-white leading-relaxed">
-            We don&apos;t sell promises. We install systems, run them ourselves, and hand you the same architecture.
+            We do not sell promises. We build real systems, run them ourselves, and hand you the same thing we use.
           </p>
           <div className="mt-6 text-gray-300 border-t border-white/10 pt-6">
             <p className="font-semibold text-white">The Strata Noble Method</p>

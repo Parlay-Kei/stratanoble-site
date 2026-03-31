@@ -1,19 +1,19 @@
 const steps = [
   {
-    title: 'Diagnose',
-    body: 'Free 48-hour pipeline diagnostic identifies where you are losing revenue.',
+    title: 'We review your business',
+    body: 'Free, 48-hour review of how your business captures and follows up with leads — we tell you exactly where money is slipping through the cracks.',
   },
   {
-    title: 'Install',
-    body: 'We build and configure Q SUITE for your business in 21 days or less.',
+    title: 'We build your system',
+    body: 'We build and set up the right tools for your business in 21 days or less. No templates — configured for how you actually work.',
   },
   {
-    title: 'Operate',
-    body: 'Your team uses the platform daily. We monitor and optimize monthly.',
+    title: 'You run it, we support it',
+    body: 'Your team uses the platform daily. We are available monthly to keep things running smoothly.',
   },
   {
-    title: 'Grow',
-    body: 'Data-driven insights from Q-ARI reveal your next operational moves.',
+    title: 'You see what is working',
+    body: 'Clear reporting shows you which clients, offers, and channels are actually making you money.',
   },
 ] as const;
 
@@ -23,7 +23,7 @@ export function HowItWorks() {
       <div className="mx-auto max-w-6xl">
         <h2 className="text-2xl font-bold md:text-3xl">How it works</h2>
         <p className="mt-3 max-w-2xl text-slate-400">
-          A straight line from leak to system — no motivational filler, just delivery sequence.
+          A simple, straight path from &ldquo;something is broken&rdquo; to &ldquo;here is your working system.&rdquo;
         </p>
         <ol className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => (
