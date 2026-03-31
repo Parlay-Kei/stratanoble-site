@@ -17,7 +17,7 @@ config({ path: join(__dirname, '..', 'apps/website/.env.local') });
 const VAULT_ENCRYPTION_KEY = process.env.VAULT_ENCRYPTION_KEY || '7547aa6585963de0c6bdc7c4c7f40cf72f84b84e3b6d73a4f92c9a4b85c6f54e';
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const TWILIO_AUTH_TOKEN = 'cec7f40c85a895b7876093e844e9f395';
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 
 function encryptValue(value) {
   const key = Buffer.from(VAULT_ENCRYPTION_KEY, 'hex');
