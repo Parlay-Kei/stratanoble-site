@@ -8,18 +8,18 @@ export function HomepageHero() {
           Strata Noble
         </p>
         <h1 className="font-display text-3xl font-bold tracking-tight leading-tight sm:text-4xl md:text-5xl lg:text-[2.75rem] lg:leading-[1.12]">
-          We install operational control systems for service businesses — powered by proprietary
-          technology we built and operate.
+          We build and operate revenue-producing digital infrastructure — for service businesses
+          and the ventures ready to grow.
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-grey md:text-xl">
-          Consulting. Platform. Product. One firm.
+          Websites. Portals. Marketplaces. The systems that run them.
         </p>
         <div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
           <Link
             href="/contact?service=lead-rescue"
             className="inline-flex items-center justify-center rounded-sm bg-forest-green px-8 py-4 text-base font-semibold text-white transition-opacity duration-200 hover:opacity-90"
           >
-            Get Free Diagnostic
+            Get a Free Review
           </Link>
           <Link
             href="/q-suite"

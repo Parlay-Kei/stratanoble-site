@@ -2,9 +2,10 @@ import Link from 'next/link';
 
 const surfaces = [
   {
-    title: 'Consulting Services',
-    subtitle: 'Scoped engagements that install operational control systems. From $997.',
-    cta: 'View Services',
+    title: 'Build & Operations',
+    subtitle:
+      'We build your website, client portal, or platform — then set up the systems behind it so your business actually runs. Fixed scope, clear price.',
+    cta: 'See what we build',
     href: '/services',
   },
   {
@@ -25,10 +26,10 @@ export function ThreeSurfaces() {
   return (
     <section className="border-y border-slate-grey/20 bg-command-navy py-20 px-4">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-center text-2xl font-bold text-white md:text-3xl">Three surfaces</h2>
+        <h2 className="text-center text-2xl font-bold text-white md:text-3xl">Three ways to work with us</h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-slate-grey">
-          How we work with operators: hands-on installs, the platform you run on, and a product your
-          team can adopt without a retainer.
+          Hands-on builds, a platform you can use daily, and a free tool your team can start using
+          today — no contract required.
         </p>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {surfaces.map((card) => (

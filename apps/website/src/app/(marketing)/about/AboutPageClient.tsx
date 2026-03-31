@@ -75,23 +75,24 @@ export function AboutPageClient() {
         >
           <h2 className="text-3xl font-semibold">What Strata Noble Is</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Strata Noble is an operational infrastructure firm. We deploy modular systems that control intake,
-            revenue, execution, and security for service businesses roughly between $500K and $5M in revenue. We are
-            not an agency. We are not a bench of freelancers. We are not CRM consultants who stop at one tool. We
-            install operating systems — scoped, documented, and transferable.
+            Strata Noble is a digital build and venture operations studio. We design and deliver
+            production websites, client portals, and marketplace-style platforms for service
+            businesses and emerging ventures of any size — from solo operators to growing teams.
+            We also build and operate the backend systems that make revenue trackable: lead capture,
+            client operations, workflow automation, and credential governance.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Every system we install runs on the same architecture we use internally. When we say we run on this — we
-            mean it. Our own intake, revenue tracking, client operations, and credential governance run through Q
-            Suite.
+            We support partnerships and go-to-market execution by packaging proof, tightening
+            operational systems, and building the infrastructure operators need to close, retain,
+            and scale. Every system we deploy runs on the same architecture we use internally.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            The system is called{' '}
+            The platform is called{' '}
             <Link href="/q-suite" className="font-semibold text-primary hover:underline">
               Q SUITE
             </Link>{' '}
-            — a modular platform with five modules covering intake, client operations, revenue, execution, and
-            security.
+            — a modular operating system covering intake, client operations, revenue intelligence,
+            execution, and credential security. We built it for ourselves first.
           </p>
         </motion.section>
 
@@ -104,10 +105,11 @@ export function AboutPageClient() {
         >
           <h2 className="text-3xl font-semibold">Operator-Led</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            The firm is led by an operator who has sat in the seat — someone who knows what it is like to lose deals
-            in follow-up, chase invoices manually, and run a business on spreadsheets and memory. Strata Noble exists
-            because the operator behind the firm built the systems he needed, then made them deployable for others who
-            face the same operational gaps.
+            The firm is led by an operator who has built from the ground up — someone who has done
+            the sales work, run client operations, chased invoices, and built the systems he needed
+            before making them available to others. Strata Noble exists because the gap between
+            &ldquo;I have a business&rdquo; and &ldquo;my business runs properly&rdquo; is the same problem for a solo
+            operator as it is for a growing venture, and most firms only solve half of it.
           </p>
         </motion.section>
 

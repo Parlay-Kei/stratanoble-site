@@ -5,11 +5,12 @@ import { HowItWorksPageClient } from './HowItWorksPageClient';
 export const metadata: Metadata = {
   title: 'How It Works | Strata Noble',
   description:
-    'Our 4-step delivery model: Discovery, Implementation, Handoff, and optional Operations Command ($1,497/mo). Scoped engagements for service businesses.',
+    'Our delivery model: Discovery, Build, Handoff, and optional ongoing support. Clear scope, fixed price, and everything documented — for service businesses and early-stage ventures.',
   alternates: { canonical: '/how-it-works' },
   openGraph: {
     title: 'How It Works | Strata Noble',
-    description: 'Scoped operational infrastructure delivery — Lead Rescue, Pipeline Buildout, Operations Command.',
+    description:
+      'How Strata Noble delivers — from website builds and portal deployments to full operational system installs. Same process every time.',
     url: '/how-it-works',
   },
   robots: { index: true, follow: true },
