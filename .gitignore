@@ -300,3 +300,12 @@ linkedin-session.json
 
 # Autonomy runner receipts (auto-generated, high volume)
 .claude/receipts/SYSTEM_RESTARTED_*.md
+
+# Data Room — sensitive financial/legal/IP documents
+docs/Strata Noble Data Room/
+
+# AI IDE configs
+.gemini/
+
+# Deno lockfile (this is a Node project)
+deno.lock

@@ -2,12 +2,26 @@ import './globals.css';
 
 import React from 'react'
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono } from 'next/font/google';
+import { Playfair_Display, Inter, IBM_Plex_Mono } from 'next/font/google';
 import Script from 'next/script';
 import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
 import { ClientToastProvider } from '@strata-noble/ui';
+
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  display: 'swap',
+  variable: '--font-display',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-body',
+});
 
 const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -162,12 +176,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <html lang="en" className={plexMono.variable}>
+    <html lang="en" className={`${playfairDisplay.variable} ${inter.variable} ${plexMono.variable}`}>
       <head>
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,700&f[]=general-sans@400,500&display=swap"
-        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
