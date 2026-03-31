@@ -1,10 +1,8 @@
 [build]
-  base = "apps/website"
-  # Note: Prisma migrations are skipped during build because Supabase DB is behind firewall
-  # Run migrations manually via: npx prisma migrate deploy (with DATABASE_URL set)
-  # OR use Supabase dashboard: https://supabase.com/dashboard/project/bvneqoevtwodyfqglpzi
-  command = "npm ci --no-audit --no-fund --legacy-peer-deps && npm run build --verbose"
-  publish = ".next"
+  # No base — install from monorepo root so workspace deps (file:../../packages/*) resolve.
+  # Then cd into the app to build.
+  command = "cd apps/website && npm install --legacy-peer-deps && npm run build"
+  publish = "apps/website/.next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
