@@ -3,13 +3,17 @@ const path = require('path');
 /** @type {import('next').NextConfig} */
 const dev = process.env.NODE_ENV !== 'production';
 
+const isNetlify = Boolean(process.env.NETLIFY);
+
 const nextConfig = {
-  distDir: 'build',
+  // Netlify's Next.js plugin expects output at .next with no standalone mode.
+  // Standalone + custom distDir are Vercel/self-host patterns that break the plugin.
+  distDir: isNetlify ? '.next' : 'build',
   reactStrictMode: true,
   // Force dynamic rendering for all pages to avoid client component issues during static generation
   // This is a workaround for the useState null error during prerendering
   // See: https://nextjs.org/docs/app/building-your-application/rendering/server-components#client-components
-  output: 'standalone',
+  ...(isNetlify ? {} : { output: 'standalone' }),
   compiler: {
     reactRemoveProperties: false,
     emotion: false,

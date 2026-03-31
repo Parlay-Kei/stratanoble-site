@@ -4,7 +4,7 @@
   # Run migrations manually via: npx prisma migrate deploy (with DATABASE_URL set)
   # OR use Supabase dashboard: https://supabase.com/dashboard/project/bvneqoevtwodyfqglpzi
   command = "npm ci --no-audit --no-fund --legacy-peer-deps && npm run build --verbose"
-  publish = "build"
+  publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
