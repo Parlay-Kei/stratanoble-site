@@ -1,7 +1,7 @@
 [build]
   # No base — install from monorepo root so workspace deps (file:../../packages/*) resolve.
   # Then cd into the app to build.
-  command = "cd apps/website && npm install --legacy-peer-deps && npm run build"
+  command = "npm install --legacy-peer-deps && cd apps/website && npm run build"
   publish = "apps/website/.next"
 
 [[plugins]]
