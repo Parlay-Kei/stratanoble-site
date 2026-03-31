@@ -17,8 +17,8 @@ module.exports = {
         'off-white': '#F5F2EE',
       },
       fontFamily: {
-        display: ['Clash Display', 'sans-serif'],
-        sans: ['General Sans', 'Satoshi', 'system-ui', 'sans-serif'],
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['IBM Plex Mono', 'monospace'],
       },
     },

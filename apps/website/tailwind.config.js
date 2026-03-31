@@ -110,13 +110,13 @@ export default {
         ring: '#2D6A4F',
       },
       fontFamily: {
-        display: ['var(--font-display)', 'Clash Display', 'sans-serif'],
+        display: ['var(--font-display)', 'Playfair Display', 'Georgia', 'serif'],
         sans: [
           'var(--font-body)',
-          'General Sans',
-          'Satoshi',
+          'Inter',
           '-apple-system',
           'BlinkMacSystemFont',
+          'system-ui',
           'sans-serif',
         ],
         mono: ['var(--font-mono)', 'IBM Plex Mono', 'monospace'],
