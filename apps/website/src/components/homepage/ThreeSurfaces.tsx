@@ -10,13 +10,15 @@ const surfaces = [
   },
   {
     title: 'Q SUITE',
-    subtitle: 'The operational control system your business runs on. From $297/month.',
+    subtitle:
+      'A set of business tools we built and use ourselves — for tracking clients, following up on money owed, and keeping your business organized. From $297/month.',
     cta: 'Explore Platform',
     href: '/q-suite',
   },
   {
     title: 'ACHIEVERY',
-    subtitle: 'Track progress, build momentum, stay accountable. Free to start.',
+    subtitle:
+      'A goal-tracking tool for entrepreneurs and their teams. Set targets, track progress, stay accountable. Free to start.',
     cta: 'Try Free',
     href: '/achievery',
   },

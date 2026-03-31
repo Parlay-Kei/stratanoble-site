@@ -6,44 +6,44 @@ import { motion } from 'framer-motion';
 const steps = [
   {
     n: 1,
-    title: 'Discovery',
+    title: 'Getting aligned',
     whatHappens:
-      'We map your current workflows, identify friction points, and define a bounded scope for the engagement. Discovery is typically a 60-minute kickoff call plus async review of your existing tools and processes.',
+      'We talk through what you need, look at what you already have, and agree on exactly what we are going to build. No surprises.',
     youProvide:
-      'Access to your current tools, a walkthrough of your process, and clarity on which problems hurt most.',
+      'A walkthrough of how your business currently works and what is frustrating you most.',
     weDeliver:
-      'A scoped engagement plan with specific deliverables, timeline, and acceptance criteria.',
+      'A clear plan: what we are building, what it will cost, and when it will be done.',
     timeline: 'Same-day for Lead Rescue. Days 1–3 for Pipeline Buildout.',
     tentative: false,
   },
   {
     n: 2,
-    title: 'Implementation',
+    title: 'Building it',
     whatHappens:
-      'We deploy modules, configure pipelines, wire integrations, and build the operating infrastructure specified in the engagement plan. We work inside your environment — not a sandbox.',
-    youProvide: 'Admin access to relevant tools. Responsive availability for questions (async is fine).',
-    weDeliver: 'Working systems configured for your business. Every module tested with real data.',
+      'We build everything we agreed on — inside your actual business environment, not a test sandbox. You can see progress the whole way.',
+    youProvide: 'Access to the tools we are connecting to. We will let you know if we need anything else.',
+    weDeliver: 'A working system, tested and ready for your team to use.',
     timeline: '48 hours for Lead Rescue. Days 3–18 for Pipeline Buildout.',
     tentative: false,
   },
   {
     n: 3,
-    title: 'Handoff',
+    title: 'Handing it over',
     whatHappens:
-      'Documentation, training walkthrough, proof pack delivery. We hand you everything — credentials, configurations, video walkthroughs, written docs — stored in your ANX Vault.',
-    youProvide: 'Time for a training walkthrough (typically 45–60 minutes).',
+      'We walk you through everything we built, give you all the documentation, and make sure your team knows how to use it.',
+    youProvide: 'About an hour for a walkthrough call.',
     weDeliver:
-      'Complete handoff package: documentation, video walkthroughs, ProofLoop verification receipts, and vault access.',
+      'Full documentation, video walkthroughs, and a complete record of everything we configured — stored somewhere you control.',
     timeline: 'Included in the 48-hour window for Lead Rescue. Days 18–21 for Pipeline Buildout.',
     tentative: false,
   },
   {
     n: 4,
-    title: 'Operations Command (optional)',
+    title: 'Ongoing support (optional)',
     whatHappens:
-      'For businesses that want continued operational partnership, we maintain the rhythm — weekly executive reviews, system tuning, configuration updates, and priority support.',
-    youProvide: 'Recurring time for weekly review (30 minutes).',
-    weDeliver: 'Ongoing operational visibility, system health monitoring, and continuous tuning.',
+      'If you want us to stay involved after handoff, we check in weekly, keep the system tuned, and handle anything that comes up.',
+    youProvide: 'About 30 minutes a week for a check-in.',
+    weDeliver: 'Regular reviews, system updates, and a point of contact who already knows your business.',
     timeline: 'Ongoing, post-handoff. Not required.',
     tentative: true,
   },
@@ -59,10 +59,11 @@ export function HowItWorksPageClient() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold"
           >
-            How We Work
+            Here is exactly how we work
           </motion.h1>
           <p className="text-xl text-gray-300 mt-6 leading-relaxed">
-            Every engagement follows the same proven delivery model. Scoped, documented, and transferable.
+            Every project follows the same clear process. You always know what is happening, what you are
+            getting, and when you are getting it.
           </p>
         </div>
       </section>
@@ -133,7 +134,7 @@ export function HowItWorksPageClient() {
                   <th className="p-4 font-semibold text-command-navy">Lead Rescue</th>
                   <th className="p-4 font-semibold text-command-navy">Pipeline Buildout</th>
                   <th className="p-4 font-semibold text-command-navy border-l border-dashed border-slate-grey/30 bg-void/50">
-                    Operations Command
+                    Ongoing Support
                   </th>
                 </tr>
               </thead>
@@ -164,18 +165,18 @@ export function HowItWorksPageClient() {
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Scope</td>
-                  <td className="p-4 text-muted-foreground">Lead flow audit + fix</td>
-                  <td className="p-4 text-muted-foreground">Full system install</td>
+                  <td className="p-4 text-muted-foreground">Find and fix where you are losing leads</td>
+                  <td className="p-4 text-muted-foreground">Full system, built from scratch</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
-                    Maintenance + rhythm
+                    Monthly maintenance and check-ins
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Handoff</td>
-                  <td className="p-4 text-muted-foreground">Receipt pack</td>
-                  <td className="p-4 text-muted-foreground">Full proof suite</td>
+                  <td className="p-4 text-muted-foreground">Full write-up of what we fixed</td>
+                  <td className="p-4 text-muted-foreground">Complete documentation package</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
-                    Weekly reviews
+                    Weekly review notes
                   </td>
                 </tr>
               </tbody>
