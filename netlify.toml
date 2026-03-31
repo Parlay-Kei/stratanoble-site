@@ -1,6 +1,7 @@
 [build]
-  command = "cd apps/website && npm install --legacy-peer-deps && npm run build"
-  publish = "apps/website/.next"
+  base = "apps/website"
+  command = "npm install --legacy-peer-deps && npm run build"
+  publish = "build"
 
 [build.environment]
   NODE_VERSION = "20"
