@@ -1,96 +1,10 @@
 [build]
-  base = "apps/website"
-  # Note: Prisma migrations are skipped during build because Supabase DB is behind firewall
-  # Run migrations manually via: npx prisma migrate deploy (with DATABASE_URL set)
-  # OR use Supabase dashboard: https://supabase.com/dashboard/project/bvneqoevtwodyfqglpzi
-  command = "npm ci --no-audit --no-fund --legacy-peer-deps && npm run build --verbose"
-  publish = "build"
+  command = "cd apps/website && npm install --legacy-peer-deps && npm run build"
+  publish = "apps/website/.next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-[build.environment]
-  NODE_VERSION = "20.18.0"
-  NPM_VERSION = "10.8.2"
-  NETLIFY_NEXT_PLUGIN_SKIP = "false"
-  SKIP_DOWNLOAD = "true"
-  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
-  NPM_CONFIG_AUDIT = "false"
-  NPM_CONFIG_FUND = "false"
-  NPM_CONFIG_PROGRESS = "false"
-  NPM_CONFIG_LOGLEVEL = "error"
-  CI = "true"
-  NEXT_DEBUG = "1"
-
-[build.processing]
-  secrets_scan_enabled = true
-  secrets_scan_omit_paths = [
-    ".claude/**",
-    "scripts/**",
-    "apps/website/src/lib/public-config.ts",
-    "apps/website/src/__tests__/**"
-  ]
-
-[[redirects]]
-  from = "http://stratanoble.com/*"
-  to = "https://stratanoble.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://StrataNoble.com/*"
-  to = "https://stratanoble.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://StrataNoble.com/*"
-  to = "https://stratanoble.com/:splat"
-  status = 301
-  force = true
-
-# Redirect old pages to prevent Google from indexing stale content
-[[redirects]]
-  from = "/solutions"
-  to = "/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/solutions/*"
-  to = "/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/platform"
-  to = "/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/platform/*"
-  to = "/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/achievery-preview"
-  to = "/tools"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/achievery-preview/*"
-  to = "/tools"
-  status = 301
-  force = true
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
