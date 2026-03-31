@@ -104,7 +104,7 @@ const nextConfig = {
     // optimizePackageImports: ['@heroicons/react', 'lucide-react'],
   },
   transpilePackages: ['@strata-noble/ui', '@strata-noble/utils'],
-  serverExternalPackages: ['@supabase/realtime-js', '@opentelemetry/instrumentation'],
+  serverExternalPackages: ['@supabase/realtime-js', '@opentelemetry/instrumentation', 'isomorphic-dompurify', 'jsdom'],
   webpack: (config, { isServer, dev }) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
