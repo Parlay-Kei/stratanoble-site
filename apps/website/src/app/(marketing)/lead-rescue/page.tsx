@@ -3,6 +3,36 @@ import Link from 'next/link';
 import { LeadRescueForm } from '@/components/forms/LeadRescueForm';
 import { LeadLeakCalculator } from '@/components/LeadLeakCalculator';
 import { ReceiptsIncluded } from '@/components/ReceiptsIncluded';
+import { buildFaqPageJsonLd } from '@/lib/seo/json-ld';
+
+const SITE = 'https://stratanoble.com';
+
+const LEAD_RESCUE_FAQS = [
+  {
+    q: 'How do I know you actually fixed it?',
+    a: 'You get a ProofLoop verdict and a receipt pack. You can replay the exact steps. You can see the logs, the tests, and the smoke checks.',
+  },
+  {
+    q: 'Where does my data go?',
+    a: 'Receipts go into the ANX Vault. Read-only access is provided for stakeholders. Sensitive values are redacted. Access is revoked after handoff unless we move into an ongoing plan.',
+  },
+  {
+    q: "What if I don't have a CRM yet?",
+    a: "No problem. We'll recommend the best tool for your needs (usually Notion or Airtable for simplicity) and set it up as part of the buildout.",
+  },
+  {
+    q: 'Can you integrate with my existing tools?',
+    a: "Yes. We work with most common tools: Notion, Airtable, HubSpot, Google Sheets, Zapier, etc. If you have a unique setup, we'll discuss it on the kickoff call.",
+  },
+  {
+    q: 'What happens after the 48 hours?',
+    a: 'You own the system. We provide documentation and a Loom walkthrough. If you need ongoing support or want to expand, we can discuss the 21-Day Pipeline Buildout.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Fixed scope. Fixed timeline. $997 starting price. Final quote confirmed after the 10-minute access check.',
+  },
+] as const;
 
 export const metadata: Metadata = {
   title: '48-Hour Lead Rescue | Strata Noble',
@@ -36,11 +66,17 @@ export default function LeadRescuePage() {
     },
   };
 
+  const faqJsonLd = buildFaqPageJsonLd(LEAD_RESCUE_FAQS, `${SITE}/lead-rescue`);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <main className="bg-white">
         {/* Hero Section */}
@@ -389,38 +425,11 @@ function RecentRescues() {
 }
 
 function FAQSection() {
-  const faqs = [
-    {
-      q: 'How do I know you actually fixed it?',
-      a: 'You get a ProofLoop verdict and a receipt pack. You can replay the exact steps. You can see the logs, the tests, and the smoke checks.',
-    },
-    {
-      q: 'Where does my data go?',
-      a: 'Receipts go into the ANX Vault. Read-only access is provided for stakeholders. Sensitive values are redacted. Access is revoked after handoff unless we move into an ongoing plan.',
-    },
-    {
-      q: "What if I don't have a CRM yet?",
-      a: "No problem. We'll recommend the best tool for your needs (usually Notion or Airtable for simplicity) and set it up as part of the buildout.",
-    },
-    {
-      q: 'Can you integrate with my existing tools?',
-      a: "Yes. We work with most common tools: Notion, Airtable, HubSpot, Google Sheets, Zapier, etc. If you have a unique setup, we'll discuss it on the kickoff call.",
-    },
-    {
-      q: 'What happens after the 48 hours?',
-      a: 'You own the system. We provide documentation and a Loom walkthrough. If you need ongoing support or want to expand, we can discuss the 21-Day Pipeline Buildout.',
-    },
-    {
-      q: 'What does it cost?',
-      a: 'Fixed scope. Fixed timeline. $997 starting price. Final quote confirmed after the 10-minute access check.',
-    },
-  ];
-
   return (
     <section className="max-w-3xl mx-auto mt-20">
       <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
       <div className="space-y-4">
-        {faqs.map((faq, i) => (
+        {LEAD_RESCUE_FAQS.map((faq, i) => (
           <details
             key={i}
             className="border rounded-lg p-4 hover:border-primary/50 transition-colors group"

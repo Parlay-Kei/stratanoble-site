@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 
 import { Analytics } from '@/components/Analytics';
 import { ClientToastProvider } from '@strata-noble/ui';
+import { buildGlobalJsonLdGraph } from '@/lib/seo/json-ld';
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
@@ -139,41 +140,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   // Marketing pages use (marketing) route group with SiteShell
   // Root layout only provides base HTML structure
 
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Strata Noble",
-    "url": "https://stratanoble.com",
-    "logo": "https://stratanoble.com/stratanoble_logoICON.svg",
-    "description": "Operational infrastructure for service businesses. Intake, revenue visibility, and execution control — built on the same Q Suite system we run internally.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Las Vegas",
-      "addressRegion": "NV",
-      "addressCountry": "US"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+1-702-721-3566",
-      "contactType": "customer service",
-      "email": "contact@stratanoble.com"
-    },
-    "sameAs": [
-      "https://linkedin.com/company/strata-noble"
-    ],
-    "services": [
-      {
-        "@type": "Service",
-        "name": "48-Hour Lead Rescue",
-        "description": "Lead capture and follow-up system installation in 48 hours. Intake form, automated follow-up sequence, and tracking dashboard."
-      },
-      {
-        "@type": "Service",
-        "name": "21-Day Pipeline Buildout",
-        "description": "Complete lead-to-customer pipeline infrastructure with multi-stage deal tracking, automated nurture sequences, and ProofLoop verification."
-      }
-    ]
-  }
+  const globalJsonLd = buildGlobalJsonLdGraph();
 
   return (
     <html lang="en" className={`${playfairDisplay.variable} ${inter.variable} ${plexMono.variable}`}>
@@ -182,7 +149,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
+            __html: JSON.stringify(globalJsonLd),
           }}
         />
         {/* Resource hints for performance optimization */}

@@ -1,6 +1,40 @@
 import { Metadata } from 'next';
 import { PipelineBuildoutApplicationForm } from '@/components/forms/PipelineBuildoutApplicationForm';
 import { ReceiptsIncluded } from '@/components/ReceiptsIncluded';
+import { buildFaqPageJsonLd } from '@/lib/seo/json-ld';
+
+const SITE = 'https://stratanoble.com';
+
+const PIPELINE_BUILDOUT_FAQS = [
+  {
+    q: 'What if I need more than 2 automations?',
+    a: 'We can discuss add-ons, but the base scope is intentionally capped to ensure quality delivery. Most businesses need to nail the basics before scaling complexity.',
+  },
+  {
+    q: 'What access do you need?',
+    a: "We'll need admin access to your CRM/database and email tool. We provide setup guides and can work with whatever tools you're already using (or recommend new ones).",
+  },
+  {
+    q: 'What tools do you work with?',
+    a: "Most common: Notion, Airtable, HubSpot, Zapier, Make, Mailchimp, ConvertKit. If you have a unique setup, we'll discuss compatibility on the kickoff call.",
+  },
+  {
+    q: 'Do you write the email copy?',
+    a: 'Yes. We write all email sequences based on your offer, voice, and customer journey. You review and approve before we connect them to the automation.',
+  },
+  {
+    q: "What don't you do?",
+    a: "We don't do branding, website design, or content creation. This is pure pipeline infrastructure—the system that turns leads into customers.",
+  },
+  {
+    q: 'What happens after the 21 days?',
+    a: "You own the system. We provide full documentation and training. For businesses that want continued operational partnership, we offer Ongoing Operating Support — weekly reviews, system tuning, and maintained visibility. It's optional, not required.",
+  },
+  {
+    q: 'How is this different from Lead Rescue?',
+    a: "Lead Rescue is a 48-hour sprint focused on lead capture. The Pipeline Buildout is a 21-day install that includes CRM, automations, and a complete pipeline. If you're just starting, go with Lead Rescue. If you're ready to scale, the buildout is the move.",
+  },
+] as const;
 
 export const metadata: Metadata = {
   title: '21-Day Pipeline Buildout | Strata Noble',
@@ -30,11 +64,17 @@ export default function PipelineBuildoutPage() {
     },
   };
 
+  const faqJsonLd = buildFaqPageJsonLd(PIPELINE_BUILDOUT_FAQS, `${SITE}/pipeline-buildout`);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <main id="top" className="container mx-auto py-12 px-4">
         <section className="text-center max-w-3xl mx-auto mb-12">
@@ -285,42 +325,11 @@ function Investment() {
 }
 
 function PipelineBuildoutFAQ() {
-  const faqs = [
-    {
-      q: 'What if I need more than 2 automations?',
-      a: 'We can discuss add-ons, but the base scope is intentionally capped to ensure quality delivery. Most businesses need to nail the basics before scaling complexity.',
-    },
-    {
-      q: 'What access do you need?',
-      a: "We'll need admin access to your CRM/database and email tool. We provide setup guides and can work with whatever tools you're already using (or recommend new ones).",
-    },
-    {
-      q: 'What tools do you work with?',
-      a: "Most common: Notion, Airtable, HubSpot, Zapier, Make, Mailchimp, ConvertKit. If you have a unique setup, we'll discuss compatibility on the kickoff call.",
-    },
-    {
-      q: 'Do you write the email copy?',
-      a: 'Yes. We write all email sequences based on your offer, voice, and customer journey. You review and approve before we connect them to the automation.',
-    },
-    {
-      q: "What don't you do?",
-      a: "We don't do branding, website design, or content creation. This is pure pipeline infrastructure—the system that turns leads into customers.",
-    },
-    {
-      q: 'What happens after the 21 days?',
-      a: "You own the system. We provide full documentation and training. For businesses that want continued operational partnership, we offer Ongoing Operating Support — weekly reviews, system tuning, and maintained visibility. It's optional, not required.",
-    },
-    {
-      q: 'How is this different from Lead Rescue?',
-      a: "Lead Rescue is a 48-hour sprint focused on lead capture. The Pipeline Buildout is a 21-day install that includes CRM, automations, and a complete pipeline. If you're just starting, go with Lead Rescue. If you're ready to scale, the buildout is the move.",
-    },
-  ];
-
   return (
     <section className="max-w-3xl mx-auto mt-20">
       <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
       <div className="space-y-4">
-        {faqs.map((faq, i) => (
+        {PIPELINE_BUILDOUT_FAQS.map((faq, i) => (
           <details
             key={i}
             className="border rounded-lg p-4 hover:border-primary/50 transition-colors group"
