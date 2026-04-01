@@ -51,7 +51,12 @@ jobs:
 
     - name: Install Supabase CLI
       run: |
-        npm install -g supabase
+        if ! command -v supabase &> /dev/null; then
+          curl -sSL https://github.com/supabase/cli/releases/latest/download/supabase_linux_amd64.tar.gz | tar -xz
+          sudo mv supabase /usr/local/bin/
+        else
+          echo "Supabase CLI already installed: $(supabase --version)"
+        fi
 
     - name: Hard reset Supabase (clean state)
       run: |
