@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/contact' },
   openGraph: {
     title: 'Contact | Strata Noble',
-    description: 'Operational infrastructure, Q SUITE, and consulting — get in touch.',
+    description: 'Digital infrastructure, Q SUITE, and consulting — get in touch.',
     url: '/contact',
   },
 };
@@ -34,7 +34,7 @@ const contactMethods = [
 const engagementPaths = [
   {
     title: 'My leads are leaking',
-    description: '48-hour intake and follow-up fix with ProofLoop receipts.',
+    description: '48-hour intake and follow-up fix with verification receipts.',
     href: '/lead-rescue',
   },
   {
@@ -49,7 +49,7 @@ const engagementPaths = [
   },
   {
     title: 'Tell me about Q SUITE',
-    description: 'Modular operational control — five modules, clear licensing.',
+    description: 'Five business modules, clear licensing — installed through consulting.',
     href: '/q-suite',
   },
 ];

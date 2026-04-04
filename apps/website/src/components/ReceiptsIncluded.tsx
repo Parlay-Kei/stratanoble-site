@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * ReceiptsIncluded - ProofLoop verification section
+ * ReceiptsIncluded - Deployment verification section
  *
  * Shows what verification receipts are included with each offer.
  * This is data they trust because it's about their system.
@@ -85,7 +85,7 @@ export function ReceiptsIncluded({ variant }: ReceiptsIncludedProps) {
       </div>
 
       <p className="text-sm text-forest-green mb-4">
-        Every install includes ProofLoop verification receipts. You see exactly what was built, tested, and delivered.
+        Every install includes deployment verification receipts. You see exactly what was built, tested, and delivered.
       </p>
 
       <ul className="space-y-2">
