@@ -6,11 +6,11 @@ import { Check } from 'lucide-react';
 
 const liveTools = [
   {
-    name: 'ProofLoop',
-    tagline: 'Verified proof that the work was done right',
+    name: 'Deployment Verification',
+    tagline: 'Documented proof that the work was done right',
     description:
-      'Every engagement includes a proof pack — documented evidence that your system was built, tested, and delivered as specified. No guesswork. No "trust me." Receipts.',
-    featuresLabel: "What's in the proof pack",
+      'Every engagement includes a verification pack — documented evidence that your system was built, tested, and delivered as specified. No guesswork. No "trust me." Receipts.',
+    featuresLabel: "What\u0027s in the verification pack",
     features: [
       'System build verification',
       'Flow testing results',
@@ -22,18 +22,18 @@ const liveTools = [
     accent: true,
   },
   {
-    name: 'ANX Vault',
+    name: 'Secure Delivery Folder',
     tagline: 'Every credential, asset, and document — secured and handed off',
     description:
-      'All deliverables from your engagement — credentials, configurations, video walkthroughs, documentation — stored in a private vault. You own it. Access is governed and audit-trailed.',
-    featuresLabel: "What's in the vault",
+      'All deliverables from your engagement — credentials, configurations, video walkthroughs, documentation — stored in a private folder you control. You own it. Access is governed and audit-trailed.',
+    featuresLabel: "What\u0027s in your delivery folder",
     features: [
-      'Private asset vault',
+      'Private asset storage',
       'Governed credential access',
       'Video walkthroughs of your system',
       'Complete handoff package',
     ],
-    included: 'Every engagement includes vault access with all deliverables.',
+    included: 'Every engagement includes a secure delivery folder with all deliverables.',
     accent: true,
   },
 ];
@@ -63,7 +63,7 @@ export function ToolsPageClient() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold tracking-tight mb-6"
           >
-            Operational Tools That Ship With Every Engagement
+            What Ships With Every Engagement
           </motion.h1>
           <p className="text-xl text-gray-300 leading-relaxed">
             These aren&apos;t add-ons. They&apos;re how we prove the work, secure the handoff, and give you visibility
@@ -74,7 +74,7 @@ export function ToolsPageClient() {
 
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-command-navy text-center mb-10">Included With Every Install</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-command-navy text-center mb-10">Delivery Standards</h2>
           <div className="space-y-8">
             {liveTools.map((tool, idx) => (
               <motion.article
@@ -115,8 +115,7 @@ export function ToolsPageClient() {
       <section className="px-4 sm:px-6 lg:px-8 pb-8">
         <div className="max-w-4xl mx-auto rounded-xl border border-primary/20 bg-primary/5 p-8 text-center">
           <p className="text-command-navy font-medium leading-relaxed">
-            All Strata Noble tools are powered by the Q Suite modular framework — the same operating architecture we
-            deploy for clients.
+            All delivery tools are powered by Q Suite — the same business tools we use to run Strata Noble.
           </p>
           <Link href="/services" className="inline-block mt-4 text-primary font-semibold text-sm hover:underline">
             See our solutions →
@@ -161,9 +160,9 @@ export function ToolsPageClient() {
 
       <section className="bg-command-navy py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Need operational infrastructure?</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">Ready to see how we deliver?</h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            These tools ship as part of your engagement. Start with the 48-Hour Lead Rescue.
+            Every engagement includes deployment verification and a secure delivery folder. Start with the 48-Hour Lead Rescue.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
