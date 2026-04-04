@@ -64,7 +64,7 @@ export function buildGlobalJsonLdGraph() {
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description:
-          'Internal operating system for intake, revenue visibility, and execution control — the same stack Strata Noble runs on stratanoble.com.',
+          'Business tools for client tracking, revenue tracking, follow-up, and secure credential storage — the same set we use to run Strata Noble.',
         offers: {
           '@type': 'Offer',
           url: `${SITE}/q-suite`,

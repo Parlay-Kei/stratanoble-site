@@ -10,11 +10,11 @@ const SITE = 'https://stratanoble.com';
 const LEAD_RESCUE_FAQS = [
   {
     q: 'How do I know you actually fixed it?',
-    a: 'You get a ProofLoop verdict and a receipt pack. You can replay the exact steps. You can see the logs, the tests, and the smoke checks.',
+    a: 'You get a deployment verification report and a receipt pack. You can replay the exact steps. You can see the logs, the tests, and the smoke checks.',
   },
   {
     q: 'Where does my data go?',
-    a: 'Receipts go into the ANX Vault. Read-only access is provided for stakeholders. Sensitive values are redacted. Access is revoked after handoff unless we move into an ongoing plan.',
+    a: 'Receipts go into your secure delivery folder. Read-only access is provided for stakeholders. Sensitive values are redacted. Access is revoked after handoff unless we move into an ongoing plan.',
   },
   {
     q: "What if I don't have a CRM yet?",
@@ -101,13 +101,13 @@ export default function LeadRescuePage() {
                 href="/tools/sample-receipt"
                 className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-all"
               >
-                See a Sample ProofLoop Receipt
+                See a Sample Verification Receipt
               </Link>
             </div>
 
             {/* Trust strip */}
             <p className="text-sm text-slate-grey">
-              ProofLoop verified delivery. Receipts stored in ANX Vault. If we can&apos;t prove it, we don&apos;t ship it.
+              Every build includes deployment verification. Receipts stored in your secure delivery folder. If we can&apos;t prove it, we don&apos;t ship it.
             </p>
           </div>
         </section>
@@ -149,7 +149,7 @@ export default function LeadRescuePage() {
               <div className="bg-card border rounded-xl p-6 shadow-sm">
                 <h2 className="text-xl font-semibold mb-2">Book the 10-minute access check</h2>
                 <p className="text-sm text-muted-foreground mb-4">
-                  If we can&apos;t run ProofLoop, we don&apos;t take the sprint.
+                  If we can&apos;t verify the fix, we don&apos;t take the sprint.
                 </p>
                 <LeadRescueForm />
               </div>
@@ -186,7 +186,7 @@ function WhatYouGet() {
       description: 'A runnable checklist your team can replay without you in the room.',
     },
     {
-      title: 'Receipts in the ANX Vault',
+      title: 'Receipts in your secure delivery folder',
       description: 'Logs, screenshots, commands, and proofs organized for audits, partners, and future upgrades.',
     },
   ];
@@ -225,11 +225,11 @@ function HowWeProve() {
     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
       <h2 className="text-xl font-bold mb-3">How we prove the work</h2>
       <p className="text-muted-foreground mb-4">
-        We deliver through ProofLoop, a verification system that produces a pass/fail verdict with receipts.
-        Your project gets a dedicated evidence pack stored in the ANX Vault.
+        Every engagement includes deployment verification — a pass/fail check with receipts.
+        Your project gets a dedicated evidence pack stored in your secure delivery folder.
       </p>
 
-      <h3 className="font-semibold text-sm mb-2">ProofLoop pack includes:</h3>
+      <h3 className="font-semibold text-sm mb-2">Verification pack includes:</h3>
       <ul className="space-y-2 mb-4">
         {receipts.map((item, i) => (
           <li key={i} className="flex items-start gap-2 text-sm">
@@ -243,7 +243,7 @@ function HowWeProve() {
         href="/tools/sample-receipt"
         className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700"
       >
-        See a Sample ProofLoop Receipt (redacted) →
+        See a Sample Verification Receipt (redacted) →
       </Link>
     </div>
   );
@@ -253,8 +253,8 @@ function Timeline() {
   const steps = [
     { time: 'Hour 0–4', description: 'Intake, access, baseline checks, confirm what "working" means' },
     { time: 'Hour 4–24', description: 'Find the leak, isolate root cause, implement fix, create receipts' },
-    { time: 'Hour 24–36', description: 'Verification loop, regression checks, finalize ProofLoop pack' },
-    { time: 'Hour 36–48', description: 'Handoff call, ANX Vault delivery, next-step recommendations' },
+    { time: 'Hour 24–36', description: 'Verification loop, regression checks, finalize deployment verification pack' },
+    { time: 'Hour 36–48', description: 'Handoff call, secure delivery folder handoff, next-step recommendations' },
   ];
 
   return (
@@ -387,8 +387,8 @@ function Pricing() {
         <p className="text-sm font-semibold mb-2">What&apos;s included:</p>
         <ul className="text-sm space-y-1 text-muted-foreground">
           <li>✓ Complete system setup + fix</li>
-          <li>✓ ProofLoop receipt pack</li>
-          <li>✓ ANX Vault delivery folder</li>
+          <li>✓ Deployment verification receipt pack</li>
+          <li>✓ Secure delivery folder</li>
           <li>✓ 48-hour delivery guarantee</li>
           <li>✓ Handoff call + documentation</li>
         </ul>
@@ -453,7 +453,7 @@ function BottomCTA() {
     <section className="max-w-2xl mx-auto mt-20 text-center bg-command-navy text-white rounded-xl p-8">
       <h2 className="text-2xl font-bold mb-4">Stop losing leads this week.</h2>
       <p className="text-gray-300 mb-4">
-        Book the 10-minute access check. If we can&apos;t run ProofLoop, we don&apos;t take the sprint.
+        Book the 10-minute access check. If we can&apos;t verify the fix, we don&apos;t take the sprint.
       </p>
       <p className="text-slate-grey text-sm mb-6">
         If the leak is outside scope, you get a refund path or a clear next step.
@@ -469,7 +469,7 @@ function BottomCTA() {
           href="/tools/sample-receipt"
           className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-all"
         >
-          See a redacted ProofLoop receipt
+          See a redacted verification receipt
         </Link>
       </div>
     </section>
