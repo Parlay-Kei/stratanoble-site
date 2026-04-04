@@ -4,7 +4,7 @@ import { QSuiteHero, ModuleShowcase, QSuitePricing } from '@/components/q-suite'
 
 export const metadata: Metadata = {
   title: 'Q SUITE | Strata Noble',
-  description: 'Operational control system for service businesses — five modules, clear licensing, installed through consulting.',
+  description: 'Business tools for service businesses — five modules, clear licensing, installed through consulting.',
 };
 
 export default function QSuitePage() {
@@ -19,7 +19,7 @@ export default function QSuitePage() {
             <h2 className="text-xl font-bold text-command-navy">How you get Q SUITE</h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
               Q SUITE is installed through a consulting engagement. We configure it for your business, train your
-              team, and hand over the keys — with documentation and ProofLoop receipts.
+              team, and hand over the keys — with documentation and deployment verification receipts.
             </p>
           </div>
           <div>
