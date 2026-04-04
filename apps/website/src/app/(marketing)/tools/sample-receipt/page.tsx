@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Sample ProofLoop Receipt | Strata Noble',
-  description: 'See what a ProofLoop verification receipt pack looks like. Build receipts, runtime health, smoke tests, and handoff documentation.',
+  title: 'Sample Verification Receipt | Strata Noble',
+  description: 'See what a deployment verification receipt pack looks like. Build receipts, runtime health, smoke tests, and handoff documentation.',
 };
 
 /**
- * Sample ProofLoop Receipt Page
+ * Sample Verification Receipt Page
  *
  * Shows a redacted example of what clients receive after a Lead Rescue or Pipeline Buildout.
  * This is the trust weapon - proof that we deliver with receipts.
@@ -22,7 +22,7 @@ export default function SampleReceiptPage() {
           <Link href="/tools" className="text-sm text-slate-grey hover:text-white mb-4 inline-block">
             ← Back to Tools
           </Link>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Sample ProofLoop Receipt Pack</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">Sample Verification Receipt Pack</h1>
           <p className="text-gray-300">
             This is what you receive after every Lead Rescue or Pipeline Buildout. Redacted for privacy.
           </p>
@@ -30,10 +30,10 @@ export default function SampleReceiptPage() {
       </section>
 
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
-        {/* ProofLoop Status */}
-        <ReceiptCard title="PROOFLOOP_STATUS.md">
+        {/* Deployment verification status */}
+        <ReceiptCard title="VERIFICATION_STATUS.md">
           <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono">
-{`# ProofLoop Verification Status
+{`# Deployment Verification Status
 Project: [REDACTED] Lead Rescue
 Date: 2026-01-03
 Verdict: ✅ PASS
@@ -114,11 +114,11 @@ All DNS configurations verified.`}
         </ReceiptCard>
 
         {/* Folder Structure */}
-        <ReceiptCard title="ANX Vault Folder Structure">
+        <ReceiptCard title="Secure Delivery Folder Structure">
           <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono">
 {`📁 [CLIENT]_Lead_Rescue_2026-01-03/
 ├── 📁 receipts/
-│   ├── PROOFLOOP_STATUS.md
+│   ├── VERIFICATION_STATUS.md
 │   ├── build_receipt.txt
 │   ├── runtime_health_receipt.txt
 │   ├── smoke_test_receipts.md
@@ -139,7 +139,7 @@ All DNS configurations verified.`}
         <div className="bg-command-navy text-white rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Ready to get your own receipt pack?</h2>
           <p className="text-gray-300 mb-6">
-            Every Lead Rescue includes a ProofLoop verification pack stored in your ANX Vault.
+            Every Lead Rescue includes a deployment verification pack stored in your secure delivery folder.
           </p>
           <Link
             href="/lead-rescue"

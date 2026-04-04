@@ -16,7 +16,7 @@ export function buildGlobalJsonLdGraph() {
         url: SITE,
         logo: `${SITE}/stratanoble_logoICON.svg`,
         description:
-          'Operational infrastructure for service businesses. Intake, revenue visibility, and execution control — built on the same Q Suite system we run internally.',
+          'Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures.',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Las Vegas',
@@ -53,7 +53,7 @@ export function buildGlobalJsonLdGraph() {
         '@id': `${SITE}/#service-pipeline-buildout`,
         name: '21-Day Pipeline Buildout',
         description:
-          'Complete lead-to-customer pipeline infrastructure with multi-stage deal tracking, automated nurture sequences, and ProofLoop verification.',
+          'Complete lead-to-customer pipeline: capture, follow-up automation, deal tracking, and a full record of everything we built and delivered.',
         provider: { '@id': `${SITE}/#organization` },
         url: `${SITE}/pipeline-buildout`,
       },
@@ -64,7 +64,7 @@ export function buildGlobalJsonLdGraph() {
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description:
-          'Internal operating system for intake, revenue visibility, and execution control — the same stack Strata Noble runs on stratanoble.com.',
+          'Business tools for client tracking, revenue tracking, follow-up, and secure credential storage — the same set we use to run Strata Noble.',
         offers: {
           '@type': 'Offer',
           url: `${SITE}/q-suite`,
