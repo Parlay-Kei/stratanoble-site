@@ -37,7 +37,7 @@ export function SmartConsultingBar() {
               </motion.div>
               <div className="text-sm font-medium">
                 <span className="hidden sm:inline">
-                  <strong>Free Lead Diagnostic</strong> — 48-hour turnaround. We show you where you're losing leads before you spend a dollar.
+                  <strong>Free Lead Diagnostic</strong> — 48-hour turnaround. We show you where you&apos;re losing leads before you spend a dollar.
                 </span>
                 <span className="sm:hidden">
                   <strong>Free diagnostic</strong> — 48-hour turnaround.
