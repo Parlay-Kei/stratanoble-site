@@ -56,8 +56,7 @@ export function SiteFooter() {
           <div className="space-y-8 xl:col-span-1">
             <Logo className="h-16 w-auto" theme="white" />
             <p className="text-sm leading-6 text-slate-grey">
-              Operational infrastructure for service businesses.
-              Scoped engagements. Delivered systems. You own it.
+              We build and run revenue-producing digital infrastructure for service businesses and early-stage ventures.
             </p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
@@ -155,7 +154,7 @@ export function SiteFooter() {
               &copy; {new Date().getFullYear()} Strata Noble. All rights reserved.
             </p>
             <p className="text-xs text-slate-grey">
-              Operational control systems for service businesses.
+              Build and operations studio for service businesses.
             </p>
           </div>
         </div>

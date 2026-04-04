@@ -15,7 +15,7 @@ import { Logo } from '../Logo'
 const navigation = [
   { name: 'Home', href: '/', description: 'Strata Noble' },
   { name: 'Services', href: '/services', description: 'Consulting engagements' },
-  { name: 'Q SUITE', href: '/q-suite', description: 'Operational control system' },
+  { name: 'Q SUITE', href: '/q-suite', description: 'Business tools we built and use ourselves' },
   { name: 'ACHIEVERY', href: '/achievery', description: 'Goals and accountability' },
   { name: 'About', href: '/about', description: 'Who we are' },
   { name: 'Proof', href: '/proof', description: 'Case studies & ecosystem' },
@@ -112,7 +112,7 @@ export function SiteNav() {
                   className="block rounded-sm px-4 py-4 text-center text-white font-semibold bg-forest-green hover:opacity-90 transition-opacity duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Free Pipeline Diagnostic — 48-Hour Turnaround
+                  Free Lead Diagnostic — 48-Hour Turnaround
                 </Link>
               </div>
 
