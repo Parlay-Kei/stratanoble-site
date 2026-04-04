@@ -105,7 +105,7 @@ export function LeadLeakCalculator() {
         )}
 
         <p className="text-[10px] text-muted-foreground mt-2 italic">
-          Estimate. ProofLoop finds the real leak.
+          Estimate. Our diagnostic finds the real leak.
         </p>
       </div>
 
@@ -115,7 +115,7 @@ export function LeadLeakCalculator() {
           href="#form"
           className="block w-full text-center bg-red-600 text-white py-3 px-4 rounded-lg font-semibold text-sm hover:bg-red-700 transition-colors"
         >
-          Run ProofLoop on my site
+          Run a diagnostic on my site
         </a>
       </div>
     </div>
