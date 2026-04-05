@@ -1,19 +1,19 @@
 const steps = [
   {
     title: 'We review your business',
-    body: 'Free, 48-hour review of how your business captures and follows up with leads — we tell you exactly where money is slipping through the cracks.',
+    body: 'Free, 48-hour diagnostic of how your business captures, follows up with, and converts leads. We show you exactly where money is leaking.',
+  },
+  {
+    title: 'We scope and price the fix',
+    body: 'No surprises. You get a fixed scope, clear price, and timeline before any work starts. Lead Rescue for quick fixes, Pipeline Buildout for the full system.',
   },
   {
     title: 'We build your system',
-    body: 'We build and set up the right tools for your business in 21 days or less. No templates — configured for how you actually work.',
+    body: 'Your infrastructure gets built and configured for how you actually work. Not a template. Delivered in 21 days or less.',
   },
   {
     title: 'You run it, we support it',
-    body: 'Your team uses the platform daily. We are available monthly to keep things running smoothly.',
-  },
-  {
-    title: 'You see what is working',
-    body: 'Clear reporting shows you which clients, offers, and channels are actually making you money.',
+    body: 'Your team uses the system daily. Optional monthly support keeps everything running, optimized, and reporting clearly.',
   },
 ] as const;
 

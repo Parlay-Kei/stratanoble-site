@@ -6,7 +6,7 @@ export function EcosystemProof() {
       <div className="mx-auto max-w-6xl">
         <h2 className="text-xl font-bold text-white md:text-2xl">What we have actually built</h2>
         <p className="mt-2 max-w-xl text-sm text-slate-500">
-          Real systems, live products, and working platforms — not pitch deck mockups.
+          Real systems, live products, and working platforms. Not pitch deck mockups.
         </p>
         <div className="mt-8 flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-3">
           {ECOSYSTEM_PROOF.map((item) => (

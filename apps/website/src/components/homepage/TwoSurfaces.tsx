@@ -2,38 +2,30 @@ import Link from 'next/link';
 
 const surfaces = [
   {
-    title: 'Build & Operations',
+    title: "Fix What's Leaking",
     subtitle:
-      'We build your website, client portal, or platform — then set up the systems behind it so your business actually runs. Fixed scope, clear price.',
-    cta: 'See what we build',
-    href: '/services',
+      'A fast, targeted intervention for businesses that are getting leads but losing them to broken follow-up, slow intake, or missing systems. Starting at $997.',
+    cta: 'Learn about Lead Rescue',
+    href: '/lead-rescue',
   },
   {
-    title: 'Q SUITE',
+    title: 'Build the Full Pipeline',
     subtitle:
-      'A set of business tools we built and use ourselves — for tracking clients, following up on money owed, and keeping your business organized. From $297/month.',
-    cta: 'Explore Platform',
-    href: '/q-suite',
-  },
-  {
-    title: 'ACHIEVERY',
-    subtitle:
-      'A goal-tracking tool for entrepreneurs and their teams. Set targets, track progress, stay accountable. Free to start.',
-    cta: 'Try Free',
-    href: '/achievery',
+      'End-to-end infrastructure. Lead capture, routing, booking, follow-up automation, review engine, reporting, and SOPs. Delivered in 21 days.',
+    cta: 'See the Pipeline Buildout',
+    href: '/pipeline-buildout',
   },
 ] as const;
 
-export function ThreeSurfaces() {
+export function TwoSurfaces() {
   return (
     <section className="border-y border-slate-grey/20 bg-command-navy py-20 px-4">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-center text-2xl font-bold text-white md:text-3xl">Three ways to work with us</h2>
+        <h2 className="text-center text-2xl font-bold text-white md:text-3xl">Two ways to start</h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-slate-grey">
-          Hands-on builds, a platform you can use daily, and a free tool your team can start using
-          today — no contract required.
+          Whether you need a fast fix or a full build, we scope it, price it, and deliver it.
         </p>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid max-w-4xl mx-auto gap-6 md:grid-cols-2">
           {surfaces.map((card) => (
             <div
               key={card.title}
