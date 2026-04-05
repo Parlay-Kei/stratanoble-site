@@ -20,7 +20,7 @@ const steps = [
     n: 2,
     title: 'Building it',
     whatHappens:
-      'We build everything we agreed on — inside your actual business environment, not a test sandbox. You can see progress the whole way.',
+      'We build everything we agreed on - inside your actual business environment, not a test sandbox. You can see progress the whole way.',
     youProvide: 'Access to the tools we are connecting to. We will let you know if we need anything else.',
     weDeliver: 'A working system, tested and ready for your team to use.',
     timeline: '48 hours for Lead Rescue. Days 3–18 for Pipeline Buildout.',
@@ -33,7 +33,7 @@ const steps = [
       'We walk you through everything we built, give you all the documentation, and make sure your team knows how to use it.',
     youProvide: 'About an hour for a walkthrough call.',
     weDeliver:
-      'Full documentation, video walkthroughs, and a complete record of everything we configured — stored somewhere you control.',
+      'Full documentation, video walkthroughs, and a complete record of everything we configured - stored somewhere you control.',
     timeline: 'Included in the 48-hour window for Lead Rescue. Days 18–21 for Pipeline Buildout.',
     tentative: false,
   },
@@ -78,7 +78,7 @@ export function HowItWorksPageClient() {
             transition={{ delay: 0.05 }}
             className={`rounded-xl p-6 md:p-8 ${
               step.tentative
-                ? 'border border-dashed border-slate-grey/30 bg-void/30'
+                ? 'border border-dashed border-slate-300 bg-slate-50'
                 : 'border border-slate-grey/25 bg-white shadow-sm'
             }`}
           >
@@ -110,7 +110,7 @@ export function HowItWorksPageClient() {
                 </div>
                 {step.tentative && (
                   <p className="text-sm text-muted-foreground pt-2">
-                    Optional — billed at $1,497/month (3-month minimum, then month-to-month).{' '}
+                    Optional - billed at $1,497/month (3-month minimum, then month-to-month).{' '}
                     <Link href="/contact?service=operations-command" className="text-primary font-semibold hover:underline">
                       Contact us
                     </Link>{' '}
@@ -133,7 +133,7 @@ export function HowItWorksPageClient() {
                   <th className="p-4 font-semibold text-command-navy" />
                   <th className="p-4 font-semibold text-command-navy">Lead Rescue</th>
                   <th className="p-4 font-semibold text-command-navy">Pipeline Buildout</th>
-                  <th className="p-4 font-semibold text-command-navy border-l border-dashed border-slate-grey/30 bg-void/50">
+                  <th className="p-4 font-semibold text-command-navy border-l border-dashed border-slate-grey/30 bg-slate-100">
                     Ongoing Support
                   </th>
                 </tr>
@@ -143,23 +143,23 @@ export function HowItWorksPageClient() {
                   <td className="p-4 font-medium text-command-navy">Duration</td>
                   <td className="p-4 text-muted-foreground">48 hours</td>
                   <td className="p-4 text-muted-foreground">21 days</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
                     Ongoing
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Price</td>
                   <td className="p-4 text-muted-foreground">$997</td>
-                  <td className="p-4 text-muted-foreground">Starting at $4,997</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
+                  <td className="p-4 text-muted-foreground">From $2,500</td>
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
                     $1,497/month
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Commitment</td>
-                  <td className="p-4 text-muted-foreground">—</td>
+                  <td className="p-4 text-muted-foreground">None</td>
                   <td className="p-4 text-muted-foreground">Per engagement scope</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
                     3-month minimum, month-to-month after
                   </td>
                 </tr>
@@ -167,7 +167,7 @@ export function HowItWorksPageClient() {
                   <td className="p-4 font-medium text-command-navy">Scope</td>
                   <td className="p-4 text-muted-foreground">Find and fix where you are losing leads</td>
                   <td className="p-4 text-muted-foreground">Full system, built from scratch</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
                     Monthly maintenance and check-ins
                   </td>
                 </tr>
@@ -175,7 +175,7 @@ export function HowItWorksPageClient() {
                   <td className="p-4 font-medium text-command-navy">Handoff</td>
                   <td className="p-4 text-muted-foreground">Full write-up of what we fixed</td>
                   <td className="p-4 text-muted-foreground">Complete documentation package</td>
-                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-void/40">
+                  <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
                     Weekly review notes
                   </td>
                 </tr>
