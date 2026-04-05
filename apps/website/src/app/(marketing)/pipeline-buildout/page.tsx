@@ -24,11 +24,11 @@ const PIPELINE_BUILDOUT_FAQS = [
   },
   {
     q: "What don't you do?",
-    a: "We don't do branding, website design, or content creation. This is pure pipeline infrastructure—the system that turns leads into customers.",
+    a: "We don't do branding, website design, or content creation. This is pure pipeline infrastructure - the system that turns leads into customers.",
   },
   {
     q: 'What happens after the 21 days?',
-    a: "You own the system. We provide full documentation and training. For businesses that want continued operational partnership, we offer Ongoing Operating Support — weekly reviews, system tuning, and maintained visibility. It's optional, not required.",
+    a: "You own the system. We provide full documentation and training. For businesses that want continued operational partnership, we offer Ongoing Operating Support - weekly reviews, system tuning, and maintained visibility. It's optional, not required.",
   },
   {
     q: 'How is this different from Lead Rescue?',
@@ -229,7 +229,7 @@ function ManualNowAutomationLater() {
       <h2 className="text-2xl font-semibold text-blue-900">Manual Now, Automated Later</h2>
       <p className="text-blue-900">
         We deliver working systems using proven tools (Notion, Zapier, etc.) today. As the Strata
-        Noble platform ships, we migrate your workflows into the unified automation layer—no extra
+        Noble platform ships, we migrate your workflows into the unified automation layer - no extra
         cost, no disruption.
       </p>
       <div className="bg-white rounded-md p-4 border border-blue-200">
@@ -288,7 +288,7 @@ function Investment() {
       <h2 className="text-2xl font-semibold mb-3">Investment</h2>
       <div className="flex items-baseline gap-2">
         <span className="text-sm text-muted-foreground">Starting at</span>
-        <p className="text-3xl font-bold text-primary">$4,997</p>
+        <p className="text-3xl font-bold text-primary">$2,500</p>
       </div>
       <p className="text-sm text-muted-foreground mt-2">One-time fee. No recurring costs.</p>
       <div className="mt-4 pt-4 border-t border-primary/20">
