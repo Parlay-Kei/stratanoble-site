@@ -9,16 +9,15 @@ import Link from 'next/link'
 import { Logo } from '../Logo'
 
 /**
- * Primary IA: Home | Services | Q SUITE | ACHIEVERY | About | Proof | Contact
+ * Primary IA: Home | Services | How It Works | Proof | About | Contact
  */
 
 const navigation = [
   { name: 'Home', href: '/', description: 'Strata Noble' },
-  { name: 'Services', href: '/services', description: 'Consulting engagements' },
-  { name: 'Q SUITE', href: '/q-suite', description: 'Business tools we built and use ourselves' },
-  { name: 'ACHIEVERY', href: '/achievery', description: 'Goals and accountability' },
+  { name: 'Services', href: '/services', description: 'What we build and install' },
+  { name: 'How It Works', href: '/how-it-works', description: 'Our process' },
+  { name: 'Proof', href: '/proof', description: 'What we have shipped' },
   { name: 'About', href: '/about', description: 'Who we are' },
-  { name: 'Proof', href: '/proof', description: 'Case studies & ecosystem' },
   { name: 'Contact', href: '/contact', description: 'Get in touch' },
 ]
 
@@ -112,7 +111,7 @@ export function SiteNav() {
                   className="block rounded-sm px-4 py-4 text-center text-white font-semibold bg-forest-green hover:opacity-90 transition-opacity duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Free Lead Diagnostic — 48-Hour Turnaround
+                  Free Diagnostic. We&apos;ll show you where leads are leaking
                 </Link>
               </div>
 
@@ -191,7 +190,7 @@ export function SiteNav() {
               href="/contact?service=lead-rescue"
               className="ml-2 inline-flex items-center rounded-sm px-3 py-2 text-xs xl:text-sm font-semibold text-white bg-forest-green hover:opacity-90 transition-opacity duration-200 whitespace-nowrap"
             >
-              Free diagnostic
+              Get a Free Diagnostic
             </Link>
           </div>
         </div>
