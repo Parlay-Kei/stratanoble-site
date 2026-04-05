@@ -219,6 +219,8 @@ apps/website/server/openai.key
 # Env files (examples remain tracked)
 **/.env*
 !**/.env.example
+# Tracked Jest stubs (not secrets); see apps/website/.env.test
+!apps/website/.env.test
 
 # --- Custom: Build outputs ---
 # Monorepo-safe build ignores
