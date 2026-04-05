@@ -3,7 +3,7 @@
  */
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { SafeHTML } from '@strata-noble/ui';
+import { SafeHTML } from '@strata-noble/ui/SafeHTML';
 
 describe('SafeHTML (via @strata-noble/ui)', () => {
   it('should render safe HTML content', () => {
