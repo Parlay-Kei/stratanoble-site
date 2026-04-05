@@ -1,7 +1,7 @@
 import {
   MarketingHomeShell,
   HomepageHero,
-  ThreeSurfaces,
+  TwoSurfaces,
   HowItWorks,
   EcosystemProof,
   LeadLeakCheckSection,
@@ -13,7 +13,7 @@ export default function HomePage() {
     <MarketingHomeShell>
       <main className="min-h-screen bg-[#070f1a]">
         <HomepageHero />
-        <ThreeSurfaces />
+        <TwoSurfaces />
         <HowItWorks />
         <EcosystemProof />
         <LeadLeakCheckSection />

@@ -10,9 +10,10 @@ import { Logo } from '../Logo'
 
 const navigation = {
   services: [
+    { name: 'Free Diagnostic', href: '/contact?service=lead-rescue' },
     { name: 'Lead Rescue', href: '/lead-rescue' },
     { name: 'Pipeline Buildout', href: '/pipeline-buildout' },
-    { name: 'Operations Command', href: '/contact?service=operations-command' },
+    { name: 'Operations Support', href: '/contact?service=operations-command' },
   ],
   platform: [
     { name: 'Q SUITE', href: '/q-suite' },
@@ -20,6 +21,7 @@ const navigation = {
   ],
   company: [
     { name: 'About', href: '/about' },
+    { name: 'How It Works', href: '/how-it-works' },
     { name: 'Proof', href: '/proof' },
     { name: 'Contact', href: '/contact' },
     { name: 'Privacy', href: '/privacy' },
@@ -56,7 +58,8 @@ export function SiteFooter() {
           <div className="space-y-8 xl:col-span-1">
             <Logo className="h-16 w-auto" theme="white" />
             <p className="text-sm leading-6 text-slate-grey">
-              We build and run revenue-producing digital infrastructure for service businesses and early-stage ventures.
+              We install the systems that turn leads into booked, paid work. Scoped engagements. Delivered
+              infrastructure. You own it.
             </p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
@@ -154,7 +157,7 @@ export function SiteFooter() {
               &copy; {new Date().getFullYear()} Strata Noble. All rights reserved.
             </p>
             <p className="text-xs text-slate-grey">
-              Build and operations studio for service businesses.
+              Revenue pipeline infrastructure for service businesses.
             </p>
           </div>
         </div>

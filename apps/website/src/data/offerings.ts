@@ -1,5 +1,5 @@
 // ============================================================================
-// STRATA NOBLE — CANONICAL OFFER ARCHITECTURE v2.1.0
+// STRATA NOBLE - CANONICAL OFFER ARCHITECTURE v2.1.0
 // Source of truth: SN-OFFER-ARCHITECTURE.md
 // Last synced: 2026-03-29
 // ============================================================================
@@ -14,30 +14,32 @@ export const CONSULTING_SERVICES = [
     period: 'one-time',
     timeline: '48 hours',
     entryPoint: 'Free diagnostic (48-hour turnaround)',
-    description: 'Audit top 3–5 lead leak points, patch them, install tracking, deliver quick wins.',
+    description:
+      'Narrow, urgent scope: we isolate the worst lead leaks, patch them fast, and get tracking in place so you stop bleeding conversions. Built for speed.',
     deliverables: [
       'Lead flow audit',
       'Patched leak points',
       'Tracking installed',
-      'Deployment verification receipt',
+      'Verification receipt',
     ],
-    cta: 'Get Free Diagnostic',
-    ctaLink: '/contact?service=lead-rescue',
+    cta: 'Get Your Free Diagnostic',
+    ctaLink: '/contact?service=diagnostic',
   },
   {
     id: 'pipeline-buildout',
     name: '21-Day Pipeline Buildout',
-    price: 4997,
-    priceLabel: '$4,997',
+    price: 2500,
+    priceLabel: 'From $2,500',
     period: 'one-time',
     timeline: '21 days',
-    description: 'End-to-end pipeline infrastructure: lead capture, routing, booking, follow-up automation, review engine, reporting, SOPs.',
+    description:
+      'End-to-end pipeline infrastructure: lead capture, routing, booking, follow-up automation, review engine, reporting, SOPs. Scoped to your business, delivered in 21 days.',
     deliverables: [
       'Complete pipeline system',
       'SOPs',
       'Reporting dashboard',
-      'Deployment verification receipts',
-      'Secure delivery folder handoff',
+      'Verification receipts',
+      'Secure delivery folder',
     ],
     cta: 'Start Your Buildout',
     ctaLink: '/contact?service=pipeline-buildout',
@@ -49,18 +51,18 @@ export const CONSULTING_SERVICES = [
     priceLabel: '$1,497',
     period: '/month',
     commitment: '3-month minimum, month-to-month after',
-    description: 'Monthly Q SUITE monitoring and optimization with dedicated support.',
+    description:
+      'Monthly continuity. We steward your pipeline infrastructure, tune automations, and keep reporting honest so the system keeps working after launch.',
     deliverables: [
-      'Monthly Q SUITE monitoring & optimization',
+      'Monthly monitoring & optimization',
       'One 60-min strategy call per month',
       'Priority Slack/email support (next-business-day)',
-      'Monthly deployment verification report',
+      'Monthly performance report',
       'Minor system adjustments (up to 4 hrs/month)',
-      'Q SUITE Full Suite access included',
+      'Platform access included',
     ],
     cta: 'Apply for Operations Command',
     ctaLink: '/contact?service=operations-command',
-    badge: 'Includes Q SUITE Full Suite',
   },
 ] as const;
 
@@ -155,32 +157,32 @@ export const ECOSYSTEM_PROOF = [
     id: 'direct-cuts',
     name: 'Direct Cuts',
     type: 'Production Marketplace',
-    proves: 'Enterprise-grade engineering — Stripe Connect payments, messaging, subscriptions',
+    proves: 'Enterprise-grade engineering. Stripe Connect payments, messaging, subscriptions.',
     link: 'https://direct-cuts.com',
   },
   {
     id: 'mah',
     name: 'Client: E-Commerce Operator',
     type: 'Full-Stack Implementation',
-    proves: 'Consulting delivery with receipts — Shopify + Supabase + Vercel, QAG-verified',
+    proves: 'Consulting delivery with receipts. Shopify, Supabase, and Vercel. QAG-verified.',
   },
   {
     id: 'dslv',
     name: 'Institutional Advisory',
     type: 'Retainer + Commission Consulting',
-    proves: 'Institutional-scale operations — targeting $60B+ AUM firms',
+    proves: 'Institutional-scale operations. Targeting $60B+ AUM firms.',
   },
   {
     id: 'dna',
     name: 'DNA Creator Intelligence',
     type: 'Intelligence Service',
-    proves: 'Original intelligence products — pattern analysis, data-driven insights',
+    proves: 'Original intelligence products. Pattern analysis, data-driven insights.',
   },
   {
     id: 'q-reil',
     name: 'Summit Realty LV',
     type: 'Vertical Platform',
-    proves: 'Industry-specific Q SUITE deployment — real estate workflows, Gmail integration',
+    proves: 'Industry-specific Q SUITE deployment. Real estate workflows, Gmail integration.',
   },
 ] as const;
 
@@ -197,7 +199,7 @@ export type CatalogEntry =
   | QSuitePlan
   | AchieveryTier;
 
-/** Resolve a catalog id for checkout modal / deep links (no Stripe price IDs in v2 — sales via contact). */
+/** Resolve a catalog id for checkout modal / deep links (no Stripe price IDs in v2; sales via contact). */
 export function getOfferingById(id: string): CatalogEntry | undefined {
   return (
     CONSULTING_SERVICES.find((s) => s.id === id) ??
