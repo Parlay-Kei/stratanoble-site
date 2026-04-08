@@ -2,18 +2,18 @@ import Link from 'next/link';
 
 const surfaces = [
   {
-    title: "Fix What's Leaking",
+    title: 'We build it',
     subtitle:
-      'A fast, targeted intervention for businesses that are getting leads but losing them to broken follow-up, slow intake, or missing systems. Starting at $997.',
-    cta: 'Learn about Lead Rescue',
-    href: '/lead-rescue',
+      'Production websites, client portals, and platforms — scoped to your business, not pulled from a template. From quick fixes starting at $997 to full 21-day pipeline buildouts.',
+    cta: 'See our services',
+    href: '/services',
   },
   {
-    title: 'Build the Full Pipeline',
+    title: 'We run it',
     subtitle:
-      'End-to-end infrastructure. Lead capture, routing, booking, follow-up automation, review engine, reporting, and SOPs. Delivered in 21 days.',
-    cta: 'See the Pipeline Buildout',
-    href: '/pipeline-buildout',
+      'Lead capture, follow-up automation, booking, revenue tracking, and reporting. The systems that keep your business running after launch — installed, monitored, and kept honest.',
+    cta: 'See how it works',
+    href: '/how-it-works',
   },
 ] as const;
 
@@ -21,9 +21,11 @@ export function TwoSurfaces() {
   return (
     <section className="border-y border-slate-grey/20 bg-command-navy py-20 px-4">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-center text-2xl font-bold text-white md:text-3xl">Two ways to start</h2>
+        <h2 className="text-center text-2xl font-bold text-white md:text-3xl">
+          Build it. Run it. You own it.
+        </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-slate-grey">
-          Whether you need a fast fix or a full build, we scope it, price it, and deliver it.
+          Websites, portals, and platforms — plus the systems that keep revenue trackable and operations consistent.
         </p>
         <div className="mt-12 grid max-w-4xl mx-auto gap-6 md:grid-cols-2">
           {surfaces.map((card) => (

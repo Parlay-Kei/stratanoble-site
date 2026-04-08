@@ -1,19 +1,19 @@
 const steps = [
   {
-    title: 'We review your business',
-    body: 'Free, 48-hour diagnostic of how your business captures, follows up with, and converts leads. We show you exactly where money is leaking.',
+    title: 'Discovery',
+    body: 'We review your business — how you get leads, where things break, and what you actually need built. Free 48-hour diagnostic included.',
   },
   {
-    title: 'We scope and price the fix',
-    body: 'No surprises. You get a fixed scope, clear price, and timeline before any work starts. Lead Rescue for quick fixes, Pipeline Buildout for the full system.',
+    title: 'Scope and price',
+    body: 'You get a fixed scope, clear price, and timeline before any work starts. No surprises, no open-ended retainers.',
   },
   {
-    title: 'We build your system',
-    body: 'Your infrastructure gets built and configured for how you actually work. Not a template. Delivered in 21 days or less.',
+    title: 'Build and deliver',
+    body: 'Your system gets built and configured for how you actually work. Production-grade, not a template. Delivered with full documentation.',
   },
   {
-    title: 'You run it, we support it',
-    body: 'Your team uses the system daily. Optional monthly support keeps everything running, optimized, and reporting clearly.',
+    title: 'Run and support',
+    body: 'You own everything we build. Optional monthly support keeps systems running, optimized, and reporting clearly.',
   },
 ] as const;
 
@@ -21,9 +21,9 @@ export function HowItWorks() {
   return (
     <section className="bg-[#070f1a] py-20 px-4 text-white">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-2xl font-bold md:text-3xl">How it works</h2>
+        <h2 className="text-2xl font-bold md:text-3xl">How we work</h2>
         <p className="mt-3 max-w-2xl text-slate-400">
-          A simple, straight path from &ldquo;something is broken&rdquo; to &ldquo;here is your working system.&rdquo;
+          A straight path from what you need to a working system you own.
         </p>
         <ol className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => (
