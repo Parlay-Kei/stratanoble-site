@@ -31,11 +31,11 @@ const methodSteps = [
   },
   {
     title: 'Implementation',
-    body: 'We build and configure everything inside your actual business environment — the same tools and systems we use ourselves.',
+    body: 'We build and configure everything inside your actual business environment using the same tools and systems we use ourselves.',
   },
   {
     title: 'Handoff',
-    body: 'Documentation, a walkthrough, and a complete record of everything we built — so your team can run it without us.',
+    body: 'Documentation, a walkthrough, and a complete record of everything we built, so your team can run it without us.',
   },
   {
     title: 'Ongoing support (optional)',
@@ -77,7 +77,7 @@ export function AboutPageClient() {
           <p className="text-lg text-muted-foreground leading-relaxed">
             Strata Noble is a digital build and venture operations studio. We design and deliver
             production websites, client portals, and marketplace-style platforms for service
-            businesses and emerging ventures of any size — from solo operators to growing teams.
+            businesses and emerging ventures of any size, from solo operators to growing teams.
             We also build and operate the backend systems that make revenue trackable: lead capture,
             client operations, workflow automation, and credential governance.
           </p>
@@ -88,10 +88,10 @@ export function AboutPageClient() {
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
             The platform is called{' '}
-            <Link href="/q-suite" className="font-semibold text-primary hover:underline">
+            <Link href="/q-suite" className="font-bold text-forest-green underline hover:opacity-80">
               Q SUITE
-            </Link>{' '}
-            — a modular operating system covering intake, client operations, revenue intelligence,
+            </Link>
+            , a modular operating system covering intake, client operations, revenue intelligence,
             execution, and credential security. We built it for ourselves first.
           </p>
         </motion.section>
@@ -105,7 +105,7 @@ export function AboutPageClient() {
         >
           <h2 className="text-3xl font-semibold">Operator-Led</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            The firm is led by an operator who has built from the ground up — someone who has done
+            The firm is led by an operator who has built from the ground up. He has done
             the sales work, run client operations, chased invoices, and built the systems he needed
             before making them available to others. Strata Noble exists because the gap between
             &ldquo;I have a business&rdquo; and &ldquo;my business runs properly&rdquo; is the same problem for a solo
@@ -127,7 +127,7 @@ export function AboutPageClient() {
               <ul className="space-y-3 text-muted-foreground text-sm">
                 {comparison.agencies.map((row) => (
                   <li key={row} className="flex gap-2">
-                    <span className="text-slate-grey shrink-0">—</span>
+                    <span className="text-slate-grey shrink-0">·</span>
                     <span>{row}</span>
                   </li>
                 ))}
@@ -138,7 +138,7 @@ export function AboutPageClient() {
               <ul className="space-y-3 text-muted-foreground text-sm">
                 {comparison.crm.map((row) => (
                   <li key={row} className="flex gap-2">
-                    <span className="text-slate-grey shrink-0">—</span>
+                    <span className="text-slate-grey shrink-0">·</span>
                     <span>{row}</span>
                   </li>
                 ))}
@@ -186,7 +186,7 @@ export function AboutPageClient() {
           </div>
           <p className="pt-4">
             <Link href="/how-it-works" className="text-primary font-semibold hover:underline">
-              How we work — timelines, engagement types, and what to expect →
+              How we work: timelines, engagement types, and what to expect →
             </Link>
           </p>
         </motion.section>
@@ -238,7 +238,7 @@ export function AboutPageClient() {
           >
             <h2 className="text-3xl font-bold">Ready to Install Operational Control?</h2>
             <p className="text-muted-foreground mt-2 text-lg">
-              See how our engagements stack — from 48-hour Lead Rescue through full pipeline buildout and Q SUITE.
+              See how our engagements stack, from 48-hour Lead Rescue through full pipeline buildout and Q SUITE.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
               <Link
