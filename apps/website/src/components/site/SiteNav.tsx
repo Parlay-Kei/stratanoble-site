@@ -9,15 +9,16 @@ import Link from 'next/link'
 import { Logo } from '../Logo'
 
 /**
- * Primary IA: Home | Services | How It Works | Proof | About | Contact
+ * Primary IA: Home | Services | Q SUITE | ACHIEVERY | About | Proof | Contact
  */
 
 const navigation = [
   { name: 'Home', href: '/', description: 'Strata Noble' },
-  { name: 'Services', href: '/services', description: 'What we build and install' },
-  { name: 'How It Works', href: '/how-it-works', description: 'Our process' },
-  { name: 'Proof', href: '/proof', description: 'What we have shipped' },
+  { name: 'Services', href: '/services', description: 'Consulting engagements' },
+  { name: 'Q SUITE', href: '/q-suite', description: 'The operational control system' },
+  { name: 'ACHIEVERY', href: '/achievery', description: 'Goals and accountability' },
   { name: 'About', href: '/about', description: 'Who we are' },
+  { name: 'Proof', href: '/proof', description: 'Case studies and ecosystem' },
   { name: 'Contact', href: '/contact', description: 'Get in touch' },
 ]
 
