@@ -1,7 +1,3 @@
-'use client';
-
-import { motion, useReducedMotion } from 'framer-motion';
-
 const steps = [
   {
     title: 'Discovery',
@@ -22,51 +18,21 @@ const steps = [
 ] as const;
 
 export function HowItWorks() {
-  const prefersReduced = useReducedMotion();
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: prefersReduced ? 0 : 0.12 },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: prefersReduced ? 1 : 0, y: prefersReduced ? 0 : 24 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
-    },
-  };
-
   return (
     <section className="relative overflow-hidden bg-[#070f1a] px-4 py-20 text-white">
       <div className="pointer-events-none absolute inset-0 sn-scanlines opacity-[0.22]" aria-hidden />
       <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: prefersReduced ? 1 : 0, y: prefersReduced ? 0 : 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.5 }}
-        >
+        <div>
           <h2 className="text-2xl font-bold md:text-3xl">How we work</h2>
           <p className="mt-3 max-w-2xl text-slate-400">
             A straight path from what you need to a working system you own.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.ol
-          className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-        >
+        <ol className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => (
-            <motion.li
+            <li
               key={step.title}
-              variants={cardVariants}
               className="sn-surface sn-surface-hover group relative rounded-sm p-6"
             >
               <div className="mb-4 flex items-center gap-3">
@@ -77,9 +43,9 @@ export function HowItWorks() {
               </div>
               <h3 className="text-lg font-semibold">{step.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.body}</p>
-            </motion.li>
+            </li>
           ))}
-        </motion.ol>
+        </ol>
       </div>
     </section>
   );

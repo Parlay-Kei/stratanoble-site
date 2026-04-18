@@ -31,17 +31,13 @@ const plexMono = IBM_Plex_Mono({
   variable: '--font-mono',
 });
 
-// Force dynamic rendering to avoid prerender issues with client components in layout
-export const dynamic = 'force-dynamic';
-
-
 export const metadata: Metadata = {
   title: {
     default: 'Strata Noble',
     template: '%s | Strata Noble',
   },
   description:
-    'Operational infrastructure for service businesses. Intake, revenue visibility, and execution control — built on the same Q Suite system we run internally.',
+    'We build and operate lead capture, follow-up, booking, and revenue tracking systems for service businesses. Fixed scope. You own what we build. Free diagnostic included.',
   keywords: [
     'operational infrastructure',
     'business operating system',
@@ -68,11 +64,11 @@ export const metadata: Metadata = {
     url: 'https://stratanoble.com',
     title: 'Strata Noble',
     description:
-      'Operational infrastructure for service businesses. Intake, revenue visibility, and execution control — built on the same Q Suite system we run internally.',
+      'We build and operate lead capture, follow-up, booking, and revenue tracking systems for service businesses. Fixed scope. You own what we build. Free diagnostic included.',
     siteName: 'Strata Noble',
     images: [
       {
-        url: '/img/og-image.svg',
+        url: '/img/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Strata Noble',
@@ -83,8 +79,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Strata Noble',
     description:
-      'Operational infrastructure for service businesses. Intake, revenue visibility, and execution control — built on the same Q Suite system we run internally.',
-    images: ['/img/og-image.svg'],
+      'We build and operate lead capture, follow-up, booking, and revenue tracking systems for service businesses. Fixed scope. You own what we build. Free diagnostic included.',
+    images: ['/img/og-image.png'],
   },
   robots: {
     index: true,

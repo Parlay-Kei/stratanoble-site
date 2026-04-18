@@ -1,11 +1,6 @@
-'use client';
-
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
 
 export function HomepageCTA() {
-  const prefersReduced = useReducedMotion();
-
   return (
     <section className="relative overflow-hidden border-t border-slate-grey/20 bg-command-navy px-4 pb-24 pt-20">
       <div className="pointer-events-none absolute inset-0 sn-scanlines opacity-[0.24]" aria-hidden />
@@ -19,13 +14,7 @@ export function HomepageCTA() {
         aria-hidden
       />
 
-      <motion.div
-        initial={{ opacity: prefersReduced ? 1 : 0, y: prefersReduced ? 0 : 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-        className="sn-surface relative mx-auto max-w-3xl rounded-sm px-8 py-12 text-center text-white"
-      >
+      <div className="sn-surface relative mx-auto max-w-3xl rounded-sm px-8 py-12 text-center text-white">
         <h2 className="font-display text-2xl font-bold md:text-3xl">
           Ready for systems that actually work?
         </h2>
@@ -47,7 +36,7 @@ export function HomepageCTA() {
             Or see how we work →
           </Link>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
