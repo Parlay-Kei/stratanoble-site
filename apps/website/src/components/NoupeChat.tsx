@@ -23,7 +23,10 @@ import Script from 'next/script';
 interface NoupeChatProps {
   /** Show privacy disclosure before loading widget */
   showDisclosure?: boolean;
-  /** Delay in ms before loading widget (default: 3000) */
+  /**
+   * @deprecated loadDelay is no longer used. Widget triggers on first scroll
+   * or 15s idle. Kept for interface compatibility only.
+   */
   loadDelay?: number;
 }
 
@@ -32,20 +35,40 @@ const NOUPE_EMBED_URL = `https://www.jotform.com/agent/${NOUPE_BOT_ID}`;
 
 export default function NoupeChat({
   showDisclosure = true,
-  loadDelay = 3000
+  loadDelay: _loadDelay
 }: NoupeChatProps) {
+  void _loadDelay;
   const [shouldLoad, setShouldLoad] = useState(false);
   const [hasConsented, setHasConsented] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Lazy load: wait for page to be interactive before loading widget
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Prior-consent users: load immediately — they already accepted the disclosure.
+    if (typeof window !== 'undefined' && localStorage.getItem('noupe-chat-consent') === 'true') {
       setShouldLoad(true);
-    }, loadDelay);
+      return;
+    }
 
-    return () => clearTimeout(timer);
-  }, [loadDelay]);
+    // New visitors: trigger on first scroll, with 15s idle fallback.
+    // This keeps the consent modal off-screen during the crawler capture window.
+    let triggered = false;
+
+    const trigger = () => {
+      if (triggered) return;
+      triggered = true;
+      setShouldLoad(true);
+      window.removeEventListener('scroll', trigger);
+      clearTimeout(idleTimer);
+    };
+
+    const idleTimer = setTimeout(trigger, 15000);
+    window.addEventListener('scroll', trigger, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', trigger);
+      clearTimeout(idleTimer);
+    };
+  }, []);
 
   // Check for prior consent in localStorage
   useEffect(() => {

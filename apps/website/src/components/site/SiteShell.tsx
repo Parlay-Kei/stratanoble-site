@@ -29,7 +29,7 @@ export function SiteShell({ children, disableChat = false }: SiteShellProps) {
       <SiteNav />
       {children}
       <SiteFooter />
-      {!disableChat && <NoupeChatWrapper showDisclosure={true} loadDelay={3000} />}
+      {!disableChat && <NoupeChatWrapper showDisclosure={true} />}
     </>
   )
 }
