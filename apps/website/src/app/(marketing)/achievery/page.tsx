@@ -1,5 +1,10 @@
 import { Metadata } from 'next';
-import { AchieveryHero, AchieveryPricing, AchieveryIAP } from '@/components/achievery-marketing';
+import {
+  AchieveryHero,
+  AchieveryPricing,
+  AchieveryIAP,
+  AchieveryEarlyAccessEmbed,
+} from '@/components/achievery-marketing';
 
 export const metadata: Metadata = {
   title: 'ACHIEVERY | Strata Noble',
@@ -21,6 +26,7 @@ export default function AchieveryMarketingPage() {
       </section>
       <AchieveryPricing />
       <AchieveryIAP />
+      <AchieveryEarlyAccessEmbed />
     </>
   );
 }
