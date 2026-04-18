@@ -65,44 +65,12 @@ jobs:
         with:
           directory: apps/platform/coverage
   
-  e2e:
-    runs-on: ubuntu-latest
-    needs: ci
-    if: github.event_name == 'pull_request'
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: |
-          npm ci
-          cd apps/platform && npm ci
-          cd packages/ui && npm ci
-          cd packages/utils && npm ci --legacy-peer-deps
-      
-      - name: Install Playwright
-        run: cd apps/platform && npm run e2e:install
-      
-      - name: Run E2E tests
-        run: cd apps/platform && npm run e2e
-        env:
-          CI: true
-      
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: playwright-results
-          path: apps/platform/playwright-report/
-          retention-days: 7
-  
+  # The standalone `e2e` job that previously lived here was a duplicate of the
+  # dedicated `.github/workflows/e2e.yml` workflow, but with no Supabase env
+  # configuration — so it always failed on `npm run e2e` against an unreachable
+  # backend. Removed in favor of the single `e2e` workflow, which gates itself
+  # on E2E_SUPABASE_URL being present (see apps/platform/E2E_SEED_SETUP.md).
+
   security:
     runs-on: ubuntu-latest
     needs: ci

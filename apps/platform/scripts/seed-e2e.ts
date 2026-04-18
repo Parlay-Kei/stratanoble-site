@@ -17,8 +17,19 @@ const INCOMPLETE_EMAIL = process.env.E2E_INCOMPLETE_EMAIL || "e2e.incomplete@ach
 const INCOMPLETE_PASSWORD = process.env.E2E_INCOMPLETE_PASSWORD || "ChangeMe-Incomplete-123!";
 
 // SAFETY CHECKS
+// In CI, missing secrets are not a hard failure: we want PRs from forks (or branches
+// where the E2E Supabase project has not been provisioned yet) to surface a clear
+// warning and skip cleanly rather than fail the whole workflow. The dedicated e2e
+// workflow also guards the Playwright run on the same env var, so skipping here
+// produces a no-op job that the merge button can ignore.
+// To run the seeder locally, populate apps/platform/.env.e2e (see E2E_SEED_SETUP.md).
 if (!URL || !SERVICE_KEY) {
-  throw new Error("Missing E2E_SUPABASE_URL or E2E_SUPABASE_SERVICE_ROLE_KEY");
+  // eslint-disable-next-line no-console
+  console.warn(
+    "[seed-e2e] Skipping: E2E_SUPABASE_URL or E2E_SUPABASE_SERVICE_ROLE_KEY not set. " +
+      "If this is CI, configure GitHub Actions secrets per apps/platform/E2E_SEED_SETUP.md.",
+  );
+  process.exit(0);
 }
 
 // CRITICAL: Prevent running against production
