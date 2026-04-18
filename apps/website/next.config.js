@@ -42,6 +42,15 @@ const nextConfig = {
     ].join('; ');
 
     return [
+      ...(!dev ? [{
+        source: '/(|about|contact|lead-rescue|pipeline-buildout|services|how-it-works|proof|q-suite|tools|achievery|privacy|terms|accessibility|cookies)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate',
+          },
+        ],
+      }] : []),
       {
         source: '/(.*)',
         headers: [
