@@ -7,10 +7,23 @@ on:
 jobs:
   test-e2e:
     runs-on: ubuntu-latest
+    # Lift secret to job-level env so subsequent step `if:` expressions can read it.
+    # GitHub does not expose `secrets.*` to step `if:` directly, so this indirection
+    # is required to gate steps on whether the E2E Supabase project has been
+    # provisioned (see apps/platform/E2E_SEED_SETUP.md).
+    env:
+      E2E_SUPABASE_URL: ${{ secrets.E2E_SUPABASE_URL }}
     steps:
+      - name: Skip notice (E2E secrets not configured)
+        if: env.E2E_SUPABASE_URL == ''
+        run: |
+          echo "::warning::E2E_SUPABASE_URL not configured — skipping E2E suite. Configure GitHub Actions secrets per apps/platform/E2E_SEED_SETUP.md to enable."
+
       - uses: actions/checkout@v6
+        if: env.E2E_SUPABASE_URL != ''
 
       - name: Use Node.js 20.x
+        if: env.E2E_SUPABASE_URL != ''
         uses: actions/setup-node@v6
         with:
           node-version: 20.x
@@ -20,14 +33,17 @@ jobs:
             apps/platform/package-lock.json
 
       - name: Install platform dependencies
+        if: env.E2E_SUPABASE_URL != ''
         working-directory: apps/platform
         run: npm ci --legacy-peer-deps
 
       - name: Install Playwright browsers
+        if: env.E2E_SUPABASE_URL != ''
         working-directory: apps/platform
         run: npx playwright install --with-deps
 
       - name: Seed E2E test users
+        if: env.E2E_SUPABASE_URL != ''
         working-directory: apps/platform
         run: npm run seed:e2e
         env:
@@ -39,6 +55,7 @@ jobs:
           E2E_INCOMPLETE_PASSWORD: ${{ secrets.E2E_INCOMPLETE_PASSWORD }}
 
       - name: Run E2E smoke test
+        if: env.E2E_SUPABASE_URL != ''
         working-directory: apps/platform
         run: npm run e2e
         env:
