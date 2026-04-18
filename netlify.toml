@@ -95,3 +95,83 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Marketing page cache control.
+# Overrides Netlify Next.js plugin default on prerendered routes.
+# s-maxage=3600: CDN revalidates hourly.
+# stale-while-revalidate=86400: serve stale up to 24h while fetching fresh.
+# max-age=0: browser always revalidates on navigation.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/about"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/contact"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/lead-rescue"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/pipeline-buildout"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/services"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/how-it-works"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/proof"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/q-suite"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/tools"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/achievery"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/privacy"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/terms"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/accessibility"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
+
+[[headers]]
+  for = "/cookies"
+  [headers.values]
+    Cache-Control = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate"
