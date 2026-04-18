@@ -40,6 +40,45 @@ export function buildGlobalJsonLdGraph() {
         publisher: { '@id': `${SITE}/#organization` },
       },
       {
+        '@type': 'WebPage',
+        '@id': `${SITE}/#homepage`,
+        url: SITE,
+        name: 'Strata Noble — Revenue Pipeline Infrastructure for Service Businesses',
+        description:
+          'We build and operate lead capture, follow-up automation, and revenue tracking systems for service businesses. Free diagnostic included.',
+        isPartOf: { '@id': `${SITE}/#website` },
+        about: { '@id': `${SITE}/#organization` },
+        inLanguage: 'en-US',
+      },
+      {
+        '@type': 'HowTo',
+        '@id': `${SITE}/#how-we-work`,
+        name: 'How Strata Noble Works',
+        description: 'From diagnostic to delivered systems in four steps.',
+        step: [
+          {
+            '@type': 'HowToStep',
+            name: 'Discovery',
+            text: 'We review your business — how you get leads, where things break, and what you actually need built. Free 48-hour diagnostic included.',
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Scope and price',
+            text: 'You get a fixed scope, clear price, and timeline before any work starts. No surprises, no open-ended retainers.',
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Build and deliver',
+            text: 'Your system gets built and configured for how you actually work. Production-grade, not a template. Delivered with full documentation.',
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Run and support',
+            text: 'You own everything we build. Optional monthly support keeps systems running, optimized, and reporting clearly.',
+          },
+        ],
+      },
+      {
         '@type': 'Service',
         '@id': `${SITE}/#service-lead-rescue`,
         name: '48-Hour Lead Rescue',
