@@ -28,17 +28,17 @@ export function HomepageHero() {
         <div className="mb-8 flex justify-center">
           <span className="sn-shimmer-line inline-flex items-center gap-2 rounded-sm border border-forest-green/35 bg-forest-green/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-field-sage">
             <span className="hero-status-dot" aria-hidden />
-            Systems Operational
+            Free diagnostic. 48-hour turnaround.
           </span>
         </div>
 
         <h1 className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-[2.95rem] lg:leading-[1.1]">
-          Better systems. Better business.
+          Stop losing the leads you already paid for.
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-grey md:text-xl">
-          We build and operate revenue-producing digital infrastructure for service businesses and
-          early-stage ventures.
+          We install lead capture, follow-up, booking, and reporting systems for service businesses.
+          Fixed scope. Fast delivery. You own everything we build.
         </p>
 
         <div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
