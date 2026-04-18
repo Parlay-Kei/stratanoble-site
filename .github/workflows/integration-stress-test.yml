@@ -33,10 +33,10 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     
-    - name: Use Node.js 20.x
+    - name: Use Node.js 22.x
       uses: actions/setup-node@v6
       with:
-        node-version: 20.x
+        node-version: 22.x
         cache: 'npm'
         cache-dependency-path: |
           package-lock.json
@@ -50,13 +50,9 @@ jobs:
       run: npm install --legacy-peer-deps
 
     - name: Install Supabase CLI
-      run: |
-        if ! command -v supabase &> /dev/null; then
-          curl -sSL https://github.com/supabase/cli/releases/latest/download/supabase_linux_amd64.tar.gz | tar -xz
-          sudo mv supabase /usr/local/bin/
-        else
-          echo "Supabase CLI already installed: $(supabase --version)"
-        fi
+      uses: supabase/setup-cli@v1
+      with:
+        version: latest
 
     - name: Hard reset Supabase (clean state)
       run: |

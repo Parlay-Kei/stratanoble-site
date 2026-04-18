@@ -1,0 +1,13 @@
+docs(platops): add PLATOPS-SN-GHA-DEPENDABOT-0082 receipt + DC triage artifacts
+
+Receipt documents the P1 sweep:
+  - 3 SN GHA failure surfaces (lockfile drift, e2e seed missing
+    Dependabot secrets, stress-test Supabase CLI)
+  - Node.js 20 -> 22 migration ahead of Vercel deadline 2026-06-02
+  - 20 DC Dependabot PRs triaged: 9 squash-merged, 11 labeled
+    review-required with per-PR reason comments
+
+Receipt: receipts/platops/PLATOPS-SN-GHA-DEPENDABOT-0082_2026-04-18.md
+Triage: .planning/PLATOPS-0082/dc-pr-triage.md
+Per-PR comment text: .planning/PLATOPS-0082/dc-pr-comments.json
+Extracted patch (pre-pause): .planning/PLATOPS-0082/stress-test-supabase-cli.patch
