@@ -1,6 +1,7 @@
 import {
   MarketingHomeShell,
   HomepageHero,
+  ProofBar,
   TwoSurfaces,
   HowItWorks,
   EcosystemProof,
@@ -43,6 +44,7 @@ export default function HomePage() {
       />
       <main className="min-h-screen bg-[#070f1a]">
         <HomepageHero />
+        <ProofBar />
         <TwoSurfaces />
         <HowItWorks />
         <EcosystemProof />

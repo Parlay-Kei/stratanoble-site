@@ -6,9 +6,9 @@ export function EcosystemProof() {
       <div className="pointer-events-none absolute inset-0 sn-ambient-vignette opacity-60" aria-hidden />
       <div className="mx-auto max-w-6xl">
         <div>
-          <h2 className="text-xl font-bold text-white md:text-2xl">What we have actually built</h2>
+          <h2 className="text-xl font-bold text-white md:text-2xl">Work we have delivered</h2>
           <p className="mt-2 max-w-xl text-sm text-slate-500">
-            Real systems, live products, and working platforms. Not pitch deck mockups.
+            Every engagement below was scoped, built, and handed off. Real delivery. Real clients. Receipts on file.
           </p>
         </div>
 
