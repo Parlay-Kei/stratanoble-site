@@ -33,12 +33,13 @@ export function HomepageHero() {
         </div>
 
         <h1 className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-[2.95rem] lg:leading-[1.1]">
-          Stop losing the leads you already paid for.
+          Build the business behind the business.
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-grey md:text-xl">
-          We install lead capture, follow-up, booking, and reporting systems for service businesses.
-          Fixed scope. Fast delivery. You own everything we build.
+          We install the systems that let your business run without you in every conversation.
+          Lead capture, follow-up, booking, and reporting, built for how you actually work.
+          Fixed scope. You own everything we build.
         </p>
 
         <div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
