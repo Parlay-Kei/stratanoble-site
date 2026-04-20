@@ -3,30 +3,8 @@
 import { useEffect, useState } from 'react';
 import Script from 'next/script';
 
-/**
- * NoupeChat Component
- *
- * Lazy-loaded Noupe/Jotform chatbot widget with privacy disclosure.
- *
- * Bot ID: 019bee4df58e7b3f98aa9a6fb06b20f08f9f
- * Provider: Noupe (Jotform)
- *
- * Security considerations:
- * - Lazy-loaded to avoid blocking critical rendering path
- * - CSP allowlist required for: *.jotform.com, *.noupe.com
- * - Data transmitted to third-party (Jotform servers)
- * - Conversations delivered to Strata Noble via email
- *
- * @see CSP configuration in next.config.js
- */
-
 interface NoupeChatProps {
-  /** Show privacy disclosure before loading widget */
   showDisclosure?: boolean;
-  /**
-   * @deprecated loadDelay is no longer used. Widget triggers on first scroll
-   * or 15s idle. Kept for interface compatibility only.
-   */
   loadDelay?: number;
 }
 
@@ -43,14 +21,11 @@ export default function NoupeChat({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Prior-consent users: load immediately — they already accepted the disclosure.
     if (typeof window !== 'undefined' && localStorage.getItem('noupe-chat-consent') === 'true') {
       setShouldLoad(true);
       return;
     }
 
-    // New visitors: trigger on first scroll, with 15s idle fallback.
-    // This keeps the consent modal off-screen during the crawler capture window.
     let triggered = false;
 
     const trigger = () => {
@@ -70,7 +45,6 @@ export default function NoupeChat({
     };
   }, []);
 
-  // Check for prior consent in localStorage
   useEffect(() => {
     const consent = localStorage.getItem('noupe-chat-consent');
     if (consent === 'true') {
@@ -84,44 +58,52 @@ export default function NoupeChat({
     setIsVisible(true);
   };
 
+  const handleDismiss = () => {
+    setShouldLoad(false);
+  };
+
   const toggleChat = () => {
     if (!hasConsented && showDisclosure) {
-      // Show disclosure first
       return;
     }
     setIsVisible(!isVisible);
   };
 
-  // Don't render anything until ready to load
   if (!shouldLoad) {
     return null;
   }
 
   return (
     <>
-      {/* Disclosure overlay for first-time users */}
       {showDisclosure && !hasConsented && (
         <div
           className="fixed bottom-20 right-4 z-50 max-w-sm bg-white rounded-lg shadow-xl border border-slate-grey/25 p-4"
           role="dialog"
           aria-labelledby="chat-disclosure-title"
         >
-          <h3 id="chat-disclosure-title" className="font-semibold text-gray-900 mb-2">
-            Chat with us
-          </h3>
+          <div className="flex items-start justify-between mb-2">
+            <h3 id="chat-disclosure-title" className="font-semibold text-gray-900">
+              Chat with us
+            </h3>
+            <button
+              onClick={handleDismiss}
+              className="ml-3 text-slate-grey hover:text-gray-700 transition-colors text-lg leading-none"
+              aria-label="Dismiss chat"
+            >
+              ✕
+            </button>
+          </div>
           <p className="text-sm text-gray-600 mb-3">
             This chat is powered by Noupe (Jotform). Please do not submit sensitive
             personal information. Conversation content may be transmitted to a
             third-party service and delivered to Strata Noble via email.
           </p>
-          <div className="flex gap-2">
-            <button
-              onClick={handleConsent}
-              className="flex-1 bg-forest-green text-white text-sm py-2 px-4 rounded-md hover:bg-forest-green transition-colors"
-            >
-              I understand, start chat
-            </button>
-          </div>
+          <button
+            onClick={handleConsent}
+            className="w-full bg-forest-green text-white text-sm py-2 px-4 rounded-md hover:bg-forest-green transition-colors"
+          >
+            I understand, start chat
+          </button>
           <a
             href="/privacy"
             className="block text-xs text-slate-grey mt-2 hover:text-forest-green"
@@ -131,7 +113,6 @@ export default function NoupeChat({
         </div>
       )}
 
-      {/* Chat toggle button */}
       {hasConsented && (
         <button
           onClick={toggleChat}
@@ -150,7 +131,6 @@ export default function NoupeChat({
         </button>
       )}
 
-      {/* Noupe chat iframe - only rendered after consent */}
       {hasConsented && isVisible && (
         <div
           className="fixed bottom-20 right-4 z-50 w-96 h-[500px] bg-white rounded-lg shadow-xl overflow-hidden"
@@ -167,7 +147,6 @@ export default function NoupeChat({
         </div>
       )}
 
-      {/* Jotform script for enhanced features (loaded after consent) */}
       {hasConsented && (
         <Script
           id="jotform-agent"
