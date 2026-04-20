@@ -4,14 +4,14 @@ const surfaces = [
   {
     title: 'We build it',
     subtitle:
-      'Production websites, client portals, and platforms — scoped to your business, not pulled from a template. From quick fixes starting at $997 to full 21-day pipeline buildouts.',
+      'Lead capture, intake forms, booking flows, follow-up sequences, and reporting dashboards. Scoped to your business. Delivered in 48 hours to 21 days. Starting at $997.',
     cta: 'See our services',
     href: '/services',
   },
   {
     title: 'We run it',
     subtitle:
-      'Lead capture, follow-up automation, booking, revenue tracking, and reporting. The systems that keep your business running after launch — installed, monitored, and kept honest.',
+      'After delivery, we stay on to keep systems tuned, automations running, and reporting honest. Monthly support with no lock-in. Cancel any time.',
     cta: 'See how it works',
     href: '/how-it-works',
   },
@@ -24,11 +24,10 @@ export function TwoSurfaces() {
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-white md:text-3xl">
-            Build it. Run it. You own it.
+            The business runs. You lead it.
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-slate-grey">
-            Websites, portals, and platforms — plus the systems that keep revenue trackable and
-            operations consistent.
+            We build what you need and run it after delivery. You own the system either way.
           </p>
         </div>
 

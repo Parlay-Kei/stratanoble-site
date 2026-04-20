@@ -1,19 +1,19 @@
 const steps = [
   {
     title: 'Discovery',
-    body: 'We review your business — how you get leads, where things break, and what you actually need built. Free 48-hour diagnostic included.',
+    body: 'We review your business, how leads come in, where they go quiet, and what is actually costing you money. Free. 48-hour turnaround.',
   },
   {
     title: 'Scope and price',
-    body: 'You get a fixed scope, clear price, and timeline before any work starts. No surprises, no open-ended retainers.',
+    body: 'You get a written scope, a fixed price, and a delivery date before we start. No hourly billing, no scope creep.',
   },
   {
     title: 'Build and deliver',
-    body: 'Your system gets built and configured for how you actually work. Production-grade, not a template. Delivered with full documentation.',
+    body: 'We build the system, configure it for your workflows, and hand it off with full documentation. Production-grade, not a template.',
   },
   {
     title: 'Run and support',
-    body: 'You own everything we build. Optional monthly support keeps systems running, optimized, and reporting clearly.',
+    body: 'You own it the moment it is delivered. Optional monthly support keeps it running and reporting clearly.',
   },
 ] as const;
 
@@ -23,9 +23,9 @@ export function HowItWorks() {
       <div className="pointer-events-none absolute inset-0 sn-scanlines opacity-[0.22]" aria-hidden />
       <div className="mx-auto max-w-6xl">
         <div>
-          <h2 className="text-2xl font-bold md:text-3xl">How we work</h2>
+          <h2 className="text-2xl font-bold md:text-3xl">How we build it</h2>
           <p className="mt-3 max-w-2xl text-slate-400">
-            A straight path from what you need to a working system you own.
+            Four steps from broken to running. No surprises, no open-ended scope.
           </p>
         </div>
 

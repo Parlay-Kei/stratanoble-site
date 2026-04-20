@@ -16,11 +16,11 @@ export function HomepageCTA() {
 
       <div className="sn-surface relative mx-auto max-w-3xl rounded-sm px-8 py-12 text-center text-white">
         <h2 className="font-display text-2xl font-bold md:text-3xl">
-          Ready for systems that actually work?
+          Ready to build the business behind the business?
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-slate-grey">
-          Start with a free diagnostic. We review how your business captures and follows up with
-          leads, show you where things break, and tell you exactly what it costs to fix.
+          Start with a free diagnostic. We review your current setup, identify where leads and
+          revenue are slipping, and tell you exactly what it costs to fix it.
         </p>
         <div className="mt-8 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
           <Link
