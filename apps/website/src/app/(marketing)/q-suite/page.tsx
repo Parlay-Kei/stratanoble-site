@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { QSuiteHero, ModuleShowcase, QSuitePricing } from '@/components/q-suite';
+import { QSuiteHero, ModuleShowcase, QSuitePricing, QSuiteDemoForm } from '@/components/q-suite';
 
 export const metadata: Metadata = {
   title: 'Q SUITE | Strata Noble',
@@ -32,6 +32,7 @@ export default function QSuitePage() {
           </div>
         </div>
       </section>
+      <QSuiteDemoForm />
       <section className="bg-white px-4 py-12">
         <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-4 text-center text-sm text-slate-600 sm:flex-row">
           <Link href="/services" className="font-semibold text-forest-green hover:underline">
