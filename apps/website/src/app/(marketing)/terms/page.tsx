@@ -80,7 +80,22 @@ export default function TermsOfService() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-command-navy mb-4">8. Contact Information</h2>
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">8. Third-Party Platform Integrations</h2>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              Strata Noble operates <strong>Strata Noble Publisher</strong>, an internal content publishing
+              application used to distribute operational and consulting content to third-party social media
+              platforms, including TikTok, via their respective APIs (e.g., the TikTok Content Posting API).
+              Use of Strata Noble Publisher is governed by these Terms of Service.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              By authorizing Strata Noble Publisher to connect to a third-party platform, you grant Strata Noble
+              permission to publish content on your behalf using only the scopes you have explicitly approved.
+              You may revoke this authorization at any time through the relevant platform&apos;s account settings.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-command-navy mb-4">9. Contact Information</h2>
             <p className="text-gray-700 leading-relaxed">
               If you have any questions about these Terms, please contact us at{' '}
               <a href="mailto:legal@stratanoble.com" className="text-forest-green hover:text-forest-green">
