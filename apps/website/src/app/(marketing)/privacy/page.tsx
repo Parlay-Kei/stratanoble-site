@@ -95,6 +95,27 @@ export default function PrivacyPage() {
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-brand-dark dark:text-white mb-4">
+              Third-Party Platform Integrations
+            </h2>
+            <p className="mb-4">
+              Strata Noble operates <strong>Strata Noble Publisher</strong>, an internal content publishing
+              application used to distribute operational and consulting content to third-party social media
+              platforms, including TikTok, via their respective APIs (e.g., the TikTok Content Posting API).
+            </p>
+            <p className="mb-4">
+              When Strata Noble Publisher connects to a third-party platform on your behalf, we request only
+              the minimum permissions required to publish content. We do not store your third-party platform
+              credentials. OAuth access tokens are stored securely and used solely for authorized publishing
+              actions that you explicitly initiate.
+            </p>
+            <p>
+              You may revoke Strata Noble Publisher&apos;s access to any connected platform at any time through
+              that platform&apos;s account settings.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-brand-dark dark:text-white mb-4">
               Contact Us
             </h2>
             <p>
