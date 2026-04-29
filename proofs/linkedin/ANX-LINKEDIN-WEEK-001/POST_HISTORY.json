@@ -1,0 +1,60 @@
+{
+  "mission_id": "ANX-LINKEDIN-WEEK-001",
+  "schema_version": 1,
+  "posts": [
+    {
+      "post_id": "W1-P03",
+      "post_urn": "urn:li:share:7453556041096794113",
+      "permalink": "https://www.linkedin.com/feed/update/urn:li:share:7453556041096794113",
+      "published_at_iso": "2026-04-24T21:30:42Z",
+      "published_at_pt": "2026-04-24T14:30:42-07:00",
+      "author_urn": "urn:li:person:KB8lRvzyIh",
+      "scheduled_day": "Friday",
+      "approval_status": "APPROVED",
+      "steve_decision": "APPROVE",
+      "publish_path": "rest_api_v202604",
+      "linkedin_api_version": "202604",
+      "receipt_path": "proofs/linkedin/ANX-LINKEDIN-WEEK-001/RECEIPT_W1-P03_2026-04-24T21-30-42Z.md",
+      "source": "cowork_claude_session_direct",
+      "incidents": [
+        {
+          "id": "INC-2026-04-24-01",
+          "type": "probe_published_and_deleted",
+          "probe_urn": "urn:li:share:7453555853871194112",
+          "live_seconds": 36,
+          "resolved_at_iso": "2026-04-24T21:30:14Z",
+          "delete_status": 204
+        }
+      ],
+      "t24_snapshot": null,
+      "t24_due_at_iso": "2026-04-25T21:30:42Z"
+    },
+    {
+      "post_id": "W1-P01",
+      "post_urn": "urn:li:share:7454557152544784384",
+      "permalink": "https://www.linkedin.com/feed/update/urn:li:share:7454557152544784384",
+      "published_at_iso": "2026-04-27T15:48:56Z",
+      "published_at_pt": "2026-04-27T08:48:56-07:00",
+      "author_urn": "urn:li:person:KB8lRvzyIh",
+      "scheduled_day": "Monday",
+      "approval_status": "APPROVED",
+      "steve_decision": "APPROVE",
+      "publish_path": "rest_api_social_publisher_mcp",
+      "receipt_path": "proofs/linkedin/ANX-LINKEDIN-WEEK-001/RECEIPT_W1-P01_2026-04-27T15-48-56Z.md",
+      "source": "merlin_task_executor",
+      "t24_snapshot": {
+        "captured_at_iso": "2026-04-28T22:00:00Z",
+        "captured_by": "merlin_task_executor_run45",
+        "screenshot_path": "proofs/linkedin/ANX-LINKEDIN-WEEK-001/W1-P01-t24h-snapshot-2026-04-28.png",
+        "impressions": 23,
+        "reactions": 1,
+        "comments": 1,
+        "reposts": 0,
+        "comment_notes": "1 comment from Dharani S (3rd+) — promotional spam (Commentify tool plug), not organic engagement",
+        "reaction_breakdown": {"like": 1},
+        "profile_viewers_at_snapshot": 23
+      },
+      "t24_due_at_iso": "2026-04-28T15:48:56Z"
+    }
+  ]
+}

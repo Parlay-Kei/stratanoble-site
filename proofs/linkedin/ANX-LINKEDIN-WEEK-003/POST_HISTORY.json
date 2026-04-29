@@ -1,0 +1,49 @@
+{
+  "mission_id": "ANX-LINKEDIN-WEEK-003",
+  "schema_version": 1,
+  "week_start": "2026-05-11",
+  "week_end": "2026-05-15",
+  "approval_batch": "2026-04-26-noon-sweep",
+  "source_file": "docs/linkedin/weeklies/WEEK_003_FINAL_STEVE_APPROVAL.md",
+  "posts": [
+    {
+      "post_id": "W3-P01",
+      "scheduled_day": "Monday",
+      "scheduled_date": "2026-05-11",
+      "pov": "POV-06",
+      "pillar": "TBD",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    },
+    {
+      "post_id": "W3-P02",
+      "scheduled_day": "Wednesday",
+      "scheduled_date": "2026-05-13",
+      "pov": "POV-13",
+      "pillar": "TBD",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    },
+    {
+      "post_id": "W3-P03",
+      "scheduled_day": "Friday",
+      "scheduled_date": "2026-05-15",
+      "pov": "POV-01",
+      "pillar": "TBD",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    }
+  ]
+}

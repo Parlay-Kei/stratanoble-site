@@ -1,0 +1,49 @@
+{
+  "mission_id": "ANX-LINKEDIN-WEEK-002",
+  "schema_version": 1,
+  "week_start": "2026-05-04",
+  "week_end": "2026-05-08",
+  "approval_batch": "2026-04-26-noon-sweep",
+  "source_file": "docs/linkedin/weeklies/WEEK_002_FINAL_STEVE_APPROVAL.md",
+  "posts": [
+    {
+      "post_id": "W2-P01",
+      "scheduled_day": "Monday",
+      "scheduled_date": "2026-05-04",
+      "pov": "POV-05",
+      "pillar": "Customer-Facing Systems",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    },
+    {
+      "post_id": "W2-P02",
+      "scheduled_day": "Wednesday",
+      "scheduled_date": "2026-05-06",
+      "pov": "POV-04",
+      "pillar": "Automation & Custom Solutions",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    },
+    {
+      "post_id": "W2-P03",
+      "scheduled_day": "Friday",
+      "scheduled_date": "2026-05-08",
+      "pov": "POV-09",
+      "pillar": "Reporting & Intelligence",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    }
+  ]
+}
