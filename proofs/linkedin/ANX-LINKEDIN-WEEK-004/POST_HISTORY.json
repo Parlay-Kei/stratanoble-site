@@ -1,0 +1,81 @@
+{
+  "mission_id": "ANX-LINKEDIN-WEEK-004",
+  "schema_version": 1,
+  "week_start": "2026-05-18",
+  "week_end": "2026-05-22",
+  "approval_batch": "2026-04-26-noon-sweep",
+  "source_file": "docs/linkedin/weeklies/WEEK_004_FINAL_STEVE_APPROVAL.md",
+  "format": "5-post-expanded-mf",
+  "posts": [
+    {
+      "post_id": "W4-P01",
+      "scheduled_day": "Monday",
+      "scheduled_date": "2026-05-18",
+      "pov": "POV-14",
+      "pillar": "Operational Workflows",
+      "format": "short-form",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    },
+    {
+      "post_id": "W4-P02",
+      "scheduled_day": "Tuesday",
+      "scheduled_date": "2026-05-19",
+      "pov": "POV-08",
+      "pillar": "Customer-Facing Systems",
+      "format": "carousel-caption",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    },
+    {
+      "post_id": "W4-P03",
+      "scheduled_day": "Wednesday",
+      "scheduled_date": "2026-05-20",
+      "pov": "POV-07",
+      "pillar": "Internal Systems",
+      "format": "short-form",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    },
+    {
+      "post_id": "W4-P04",
+      "scheduled_day": "Thursday",
+      "scheduled_date": "2026-05-21",
+      "pov": "POV-02",
+      "pillar": "Reporting & Intelligence",
+      "format": "long-form",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    },
+    {
+      "post_id": "W4-P05",
+      "scheduled_day": "Friday",
+      "scheduled_date": "2026-05-22",
+      "pov": "POV-10",
+      "pillar": "Automation & Custom Solutions",
+      "format": "short-form",
+      "approval_status": "APPROVED",
+      "published_at_iso": null,
+      "post_urn": null,
+      "permalink": null,
+      "t24_snapshot": null,
+      "t24_due_at_iso": null
+    }
+  ]
+}
