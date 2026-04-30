@@ -61,7 +61,7 @@ Use either:
 | Post ID | Title | Planned Day | Approval Status | Publish Status | Blocker |
 |---|---|---|---|---|---|
 | W1-P01 | The Hidden Cost of Messy Intake | Monday | APPROVED | POSTED 2026-04-27T08:48 PT | urn:li:share:7454557152544784384 |
-| W1-P02 | Why Automation Fails in Small Teams | Wednesday | APPROVED | BLOCKED_PENDING_PUBLISH | Notion API object_not_found for configured database ID |
+| W1-P02 | Why Automation Fails in Small Teams | Wednesday | APPROVED | POSTED 2026-04-29T08:52 PT | urn:li:share:7455282752842756096 |
 | W1-P03 | Revenue Leakage Checklist | Friday | APPROVED | POSTED |  |
 
 ### Week 1 Comment Plan
@@ -78,7 +78,7 @@ Use either:
 
 | Post ID | Permalink | Screenshot Path | Date/Time Posted | 24h Snapshot (impressions/reactions/comments) | Notes |
 |---|---|---|---|---|---|
-| W1-P01 | BLOCKED | BLOCKED | NOT_POSTED | NOT_AVAILABLE | Approved copy preserved for Monday manual/authorized publish |
-| W1-P02 | BLOCKED | BLOCKED | NOT_POSTED | NOT_AVAILABLE | Approved copy preserved for Wednesday manual/authorized publish |
-| W1-P03 | https://www.linkedin.com/feed/update/urn:li:share:7453556041096794113 | N/A — REST API | 2026-04-24T21:30:42Z | PENDING_T24 | Receipt: RECEIPT_W1-P03_2026-04-24T21-30-42Z.md |
+| W1-P01 | https://www.linkedin.com/feed/update/urn:li:share:7454557152544784384 | N/A -- REST API | 2026-04-27T15:48:56Z | 23 impressions / 1 reaction / 1 comment (spam) / 0 reposts -- captured run-45 2026-04-28 | Receipt: RECEIPT_W1-P01_2026-04-27T15-48-56Z.md |
+| W1-P02 | https://www.linkedin.com/feed/update/urn:li:share:7455282752842756096 | N/A -- REST API | 2026-04-29T15:52:27Z | 11 impressions / 7 members reached / 1 reaction / 0 comments / 0 reposts / 0 saves -- captured run-53 2026-04-30T15:52Z | Receipt: RECEIPT_W1-P02_2026-04-29T15-52-27Z.md |
+| W1-P03 | https://www.linkedin.com/feed/update/urn:li:share:7453556041096794113 | N/A — REST API | 2026-04-24T21:30:42Z | 4 impressions / 2 members reached / 0 reactions / 0 comments / 0 reposts -- captured run-53 2026-04-30T16:00Z (5d post-publish; T+24h window was overdue) | Receipt: RECEIPT_W1-P03_2026-04-24T21-30-42Z.md |
 
