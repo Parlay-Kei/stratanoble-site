@@ -1,8 +1,29 @@
-Graphiti MCP tools (search_nodes / add_memory) were not available in this Cursor workspace (no Graphiti server under mcps/).
+OCS-STRATA-NOBLE-GRAPHITI-CODEBASE-AUTHORITY-WRITEBACK-0004 — 2026-05-01
 
-INTENDED MEMORY STRING FOR MANUAL GRAPHiTi / OCS INGEST:
-"Strata Noble canonical local codebase is C:\Dev\10_products\StrataNoble. The legacy folder C:\Dev\00_core\stratanoble-site is quarantined (README_LEGACY_DO_NOT_USE.md; physical rename to _archive pending if path locked). All future Strata Noble website, platform, offer architecture, campaign infrastructure, and business model implementation work must route to the canonical folder unless Steve explicitly authorizes legacy recovery."
+1) GRAPHITI MCP AVAILABILITY
+   NOT AVAILABLE. Verified: no Graphiti MCP server folder under this Cursor
+   workspace mcps/ tree (same layout as prior cleanup sessions: cursor-app-control,
+   cursor-ide-browser, user-anx-ops, user-vercel, user-TestSprite, user-supabase-*,
+   plugin-vercel; no graphiti / Graphiti tools).
 
-REPO-LOCAL SUBSTITUTE (committed):
-- CANONICAL_REPO.md
-- AGENTS.md Hard Limits item 11 updated
+2) GRAPHITI WRITE STATUS
+   NOT EXECUTED — no MCP tool endpoint to call for add_memory / ingest.
+
+3) INTENDED MEMORY FOR MANUAL GRAPHiTi / OCS INGEST (paste verbatim when Graphiti is online)
+   "Strata Noble canonical product codebase is C:\Dev\10_products\StrataNoble.
+   The old stratanoble-site tree at C:\Dev\00_core\stratanoble-site has been
+   archived as C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE and
+   must not be used for product work. Future Strata Noble agents must use the
+   canonical repo only."
+
+4) REPO-LOCAL FALLBACK AUTHORITY (CONFIRMED — remains authoritative until Graphiti writeback succeeds)
+   - AGENTS.md — Hard Limits / canonical codebase rule
+   - CANONICAL_REPO.md — canonical path + legacy quarantine rule
+   - docs/ops/STRATA_NOBLE_CODEBASE_AUTHORITY_AUDIT.md
+   - proofs/strata-noble/REPO-AUTHORITY-CLEANUP-0001/RECEIPT.md
+   - proofs/strata-noble/REPO-AUTHORITY-CLEANUP-0001/CLOSEOUT_ADDENDUM.md
+
+5) ACCEPTANCE (mission 0004)
+   Blocker documented; repo docs above are the active routing authority for agents
+   in this workspace until Graphiti MCP is enabled and memory is ingested manually
+   using the string in section 3.
