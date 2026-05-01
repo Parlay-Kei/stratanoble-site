@@ -59,7 +59,7 @@ Evidence: repo `netlify.toml`, `.github/workflows/*`, Netlify dashboard fields s
 
 | Item | Result |
 | --- | --- |
-| **GitHub push from canonical repo** | **Succeeded** — `main` pushed to `origin/main` at `43710e13642f9d29a2b24f85b2d649222e5ae5cc`. |
+| **GitHub push from canonical repo** | **Succeeded** — `main` pushed to `origin/main` (latest synced SHA: `dce7454b120c0a1f05cad2167ef606e1c1ad8cc3`). |
 | **Netlify API/CLI verification in agent runtime** | **Blocked** — DNS resolution failed for `api.netlify.com` and `registry.npmjs.org`; local `netlify` command in this runtime is not a usable CLI binary. |
 | **Production URL check in agent runtime** | **Blocked** — DNS resolution failed for `stratanoble.com` during 0006 execution window. |
 | **Latest confirmed production deploy (rollback reference)** | `69e8d7dec0680c0009eb5c44` (`ready`) on `https://stratanoble.com`, commit `c6c5b19666fe448ef38655c20df0fe50681eaf33`. |
