@@ -1,0 +1,9 @@
+Canonical local folder: C:\Dev\10_products\StrataNoble
+GitHub repo: Strata-Noble/stratanoble-site
+Production domain (codebase): https://stratanoble.com
+Production branch (documented): main
+origin/main SHA (both clones after fetch): c6c5b19666fe448ef38655c20df0fe50681eaf33
+Vercel project slug: NOT VERIFIED IN SESSION (no project.json; use dashboard)
+Confidence: Medium-high GitHub+domain+branch; Medium exact Vercel project name
+
+See: docs/ops/STRATA_NOBLE_DEPLOYMENT_AUTHORITY.md

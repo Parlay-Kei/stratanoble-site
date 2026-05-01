@@ -1,0 +1,8 @@
+Graphiti MCP tools (search_nodes / add_memory) were not available in this Cursor workspace (no Graphiti server under mcps/).
+
+INTENDED MEMORY STRING FOR MANUAL GRAPHiTi / OCS INGEST:
+"Strata Noble canonical local codebase is C:\Dev\10_products\StrataNoble. The legacy folder C:\Dev\00_core\stratanoble-site is quarantined (README_LEGACY_DO_NOT_USE.md; physical rename to _archive pending if path locked). All future Strata Noble website, platform, offer architecture, campaign infrastructure, and business model implementation work must route to the canonical folder unless Steve explicitly authorizes legacy recovery."
+
+REPO-LOCAL SUBSTITUTE (committed):
+- CANONICAL_REPO.md
+- AGENTS.md Hard Limits item 11 updated

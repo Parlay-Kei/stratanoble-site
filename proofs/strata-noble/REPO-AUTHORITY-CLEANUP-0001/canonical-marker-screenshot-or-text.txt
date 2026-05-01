@@ -1,0 +1,13 @@
+CANONICAL_REPO.md (excerpt) — 2026-04-30
+
+# Strata Noble Canonical Codebase
+
+**Canonical local path:** `C:\Dev\10_products\StrataNoble`
+
+**Legacy local path:** `C:\Dev\00_core\stratanoble-site` (quarantine in progress; see `README_LEGACY_DO_NOT_USE.md` there and `docs/ops/STRATA_NOBLE_CODEBASE_AUTHORITY_AUDIT.md`)
+
+## Authority rule
+
+All Strata Noble website, platform, offer architecture, campaign infrastructure, and business model implementation work must begin from the canonical path.
+
+(Full file in repo root.)

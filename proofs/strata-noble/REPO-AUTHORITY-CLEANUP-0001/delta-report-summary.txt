@@ -1,0 +1,6 @@
+origin/main: OLD and NEW both 2715 tracked files, identical path sets, same tip commit.
+Local branch skew: 109 paths git-only-in-old vs 76 git-only-new when comparing OLD feature branch checkout to NEW main (see git-only-in-old.txt / git-only-in-new.txt).
+Conclusion: single repo, two checkouts; canonical work in C:\Dev\10_products\StrataNoble.
+No filesystem migration performed.
+
+See: docs/ops/STRATA_NOBLE_FOLDER_DELTA_REPORT.md

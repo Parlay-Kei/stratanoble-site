@@ -1,0 +1,14 @@
+OCS-STRATA-NOBLE-REPO-AUTHORITY-CLEANUP-0001
+Date: 2026-04-30
+
+SANITIZATION POLICY: Do not store live tokens in this file.
+
+OLD (C:\Dev\00_core\stratanoble-site):
+- BEFORE: origin used HTTPS URL to github.com/Strata-Noble/stratanoble-site.git with embedded github_pat_* credential (REDACTED — rotate token).
+- AFTER:  origin https://github.com/Strata-Noble/stratanoble-site.git (fetch/push)
+
+NEW (C:\Dev\10_products\StrataNoble):
+- BEFORE: origin https://github.com/Strata-Noble/stratanoble-site.git
+- AFTER:  unchanged
+
+Both clones: same GitHub repository (Strata-Noble/stratanoble-site).

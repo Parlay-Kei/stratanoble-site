@@ -1,0 +1,8 @@
+Target archive path: C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE
+Result: Move-Item FAILED — "Cannot move item because the item is in use."
+
+Mitigation applied:
+- README_LEGACY_DO_NOT_USE.md written to C:\Dev\00_core\stratanoble-site
+- git remote set-url origin https://github.com/Strata-Noble/stratanoble-site.git (credential stripped)
+
+Operator action: close processes locking C:\Dev\00_core\stratanoble-site, then run move commands in README_LEGACY_DO_NOT_USE.md
