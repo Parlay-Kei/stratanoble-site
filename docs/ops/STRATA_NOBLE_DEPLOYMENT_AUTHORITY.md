@@ -1,52 +1,62 @@
 # Strata Noble Deployment Authority
 
-**Missions:** OCS-STRATA-NOBLE-REPO-AUTHORITY-CLEANUP-0001 (baseline) · **OCS-STRATA-NOBLE-DEPLOYMENT-AUTHORITY-VERIFY-0003** (host verification, 2026-05-01)  
-**Canonical codebase:** `C:\Dev\10_products\StrataNoble`  
-**Executor:** Evidence from repo config + live production response headers (no legacy-tree inspection)
+**Missions:** OCS-STRATA-NOBLE-REPO-AUTHORITY-CLEANUP-0001 · OCS-STRATA-NOBLE-DEPLOYMENT-AUTHORITY-VERIFY-0003 · **OCS-STRATA-NOBLE-AUTHORITY-FINALIZATION-0004** (Netlify dashboard reconciliation, 2026-05-01)  
+**Canonical local codebase:** `C:\Dev\10_products\StrataNoble`  
+**Canonical Git remote:** `https://github.com/Strata-Noble/stratanoble-site` (same repo Netlify builds from)
 
-## Authoritative production (verified)
+## Authoritative production (Netlify — dashboard verified)
 
-| Item | Value | How verified |
-| --- | --- | --- |
-| **Authoritative host** | **Netlify** | HTTPS `HEAD` to production returns `Server: Netlify`, `X-Nf-Request-Id`, and `Cache-Status` referencing `Netlify Edge` (session 2026-05-01). |
-| **Production URL** | **`https://stratanoble.com/`** | Same live check; matches `netlify.toml` redirects and app metadata. |
-| **Source repository (Git)** | **`https://github.com/Strata-Noble/stratanoble-site`** | Documented in prior authority work; unchanged. |
-| **Production branch (expected)** | **`main`** | Aligns with CI triggers (`.github/workflows/ci.yml`) and historical ops notes; Netlify UI should show connected branch. |
-| **Netlify site slug (repo + ops trail)** | **`stratanoble`** | Internal runbooks use `https://app.netlify.com/sites/stratanoble/deploys` (e.g. `docs/completion/NETLIFY_ENV_FIX_COMPLETE_2025-10-16.md`, `docs/HOW_TO_GET_NETLIFY_ERROR_LOGS.md`). |
-| **Build contract in canonical repo** | Root **`netlify.toml`** | Builds monorepo deps then `apps/website` with `@netlify/plugin-nextjs`; `publish = "apps/website/.next"`; production domain redirects for `stratanoble.com`. |
+| Item | Value |
+| --- | --- |
+| **Host** | **Netlify** |
+| **Production URL** | **`https://stratanoble.com`** |
+| **Netlify team** | Parlay-Kei’s team |
+| **Team slug** | `parlay-kei` |
+| **Team ID** | `67f5ee9336dfcdd59cd4773a` |
+| **Site / project name** | `stratanoble` |
+| **Site ID** | `4e5f1885-511a-49cf-af9f-631665a3f43e` |
+| **Current deploy ID** | `69e8d7dec0680c0009eb5c44` |
+| **Deploy state** | `ready` |
+| **Published at (UTC)** | `2026-04-22T14:18:21.238Z` |
+| **Production deploy commit (Git)** | `c6c5b19666fe448ef38655c20df0fe50681eaf33` |
+| **Commit title** | `fix(legal): add Strata Noble Publisher disclosures to Privacy Policy and Terms` |
+| **Commit URL** | `https://github.com/Strata-Noble/stratanoble-site/commit/c6c5b19666fe448ef38655c20df0fe50681eaf33` |
+| **GitHub repo feeding production** | **`Strata-Noble/stratanoble-site`** |
+| **Production branch (expected)** | **`main`** |
 
-## Not verified in this session (dashboard / API only)
+### Live response header check (supplementary)
 
-| Item | Status | How to confirm |
-| --- | --- | --- |
-| **Netlify team / account display name** | Not in repo | Netlify UI → Team settings. |
-| **Latest production deployment Git commit SHA** | Not queried | Netlify → Site **stratanoble** → **Deploys** → latest *Published* deploy → linked Git commit (or Netlify API with auth). |
-| **Whether any other Netlify site attaches the same custom domain** | Not queried | Netlify domain management for `stratanoble.com` (should be single primary). |
+HTTPS `HEAD` to `https://stratanoble.com/` returns `Server: Netlify`, `X-Nf-Request-Id`, and `Cache-Status` including `Netlify Edge` (session 2026-05-01).
 
-## Non-authoritative or stale references (do not infer production)
+## Production source alignment
+
+| Topic | Status |
+| --- | --- |
+| **Git repo vs canonical folder** | Same remote: `Strata-Noble/stratanoble-site`. Canonical **local path** is `C:\Dev\10_products\StrataNoble` — not a different repository. |
+| **Commit recency** | **Follow-up:** Production was pinned to `c6c5b19…` at publish time. Local `main` may be ahead until pushed and Netlify publishes a newer deploy. See **`docs/ops/STRATA_NOBLE_PRODUCTION_SOURCE_ALIGNMENT.md`**. |
+
+## Build contract in canonical repo
+
+Root **`netlify.toml`**: monorepo install, build `apps/website` with `@netlify/plugin-nextjs`, `publish = "apps/website/.next"`, redirects for `stratanoble.com`.
+
+## Non-authoritative references
 
 | Item | Notes |
 | --- | --- |
-| **Vercel as “production” for `stratanoble.com`** | **Not supported by evidence.** No `vercel.json` in canonical tree; no checked-in `.vercel/project.json`. `docs/ops/deployment-ops.md` still describes a Vercel-oriented flow; treat that file as **generic / outdated for the public marketing site** until edited. A **stale or unused Vercel project is not production authority** without dashboard proof it serves this domain. |
-| **`apps/platform/netlify.toml`** | Separate Netlify-oriented build for **platform** app (not the same artifact path as root site config). Production *marketing* authority for the main domain is the **root** `netlify.toml` + live headers above. |
+| **Vercel for `stratanoble.com`** | Not production per live headers and repo layout; see mission 0003 notes. `docs/ops/deployment-ops.md` may still read “Vercel” for historical/generic flows — treat as non-authoritative for this site until revised. |
+| **`apps/platform/netlify.toml`** | Separate Netlify-oriented config for the **platform** app artifact, not the primary marketing-site root contract. |
 
-## Inspection scope (mission 0003)
+## Inspection scope
 
-- **In-repo only:** `C:\Dev\10_products\StrataNoble` — root `netlify.toml`, `.github/workflows/*`, `apps/website`, internal ops docs citing Netlify URLs.  
-- **Live check:** Response headers from `https://stratanoble.com/` (read-only).  
-- **Excluded:** Legacy `stratanoble-site` tree; unauthenticated Vercel CLI guessing.
+Evidence: repo `netlify.toml`, `.github/workflows/*`, Netlify dashboard fields supplied by principal (0004), live headers (0003).
 
-## Follow-up (human, short)
+## Follow-up
 
-1. Netlify Dashboard → site **stratanoble** → confirm Git repo `Strata-Noble/stratanoble-site`, production branch `main`, and custom domain `stratanoble.com`.  
-2. Copy the **latest published deploy** commit SHA into this file (table above) when known.  
-3. Optionally align `docs/ops/deployment-ops.md` with Netlify-first reality for `apps/website`, or mark it explicitly as “other products / historical.”
+1. After each push to `main`, confirm Netlify **stratanoble** shows a new published deploy and update the “Current deploy” rows in this file if the team wants a running audit trail.  
+2. Optionally align `docs/ops/deployment-ops.md` with Netlify-first reality for `apps/website`.
 
-## Verification receipt — OCS-STRATA-NOBLE-DEPLOYMENT-AUTHORITY-VERIFY-0003
+## Verification receipt — OCS-STRATA-NOBLE-AUTHORITY-FINALIZATION-0004
 
-- **Authoritative host:** Netlify  
-- **Authoritative production URL:** `https://stratanoble.com/`  
-- **Latest deployment reference (Git SHA):** *Pending — obtain from Netlify published deploy*  
-- **Netlify site slug (documented trail):** `stratanoble`  
-- **Non-authoritative without further proof:** Vercel (docs-only references; no live header proof for this domain)  
-- **File updated:** `docs/ops/STRATA_NOBLE_DEPLOYMENT_AUTHORITY.md`  
+- **Netlify team / site / deploy:** Recorded in table above (dashboard-sourced).  
+- **Production commit on Netlify:** `c6c5b19666fe448ef38655c20df0fe50681eaf33`  
+- **Alignment record:** `docs/ops/STRATA_NOBLE_PRODUCTION_SOURCE_ALIGNMENT.md`  

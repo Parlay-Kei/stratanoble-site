@@ -10,11 +10,13 @@ OCS-STRATA-NOBLE-GRAPHITI-CODEBASE-AUTHORITY-WRITEBACK-0004 — 2026-05-01
    NOT EXECUTED — no MCP tool endpoint to call for add_memory / ingest.
 
 3) INTENDED MEMORY FOR MANUAL GRAPHiTi / OCS INGEST (paste verbatim when Graphiti is online)
+   OCS-AUTHORITY-FINALIZATION-0004 (full routing + deploy context):
    "Strata Noble canonical product codebase is C:\Dev\10_products\StrataNoble.
-   The old stratanoble-site tree at C:\Dev\00_core\stratanoble-site has been
-   archived as C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE and
-   must not be used for product work. Future Strata Noble agents must use the
-   canonical repo only."
+   The old stratanoble-site tree is archived at C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE
+   and must not be used for product work. Netlify is the production host for stratanoble.com under project
+   stratanoble, site ID 4e5f1885-511a-49cf-af9f-631665a3f43e, team parlay-kei. Current production deploy
+   69e8d7dec0680c0009eb5c44 points to GitHub commit c6c5b19666fe448ef38655c20df0fe50681eaf33 in
+   Strata-Noble/stratanoble-site, creating a production source alignment follow-up."
 
 4) REPO-LOCAL FALLBACK AUTHORITY (CONFIRMED — remains authoritative until Graphiti writeback succeeds)
    - AGENTS.md — Hard Limits / canonical codebase rule
