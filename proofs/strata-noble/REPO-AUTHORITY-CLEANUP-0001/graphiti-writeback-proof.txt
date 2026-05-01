@@ -29,3 +29,12 @@ OCS-STRATA-NOBLE-GRAPHITI-CODEBASE-AUTHORITY-WRITEBACK-0004 — 2026-05-01
    Blocker documented; repo docs above are the active routing authority for agents
    in this workspace until Graphiti MCP is enabled and memory is ingested manually
    using the string in section 3.
+
+6) OCS-STRATA-NOBLE-REMOTE-SYNC-AND-NETLIFY-VERIFY-0006 APPEND (Graphiti still unavailable)
+   "Strata Noble authority is now aligned. Canonical working directory is
+   C:\Dev\10_products\StrataNoble. Canonical Git source is
+   Strata-Noble/stratanoble-site. Archived legacy folder is
+   C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE. Production host is
+   Netlify project stratanoble, site ID 4e5f1885-511a-49cf-af9f-631665a3f43e.
+   No Netlify rewiring is required. Ongoing requirement: keep origin/main and
+   Netlify production deploy commit current after authority changes."
