@@ -1,0 +1,16 @@
+OCS-STRATA-NOBLE-REPO-AUTHORITY-CLEANUP-0001
+Date: 2026-04-30
+
+BEFORE (audit start):
+- C:\Dev\00_core\stratanoble-site  EXISTS=True
+- C:\Dev\10_products\StrataNoble   EXISTS=True
+- C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE  EXISTS=False
+
+AFTER (automated steps):
+- C:\Dev\00_core\stratanoble-site  EXISTS=True  (rename FAILED: directory in use)
+- C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE  EXISTS=False
+- README_LEGACY_DO_NOT_USE.md added under C:\Dev\00_core\stratanoble-site
+
+INTENDED final state (manual when unlocked):
+- C:\Dev\00_core\stratanoble-site  EXISTS=False
+- C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE  EXISTS=True
