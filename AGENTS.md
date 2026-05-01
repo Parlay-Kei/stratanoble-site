@@ -87,5 +87,5 @@ npm run validate   # Runs everything needed before push
 8. **Offer architecture:** All pricing, positioning, and offer structure must conform to `C:\Dev\.Codex-anx\docs\governance\SN-OFFER-ARCHITECTURE.md` (v2.1.0). Do not invent pricing.
 9. **CSP headers** are enforced in `next.config.js` — update when adding new external domains.
 10. **TypeScript/ESLint errors ignored in dev builds** (`ignoreBuildErrors` / `ignoreDuringBuilds` in dev mode) but enforced in production builds and CI.
-11. **Canonical codebase (OCS-STRATA-NOBLE-REPO-AUTHORITY-CLEANUP-0001):** Strata Noble work must use `C:\Dev\10_products\StrataNoble` only. Legacy path `C:\Dev\00_core\stratanoble-site` is quarantined reference (see `CANONICAL_REPO.md` and `README_LEGACY_DO_NOT_USE.md` in that folder). Do not write product code, docs, or deploy config there unless OCS authorizes legacy recovery.
+11. **Canonical codebase (OCS-STRATA-NOBLE-REPO-AUTHORITY-CLEANUP-0001):** Strata Noble work must use `C:\Dev\10_products\StrataNoble` only. Legacy archive: `C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE` (quarantined; see `CANONICAL_REPO.md` and `proofs/strata-noble/REPO-AUTHORITY-CLEANUP-0001/CLOSEOUT_ADDENDUM.md`). Do not write product code, docs, or deploy config there unless OCS authorizes legacy recovery.
 12. **Supabase Edge Functions are Deno** — different runtime from Node.
