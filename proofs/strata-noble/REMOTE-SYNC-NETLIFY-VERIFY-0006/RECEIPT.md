@@ -37,8 +37,8 @@
 | --- | --- |
 | Push command | `git push origin main` |
 | Result | **SUCCESS** (initial push plus follow-up docs push) |
-| Remote updates | `c6c5b19..43710e1  main -> main`, then `43710e1..dce7454  main -> main` |
-| `origin/main` final SHA | `dce7454b120c0a1f05cad2167ef606e1c1ad8cc3` |
+| Remote updates | `c6c5b19..43710e1  main -> main`, then `43710e1..dce7454  main -> main`, then `dce7454..6b50117  main -> main` |
+| `origin/main` final SHA | `6b50117550e3579e64ec0a13c51798309995339c` |
 
 ## 5) Netlify publish verification
 
