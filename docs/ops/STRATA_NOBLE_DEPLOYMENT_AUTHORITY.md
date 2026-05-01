@@ -1,6 +1,6 @@
 # Strata Noble Deployment Authority
 
-**Missions:** OCS-STRATA-NOBLE-REPO-AUTHORITY-CLEANUP-0001 · OCS-STRATA-NOBLE-DEPLOYMENT-AUTHORITY-VERIFY-0003 · **OCS-STRATA-NOBLE-AUTHORITY-FINALIZATION-0004** (Netlify dashboard reconciliation, 2026-05-01)  
+**Missions:** OCS-STRATA-NOBLE-REPO-AUTHORITY-CLEANUP-0001 · OCS-STRATA-NOBLE-DEPLOYMENT-AUTHORITY-VERIFY-0003 · OCS-STRATA-NOBLE-AUTHORITY-FINALIZATION-0004 · **OCS-STRATA-NOBLE-REMOTE-SYNC-AND-NETLIFY-VERIFY-0006** (push + publish verification attempt, 2026-05-01)  
 **Canonical local codebase:** `C:\Dev\10_products\StrataNoble`  
 **Canonical Git remote:** `https://github.com/Strata-Noble/stratanoble-site` (same repo Netlify builds from)
 
@@ -54,6 +54,16 @@ Evidence: repo `netlify.toml`, `.github/workflows/*`, Netlify dashboard fields s
 
 1. After each push to `main`, confirm Netlify **stratanoble** shows a new published deploy and update the “Current deploy” rows in this file if the team wants a running audit trail.  
 2. Optionally align `docs/ops/deployment-ops.md` with Netlify-first reality for `apps/website`.
+
+## 0006 remote sync + publish verification attempt
+
+| Item | Result |
+| --- | --- |
+| **GitHub push from canonical repo** | **Succeeded** — `main` pushed to `origin/main` at `43710e13642f9d29a2b24f85b2d649222e5ae5cc`. |
+| **Netlify API/CLI verification in agent runtime** | **Blocked** — DNS resolution failed for `api.netlify.com` and `registry.npmjs.org`; local `netlify` command in this runtime is not a usable CLI binary. |
+| **Production URL check in agent runtime** | **Blocked** — DNS resolution failed for `stratanoble.com` during 0006 execution window. |
+| **Latest confirmed production deploy (rollback reference)** | `69e8d7dec0680c0009eb5c44` (`ready`) on `https://stratanoble.com`, commit `c6c5b19666fe448ef38655c20df0fe50681eaf33`. |
+| **New deploy after push** | **Pending external verification** once Netlify API/UI is reachable from an environment with working DNS. |
 
 ## Verification receipt — OCS-STRATA-NOBLE-AUTHORITY-FINALIZATION-0004
 
