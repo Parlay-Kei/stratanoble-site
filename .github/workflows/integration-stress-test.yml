@@ -54,7 +54,7 @@ jobs:
     - name: Install Supabase CLI
       uses: supabase/setup-cli@v1
       with:
-        version: 2.93.0
+        version: 2.95.4
 
     - name: Hard reset Supabase (clean state)
       run: |
