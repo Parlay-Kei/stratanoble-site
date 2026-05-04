@@ -82,3 +82,21 @@ Use either:
 | W1-P02 | https://www.linkedin.com/feed/update/urn:li:share:7455282752842756096 | N/A -- REST API | 2026-04-29T15:52:27Z | 11 impressions / 7 members reached / 1 reaction / 0 comments / 0 reposts / 0 saves -- captured run-53 2026-04-30T15:52Z | Receipt: RECEIPT_W1-P02_2026-04-29T15-52-27Z.md |
 | W1-P03 | https://www.linkedin.com/feed/update/urn:li:share:7453556041096794113 | N/A — REST API | 2026-04-24T21:30:42Z | 4 impressions / 2 members reached / 0 reactions / 0 comments / 0 reposts -- captured run-53 2026-04-30T16:00Z (5d post-publish; T+24h window was overdue) | Receipt: RECEIPT_W1-P03_2026-04-24T21-30-42Z.md |
 
+## Week 002 Execution Log (ANX-LINKEDIN-WEEK-002)
+
+### Pre-Publish Status
+
+| Post ID | Title | Planned Day | Approval Status | Publish Status | URN |
+|---|---|---|---|---|---|
+| W2-P01 | The Operational Physics Do Not Change (POV-05) | Monday 2026-05-04 | APPROVED | POSTED 2026-05-04T21:34Z | urn:li:share:7457182272589516800 |
+| W2-P02 | Automation Starts With a Written Process (POV-04) | Wednesday 2026-05-06 | APPROVED | BLOCKED_PENDING_PUBLISH | — |
+| W2-P03 | Reporting Is a Question-Formulation Problem (POV-09) | Friday 2026-05-08 | APPROVED | BLOCKED_PENDING_PUBLISH | — |
+
+### Publish Data Capture
+
+| Post ID | Permalink | Screenshot Path | Date/Time Posted | 24h Snapshot | Notes |
+|---|---|---|---|---|---|
+| W2-P01 | https://www.linkedin.com/feed/update/urn:li:share:7457182272589516800 | N/A -- REST API | 2026-05-04T21:34:00Z | PENDING_T24 (due 2026-05-05T21:34Z) | Receipt: RECEIPT_W2-P01_2026-05-04T21-34-00Z.md |
+| W2-P02 | — | — | — | — | Scheduled Wed 2026-05-06 |
+| W2-P03 | — | — | — | — | Scheduled Fri 2026-05-08 |
+
