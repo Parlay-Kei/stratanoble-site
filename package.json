@@ -56,7 +56,7 @@
     },
     "devDependencies": {
         "@supabase/ssr": "^0.10.2",
-        "@supabase/supabase-js": "^2.104.1",
+        "@supabase/supabase-js": "^2.105.1",
         "@types/bcrypt": "^6.0.0",
         "@types/node-notifier": "^8.0.5",
         "bcrypt": "^6.0.0",
