@@ -1,48 +1,67 @@
 // ============================================================================
-// STRATA NOBLE - CANONICAL OFFER ARCHITECTURE v2.1.0
-// Source of truth: SN-OFFER-ARCHITECTURE.md
-// Last synced: 2026-03-29
+// STRATA NOBLE - CANONICAL OFFER ARCHITECTURE
+// Source of truth: SN-BRAND-COMMERCIAL-ARCHITECTURE.md (SN-BCA-001 v1.0.0)
+// Supersedes: SN-OFFER-ARCHITECTURE.md v2.1.0 for naming and framing
+// Last synced: 2026-05-03
 // ============================================================================
 
 // --- CONSULTING SERVICES (one-time engagements) ---
 export const CONSULTING_SERVICES = [
   {
-    id: 'lead-rescue',
-    name: 'Lead Rescue',
+    id: 'systems-audit',
+    name: 'Systems Audit',
     price: 997,
     priceLabel: '$997',
     period: 'one-time',
-    timeline: '48 hours',
-    entryPoint: 'Free diagnostic (48-hour turnaround)',
+    timeline: '48–72 hours',
+    entryPoint: 'Free 30-minute diagnostic call',
     description:
-      'Narrow, urgent scope: we isolate the worst lead leaks, patch them fast, and get tracking in place so you stop bleeding conversions. Built for speed.',
+      "Audit the business's current operational infrastructure — how work flows, where it breaks, what's missing, what's redundant. Identify the top 3–5 structural issues and deliver a prioritized action plan.",
     deliverables: [
-      'Lead flow audit',
-      'Patched leak points',
-      'Tracking installed',
-      'Verification receipt',
+      'Systems audit report',
+      'Prioritized fix list',
+      'Recommended engagement path',
+      'ProofLoop receipt',
     ],
-    cta: 'Get Your Free Diagnostic',
+    cta: 'Book a Free Diagnostic',
     ctaLink: '/contact?service=diagnostic',
   },
   {
-    id: 'pipeline-buildout',
-    name: '21-Day Pipeline Buildout',
+    id: 'process-improvement-sprint',
+    name: 'Process Improvement Sprint',
+    price: 2497,
+    priceLabel: '$2,497',
+    period: 'one-time',
+    timeline: '10 business days',
+    description:
+      'Take one broken or underperforming process and rebuild it. Map current state, design target state, implement the fix, install tracking, verify improvement. Scoped to a single workflow or process area.',
+    deliverables: [
+      'Redesigned process (implemented)',
+      'Before/after metrics',
+      'SOPs for the new process',
+      'ProofLoop receipt',
+    ],
+    cta: 'Start a Sprint',
+    ctaLink: '/contact?service=process-improvement-sprint',
+  },
+  {
+    id: 'operations-buildout',
+    name: 'Operations Buildout',
     price: 4997,
     priceLabel: '$4,997',
     period: 'one-time',
     timeline: '21 days',
     description:
-      'End-to-end pipeline infrastructure: lead capture, routing, booking, follow-up automation, review engine, reporting, SOPs. Scoped to your business, delivered in 21 days.',
+      'End-to-end operational infrastructure installation. Typical scope includes workflow design, system configuration, automation setup, reporting installation, SOPs, and team training. Scoped to your business, delivered in 21 days.',
     deliverables: [
-      'Complete pipeline system',
+      'Working operational systems (installed and configured)',
       'SOPs',
-      'Reporting dashboard',
-      'Verification receipts',
-      'Secure delivery folder',
+      'Reporting dashboards',
+      'ProofLoop receipts',
+      'ANX Vault delivery',
     ],
-    cta: 'Start Your Buildout',
-    ctaLink: '/contact?service=pipeline-buildout',
+    cta: 'Start a Buildout',
+    ctaLink: '/contact?service=operations-buildout',
   },
   {
     id: 'operations-command',
@@ -52,14 +71,14 @@ export const CONSULTING_SERVICES = [
     period: '/month',
     commitment: '3-month minimum, month-to-month after',
     description:
-      'Monthly continuity. We steward your pipeline infrastructure, tune automations, and keep reporting honest so the system keeps working after launch.',
+      'Monthly monitoring and optimization. One 60-min strategy call per month. Priority support with next-business-day response. Monthly performance report. Minor system adjustments up to 4 hours per month. Full Suite Q SUITE access included.',
     deliverables: [
-      'Monthly monitoring & optimization',
+      'Monthly system monitoring and optimization',
       'One 60-min strategy call per month',
-      'Priority Slack/email support (next-business-day)',
+      'Priority support (next-business-day response)',
       'Monthly performance report',
       'Minor system adjustments (up to 4 hrs/month)',
-      'Platform access included',
+      'Q SUITE Full Suite access included',
     ],
     cta: 'Apply for Operations Command',
     ctaLink: '/contact?service=operations-command',
