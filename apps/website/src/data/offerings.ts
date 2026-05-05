@@ -28,8 +28,8 @@ export const CONSULTING_SERVICES = [
   {
     id: 'pipeline-buildout',
     name: '21-Day Pipeline Buildout',
-    price: 2500,
-    priceLabel: 'From $2,500',
+    price: 4997,
+    priceLabel: '$4,997',
     period: 'one-time',
     timeline: '21 days',
     description:
