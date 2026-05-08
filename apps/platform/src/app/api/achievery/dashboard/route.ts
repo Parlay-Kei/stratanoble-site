@@ -4,13 +4,12 @@ import { createClient } from '@supabase/supabase-js'
 
 const AUTH_COOKIE_NAME = 'auth-session'
 
-// Service role client — bypasses RLS for server-side queries.
-// Auth is enforced via cookie validation; all queries are further
-// filtered by the validated userId.
-const db = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+function getDb() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+}
 
 function getWeekStart(): string {
   const now = new Date()
@@ -22,6 +21,7 @@ function getWeekStart(): string {
 }
 
 export async function GET(request: NextRequest) {
+  const db = getDb()
   // ── Auth ──────────────────────────────────────────────────────────────────
   const authCookie = request.cookies.get(AUTH_COOKIE_NAME)
   if (!authCookie?.value) {

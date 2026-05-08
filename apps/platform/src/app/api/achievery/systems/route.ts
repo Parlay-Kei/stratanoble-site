@@ -4,10 +4,12 @@ import { createClient } from '@supabase/supabase-js'
 
 const AUTH_COOKIE_NAME = 'auth-session'
 
-const db = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+function getDb() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+}
 
 function parseSession(v: string) {
   try { return JSON.parse(v) } catch { return null }
@@ -23,6 +25,7 @@ function getWeekStart() {
 }
 
 export async function GET(request: NextRequest) {
+  const db = getDb()
   const authCookie = request.cookies.get(AUTH_COOKIE_NAME)
   if (!authCookie?.value) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   const session = parseSession(authCookie.value)
@@ -113,6 +116,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const db = getDb()
   const authCookie = request.cookies.get(AUTH_COOKIE_NAME)
   if (!authCookie?.value) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   const session = parseSession(authCookie.value)
