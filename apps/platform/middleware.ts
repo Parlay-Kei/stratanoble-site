@@ -10,6 +10,7 @@ const AUTH_COOKIE_NAME = 'auth-session';
 // Routes that require authentication AND completed onboarding
 const PROTECTED_ROUTES = [
   '/dashboard',
+  '/platform',
   '/profile',
   '/settings',
 ];
