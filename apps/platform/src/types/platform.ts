@@ -5,6 +5,8 @@ import { Database } from '../lib/supabase'
 export type UserDream = Database['public']['Tables']['user_dreams']['Row']
 export type UserAction = Database['public']['Tables']['user_actions']['Row']
 export type WeeklyNarrative = Database['public']['Tables']['weekly_narratives']['Row']
+// Deprecated: referenced only by ClientSuccessDashboard (TODO 0150). Remove in 0153.
+/** @deprecated */
 export type TrustLedgerShare = Database['public']['Tables']['trust_ledger_shares']['Row']
 export type UserPlatformSettings = Database['public']['Tables']['user_platform_settings']['Row']
 

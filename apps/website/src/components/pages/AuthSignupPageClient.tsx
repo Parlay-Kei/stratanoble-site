@@ -134,11 +134,11 @@ function SignUpContent() {
           <div className="text-center text-sm text-muted-foreground space-y-3">
             <p>
               By continuing, you agree to our{' '}
-              <a href="/legal/terms" className="text-primary hover:underline">
+              <a href="/terms" className="text-primary hover:underline">
                 Terms of Service
               </a>{' '}
               and{' '}
-              <a href="/legal/privacy" className="text-primary hover:underline">
+              <a href="/privacy" className="text-primary hover:underline">
                 Privacy Policy
               </a>
             </p>

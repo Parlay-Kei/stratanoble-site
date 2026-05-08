@@ -108,7 +108,7 @@ export function SiteNav() {
             <div className="px-6 py-8">
               <div className="mb-6">
                 <Link
-                  href="/contact?service=lead-rescue"
+                  href="/contact?service=diagnostic"
                   className="block rounded-sm px-4 py-4 text-center text-white font-semibold bg-forest-green hover:opacity-90 transition-opacity duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -188,7 +188,7 @@ export function SiteNav() {
               </Link>
             ))}
             <Link
-              href="/contact?service=lead-rescue"
+              href="/contact?service=diagnostic"
               className="ml-2 inline-flex items-center rounded-sm px-3 py-2 text-xs xl:text-sm font-semibold text-white bg-forest-green hover:opacity-90 transition-opacity duration-200 whitespace-nowrap"
             >
               Get a Free Diagnostic

@@ -1,3 +1,5 @@
+// TODO 0153: Repoint to achievery_proof notifications when email
+// delivery is confirmed working. Currently orphaned.
 import { NextRequest, NextResponse } from 'next/server';
 import { validateApiAuth, validateApiInput, validateEmail, validateUUID, checkRateLimit } from '../../../../lib/server-auth';
 import { supabase } from '../../../../lib/supabase';
