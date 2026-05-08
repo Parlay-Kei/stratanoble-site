@@ -1,15 +1,5 @@
-﻿import type { Metadata } from 'next';
-import { WeeklyNarrativesList } from '../../components/features/weekly-narratives/WeeklyNarrativesList'
-
-export const metadata: Metadata = {
-  title: 'Weekly Narratives - ACHIEVERY',
-  description: 'View your automated weekly progress summaries and insights',
-}
+import { redirect } from 'next/navigation'
 
 export default function NarrativesPage() {
-  return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <WeeklyNarrativesList />
-    </div>
-  )
+  redirect('/platform/systems')
 }

@@ -4,7 +4,7 @@ import { useAuth } from '../providers'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { Container, Button } from '@strata-noble/ui'
-import AnalyticsDashboard from '../../components/achievery/AnalyticsDashboard'
+import EngagementDashboard from '../../components/achievery/EngagementDashboard'
 
 export default function DashboardPage() {
   const { user, loading, signOut } = useAuth()
@@ -55,7 +55,7 @@ export default function DashboardPage() {
         </Button>
       </div>
 
-      <AnalyticsDashboard />
+      <EngagementDashboard user={{ id: user.id, email: user.email ?? '' }} />
     </Container>
   )
 }

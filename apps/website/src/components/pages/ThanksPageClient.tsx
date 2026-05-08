@@ -47,27 +47,27 @@ function ThanksContent() {
     switch (source) {
       case 'discovery':
         setConfig({
-          title: 'You Did It! 🎉',
-          subtitle: 'Your Journey Starts Now',
-          description: "Thank you for sharing your story with us. Taking this step shows you're serious about turning your ideas into income - and that's exactly the mindset that leads to success.",
-          encouragement: "Every successful entrepreneur started exactly where you are right now. The fact that you completed our discovery process puts you ahead of 90% of people who just think about it.",
+          title: 'Diagnostic Request Received',
+          subtitle: 'We Have What We Need',
+          description: "Thanks for sharing your business context. We will review your intake and outline the fastest path to tighten lead capture and follow-up.",
+          encouragement: "You made the right move by bringing operational friction into the open. Clear systems beat guesswork every time.",
           nextSteps: [
             {
               icon: <HeartIcon className="h-6 w-6 text-forest-green mt-1 flex-shrink-0" />,
               title: 'We\'re Reviewing Your Answers',
-              description: "Our team is carefully reviewing what you shared to prepare personalized guidance that fits your specific situation.",
+              description: "Our team is reviewing what you shared to map leak points, priorities, and the best next engagement path.",
               timing: 'Within 24 hours'
             },
             {
               icon: <ChatBubbleLeftRightIcon className="h-6 w-6 text-forest-green mt-1 flex-shrink-0" />,
-              title: 'Personal Call Invitation',
-              description: "You'll receive an email with a link to schedule a friendly 30-minute call at a time that works for you.",
+              title: 'Next-Step Invite',
+              description: "You'll receive a clear next step, including any call invite needed to confirm scope and fit.",
               timing: 'Check your inbox soon'
             },
             {
               icon: <LightBulbIcon className="h-6 w-6 text-forest-green mt-1 flex-shrink-0" />,
-              title: 'Customized Action Plan',
-              description: "During our call, we'll give you specific next steps based on your passion, situation, and goals.",
+              title: 'Scoped Recommendation',
+              description: "We will send a focused recommendation tied to your current operational bottlenecks.",
               timing: 'During your session'
             }
           ],
@@ -85,24 +85,24 @@ function ThanksContent() {
         setConfig({
           title: 'Thank You for Reaching Out!',
           subtitle: 'Message Received',
-          description: "We've received your message and appreciate you taking the time to contact us. Your interest in turning ideas into income is exactly what we love to support.",
+          description: "We've received your message and will route it to the right team member.",
           nextSteps: [
             {
               icon: <EnvelopeIcon className="h-6 w-6 text-forest-green mt-1 flex-shrink-0" />,
               title: 'Personalized Response',
-              description: "Our team will review your message and get back to you with helpful information tailored to your specific needs.",
+              description: "Our team will review your note and reply with the right next step for your service needs.",
               timing: 'Within 24 hours'
             },
             {
               icon: <SparklesIcon className="h-6 w-6 text-forest-green mt-1 flex-shrink-0" />,
-              title: 'Discovery Session Invitation',
-              description: "We may invite you to our discovery process to better understand how we can support your entrepreneurial journey.",
+              title: 'Diagnostic or Scope Follow-up',
+              description: "If needed, we will invite you to a short diagnostic or scoping call to confirm fit.",
               timing: 'In our response'
             }
           ],
           actions: [
             {
-              text: 'Take Our Discovery Assessment',
+              text: 'Start a Free Diagnostic',
               href: '/contact',
               primary: true
             },
@@ -116,27 +116,27 @@ function ThanksContent() {
 
       case 'analysis':
         setConfig({
-          title: 'Analysis Request Confirmed!',
-          subtitle: 'Sample Analysis in Progress',
-          description: "Thank you for requesting a sample analysis. We're excited to show you how data-driven insights can unlock opportunities for your business.",
+          title: 'Diagnostic Request Confirmed',
+          subtitle: 'Review in Progress',
+          description: "Thanks for requesting a diagnostic review. We will prepare a practical recommendation based on the issues you flagged.",
           nextSteps: [
             {
               icon: <ChartBarIcon className="h-6 w-6 text-forest-green mt-1 flex-shrink-0" />,
               title: 'Analysis Preparation',
-              description: "Our team will review your information and prepare a sample analysis based on the pain points you've described.",
+              description: "Our team will review your information and prepare a scoped diagnostic recommendation.",
               timing: 'Within 2-3 days'
             },
             {
               icon: <EnvelopeIcon className="h-6 w-6 text-forest-green mt-1 flex-shrink-0" />,
-              title: 'Insights Delivery',
-              description: "You'll receive your analysis along with an invitation to discuss the findings and next steps.",
+              title: 'Findings Delivery',
+              description: "You'll receive findings with a recommended next step and optional follow-up call.",
               timing: 'Via email'
             }
           ],
           actions: [
             {
-              text: 'Learn About Data Analysis',
-              href: '/data-analysis',
+              text: 'Explore Lead Rescue',
+              href: '/lead-rescue',
               primary: true
             },
             {
@@ -151,18 +151,18 @@ function ThanksContent() {
         setConfig({
           title: 'Thank You!',
           subtitle: 'We Appreciate You',
-          description: "Thank you for your interest in Strata Noble. We're here to help everyday people turn their ideas into income.",
+          description: "Thank you for your interest in Strata Noble. We install operational systems for service businesses.",
           nextSteps: [
             {
               icon: <RocketLaunchIcon className="h-6 w-6 text-forest-green mt-1 flex-shrink-0" />,
-              title: 'Explore Your Options',
-              description: "Take a look at how we support entrepreneurs at every stage of their journey.",
+              title: 'Choose Your Next Step',
+              description: "Review our engagements and pick the path that fits your current operational priorities.",
               timing: 'Right now'
             }
           ],
           actions: [
             {
-              text: 'Start Your Discovery',
+              text: 'Start Your Diagnostic',
               href: '/contact',
               primary: true
             },

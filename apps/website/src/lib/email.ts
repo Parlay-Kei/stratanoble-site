@@ -174,7 +174,7 @@ class EmailService {
         </div>
 
         <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
-          <p>Â© 2024 Strata Noble. All rights reserved.</p>
+          <p>© 2024 Strata Noble. All rights reserved.</p>
         </div>
       </div>
     `;
@@ -209,7 +209,7 @@ class EmailService {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #003366 0%, #047857 100%); color: white; border-radius: 8px 8px 0 0;">
           <h1 style="margin: 0; font-size: 28px;">Welcome to Strata Noble!</h1>
-          <p style="margin: 10px 0 0; font-size: 18px; opacity: 0.9;">Your journey to prosperity starts now</p>
+          <p style="margin: 10px 0 0; font-size: 18px; opacity: 0.9;">Your operational buildout starts now</p>
         </div>
         
         <div style="padding: 30px 20px; background: white; border-radius: 0 0 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
@@ -218,13 +218,13 @@ class EmailService {
           </p>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6;">
-            Thank you for choosing our <strong>${packageName}</strong>! We're excited to help you transform your passion into profit.
+            Thank you for choosing our <strong>${packageName}</strong>. We're excited to help you install reliable operational infrastructure.
           </p>
 
           <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #047857;">
             <h3 style="color: #003366; margin-top: 0;">Next Steps</h3>
             <ol style="color: #666; line-height: 1.8;">
-              <li><strong>Schedule Your Discovery Call</strong> - Use the link below to book your first session</li>
+              <li><strong>Schedule Your Diagnostic Call</strong> - Use the link below to book your first session</li>
               <li><strong>Prepare Your Materials</strong> - We'll send you a preparation guide</li>
               <li><strong>Start Your Journey</strong> - Our team will guide you every step of the way</li>
             </ol>
@@ -233,7 +233,7 @@ class EmailService {
           <div style="text-align: center; margin: 30px 0;">
             <a href="https://calendly.com/contact-stratanoble/30min"
                style="display: inline-block; background: #047857; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
-              Schedule Your Discovery Call
+              Schedule Your Diagnostic Call
             </a>
           </div>
 
@@ -255,7 +255,7 @@ class EmailService {
         </div>
 
         <div style="text-align: center; padding: 20px; font-size: 12px; color: #999;">
-          <p>Â© 2024 Strata Noble. All rights reserved.</p>
+          <p>© 2024 Strata Noble. All rights reserved.</p>
         </div>
       </div>
     `;

@@ -287,8 +287,8 @@ function Investment() {
     <div className="border-2 border-primary rounded-lg p-6 bg-primary/5">
       <h2 className="text-2xl font-semibold mb-3">Investment</h2>
       <div className="flex items-baseline gap-2">
-        <span className="text-sm text-muted-foreground">Starting at</span>
-        <p className="text-3xl font-bold text-primary">$2,500</p>
+        <span className="text-sm text-muted-foreground">Fixed scope</span>
+        <p className="text-3xl font-bold text-primary">$4,997</p>
       </div>
       <p className="text-sm text-muted-foreground mt-2">One-time fee. No recurring costs.</p>
       <div className="mt-4 pt-4 border-t border-primary/20">

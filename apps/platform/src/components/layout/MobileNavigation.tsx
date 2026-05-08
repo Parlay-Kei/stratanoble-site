@@ -2,24 +2,14 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import { Button } from '@strata-noble/ui'
-import { 
-  Home, 
-  PlusCircle, 
-  BarChart3, 
-  Map,
-  Shield,
-  FileText,
-  User, 
-  LogOut 
-} from 'lucide-react'
+import { Home, PlusCircle, Settings, FileText, LogOut } from 'lucide-react'
 import { useAuth } from '../../app/providers'
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Dashboard' },
-  { href: '/actions', icon: PlusCircle, label: 'Actions' },
-  { href: '/roadmap', icon: Map, label: 'Roadmap' },
-  { href: '/narratives', icon: FileText, label: 'Narratives' },
-  { href: '/trust-ledger', icon: Shield, label: 'Trust' },
+  { href: '/platform/actions', icon: PlusCircle, label: 'Actions' },
+  { href: '/platform/systems', icon: Settings, label: 'Systems' },
+  { href: '/platform/proof', icon: FileText, label: 'Proof' },
 ]
 
 export function MobileNavigation() {

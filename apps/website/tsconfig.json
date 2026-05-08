@@ -44,6 +44,7 @@
     "src/lib/test/**/*",
     "**/*.test.ts",
     "**/*.test.tsx",
+    "build/types/**/*",
     "build/standalone/**/*"
   ]
 }

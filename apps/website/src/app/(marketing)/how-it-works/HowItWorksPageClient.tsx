@@ -150,7 +150,7 @@ export function HowItWorksPageClient() {
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Price</td>
                   <td className="p-4 text-muted-foreground">$997</td>
-                  <td className="p-4 text-muted-foreground">From $2,500</td>
+                  <td className="p-4 text-muted-foreground">$4,997</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
                     $1,497/month
                   </td>
