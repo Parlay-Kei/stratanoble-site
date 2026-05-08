@@ -2,7 +2,6 @@
 // Handles automated generation of weekly narratives
 
 import { supabase } from './supabase'
-import type { Database } from './supabase'
 
 export interface ScheduledNarrativeResult {
   success: boolean
@@ -17,38 +16,9 @@ class NarrativeScheduler {
   /**
    * Generate narrative for a specific week
    */
-  async generateForWeek(weekStart: Date): Promise<ScheduledNarrativeResult> {
-    try {
-      const response = await fetch('/api/narratives/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          weekStart: weekStart.toISOString().split('T')[0] 
-        }),
-      })
-
-      const result = await response.json()
-      
-      if (!response.ok) {
-        return {
-          success: false,
-          error: result.error || 'Failed to generate narrative',
-          generated: false,
-        }
-      }
-
-      return {
-        success: true,
-        narrative: result.narrative,
-        generated: true,
-      }
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
-        generated: false,
-      }
-    }
+  async generateForWeek(_weekStart: Date): Promise<ScheduledNarrativeResult> {
+    // Phase 2: wire to narrative generation route
+    return { success: false, error: 'Narrative generation not yet implemented', generated: false }
   }
 
   /**
@@ -118,40 +88,17 @@ class NarrativeScheduler {
   /**
    * Get all narratives for a user
    */
-  async getUserNarratives(limit: number = 10) {
-    try {
-      const response = await fetch(`/api/narratives/generate?limit=${limit}`)
-      const result = await response.json()
-      
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch narratives')
-      }
-
-      return result.narratives || []
-    } catch (error) {
-      console.error('Error fetching narratives:', error)
-      return []
-    }
+  async getUserNarratives(_limit: number = 10) {
+    // Phase 2: wire to narrative fetch route
+    return []
   }
 
   /**
    * Get narrative for specific week
    */
-  async getNarrativeForWeek(weekStart: Date) {
-    try {
-      const weekStartStr = weekStart.toISOString().split('T')[0]
-      const response = await fetch(`/api/narratives/generate?weekStart=${weekStartStr}`)
-      const result = await response.json()
-      
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch narrative')
-      }
-
-      return result.narratives?.[0] || null
-    } catch (error) {
-      console.error('Error fetching narrative:', error)
-      return null
-    }
+  async getNarrativeForWeek(_weekStart: Date) {
+    // Phase 2: wire to narrative fetch route
+    return null
   }
 
   /**
