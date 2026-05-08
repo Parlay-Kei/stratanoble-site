@@ -22,7 +22,8 @@ export async function POST(request: NextRequest) {
       userDream,
     })
 
-    // If actionId provided, update the action in the database
+    // Legacy: references user_actions. ActionLogForm (0147) writes directly
+    // to achievery_actions. This branch can be removed in 0153 cleanup.
     if (actionId) {
       const { error } = await supabase
         .from('user_actions')

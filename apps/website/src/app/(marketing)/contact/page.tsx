@@ -54,7 +54,49 @@ const engagementPaths = [
   },
 ];
 
-export default function ContactPage() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ service?: string }>;
+}) {
+  const params = await searchParams
+  return <ContactPageContent searchParams={params} />;
+}
+
+const SERVICE_INTENT: Record<string, { label: string; nextStep: string }> = {
+  diagnostic: {
+    label: 'Free Diagnostic',
+    nextStep: 'Start with Lead Rescue to identify and patch urgent lead leaks.',
+  },
+  'lead-rescue': {
+    label: 'Lead Rescue',
+    nextStep: 'Use the Lead Rescue intake to begin the 48-hour fix process.',
+  },
+  'pipeline-buildout': {
+    label: '21-Day Pipeline Buildout',
+    nextStep: 'Apply for a full lead-to-customer system install.',
+  },
+  'operations-command': {
+    label: 'Operations Command',
+    nextStep: 'Request an operations fit review for ongoing support.',
+  },
+  'q-suite': {
+    label: 'Q SUITE',
+    nextStep: 'Request a walkthrough and licensing discussion.',
+  },
+  'achievery-pro': {
+    label: 'ACHIEVERY Pro',
+    nextStep: 'Share your use case and we will route you to the right product path.',
+  },
+};
+
+function ContactPageContent({
+  searchParams,
+}: {
+  searchParams?: { service?: string };
+}) {
+  const intent = searchParams?.service ? SERVICE_INTENT[searchParams.service] : null;
+
   return (
     <main className="min-h-screen bg-white">
       <section className="bg-command-navy text-white py-20">
@@ -70,6 +112,12 @@ export default function ContactPage() {
           >
             Start with the Free Diagnostic
           </Link>
+          {intent && (
+            <div className="mt-6 inline-flex flex-col rounded-lg border border-white/20 bg-white/10 px-5 py-3 text-left text-sm">
+              <span className="font-semibold text-white">Selected path: {intent.label}</span>
+              <span className="text-gray-200">{intent.nextStep}</span>
+            </div>
+          )}
         </div>
       </section>
 

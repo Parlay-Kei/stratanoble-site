@@ -1,3 +1,6 @@
+// TODO 0150: Rebuild against achievery_* schema tables.
+// Currently queries legacy tables (trust_ledger_shares, user_actions,
+// weekly_narratives) — do not render until rewritten.
 'use client'
 
 import { useState, useEffect } from 'react'
