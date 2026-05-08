@@ -66,6 +66,19 @@ export interface ProofEntry {
   uploaded_at: string
 }
 
+export type HealthSignal = 'on_track' | 'needs_attention' | 'stalled'
+
+export interface WeeklySummary {
+  id: string
+  engagement_id: string
+  week_start: string
+  content: string
+  next_steps: string[]
+  health_signal: HealthSignal
+  generated_by: string
+  generated_at: string
+}
+
 export interface EngagementSummary extends Engagement {
   client_email: string | null
   systems: (OperatingSystem & { tasks: Task[] })[]

@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
 
   const engId = engRow.id
 
-  const [systemsRes, tasksRes, actionsRes, blockersRes] = await Promise.all([
+  const [systemsRes, tasksRes, actionsRes, blockersRes, summaryRes] = await Promise.all([
     db
       .from('achievery_systems')
       .select('id, name, stage')
@@ -64,6 +64,13 @@ export async function GET(request: NextRequest) {
       .eq('engagement_id', engId)
       .eq('resolved', false)
       .order('created_at', { ascending: false }),
+    db
+      .from('achievery_weekly_summaries')
+      .select('week_start, content, next_steps, health_signal')
+      .eq('engagement_id', engId)
+      .order('week_start', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
   ])
 
   const systems = systemsRes.data ?? []
@@ -75,8 +82,7 @@ export async function GET(request: NextRequest) {
     tasksBySystem[t.system_id].push(t)
   })
 
-  // latest_summary: populated in 0152 once achievery_weekly_summaries table exists
-  const latest_summary = null
+  const latest_summary = summaryRes.data ?? null
 
   return NextResponse.json({
     engagement: {

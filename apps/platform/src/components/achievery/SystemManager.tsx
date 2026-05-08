@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@strata-noble/ui'
 import { PlatformNav } from '../layout/PlatformNav'
 import type {
   EngagementSummary,
+  HealthSignal,
   SystemStage,
   TaskCadence,
   TaskAssignedTo,
@@ -33,6 +34,18 @@ const TASK_STATUS_CYCLE: Record<TaskStatus, TaskStatus> = {
   open: 'complete',
   complete: 'blocked',
   blocked: 'open',
+}
+
+const HEALTH_CLASSES: Record<HealthSignal, string> = {
+  on_track: 'bg-forest-green text-off-white',
+  needs_attention: 'bg-fault-amber text-command-navy',
+  stalled: 'bg-command-navy text-off-white opacity-60',
+}
+
+const HEALTH_LABEL: Record<HealthSignal, string> = {
+  on_track: 'On track',
+  needs_attention: 'Needs attention',
+  stalled: 'Stalled',
 }
 
 export default function SystemManager({ user }: SystemManagerProps) {
@@ -76,6 +89,16 @@ export default function SystemManager({ user }: SystemManagerProps) {
   const [internalNote, setInternalNote] = useState('')
   const [addingNote, setAddingNote] = useState(false)
   const [noteSaved, setNoteSaved] = useState(false)
+
+  // Weekly summary
+  const [generatingSummary, setGeneratingSummary] = useState(false)
+  const [lastSummary, setLastSummary] = useState<{
+    content: string
+    next_steps: string[]
+    health_signal: HealthSignal
+    week_start: string
+  } | null>(null)
+  const [summaryError, setSummaryError] = useState<string | null>(null)
 
   const fetchEngagements = useCallback(async () => {
     setLoading(true)
@@ -215,6 +238,30 @@ export default function SystemManager({ user }: SystemManagerProps) {
       body: JSON.stringify({ resolved: true }),
     })
     await fetchEngagements()
+  }
+
+  async function generateSummary() {
+    if (!selectedEngId) return
+    setGeneratingSummary(true)
+    setSummaryError(null)
+    const now = new Date()
+    const day = now.getDay()
+    const monday = new Date(now)
+    monday.setDate(now.getDate() - day + (day === 0 ? -6 : 1))
+    const weekStart = monday.toISOString().split('T')[0]
+    const res = await fetch('/api/achievery/summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ engagement_id: selectedEngId, week_start: weekStart }),
+    })
+    if (res.ok) {
+      const json = await res.json()
+      setLastSummary(json.summary)
+    } else {
+      const json = await res.json().catch(() => ({}))
+      setSummaryError((json as { error?: string }).error ?? 'Failed to generate summary.')
+    }
+    setGeneratingSummary(false)
   }
 
   async function addInternalNote(e: React.FormEvent) {
@@ -548,6 +595,53 @@ export default function SystemManager({ user }: SystemManagerProps) {
                 >
                   ← Systems
                 </button>
+
+                {/* Weekly summary */}
+                <Card>
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-sm">Weekly summary</CardTitle>
+                      <button
+                        onClick={generateSummary}
+                        disabled={generatingSummary}
+                        className="text-xs text-blue-600 hover:text-blue-700 font-medium disabled:opacity-40"
+                      >
+                        {generatingSummary ? 'Generating…' : 'Generate'}
+                      </button>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    {summaryError && (
+                      <p className="text-xs text-red-600 mb-2">{summaryError}</p>
+                    )}
+                    {lastSummary ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <p className="text-xs text-gray-400">{lastSummary.week_start}</p>
+                          <span className={`text-xs px-2 py-0.5 rounded font-medium ${HEALTH_CLASSES[lastSummary.health_signal]}`}>
+                            {HEALTH_LABEL[lastSummary.health_signal]}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-800 leading-relaxed whitespace-pre-line">{lastSummary.content}</p>
+                        {lastSummary.next_steps.length > 0 && (
+                          <div>
+                            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Next steps</p>
+                            <ul className="space-y-1">
+                              {lastSummary.next_steps.map((step, i) => (
+                                <li key={i} className="flex gap-1.5 text-xs text-gray-700">
+                                  <span className="text-gray-300 shrink-0">·</span>
+                                  {step}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    ) : !summaryError ? (
+                      <p className="text-xs text-gray-400">No summary generated. Click Generate to create one for the current week.</p>
+                    ) : null}
+                  </CardContent>
+                </Card>
 
                 {/* Activity feed */}
                 <Card>

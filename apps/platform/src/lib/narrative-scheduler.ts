@@ -1,11 +1,8 @@
-// ACHIEVERY Weekly Narrative Scheduler
-// Handles automated generation of weekly narratives
-
 import { supabase } from './supabase'
 
 export interface ScheduledNarrativeResult {
   success: boolean
-  narrative?: any
+  narrative?: Record<string, unknown>
   error?: string
   generated: boolean
 }
@@ -13,104 +10,63 @@ export interface ScheduledNarrativeResult {
 class NarrativeScheduler {
   private supabase = supabase
 
-  /**
-   * Generate narrative for a specific week
-   */
-  async generateForWeek(_weekStart: Date): Promise<ScheduledNarrativeResult> {
-    // Phase 2: wire to narrative generation route
-    return { success: false, error: 'Narrative generation not yet implemented', generated: false }
-  }
-
-  /**
-   * Generate narrative for current week
-   */
-  async generateCurrentWeek(): Promise<ScheduledNarrativeResult> {
-    const now = new Date()
-    const currentWeekStart = this.getWeekStart(now)
-    return this.generateForWeek(currentWeekStart)
-  }
-
-  /**
-   * Generate narrative for previous week (Sunday generation)
-   */
-  async generatePreviousWeek(): Promise<ScheduledNarrativeResult> {
-    const now = new Date()
-    const previousWeek = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
-    const previousWeekStart = this.getWeekStart(previousWeek)
-    return this.generateForWeek(previousWeekStart)
-  }
-
-  /**
-   * Check if user needs a narrative generated
-   */
-  async shouldGenerateNarrative(): Promise<boolean> {
+  async generateForWeek(engagementId: string, weekStart: Date): Promise<ScheduledNarrativeResult> {
     try {
-      const { data: { user } } = await this.supabase.auth.getUser()
-      if (!user) return false
-
-      // Check if user has weekly narrative emails enabled
-      const { data: settings } = await this.supabase
-        .from('user_platform_settings')
-        .select('weekly_narrative_email')
-        .eq('user_id', user.id)
-        .single()
-
-      if (!settings?.weekly_narrative_email) return false
-
-      // Check if we have actions from last week
-      const lastWeekStart = this.getWeekStart(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))
-      const lastWeekEnd = new Date(lastWeekStart.getTime() + 7 * 24 * 60 * 60 * 1000)
-
-      const { data: actions } = await this.supabase
-        .from('user_actions')
-        .select('id')
-        .eq('user_id', user.id)
-        .gte('logged_date', lastWeekStart.toISOString().split('T')[0])
-        .lt('logged_date', lastWeekEnd.toISOString().split('T')[0])
-
-      // Only generate if user had actions
-      if (!actions || actions.length === 0) return false
-
-      // Check if narrative already exists
-      const { data: existingNarrative } = await this.supabase
-        .from('weekly_narratives')
-        .select('id')
-        .eq('user_id', user.id)
-        .eq('week_start', lastWeekStart.toISOString().split('T')[0])
-        .single()
-
-      return !existingNarrative
-    } catch {
-      return false
+      const weekStartStr = weekStart.toISOString().split('T')[0]
+      const res = await fetch('/api/achievery/summary', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ engagement_id: engagementId, week_start: weekStartStr }),
+      })
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({})) as { error?: string }
+        return { success: false, error: json.error ?? 'Generation failed', generated: false }
+      }
+      const json = await res.json() as { summary: Record<string, unknown> }
+      return { success: true, narrative: json.summary, generated: true }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        generated: false,
+      }
     }
   }
 
-  /**
-   * Get all narratives for a user
-   */
-  async getUserNarratives(_limit: number = 10) {
-    // Phase 2: wire to narrative fetch route
-    return []
+  async generateCurrentWeek(engagementId: string): Promise<ScheduledNarrativeResult> {
+    return this.generateForWeek(engagementId, this.getWeekStart(new Date()))
   }
 
-  /**
-   * Get narrative for specific week
-   */
-  async getNarrativeForWeek(_weekStart: Date) {
-    // Phase 2: wire to narrative fetch route
-    return null
+  async generatePreviousWeek(engagementId: string): Promise<ScheduledNarrativeResult> {
+    const previousWeek = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+    return this.generateForWeek(engagementId, this.getWeekStart(previousWeek))
   }
 
-  /**
-   * Weekly cleanup - generate narratives for active users
-   * This would typically be called from a cron job or Edge Function
-   */
+  async getUserNarratives(engagementId: string, limit: number = 10) {
+    const { data } = await this.supabase
+      .from('achievery_weekly_summaries')
+      .select('id, week_start, content, next_steps, health_signal, generated_at')
+      .eq('engagement_id', engagementId)
+      .order('week_start', { ascending: false })
+      .limit(limit)
+    return data ?? []
+  }
+
+  async getNarrativeForWeek(engagementId: string, weekStart: Date) {
+    const { data } = await this.supabase
+      .from('achievery_weekly_summaries')
+      .select('id, week_start, content, next_steps, health_signal, generated_at')
+      .eq('engagement_id', engagementId)
+      .eq('week_start', weekStart.toISOString().split('T')[0])
+      .maybeSingle()
+    return data ?? null
+  }
+
+  // TODO: wire to a server-side cron job or Supabase Edge Function once
+  // manual generation is confirmed working end-to-end.
   async weeklyNarrativeGeneration() {
     try {
-      // This would be implemented in a server-side context
-      // For now, it's a placeholder for the actual scheduled job
       console.log('Weekly narrative generation should run server-side')
-      
       return {
         success: true,
         message: 'Weekly generation triggered (server-side implementation needed)',
@@ -123,38 +79,27 @@ class NarrativeScheduler {
     }
   }
 
-  /**
-   * Get the start of the week (Monday) for a given date
-   */
   private getWeekStart(date: Date): Date {
     const d = new Date(date)
     const day = d.getDay()
-    const diff = d.getDate() - day + (day === 0 ? -6 : 1) // Adjust when day is Sunday
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1)
     return new Date(d.setDate(diff))
   }
 
-  /**
-   * Get week date range string
-   */
   getWeekRange(weekStart: Date): string {
     const weekEnd = new Date(weekStart.getTime() + 6 * 24 * 60 * 60 * 1000)
-    
-    const formatDate = (date: Date) => {
-      return date.toLocaleDateString('en-US', { 
-        month: 'short', 
+    const formatDate = (date: Date) =>
+      date.toLocaleDateString('en-US', {
+        month: 'short',
         day: 'numeric',
         year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined,
       })
-    }
-    
     return `${formatDate(weekStart)} - ${formatDate(weekEnd)}`
   }
 }
 
-// Singleton instance
 export const narrativeScheduler = new NarrativeScheduler()
 
-// Utility functions
 export function getWeekStart(date: Date = new Date()): Date {
   const d = new Date(date)
   const day = d.getDay()
@@ -168,9 +113,4 @@ export function getWeekEnd(weekStart: Date): Date {
 
 export function formatWeekRange(weekStart: Date): string {
   return narrativeScheduler.getWeekRange(weekStart)
-}
-
-// Browser-based trigger for manual narrative generation
-export async function triggerNarrativeGeneration() {
-  return narrativeScheduler.generatePreviousWeek()
 }
