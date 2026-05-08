@@ -3,8 +3,8 @@
 
 export const CTA_LABELS = {
   // Primary Actions
-  GET_STARTED: 'Start Your Free Assessment',
-  SCHEDULE_CALL: 'Schedule Free Discovery Call',
+  GET_STARTED: 'Start Your Free Diagnostic',
+  SCHEDULE_CALL: 'Schedule Diagnostic Call',
   CONTACT_US: 'Contact Us',
   
   // Quote/Consultation Related
@@ -14,13 +14,13 @@ export const CTA_LABELS = {
   
   // Discovery/Learning
   LEARN_MORE: 'Learn More',
-  BOOK_DISCOVERY: 'Book Discovery Session',
-  SCHEDULE_DISCOVERY: 'Schedule Discovery Call',
+  BOOK_DISCOVERY: 'Book Diagnostic Session',
+  SCHEDULE_DISCOVERY: 'Schedule Diagnostic Call',
   
   // Service Specific
-  SCHEDULE_SESSION: 'Schedule Your Free Discovery Session',
+  SCHEDULE_SESSION: 'Schedule Your Free Diagnostic Session',
   BOOK_CONSULTATION: 'Book Free Consultation',
-  START_ANALYSIS: 'Start Data Analysis',
+  START_ANALYSIS: 'Start Diagnostic Intake',
   
   // Secondary Actions
   VIEW_CASE_STUDIES: 'View Case Studies',
@@ -37,9 +37,9 @@ export const CTA_LABELS = {
   SUBSCRIBE: 'Subscribe',
   
   // Workshop/Event Related
-  JOIN_WORKSHOP: 'Join Workshop',
-  REGISTER_NOW: 'Register Now',
-  SAVE_SPOT: 'Save Your Spot'
+  JOIN_WORKSHOP: 'Join Waitlist',
+  REGISTER_NOW: 'Register Interest',
+  SAVE_SPOT: 'Reserve Your Spot'
 } as const;
 
 export type CTALabel = typeof CTA_LABELS[keyof typeof CTA_LABELS];

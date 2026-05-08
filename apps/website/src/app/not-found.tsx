@@ -16,7 +16,7 @@ export default function NotFound() {
           <h2 className="text-2xl font-bold text-command-navy mb-4">Page Not Found</h2>
           <p className="text-slate-grey leading-relaxed">
             The page you&apos;re looking for doesn&apos;t exist or has been moved. Let&apos;s get
-            you back on track to transforming your passion into profit.
+            you back to the right engagement path.
           </p>
         </div>
 
@@ -49,16 +49,16 @@ export default function NotFound() {
               → All Services
             </Link>
             <Link
-              href="/data-analysis"
+              href="/lead-rescue"
               className="text-forest-green hover:text-forest-green transition-colors p-2 rounded hover:bg-field-sage/10"
             >
-              → Data Analysis
+              → Lead Rescue
             </Link>
             <Link
               href="/contact"
               className="text-forest-green hover:text-forest-green transition-colors p-2 rounded hover:bg-field-sage/10"
             >
-              → Discovery Call
+              → Contact Us
             </Link>
             <Link
               href="/about"

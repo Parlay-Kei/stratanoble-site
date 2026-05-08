@@ -13,23 +13,23 @@ import { buildFaqPageJsonLd } from '@/lib/seo/json-ld';
 const HOMEPAGE_FAQS = [
   {
     q: 'What does Strata Noble do?',
-    a: 'Strata Noble builds business solutions and installs operational systems for service businesses. The work spans workflow design, system configuration, automation, reporting, and custom solution building — backed by proprietary technology the firm built and operates.',
+    a: 'Strata Noble builds and operates lead capture, follow-up automation, booking, and revenue tracking systems for service businesses and early-stage ventures.',
   },
   {
     q: 'How long does it take to get started?',
-    a: 'Every engagement starts with a free 30-minute diagnostic call. A Systems Audit delivers findings in 48–72 hours. A Process Improvement Sprint runs 10 business days. An Operations Buildout delivers in 21 days.',
+    a: 'The 48-hour Lead Rescue can be installed in two business days. A full 21-day Pipeline Buildout delivers a complete lead-to-customer system in three weeks.',
   },
   {
-    q: 'What does the free diagnostic call include?',
-    a: 'A 30-minute review of how the business currently operates — where work flows, where it breaks down, and what the structural issues are. You receive a recommended path forward before any work or payment begins.',
+    q: 'What does a Free Diagnostic include?',
+    a: 'A review of how your business currently captures and follows up with leads, identification of where revenue is being lost, and a recommended fix with a fixed price.',
   },
   {
     q: 'Do I own the systems you build?',
-    a: 'Yes. Everything Strata Noble builds is delivered to your accounts with full documentation. You own the workflows, the configurations, and the data. Nothing is locked behind our systems or our access.',
+    a: 'Yes. Everything Strata Noble builds is delivered to your accounts. You own the code, the workflows, and the data. There are no platform lock-in fees.',
   },
   {
     q: 'What is the price range for services?',
-    a: 'Systems Audit is $997. Process Improvement Sprint is $2,497. Operations Buildout is $4,997. Operations Command ongoing support is $1,497 per month with a 3-month minimum.',
+    a: 'Lead Rescue is $997. The 21-Day Pipeline Buildout is $4,997. Operations Command starts at $1,497 per month with a 3-month minimum.',
   },
 ] as const;
 

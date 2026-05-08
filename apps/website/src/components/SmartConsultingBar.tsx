@@ -46,7 +46,7 @@ export function SmartConsultingBar() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <Link href="/contact?service=lead-rescue">
+              <Link href="/contact?service=diagnostic">
                 <motion.span
                   className="bg-command-navy text-white px-4 py-1.5 rounded-sm text-sm font-semibold hover:opacity-90 transition-opacity duration-200 inline-block"
                 >

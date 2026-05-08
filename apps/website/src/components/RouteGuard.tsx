@@ -20,7 +20,7 @@ export default function RouteGuard({ children }: RouteGuardProps) {
     async function checkAccess() {
       try {
         // Check if this is a public route first - no auth needed
-        const publicRoutes = ['/', '/pricing', '/contact', '/about', '/services', '/solutions', '/data-analysis', '/q-suite', '/portfolio', '/workshops', '/discovery', '/success', '/achievery-preview', '/achievery-early-access']
+        const publicRoutes = ['/', '/contact', '/about', '/services', '/solutions', '/q-suite', '/success', '/achievery', '/lead-rescue', '/pipeline-buildout', '/how-it-works', '/proof', '/tools']
         if (pathname && publicRoutes.some(route => pathname.startsWith(route))) {
           setAccessDenied(null)
           setLoading(false)
@@ -69,7 +69,7 @@ export default function RouteGuard({ children }: RouteGuardProps) {
         setAccessDenied(null)
       } catch (error) {
         // For public routes, allow access even if there's an error
-        const publicRoutes = ['/', '/pricing', '/contact', '/about', '/services', '/solutions', '/q-suite']
+        const publicRoutes = ['/', '/contact', '/about', '/services', '/solutions', '/q-suite', '/achievery', '/lead-rescue', '/pipeline-buildout']
         if (pathname && publicRoutes.includes(pathname)) {
           setAccessDenied(null)
         } else {

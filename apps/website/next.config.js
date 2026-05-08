@@ -76,12 +76,37 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/solutions/:path*',
+        destination: '/services',
+        permanent: true,
+      },
+      {
         source: '/achievery-preview',
         destination: '/tools',
         permanent: true,
       },
       {
+        source: '/achievery-preview/:path*',
+        destination: '/tools',
+        permanent: true,
+      },
+      {
+        source: '/achievery-early-access',
+        destination: '/achievery',
+        permanent: true,
+      },
+      {
+        source: '/achievery-early-access/:path*',
+        destination: '/achievery',
+        permanent: true,
+      },
+      {
         source: '/platform',
+        destination: '/q-suite',
+        permanent: true,
+      },
+      {
+        source: '/platform/:path*',
         destination: '/q-suite',
         permanent: true,
       },
@@ -97,6 +122,7 @@ const nextConfig = {
       { source: '/workshops', destination: '/proof', permanent: true },
       { source: '/workshops/:path*', destination: '/proof', permanent: true },
       { source: '/cold-calling', destination: '/proof', permanent: true },
+      { source: '/data-analysis', destination: '/lead-rescue', permanent: true },
       { source: '/discovery', destination: '/contact', permanent: true },
       { source: '/get-started', destination: '/contact', permanent: true },
       { source: '/schedule', destination: '/contact', permanent: true },
@@ -106,7 +132,16 @@ const nextConfig = {
       // Phase 5E — deferred marketing routes (canonical destinations)
       { source: '/resources', destination: '/tools', permanent: true },
       { source: '/studio', destination: '/proof', permanent: true },
-      { source: '/early-access', destination: '/achievery-early-access', permanent: true },
+      { source: '/early-access', destination: '/achievery', permanent: true },
+      // Legacy public surfaces retired from primary IA
+      { source: '/dashboard', destination: '/proof', permanent: true },
+      { source: '/dashboard/:path*', destination: '/proof', permanent: true },
+      { source: '/campaigns', destination: '/contact', permanent: true },
+      { source: '/campaigns/:path*', destination: '/contact', permanent: true },
+      { source: '/dnc', destination: '/contact', permanent: true },
+      { source: '/dnc/:path*', destination: '/contact', permanent: true },
+      { source: '/vault', destination: '/tools', permanent: true },
+      { source: '/vault/:path*', destination: '/tools', permanent: true },
     ];
   },
   experimental: {

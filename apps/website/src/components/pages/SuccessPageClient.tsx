@@ -67,7 +67,7 @@ function SuccessContent() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-lg leading-8 text-[#C0C0C0] mb-8"
             >
-              Thank you for choosing Strata Noble! Your Solution Services package has been confirmed.
+              Thank you for choosing Strata Noble. Your engagement has been confirmed.
             </motion.p>
 
             {isLoading ? (
@@ -107,7 +107,7 @@ function SuccessContent() {
                     <div className="flex items-start space-x-4">
                       <CalendarIcon className="h-6 w-6 text-[#50C878] mt-1 flex-shrink-0" />
                       <div>
-                        <h3 className="text-white font-semibold">Discovery Call</h3>
+                        <h3 className="text-white font-semibold">Diagnostic Call</h3>
                         <p className="text-[#C0C0C0] text-sm">
                           Schedule your first strategy session within the next 48 hours.
                         </p>
@@ -124,7 +124,7 @@ function SuccessContent() {
                     rel="noopener noreferrer"
                     className="px-8 py-3 bg-[#50C878] hover:bg-[#3DB067] text-white font-medium rounded-lg transition-colors flex items-center justify-center"
                   >
-                    Schedule Discovery Call
+                    Schedule Diagnostic Call
                   </a>
                   <a
                     href="/contact"

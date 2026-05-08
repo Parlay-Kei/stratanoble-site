@@ -7,7 +7,7 @@ const surfaces = [
   {
     title: 'Consulting Services',
     subtitle:
-      'Scoped engagements that build and install operational systems. Systems Audit starts at $997. Operations Buildout at $4,997. Ongoing Operations Command at $1,497/month.',
+      'Scoped engagements that install operational control systems. Lead Rescue is $997. Full 21-day pipeline buildout is $4,997.',
     cta: 'View Services',
     href: '/services',
   },
