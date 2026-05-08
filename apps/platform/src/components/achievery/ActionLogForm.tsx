@@ -25,8 +25,8 @@ type RecentAction = {
 }
 
 type Insight = {
-  reframedText: string
-  significanceScore: number
+  operationalInsight: string
+  impactRating: number
   insights: string[]
   nextSteps: string[]
 }
@@ -146,7 +146,7 @@ export default function ActionLogForm({ user }: { user: User }) {
           body: JSON.stringify({
             originalText: entryText.trim(),
             category: 'building',
-            phase: 'launch',
+            executionStage: 'launch',
             userId: user.id,
           }),
         })
@@ -288,7 +288,7 @@ export default function ActionLogForm({ user }: { user: User }) {
       {insight && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-5 space-y-3">
           <p className="text-xs font-semibold text-blue-800 uppercase tracking-wide">Operational insight</p>
-          <p className="text-sm text-blue-900 leading-relaxed">{insight.reframedText}</p>
+          <p className="text-sm text-blue-900 leading-relaxed">{insight.operationalInsight}</p>
           {insight.insights.length > 0 && (
             <ul className="space-y-1.5">
               {insight.insights.map((item, i) => (
