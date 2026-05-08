@@ -22,12 +22,17 @@ export function PlatformNav({ actor }: PlatformNavProps) {
     }
   }
 
-  const links = [
-    { href: '/dashboard', label: 'Dashboard' },
-    { href: '/platform/actions', label: 'Log action' },
-    ...(actor !== 'client' ? [{ href: '/platform/systems', label: 'Systems' }] : []),
-    { href: '/platform/proof', label: 'Proof ledger' },
-  ]
+  const links = actor === 'client'
+    ? [
+        { href: '/platform/client', label: 'My Portal' },
+        { href: '/platform/actions', label: 'Log action' },
+      ]
+    : [
+        { href: '/dashboard', label: 'Dashboard' },
+        { href: '/platform/actions', label: 'Log action' },
+        { href: '/platform/systems', label: 'Systems' },
+        { href: '/platform/proof', label: 'Proof ledger' },
+      ]
 
   return (
     <nav className="border-b border-gray-200 bg-white px-4">

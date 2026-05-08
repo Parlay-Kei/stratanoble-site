@@ -97,7 +97,22 @@ export function decideRedirect(params: {
   return { redirect: null, clearCookie: false };
 }
 
-export function middleware(request: NextRequest) {
+async function checkEngagementClientLink(userId: string): Promise<boolean> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return false;
+  try {
+    const res = await fetch(
+      `${supabaseUrl}/rest/v1/achievery_engagements?client_user_id=eq.${encodeURIComponent(userId)}&select=id&limit=1`,
+      { headers: { 'apikey': serviceKey, 'Authorization': `Bearer ${serviceKey}`, 'Accept': 'application/json' } }
+    );
+    if (!res.ok) return false;
+    const rows = await res.json();
+    return Array.isArray(rows) && rows.length > 0;
+  } catch { return false; }
+}
+
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Skip static assets
@@ -132,16 +147,23 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // For onboarding redirects, check if user is a linked client — if so, send to portal instead
+  let finalRedirect = decision.redirect;
+  if (decision.redirect === '/onboarding' && sessionData?.userId) {
+    const isClient = await checkEngagementClientLink(sessionData.userId);
+    if (isClient) finalRedirect = '/platform/client';
+  }
+
   // Build redirect URL with context
-  const redirectUrl = new URL(decision.redirect, request.url);
-  
+  const redirectUrl = new URL(finalRedirect, request.url);
+
   // Add redirect param for post-action navigation (except for onboarding redirect)
-  if (decision.redirect === '/auth') {
+  if (finalRedirect === '/auth') {
     redirectUrl.searchParams.set('redirect', pathname);
     if (decision.clearCookie) {
       redirectUrl.searchParams.set('reason', 'session_expired');
     }
-  } else if (decision.redirect === '/onboarding') {
+  } else if (finalRedirect === '/onboarding') {
     // Store intended destination for after onboarding
     redirectUrl.searchParams.set('next', pathname);
   }
