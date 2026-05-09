@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 /**
  * Homepage Revamp E2E Tests
  *
- * Tests the revenue-first homepage revamp with Lead Rescue and Q SUITE CTAs.
+ * Tests homepage messaging and primary diagnostic plus secondary CTAs.
  * These tests check for the new messaging and offers when feature flag is enabled.
  */
 
@@ -23,16 +23,8 @@ test.describe('Homepage Revamp', () => {
     const heroSection = page.locator('main').first();
     await expect(heroSection).toBeVisible();
 
-    // Check for primary CTA (Lead Rescue)
-    const leadRescueCTA = page.getByRole('link', { name: /lead rescue|48-hour/i });
-    if (await leadRescueCTA.count() > 0) {
-      await expect(leadRescueCTA.first()).toBeVisible();
-    } else {
-      test.info().annotations.push({
-        type: 'warning',
-        description: 'Lead Rescue CTA not found - may need Sprint 1-2 completion'
-      });
-    }
+    const diagnosticCta = page.getByRole('link', { name: /free diagnostic/i });
+    await expect(diagnosticCta.first()).toBeVisible();
 
     const qSuiteCTA = page.getByRole('link', { name: /see what we run on|q suite/i });
     if (await qSuiteCTA.count() > 0) {
@@ -59,15 +51,11 @@ test.describe('Homepage Revamp', () => {
     }
   });
 
-  test('primary CTA routes to /lead-rescue', async ({ page }) => {
-    const leadRescueLink = page.getByRole('link', { name: /lead rescue|48-hour/i }).first();
-    const isVisible = await leadRescueLink.isVisible({ timeout: 2000 }).catch(() => false);
-
-    test.skip(!isVisible, 'Lead Rescue CTA not implemented yet - requires Sprint 1-2');
-
-    await leadRescueLink.click();
-    await page.waitForURL('**/lead-rescue', { timeout: 5000 });
-    expect(page.url()).toContain('/lead-rescue');
+  test('primary hero CTA routes to diagnostic contact path', async ({ page }) => {
+    await page.getByRole('link', { name: /get your free diagnostic/i }).first().click();
+    await page.waitForURL('**/contact**', { timeout: 5000 });
+    expect(page.url()).toContain('/contact');
+    expect(page.url()).toMatch(/service=diagnostic/);
   });
 
   test('secondary hero CTA links to Q SUITE section', async ({ page }) => {

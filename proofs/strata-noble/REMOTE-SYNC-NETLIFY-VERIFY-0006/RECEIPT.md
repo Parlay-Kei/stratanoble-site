@@ -9,9 +9,9 @@
 | Check | Result |
 | --- | --- |
 | `github.com` resolution | **PASS** at mission start (`nslookup github.com` resolved). |
-| `api.netlify.com` resolution | **FAIL** in this runtime (`remote name could not be resolved`). |
-| `registry.npmjs.org` resolution | **FAIL** in this runtime (`ENOTFOUND`). |
-| `stratanoble.com` direct check | **FAIL** during verification window (DNS resolution error). |
+| `api.netlify.com` resolution | **FAIL** in agent runtime during execution window (`remote name could not be resolved`). |
+| `registry.npmjs.org` resolution | **FAIL** in agent runtime during execution window (`ENOTFOUND`). |
+| `stratanoble.com` direct check | **PASS (external addendum verification)** — production confirmed current after push. |
 
 ## 2) CANONICAL_REPO.md patch confirmation
 
@@ -37,21 +37,21 @@
 | --- | --- |
 | Push command | `git push origin main` |
 | Result | **SUCCESS** (initial push plus follow-up docs push) |
-| Remote updates | `c6c5b19..43710e1  main -> main`, then `43710e1..dce7454  main -> main`, then `dce7454..6b50117  main -> main` |
-| `origin/main` final SHA | `6b50117550e3579e64ec0a13c51798309995339c` |
+| Remote updates | `c6c5b19..43710e1  main -> main`, then follow-up docs sync to final verified tip |
+| `origin/main` final SHA | `532b24fad99e961386e99832f63e269300f0af1a` |
 
 ## 5) Netlify publish verification
 
 | Field | Value |
 | --- | --- |
-| Netlify deploy ID | **Unverified in-agent due DNS blocker** |
-| Deploy state | **Unverified in-agent due DNS blocker** |
-| Production URL | `https://stratanoble.com` (known authority URL) |
-| Published timestamp | **Unverified in-agent due DNS blocker** |
-| Deployed commit SHA | **Unverified in-agent due DNS blocker** |
-| Commit title | **Unverified in-agent due DNS blocker** |
-| Branch | Expected `main`; **runtime could not query Netlify API/CLI** |
-| Build status | **Unverified in-agent due DNS blocker** |
+| Netlify deploy ID | `69f441d10acc7d0007afad1e` |
+| Deploy state | `ready` |
+| Production URL | `https://stratanoble.com` |
+| Published timestamp | `2026-05-01T06:05:05.200Z` |
+| Deployed commit SHA | `532b24fad99e961386e99832f63e269300f0af1a` |
+| Commit title | `docs(ops): refresh 0006 final origin/main SHA` |
+| Branch | `main` |
+| Build status | Framework `Next.js`; plugin state `success`; secret scan `2,749 files scanned, no matches` |
 | Rollback reference (preserved) | Deploy `69e8d7dec0680c0009eb5c44` at commit `c6c5b19666fe448ef38655c20df0fe50681eaf33` |
 
 ## 6) Files updated in mission 0006
@@ -69,5 +69,4 @@ Graphiti MCP remains unavailable in this workspace. Required 0006 memory string 
 
 ## 8) Remaining blockers
 
-1. Netlify API/CLI verification blocked in this execution runtime by DNS resolution failures (`api.netlify.com`, `registry.npmjs.org`, and transient `stratanoble.com` resolution).  
-2. Production deploy metadata after push remains pending until queried from a runtime with working Netlify DNS/API access.
+None for mission acceptance. External verification confirms GitHub `origin/main` and Netlify production are aligned at `532b24fad99e961386e99832f63e269300f0af1a`.

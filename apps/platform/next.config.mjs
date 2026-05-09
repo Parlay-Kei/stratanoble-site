@@ -1,13 +1,19 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
+  outputFileTracingRoot: path.join(__dirname, '../../'),
   transpilePackages: ['@strata-noble/ui', '@strata-noble/utils'],
   experimental: {
     optimizePackageImports: ['@strata-noble/ui'],
   },
-  // Ensure Next.js looks in the src directory
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  turbopack: {},
   webpack: (config, { isServer }) => {
-    // Exclude server-only modules from client bundle
     if (!isServer) {
       config.resolve.alias = {
         ...config.resolve.alias,
@@ -17,12 +23,7 @@ const nextConfig = {
     return config
   },
   typescript: {
-    // Enforce type checking during build
     ignoreBuildErrors: false,
-  },
-  eslint: {
-    // Enforce ESLint during build
-    ignoreDuringBuilds: false,
   },
 }
 

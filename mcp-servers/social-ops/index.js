@@ -34,6 +34,11 @@ import NotionContentTracker from './notion-integration.js';
 import { SafetyControls, ApprovalGate } from './safety-controls.js';
 import { LinkedInPoster, LinkedInAPIClient } from './linkedin-poster.js';
 import { TikTokPoster, TikTokAPIClient } from './tiktok-poster.js';
+import { TikTokPlaywrightPoster } from './tiktok-playwright-poster.js';
+import {
+  loadStrataNobleTikTokQueue,
+  getStrataNobleTikTokQueuePath,
+} from './strata-queue-loader.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -57,6 +62,8 @@ const config = {
     enabled: process.env.TIKTOK_ENABLED !== 'false',
     accountType: process.env.TIKTOK_ACCOUNT_TYPE || 'personal',
     sessionCookies: process.env.TIKTOK_SESSION_COOKIES,
+    usePersistentProfile: process.env.TIKTOK_USE_PERSISTENT_PROFILE === 'true',
+    profileDir: process.env.TIKTOK_PROFILE_DIR || '.auth/tiktok-profile',
   },
   approval: {
     method: process.env.APPROVAL_METHOD || 'notion', // 'notion' or 'explicit'
@@ -72,6 +79,66 @@ fs.ensureDirSync(receiptsDir);
 // Rate limiting state
 let lastRequestTime = {};
 const minRequestInterval = 1000 / config.rateLimitPerSecond;
+
+/**
+ * Returns true if TIKTOK_SESSION_COOKIES parses to a non-empty cookie array.
+ */
+function hasTikTokSessionCookies() {
+  const raw = config.tiktok.sessionCookies;
+  if (!raw || typeof raw !== 'string') return false;
+  const trimmed = raw.trim();
+  if (trimmed === '' || trimmed === '[]') return false;
+  try {
+    const parsed = JSON.parse(trimmed);
+    return Array.isArray(parsed) && parsed.length > 0;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Cookie JSON or persistent Chromium profile satisfies non-dry-run TikTok auth.
+ */
+function hasTikTokAuthForUpload() {
+  if (config.tiktok.usePersistentProfile) {
+    return true;
+  }
+  return hasTikTokSessionCookies();
+}
+
+/**
+ * Validate persistent profile: login state + @strata.noble (browser opens even if DRY_RUN_MODE=true).
+ */
+async function validateTikTokPersistentProfile() {
+  if (!config.tiktok.enabled) {
+    return { success: false, error: 'TikTok posting disabled via kill switch' };
+  }
+  if (!config.tiktok.usePersistentProfile) {
+    return {
+      success: false,
+      error: 'Set TIKTOK_USE_PERSISTENT_PROFILE=true to validate the saved Chromium profile.',
+    };
+  }
+
+  const posterConfig = {
+    notion: config.notion,
+    linkedin: config.linkedin,
+    tiktok: config.tiktok,
+    approval: config.approval,
+    dryRun: false,
+  };
+
+  const poster = new TikTokPlaywrightPoster(posterConfig);
+  try {
+    const result = await poster.validatePersistentProfileAndAccount();
+    await poster.close();
+    const ready = result.finalStatus === 'READY_FOR_DRAFT_TEST';
+    return { success: ready, ...result };
+  } catch (err) {
+    await poster.close().catch(() => {});
+    return { success: false, error: err.message };
+  }
+}
 
 /**
  * Generate a unique receipt ID
@@ -258,63 +325,125 @@ async function postToLinkedIn(content, imageUrl = null, notionPageId = null) {
 }
 
 /**
- * TikTok posting via browser automation
+ * TikTok posting via TikTokPoster (dry_run, draft, schedule, publish).
+ * Mock post URLs are not used. Live postUrl only comes from real browser completion.
  */
-async function postToTikTok(videoPath, caption, notionPageId = null) {
+async function postToTikTok(videoPath, caption, notionPageId = null, toolOptions = {}) {
   if (!config.tiktok.enabled) {
-    return { error: 'TikTok posting disabled via kill switch' };
+    return { success: false, error: 'TikTok posting disabled via kill switch' };
   }
 
   await rateLimit('tiktok');
 
-  // Validate video file
   if (!await fs.pathExists(videoPath)) {
-    return { error: 'Video file not found' };
+    return { success: false, error: 'Video file not found' };
   }
 
-  const videoHash = crypto
-    .createHash('sha256')
-    .update(await fs.readFile(videoPath))
-    .digest('hex');
+  const executionMode =
+    toolOptions.executionMode ||
+    process.env.TIKTOK_EXECUTION_MODE ||
+    'dry_run';
 
-  if (config.dryRun) {
-    const receiptId = await saveReceipt('tiktok', 'dry_run_upload', {
-      videoPath,
-      videoHash,
-      caption,
-      notionPageId,
-    });
+  const forceDryRun =
+    config.dryRun === true || executionMode === 'dry_run';
+
+  const queueSourcePath = getStrataNobleTikTokQueuePath();
+
+  if (!forceDryRun) {
+    if (process.env.TIKTOK_EXECUTION_APPROVED !== 'true') {
+      return {
+        success: false,
+        error:
+          'Non-dry-run TikTok execution blocked. Set TIKTOK_EXECUTION_APPROVED=true after QA.',
+        executionMode,
+        queueSourcePath,
+      };
+    }
+    if (!hasTikTokAuthForUpload()) {
+      return {
+        success: false,
+        error:
+          'TIKTOK_SESSION_COOKIES missing or empty. Set TIKTOK_USE_PERSISTENT_PROFILE=true with a logged-in Chromium profile, or load cookies into .env.',
+        executionMode,
+        queueSourcePath,
+      };
+    }
+    if (executionMode === 'publish' && process.env.TIKTOK_LIVE_PUBLISH_APPROVED !== 'true') {
+      return {
+        success: false,
+        error:
+          'Live publish blocked. Set TIKTOK_LIVE_PUBLISH_APPROVED=true only after explicit QA gate.',
+        executionMode,
+        queueSourcePath,
+      };
+    }
+  }
+
+  const posterConfig = {
+    notion: config.notion,
+    linkedin: config.linkedin,
+    tiktok: config.tiktok,
+    approval: config.approval,
+    dryRun: forceDryRun,
+  };
+
+  const PosterCtor = config.tiktok.usePersistentProfile
+    ? TikTokPlaywrightPoster
+    : TikTokPoster;
+  const poster = new PosterCtor(posterConfig);
+
+  const uploadOptions = {
+    executionMode: forceDryRun ? 'dry_run' : executionMode,
+    privacy: toolOptions.privacy || 'public',
+    hashtags: toolOptions.hashtags,
+    scheduleAt: toolOptions.scheduleAt,
+    allowComments: toolOptions.allowComments !== false,
+    allowDuet: toolOptions.allowDuet !== false,
+    allowStitch: toolOptions.allowStitch !== false,
+    skipConfirmation: process.env.TIKTOK_SKIP_PUBLISH_CONFIRMATION === 'true',
+  };
+
+  try {
+    const result = await poster.upload(videoPath, caption, uploadOptions);
+
+    const videoHash =
+      result.preview?.videoHash || result.videoHash || null;
+
+    const receiptId = await saveReceipt(
+      'tiktok',
+      forceDryRun ? 'dry_run_upload' : executionMode,
+      {
+        videoPath,
+        videoHash,
+        caption,
+        notionPageId,
+        executionMode: uploadOptions.executionMode,
+        dryRun: forceDryRun,
+        queueSourcePath,
+        success: result.success !== false,
+      }
+    );
+
+    await poster.close();
+
+    if (notionPageId && result.success && result.postUrl) {
+      await updateNotionStatus(notionPageId, 'Posted', result.postUrl);
+    }
 
     return {
-      success: true,
-      dryRun: true,
-      message: 'DRY RUN: Would upload to TikTok',
-      videoHash,
+      ...result,
       receiptId,
+      queueSourcePath,
+      dryRun: forceDryRun,
+    };
+  } catch (err) {
+    await poster.close().catch(() => {});
+    return {
+      success: false,
+      error: err.message,
+      queueSourcePath,
     };
   }
-
-  // Real upload would happen here via puppeteer
-  const mockPostUrl = `https://tiktok.com/@user/video/${Date.now()}`;
-
-  if (notionPageId) {
-    await updateNotionStatus(notionPageId, 'Posted', mockPostUrl);
-  }
-
-  const receiptId = await saveReceipt('tiktok', 'upload', {
-    videoPath,
-    videoHash,
-    caption,
-    notionPageId,
-    postUrl: mockPostUrl,
-  });
-
-  return {
-    success: true,
-    postUrl: mockPostUrl,
-    videoHash,
-    receiptId,
-  };
 }
 
 /**
@@ -392,8 +521,18 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         },
       },
       {
+        name: 'validate_tiktok_persistent_profile',
+        description:
+          'When TIKTOK_USE_PERSISTENT_PROFILE=true, opens Playwright Chromium with TIKTOK_PROFILE_DIR, checks login and that the session is @strata.noble, and returns NEEDS_ONE_TIME_LOGIN / READY_FOR_DRAFT_TEST. Does not print cookies.',
+        inputSchema: {
+          type: 'object',
+          properties: {},
+        },
+      },
+      {
         name: 'publish_tiktok_video',
-        description: 'Upload a video to TikTok after approval',
+        description:
+          'Upload a video to TikTok. Defaults to dry_run (no browser). Non-dry-run requires TIKTOK_EXECUTION_APPROVED=true and either TIKTOK_SESSION_COOKIES or TIKTOK_USE_PERSISTENT_PROFILE with a validated profile.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -409,8 +548,36 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
               type: 'string',
               description: 'Notion page ID for status tracking',
             },
+            executionMode: {
+              type: 'string',
+              enum: ['dry_run', 'draft', 'schedule', 'publish'],
+              description:
+                'dry_run default behavior; others require env gates (see README)',
+            },
+            hashtags: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Hashtag strings without leading #',
+            },
+            scheduleAt: {
+              type: 'string',
+              description: 'ISO datetime for schedule mode when implemented',
+            },
+            privacy: {
+              type: 'string',
+              enum: ['public', 'friends', 'private'],
+            },
           },
           required: ['videoPath', 'caption'],
+        },
+      },
+      {
+        name: 'load_strata_noble_tiktok_queue',
+        description:
+          'Load Posts 1–14 from docs/social/tiktok/STRATA_NOBLE_TIKTOK_POSTING_QUEUE_001.md (approved queue)',
+        inputSchema: {
+          type: 'object',
+          properties: {},
         },
       },
       {
@@ -513,6 +680,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           ],
         };
 
+      case 'validate_tiktok_persistent_profile': {
+        const validationResult = await validateTikTokPersistentProfile();
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(validationResult, null, 2),
+            },
+          ],
+        };
+      }
+
       case 'publish_tiktok_video':
         // Check approval if Notion page ID provided
         if (args.notionPageId) {
@@ -529,7 +708,16 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const tiktokResult = await postToTikTok(
           args.videoPath,
           args.caption,
-          args.notionPageId
+          args.notionPageId,
+          {
+            executionMode: args.executionMode,
+            hashtags: args.hashtags,
+            scheduleAt: args.scheduleAt,
+            privacy: args.privacy,
+            allowComments: args.allowComments,
+            allowDuet: args.allowDuet,
+            allowStitch: args.allowStitch,
+          }
         );
 
         return {
@@ -537,6 +725,16 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             {
               type: 'text',
               text: JSON.stringify(tiktokResult, null, 2),
+            },
+          ],
+        };
+
+      case 'load_strata_noble_tiktok_queue':
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(loadStrataNobleTikTokQueue(), null, 2),
             },
           ],
         };
@@ -612,6 +810,9 @@ async function main() {
   console.error(`Dry run mode: ${config.dryRun}`);
   console.error(`LinkedIn: ${config.linkedin.enabled ? 'enabled' : 'disabled'}`);
   console.error(`TikTok: ${config.tiktok.enabled ? 'enabled' : 'disabled'}`);
+  console.error(
+    `TikTok persistent profile: ${config.tiktok.usePersistentProfile ? 'on' : 'off'}`
+  );
 }
 
 main().catch((error) => {

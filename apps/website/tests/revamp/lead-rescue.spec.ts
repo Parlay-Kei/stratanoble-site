@@ -9,12 +9,12 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Lead Rescue Page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/lead-rescue');
+    await page.goto('/systems-audit');
   });
 
   test('page loads or returns 404', async ({ page }) => {
     // Check if page exists (Sprint 3)
-    const response = await page.goto('/lead-rescue');
+    const response = await page.goto('/systems-audit');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Lead Rescue page not implemented yet - requires Sprint 3');
@@ -23,7 +23,7 @@ test.describe('Lead Rescue Page', () => {
   });
 
   test('page has heading and form when implemented', async ({ page }) => {
-    const response = await page.goto('/lead-rescue');
+    const response = await page.goto('/systems-audit');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Lead Rescue page not implemented yet - requires Sprint 3');
@@ -38,7 +38,7 @@ test.describe('Lead Rescue Page', () => {
   });
 
   test('form has required fields', async ({ page }) => {
-    const response = await page.goto('/lead-rescue');
+    const response = await page.goto('/systems-audit');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Lead Rescue page not implemented yet - requires Sprint 3');
@@ -67,7 +67,7 @@ test.describe('Lead Rescue Page', () => {
   });
 
   test('form submission with valid data', async ({ page }) => {
-    const response = await page.goto('/lead-rescue');
+    const response = await page.goto('/systems-audit');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Lead Rescue page not implemented yet - requires Sprint 3');
@@ -120,7 +120,7 @@ test.describe('Lead Rescue Page', () => {
   });
 
   test('form shows validation errors for empty submission', async ({ page }) => {
-    const response = await page.goto('/lead-rescue');
+    const response = await page.goto('/systems-audit');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Lead Rescue page not implemented yet - requires Sprint 3');
@@ -142,13 +142,13 @@ test.describe('Lead Rescue Page', () => {
   });
 
   test('mobile layout is usable', async ({ page }) => {
-    const response = await page.goto('/lead-rescue');
+    const response = await page.goto('/systems-audit');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Lead Rescue page not implemented yet - requires Sprint 3');
 
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto('/lead-rescue');
+    await page.goto('/systems-audit');
 
     // Check form is visible on mobile
     const form = page.locator('form').first();

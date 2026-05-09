@@ -9,7 +9,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Rate Limiting', () => {
   test('lead rescue form rate limiting', async ({ page }) => {
-    const response = await page.goto('/lead-rescue');
+    const response = await page.goto('/systems-audit');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Lead Rescue page not implemented yet - requires Sprint 3');
@@ -62,7 +62,7 @@ test.describe('Rate Limiting', () => {
 
       // Reload page for next attempt if needed
       if (i < 5) {
-        await page.goto('/lead-rescue');
+        await page.goto('/systems-audit');
       }
     }
 
@@ -73,7 +73,7 @@ test.describe('Rate Limiting', () => {
   });
 
   test('phase 3 form rate limiting', async ({ page }) => {
-    const response = await page.goto('/pipeline-buildout');
+    const response = await page.goto('/operations-buildout');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Pipeline buildout page not implemented');
@@ -136,7 +136,7 @@ test.describe('Rate Limiting', () => {
 
       // Reload page for next attempt if needed
       if (i < 5) {
-        await page.goto('/pipeline-buildout');
+        await page.goto('/operations-buildout');
       }
     }
 
@@ -150,7 +150,7 @@ test.describe('Rate Limiting', () => {
     // This is a longer test - may need to be optional
     test.setTimeout(120000); // 2 minutes
 
-    const response = await page.goto('/lead-rescue');
+    const response = await page.goto('/systems-audit');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Lead Rescue page not implemented yet - requires Sprint 3');

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 /**
  * Sample Verification Receipt Page
  *
- * Shows a redacted example of what clients receive after a Lead Rescue or Pipeline Buildout.
+ * Shows a redacted example of what clients receive after a Systems Audit or Operations Buildout.
  * This is the trust weapon - proof that we deliver with receipts.
  */
 
@@ -24,7 +24,7 @@ export default function SampleReceiptPage() {
           </Link>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Sample Verification Receipt Pack</h1>
           <p className="text-gray-300">
-            This is what you receive after every Lead Rescue or Pipeline Buildout. Redacted for privacy.
+            This is what you receive after every Systems Audit or Operations Buildout. Redacted for privacy.
           </p>
         </div>
       </section>
@@ -34,7 +34,7 @@ export default function SampleReceiptPage() {
         <ReceiptCard title="VERIFICATION_STATUS.md">
           <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono">
 {`# Deployment Verification Status
-Project: [REDACTED] Lead Rescue
+Project: [REDACTED] Systems Audit
 Date: 2026-01-03
 Verdict: ✅ PASS
 
@@ -116,7 +116,7 @@ All DNS configurations verified.`}
         {/* Folder Structure */}
         <ReceiptCard title="Secure Delivery Folder Structure">
           <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono">
-{`📁 [CLIENT]_Lead_Rescue_2026-01-03/
+{`📁 [CLIENT]_Systems_Audit_2026-01-03/
 ├── 📁 receipts/
 │   ├── VERIFICATION_STATUS.md
 │   ├── build_receipt.txt
@@ -139,13 +139,13 @@ All DNS configurations verified.`}
         <div className="bg-command-navy text-white rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Ready to get your own receipt pack?</h2>
           <p className="text-gray-300 mb-6">
-            Every Lead Rescue includes a deployment verification pack stored in your secure delivery folder.
+            Every Systems Audit includes a deployment verification pack stored in your ANX Vault delivery folder.
           </p>
           <Link
-            href="/lead-rescue"
+            href="/systems-audit"
             className="inline-block bg-forest-green text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all"
           >
-            Start the 48-Hour Lead Rescue
+            Start with Systems Audit
           </Link>
         </div>
       </div>

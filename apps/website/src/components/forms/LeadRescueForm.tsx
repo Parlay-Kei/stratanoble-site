@@ -271,7 +271,7 @@ export function LeadRescueForm() {
         disabled={status === 'loading' || formData.currentTools.length === 0}
         className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {status === 'loading' ? 'Submitting...' : 'Request Lead Rescue'}
+        {status === 'loading' ? 'Submitting...' : 'Request Systems Audit'}
       </button>
 
       <p className="text-xs text-muted-foreground text-center">

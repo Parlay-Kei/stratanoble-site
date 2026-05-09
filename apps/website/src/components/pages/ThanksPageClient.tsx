@@ -135,8 +135,8 @@ function ThanksContent() {
           ],
           actions: [
             {
-              text: 'Explore Lead Rescue',
-              href: '/lead-rescue',
+              text: 'Explore Systems Audit',
+              href: '/systems-audit',
               primary: true
             },
             {

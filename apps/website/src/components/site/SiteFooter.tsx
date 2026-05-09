@@ -10,10 +10,10 @@ import { Logo } from '../Logo'
 
 const navigation = {
   services: [
-    { name: 'Free Diagnostic', href: '/contact?service=lead-rescue' },
-    { name: 'Lead Rescue', href: '/lead-rescue' },
-    { name: 'Pipeline Buildout', href: '/pipeline-buildout' },
-    { name: 'Operations Support', href: '/contact?service=operations-command' },
+    { name: 'Free Diagnostic', href: '/contact?service=diagnostic' },
+    { name: 'Systems Audit', href: '/systems-audit' },
+    { name: 'Operations Buildout', href: '/operations-buildout' },
+    { name: 'Operations Command', href: '/contact?service=operations-command' },
   ],
   platform: [
     { name: 'Q SUITE', href: '/q-suite' },
@@ -58,8 +58,7 @@ export function SiteFooter() {
           <div className="space-y-8 xl:col-span-1">
             <Logo className="h-16 w-auto" theme="white" />
             <p className="text-sm leading-6 text-slate-grey">
-              We install the systems that turn leads into booked, paid work. Scoped engagements. Delivered
-              infrastructure. You own it.
+              Operational systems for service businesses — consulting installs, Q SUITE infrastructure, ACHIEVERY when accountability matters. Scoped work. You own what we ship.
             </p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
@@ -157,7 +156,7 @@ export function SiteFooter() {
               &copy; {new Date().getFullYear()} Strata Noble. All rights reserved.
             </p>
             <p className="text-xs text-slate-grey">
-              Revenue pipeline infrastructure for service businesses.
+              Builder-operator firm. Not an agency. Not a lead shop.
             </p>
           </div>
         </div>

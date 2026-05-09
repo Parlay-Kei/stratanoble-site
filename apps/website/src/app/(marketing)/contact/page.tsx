@@ -4,11 +4,11 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Contact | Strata Noble',
   description:
-    'Reach Strata Noble for Lead Rescue, pipeline buildout, Q SUITE licensing, Operations Command, or a general inquiry — phone, email, or start with a diagnostic.',
+    'Reach Strata Noble for Systems Audit, Operations Buildout, Q SUITE licensing, Operations Command, ACHIEVERY, or a general inquiry. Phone, email, or start with a diagnostic.',
   alternates: { canonical: '/contact' },
   openGraph: {
     title: 'Contact | Strata Noble',
-    description: 'Digital infrastructure, Q SUITE, and consulting — get in touch.',
+    description: 'Digital infrastructure, Q SUITE, and consulting. Get in touch.',
     url: '/contact',
   },
 };
@@ -33,23 +33,23 @@ const contactMethods = [
 
 const engagementPaths = [
   {
-    title: 'My leads are leaking',
-    description: '48-hour intake and follow-up fix with verification receipts.',
-    href: '/lead-rescue',
+    title: 'I need clarity fast',
+    description: 'Systems Audit: scoped fixes with ProofLoop receipts (typically 48 to 72 hours).',
+    href: '/systems-audit',
   },
   {
-    title: 'I need a full system',
-    description: '21-day pipeline buildout — intake through revenue visibility.',
-    href: '/pipeline-buildout',
+    title: 'I need a full install',
+    description: 'Operations Buildout: 21-day operational infrastructure with training and handoff.',
+    href: '/operations-buildout',
   },
   {
     title: 'I want ongoing support',
-    description: 'Operations Command — weekly rhythm and continuous tuning.',
+    description: 'Operations Command: weekly rhythm and continuous tuning.',
     href: '/contact?service=operations-command',
   },
   {
     title: 'Tell me about Q SUITE',
-    description: 'Five business modules, clear licensing — installed through consulting.',
+    description: 'Five business modules, clear licensing, installed through consulting.',
     href: '/q-suite',
   },
 ];
@@ -66,15 +66,23 @@ export default async function ContactPage({
 const SERVICE_INTENT: Record<string, { label: string; nextStep: string }> = {
   diagnostic: {
     label: 'Free Diagnostic',
-    nextStep: 'Start with Lead Rescue to identify and patch urgent lead leaks.',
+    nextStep: 'We will confirm fit and recommend Systems Audit, a Sprint, or Operations Buildout.',
   },
   'lead-rescue': {
-    label: 'Lead Rescue',
-    nextStep: 'Use the Lead Rescue intake to begin the 48-hour fix process.',
+    label: 'Systems Audit',
+    nextStep: 'Legacy link. Use the Systems Audit intake to begin the scoped audit window.',
+  },
+  'systems-audit': {
+    label: 'Systems Audit',
+    nextStep: 'Use the Systems Audit intake to begin the scoped audit window.',
   },
   'pipeline-buildout': {
-    label: '21-Day Pipeline Buildout',
-    nextStep: 'Apply for a full lead-to-customer system install.',
+    label: 'Operations Buildout',
+    nextStep: 'Apply for the 21-day operational infrastructure install.',
+  },
+  'operations-buildout': {
+    label: 'Operations Buildout',
+    nextStep: 'Apply for the 21-day operational infrastructure install.',
   },
   'operations-command': {
     label: 'Operations Command',
@@ -87,6 +95,10 @@ const SERVICE_INTENT: Record<string, { label: string; nextStep: string }> = {
   'achievery-pro': {
     label: 'ACHIEVERY Pro',
     nextStep: 'Share your use case and we will route you to the right product path.',
+  },
+  'process-improvement-sprint': {
+    label: 'Process Improvement Sprint',
+    nextStep: 'Tell us which single process is broken. We will confirm scope for the 10-day sprint.',
   },
 };
 
@@ -103,11 +115,11 @@ function ContactPageContent({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Get in touch</h1>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Whether you need a quick pipeline fix, a full system install, or want to discuss how Q SUITE fits your
-            operation — start here.
+            Whether you need a scoped audit, a full buildout, or want to discuss how Q SUITE fits your operation,
+            start here.
           </p>
           <Link
-            href="/lead-rescue"
+            href="/contact?service=diagnostic"
             className="inline-flex items-center bg-forest-green text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all"
           >
             Start with the Free Diagnostic
@@ -125,7 +137,7 @@ function ContactPageContent({
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-command-navy text-center mb-4">How can we help?</h2>
           <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Pick the path that matches where you are — you can always reach us by phone or email below.
+            Pick the path that matches where you are. You can always reach us by phone or email below.
           </p>
           <div className="grid sm:grid-cols-2 gap-6">
             {engagementPaths.map((path) => (
@@ -170,7 +182,7 @@ function ContactPageContent({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl font-bold text-command-navy mb-4">Compare every engagement</h2>
           <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-            Lead Rescue, Pipeline Buildout, Operations Command, and how Q SUITE fits — all in one place.
+            Systems Audit, Process Improvement Sprint, Operations Buildout, Operations Command, and Q SUITE, all in one place.
           </p>
           <Link
             href="/services"

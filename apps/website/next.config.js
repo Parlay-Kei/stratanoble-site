@@ -43,7 +43,7 @@ const nextConfig = {
 
     return [
       ...(!dev ? [{
-        source: '/(|about|contact|lead-rescue|pipeline-buildout|services|how-it-works|proof|q-suite|tools|achievery|privacy|terms|accessibility|cookies)',
+        source: '/(|about|contact|systems-audit|operations-buildout|services|how-it-works|proof|q-suite|tools|achievery|privacy|terms|accessibility|cookies)',
         headers: [
           {
             key: 'Cache-Control',
@@ -70,6 +70,26 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: '/lead-rescue',
+        destination: '/systems-audit',
+        permanent: true,
+      },
+      {
+        source: '/lead-rescue/:path*',
+        destination: '/systems-audit',
+        permanent: true,
+      },
+      {
+        source: '/pipeline-buildout',
+        destination: '/operations-buildout',
+        permanent: true,
+      },
+      {
+        source: '/pipeline-buildout/:path*',
+        destination: '/operations-buildout',
+        permanent: true,
+      },
       {
         source: '/solutions',
         destination: '/services',
@@ -116,13 +136,13 @@ const nextConfig = {
         permanent: true,
       },
       // OCS-SN-0011 stale routes
-      { source: '/phase-3', destination: '/pipeline-buildout', permanent: true },
+      { source: '/phase-3', destination: '/operations-buildout', permanent: true },
       { source: '/pricing', destination: '/services', permanent: true },
       { source: '/research', destination: '/proof', permanent: true },
       { source: '/workshops', destination: '/proof', permanent: true },
       { source: '/workshops/:path*', destination: '/proof', permanent: true },
       { source: '/cold-calling', destination: '/proof', permanent: true },
-      { source: '/data-analysis', destination: '/lead-rescue', permanent: true },
+      { source: '/data-analysis', destination: '/systems-audit', permanent: true },
       { source: '/discovery', destination: '/contact', permanent: true },
       { source: '/get-started', destination: '/contact', permanent: true },
       { source: '/schedule', destination: '/contact', permanent: true },
