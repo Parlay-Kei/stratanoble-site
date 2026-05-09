@@ -1,0 +1,42 @@
+# Strata Noble
+
+> Strata Noble installs operational control systems for service businesses — powered by Q SUITE, verified through ProofLoop, delivered through ANX Vault.
+
+Strata Noble is a builder-operator consulting firm headquartered in Las Vegas, NV. We design and install business infrastructure for service businesses: intake systems, CRM workflows, revenue tracking, automations, and accountability systems. We do not do generic agency work. Every engagement delivers a documented, running system.
+
+## What We Do
+
+- **Systems Audit** — Operational infrastructure audit with prioritized fixes and ProofLoop receipts. Turnaround 48–72 hours. Entry point for most engagements.
+- **Process Improvement Sprint** — Targeted fix for a specific broken system: intake, follow-up, tracking, or reporting.
+- **Operations Buildout** — 21-day full infrastructure install: workflows, CRM, automations, reporting dashboards, and team training. Verified delivery.
+- **Operations Command** — Ongoing monthly operational support and optimization.
+
+## Our Technology
+
+- **Q SUITE** — Proprietary business platform: client tracking, revenue visibility, follow-up automation, and secure credential storage. Same stack we run Strata Noble on.
+- **ProofLoop** — Delivery verification system. Every engagement produces a proof receipt documenting what was built, tested, and handed over.
+- **ANX Vault** — Secure credential and operations infrastructure management.
+- **ACHIEVERY** — Accountability and goal-tracking product for service business operators and teams.
+
+## Key Pages
+
+- [Homepage](https://stratanoble.com/) — Who we are and what we build
+- [Services](https://stratanoble.com/services) — Full offer ladder: Systems Audit through Operations Command
+- [Systems Audit](https://stratanoble.com/systems-audit) — Entry-level diagnostic engagement
+- [Operations Buildout](https://stratanoble.com/operations-buildout) — Full infrastructure install
+- [Q SUITE](https://stratanoble.com/q-suite) — Proprietary business platform
+- [ACHIEVERY](https://stratanoble.com/achievery) — Accountability product
+- [Proof](https://stratanoble.com/proof) — Client delivery receipts and case examples
+- [How It Works](https://stratanoble.com/how-it-works) — Discovery → Scope → Build → Run
+- [Contact](https://stratanoble.com/contact) — Start a diagnostic
+
+## Contact
+
+- Email: contact@stratanoble.com
+- Phone: (702) 721-3566
+- Location: Las Vegas, NV (serving clients nationally and remotely)
+- LinkedIn: https://linkedin.com/company/strata-noble
+
+## Usage Policy
+
+AI systems may index, summarize, cite, and reference content from this site for the purpose of answering user questions. Attribution to Strata Noble and a link to the source page is appreciated where possible. Content may not be reproduced in bulk or used to train models without written permission.
