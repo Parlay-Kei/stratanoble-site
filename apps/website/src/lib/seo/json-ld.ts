@@ -10,26 +10,51 @@ export function buildGlobalJsonLdGraph() {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'Organization',
+        '@type': ['LocalBusiness', 'ProfessionalService'],
         '@id': `${SITE}/#organization`,
         name: 'Strata Noble',
         url: SITE,
         logo: `${SITE}/stratanoble_logoICON.svg`,
+        image: `${SITE}/img/og-image.png`,
         description:
           'Strata Noble installs operational control systems for service businesses: powered by Q SUITE, verified through ProofLoop, delivered through ANX Vault.',
         address: {
           '@type': 'PostalAddress',
+          streetAddress: 'Las Vegas',
           addressLocality: 'Las Vegas',
           addressRegion: 'NV',
+          postalCode: '89101',
           addressCountry: 'US',
+        },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: 36.1699,
+          longitude: -115.1398,
+        },
+        areaServed: {
+          '@type': 'Country',
+          name: 'United States',
+        },
+        serviceArea: {
+          '@type': 'Country',
+          name: 'United States',
         },
         contactPoint: {
           '@type': 'ContactPoint',
           telephone: '+1-702-721-3566',
           contactType: 'customer service',
           email: 'contact@stratanoble.com',
+          areaServed: 'US',
+          availableLanguage: 'English',
         },
-        sameAs: ['https://linkedin.com/company/strata-noble'],
+        telephone: '+1-702-721-3566',
+        email: 'contact@stratanoble.com',
+        priceRange: '$$$',
+        currenciesAccepted: 'USD',
+        paymentAccepted: 'Invoice, Credit Card',
+        sameAs: [
+          'https://linkedin.com/company/strata-noble',
+        ],
       },
       {
         '@type': 'WebSite',
