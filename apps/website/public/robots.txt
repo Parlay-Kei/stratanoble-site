@@ -1,0 +1,33 @@
+# Strata Noble — robots.txt
+# https://stratanoble.com
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /auth/
+Disallow: /platform/
+Disallow: /dashboard/
+Disallow: /onboarding/
+Disallow: /narratives/
+
+# AI crawlers — explicitly allowed for AEO
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+Sitemap: https://stratanoble.com/sitemap.xml
