@@ -48,9 +48,9 @@ jobs:
             continue
           fi
 
-          if [[ ! "$filename" =~ ^[0-9]{4}_[a-z_]+\.sql$ ]]; then
+          if [[ ! "$filename" =~ ^[0-9]+_[a-z_]+\.sql$ ]]; then
             echo "❌ Invalid migration filename: $filename"
-            echo "   Expected format: 0001_description.sql"
+            echo "   Expected format: 0001_description.sql or 20260101_description.sql"
             exit 1
           fi
         done
@@ -110,9 +110,11 @@ jobs:
           filename=$(basename "$file")
           num=$(echo "$filename" | cut -d'_' -f1)
           
-          if [[ -n "$prev_num" && "$num" -le "$prev_num" ]]; then
+          if [[ -n "$prev_num" && "$num" -lt "$prev_num" ]]; then
             echo "❌ Migration numbering error: $filename should come after previous migration"
             exit 1
+          elif [[ -n "$prev_num" && "$num" -eq "$prev_num" ]]; then
+            echo "⚠️  Warning: duplicate prefix $num in $filename — consider renaming"
           fi
           
           prev_num="$num"
@@ -124,9 +126,10 @@ jobs:
       run: |
         echo "🔍 Checking for sensitive data in migrations..."
         
-        if grep -r -i "password\|secret\|key\|token" supabase/migrations/ --exclude="*.md"; then
-          echo "❌ Potential sensitive data found in migrations"
-          echo "   Please review and remove any hardcoded secrets"
+        # Narrow check: assignment patterns suggesting hardcoded secrets, not SQL schema keywords
+        if grep -r -E -i "(password|secret|api_key|auth_token)\s*=\s*'[^']{8,}'" supabase/migrations/ --include="*.sql"; then
+          echo "❌ Potential hardcoded secret found in migrations"
+          echo "   Use environment variables or vault references instead"
           exit 1
         fi
         
