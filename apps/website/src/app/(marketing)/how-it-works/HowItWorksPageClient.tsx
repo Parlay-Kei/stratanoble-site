@@ -13,7 +13,7 @@ const steps = [
       'A walkthrough of how your business currently works and what is frustrating you most.',
     weDeliver:
       'A clear plan: what we are building, what it will cost, and when it will be done.',
-    timeline: 'Same-day for Lead Rescue. Days 1–3 for Pipeline Buildout.',
+    timeline: 'Same-day kickoff for Systems Audit. Days 1–3 for Operations Buildout.',
     tentative: false,
   },
   {
@@ -23,7 +23,7 @@ const steps = [
       'We build everything we agreed on - inside your actual business environment, not a test sandbox. You can see progress the whole way.',
     youProvide: 'Access to the tools we are connecting to. We will let you know if we need anything else.',
     weDeliver: 'A working system, tested and ready for your team to use.',
-    timeline: '48 hours for Lead Rescue. Days 3–18 for Pipeline Buildout.',
+    timeline: '48–72 hours for Systems Audit. Days 3–18 for Operations Buildout.',
     tentative: false,
   },
   {
@@ -34,7 +34,7 @@ const steps = [
     youProvide: 'About an hour for a walkthrough call.',
     weDeliver:
       'Full documentation, video walkthroughs, and a complete record of everything we configured - stored somewhere you control.',
-    timeline: 'Included in the 48-hour window for Lead Rescue. Days 18–21 for Pipeline Buildout.',
+    timeline: 'Included in the Systems Audit window where applicable. Days 18–21 for Operations Buildout.',
     tentative: false,
   },
   {
@@ -131,8 +131,8 @@ export function HowItWorksPageClient() {
               <thead>
                 <tr className="bg-muted/50 border-b border-slate-grey/25">
                   <th className="p-4 font-semibold text-command-navy" />
-                  <th className="p-4 font-semibold text-command-navy">Lead Rescue</th>
-                  <th className="p-4 font-semibold text-command-navy">Pipeline Buildout</th>
+                  <th className="p-4 font-semibold text-command-navy">Systems Audit</th>
+                  <th className="p-4 font-semibold text-command-navy">Operations Buildout</th>
                   <th className="p-4 font-semibold text-command-navy border-l border-dashed border-slate-grey/30 bg-slate-100">
                     Ongoing Support
                   </th>
@@ -141,7 +141,7 @@ export function HowItWorksPageClient() {
               <tbody className="divide-y divide-gray-200">
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Duration</td>
-                  <td className="p-4 text-muted-foreground">48 hours</td>
+                  <td className="p-4 text-muted-foreground">48 to 72 hours</td>
                   <td className="p-4 text-muted-foreground">21 days</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
                     Ongoing
@@ -165,8 +165,8 @@ export function HowItWorksPageClient() {
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Scope</td>
-                  <td className="p-4 text-muted-foreground">Find and fix where you are losing leads</td>
-                  <td className="p-4 text-muted-foreground">Full system, built from scratch</td>
+                  <td className="p-4 text-muted-foreground">Audit infrastructure; patch priority breaks with receipts</td>
+                  <td className="p-4 text-muted-foreground">Full operational install — workflows, tools, reporting</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
                     Monthly maintenance and check-ins
                   </td>
@@ -190,16 +190,16 @@ export function HowItWorksPageClient() {
           <h2 className="text-2xl font-bold text-command-navy mb-6">Ready to Get Started?</h2>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
             <Link
-              href="/lead-rescue"
+              href="/systems-audit"
               className="inline-flex justify-center items-center rounded-lg px-6 py-3 text-sm font-semibold text-white bg-forest-green shadow-md hover:shadow-lg"
             >
-              Start the 48-Hour Lead Rescue
+              Start with Systems Audit
             </Link>
             <Link
-              href="/pipeline-buildout"
+              href="/operations-buildout"
               className="inline-flex justify-center items-center rounded-lg px-6 py-3 text-sm font-semibold border-2 border-command-navy text-command-navy hover:bg-command-navy hover:text-white transition-colors"
             >
-              Apply for the 21-Day Pipeline Buildout
+              Apply for Operations Buildout
             </Link>
             <Link
               href="/services"

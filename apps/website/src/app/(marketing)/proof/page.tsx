@@ -171,7 +171,7 @@ export default function ProofPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
             <Link
-              href="/contact?service=lead-rescue"
+              href="/contact?service=diagnostic"
               className="inline-flex items-center justify-center rounded-lg bg-emerald-500 px-8 py-3 text-sm font-semibold text-[#070f1a] hover:bg-emerald-400 transition"
             >
               Get Free Diagnostic

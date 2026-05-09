@@ -77,12 +77,12 @@ export const verticalContent: Record<VerticalSlug, VerticalContent> = {
         'Q-ICMS for lifecycle and engagement, Q-ARI for AR dashboard, weekly rhythm via Q-CC — the same pattern as our consulting case study delivery model.',
       result:
         'AR visibility in real time, late invoicing eliminated, and a repeatable weekly operating cadence.',
-      timeline: '21 days (Pipeline Buildout)',
+      timeline: '21 days (Operations Buildout)',
     },
     offerPath:
-      'You already have leads and delivery pressure — the gap is operations. Most consulting firms start with the 21-Day Pipeline Buildout so intake, AR, and visibility land together.',
-    primaryCta: 'Apply for the 21-Day Pipeline Buildout',
-    primaryHref: '/pipeline-buildout',
+      'You already have leads and delivery pressure — the gap is operations. Most clients start with Operations Buildout so intake, AR, and visibility land together.',
+    primaryCta: 'Apply for Operations Buildout',
+    primaryHref: '/operations-buildout',
     secondaryCta: 'Talk through scope',
     secondaryHref: '/contact',
   },
@@ -128,14 +128,14 @@ export const verticalContent: Record<VerticalSlug, VerticalContent> = {
         'Q-ICMS for intake and pipeline, Q-CC for speed-to-lead, structured follow-up for every inquiry — matching how we deploy for high-volume local trades.',
       result:
         'Response time from hours to minutes, close rate up, pipeline visible for the first time.',
-      timeline: '21 days (Pipeline Buildout)',
+      timeline: '21 days (Operations Buildout)',
     },
     offerPath:
-      'When the leak is follow-up and intake, start with the 48-Hour Lead Rescue, then move into the Pipeline Buildout to lock in CRM, automations, and dashboards.',
-    primaryCta: 'Start the 48-Hour Lead Rescue',
-    primaryHref: '/lead-rescue',
+      'When the leak is follow-up and intake, start with a Systems Audit, then move into Operations Buildout to lock in CRM, automations, and dashboards.',
+    primaryCta: 'Start with Systems Audit',
+    primaryHref: '/systems-audit',
     secondaryCta: 'Plan a full buildout',
-    secondaryHref: '/pipeline-buildout',
+    secondaryHref: '/operations-buildout',
   },
   'real-estate': {
     slug: 'real-estate',
@@ -176,17 +176,17 @@ export const verticalContent: Record<VerticalSlug, VerticalContent> = {
       problem:
         'Leads from three platforms with no central pipeline. Agents on personal phones. MLS and marketing credentials in group texts.',
       fix:
-        '48-Hour Lead Rescue to centralize intake, Q-VAULT for governed access, pipeline in Q-ICMS — same stack as our real-estate delivery scenario.',
+        'Systems Audit to centralize intake, Q-VAULT for governed access, pipeline in Q-ICMS — same stack as our real-estate delivery scenario.',
       result:
         'Single intake, audit-trailed credentials, and a team-visible pipeline for the lead agent.',
       timeline: '48 hours + extended engagement',
     },
     offerPath:
-      'Unify intake fast with Lead Rescue, then extend into Pipeline Buildout for full CRM, automations, and team dashboards.',
-    primaryCta: 'Start the 48-Hour Lead Rescue',
-    primaryHref: '/lead-rescue',
-    secondaryCta: 'Apply for Pipeline Buildout',
-    secondaryHref: '/pipeline-buildout',
+      'Unify intake fast with Systems Audit, then extend into Operations Buildout for full CRM, automations, and team dashboards.',
+    primaryCta: 'Start with Systems Audit',
+    primaryHref: '/systems-audit',
+    secondaryCta: 'Apply for Operations Buildout',
+    secondaryHref: '/operations-buildout',
   },
   'appointment-businesses': {
     slug: 'appointment-businesses',
@@ -230,12 +230,12 @@ export const verticalContent: Record<VerticalSlug, VerticalContent> = {
         'Central intake in Q-ICMS, automated reminder and recovery sequences through Q-CC, AR visibility for deposits and packages in Q-ARI.',
       result:
         'Fewer empty chairs, consistent follow-up, and a clear line from booked slot to collected revenue.',
-      timeline: '48-Hour Lead Rescue first, then buildout as needed',
+      timeline: 'Systems Audit first, then buildout as needed',
     },
     offerPath:
-      'When the pain is leakage at the booking and follow-up layer, we usually start with the 48-Hour Lead Rescue to stabilize intake, then expand scope from there.',
-    primaryCta: 'Start the 48-Hour Lead Rescue',
-    primaryHref: '/lead-rescue',
+      'When the pain is leakage at the booking and follow-up layer, we usually start with a Systems Audit to stabilize intake, then expand scope from there.',
+    primaryCta: 'Start with Systems Audit',
+    primaryHref: '/systems-audit',
     secondaryCta: 'Discuss a buildout',
     secondaryHref: '/contact',
   },

@@ -9,14 +9,15 @@ export default function Sitemap() {
     'Main Pages': [
       { name: 'Home', href: '/' },
       { name: 'Services', href: '/services' },
-      { name: 'Technology', href: '/technology' },
+      { name: 'Q SUITE', href: '/q-suite' },
+      { name: 'Tools', href: '/tools' },
       { name: 'About', href: '/about' },
       { name: 'Contact', href: '/contact' },
     ],
     'Platform': [
-      { name: 'Q Suite', href: '/q-suite' },
-      { name: 'ACHIEVERY Preview', href: '/achievery-preview' },
-      { name: 'Dashboard', href: '/dashboard' },
+      { name: 'ACHIEVERY', href: '/achievery' },
+      { name: 'Proof', href: '/proof' },
+      { name: 'Sample Receipt', href: '/tools/sample-receipt' },
     ],
     'Legal & Policies': [
       { name: 'Privacy Policy', href: '/privacy' },
@@ -24,9 +25,10 @@ export default function Sitemap() {
       { name: 'Cookie Policy', href: '/cookies' },
       { name: 'Accessibility Statement', href: '/accessibility' },
     ],
-    'Account': [
-      { name: 'Sign In', href: '/auth/signin' },
-      { name: 'Sign Up', href: '/auth/signup' },
+    'Engagements': [
+      { name: 'How It Works', href: '/how-it-works' },
+      { name: 'Systems Audit', href: '/systems-audit' },
+      { name: 'Operations Buildout', href: '/operations-buildout' },
     ],
   };
 

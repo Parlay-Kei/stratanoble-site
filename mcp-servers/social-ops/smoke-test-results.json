@@ -1,0 +1,217 @@
+{
+  "total": 11,
+  "passed": 10,
+  "failed": 1,
+  "passRate": 0.9090909090909091,
+  "tests": [
+    {
+      "name": "Safety Controls Initialization",
+      "result": "passed",
+      "details": {
+        "status": {
+          "dryRun": true,
+          "platforms": {
+            "linkedin": {
+              "enabled": true,
+              "rateLimit": "ok",
+              "pendingApprovals": 0
+            },
+            "tiktok": {
+              "enabled": true,
+              "rateLimit": "ok",
+              "pendingApprovals": 0
+            }
+          },
+          "totalPendingApprovals": 0,
+          "timestamp": "2026-05-09T00:55:53.902Z"
+        }
+      },
+      "timestamp": "2026-05-09T00:55:53.903Z"
+    },
+    {
+      "name": "Kill Switch Toggle",
+      "result": "passed",
+      "details": {
+        "linkedinStatus": {
+          "platform": "linkedin",
+          "enabled": false,
+          "timestamp": "2026-05-09T00:55:53.904Z"
+        },
+        "tiktokStatus": {
+          "platform": "tiktok",
+          "enabled": false,
+          "timestamp": "2026-05-09T00:55:53.904Z"
+        }
+      },
+      "timestamp": "2026-05-09T00:55:53.904Z"
+    },
+    {
+      "name": "Rate Limiting Check",
+      "result": "passed",
+      "details": {},
+      "timestamp": "2026-05-09T00:55:53.904Z"
+    },
+    {
+      "name": "Content Validation",
+      "result": "passed",
+      "details": {
+        "validResult": {
+          "valid": true,
+          "issues": [],
+          "requiresApproval": false
+        },
+        "suspiciousResult": {
+          "valid": false,
+          "issues": [
+            {
+              "type": "warning",
+              "message": "Potential credential detected"
+            },
+            {
+              "type": "warning",
+              "message": "Executable URL detected"
+            },
+            {
+              "type": "warning",
+              "message": "Potentially suspicious terminology"
+            }
+          ],
+          "requiresApproval": true
+        }
+      },
+      "timestamp": "2026-05-09T00:55:53.905Z"
+    },
+    {
+      "name": "Notion Fetch Scheduled Posts",
+      "result": "failed",
+      "details": {
+        "error": "API token is invalid."
+      },
+      "timestamp": "2026-05-09T00:56:01.707Z"
+    },
+    {
+      "name": "LinkedIn Dry Run Post",
+      "result": "passed",
+      "details": {
+        "result": {
+          "success": true,
+          "dryRun": true,
+          "preview": {
+            "content": "Test LinkedIn post from smoke test #Testing\n\n#SmokeTest #Automation",
+            "visibility": "public"
+          }
+        }
+      },
+      "timestamp": "2026-05-09T00:56:01.708Z"
+    },
+    {
+      "name": "TikTok Dry Run Upload",
+      "result": "passed",
+      "details": {
+        "result": {
+          "success": true,
+          "dryRun": true,
+          "executionMode": "dry_run",
+          "preview": {
+            "videoPath": "C:\\Dev\\10_products\\StrataNoble\\mcp-servers\\social-ops\\test-video.mp4",
+            "videoHash": "cff40476b79b0adbc845136bd90294841a8073ee71f03031de75d6eb1e998f87",
+            "fileSizeMB": "0.00",
+            "format": ".mp4",
+            "caption": "Test TikTok upload from smoke test #Testing\n\n#SmokeTest #Automation",
+            "privacy": "private",
+            "allowComments": true,
+            "allowDuet": true,
+            "allowStitch": true
+          }
+        }
+      },
+      "timestamp": "2026-05-09T00:56:01.725Z"
+    },
+    {
+      "name": "TikTok Playwright Dry Run (persistent profile)",
+      "result": "passed",
+      "details": {
+        "result": {
+          "success": true,
+          "dryRun": true,
+          "executionMode": "dry_run",
+          "preview": {
+            "videoPath": "C:\\Dev\\10_products\\StrataNoble\\mcp-servers\\social-ops\\test-video-pw.mp4",
+            "videoHash": "cff40476b79b0adbc845136bd90294841a8073ee71f03031de75d6eb1e998f87",
+            "fileSizeMB": "0.00",
+            "format": ".mp4",
+            "caption": "Test TikTok Playwright dry run #Testing\n\n#SmokeTest #Automation",
+            "privacy": "private",
+            "allowComments": true,
+            "allowDuet": true,
+            "allowStitch": true,
+            "persistentProfile": true
+          }
+        }
+      },
+      "timestamp": "2026-05-09T00:56:01.727Z"
+    },
+    {
+      "name": "Approval System",
+      "result": "passed",
+      "details": {
+        "request": {
+          "id": "e1b64a5f94e7b873",
+          "postId": "test-post-id",
+          "content": "Test content for approval",
+          "platform": "LinkedIn",
+          "requestedAt": "2026-05-09T00:56:01.728Z",
+          "status": "approved",
+          "approvedBy": "smoke-test",
+          "approvedAt": "2026-05-09T00:56:01.728Z"
+        },
+        "grant": {
+          "success": true,
+          "approval": {
+            "id": "e1b64a5f94e7b873",
+            "postId": "test-post-id",
+            "content": "Test content for approval",
+            "platform": "LinkedIn",
+            "requestedAt": "2026-05-09T00:56:01.728Z",
+            "status": "approved",
+            "approvedBy": "smoke-test",
+            "approvedAt": "2026-05-09T00:56:01.728Z"
+          }
+        },
+        "check": {
+          "approved": true,
+          "approvedBy": "smoke-test",
+          "approvedAt": "2026-05-09T00:56:01.728Z"
+        }
+      },
+      "timestamp": "2026-05-09T00:56:01.728Z"
+    },
+    {
+      "name": "Receipt Generation",
+      "result": "passed",
+      "details": {
+        "filename": "test_smoke_1778288161729.json"
+      },
+      "timestamp": "2026-05-09T00:56:01.730Z"
+    },
+    {
+      "name": "Audit Logging",
+      "result": "passed",
+      "details": {
+        "logEntry": {
+          "timestamp": "2026-05-09T00:56:01.731Z",
+          "action": "smoke_test",
+          "platform": "all",
+          "details": {
+            "message": "Smoke test audit log entry"
+          },
+          "environment": {
+            "dryRun": true,
+            "node": "v22.22.0"
+          }
+        }
+      },
+      "timestamp": "2026-05-09T00:56:01.732Z"
+    }
+  ]
+}

@@ -7,54 +7,55 @@ import { buildFaqPageJsonLd } from '@/lib/seo/json-ld';
 
 const SITE = 'https://stratanoble.com';
 
-const LEAD_RESCUE_FAQS = [
+const SYSTEMS_AUDIT_FAQS = [
   {
     q: 'How do I know you actually fixed it?',
-    a: 'You get a deployment verification report and a receipt pack. You can replay the exact steps. You can see the logs, the tests, and the smoke checks.',
+    a: 'You get a deployment verification report and a ProofLoop receipt pack. You can replay the exact steps: logs, tests, and smoke checks.',
   },
   {
     q: 'Where does my data go?',
-    a: 'Receipts go into your secure delivery folder. Read-only access is provided for stakeholders. Sensitive values are redacted. Access is revoked after handoff unless we move into an ongoing plan.',
+    a: 'Receipts go into your ANX Vault delivery folder. Read-only access is provided for stakeholders. Sensitive values are redacted. Access is revoked after handoff unless we move into an ongoing plan.',
   },
   {
     q: "What if I don't have a CRM yet?",
-    a: "No problem. We'll recommend the best tool for your needs (usually Notion or Airtable for simplicity) and set it up as part of the buildout.",
+    a: "No problem. We'll recommend the best tool for your needs (usually Notion or Airtable for simplicity) and set it up as part of the engagement.",
   },
   {
     q: 'Can you integrate with my existing tools?',
     a: "Yes. We work with most common tools: Notion, Airtable, HubSpot, Google Sheets, Zapier, etc. If you have a unique setup, we'll discuss it on the kickoff call.",
   },
   {
-    q: 'What happens after the 48 hours?',
-    a: 'You own the system. We provide documentation and a Loom walkthrough. If you need ongoing support or want to expand, we can discuss the 21-Day Pipeline Buildout.',
+    q: 'What happens after the audit window?',
+    a: 'You own the findings and any patches we ship. We provide documentation and a walkthrough. When you are ready to expand scope, we can discuss an Operations Buildout or a Process Improvement Sprint.',
   },
   {
     q: 'What does it cost?',
-    a: 'Fixed scope. Fixed timeline. $997 starting price. Final quote confirmed after the 10-minute access check.',
+    a: 'Fixed scope. Fixed timeline. $997. Final quote confirmed after the 10-minute access check.',
   },
 ] as const;
 
 export const metadata: Metadata = {
-  title: '48-Hour Lead Rescue | Strata Noble',
+  title: 'Systems Audit | Strata Noble',
   description:
-    'Stop losing leads. We find the leak, fix the flow, and ship receipts proving it works. 48 hours.',
+    'Operational infrastructure audit with prioritized fixes and ProofLoop receipts. Typically 48–72 hours.',
   alternates: {
-    canonical: '/lead-rescue',
+    canonical: '/systems-audit',
   },
   openGraph: {
-    title: '48-Hour Lead Rescue | Strata Noble',
+    title: 'Systems Audit | Strata Noble',
     description:
-      'Stop losing leads. We find the leak, fix the flow, and ship receipts proving it works. 48 hours.',
-    url: '/lead-rescue',
+      'Find where operations break, patch priority leaks, and ship verified receipts. Powered by Q SUITE where it fits.',
+    url: '/systems-audit',
   },
 };
 
-export default function LeadRescuePage() {
+export default function SystemsAuditPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: '48-Hour Lead Rescue',
-    description: 'Lead capture and follow-up system installation with verified delivery',
+    name: 'Systems Audit',
+    description:
+      'Operational infrastructure audit and targeted fixes with ProofLoop verified delivery',
     provider: {
       '@type': 'Organization',
       name: 'Strata Noble',
@@ -66,7 +67,7 @@ export default function LeadRescuePage() {
     },
   };
 
-  const faqJsonLd = buildFaqPageJsonLd(LEAD_RESCUE_FAQS, `${SITE}/lead-rescue`);
+  const faqJsonLd = buildFaqPageJsonLd(SYSTEMS_AUDIT_FAQS, `${SITE}/systems-audit`);
 
   return (
     <>
@@ -83,10 +84,10 @@ export default function LeadRescuePage() {
         <section className="bg-command-navy text-white py-16 md:py-20">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Lead Rescue <span className="text-field-sage">(48 hours)</span>
+              Systems Audit <span className="text-field-sage">(48–72 hours)</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              We stop the lead leak, prove what&apos;s broken, and ship the fix with receipts.
+              We map how work actually flows, patch the highest-impact breaks, and ship ProofLoop receipts so you can trust the install.
             </p>
 
             {/* CTAs */}
@@ -95,7 +96,7 @@ export default function LeadRescuePage() {
                 href="#form"
                 className="bg-forest-green text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all"
               >
-                Book a Lead Rescue Call
+                Book the Systems Audit Call
               </a>
               <Link
                 href="/tools/sample-receipt"
@@ -126,7 +127,7 @@ export default function LeadRescuePage() {
               <HowWeProve />
 
               {/* Receipts Included */}
-              <ReceiptsIncluded variant="lead-rescue" />
+              <ReceiptsIncluded variant="systems-audit" />
 
               {/* Timeline */}
               <Timeline />
@@ -283,7 +284,7 @@ function Requirements() {
     <div className="space-y-4">
       <h2 className="text-xl font-bold">Requirements to start (10 minutes)</h2>
       <p className="text-sm text-muted-foreground">
-        This is a rescue sprint. We move fast when access is clean.
+        This is a fast audit sprint. We move quickly when access is clean.
       </p>
 
       <div className="space-y-4">
@@ -322,7 +323,7 @@ function Requirements() {
 
       <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mt-4">
         <p className="text-sm text-amber-900">
-          <strong>If you don&apos;t have these:</strong> We can still run the rescue.
+          <strong>If you don&apos;t have these:</strong> We can still run the audit.
           The first deliverable becomes an access map and the minimum changes needed to create observability.
         </p>
       </div>
@@ -358,7 +359,7 @@ function WhoItsFor() {
           </li>
           <li className="flex items-start gap-3">
             <span className="text-red-500 text-xl flex-shrink-0 mt-0.5">✗</span>
-            <span>You want a multi-week roadmap packaged as a rescue</span>
+            <span>You want a multi-week roadmap packaged as a short audit</span>
           </li>
           <li className="flex items-start gap-3">
             <span className="text-red-500 text-xl flex-shrink-0 mt-0.5">✗</span>
@@ -408,7 +409,7 @@ function RecentRescues() {
 
   return (
     <div className="bg-void/30 border rounded-xl p-6">
-      <h2 className="text-xl font-bold mb-4">Recent rescues</h2>
+      <h2 className="text-xl font-bold mb-4">Recent outcomes</h2>
       <ul className="space-y-3">
         {rescues.map((rescue, i) => (
           <li key={i} className="flex items-start gap-3 text-sm">
@@ -429,7 +430,7 @@ function FAQSection() {
     <section className="max-w-3xl mx-auto mt-20">
       <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
       <div className="space-y-4">
-        {LEAD_RESCUE_FAQS.map((faq, i) => (
+        {SYSTEMS_AUDIT_FAQS.map((faq, i) => (
           <details
             key={i}
             className="border rounded-lg p-4 hover:border-primary/50 transition-colors group"
@@ -451,7 +452,7 @@ function FAQSection() {
 function BottomCTA() {
   return (
     <section className="max-w-2xl mx-auto mt-20 text-center bg-command-navy text-white rounded-xl p-8">
-      <h2 className="text-2xl font-bold mb-4">Stop losing leads this week.</h2>
+      <h2 className="text-2xl font-bold mb-4">Stabilize operations this week.</h2>
       <p className="text-gray-300 mb-4">
         Book the 10-minute access check. If we can&apos;t verify the fix, we don&apos;t take the sprint.
       </p>

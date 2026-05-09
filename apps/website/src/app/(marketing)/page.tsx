@@ -13,23 +13,23 @@ import { buildFaqPageJsonLd } from '@/lib/seo/json-ld';
 const HOMEPAGE_FAQS = [
   {
     q: 'What does Strata Noble do?',
-    a: 'Strata Noble builds and operates lead capture, follow-up automation, booking, and revenue tracking systems for service businesses and early-stage ventures.',
+    a: 'Strata Noble installs operational control systems for service businesses: powered by Q SUITE, verified through ProofLoop, delivered through ANX Vault, with ACHIEVERY when accountability matters.',
   },
   {
     q: 'How long does it take to get started?',
-    a: 'The 48-hour Lead Rescue can be installed in two business days. A full 21-day Pipeline Buildout delivers a complete lead-to-customer system in three weeks.',
+    a: 'A Systems Audit is typically 48 to 72 hours. An Operations Buildout runs 21 days. A Process Improvement Sprint targets one workflow in 10 business days.',
   },
   {
     q: 'What does a Free Diagnostic include?',
-    a: 'A review of how your business currently captures and follows up with leads, identification of where revenue is being lost, and a recommended fix with a fixed price.',
+    a: 'A review of how work flows today, where it breaks, and a recommended path with fixed pricing before any build starts.',
   },
   {
     q: 'Do I own the systems you build?',
-    a: 'Yes. Everything Strata Noble builds is delivered to your accounts. You own the code, the workflows, and the data. There are no platform lock-in fees.',
+    a: 'Yes. Deliverables land in your accounts and delivery folder. Q SUITE licensing is separate platform access; you are not locked into opaque bundles.',
   },
   {
     q: 'What is the price range for services?',
-    a: 'Lead Rescue is $997. The 21-Day Pipeline Buildout is $4,997. Operations Command starts at $1,497 per month with a 3-month minimum.',
+    a: 'Systems Audit is $997. Process Improvement Sprint is $2,497. Operations Buildout is $4,997. Operations Command is $1,497 per month with a 3-month minimum.',
   },
 ] as const;
 

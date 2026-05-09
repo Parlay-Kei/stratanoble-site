@@ -86,21 +86,21 @@ const PAYWALL_MESSAGES = {
 
 const TIERS = {
   growth: {
-    name: 'Growth',
-    price: '$47/month',
-    description: 'Unlock unlimited tracking and advanced insights',
+    name: 'ACHIEVERY Pro',
+    price: '$9.99/month',
+    description: 'Unlock unlimited tracking and advanced insights.',
     popular: true,
   },
   partner: {
-    name: 'Partner',
-    price: '$97/month', 
-    description: 'For professionals working with consultants',
+    name: 'Coaching Add-on',
+    price: '$149/session',
+    description: 'Optional strategy support for guided execution.',
     popular: false,
   },
   enterprise: {
-    name: 'Enterprise',
-    price: '$197/month',
-    description: 'Complete access with unlimited integration',
+    name: 'Q SUITE Integration Pack',
+    price: '$29.99 one-time',
+    description: 'Connect ACHIEVERY workflows with Q SUITE modules.',
     popular: false,
   },
 }

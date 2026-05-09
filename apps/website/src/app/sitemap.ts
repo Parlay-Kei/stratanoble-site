@@ -15,20 +15,14 @@ const paths: Array<{ path: string; changeFrequency: ChangeFrequency; priority: n
   { path: '/tools/sample-receipt', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/q-suite', changeFrequency: 'monthly', priority: 0.85 },
   { path: '/proof', changeFrequency: 'monthly', priority: 0.85 },
-  { path: '/lead-rescue', changeFrequency: 'weekly', priority: 0.95 },
-  { path: '/pipeline-buildout', changeFrequency: 'weekly', priority: 0.95 },
+  { path: '/systems-audit', changeFrequency: 'weekly', priority: 0.95 },
+  { path: '/operations-buildout', changeFrequency: 'weekly', priority: 0.95 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.4 },
   { path: '/terms', changeFrequency: 'yearly', priority: 0.4 },
   { path: '/cookies', changeFrequency: 'yearly', priority: 0.4 },
   { path: '/accessibility', changeFrequency: 'yearly', priority: 0.4 },
   { path: '/achievery', changeFrequency: 'monthly', priority: 0.8 },
-  { path: '/achievery-early-access', changeFrequency: 'monthly', priority: 0.75 },
-  { path: '/achievery-preview', changeFrequency: 'monthly', priority: 0.75 },
   { path: '/sitemap', changeFrequency: 'monthly', priority: 0.5 },
-  { path: '/solutions/appointment-businesses', changeFrequency: 'monthly', priority: 0.75 },
-  { path: '/solutions/consultants', changeFrequency: 'monthly', priority: 0.75 },
-  { path: '/solutions/home-services', changeFrequency: 'monthly', priority: 0.75 },
-  { path: '/solutions/real-estate', changeFrequency: 'monthly', priority: 0.75 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

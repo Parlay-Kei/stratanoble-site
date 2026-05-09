@@ -496,45 +496,39 @@ export default function AchieveryPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                tier: 'Basic',
-                price: '$47/month',
-                limit: '5 actions/week tracking',
+                tier: 'Free',
+                price: '$0',
+                limit: 'Core goal tracking, one active goal (usage limits apply)',
                 features: [
-                  'Pathfinder Onboarding',
-                  'Basic activity logging',
-                  'Weekly progress summaries',
-                  'Community access'
+                  'Daily activity logging',
+                  'Basic progress dashboard',
+                  'Path to ACHIEVERY Pro when you are ready',
                 ],
                 color: 'silver',
                 dashboardImage: '/images/achievery/dashboard-free-tier.webp'
               },
               {
-                tier: 'Pro',
-                price: '$97/month',
-                limit: '25 actions/week + full features',
+                tier: 'ACHIEVERY Pro',
+                price: '$9.99/month',
+                limit: 'Unlimited goals, full product surface (see live /achievery for current feature set)',
                 features: [
-                  'All Basic features',
-                  'Reframe Engine access',
-                  'Three-Phase Roadmap',
-                  'Weekly AI Narratives',
-                  'Trust Ledger (10 shares)',
-                  'Priority support'
+                  'Unlimited goals',
+                  'Advanced analytics and progress insights',
+                  'Custom workflows and templates',
+                  'Priority support',
                 ],
                 color: 'emerald',
                 popular: true,
                 dashboardImage: '/images/achievery/dashboard-growth-tier.webp'
               },
               {
-                tier: 'partner',
-                price: '$197/month',
-                limit: '100 actions/week + coach tools',
+                tier: 'Add-ons',
+                price: 'From $4.99',
+                limit: 'Template packs, Q SUITE Integration Pack, and coaching sessions',
                 features: [
-                  'All Pro features',
-                  'Unlimited Trust Ledger shares',
-                  'Coach integration tools',
-                  'Team collaboration features',
-                  'Custom reporting',
-                  'Direct coaching access'
+                  'Q SUITE Integration Pack (bridge to platform)',
+                  'Industry template packs',
+                  'Optional strategy sessions with Strata Noble',
                 ],
                 color: 'navy',
                 dashboardImage: '/images/achievery/dashboard-partner-tier.webp'

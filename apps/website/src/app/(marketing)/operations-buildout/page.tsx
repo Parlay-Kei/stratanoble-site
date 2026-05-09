@@ -5,7 +5,7 @@ import { buildFaqPageJsonLd } from '@/lib/seo/json-ld';
 
 const SITE = 'https://stratanoble.com';
 
-const PIPELINE_BUILDOUT_FAQS = [
+const OPERATIONS_BUILDOUT_FAQS = [
   {
     q: 'What if I need more than 2 automations?',
     a: 'We can discuss add-ons, but the base scope is intentionally capped to ensure quality delivery. Most businesses need to nail the basics before scaling complexity.',
@@ -31,40 +31,40 @@ const PIPELINE_BUILDOUT_FAQS = [
     a: "You own the system. We provide full documentation and training. For businesses that want continued operational partnership, we offer Ongoing Operating Support - weekly reviews, system tuning, and maintained visibility. It's optional, not required.",
   },
   {
-    q: 'How is this different from Lead Rescue?',
-    a: "Lead Rescue is a 48-hour sprint focused on lead capture. The Pipeline Buildout is a 21-day install that includes CRM, automations, and a complete pipeline. If you're just starting, go with Lead Rescue. If you're ready to scale, the buildout is the move.",
+    q: 'How is this different from the Systems Audit?',
+    a: "The Systems Audit is a fast, scoped engagement that finds breaks and ships targeted fixes with receipts. Operations Buildout is a 21-day install of full operational infrastructure — workflows, systems, automations, and reporting. Start with the audit when you need clarity and stabilization; choose the buildout when you are ready for a comprehensive install.",
   },
 ] as const;
 
 export const metadata: Metadata = {
-  title: '21-Day Pipeline Buildout | Strata Noble',
+  title: 'Operations Buildout | Strata Noble',
   description:
-    'Get a complete lead-to-customer pipeline built in 21 days. CRM, email sequences, automations, and milestone tracking.',
+    '21-day operational infrastructure install: workflows, CRM, automations, reporting, and training — verified through ProofLoop, delivered through ANX Vault.',
   alternates: {
-    canonical: '/pipeline-buildout',
+    canonical: '/operations-buildout',
   },
   openGraph: {
-    title: '21-Day Pipeline Buildout | Strata Noble',
+    title: 'Operations Buildout | Strata Noble',
     description:
-      'Get a complete lead-to-customer pipeline built in 21 days. CRM, email sequences, automations, and milestone tracking.',
-    url: '/pipeline-buildout',
+      'Full operational systems install in 21 days. Built on Q SUITE modules where they fit your business.',
+    url: '/operations-buildout',
   },
 };
 
-export default function PipelineBuildoutPage() {
+export default function OperationsBuildoutPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: '21-Day Pipeline Buildout',
+    name: 'Operations Buildout',
     description:
-      'Complete lead-to-customer pipeline with CRM, email sequences, automations, and milestone tracking',
+      '21-day operational infrastructure install with CRM, sequences, automations, dashboards, and verified delivery',
     provider: {
       '@type': 'Organization',
       name: 'Strata Noble',
     },
   };
 
-  const faqJsonLd = buildFaqPageJsonLd(PIPELINE_BUILDOUT_FAQS, `${SITE}/pipeline-buildout`);
+  const faqJsonLd = buildFaqPageJsonLd(OPERATIONS_BUILDOUT_FAQS, `${SITE}/operations-buildout`);
 
   return (
     <>
@@ -78,10 +78,9 @@ export default function PipelineBuildoutPage() {
       />
       <main id="top" className="container mx-auto py-12 px-4">
         <section className="text-center max-w-3xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold">21-Day Pipeline Buildout</h1>
+          <h1 className="text-4xl md:text-5xl font-bold">Operations Buildout</h1>
           <p className="text-xl text-muted-foreground mt-4">
-            We build your complete lead-to-customer system: CRM, email sequences, automations, and
-            milestone dashboard. Manual-first, automated later.
+            In 21 days we install operational infrastructure: CRM, sequences, automations, and a milestone dashboard — scoped to your business, verified with ProofLoop.
           </p>
         </section>
 
@@ -98,13 +97,13 @@ export default function PipelineBuildoutPage() {
 
           <div className="lg:sticky lg:top-24 lg:self-start">
             <div className="bg-card border rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold mb-4">Apply for the 21-Day Pipeline Buildout</h2>
+              <h2 className="text-xl font-semibold mb-4">Apply for the Operations Buildout</h2>
               <PipelineBuildoutApplicationForm />
             </div>
           </div>
         </div>
 
-        <PipelineBuildoutFAQ />
+        <OperationsBuildoutFAQ />
 
         <BottomCTA />
       </main>
@@ -266,7 +265,7 @@ function WhoItsFor() {
         <ul className="space-y-3 text-muted-foreground">
           <li className="flex items-start gap-3">
             <span className="text-red-500 text-xl flex-shrink-0 mt-0.5">✗</span>
-            <span>Businesses with less than 10 leads/month (try Lead Rescue instead)</span>
+            <span>Businesses with less than 10 leads/month (start with a Systems Audit instead)</span>
           </li>
           <li className="flex items-start gap-3">
             <span className="text-red-500 text-xl flex-shrink-0 mt-0.5">✗</span>
@@ -324,12 +323,12 @@ function Investment() {
   );
 }
 
-function PipelineBuildoutFAQ() {
+function OperationsBuildoutFAQ() {
   return (
     <section className="max-w-3xl mx-auto mt-20">
       <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
       <div className="space-y-4">
-        {PIPELINE_BUILDOUT_FAQS.map((faq, i) => (
+        {OPERATIONS_BUILDOUT_FAQS.map((faq, i) => (
           <details
             key={i}
             className="border rounded-lg p-4 hover:border-primary/50 transition-colors group"
@@ -351,7 +350,7 @@ function PipelineBuildoutFAQ() {
 function BottomCTA() {
   return (
     <section className="max-w-2xl mx-auto mt-20 text-center bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-xl p-8">
-      <h2 className="text-2xl font-bold mb-4">Ready to Build Your Pipeline?</h2>
+      <h2 className="text-2xl font-bold mb-4">Ready for a full install?</h2>
       <p className="text-muted-foreground mb-6">
         Fill out the application above and we'll schedule a strategy call within 48 hours to
         discuss your business and confirm fit.
@@ -360,7 +359,7 @@ function BottomCTA() {
         href="#top"
         className="inline-block bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:bg-primary/90 transition-colors"
       >
-        Apply for the Pipeline Buildout
+        Apply for the Operations Buildout
       </a>
     </section>
   );

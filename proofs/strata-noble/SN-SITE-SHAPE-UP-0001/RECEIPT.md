@@ -1,63 +1,54 @@
-# SN-SITE-SHAPE-UP-0001 Receipt
+# SN-SITE-SHAPE-UP-0001: Receipt
 
-## Mission
-- Mission ID: `SN-SITE-SHAPE-UP-0001`
-- Goal: Bring Strata Noble public website into clear commercial alignment with one coherent offer architecture, one message, and one conversion path.
-- Branch: `feature/achievery-rebuild`
+**Mission:** Bring Strata Noble Into Full Commercial Alignment  
+**Date:** 2026-05-09  
+**Final status:** PASS
 
-## What Changed
+## Objective
 
-### Offer and Pricing Alignment
-- Updated homepage FAQ pricing to match canonical offer architecture in `apps/website/src/app/(marketing)/page.tsx`.
-- Updated services metadata copy to current consulting ladder in `apps/website/src/app/(marketing)/services/page.tsx`.
-- Standardized Pipeline Buildout pricing to `$4,997` in:
-  - `apps/website/src/app/(marketing)/pipeline-buildout/page.tsx`
-  - `apps/website/src/app/(marketing)/how-it-works/HowItWorksPageClient.tsx`
-- Updated stale consulting summary price copy in `apps/website/src/components/homepage/ThreeSurfaces.tsx`.
+Unify public offer architecture (SN-BCA-001 / `offerings.ts`), canonical routes, deployment redirects, homepage and services narrative, conversion paths, and trust polish on `apps/website`.
 
-### CTA and Conversion Path Consistency
-- Standardized key navigation CTA links to diagnostic intent (`/contact?service=diagnostic`) in:
-  - `apps/website/src/components/site/SiteNav.tsx`
-  - `apps/website/src/components/SmartConsultingBar.tsx`
-- Added service-intent contextual handling on contact page via `searchParams.service` in `apps/website/src/app/(marketing)/contact/page.tsx`.
-- Repaired legal links in auth surfaces:
-  - `apps/website/src/components/pages/AuthSigninPageClient.tsx`
-  - `apps/website/src/components/pages/AuthSignupPageClient.tsx`
+## What changed
 
-### Route and Legacy Surface Cleanup
-- Added/updated canonical redirects in `apps/website/next.config.js`:
-  - `/achievery-preview` -> `/achievery`
-  - `/data-analysis` -> `/lead-rescue`
-  - `/dashboard` and nested -> `/proof`
-  - `/campaigns` and nested -> `/contact`
-  - `/dnc` and nested -> `/contact`
-  - `/vault` and nested -> `/tools`
-- Cleaned stale public route allowlists in `apps/website/src/components/RouteGuard.tsx`.
+1. **Canonical routes**
+   - Public entry engagements live at `/systems-audit` and `/operations-buildout`.
+   - Permanent redirects: `/lead-rescue` → `/systems-audit`, `/pipeline-buildout` → `/operations-buildout` (Next.js `redirects`; legacy bookmarks and search hits consolidate).
+   - `next.config.js` cache header regex and `data-analysis` redirect target updated; `phase-3` now targets `/operations-buildout`.
 
-### Trust and Message Polish
-- Removed stale "passion to profit" and dead-link references from:
-  - `apps/website/src/app/not-found.tsx`
-  - `apps/website/src/pages/_error.tsx`
-- Reframed legacy thank-you messaging to current operational positioning in `apps/website/src/components/pages/ThanksPageClient.tsx`.
-- Updated post-purchase wording from discovery-era language in `apps/website/src/components/pages/SuccessPageClient.tsx`.
-- Updated stale CTA label taxonomy in `apps/website/src/lib/cta-labels.ts`.
-- Updated email copy and fixed encoding artifacts in `apps/website/src/lib/email.ts`.
-- Updated ACHIEVERY paywall price messaging to current product framing in `apps/website/src/components/achievery/SubscriptionGate.tsx`.
+2. **Messaging**
+   - Homepage hero and FAQ align with north star: operational systems, Q SUITE, ProofLoop, ANX Vault, ACHIEVERY.
+   - Services, contact, how-it-works, tools, proof, solutions verticals, about, footer, nav, and JSON-LD graph updated to Systems Audit / Operations Buildout / Sprint / Operations Command naming.
+   - `achievery-preview` tier pricing aligned with `offerings.ts` (removed stale $47 / $97 / $197 product grid).
 
-### TypeScript Gate Stabilization
-- Added explicit exclusion for generated `build/types` in `apps/website/tsconfig.json` to avoid local false-negative type-check failures caused by stale generated path references.
+3. **Conversion**
+   - Primary hero CTA remains free diagnostic at `/contact?service=diagnostic`.
+   - Operations Buildout form POSTs to `/api/intake/operations-buildout` (re-export of existing pipeline handler). Systems Audit form still POSTs to `/api/intake/lead-rescue` (stable intake enum `LEAD_RESCUE`).
 
-## Validation Results
+4. **Deployment authority**
+   - `netlify.toml` cache headers updated for `/systems-audit` and `/operations-buildout`.
 
-### Passed
-- `npm run lint` (apps/website): completed with warnings only; no blocking errors.
-- `npm run type-check` (apps/website): passed after tsconfig exclusion update.
-- `npm run build` (apps/website): passed.
+## Files touched (summary)
 
-### Notes
-- Lint emits pre-existing warnings across unrelated files (mostly `no-console`, `react/no-unescaped-entities`, and hook dependency warnings). No new blocking lint errors were introduced by this mission pass.
-- Build logs include non-blocking environment notices (e.g., rate-limit env vars not configured locally, browserslist/baseline data staleness warnings).
+- Routes: `src/app/(marketing)/systems-audit/`, `operations-buildout/` (new); removed legacy `lead-rescue/` and `pipeline-buildout/` route folders.
+- Config: `apps/website/next.config.js`, root `netlify.toml`.
+- API: `src/app/api/intake/operations-buildout/route.ts`.
+- Copy and SEO: homepage components, contact, services, tools, proof, about, sitemap, `json-ld.ts`, Playwright tests under `tests/revamp/`, `achievery-preview/page.tsx`.
 
-## Remaining Follow-ups
-- Optional hard cleanup: remove or fully archive legacy ACHIEVERY page implementations (`/achievery-preview`, `/achievery-early-access`) now that canonical redirects are enforced.
-- Optional SEO post-deploy operations: sitemap submit and stale URL reindex request in search console.
+## Validation
+
+| Check | Result |
+|--------|--------|
+| `npm run type-check` (apps/website) | PASS |
+| `npm run build` (apps/website) | PASS |
+| `npm run test:ci` (apps/website) | PASS (48 tests) |
+| ESLint in build | Skipped by project (`eslint.ignoreDuringBuilds`) |
+
+## Known limitations / follow-up
+
+- **Search Console (Track 6):** After production deploy, submit `https://stratanoble.com/sitemap.xml` and request reindexing for retired URLs so snippets retire cleanly. Not executed from this environment.
+- **Lint gate:** Full `next lint` not run as part of build; run locally if you need a lint report for merge.
+- **Internal intake labels:** Prisma `IntakeSource` still uses `LEAD_RESCUE` / pipeline source codes for backward compatibility; only public URLs and copy changed.
+
+## Mission success statement
+
+StrataNoble.com public IA now presents one consulting ladder (audit, sprint, buildout, command), separates Q SUITE and ACHIEVERY, routes legacy URLs forward, and sends first-screen visitors into a clear diagnostic path without mixed-era campaign language on primary surfaces.
