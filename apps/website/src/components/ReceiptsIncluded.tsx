@@ -6,11 +6,11 @@ import React from 'react';
  * Shows what verification receipts are included with each offer.
  * This is data they trust because it's about their system.
  *
- * Variant: 'lead-rescue' | 'pipeline' determines which receipts to show.
+ * Variant: audit vs full build determines which receipts to show.
  */
 
 interface ReceiptsIncludedProps {
-  variant: 'lead-rescue' | 'pipeline';
+  variant: 'lead-rescue' | 'systems-audit' | 'pipeline';
 }
 
 const leadRescueReceipts = [
@@ -71,7 +71,8 @@ const iconMap: Record<string, JSX.Element> = {
 };
 
 export function ReceiptsIncluded({ variant }: ReceiptsIncludedProps) {
-  const receipts = variant === 'lead-rescue' ? leadRescueReceipts : pipelineReceipts;
+  const receipts =
+    variant === 'pipeline' ? pipelineReceipts : leadRescueReceipts;
 
   return (
     <div className="bg-gradient-to-br from-field-sage/10 to-teal-50 border border-forest-green/25 rounded-xl p-6">

@@ -16,7 +16,7 @@ export function buildGlobalJsonLdGraph() {
         url: SITE,
         logo: `${SITE}/stratanoble_logoICON.svg`,
         description:
-          'Strata Noble builds and operates revenue-producing digital infrastructure for service businesses and early-stage ventures.',
+          'Strata Noble installs operational control systems for service businesses: powered by Q SUITE, verified through ProofLoop, delivered through ANX Vault.',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Las Vegas',
@@ -43,9 +43,9 @@ export function buildGlobalJsonLdGraph() {
         '@type': 'WebPage',
         '@id': `${SITE}/#homepage`,
         url: SITE,
-        name: 'Strata Noble — Revenue Pipeline Infrastructure for Service Businesses',
+        name: 'Strata Noble | Operational Systems for Service Businesses',
         description:
-          'We build and operate lead capture, follow-up automation, and revenue tracking systems for service businesses. Free diagnostic included.',
+          'Consulting engagements, Q SUITE platform licensing, and ACHIEVERY: one firm installing infrastructure you can run.',
         isPartOf: { '@id': `${SITE}/#website` },
         about: { '@id': `${SITE}/#organization` },
         inLanguage: 'en-US',
@@ -59,7 +59,7 @@ export function buildGlobalJsonLdGraph() {
           {
             '@type': 'HowToStep',
             name: 'Discovery',
-            text: 'We review your business — how you get leads, where things break, and what you actually need built. Free 48-hour diagnostic included.',
+            text: 'We review your business: how you get leads, where things break, and what you actually need built. Free diagnostic included.',
           },
           {
             '@type': 'HowToStep',
@@ -80,21 +80,21 @@ export function buildGlobalJsonLdGraph() {
       },
       {
         '@type': 'Service',
-        '@id': `${SITE}/#service-lead-rescue`,
-        name: '48-Hour Lead Rescue',
+        '@id': `${SITE}/#service-systems-audit`,
+        name: 'Systems Audit',
         description:
-          'Lead capture and follow-up system installation in 48 hours. Intake form, automated follow-up sequence, and tracking dashboard.',
+          'Operational infrastructure audit with prioritized fixes and ProofLoop receipts. Typical turnaround 48 to 72 hours.',
         provider: { '@id': `${SITE}/#organization` },
-        url: `${SITE}/lead-rescue`,
+        url: `${SITE}/systems-audit`,
       },
       {
         '@type': 'Service',
-        '@id': `${SITE}/#service-pipeline-buildout`,
-        name: '21-Day Pipeline Buildout',
+        '@id': `${SITE}/#service-operations-buildout`,
+        name: 'Operations Buildout',
         description:
-          'Complete lead-to-customer pipeline: capture, follow-up automation, deal tracking, and a full record of everything we built and delivered.',
+          '21-day operational infrastructure install: workflows, CRM, automations, reporting, and training. Verified delivery.',
         provider: { '@id': `${SITE}/#organization` },
-        url: `${SITE}/pipeline-buildout`,
+        url: `${SITE}/operations-buildout`,
       },
       {
         '@type': 'SoftwareApplication',
@@ -103,7 +103,7 @@ export function buildGlobalJsonLdGraph() {
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description:
-          'Business tools for client tracking, revenue tracking, follow-up, and secure credential storage — the same set we use to run Strata Noble.',
+          'Business tools for client tracking, revenue tracking, follow-up, and secure credential storage. Same stack we use to run Strata Noble.',
         offers: {
           '@type': 'Offer',
           url: `${SITE}/q-suite`,

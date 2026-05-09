@@ -4,7 +4,7 @@ import { ServicesHero, OfferLadder, DeliveryProcess } from '@/components/service
 export const metadata: Metadata = {
   title: 'Consulting Services | Strata Noble',
   description:
-    'Lead Rescue, 21-Day Pipeline Buildout, and Operations Command for service businesses. Fixed scope delivery, clear pricing, and operational infrastructure you own.',
+    'Systems Audit, Process Improvement Sprint, Operations Buildout, and Operations Command for service businesses. Fixed scope, ProofLoop verification, infrastructure you can run.',
 };
 
 export default function ServicesPage() {

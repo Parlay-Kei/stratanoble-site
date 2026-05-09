@@ -100,7 +100,7 @@ export function LeadLeakCalculator() {
         {/* ROI anchor - operator language */}
         {lowLeakage > 0 && (
           <p className="text-sm text-forest-green font-medium mt-3 bg-field-sage/10 rounded px-3 py-2">
-            Recover {Math.ceil(997 / avgJobValue)} job{Math.ceil(997 / avgJobValue) > 1 ? 's' : ''} and Lead Rescue pays for itself.
+            Recover {Math.ceil(997 / avgJobValue)} job{Math.ceil(997 / avgJobValue) > 1 ? 's' : ''} and a Systems Audit pays for itself.
           </p>
         )}
 

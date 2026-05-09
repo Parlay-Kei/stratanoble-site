@@ -8,7 +8,7 @@ import { SiteShell } from '@/components/site'
  * Uses SiteShell for consistent nav/footer.
  *
  * Pages in this group include:
- * - /, /about, /contact, /lead-rescue, /pipeline-buildout
+ * - /, /about, /contact, /systems-audit, /operations-buildout
  * - /services, /q-suite, /achievery, /proof
  * - /tools, /how-it-works
  */

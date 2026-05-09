@@ -9,7 +9,7 @@ const liveTools = [
     name: 'Deployment Verification',
     tagline: 'Documented proof that the work was done right',
     description:
-      'Every engagement includes a verification pack — documented evidence that your system was built, tested, and delivered as specified. No guesswork. No "trust me." Receipts.',
+      'Every engagement includes a verification pack: documented evidence that your system was built, tested, and delivered as specified. No guesswork. No "trust me." Receipts.',
     featuresLabel: "What\u0027s in the verification pack",
     features: [
       'System build verification',
@@ -18,14 +18,14 @@ const liveTools = [
       'Complete handoff documentation',
     ],
     included:
-      'Lead Rescue includes a receipt pack. Pipeline Buildout includes the full verification suite.',
+      'Systems Audit includes a receipt pack. Operations Buildout includes the full verification suite.',
     accent: true,
   },
   {
     name: 'Secure Delivery Folder',
-    tagline: 'Every credential, asset, and document — secured and handed off',
+    tagline: 'Every credential, asset, and document: secured and handed off',
     description:
-      'All deliverables from your engagement — credentials, configurations, video walkthroughs, documentation — stored in a private folder you control. You own it. Access is governed and audit-trailed.',
+      'All deliverables from your engagement (credentials, configurations, video walkthroughs, documentation) live in a private folder you control. You own it. Access is governed and audit-trailed.',
     featuresLabel: "What\u0027s in your delivery folder",
     features: [
       'Private asset storage',
@@ -43,14 +43,14 @@ const inDevTool = {
   badge: 'In Development',
   tagline: 'Operator scorecard for service businesses',
   description:
-    'A web and mobile experience within the Strata Noble ecosystem — track daily progress, pipeline health, and team execution in one view. Built for operators who want to see what moved, what stalled, and what needs attention — without digging through a pile of dashboards.',
+    'A web and mobile experience within the Strata Noble ecosystem: track daily progress, pipeline health, and team execution in one view. Built for operators who want to see what moved, what stalled, and what needs attention without digging through a pile of dashboards.',
   features: [
     'Daily progress tracking',
     'Pipeline health scoring',
     'Team execution visibility',
     'Milestone and alert system',
   ],
-  included: 'Early access included with Pipeline Buildout engagements.',
+  included: 'Bundled or discounted with selected Operations Buildout engagements when applicable.',
 };
 
 export function ToolsPageClient() {
@@ -115,7 +115,7 @@ export function ToolsPageClient() {
       <section className="px-4 sm:px-6 lg:px-8 pb-8">
         <div className="max-w-4xl mx-auto rounded-xl border border-primary/20 bg-primary/5 p-8 text-center">
           <p className="text-command-navy font-medium leading-relaxed">
-            All delivery tools are powered by Q Suite — the same business tools we use to run Strata Noble.
+            All delivery tools are powered by Q SUITE, the same operational stack we use to run Strata Noble.
           </p>
           <Link href="/services" className="inline-block mt-4 text-primary font-semibold text-sm hover:underline">
             See our solutions →
@@ -162,14 +162,14 @@ export function ToolsPageClient() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to see how we deliver?</h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Every engagement includes deployment verification and a secure delivery folder. Start with the 48-Hour Lead Rescue.
+            Every engagement includes deployment verification and a secure delivery folder. Start with a Systems Audit or free diagnostic.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/lead-rescue"
+              href="/systems-audit"
               className="bg-forest-green text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-shadow inline-block"
             >
-              Start the 48-Hour Lead Rescue
+              Start with Systems Audit
             </Link>
             <Link
               href="/contact"

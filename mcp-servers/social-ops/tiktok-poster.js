@@ -42,9 +42,12 @@ export class TikTokPoster {
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
       );
 
-      // Set cookies if provided
-      if (this.config.sessionCookies) {
-        const cookies = JSON.parse(this.config.sessionCookies);
+      // Set cookies if provided (flat config or nested tiktok.sessionCookies from .env)
+      const cookieSource =
+        this.config.sessionCookies ?? this.config.tiktok?.sessionCookies;
+      if (cookieSource) {
+        const cookies =
+          typeof cookieSource === 'string' ? JSON.parse(cookieSource) : cookieSource;
         await this.page.setCookie(...cookies);
       }
 
@@ -164,6 +167,7 @@ export class TikTokPoster {
       return {
         success: true,
         dryRun: true,
+        executionMode: 'dry_run',
         preview: {
           videoPath,
           videoHash: validation.hash,
@@ -223,6 +227,50 @@ export class TikTokPoster {
       const captionSelector = await this.page.$('[class*="caption"] textarea, .caption-input');
       await captionSelector.click({ clickCount: 3 }); // Select all
       await captionSelector.type(formattedCaption);
+
+      const mode = options.executionMode || 'publish';
+
+      if (mode === 'draft') {
+        const ok = await this.clickFirstButtonMatchingLabels([
+          'Draft',
+          'Save draft',
+          'Save to drafts',
+        ]);
+        if (!ok) {
+          return {
+            success: false,
+            error:
+              'Draft control not found in TikTok upload UI. Inspect DOM and update selector list after QA.',
+            executionMode: 'draft',
+            videoHash: validation.hash,
+          };
+        }
+        return {
+          success: true,
+          executionMode: 'draft',
+          videoHash: validation.hash,
+          timestamp: new Date().toISOString(),
+          message: 'Draft action triggered; verify draft in TikTok before relying on automation',
+        };
+      }
+
+      if (mode === 'schedule') {
+        return {
+          success: false,
+          error:
+            'schedule mode requires TikTok scheduling UI selectors and optional scheduleAt handling. Not enabled for unattended runs.',
+          executionMode: 'schedule',
+          videoHash: validation.hash,
+        };
+      }
+
+      if (mode !== 'publish') {
+        return {
+          success: false,
+          error: `Unknown executionMode "${mode}". Use draft, schedule, or publish.`,
+          videoHash: validation.hash,
+        };
+      }
 
       // Set privacy settings
       await this.setPrivacySettings(options);
@@ -348,6 +396,32 @@ export class TikTokPoster {
         await confirmButton.click();
       }
     }
+  }
+
+  /**
+   * Click first button whose visible text contains one of the labels (case-insensitive).
+   */
+  async clickFirstButtonMatchingLabels(labels) {
+    if (!this.page) return false;
+    return this.page.evaluate((texts) => {
+      const nodes = Array.from(
+        document.querySelectorAll('button, [role="button"], a[role="button"]')
+      );
+      for (const label of texts) {
+        const lower = label.toLowerCase();
+        const found = nodes.find(
+          (n) =>
+            n.textContent &&
+            n.textContent.trim().toLowerCase().includes(lower) &&
+            !n.disabled
+        );
+        if (found) {
+          found.click();
+          return true;
+        }
+      }
+      return false;
+    }, labels);
   }
 
   /**

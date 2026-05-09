@@ -70,10 +70,10 @@ function ErrorPage({ statusCode, hasGetInitialPropsRun, err }: Props) {
               ? All Services
             </Link>
             <Link
-              href="/lead-rescue"
+              href="/systems-audit"
               className="text-forest-green hover:text-forest-green transition-colors p-2 rounded hover:bg-field-sage/10"
             >
-              ? Lead Rescue
+              Systems Audit
             </Link>
             <Link
               href="/contact"

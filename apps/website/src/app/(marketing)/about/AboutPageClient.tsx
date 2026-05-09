@@ -200,7 +200,7 @@ export function AboutPageClient() {
         >
           <div className="bg-forest-green/10 border border-forest-green/20 rounded-sm p-6">
             <div className="text-4xl font-bold text-field-sage font-display">48hrs</div>
-            <p className="text-sm text-slate-grey mt-2">Lead Rescue Delivery</p>
+            <p className="text-sm text-slate-grey mt-2">Systems Audit Delivery</p>
           </div>
           <div className="bg-field-sage/10 border border-field-sage/30 rounded-sm p-6">
             <div className="text-4xl font-bold text-forest-green font-display">21 days</div>
@@ -238,7 +238,7 @@ export function AboutPageClient() {
           >
             <h2 className="text-3xl font-bold">Ready to Install Operational Control?</h2>
             <p className="text-muted-foreground mt-2 text-lg">
-              See how our engagements stack, from 48-hour Lead Rescue through full pipeline buildout and Q SUITE.
+              See how engagements stack: Systems Audit, Process Improvement Sprint, Operations Buildout, Operations Command, and Q SUITE.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
               <Link

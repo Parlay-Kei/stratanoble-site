@@ -112,7 +112,7 @@ export function SiteNav() {
                   className="block rounded-sm px-4 py-4 text-center text-white font-semibold bg-forest-green hover:opacity-90 transition-opacity duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Free Diagnostic. We&apos;ll show you where leads are leaking
+                  Free diagnostic — map what&apos;s broken before you buy scope
                 </Link>
               </div>
 

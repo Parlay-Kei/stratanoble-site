@@ -1,0 +1,280 @@
+/* Strata Noble invoice PDF — SN-BCA / website token alignment (light document surface) */
+
+:root {
+  --sn-navy: #0e1a2b;
+  --sn-green: #2d6a4f;
+  --sn-sage: #a8c5b0;
+  --sn-slate: #8a9bae;
+  --sn-paper: #f5f2ee;
+  --sn-ink: #1a2332;
+  --sn-rule: #d4dce6;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+@page {
+  size: letter;
+  margin: 0.55in 0.6in;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 10.5pt;
+  line-height: 1.45;
+  color: var(--sn-ink);
+  background: #fff;
+}
+
+.invoice {
+  max-width: 7.5in;
+  margin: 0 auto;
+}
+
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--sn-rule);
+}
+
+.brand-block {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.brand-block svg {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+}
+
+.company-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.company-legal {
+  font-family: var(--font-display);
+  font-size: 13pt;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--sn-navy);
+}
+
+.company-tag {
+  font-size: 8.5pt;
+  color: var(--sn-slate);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.meta-grid {
+  text-align: right;
+  font-size: 9.5pt;
+}
+
+.meta-grid .doc-title {
+  font-family: var(--font-display);
+  font-size: 18pt;
+  font-weight: 700;
+  color: var(--sn-navy);
+  margin: 0 0 0.35rem;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin: 0.12rem 0;
+}
+
+.meta-row span:first-child {
+  color: var(--sn-slate);
+  min-width: 5.5rem;
+}
+
+.meta-row span:last-child {
+  font-weight: 600;
+  color: var(--sn-ink);
+}
+
+.status-band {
+  margin-top: 0.85rem;
+  padding: 0.55rem 0.65rem;
+  background: var(--sn-paper);
+  border: 1px solid var(--sn-rule);
+  border-left: 3px solid var(--sn-green);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.status-band.paid {
+  border-left-color: var(--sn-slate);
+}
+
+.status-band .status-label {
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sn-slate);
+}
+
+.status-band .status-value {
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--sn-navy);
+}
+
+.status-band .amount-value {
+  font-size: 13pt;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--sn-navy);
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.section-title {
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--sn-slate);
+  margin: 0 0 0.35rem;
+}
+
+.block-body {
+  font-size: 10pt;
+  line-height: 1.5;
+}
+
+.statement-block {
+  margin-top: 1rem;
+  padding: 0.65rem 0.75rem;
+  background: #fafafa;
+  border: 1px solid var(--sn-rule);
+}
+
+.line-items {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 10pt;
+}
+
+.line-items th {
+  text-align: left;
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--sn-slate);
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--sn-rule);
+  font-weight: 600;
+}
+
+.line-items td {
+  padding: 0.55rem 0.5rem;
+  vertical-align: top;
+  border-bottom: 1px solid #eee;
+}
+
+.line-items .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.totals {
+  margin-top: 0.75rem;
+  margin-left: auto;
+  width: 42%;
+  font-size: 10pt;
+}
+
+.totals-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+}
+
+.totals-row.total {
+  margin-top: 0.35rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--sn-rule);
+  font-weight: 700;
+  font-size: 11pt;
+  font-variant-numeric: tabular-nums;
+}
+
+.payment-record {
+  margin-top: 1.1rem;
+  page-break-inside: avoid;
+}
+
+.payment-record table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+}
+
+.payment-record th,
+.payment-record td {
+  text-align: left;
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.payment-record th {
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sn-slate);
+}
+
+.instructions {
+  margin-top: 1rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--sn-rule);
+  font-size: 9.5pt;
+}
+
+.instructions strong {
+  color: var(--sn-navy);
+}
+
+.terms {
+  margin-top: 1rem;
+  font-size: 8.5pt;
+  color: var(--sn-slate);
+  line-height: 1.5;
+}
+
+.footer {
+  margin-top: 1.25rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--sn-rule);
+  font-size: 8pt;
+  color: var(--sn-slate);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}

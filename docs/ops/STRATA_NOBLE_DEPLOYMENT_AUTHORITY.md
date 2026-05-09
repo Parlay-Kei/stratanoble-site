@@ -15,12 +15,12 @@
 | **Team ID** | `67f5ee9336dfcdd59cd4773a` |
 | **Site / project name** | `stratanoble` |
 | **Site ID** | `4e5f1885-511a-49cf-af9f-631665a3f43e` |
-| **Current deploy ID** | `69e8d7dec0680c0009eb5c44` |
+| **Current deploy ID** | `69f441d10acc7d0007afad1e` |
 | **Deploy state** | `ready` |
-| **Published at (UTC)** | `2026-04-22T14:18:21.238Z` |
-| **Production deploy commit (Git)** | `c6c5b19666fe448ef38655c20df0fe50681eaf33` |
-| **Commit title** | `fix(legal): add Strata Noble Publisher disclosures to Privacy Policy and Terms` |
-| **Commit URL** | `https://github.com/Strata-Noble/stratanoble-site/commit/c6c5b19666fe448ef38655c20df0fe50681eaf33` |
+| **Published at (UTC)** | `2026-05-01T06:05:05.200Z` |
+| **Production deploy commit (Git)** | `532b24fad99e961386e99832f63e269300f0af1a` |
+| **Commit title** | `docs(ops): refresh 0006 final origin/main SHA` |
+| **Commit URL** | `https://github.com/Strata-Noble/stratanoble-site/commit/532b24fad99e961386e99832f63e269300f0af1a` |
 | **GitHub repo feeding production** | **`Strata-Noble/stratanoble-site`** |
 | **Production branch (expected)** | **`main`** |
 
@@ -59,11 +59,10 @@ Evidence: repo `netlify.toml`, `.github/workflows/*`, Netlify dashboard fields s
 
 | Item | Result |
 | --- | --- |
-| **GitHub push from canonical repo** | **Succeeded** — `main` pushed to `origin/main` (latest synced SHA: `6b50117550e3579e64ec0a13c51798309995339c`). |
-| **Netlify API/CLI verification in agent runtime** | **Blocked** — DNS resolution failed for `api.netlify.com` and `registry.npmjs.org`; local `netlify` command in this runtime is not a usable CLI binary. |
-| **Production URL check in agent runtime** | **Blocked** — DNS resolution failed for `stratanoble.com` during 0006 execution window. |
-| **Latest confirmed production deploy (rollback reference)** | `69e8d7dec0680c0009eb5c44` (`ready`) on `https://stratanoble.com`, commit `c6c5b19666fe448ef38655c20df0fe50681eaf33`. |
-| **New deploy after push** | **Pending external verification** once Netlify API/UI is reachable from an environment with working DNS. |
+| **GitHub push from canonical repo** | **Succeeded** — `main` pushed to `origin/main` and verified at `532b24fad99e961386e99832f63e269300f0af1a`. |
+| **Netlify publish verification** | **Completed outside DNS-limited runtime** — deploy `69f441d10acc7d0007afad1e` (`ready`) published `2026-05-01T06:05:05.200Z` from branch `main` at commit `532b24fad99e961386e99832f63e269300f0af1a`. |
+| **Build/plugin/security checks** | Framework `Next.js`; plugin state `success`; secret scan `2,749 files scanned, no matches`. |
+| **Rollback reference deploy** | `69e8d7dec0680c0009eb5c44` (prior known-good). |
 
 ## Verification receipt — OCS-STRATA-NOBLE-AUTHORITY-FINALIZATION-0004
 

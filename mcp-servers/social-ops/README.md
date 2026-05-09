@@ -31,7 +31,10 @@ LinkedIn and TikTok posting automation with Notion integration, approval gates, 
 ```bash
 cd mcp-servers/social-ops
 npm install
+npx playwright install chromium
 ```
+
+TikTok automation can use a **persistent Chromium profile** (Playwright) so an operator logs in once; set `TIKTOK_USE_PERSISTENT_PROFILE=true` and `TIKTOK_PROFILE_DIR=.auth/tiktok-profile` (created automatically under this package; do not commit `.auth/`). Use the MCP tool `validate_tiktok_persistent_profile` to complete one-time login and confirm the session is `@strata.noble` before draft runs.
 
 ### 2. Configure Environment
 
@@ -106,6 +109,9 @@ Publish to LinkedIn after approval.
 
 ### `publish_tiktok_video`
 Upload video to TikTok after approval.
+
+### `validate_tiktok_persistent_profile`
+When `TIKTOK_USE_PERSISTENT_PROFILE=true`, launches Chromium with the saved user-data directory, returns `NEEDS_ONE_TIME_LOGIN` until login succeeds, then `READY_FOR_DRAFT_TEST` when the session resolves to `@strata.noble`. Does not require `TIKTOK_SESSION_COOKIES` in that mode.
 
 ### `check_platform_status`
 Check if a platform is enabled.

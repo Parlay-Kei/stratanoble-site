@@ -49,7 +49,7 @@ export function PipelineBuildoutApplicationForm() {
     setErrorMessage('');
 
     try {
-      const res = await fetch('/api/intake/pipeline-buildout', {
+      const res = await fetch('/api/intake/operations-buildout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

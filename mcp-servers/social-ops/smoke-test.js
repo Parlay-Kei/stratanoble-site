@@ -24,6 +24,7 @@ import NotionContentTracker from './notion-integration.js';
 import { SafetyControls, ApprovalGate } from './safety-controls.js';
 import { LinkedInPoster } from './linkedin-poster.js';
 import { TikTokPoster } from './tiktok-poster.js';
+import { TikTokPlaywrightPoster } from './tiktok-playwright-poster.js';
 
 const config = {
   notion: {
@@ -230,6 +231,46 @@ async function runSmokeTests() {
     }
   } catch (error) {
     results.record('TikTok Dry Run Upload', 'failed', { error: error.message });
+  }
+
+  // Test 7b: TikTok Playwright poster dry run (persistent-profile path; no browser launch)
+  try {
+    const testVideoPath = path.join(__dirname, 'test-video-pw.mp4');
+    await fs.writeFile(testVideoPath, Buffer.from('mock video content'));
+
+    const pwConfig = {
+      ...config,
+      tiktok: {
+        ...config.tiktok,
+        usePersistentProfile: true,
+        profileDir: '.auth/tiktok-profile',
+      },
+    };
+    const pwPoster = new TikTokPlaywrightPoster(pwConfig);
+    const pwResult = await pwPoster.upload(
+      testVideoPath,
+      'Test TikTok Playwright dry run #Testing',
+      {
+        hashtags: ['SmokeTest', 'Automation'],
+        privacy: 'private',
+      }
+    );
+
+    await fs.remove(testVideoPath);
+
+    if (pwResult.success && pwResult.dryRun && pwResult.preview?.persistentProfile) {
+      results.record('TikTok Playwright Dry Run (persistent profile)', 'passed', {
+        result: pwResult,
+      });
+    } else {
+      results.record('TikTok Playwright Dry Run (persistent profile)', 'failed', {
+        result: pwResult,
+      });
+    }
+  } catch (error) {
+    results.record('TikTok Playwright Dry Run (persistent profile)', 'failed', {
+      error: error.message,
+    });
   }
 
   // Test 8: Approval Request System

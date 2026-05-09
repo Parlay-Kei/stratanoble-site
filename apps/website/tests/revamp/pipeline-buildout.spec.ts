@@ -6,11 +6,11 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Pipeline Buildout application page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/pipeline-buildout');
+    await page.goto('/operations-buildout');
   });
 
   test('page loads or returns 404', async ({ page }) => {
-    const response = await page.goto('/pipeline-buildout');
+    const response = await page.goto('/operations-buildout');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Pipeline buildout page not implemented');
@@ -19,7 +19,7 @@ test.describe('Pipeline Buildout application page', () => {
   });
 
   test('page has heading and application form when implemented', async ({ page }) => {
-    const response = await page.goto('/pipeline-buildout');
+    const response = await page.goto('/operations-buildout');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Pipeline buildout page not implemented');
@@ -32,7 +32,7 @@ test.describe('Pipeline Buildout application page', () => {
   });
 
   test('application form has required fields', async ({ page }) => {
-    const response = await page.goto('/pipeline-buildout');
+    const response = await page.goto('/operations-buildout');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Pipeline buildout page not implemented');
@@ -57,7 +57,7 @@ test.describe('Pipeline Buildout application page', () => {
   });
 
   test('application submission with valid data', async ({ page }) => {
-    const response = await page.goto('/pipeline-buildout');
+    const response = await page.goto('/operations-buildout');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Pipeline buildout page not implemented');
@@ -125,7 +125,7 @@ test.describe('Pipeline Buildout application page', () => {
   });
 
   test('application shows validation errors for empty submission', async ({ page }) => {
-    const response = await page.goto('/pipeline-buildout');
+    const response = await page.goto('/operations-buildout');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Pipeline buildout page not implemented');
@@ -143,13 +143,13 @@ test.describe('Pipeline Buildout application page', () => {
   });
 
   test('mobile layout is usable', async ({ page }) => {
-    const response = await page.goto('/pipeline-buildout');
+    const response = await page.goto('/operations-buildout');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Pipeline buildout page not implemented');
 
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto('/pipeline-buildout');
+    await page.goto('/operations-buildout');
 
     const form = page.locator('form').first();
     await expect(form).toBeVisible();
@@ -163,7 +163,7 @@ test.describe('Pipeline Buildout application page', () => {
   });
 
   test('page explains pipeline buildout offer', async ({ page }) => {
-    const response = await page.goto('/pipeline-buildout');
+    const response = await page.goto('/operations-buildout');
     const is404 = response?.status() === 404;
 
     test.skip(is404, 'Pipeline buildout page not implemented');

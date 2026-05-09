@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Invoice SN-030429 — Strata Noble LLC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./invoice-base.css" />
+</head>
+<body>
+  <article class="invoice">
+    <header class="doc-header">
+      <div class="brand-block">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g transform="translate(100, 100)">
+            <circle cx="0" cy="0" r="80" fill="none" stroke="#6B7B8C" stroke-width="2" opacity="0.8"/>
+            <circle cx="0" cy="0" r="68" fill="none" stroke="#B8D4C2" stroke-width="1.5" opacity="0.6"/>
+            <rect x="-30" y="-15" width="60" height="8" rx="4" fill="#B8D4C2"/>
+            <rect x="-35" y="-3" width="70" height="8" rx="4" fill="#5A9B6B"/>
+            <rect x="-40" y="9" width="80" height="8" rx="4" fill="#2C3E50"/>
+          </g>
+        </svg>
+        <div class="company-lines">
+          <div class="company-legal">Strata Noble</div>
+          <div class="company-tag">Strata Noble LLC</div>
+        </div>
+      </div>
+      <div class="meta-grid">
+        <h1 class="doc-title">Invoice</h1>
+        <div class="meta-row"><span>Invoice number</span><span>SN-030429</span></div>
+        <div class="meta-row"><span>Invoice date</span><span>May 1, 2026</span></div>
+        <div class="meta-row"><span>Due date</span><span>May 1, 2026</span></div>
+      </div>
+    </header>
+
+    <section class="status-band" aria-label="Payment status">
+      <div>
+        <div class="status-label">Payment status</div>
+        <div class="status-value">Payment due</div>
+      </div>
+      <div style="text-align:right">
+        <div class="status-label">Amount due</div>
+        <div class="amount-value">$3,000.00</div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <section>
+        <h2 class="section-title">Issued by</h2>
+        <div class="block-body">
+          Strata Noble LLC<br />
+          United States
+        </div>
+      </section>
+      <section>
+        <h2 class="section-title">Client</h2>
+        <div class="block-body">
+          Audrey Liggins<br />
+          Ms Audrey
+        </div>
+      </section>
+    </div>
+
+    <section class="statement-block">
+      <h2 class="section-title">Statement of services</h2>
+      <div class="block-body">
+        Managed Services Agreement — initial payment. Covers the first two months of service (May 2026 and June 2026). Activates the 12-month agreement effective May 1, 2026.
+      </div>
+    </section>
+
+    <table class="line-items">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th class="num">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Managed Services Agreement — initial payment (May–June 2026); 12-month agreement effective May 1, 2026</td>
+          <td class="num">$3,000.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <div class="totals-row"><span>Subtotal</span><span>$3,000.00</span></div>
+      <div class="totals-row total"><span>Total</span><span>$3,000.00</span></div>
+    </div>
+
+    <section class="instructions">
+      <strong>Payment instructions</strong><br />
+      Remit by Zelle to the Strata Noble LLC designated account. Include invoice number <strong>SN-030429</strong> in the payment note when possible.
+    </section>
+
+    <p class="terms">
+      <strong>Terms</strong> — Payment is due on the due date shown above unless otherwise agreed in writing. Questions about this invoice should reference the invoice number.
+    </p>
+
+    <footer class="footer">
+      <span>Strata Noble LLC</span>
+      <span>Invoice SN-030429</span>
+      <span>Issued May 1, 2026</span>
+    </footer>
+  </article>
+</body>
+</html>

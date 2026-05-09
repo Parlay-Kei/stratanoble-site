@@ -28,18 +28,18 @@ export function HomepageHero() {
         <div className="mb-8 flex justify-center">
           <span className="sn-shimmer-line inline-flex items-center gap-2 rounded-sm border border-forest-green/35 bg-forest-green/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-field-sage">
             <span className="hero-status-dot" aria-hidden />
-            Free diagnostic. 48-hour turnaround.
+            Q SUITE · ProofLoop · ANX Vault · ACHIEVERY
           </span>
         </div>
 
         <h1 className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-[2.95rem] lg:leading-[1.1]">
-          Build the business behind the business.
+          Operational systems for serious service businesses.
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-grey md:text-xl">
-          We install the systems that let your business run without you in every conversation.
-          Lead capture, follow-up, booking, and reporting, built for how you actually work.
-          Fixed scope. You own everything we build.
+          Strata Noble installs infrastructure you can run: consulting engagements that ship working systems,
+          Q SUITE as the control plane, ProofLoop verification, ANX Vault delivery, and ACHIEVERY when teams need accountability.
+          Fixed scope. Calm execution.
         </p>
 
         <div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
