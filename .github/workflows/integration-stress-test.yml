@@ -64,9 +64,10 @@ jobs:
         docker ps -a | grep supabase | awk '{print $1}' | xargs -r docker rm -f || true
 
     - name: Start local Supabase (fresh)
+      timeout-minutes: 10
       run: |
         cd apps/website
-        supabase start
+        supabase start --timeout 10m0s
       env:
         SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
 

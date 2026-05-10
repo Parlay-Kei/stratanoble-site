@@ -10,9 +10,9 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// Strata Noble Supabase credentials
-const SUPABASE_URL = 'https://REDACTED.supabase.co';
-const SUPABASE_SERVICE_KEY = 'REDACTED_SERVICE_ROLE_KEY';
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) throw new Error('SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set');
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 

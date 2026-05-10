@@ -6,9 +6,9 @@
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';
 
-// Strata Noble Supabase credentials
-const SUPABASE_URL = 'https://REDACTED.supabase.co';
-const SUPABASE_SERVICE_KEY = 'REDACTED_SERVICE_ROLE_KEY';
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) throw new Error('SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set');
 
 // Parse the schema into individual statements
 const schemaPath = 'C:\\Dev\\.claude-anx\\mcp-servers\\social-media-agent\\schema.sql';
