@@ -63,8 +63,8 @@ async function generateFallbackAnalysis(idea: string): Promise<ValidationResult>
       'Complete our free Discovery Form to get personalized guidance',
       'Join the ACHIEVERY platform for strategic planning tools',
       'Schedule a free consultation to discuss your specific situation',
-      'Access our Business Builder Package for comprehensive support',
-      'Connect with our community of aspiring entrepreneurs',
+      'Book a Free Diagnostic to get a personalized recommendation and fixed-scope quote',
+      'Connect with a Strata Noble advisor to discuss your specific operation',
     ],
   };
 }

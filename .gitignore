@@ -218,9 +218,12 @@ apps/website/server/openai.key
 
 # Env files (examples remain tracked)
 **/.env*
+*.env
 !**/.env.example
 # Tracked Jest stubs (not secrets); see apps/website/.env.test
 !apps/website/.env.test
+# Node-RED credential export (contains encrypted secrets)
+**/flows_cred.json
 
 # --- Custom: Build outputs ---
 # Monorepo-safe build ignores
