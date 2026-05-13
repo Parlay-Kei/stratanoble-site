@@ -1,22 +1,13 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import { fileURLToPath } from 'url';
-import path from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { createRequire } from 'module';
 
 // Migrate from next lint (Next.js 15) to direct eslint invocation (Next.js 16).
-// eslint-config-next references plugins (eslint-plugin-n, @typescript-eslint,
-// eslint-plugin-react) some of which may be missing or have circular references
-// that break @eslint/eslintrc's config validator (JSON.stringify of plugins).
-// Use minimal stubs for all referenced plugins to keep the config serialisable.
-const stubPlugin = { rules: {} };
+// Avoid FlatCompat + eslint-config-next entirely: @eslint/eslintrc's validator
+// calls JSON.stringify on plugins, which throws on eslint-plugin-react's
+// self-referential configs.flat.plugins.react circular structure.
+// Instead configure @next/eslint-plugin-next rules directly in native flat config.
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  // Provide stub resolvers for plugins that eslint-config-next references
-  resolvePluginsRelativeTo: __dirname,
-});
+const require = createRequire(import.meta.url);
+const nextPlugin = require('@next/eslint-plugin-next');
 
 export default [
   {
@@ -29,32 +20,33 @@ export default [
       '.planning/**',
     ],
   },
-  // Pre-declare all plugins eslint-config-next references using safe stubs.
-  // This prevents @eslint/eslintrc's validator from trying to JSON.stringify
-  // the real plugin objects (which have circular references in flat configs).
   {
     plugins: {
-      n: stubPlugin,
-      react: stubPlugin,
-      '@typescript-eslint': stubPlugin,
-      import: stubPlugin,
-      'jsx-a11y': stubPlugin,
+      '@next/next': nextPlugin,
     },
-  },
-  ...compat.extends('next', 'next/core-web-vitals'),
-  {
     rules: {
-      // Disable any rules from stub plugins that the extended config enables
-      'react/no-unknown-property': 'off',
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
-      // Preserve prior warning-level behaviour from next lint
-      'react/no-unescaped-entities': 'warn',
-      'react/display-name': 'warn',
-      // Disable stub n/ rules
-      'n/no-missing-import': 'off',
-      'n/global-require': 'off',
-      '@typescript-eslint/no-var-requires': 'off',
+      // Next.js recommended rules (mirrors eslint-config-next recommended)
+      '@next/next/google-font-display': 'warn',
+      '@next/next/google-font-preconnect': 'warn',
+      '@next/next/inline-script-id': 'error',
+      '@next/next/next-script-for-ga': 'warn',
+      '@next/next/no-assign-module-variable': 'error',
+      '@next/next/no-async-client-component': 'warn',
+      '@next/next/no-before-interactive-script-outside-document': 'warn',
+      '@next/next/no-css-tags': 'warn',
+      '@next/next/no-document-import-in-page': 'error',
+      '@next/next/no-duplicate-head': 'error',
+      '@next/next/no-head-element': 'warn',
+      '@next/next/no-head-import-in-document': 'error',
+      '@next/next/no-html-link-for-pages': 'error',
+      '@next/next/no-img-element': 'warn',
+      '@next/next/no-page-custom-font': 'warn',
+      '@next/next/no-script-component-in-head': 'error',
+      '@next/next/no-styled-jsx-in-document': 'warn',
+      '@next/next/no-sync-scripts': 'error',
+      '@next/next/no-title-in-document-head': 'warn',
+      '@next/next/no-typos': 'warn',
+      '@next/next/no-unwanted-polyfillio': 'warn',
     },
   },
 ];
