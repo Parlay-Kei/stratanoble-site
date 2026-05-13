@@ -9,17 +9,17 @@ import Link from 'next/link'
 import { Logo } from '../Logo'
 
 /**
- * Primary IA: Home | Services | Q SUITE | ACHIEVERY | About | Proof | Contact
+ * Primary IA: Home | Systems | Q SUITE | Achievery | About | Results | Start
  */
 
 const navigation = [
-  { name: 'Home', href: '/', description: 'Strata Noble' },
-  { name: 'Services', href: '/services', description: 'Consulting engagements' },
-  { name: 'Q SUITE', href: '/q-suite', description: 'The operational control system' },
-  { name: 'ACHIEVERY', href: '/achievery', description: 'Goals and accountability' },
-  { name: 'About', href: '/about', description: 'Who we are' },
-  { name: 'Proof', href: '/proof', description: 'Case studies and ecosystem' },
-  { name: 'Contact', href: '/contact', description: 'Get in touch' },
+  { name: 'Home', href: '/', description: 'Simple Systems. Better Business.' },
+  { name: 'Systems', href: '/services', description: 'Fix the work behind the work' },
+  { name: 'Q SUITE', href: '/q-suite', description: 'Tools for control, clarity, and follow-up' },
+  { name: 'Achievery', href: '/achievery', description: 'Turn goals into working routines' },
+  { name: 'About', href: '/about', description: 'Why we build this way' },
+  { name: 'Results', href: '/proof', description: 'Work, wins, and real examples' },
+  { name: 'Start', href: '/contact', description: 'Book your free diagnostic' },
 ]
 
 export function SiteNav() {

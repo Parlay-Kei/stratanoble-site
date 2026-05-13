@@ -1,17 +1,27 @@
 import { Metadata } from 'next';
-import { ServicesHero, OfferLadder, DeliveryProcess } from '@/components/services';
+import {
+  ServicesHero,
+  EntryProductsGrid,
+  AssessmentsGrid,
+  OfferLadder,
+  SupportPlansGrid,
+  DeliveryProcess,
+} from '@/components/services';
 
 export const metadata: Metadata = {
-  title: 'Consulting Services | Strata Noble',
+  title: 'Services & Products | Strata Noble',
   description:
-    'Systems Audit, Process Improvement Sprint, Operations Buildout, and Operations Command for service businesses. Fixed scope, ProofLoop verification, infrastructure you can run.',
+    'From $50 entry products to full consulting engagements — Systems Audit, Process Improvement Sprint, Operations Buildout, and ongoing support plans for service businesses.',
 };
 
 export default function ServicesPage() {
   return (
     <>
       <ServicesHero />
+      <EntryProductsGrid />
+      <AssessmentsGrid />
       <OfferLadder />
+      <SupportPlansGrid />
       <DeliveryProcess />
     </>
   );
