@@ -55,8 +55,8 @@
         "pg": "^8.20.0"
     },
     "devDependencies": {
-        "@supabase/ssr": "^0.10.2",
-        "@supabase/supabase-js": "^2.104.1",
+        "@supabase/ssr": "^0.10.3",
+        "@supabase/supabase-js": "^2.105.4",
         "@types/bcrypt": "^6.0.0",
         "@types/node-notifier": "^8.0.5",
         "bcrypt": "^6.0.0",
@@ -67,7 +67,7 @@
         "next": "16.2.6",
         "node-cron": "^4.2.1",
         "node-notifier": "^10.0.1",
-        "playwright": "^1.59.1",
+        "playwright": "^1.60.0",
         "tsx": "^4.21.0"
     },
     "overrides": {
