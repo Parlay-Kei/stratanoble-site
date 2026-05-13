@@ -30,3 +30,7 @@ create policy "client_read" on achievery_weekly_summaries
       where client_user_id = auth.uid()
     )
   );
+
+-- Explicit grants required as of Supabase Data API change (Oct 30 2026, existing projects)
+GRANT SELECT, INSERT, UPDATE, DELETE ON achievery_weekly_summaries TO authenticated;
+GRANT ALL ON achievery_weekly_summaries TO service_role;
