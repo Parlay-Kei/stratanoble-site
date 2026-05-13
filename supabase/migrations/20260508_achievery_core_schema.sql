@@ -267,3 +267,18 @@ CREATE POLICY "client can view their blockers"
       SELECT id FROM achievery_engagements WHERE client_user_id = auth.uid()
     )
   );
+
+-- Explicit grants required as of Supabase Data API change (Oct 30 2026, existing projects)
+-- anon: no access to any achievery table; authenticated: access controlled entirely by RLS above
+GRANT SELECT, INSERT, UPDATE, DELETE ON achievery_engagements  TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON achievery_systems      TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON achievery_tasks        TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON achievery_actions      TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON achievery_proof        TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON achievery_blockers     TO authenticated;
+GRANT ALL ON achievery_engagements  TO service_role;
+GRANT ALL ON achievery_systems      TO service_role;
+GRANT ALL ON achievery_tasks        TO service_role;
+GRANT ALL ON achievery_actions      TO service_role;
+GRANT ALL ON achievery_proof        TO service_role;
+GRANT ALL ON achievery_blockers     TO service_role;
