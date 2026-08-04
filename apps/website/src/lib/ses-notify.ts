@@ -1,11 +1,27 @@
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 
+// Match email.ts / mailer.ts production env conventions on Netlify.
+const AWS_REGION =
+  process.env.STRATANOBLE_AWS_REGION || process.env.AWS_REGION || 'us-east-1';
+const AWS_ACCESS_KEY_ID =
+  process.env.STRATANOBLE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY =
+  process.env.STRATANOBLE_AWS_SECRET_ACCESS_KEY ||
+  process.env.AWS_SECRET_ACCESS_KEY ||
+  process.env.AWS_SES_SECRET;
+const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL;
+const NOTIFICATION_EMAIL =
+  process.env.NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL;
+
 const sesClient = new SESClient({
-  region: process.env.AWS_REGION || 'us-east-1',
-  credentials: process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY ? {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  } : undefined,
+  region: AWS_REGION,
+  credentials:
+    AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY
+      ? {
+          accessKeyId: AWS_ACCESS_KEY_ID,
+          secretAccessKey: AWS_SECRET_ACCESS_KEY,
+        }
+      : undefined,
 });
 
 export interface IntakeNotification {
@@ -17,9 +33,13 @@ export interface IntakeNotification {
 }
 
 export async function notifyNewIntake(intake: IntakeNotification): Promise<void> {
-  // Skip if credentials not configured
-  if (!process.env.SES_FROM_EMAIL || !process.env.NOTIFICATION_EMAIL) {
+  if (!SES_FROM_EMAIL || !NOTIFICATION_EMAIL) {
     console.log('[SES] Notification skipped - credentials not configured');
+    return;
+  }
+
+  if (!AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY) {
+    console.log('[SES] Notification skipped - AWS credentials not configured');
     return;
   }
 
@@ -27,9 +47,9 @@ export async function notifyNewIntake(intake: IntakeNotification): Promise<void>
     const emailBody = formatIntakeEmail(intake);
 
     const command = new SendEmailCommand({
-      Source: process.env.SES_FROM_EMAIL,
+      Source: SES_FROM_EMAIL,
       Destination: {
-        ToAddresses: [process.env.NOTIFICATION_EMAIL],
+        ToAddresses: [NOTIFICATION_EMAIL],
       },
       Message: {
         Subject: {

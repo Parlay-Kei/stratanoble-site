@@ -183,6 +183,9 @@ export async function middleware(request: NextRequest) {
     '/about',
     '/achievery/auth',
     '/achievery-preview',
+    '/business-systems-intake',
+    '/systems-audit',
+    '/operations-buildout',
   ];
 
   const publicApiRoutes = [
