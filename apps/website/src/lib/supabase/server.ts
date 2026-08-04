@@ -1,6 +1,4 @@
-'use server';
-
-import { createClient } from '@supabase/supabase-js';
+﻿import { createClient } from '@supabase/supabase-js';
 import { Database } from '@/types/database';
 
 /**
@@ -171,3 +169,4 @@ export function withAdminClient<TParams extends any[], TResult>(
     return handler(admin, ...params);
   };
 }
+

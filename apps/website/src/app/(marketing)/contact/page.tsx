@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -100,6 +100,14 @@ const SERVICE_INTENT: Record<string, { label: string; nextStep: string }> = {
     label: 'Process Improvement Sprint',
     nextStep: 'Tell us which single process is broken. We will confirm scope for the 10-day sprint.',
   },
+  'business-systems-audit': {
+    label: 'Business Systems Audit',
+    nextStep: 'Use the Business Systems Intake to start. We recommend Audit, Fix, or Buildout from there.',
+  },
+  'business-systems-intake': {
+    label: 'Business Systems Intake',
+    nextStep: 'Complete the intake so we can recommend the right starting engagement.',
+  },
 };
 
 function ContactPageContent({
@@ -148,7 +156,7 @@ function ContactPageContent({
               >
                 <h3 className="text-lg font-semibold text-command-navy mb-2">{path.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{path.description}</p>
-                <span className="inline-block mt-4 text-sm font-semibold text-primary">Continue →</span>
+                <span className="inline-block mt-4 text-sm font-semibold text-primary">Continue â†’</span>
               </Link>
             ))}
           </div>
@@ -195,3 +203,4 @@ function ContactPageContent({
     </main>
   );
 }
+

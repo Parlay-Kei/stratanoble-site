@@ -163,6 +163,7 @@ enum IntakeSource {
   PHASE_3
   LEAD_LEAK_CHECK
   RESOURCE_DOWNLOAD
+  BUSINESS_SYSTEMS
 }
 
 enum IntakeStatus {

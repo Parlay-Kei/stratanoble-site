@@ -13,7 +13,7 @@ export const ENTRY_PRODUCTS = [
     priceLabel: 'From $50',
     period: 'one-time',
     description:
-      'A clean, pre-configured Google Sheets tracker built for your business. Track jobs, clients, revenue, or the metrics that matter most — set up and ready to use.',
+      'A clean, pre-configured Google Sheets tracker built for your business. Track jobs, clients, revenue, or the metrics that matter most. Set up and ready to use.',
     deliverables: [
       'Custom-built Google Sheets tracker',
       'Setup and configuration',
@@ -61,7 +61,7 @@ export const ENTRY_PRODUCTS = [
     priceLabel: 'From $99',
     period: 'one-time',
     description:
-      'Install a simple, working follow-up system so no lead or client falls through the cracks. Templates, triggers, and a repeatable process — delivered and ready to use.',
+      'Install a simple, working follow-up system so no lead or client falls through the cracks. Templates, triggers, and a repeatable process. Delivered and ready to use.',
     deliverables: [
       'Follow-up sequence (3–5 touchpoints)',
       'Message templates',
@@ -77,7 +77,7 @@ export const ENTRY_PRODUCTS = [
     priceLabel: 'From $199',
     period: 'one-time',
     description:
-      'The essential operational foundation for a small service business. Intake process, follow-up system, service menu, and a simple tracker — organized and ready to run.',
+      'The essential operational foundation for a small service business. Intake process, follow-up system, service menu, and a simple tracker. Organized and ready to run.',
     deliverables: [
       'Intake process setup',
       'Follow-up sequence',
@@ -100,14 +100,14 @@ export const ASSESSMENTS = [
     period: 'one-time',
     timeline: '48 hours',
     description:
-      "A focused review of your current business systems and processes. Identify what's working, what's broken, and what to fix first — delivered in 48 hours.",
+      "A focused review of your current business systems and processes. Identify what's working, what's broken, and what to fix first. Delivered in 48 hours.",
     deliverables: [
       'Systems review report',
       'Prioritized fix list',
       'Recommended next steps',
     ],
     cta: 'Book an Audit',
-    ctaLink: '/contact?service=business-systems-audit',
+    ctaLink: '/business-systems-intake',
   },
   {
     id: 'small-business-checkup',
@@ -117,7 +117,7 @@ export const ASSESSMENTS = [
     period: 'one-time',
     timeline: '3–5 business days',
     description:
-      'A practical operational review for service businesses. Covers intake, follow-up systems, service delivery, and reporting — you get a clear picture of where things stand and a prioritized fix list.',
+      'A practical operational review for service businesses. Covers intake, follow-up systems, service delivery, and reporting. You get a clear picture of where things stand and a prioritized fix list.',
     deliverables: [
       'Operational review report',
       'Gap analysis',
@@ -140,7 +140,7 @@ export const CONSULTING_SERVICES = [
     timeline: '48–72 hours',
     entryPoint: 'Free 30-minute diagnostic call',
     description:
-      "Audit the business's current operational infrastructure — how work flows, where it breaks, what's missing, what's redundant. Identify the top 3–5 structural issues and deliver a prioritized action plan.",
+      "Audit the business's current operational infrastructure. How work flows, where it breaks, what's missing, what's redundant. Identify the top 3–5 structural issues and deliver a prioritized action plan.",
     deliverables: [
       'Systems audit report',
       'Prioritized fix list',
@@ -158,7 +158,7 @@ export const CONSULTING_SERVICES = [
     period: 'one-time',
     timeline: '48 hours',
     description:
-      'A fast fix for one broken business process. Identify the failure point, redesign the flow, implement the fix, and verify it works — delivered in 48 hours.',
+      'A fast fix for one broken business process. Identify the failure point, redesign the flow, implement the fix, and verify it works. Delivered in 48 hours.',
     deliverables: [
       'Process diagnosis',
       'Redesigned and implemented fix',
@@ -194,7 +194,7 @@ export const CONSULTING_SERVICES = [
     period: 'one-time',
     timeline: '14 days',
     description:
-      'A practical system buildout for service businesses. Includes intake, scheduling, follow-up, and delivery infrastructure — installed and configured for how your business actually works.',
+      'A practical system buildout for service businesses. Includes intake, scheduling, follow-up, and delivery infrastructure. Installed and configured for how your business actually works.',
     deliverables: [
       'Intake system (installed)',
       'Scheduling and follow-up workflows',
