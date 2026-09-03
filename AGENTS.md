@@ -83,8 +83,8 @@ npm run validate   # Runs everything needed before push
 4. **Environment variables:** `NEXT_PUBLIC_` prefix for client-side only.
 5. **Never commit `.env` or `.env.local`.**
 6. **Supabase project ID:** `elcsezhfetezkafsiyye`.
-7. **Branch protection on `main`:** Create branch → commit → open PR → squash merge → delete branch.
-8. **Offer architecture:** All pricing, positioning, and offer structure must conform to `C:\Dev\.Codex-anx\docs\governance\SN-OFFER-ARCHITECTURE.md` (v2.1.0). Do not invent pricing.
+7. **Lean release path:** Work from the canonical repo, keep changes narrow, commit directly to `main` when Steve authorizes it, push, and verify the live site. Use a PR only when Steve asks for one or the change is high-risk enough to need review before release.
+8. **Offer architecture:** Keep public positioning simple and practical for owner-led small businesses. The current ladder is AI Fit Call, AI Operations Review, First AI Workday Setup, AI Workday Expansion, and Quarterly AI Tune-Up. Do not invent pricing or reintroduce enterprise/platform-first language without Steve's approval.
 9. **CSP headers** are enforced in `next.config.js` — update when adding new external domains.
 10. **TypeScript/ESLint errors ignored in dev builds** (`ignoreBuildErrors` / `ignoreDuringBuilds` in dev mode) but enforced in production builds and CI.
 11. **Canonical codebase (OCS-STRATA-NOBLE-REPO-AUTHORITY-CLEANUP-0001):** Strata Noble work must use `C:\Dev\10_products\StrataNoble` only. Legacy archive: `C:\Dev\00_core\_archive\stratanoble-site_LEGACY_DO_NOT_USE` (quarantined; see `CANONICAL_REPO.md` and `proofs/strata-noble/REPO-AUTHORITY-CLEANUP-0001/CLOSEOUT_ADDENDUM.md`). Do not write product code, docs, or deploy config there unless OCS authorizes legacy recovery.
