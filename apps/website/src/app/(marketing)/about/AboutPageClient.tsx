@@ -5,41 +5,41 @@ import { motion } from 'framer-motion';
 
 const comparison = {
   agencies: [
-    'Sell you campaigns and creative work',
-    'Monthly retainers that keep growing',
-    'You get deliverables, not systems',
-    'No visibility into what is actually working',
+    'Sell broad strategy, tools, or campaigns',
+    'Often hand you more software to figure out',
+    'Leave the day-to-day workflow unclear',
+    'Hard to know what changed after the call',
   ],
   crm: [
-    'Set up one tool for you',
-    'Billed per project, single-tool focus',
-    'You get a configured tool',
-    'Partial view of your business',
+    'Configure one app or automation',
+    'Focus on the tool more than the routine',
+    'Useful only if you already know what to ask for',
+    'Can create another thing to manage',
   ],
   sn: [
-    'Build the full system your business runs on',
-    'Fixed scope, clear price, you own the result',
-    'You get infrastructure that is yours to keep',
-    'Full visibility from first contact to paid invoice',
+    'Pick one practical routine and make it usable',
+    'Fixed scope, clear price, plain handoff',
+    'You keep the prompts, templates, and process',
+    'Human review stays built into the workflow',
   ],
 };
 
 const methodSteps = [
   {
     title: 'Discovery',
-    body: 'We talk through what you need, look at what you have, and agree on exactly what we are going to build before any work starts.',
+    body: 'We find the repeated office work that is costing time or slipping through the cracks.',
   },
   {
-    title: 'Implementation',
-    body: 'We build and configure everything inside your actual business environment using the same tools and systems we use ourselves.',
+    title: 'Setup',
+    body: 'We set up one AI-assisted routine using practical tools, prompts, templates, and review rules.',
   },
   {
     title: 'Handoff',
-    body: 'Documentation, a walkthrough, and a complete record of everything we built, so your team can run it without us.',
+    body: 'You get a walkthrough and plain instructions so the routine can run without us sitting beside you.',
   },
   {
-    title: 'Ongoing support (optional)',
-    body: 'For businesses that want us to stay involved, we check in weekly, keep the system running well, and handle updates as your business changes.',
+    title: 'Tune-up',
+    body: 'When the routine proves useful, we improve it or add the next routine without turning your business into a tech project.',
   },
 ];
 
@@ -58,8 +58,8 @@ export function AboutPageClient() {
               About Strata Noble
             </h1>
             <p className="text-xl text-gray-300 mt-6 leading-relaxed">
-              We build and operate digital infrastructure for service businesses and early-stage ventures.
-              You own everything we deliver.
+              We help owner-led businesses make AI useful inside the workday.
+              You keep the routine, the prompts, and the process.
             </p>
           </motion.div>
         </div>
@@ -75,24 +75,18 @@ export function AboutPageClient() {
         >
           <h2 className="text-3xl font-semibold">What Strata Noble Is</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Strata Noble is a digital build and venture operations studio. We design and deliver
-            production websites, client portals, and marketplace-style platforms for service
-            businesses and emerging ventures of any size, from solo operators to growing teams.
-            We also build and operate the backend systems that make revenue trackable: lead capture,
-            client operations, workflow automation, and credential governance.
+            Strata Noble is a practical AI setup firm for owner-led businesses. We help small teams
+            use AI for the office work that repeats every week: meeting notes, follow-up, proposals,
+            customer questions, intake, task lists, and simple reporting.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            We support partnerships and go-to-market execution by packaging proof, tightening
-            operational systems, and building the infrastructure operators need to close, retain,
-            and scale. Every system we deploy runs on the same architecture we use internally.
+            The offer is intentionally lean. We do not sell a complicated platform or a pile of
+            abstract AI training. We find one useful routine, set it up, document it, and teach you
+            how to use it with human review still in place.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            The platform is called{' '}
-            <Link href="/q-suite" className="font-bold text-forest-green underline hover:opacity-80">
-              Q SUITE
-            </Link>
-            , a modular operating system covering intake, client operations, revenue intelligence,
-            execution, and credential security. We built it for ourselves first.
+            That lets a solo operator or small team get value from AI without spending weeks trying
+            to understand every tool, pricing plan, prompt framework, or automation platform.
           </p>
         </motion.section>
 
@@ -106,10 +100,9 @@ export function AboutPageClient() {
           <h2 className="text-3xl font-semibold">Operator-Led</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             The firm is led by an operator who has built from the ground up. He has done
-            the sales work, run client operations, chased invoices, and built the systems he needed
-            before making them available to others. Strata Noble exists because the gap between
-            &ldquo;I have a business&rdquo; and &ldquo;my business runs properly&rdquo; is the same problem for a solo
-            operator as it is for a growing venture, and most firms only solve half of it.
+            the sales work, run client operations, chased invoices, managed handoffs, and built the
+            routines he needed before making them available to others. Strata Noble exists for owners
+            who know AI probably matters, but do not have time to turn it into something useful by themselves.
           </p>
         </motion.section>
 
@@ -123,7 +116,7 @@ export function AboutPageClient() {
           <h2 className="text-3xl font-semibold text-center mb-10">How This Is Different</h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="bg-white border border-slate-grey/25 rounded-sm p-6">
-              <h3 className="text-lg font-bold text-command-navy mb-4">Agencies</h3>
+              <h3 className="text-lg font-bold text-command-navy mb-4">AI Advisors</h3>
               <ul className="space-y-3 text-muted-foreground text-sm">
                 {comparison.agencies.map((row) => (
                   <li key={row} className="flex gap-2">
@@ -134,7 +127,7 @@ export function AboutPageClient() {
               </ul>
             </div>
             <div className="bg-white border border-slate-grey/25 rounded-sm p-6">
-              <h3 className="text-lg font-bold text-command-navy mb-4">CRM Consultants</h3>
+              <h3 className="text-lg font-bold text-command-navy mb-4">Tool Setups</h3>
               <ul className="space-y-3 text-muted-foreground text-sm">
                 {comparison.crm.map((row) => (
                   <li key={row} className="flex gap-2">
@@ -165,7 +158,7 @@ export function AboutPageClient() {
           transition={{ duration: 0.2 }}
           className="max-w-3xl mx-auto space-y-8"
         >
-          <h2 className="text-3xl font-semibold">Infrastructure-First Delivery</h2>
+          <h2 className="text-3xl font-semibold">Routine-First Delivery</h2>
           <p className="text-muted-foreground">
             <Link href="/how-it-works" className="text-primary font-semibold hover:underline">
               See the full delivery model →
@@ -200,15 +193,15 @@ export function AboutPageClient() {
         >
           <div className="bg-forest-green/10 border border-forest-green/20 rounded-sm p-6">
             <div className="text-4xl font-bold text-field-sage font-display">48hrs</div>
-            <p className="text-sm text-slate-grey mt-2">Systems Audit Delivery</p>
+            <p className="text-sm text-slate-grey mt-2">AI Operations Review</p>
           </div>
           <div className="bg-field-sage/10 border border-field-sage/30 rounded-sm p-6">
             <div className="text-4xl font-bold text-forest-green font-display">21 days</div>
-            <p className="text-sm text-slate-grey mt-2">Full System Buildout</p>
+            <p className="text-sm text-slate-grey mt-2">Expansion Window</p>
           </div>
           <div className="bg-void border border-slate-grey/30 rounded-sm p-6">
             <div className="text-4xl font-bold text-white font-display">100%</div>
-            <p className="text-sm text-slate-grey mt-2">Client-Owned Infrastructure</p>
+            <p className="text-sm text-slate-grey mt-2">Human Review Built In</p>
           </div>
         </motion.div>
 
@@ -220,11 +213,11 @@ export function AboutPageClient() {
           className="max-w-3xl mx-auto rounded-sm border-l-4 border-field-sage bg-command-navy p-8"
         >
           <p className="text-lg text-white leading-relaxed">
-            We do not sell promises. We build real systems, run them ourselves, and hand you the same thing we use.
+            AI only matters if it changes how the work gets done. We build the routine first, then keep the tool choice simple.
           </p>
           <div className="mt-6 text-gray-300 border-t border-white/10 pt-6">
             <p className="font-semibold text-white">The Strata Noble Method</p>
-            <p className="text-sm mt-1">Proof Over Promise</p>
+            <p className="text-sm mt-1">Useful before complicated</p>
           </div>
         </motion.div>
 
@@ -236,22 +229,16 @@ export function AboutPageClient() {
             transition={{ duration: 0.2 }}
             className="text-center p-8 bg-forest-green/10 border border-forest-green/20 rounded-sm"
           >
-            <h2 className="text-3xl font-bold">Ready to Install Operational Control?</h2>
+            <h2 className="text-3xl font-bold">Ready to Make AI Useful?</h2>
             <p className="text-muted-foreground mt-2 text-lg">
-              See how engagements stack: Systems Audit, Process Improvement Sprint, Operations Buildout, Operations Command, and Q SUITE.
+              Start with one routine your business already repeats and make it easier to run.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
               <Link
                 href="/services"
                 className="inline-flex items-center justify-center px-8 py-4 bg-field-sage text-command-navy font-semibold rounded-sm hover:opacity-90 transition-opacity duration-200"
               >
-                See Our Services
-              </Link>
-              <Link
-                href="/q-suite"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-forest-green text-forest-green font-semibold rounded-sm hover:bg-forest-green/10 transition-colors duration-200"
-              >
-                Explore Q SUITE
+                See AI Setup Services
               </Link>
             </div>
           </motion.div>

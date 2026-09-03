@@ -8,43 +8,43 @@ const steps = [
     n: 1,
     title: 'Getting aligned',
     whatHappens:
-      'We talk through what you need, look at what you already have, and agree on exactly what we are going to build. No surprises.',
+      'We talk through the repeated office work that eats time, creates delays, or depends too much on memory.',
     youProvide:
-      'A walkthrough of how your business currently works and what is frustrating you most.',
+      'A walkthrough of the routine, the tools you already use, and the parts that frustrate you most.',
     weDeliver:
-      'A clear plan: what we are building, what it will cost, and when it will be done.',
-    timeline: 'Same-day kickoff for Systems Audit. Days 1–3 for Operations Buildout.',
+      'A clear plan for one AI-assisted routine, including scope, price, timeline, and review rules.',
+    timeline: 'Free AI Fit Call or 48-hour AI Operations Review.',
     tentative: false,
   },
   {
     n: 2,
     title: 'Building it',
     whatHappens:
-      'We build everything we agreed on - inside your actual business environment, not a test sandbox. You can see progress the whole way.',
-    youProvide: 'Access to the tools we are connecting to. We will let you know if we need anything else.',
-    weDeliver: 'A working system, tested and ready for your team to use.',
-    timeline: '48–72 hours for Systems Audit. Days 3–18 for Operations Buildout.',
+      'We set up the prompts, templates, checklists, and handoff steps inside the tools you can realistically keep using.',
+    youProvide: 'Access to the tools or sample work needed to build the routine correctly.',
+    weDeliver: 'A working routine tested against the kind of work you actually handle.',
+    timeline: '7 to 10 days for the First AI Workday Setup.',
     tentative: false,
   },
   {
     n: 3,
     title: 'Handing it over',
     whatHappens:
-      'We walk you through everything we built, give you all the documentation, and make sure your team knows how to use it.',
-    youProvide: 'About an hour for a walkthrough call.',
+      'We walk you through the routine, show where AI helps, and make clear where a person still reviews the work.',
+    youProvide: 'About an hour for a walkthrough call and feedback on what needs to feel simpler.',
     weDeliver:
-      'Full documentation, video walkthroughs, and a complete record of everything we configured - stored somewhere you control.',
-    timeline: 'Included in the Systems Audit window where applicable. Days 18–21 for Operations Buildout.',
+      'Plain instructions, the prompt/template set, and a complete record of what we configured.',
+    timeline: 'Included with each setup.',
     tentative: false,
   },
   {
     n: 4,
-    title: 'Ongoing support (optional)',
+    title: 'Tuning it',
     whatHappens:
-      'If you want us to stay involved after handoff, we check in weekly, keep the system tuned, and handle anything that comes up.',
-    youProvide: 'About 30 minutes a week for a check-in.',
-    weDeliver: 'Regular reviews, system updates, and a point of contact who already knows your business.',
-    timeline: 'Ongoing, post-handoff. Not required.',
+      'If the routine is useful, we improve it, add the next workflow, or review it quarterly so it keeps matching how the business works.',
+    youProvide: 'Recent examples of the routine in use and what still feels too manual.',
+    weDeliver: 'Routine improvements, prompt updates, and practical next-step recommendations.',
+    timeline: 'As-needed expansion or quarterly tune-up.',
     tentative: true,
   },
 ];
@@ -63,7 +63,7 @@ export function HowItWorksPageClient() {
           </motion.h1>
           <p className="text-xl text-gray-300 mt-6 leading-relaxed">
             Every project follows the same clear process. You always know what is happening, what you are
-            getting, and when you are getting it.
+            getting, and where human review stays in the loop.
           </p>
         </div>
       </section>
@@ -110,8 +110,8 @@ export function HowItWorksPageClient() {
                 </div>
                 {step.tentative && (
                   <p className="text-sm text-muted-foreground pt-2">
-                    Optional - billed at $1,497/month (3-month minimum, then month-to-month).{' '}
-                    <Link href="/contact?service=operations-command" className="text-primary font-semibold hover:underline">
+                    Optional - billed as an expansion setup or quarterly tune-up.{' '}
+                    <Link href="/contact?service=ai-tune-up" className="text-primary font-semibold hover:underline">
                       Contact us
                     </Link>{' '}
                     to discuss fit.
@@ -131,52 +131,52 @@ export function HowItWorksPageClient() {
               <thead>
                 <tr className="bg-muted/50 border-b border-slate-grey/25">
                   <th className="p-4 font-semibold text-command-navy" />
-                  <th className="p-4 font-semibold text-command-navy">Systems Audit</th>
-                  <th className="p-4 font-semibold text-command-navy">Operations Buildout</th>
+                  <th className="p-4 font-semibold text-command-navy">AI Operations Review</th>
+                  <th className="p-4 font-semibold text-command-navy">First AI Workday Setup</th>
                   <th className="p-4 font-semibold text-command-navy border-l border-dashed border-slate-grey/30 bg-slate-100">
-                    Ongoing Support
+                    Quarterly Tune-Up
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Duration</td>
-                  <td className="p-4 text-muted-foreground">48 to 72 hours</td>
-                  <td className="p-4 text-muted-foreground">21 days</td>
+                  <td className="p-4 text-muted-foreground">48 hours</td>
+                  <td className="p-4 text-muted-foreground">7 to 10 days</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
-                    Ongoing
+                    Quarterly
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Price</td>
-                  <td className="p-4 text-muted-foreground">$997</td>
-                  <td className="p-4 text-muted-foreground">$4,997</td>
+                  <td className="p-4 text-muted-foreground">$500</td>
+                  <td className="p-4 text-muted-foreground">$2,000</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
-                    $1,497/month
+                    $750/quarter
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Commitment</td>
                   <td className="p-4 text-muted-foreground">None</td>
-                  <td className="p-4 text-muted-foreground">Per engagement scope</td>
+                  <td className="p-4 text-muted-foreground">One routine</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
-                    3-month minimum, month-to-month after
+                    Optional after handoff
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Scope</td>
-                  <td className="p-4 text-muted-foreground">Audit infrastructure; patch priority breaks with receipts</td>
-                  <td className="p-4 text-muted-foreground">Full operational install — workflows, tools, reporting</td>
+                  <td className="p-4 text-muted-foreground">Identify where AI can save time without adding complexity</td>
+                  <td className="p-4 text-muted-foreground">Build one routine with prompts, templates, and review steps</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
-                    Monthly maintenance and check-ins
+                    Review usage and tune the routine
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-command-navy">Handoff</td>
-                  <td className="p-4 text-muted-foreground">Full write-up of what we fixed</td>
-                  <td className="p-4 text-muted-foreground">Complete documentation package</td>
+                  <td className="p-4 text-muted-foreground">Plain recommendation and next setup scope</td>
+                  <td className="p-4 text-muted-foreground">Walkthrough and simple operating instructions</td>
                   <td className="p-4 text-muted-foreground border-l border-dashed border-slate-grey/30 bg-slate-50">
-                    Weekly review notes
+                    Updated prompts and improvement notes
                   </td>
                 </tr>
               </tbody>
@@ -190,16 +190,16 @@ export function HowItWorksPageClient() {
           <h2 className="text-2xl font-bold text-command-navy mb-6">Ready to Get Started?</h2>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
             <Link
-              href="/systems-audit"
+              href="/contact?service=ai-ops-review"
               className="inline-flex justify-center items-center rounded-lg px-6 py-3 text-sm font-semibold text-white bg-forest-green shadow-md hover:shadow-lg"
             >
-              Start with Systems Audit
+              Start with AI Operations Review
             </Link>
             <Link
-              href="/operations-buildout"
+              href="/contact?service=first-ai-workday-setup"
               className="inline-flex justify-center items-center rounded-lg px-6 py-3 text-sm font-semibold border-2 border-command-navy text-command-navy hover:bg-command-navy hover:text-white transition-colors"
             >
-              Apply for Operations Buildout
+              Book First AI Workday Setup
             </Link>
             <Link
               href="/services"

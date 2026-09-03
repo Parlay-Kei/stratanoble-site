@@ -5,12 +5,12 @@ import { HowItWorksPageClient } from './HowItWorksPageClient';
 export const metadata: Metadata = {
   title: 'How It Works | Strata Noble',
   description:
-    'Our delivery model: Discovery, Build, Handoff, and optional ongoing support. Clear scope, fixed price, and everything documented - for service businesses and early-stage ventures.',
+    'How Strata Noble turns one repeated office workflow into a simple AI-assisted routine with clear handoff and human review.',
   alternates: { canonical: '/how-it-works' },
   openGraph: {
     title: 'How It Works | Strata Noble',
     description:
-      'How Strata Noble delivers - from website builds and portal deployments to full operational system installs. Same process every time.',
+      'Find one useful AI routine, set it up, teach it, and tune it only when it proves useful.',
     url: '/how-it-works',
   },
   robots: { index: true, follow: true },

@@ -5,12 +5,12 @@ import { AboutPageClient } from './AboutPageClient';
 export const metadata: Metadata = {
   title: 'About | Strata Noble',
   description:
-    'Strata Noble is a digital build and venture operations studio. We deliver production websites, portals, marketplaces, and the operational systems that make revenue trackable — for service businesses and early-stage ventures.',
+    'Strata Noble helps owner-led businesses use AI for practical office routines: follow-up, notes, proposals, admin, and review.',
   alternates: { canonical: '/about' },
   openGraph: {
     title: 'About | Strata Noble',
     description:
-      'Build and operations studio for service businesses and early-stage ventures of any size. Websites, portals, platforms, and the systems behind them.',
+      'Practical AI setup for small business operators who need less admin drag without a complicated platform.',
     url: '/about',
   },
 };

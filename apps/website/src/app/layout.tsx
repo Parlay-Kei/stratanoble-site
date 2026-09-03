@@ -37,14 +37,14 @@ export const metadata: Metadata = {
     template: '%s | Strata Noble',
   },
   description:
-    'We build and operate lead capture, follow-up, booking, and revenue tracking systems for service businesses. Fixed scope. You own what we build. Free diagnostic included.',
+    'Strata Noble helps owner-led businesses turn repetitive office work into simple AI-assisted routines. Practical setup, clear handoff, human review.',
   keywords: [
-    'operational infrastructure',
-    'business operating system',
-    'service business automation',
-    'revenue visibility',
-    'intake automation',
-    'Q Suite',
+    'small business AI setup',
+    'AI workflow setup',
+    'owner-led business operations',
+    'AI operations review',
+    'AI proposal workflow',
+    'AI meeting notes',
   ],
   authors: [{ name: 'Strata Noble' }],
   creator: 'Strata Noble',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     url: 'https://stratanoble.com',
     title: 'Strata Noble',
     description:
-      'We build and operate lead capture, follow-up, booking, and revenue tracking systems for service businesses. Fixed scope. You own what we build. Free diagnostic included.',
+      'Practical AI setup for owner-led businesses that need simpler routines for follow-up, notes, proposals, and daily admin.',
     siteName: 'Strata Noble',
     images: [
       {
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Strata Noble',
     description:
-      'We build and operate lead capture, follow-up, booking, and revenue tracking systems for service businesses. Fixed scope. You own what we build. Free diagnostic included.',
+      'Practical AI setup for owner-led businesses that need simpler routines for follow-up, notes, proposals, and daily admin.',
     images: ['/img/og-image.png'],
   },
   robots: {
