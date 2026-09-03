@@ -8,10 +8,10 @@ export function LeadLeakCheckSection() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
-              Find Out Where Your Leads Are Leaking
+              Find Your First Useful AI Routine
             </h2>
             <p className="text-lg text-slate-grey md:text-xl">
-              Free diagnostic in 48 hours. We&apos;ll show you exactly where prospects are falling through the cracks.
+              Start with one repeated office task. We&apos;ll look for work that is frequent, reviewable, and safe to improve.
             </p>
           </div>
 

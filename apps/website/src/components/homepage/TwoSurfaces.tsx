@@ -2,18 +2,18 @@ import Link from 'next/link';
 
 const surfaces = [
   {
-    title: 'We build it',
+    title: 'AI Meeting-to-Action Setup',
     subtitle:
-      'Lead capture, intake forms, booking flows, follow-up sequences, and reporting dashboards. Scoped to your business. Delivered in 48 hours to 21 days. Starting at $997.',
-    cta: 'See our services',
+      'Turn meeting notes into a reviewed summary, assigned actions, follow-up draft, and record-ready notes.',
+    cta: 'View setup',
     href: '/services',
   },
   {
-    title: 'We run it',
+    title: 'AI Proposal Desk',
     subtitle:
-      'After delivery, we stay on to keep systems tuned, automations running, and reporting honest. Monthly support with no lock-in. Cancel any time.',
-    cta: 'See how it works',
-    href: '/how-it-works',
+      'Turn discovery notes and approved service language into a reviewed first draft of a client proposal.',
+    cta: 'View setup',
+    href: '/services',
   },
 ] as const;
 
@@ -24,10 +24,10 @@ export function TwoSurfaces() {
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-white md:text-3xl">
-            The business runs. You lead it.
+            Start with one repeated office task.
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-slate-grey">
-            We build what you need and run it after delivery. You own the system either way.
+            We launch with focused routines that are easy to explain, safe to review, and useful inside a normal workday.
           </p>
         </div>
 

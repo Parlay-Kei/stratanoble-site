@@ -4,11 +4,11 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Contact | Strata Noble',
   description:
-    'Reach Strata Noble for Systems Audit, Operations Buildout, Q SUITE licensing, Operations Command, ACHIEVERY, or a general inquiry. Phone, email, or start with a diagnostic.',
+    'Reach Strata Noble for an AI Fit Call, AI Operations Review, First AI Workday Setup, expansion, or quarterly tune-up.',
   alternates: { canonical: '/contact' },
   openGraph: {
     title: 'Contact | Strata Noble',
-    description: 'Digital infrastructure, Q SUITE, and consulting. Get in touch.',
+    description: 'Practical AI setup for owner-led professional firms. Get in touch.',
     url: '/contact',
   },
 };
@@ -33,24 +33,24 @@ const contactMethods = [
 
 const engagementPaths = [
   {
-    title: 'I need clarity fast',
-    description: 'Systems Audit: scoped fixes with ProofLoop receipts (typically 48 to 72 hours).',
-    href: '/systems-audit',
+    title: 'I want to know if AI fits',
+    description: 'AI Fit Call: a short check for one frequent, reviewable office task.',
+    href: '/contact?service=ai-fit-call',
   },
   {
-    title: 'I need a full install',
-    description: 'Operations Buildout: 21-day operational infrastructure with training and handoff.',
-    href: '/operations-buildout',
+    title: 'I need the best place to start',
+    description: 'AI Operations Review: process map, risk notes, and one fixed-scope setup recommendation.',
+    href: '/contact?service=ai-operations-review',
   },
   {
-    title: 'I want ongoing support',
-    description: 'Operations Command: weekly rhythm and continuous tuning.',
-    href: '/contact?service=operations-command',
+    title: 'I want one routine set up',
+    description: 'First AI Workday Setup: one useful routine built, tested, taught, and handed over.',
+    href: '/contact?service=first-ai-workday-setup',
   },
   {
-    title: 'Tell me about Q SUITE',
-    description: 'Five business modules, clear licensing, installed through consulting.',
-    href: '/q-suite',
+    title: 'We already have one working',
+    description: 'Expansion or Tune-Up: add the next routine or improve the one already in use.',
+    href: '/contact?service=ai-workday-expansion',
   },
 ];
 
@@ -65,48 +65,68 @@ export default async function ContactPage({
 
 const SERVICE_INTENT: Record<string, { label: string; nextStep: string }> = {
   diagnostic: {
-    label: 'Free Diagnostic',
-    nextStep: 'We will confirm fit and recommend Systems Audit, a Sprint, or Operations Buildout.',
+    label: 'AI Fit Call',
+    nextStep: 'Legacy link. We will confirm whether one recurring office task is a fit for practical AI setup.',
+  },
+  'ai-fit-call': {
+    label: 'AI Fit Call',
+    nextStep: 'We will confirm whether one recurring office task is a fit for practical AI setup.',
+  },
+  'ai-operations-review': {
+    label: 'AI Operations Review',
+    nextStep: 'We will map one process, identify risks, and recommend the best first setup.',
+  },
+  'first-ai-workday-setup': {
+    label: 'First AI Workday Setup',
+    nextStep: 'We will confirm scope for one safe, human-reviewed AI-assisted routine.',
+  },
+  'ai-workday-expansion': {
+    label: 'AI Workday Expansion',
+    nextStep: 'We will discuss the next routine after the first setup is working.',
+  },
+  'quarterly-ai-tune-up': {
+    label: 'Quarterly AI Tune-Up',
+    nextStep: 'We will review adoption, update use rules, and scope one bounded improvement.',
   },
   'lead-rescue': {
-    label: 'Systems Audit',
-    nextStep: 'Legacy link. Use the Systems Audit intake to begin the scoped audit window.',
+    label: 'AI Operations Review',
+    nextStep: 'Legacy link. We will route you to the new AI Operations Review path.',
   },
   'systems-audit': {
-    label: 'Systems Audit',
-    nextStep: 'Use the Systems Audit intake to begin the scoped audit window.',
+    label: 'AI Operations Review',
+    nextStep: 'Legacy link. We will route you to the new AI Operations Review path.',
   },
   'pipeline-buildout': {
-    label: 'Operations Buildout',
-    nextStep: 'Apply for the 21-day operational infrastructure install.',
+    label: 'First AI Workday Setup',
+    nextStep: 'Legacy link. We will route you to the new First AI Workday Setup path.',
   },
   'operations-buildout': {
-    label: 'Operations Buildout',
-    nextStep: 'Apply for the 21-day operational infrastructure install.',
+    label: 'First AI Workday Setup',
+    nextStep: 'Legacy link. We will route you to the new First AI Workday Setup path.',
   },
   'operations-command': {
-    label: 'Operations Command',
-    nextStep: 'Request an operations fit review for ongoing support.',
+    label: 'Quarterly AI Tune-Up',
+    nextStep: 'Legacy link. We now keep recurring support bounded to a quarterly tune-up.',
   },
   'q-suite': {
-    label: 'Q SUITE',
-    nextStep: 'Request a walkthrough and licensing discussion.',
+    label: 'AI Workday Setup',
+    nextStep: 'Legacy link. We will route you to the practical AI setup path.',
   },
   'achievery-pro': {
-    label: 'ACHIEVERY Pro',
-    nextStep: 'Share your use case and we will route you to the right product path.',
+    label: 'AI Operations Review',
+    nextStep: 'Legacy link. We will route you to the AI Operations Review path.',
   },
   'process-improvement-sprint': {
-    label: 'Process Improvement Sprint',
-    nextStep: 'Tell us which single process is broken. We will confirm scope for the 10-day sprint.',
+    label: 'First AI Workday Setup',
+    nextStep: 'Tell us which repeated office task is piling up. We will confirm whether it fits one AI-assisted routine.',
   },
   'business-systems-audit': {
-    label: 'Business Systems Audit',
-    nextStep: 'Use the Business Systems Intake to start. We recommend Audit, Fix, or Buildout from there.',
+    label: 'AI Operations Review',
+    nextStep: 'Legacy link. We will route you to the AI Operations Review path.',
   },
   'business-systems-intake': {
-    label: 'Business Systems Intake',
-    nextStep: 'Complete the intake so we can recommend the right starting engagement.',
+    label: 'AI Fit Call',
+    nextStep: 'Legacy link. We will confirm whether one recurring office task is a fit for practical AI setup.',
   },
 };
 
@@ -123,14 +143,14 @@ function ContactPageContent({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Get in touch</h1>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Whether you need a scoped audit, a full buildout, or want to discuss how Q SUITE fits your operation,
-            start here.
+            Tell us about the repeated office work your team has to rewrite, search for, summarize,
+            organize, or chase every week.
           </p>
           <Link
-            href="/contact?service=diagnostic"
+            href="/contact?service=ai-fit-call"
             className="inline-flex items-center bg-forest-green text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all"
           >
-            Start with the Free Diagnostic
+            Start with an AI Fit Call
           </Link>
           {intent && (
             <div className="mt-6 inline-flex flex-col rounded-lg border border-white/20 bg-white/10 px-5 py-3 text-left text-sm">
@@ -156,7 +176,7 @@ function ContactPageContent({
               >
                 <h3 className="text-lg font-semibold text-command-navy mb-2">{path.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{path.description}</p>
-                <span className="inline-block mt-4 text-sm font-semibold text-primary">Continue â†’</span>
+                <span className="inline-block mt-4 text-sm font-semibold text-primary">Continue -&gt;</span>
               </Link>
             ))}
           </div>
@@ -190,7 +210,7 @@ function ContactPageContent({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl font-bold text-command-navy mb-4">Compare every engagement</h2>
           <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-            Systems Audit, Process Improvement Sprint, Operations Buildout, Operations Command, and Q SUITE, all in one place.
+            Review the AI Operations Review, First AI Workday Setup, expansion path, and Quarterly AI Tune-Up.
           </p>
           <Link
             href="/services"

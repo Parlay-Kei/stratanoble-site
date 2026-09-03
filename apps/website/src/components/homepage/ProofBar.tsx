@@ -1,8 +1,8 @@
 export function ProofBar() {
   const stats = [
-    { value: '48 hrs', label: 'To your first delivered system' },
-    { value: '21 days', label: 'Full pipeline buildout' },
-    { value: '100%', label: 'Client ownership of everything built' },
+    { value: '1 routine', label: 'Selected, built, tested, and taught' },
+    { value: '7-10 days', label: 'Typical setup window after materials arrive' },
+    { value: 'Human review', label: 'Your team approves important output' },
   ] as const;
 
   return (

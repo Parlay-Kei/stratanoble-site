@@ -28,34 +28,37 @@ export function HomepageHero() {
         <div className="mb-8 flex justify-center">
           <span className="sn-shimmer-line inline-flex items-center gap-2 rounded-sm border border-forest-green/35 bg-forest-green/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-field-sage">
             <span className="hero-status-dot" aria-hidden />
-            Free diagnostic. 48-hour turnaround.
+            Practical AI setup for owner-led firms.
           </span>
         </div>
 
         <h1 className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-[2.95rem] lg:leading-[1.1]">
-          Build the business behind the business.
+          Turn repetitive office work into simple AI-assisted routines.
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-grey md:text-xl">
-          We install the systems that let your business run without you in every conversation.
-          Lead capture, follow-up, booking, and reporting, built for how you actually work.
-          Fixed scope. You own everything we build.
+          Strata Noble helps owner-led professional firms find the admin work that keeps piling up,
+          then sets up one practical AI routine your team can review, use, and keep.
         </p>
 
         <div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
           <Link
-            href="/contact?service=diagnostic"
+            href="/contact?service=ai-fit-call"
             className="sn-float inline-flex items-center justify-center rounded-sm border border-forest-green/60 bg-forest-green px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 hover:shadow-[0_0_32px_rgba(45,106,79,0.45)]"
           >
-            Get Your Free Diagnostic
+            Book an AI Fit Call
           </Link>
           <Link
-            href="/how-it-works"
+            href="/services"
             className="inline-flex items-center justify-center rounded-sm border border-slate-grey/70 bg-void/50 px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:border-forest-green hover:text-field-sage"
           >
-            See How We Work
+            See the routines we set up
           </Link>
         </div>
+
+        <p className="mx-auto mt-6 max-w-2xl text-sm text-slate-grey">
+          No complicated platform. No generic AI training. No handing important decisions to AI.
+        </p>
       </div>
     </section>
   );

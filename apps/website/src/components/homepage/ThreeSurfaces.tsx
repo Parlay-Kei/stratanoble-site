@@ -5,25 +5,25 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 const surfaces = [
   {
-    title: 'Consulting Services',
+    title: 'AI Operations Review',
     subtitle:
-      'Scoped engagements that install operational control systems. Systems Audit from $997. Operations Buildout $4,997. Process Improvement Sprint $2,497.',
-    cta: 'View Services',
+      'Map one repeated office process, identify where AI can safely help, and get one fixed-scope setup recommendation.',
+    cta: 'View services',
     href: '/services',
   },
   {
-    title: 'Q SUITE',
+    title: 'First AI Workday Setup',
     subtitle:
-      'The operational control system your business runs on. Five modules — intake, client management, revenue intelligence, industry workflows, secure delivery. From $297/month.',
-    cta: 'Explore Platform',
-    href: '/q-suite',
+      'Install one practical AI-assisted routine with source material, prompts, review rules, testing, training, and handoff.',
+    cta: 'See the setup',
+    href: '/services',
   },
   {
-    title: 'ACHIEVERY',
+    title: 'Quarterly AI Tune-Up',
     subtitle:
-      'Track progress, build momentum, stay accountable. Goal tracking, daily execution, and progress insights. Free to start.',
-    cta: 'Try Free',
-    href: '/achievery',
+      'Review adoption, tune prompts and process steps, update use rules, and make one bounded improvement.',
+    cta: 'Plan support',
+    href: '/contact?service=quarterly-ai-tune-up',
   },
 ] as const;
 
@@ -58,10 +58,10 @@ export function ThreeSurfaces() {
           className="text-center"
         >
           <h2 className="text-2xl font-bold text-white md:text-3xl">
-            Consulting. Platform. Product. One firm.
+            Review. Setup. Tune-Up.
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-slate-grey">
-            Three ways to work with Strata Noble — scoped engagements, platform licensing, and a standalone product.
+            A clear path from one repeated office burden to one AI-assisted routine your team owns.
           </p>
         </motion.div>
 

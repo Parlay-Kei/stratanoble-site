@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
 /**
- * Entry-offer CTA — free pipeline diagnostic (OCS-SN-0011)
+ * Entry-offer CTA - AI Fit Call
  */
 
 export function SmartConsultingBar() {
@@ -37,20 +37,20 @@ export function SmartConsultingBar() {
               </motion.div>
               <div className="text-sm font-medium">
                 <span className="hidden sm:inline">
-                  <strong>Free Lead Diagnostic</strong> — 48-hour turnaround. We show you where you&apos;re losing leads before you spend a dollar.
+                  <strong>AI Fit Call</strong> - find one repeated office task that is safe and useful to improve.
                 </span>
                 <span className="sm:hidden">
-                  <strong>Free diagnostic</strong> — 48-hour turnaround.
+                  <strong>AI Fit Call</strong> - one practical place to start.
                 </span>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <Link href="/contact?service=diagnostic">
+              <Link href="/contact?service=ai-fit-call">
                 <motion.span
                   className="bg-command-navy text-white px-4 py-1.5 rounded-sm text-sm font-semibold hover:opacity-90 transition-opacity duration-200 inline-block"
                 >
-                  Get Free Diagnostic
+                  Book Fit Call
                 </motion.span>
               </Link>
 

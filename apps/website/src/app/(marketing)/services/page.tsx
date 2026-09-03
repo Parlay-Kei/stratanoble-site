@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import {
   ServicesHero,
-  EntryProductsGrid,
   AssessmentsGrid,
   OfferLadder,
   SupportPlansGrid,
@@ -9,16 +8,15 @@ import {
 } from '@/components/services';
 
 export const metadata: Metadata = {
-  title: 'Services & Products | Strata Noble',
+  title: 'Practical AI Setup | Strata Noble',
   description:
-    'From $50 entry products to full consulting engagements — Systems Audit, Process Improvement Sprint, Operations Buildout, and ongoing support plans for service businesses.',
+    'Practical AI setup for owner-led professional firms. Review one recurring office burden, install one safe AI-assisted routine, and keep your team in control.',
 };
 
 export default function ServicesPage() {
   return (
     <>
       <ServicesHero />
-      <EntryProductsGrid />
       <AssessmentsGrid />
       <OfferLadder />
       <SupportPlansGrid />

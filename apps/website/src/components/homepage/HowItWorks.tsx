@@ -1,19 +1,19 @@
 const steps = [
   {
-    title: 'Discovery',
-    body: 'We review your business, how leads come in, where they go quiet, and what is actually costing you money. Free. 48-hour turnaround.',
+    title: 'Find',
+    body: 'We identify the repeat work your team rewrites, searches for, summarizes, organizes, or chases every week.',
   },
   {
-    title: 'Scope and price',
-    body: 'You get a written scope, a fixed price, and a delivery date before we start. No hourly billing, no scope creep.',
+    title: 'Focus',
+    body: 'We choose one high-frequency, low-risk, reviewable task where AI can help without making business decisions.',
   },
   {
-    title: 'Build and deliver',
-    body: 'We build the system, configure it for your workflows, and hand it off with full documentation. Production-grade, not a template.',
+    title: 'Build',
+    body: 'We configure the routine with your source material, prompts, templates, review rules, and usage instructions.',
   },
   {
-    title: 'Run and support',
-    body: 'You own it the moment it is delivered. Optional monthly support keeps it running and reporting clearly.',
+    title: 'Teach',
+    body: 'We test it with real examples, train the users, and hand over a plain-language AI Use Guide.',
   },
 ] as const;
 
@@ -25,7 +25,7 @@ export function HowItWorks() {
         <div>
           <h2 className="text-2xl font-bold md:text-3xl">How we build it</h2>
           <p className="mt-3 max-w-2xl text-slate-400">
-            Four steps from broken to running. No surprises, no open-ended scope.
+            The Noble Workday Method keeps each setup bounded, useful, and under your control.
           </p>
         </div>
 

@@ -6,10 +6,10 @@ export function EntryProductsGrid() {
     <section className="bg-white px-4 py-16 md:py-20">
       <div className="mx-auto max-w-6xl">
         <h2 className="text-center text-2xl font-bold text-command-navy md:text-3xl">
-          Entry products
+          Start Here
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
-          Fixed-scope deliverables for small businesses. No discovery call required.
+          The AI Fit Call confirms whether one recurring office task is worth improving before paid work begins.
         </p>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {ENTRY_PRODUCTS.map((product) => (

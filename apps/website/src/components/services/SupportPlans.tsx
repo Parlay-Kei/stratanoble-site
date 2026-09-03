@@ -6,24 +6,25 @@ export function SupportPlansGrid() {
     <section className="bg-slate-50 px-4 py-16 md:py-20">
       <div className="mx-auto max-w-6xl">
         <h2 className="text-center text-2xl font-bold text-command-navy md:text-3xl">
-          Ongoing support
+          Quarterly Tune-Up
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
-          For businesses that have completed an engagement and want ongoing monitoring and access.
+          Recurring support is bounded. We check adoption, tune the routine, and update the guide
+          without creating an open-ended support obligation.
         </p>
         <div className="mt-10 grid gap-8 md:grid-cols-2 max-w-3xl mx-auto">
           {SUPPORT_PLANS.map((plan) => (
             <article
               key={plan.id}
               className={`flex flex-col rounded-2xl border bg-white p-8 shadow-sm ${
-                plan.id === 'operations-command'
+                plan.id === 'quarterly-ai-tune-up'
                   ? 'border-forest-green ring-2 ring-forest-green/20'
                   : 'border-slate-200'
               }`}
             >
-              {plan.id === 'operations-command' && (
+              {plan.id === 'quarterly-ai-tune-up' && (
                 <span className="mb-3 w-fit rounded-full bg-field-sage/15 px-3 py-1 text-xs font-semibold text-forest-green">
-                  Full access
+                  Bounded support
                 </span>
               )}
               <h3 className="text-xl font-bold text-command-navy">{plan.name}</h3>

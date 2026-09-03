@@ -5,19 +5,19 @@ import { SVGProps } from 'react'
 import { Logo } from '../Logo'
 
 /**
- * Footer IA (OCS-SN-0011): Services | Platform | Company | Legal
+ * Footer IA (OCS-SN-0011): Services | Routines | Company | Legal
  */
 
 const navigation = {
   services: [
-    { name: 'Free Diagnostic', href: '/contact?service=diagnostic' },
-    { name: 'Systems Audit', href: '/systems-audit' },
-    { name: 'Operations Buildout', href: '/operations-buildout' },
-    { name: 'Operations Command', href: '/contact?service=operations-command' },
+    { name: 'AI Fit Call', href: '/contact?service=ai-fit-call' },
+    { name: 'AI Operations Review', href: '/contact?service=ai-operations-review' },
+    { name: 'First AI Workday Setup', href: '/services' },
+    { name: 'Quarterly AI Tune-Up', href: '/contact?service=quarterly-ai-tune-up' },
   ],
   platform: [
-    { name: 'Q SUITE', href: '/q-suite' },
-    { name: 'ACHIEVERY', href: '/achievery' },
+    { name: 'AI Meeting-to-Action Setup', href: '/services' },
+    { name: 'AI Proposal Desk', href: '/services' },
   ],
   company: [
     { name: 'About', href: '/about' },
@@ -58,7 +58,8 @@ export function SiteFooter() {
           <div className="space-y-8 xl:col-span-1">
             <Logo className="h-16 w-auto" theme="white" />
             <p className="text-sm leading-6 text-slate-grey">
-              Operational systems for service businesses — consulting installs, Q SUITE infrastructure, ACHIEVERY when accountability matters. Scoped work. You own what we ship.
+              Practical AI setup for owner-led professional firms. One recurring office burden,
+              one safe routine, set up and handed over.
             </p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
@@ -91,7 +92,7 @@ export function SiteFooter() {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold leading-6 text-white">Platform</h3>
+              <h3 className="text-sm font-semibold leading-6 text-white">Routines</h3>
               <ul role="list" className="mt-6 space-y-4">
                 {navigation.platform.map((item) => (
                   <li key={item.name}>
@@ -156,7 +157,7 @@ export function SiteFooter() {
               &copy; {new Date().getFullYear()} Strata Noble. All rights reserved.
             </p>
             <p className="text-xs text-slate-grey">
-              Builder-operator firm. Not an agency. Not a lead shop.
+              AI can prepare the first draft. Your team makes the final decision.
             </p>
           </div>
         </div>

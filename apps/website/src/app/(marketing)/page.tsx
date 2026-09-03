@@ -13,23 +13,23 @@ import { buildFaqPageJsonLd } from '@/lib/seo/json-ld';
 const HOMEPAGE_FAQS = [
   {
     q: 'What does Strata Noble do?',
-    a: 'Strata Noble installs operational control systems for service businesses: powered by Q SUITE, verified through ProofLoop, delivered through ANX Vault, with ACHIEVERY when accountability matters.',
+    a: 'Strata Noble helps owner-led professional firms turn one recurring office burden into a safe, practical AI-assisted routine their team can review, use, and keep.',
   },
   {
     q: 'How long does it take to get started?',
-    a: 'A Systems Audit is typically 48 to 72 hours. An Operations Buildout runs 21 days. A Process Improvement Sprint targets one workflow in 10 business days.',
+    a: 'The AI Fit Call takes 15 to 20 minutes. A First AI Workday Setup is typically delivered in 7 to 10 business days after required materials are received.',
   },
   {
-    q: 'What does a Free Diagnostic include?',
-    a: 'A review of how work flows today, where it breaks, and a recommended path with fixed pricing before any build starts.',
+    q: 'What does an AI Operations Review include?',
+    a: 'The review includes one process map, top AI opportunities, risk notes, one recommended setup, expected effort, and a fixed-scope proposal.',
   },
   {
-    q: 'Do I own the systems you build?',
-    a: 'Yes. Deliverables land in your accounts and delivery folder. Q SUITE licensing is separate platform access; you are not locked into opaque bundles.',
+    q: 'Does AI make decisions for my business?',
+    a: 'No. AI can draft, summarize, classify, and organize approved information. Your team reviews important output and makes the final decision.',
   },
   {
     q: 'What is the price range for services?',
-    a: 'Systems Audit is $997. Process Improvement Sprint is $2,497. Operations Buildout is $4,997. Operations Command is $1,497 per month with a 3-month minimum.',
+    a: 'The AI Operations Review is $500. The First AI Workday Setup test price is $2,000. Expansion is scoped at $1,250 to $2,500, and Quarterly AI Tune-Up is $750 per quarter.',
   },
 ] as const;
 

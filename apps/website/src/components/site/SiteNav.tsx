@@ -9,17 +9,15 @@ import Link from 'next/link'
 import { Logo } from '../Logo'
 
 /**
- * Primary IA: Home | Systems | Q SUITE | Achievery | About | Results | Start
+ * Primary IA: Home | Services | About | Results | Start
  */
 
 const navigation = [
-  { name: 'Home', href: '/', description: 'Simple Systems. Better Business.' },
-  { name: 'Systems', href: '/services', description: 'Fix the work behind the work' },
-  { name: 'Q SUITE', href: '/q-suite', description: 'Tools for control, clarity, and follow-up' },
-  { name: 'Achievery', href: '/achievery', description: 'Turn goals into working routines' },
+  { name: 'Home', href: '/', description: 'Practical AI setup for owner-led firms' },
+  { name: 'Services', href: '/services', description: 'AI routines we set up' },
   { name: 'About', href: '/about', description: 'Why we build this way' },
   { name: 'Results', href: '/proof', description: 'Work, wins, and real examples' },
-  { name: 'Start', href: '/contact', description: 'Book your free diagnostic' },
+  { name: 'Start', href: '/contact', description: 'Book an AI Fit Call' },
 ]
 
 export function SiteNav() {
@@ -108,11 +106,11 @@ export function SiteNav() {
             <div className="px-6 py-8">
               <div className="mb-6">
                 <Link
-                  href="/contact?service=diagnostic"
+                  href="/contact?service=ai-fit-call"
                   className="block rounded-sm px-4 py-4 text-center text-white font-semibold bg-forest-green hover:opacity-90 transition-opacity duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Free diagnostic — map what&apos;s broken before you buy scope
+                  AI Fit Call - find one practical place to start
                 </Link>
               </div>
 
@@ -188,10 +186,10 @@ export function SiteNav() {
               </Link>
             ))}
             <Link
-              href="/contact?service=diagnostic"
+              href="/contact?service=ai-fit-call"
               className="ml-2 inline-flex items-center rounded-sm px-3 py-2 text-xs xl:text-sm font-semibold text-white bg-forest-green hover:opacity-90 transition-opacity duration-200 whitespace-nowrap"
             >
-              Get a Free Diagnostic
+              Book an AI Fit Call
             </Link>
           </div>
         </div>

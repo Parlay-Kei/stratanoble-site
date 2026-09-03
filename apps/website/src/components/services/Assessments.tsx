@@ -6,11 +6,11 @@ export function AssessmentsGrid() {
     <section className="bg-slate-50 px-4 py-16 md:py-20">
       <div className="mx-auto max-w-6xl">
         <h2 className="text-center text-2xl font-bold text-command-navy md:text-3xl">
-          Assessments
+          Start With The Review
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
-          Know something is off but cannot name it? An assessment gives you a clear diagnosis
-          and a prioritized fix list before committing to a larger engagement.
+          The paid review identifies the best first routine, the risks, the source material,
+          and the fixed scope before implementation starts.
         </p>
         <div className="mt-10 grid gap-8 md:grid-cols-2 max-w-3xl mx-auto">
           {ASSESSMENTS.map((svc) => (

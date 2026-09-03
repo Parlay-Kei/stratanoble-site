@@ -6,17 +6,17 @@ interface FormData {
   name: string;
   email: string;
   businessName: string;
-  leadSource: string;
+  businessType: string;
   whatsBreaking: string;
 }
 
-const LEAD_SOURCE_OPTIONS = [
-  { value: 'social', label: 'Social Media' },
-  { value: 'referrals', label: 'Referrals' },
-  { value: 'ads', label: 'Paid Ads' },
-  { value: 'seo', label: 'SEO/Organic' },
-  { value: 'events', label: 'Events/Networking' },
-  { value: 'cold-outreach', label: 'Cold Outreach' },
+const BUSINESS_TYPE_OPTIONS = [
+  { value: 'bookkeeping', label: 'Bookkeeping firm' },
+  { value: 'property-management', label: 'Property management' },
+  { value: 'marketing-agency', label: 'Marketing or creative agency' },
+  { value: 'insurance-agency', label: 'Insurance agency' },
+  { value: 'real-estate-ops', label: 'Real estate operations team' },
+  { value: 'b2b-services', label: 'Specialty B2B services' },
   { value: 'other', label: 'Other' },
 ];
 
@@ -25,7 +25,7 @@ export function LeadLeakCheckForm() {
     name: '',
     email: '',
     businessName: '',
-    leadSource: '',
+    businessType: '',
     whatsBreaking: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -47,7 +47,10 @@ export function LeadLeakCheckForm() {
       const res = await fetch('/api/intake/lead-leak-check', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          leadSource: formData.businessType,
+        }),
       });
 
       const data = await res.json();
@@ -131,20 +134,20 @@ export function LeadLeakCheckForm() {
       </div>
 
       <div>
-        <label htmlFor="leadSource" className="block text-sm font-medium text-gray-700 mb-2">
-          Where do most of your leads come from? <span className="text-red-500">*</span>
+        <label htmlFor="businessType" className="block text-sm font-medium text-gray-700 mb-2">
+          What kind of business is this? <span className="text-red-500">*</span>
         </label>
         <select
-          id="leadSource"
-          name="leadSource"
-          value={formData.leadSource}
+          id="businessType"
+          name="businessType"
+          value={formData.businessType}
           onChange={handleChange}
           required
           disabled={status === 'loading'}
           className="w-full px-4 py-3 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-void/40 disabled:cursor-not-allowed"
         >
-          <option value="">Select a source...</option>
-          {LEAD_SOURCE_OPTIONS.map((option) => (
+          <option value="">Select a business type...</option>
+          {BUSINESS_TYPE_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -154,7 +157,7 @@ export function LeadLeakCheckForm() {
 
       <div>
         <label htmlFor="whatsBreaking" className="block text-sm font-medium text-gray-700 mb-2">
-          What's breaking in your follow-up process? <span className="text-red-500">*</span>
+          What repeated office task keeps piling up? <span className="text-red-500">*</span>
         </label>
         <textarea
           id="whatsBreaking"
@@ -165,7 +168,7 @@ export function LeadLeakCheckForm() {
           disabled={status === 'loading'}
           rows={4}
           className="w-full px-4 py-3 border border-slate-grey/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-void/40 disabled:cursor-not-allowed resize-none"
-          placeholder="Tell us what's not working... (e.g., leads go cold, no time for follow-up, lost in spreadsheets)"
+          placeholder="Examples: meeting notes become loose tasks, proposals take too long, client follow-up is inconsistent, SOPs live in someone's head."
         />
       </div>
 
@@ -180,11 +183,11 @@ export function LeadLeakCheckForm() {
         disabled={status === 'loading'}
         className="w-full bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {status === 'loading' ? 'Submitting...' : 'Get Your Free Lead Leak Assessment'}
+        {status === 'loading' ? 'Submitting...' : 'Request an AI Fit Call'}
       </button>
 
       <p className="text-sm text-slate-grey text-center">
-        Free analysis. No spam. We'll show you exactly where leads are falling through the cracks.
+        Free fit check. We are looking for one task that is frequent, reviewable, and safe to improve.
       </p>
     </form>
   );
