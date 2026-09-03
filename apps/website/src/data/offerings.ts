@@ -231,8 +231,8 @@ export const ECOSYSTEM_PROOF = [
   {
     id: 'q-reil',
     name: 'Summit Realty LV',
-    type: 'Vertical CRM Deployment',
-    proves: 'Q Suite deployed for a real estate operation. Lead intake, Gmail integration, deal tracking, and automated follow-up. Running on the same stack we use internally.',
+    type: 'AI-Assisted Operations Routine',
+    proves: 'Real estate workflow support for intake, Gmail follow-up, deal tracking, and recurring admin. Built around practical operator review instead of another complicated platform.',
   },
 ] as const;
 
