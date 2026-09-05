@@ -67,7 +67,7 @@ jobs:
       timeout-minutes: 10
       run: |
         cd apps/website
-        supabase start --timeout 10m0s
+        supabase start
       env:
         SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
 

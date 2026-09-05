@@ -31,7 +31,7 @@ jobs:
     - name: Setup Supabase CLI
       uses: supabase/setup-cli@v2
       with:
-        version: latest
+        version: 2.95.4
 
     - name: Validate migration files
       run: |
