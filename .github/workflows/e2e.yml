@@ -19,7 +19,7 @@ jobs:
         run: |
           echo "::warning::E2E_SUPABASE_URL not configured — skipping E2E suite. Configure GitHub Actions secrets per apps/platform/E2E_SEED_SETUP.md to enable."
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         if: env.E2E_SUPABASE_URL != ''
 
       - name: Use Node.js 22.x
