@@ -62,7 +62,7 @@ jobs:
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v2
         with:
-          version: 2.95.4
+          version: 2.116.0
 
       - name: Authenticate Supabase CLI
         if: env.SUPABASE_ACCESS_TOKEN != ''
@@ -264,7 +264,7 @@ jobs:
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v2
         with:
-          version: 2.95.4
+          version: 2.116.0
 
       - name: Check for Schema Drift
         if: env.SUPABASE_ACCESS_TOKEN != ''
